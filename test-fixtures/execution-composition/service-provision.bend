@@ -14,7 +14,7 @@ def id(result:Array<U32> & U32) -> String:
     case (_,value):U32.show(value)
 def observed(incoming:Array<U32>,world:World()) -> String:
   match world:
-    case W.World{_,_,_,Layout.ResourceSlot{Layout.Viewed{Service.Provided{owner},Service.Status{Some{cached}}}},_,_,_,_,_}:"provided=" ++ id(Array.get(U32,owner,0)) ++ ";cache=" ++ U32.show(cached) ++ ";refused=" ++ id(Array.get(U32,incoming,0))
+    case W.World{_,_,_,Layout.ResourceSlot{Layout.Viewed{Service.Provided{owner},Service.Status{Some{cached}}}},_,_,_,_,_,lifecycle}:"provided=" ++ id(Array.get(U32,owner,0)) ++ ";cache=" ++ U32.show(cached) ++ ";refused=" ++ id(Array.get(U32,incoming,0))
     case _:"unexpected-world"
 def refused(result:Service.Provision<World(),Array<U32>>) -> String:
   match result:

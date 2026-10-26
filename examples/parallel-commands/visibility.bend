@@ -54,11 +54,11 @@ def author_body(~H:Type,~Q:Type,~caps:Unit,~commands:Local.Commands<Q,Schema,P.T
 def Author() -> Type:Cmd.Owner<Schema,Left(),Unit,Unit,layout(),path(),CmdOps,AuthorLocal,String,Unit,author_declaration,author_body>
 def Peer() -> Type:Sys.Owner<Schema,Unit,Unit,Unit,Ops,Array<U32>,String,Unit,peer_declaration,peer_body>
 def ReadOps(H:Type) -> Type:A.ComponentRead<Schema,H,U32>
-def reader_selection(~H:Type,~B:Type,~read:Build.ComponentRead(~Schema,~Left(),~Unit,~H,~B),~write:Build.ComponentWrite(~Schema,~Left(),~Unit,~H,~B),~rread:Build.ResourceRead(~Schema,~Left(),~Unit,~H,~B),~rwrite:Build.ResourceWrite(~Schema,~Left(),~Unit,~H,~B),~query:Build.Query(~Schema,~Left(),~Unit,~H,~B),book:B) -> B & ReadOps(H):
+def reader_selection(~H:Type,~B:Type,~read:Build.ComponentRead(~Schema,~Left(),~Unit,~H,~B),~write:Build.ComponentWrite(~Schema,~Left(),~Unit,~H,~B),~rread:Build.ResourceRead(~Schema,~Left(),~Unit,~H,~B),~rwrite:Build.ResourceWrite(~Schema,~Left(),~Unit,~H,~B),~query:Build.Query(~Schema,~Left(),~Unit,~H,~B),~lifecycle:Build.Lifecycle(~Schema,~Left(),~Unit,~H,~B),book:B) -> B & ReadOps(H):
   read(Registered.layout(),Layout.AtLeaf{},{==},{==},book)
 def reader_declaration(~H:Type,~B:Type,~builder:Build.Builder(~Schema,~Left(),~Unit,~H,~B),book:B) -> B & ReadOps(H):
   builder(ReadOps,reader_selection(~H,~B),book)
-def guard_selection(~H:Type,~B:Type,~read:Build.ComponentRead(~Schema,~Store(),~Resources(),~H,~B),~write:Build.ComponentWrite(~Schema,~Store(),~Resources(),~H,~B),~rread:Build.ResourceRead(~Schema,~Store(),~Resources(),~H,~B),~rwrite:Build.ResourceWrite(~Schema,~Store(),~Resources(),~H,~B),~query:Build.Query(~Schema,~Store(),~Resources(),~H,~B),book:B) -> B & ReadOps(H):
+def guard_selection(~H:Type,~B:Type,~read:Build.ComponentRead(~Schema,~Store(),~Resources(),~H,~B),~write:Build.ComponentWrite(~Schema,~Store(),~Resources(),~H,~B),~rread:Build.ResourceRead(~Schema,~Store(),~Resources(),~H,~B),~rwrite:Build.ResourceWrite(~Schema,~Store(),~Resources(),~H,~B),~query:Build.Query(~Schema,~Store(),~Resources(),~H,~B),~lifecycle:Build.Lifecycle(~Schema,~Store(),~Resources(),~H,~B),book:B) -> B & ReadOps(H):
   read(layout(),path(),{==},{==},book)
 def guard_declaration(~H:Type,~B:Type,~builder:Build.Builder(~Schema,~Store(),~Resources(),~H,~B),book:B) -> B & ReadOps(H):
   builder(ReadOps,guard_selection(~H,~B),book)
@@ -125,7 +125,7 @@ def viewed(value:Layout.Viewed<P.Token,U32>) -> Layout.Viewed<P.Token,U32> & Str
     case Layout.Viewed{P.Token{owner},cache}:viewed_result(cache,Array.get(U32,owner,0))
 def world(world:W.World<Schema,Store(),Resources(),Unit>) -> String:
   match world:
-    case W.World{namespace,allocator,Product.Owner{Layout.ColumnSlot{column},_},_,events,pending,registrations,next,clock}:"namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ Observe.allocator(allocator) ++ "};column=" ++ Observe.capacity_done(~Schema,~Layout.Viewed<P.Token,U32>,~viewed,Column.capacity(~Schema,~Layout.Viewed<P.Token,U32>,column)) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";legacy-pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<Schema,Store(),Resources(),Unit>>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,Observe.registration,registrations) ++ ";next=" ++ U32.show(next) ++ ";clock=" ++ Observe.clock(clock)
+    case W.World{namespace,allocator,Product.Owner{Layout.ColumnSlot{column},_},_,events,pending,registrations,next,clock,lifecycle}:"namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ Observe.allocator(allocator) ++ "};column=" ++ Observe.capacity_done(~Schema,~Layout.Viewed<P.Token,U32>,~viewed,Column.capacity(~Schema,~Layout.Viewed<P.Token,U32>,column)) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";legacy-pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<Schema,Store(),Resources(),Unit>>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,Observe.registration,registrations) ++ ";next=" ++ U32.show(next) ++ ";clock=" ++ Observe.clock(clock)
 def event(value:Exec.Observation<String,Unit>) -> String:
   match value:
     case Exec.Ran{id,_}:"ran:" ++ U32.show(id)

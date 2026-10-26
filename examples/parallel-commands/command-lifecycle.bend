@@ -25,10 +25,10 @@ type Mode is Data:
   ExhaustedMode{}
 def metadata(world:World()) -> World() & String:
   match world:
-    case W.World{namespace,allocator,store,resource,events,pending,+registrations,+next,+clock}:(W.World{namespace,allocator,store,resource,events,pending,registrations,next,clock},"registrations=" ++ List.show(&2,W.RegistrationMeta,Observe.registration,registrations) ++ ";next=" ++ U32.show(next) ++ ";clock=" ++ Observe.clock(clock))
+    case W.World{namespace,allocator,store,resource,events,pending,+registrations,+next,+clock,lifecycle}:(W.World{namespace,allocator,store,resource,events,pending,registrations,next,clock,lifecycle},"registrations=" ++ List.show(&2,W.RegistrationMeta,Observe.registration,registrations) ++ ";next=" ++ U32.show(next) ++ ";clock=" ++ Observe.clock(clock))
 def exhausted(world:World()) -> World():
   match world:
-    case W.World{namespace,allocator,store,resource,events,pending,registrations,_,clock}:W.World{namespace,allocator,store,resource,events,pending,registrations,4294967295,clock}
+    case W.World{namespace,allocator,store,resource,events,pending,registrations,_,clock,lifecycle}:W.World{namespace,allocator,store,resource,events,pending,registrations,4294967295,clock,lifecycle}
 def owner_metadata(owner:D.Author()) -> D.Author() & String:
   match owner:
     case Cmd.Owner{Sys.Owner{a,+id,c,d,+cursor,Local.Local{user,queue,+permission}}}:(Cmd.Owner{Sys.Owner{a,id,c,d,cursor,Local.Local{user,queue,permission}}},"owner=" ++ U32.show(id) ++ ":" ++ Tick.cursor_show(cursor) ++ ":" ++ D.permission_text(permission))

@@ -13,7 +13,7 @@ def route() -> Layout.Route:Layout.InRight{Layout.AtLeaf{}}
 def Resources() -> Type:Layout.resources(~Nominal,actual())
 def Ops(H:Type) -> Type:Access.ResourceWrite<H,Array<U32>,U32>
 
-def selection(~H:Type,~B:Type,~component_read:Build.ComponentRead(~Nominal,~Unit,~Resources(),~H,~B),~component_write:Build.ComponentWrite(~Nominal,~Unit,~Resources(),~H,~B),~resource_read:Build.ResourceRead(~Nominal,~Unit,~Resources(),~H,~B),~resource_write:Build.ResourceWrite(~Nominal,~Unit,~Resources(),~H,~B),~query:Build.Query(~Nominal,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(H):
+def selection(~H:Type,~B:Type,~component_read:Build.ComponentRead(~Nominal,~Unit,~Resources(),~H,~B),~component_write:Build.ComponentWrite(~Nominal,~Unit,~Resources(),~H,~B),~resource_read:Build.ResourceRead(~Nominal,~Unit,~Resources(),~H,~B),~resource_write:Build.ResourceWrite(~Nominal,~Unit,~Resources(),~H,~B),~query:Build.Query(~Nominal,~Unit,~Resources(),~H,~B),~lifecycle:Build.Lifecycle(~Nominal,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(H):
   resource_write(claimed(),route(),{==},{==},book)
 def declaration(~H:Type,~B:Type,~builder:Build.Builder(~Nominal,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(H):
   builder(Ops,selection(~H,~B),book)

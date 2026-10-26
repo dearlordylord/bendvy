@@ -1,4 +1,5 @@
 import Base
+import ./execution-lifecycle-notices.bend as Notice
 import ./entity-allocator.bend as Alloc
 import ./clock-state.bend as Clock
 import ./deferred-command.bend as Deferred
@@ -47,9 +48,9 @@ def provided_slot(~S:Data,~R:Type,~P:Type,~layout:Layout.Layout,~route:Layout.Ro
 def selected_slot(~S:Data,~R:Type,~P:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},~shape:{Layout.payload(layout,route) == Slot<P> : Type},incoming:P,result:Layout.resource_rest(~S,layout,route) & Layout.ResourceSlot<S,Layout.stored(layout,route),Layout.key(layout,route),Layout.origin(layout,route)>) -> R & Maybe<&1,P>:
   match result:
     case (rest,Layout.ResourceSlot{Layout.Viewed{owner,cache}}):provided_slot(~S,~R,~P,~layout,~route,~same,~shape,rest,cache,incoming,Layout.checked_owner(Layout.payload(layout,route),Slot<P>,shape,owner))
-def provided_resources(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,namespace:U32,allocator:Alloc.Allocator,store:C,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,registrations:List<&2,W.RegistrationMeta>,next:U32,clock:Clock.State,result:R & Maybe<&1,P>) -> Provision<W.World<S,C,R,E>,P>:
+def provided_resources(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,namespace:U32,allocator:Alloc.Allocator,store:C,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,registrations:List<&2,W.RegistrationMeta>,next:U32,clock:Clock.State,result:R & Maybe<&1,P>,lifecycle:Notice.Journal<S>) -> Provision<W.World<S,C,R,E>,P>:
   match result:
-    case (resources,incoming):restored(~S,~C,~R,~E,~P,incoming,W.World{namespace,allocator,store,resources,events,pending,registrations,next,clock})
+    case (resources,incoming):restored(~S,~C,~R,~E,~P,incoming,W.World{namespace,allocator,store,resources,events,pending,registrations,next,clock,lifecycle})
 def provide(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},~shape:{Layout.payload(layout,route) == Slot<P> : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},world:W.World<S,C,R,E>,incoming:P) -> Provision<W.World<S,C,R,E>,P>:
   match world:
-    case W.World{namespace,allocator,store,resources,events,pending,registrations,next,clock}:provided_resources(~S,~C,~R,~E,~P,namespace,allocator,store,events,pending,registrations,next,clock,selected_slot(~S,~R,~P,~layout,~route,~same,~shape,incoming,Layout.resource_take(~S,layout,route,Layout.checked_owner(R,Layout.resources(~S,layout),same,resources))))
+    case W.World{namespace,allocator,store,resources,events,pending,registrations,next,clock,lifecycle}:provided_resources(~S,~C,~R,~E,~P,namespace,allocator,store,events,pending,registrations,next,clock,selected_slot(~S,~R,~P,~layout,~route,~same,~shape,incoming,Layout.resource_take(~S,layout,route,Layout.checked_owner(R,Layout.resources(~S,layout),same,resources))),lifecycle)

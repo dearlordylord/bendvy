@@ -49,7 +49,7 @@ def ids(registrations:List<&2,W.RegistrationMeta>) -> List<&2,U32>:
     case W.RegistrationMeta{id,_,_} <> rest:id <> ids(rest)
 def catalog(~S:Data,~C:Type,~R:Type,~E:Data,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & (U32 & List<&2,U32>):
   match world:
-    case W.World{+namespace,allocator,store,resource,events,pending,+registrations,nextSystemId,clock}:(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},(namespace,ids(registrations)))
+    case W.World{+namespace,allocator,store,resource,events,pending,+registrations,nextSystemId,clock,lifecycle}:(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,lifecycle},(namespace,ids(registrations)))
 def built(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,schema:Schema.Schema<S,C,R>,world:W.World<S,C,R,E>,recipe:Tree.Recipe<W.World<S,C,R,E>,Rows,observe>,debug:Bool,+plan:SP.Plan<S>,result:SP.Build<S,C,R,E,H>) -> Attachment<App.Application<S,C,R,E,H,Rows,observe,fold>,Application<S,C,R,E,H,Rows,observe,fold>>:
   match result:
     case SP.Invalid{owners}:Invalid{App.Application{schema,Build.Registered{world,owners,recipe,debug}}}

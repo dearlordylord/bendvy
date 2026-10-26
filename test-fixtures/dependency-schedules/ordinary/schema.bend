@@ -28,11 +28,11 @@ def Resources(~S:Data) -> Type:Layout.resources(~S,resource_layout())
 def World(~S:Data) -> Type:W.World<S,Unit,Resources(~S),Unit>
 def Write() -> Type -> Type:Access.ResourceWrites(~Counter,~U32)
 def Read() -> Type -> Type:Access.ResourceReads(~U32)
-def write_selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Unit,~Resources(~S),~H,~B),~component_write:Build.ComponentWrite(~S,~Unit,~Resources(~S),~H,~B),~resource_read:Build.ResourceRead(~S,~Unit,~Resources(~S),~H,~B),~resource_write:Build.ResourceWrite(~S,~Unit,~Resources(~S),~H,~B),~query:Build.Query(~S,~Unit,~Resources(~S),~H,~B),book:B) -> B & Write()(H):
+def write_selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Unit,~Resources(~S),~H,~B),~component_write:Build.ComponentWrite(~S,~Unit,~Resources(~S),~H,~B),~resource_read:Build.ResourceRead(~S,~Unit,~Resources(~S),~H,~B),~resource_write:Build.ResourceWrite(~S,~Unit,~Resources(~S),~H,~B),~query:Build.Query(~S,~Unit,~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Unit,~Resources(~S),~H,~B),book:B) -> B & Write()(H):
   resource_write(resource_layout(),first_route(),{==},{==},book)
 def write(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Unit,~Resources(~S),~H,~B),book:B) -> B & Write()(H):
   builder(Write(),write_selection(~S,~H,~B),book)
-def read_selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Unit,~Resources(~S),~H,~B),~component_write:Build.ComponentWrite(~S,~Unit,~Resources(~S),~H,~B),~resource_read:Build.ResourceRead(~S,~Unit,~Resources(~S),~H,~B),~resource_write:Build.ResourceWrite(~S,~Unit,~Resources(~S),~H,~B),~query:Build.Query(~S,~Unit,~Resources(~S),~H,~B),book:B) -> B & Read()(H):
+def read_selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Unit,~Resources(~S),~H,~B),~component_write:Build.ComponentWrite(~S,~Unit,~Resources(~S),~H,~B),~resource_read:Build.ResourceRead(~S,~Unit,~Resources(~S),~H,~B),~resource_write:Build.ResourceWrite(~S,~Unit,~Resources(~S),~H,~B),~query:Build.Query(~S,~Unit,~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Unit,~Resources(~S),~H,~B),book:B) -> B & Read()(H):
   resource_read(resource_layout(),first_route(),{==},{==},book)
 def read(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Unit,~Resources(~S),~H,~B),book:B) -> B & Read()(H):
   builder(Read(),read_selection(~S,~H,~B),book)

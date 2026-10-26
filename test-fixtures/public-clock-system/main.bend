@@ -75,7 +75,7 @@ def view(world:World(),+handle:W.Handle<S>) -> World() & String:
   read_returned(handle,C.get(~S,~Store(),~Unit,~Unit,~Unit,~Array<U32>,~List<&2,U32>,~Token,~take,~put,~project,family(),world,handle))
 def clocked(result:World() & String) -> World() & String:
   match result:
-    case (W.World{namespace,allocator,store,resource,events,pending,registrations,next,Clock.State{+now,+scopes}},text):(W.World{namespace,allocator,store,resource,events,pending,registrations,next,Clock.State{now,scopes}},text++":now="++tick(now)++":scopes="++List.show(&2,Tick.Tick,tick,scopes))
+    case (W.World{namespace,allocator,store,resource,events,pending,registrations,next,Clock.State{+now,+scopes},lifecycle},text):(W.World{namespace,allocator,store,resource,events,pending,registrations,next,Clock.State{now,scopes},lifecycle},text++":now="++tick(now)++":scopes="++List.show(&2,Tick.Tick,tick,scopes))
 type Returned is Type:Returned{world:World(),registry:Registry(),text:String}
 def described(label:String,registry:Registry(),result:World() & String) -> Returned:
   match registry result:
@@ -103,7 +103,7 @@ def success_done(+handle:W.Handle<S>,result:Returned) -> String:
 # Trusted administrative seed isolates actual wrap execution without billions of runs.
 def seed(world:World()) -> World():
   match world:
-    case W.World{ns,a,s,r,e,p,g,n,_}:W.World{ns,a,s,r,e,p,g,n,Clock.State{Tick.Tick{0n,4294967295},[]}}
+    case W.World{ns,a,s,r,e,p,g,n,_,lifecycle}:W.World{ns,a,s,r,e,p,g,n,Clock.State{Tick.Tick{0n,4294967295},[]},lifecycle}
 def foreign_created(+handle:W.Handle<S>,registry:Registry(),result:W.Creation<S,Store(),Unit,Unit>) -> String:
   match result:
     case W.CreateRejected{_,_}:"foreign-create-failed"

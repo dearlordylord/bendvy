@@ -40,8 +40,8 @@ def position(p:Ev.Position) -> String:
     case Ev.Position{id,cursor,registered}:U32.show(id)++":"++Nat.show(cursor)++":"++Nat.show(registered)
 def describe(label:String,state:State) -> State & String:
   match state:
-    case State{Ev.Runtime{W.World{ns,a,s,r,e,p,g,n,+clock},rn,batches,+positions,next,+eventTick,fs,b,cap,d},ra,Sys.Registry{an,ai,na,aa,+ca},rb,Sys.Registry{bn,bi,nb,ba,+cb}}:
-      (State{Ev.Runtime{W.World{ns,a,s,r,e,p,g,n,clock},rn,batches,positions,next,eventTick,fs,b,cap,d},ra,Sys.Registry{an,ai,na,aa,ca},rb,Sys.Registry{bn,bi,nb,ba,cb}},label++":world="++tick(Clock.now(clock))++":event="++Nat.show(eventTick)++":A="++cursor(ca)++":B="++cursor(cb)++":positions="++List.show(&2,Ev.Position,position,positions))
+    case State{Ev.Runtime{W.World{ns,a,s,r,e,p,g,n,+clock,lifecycle},rn,batches,+positions,next,+eventTick,fs,b,cap,d},ra,Sys.Registry{an,ai,na,aa,+ca},rb,Sys.Registry{bn,bi,nb,ba,+cb}}:
+      (State{Ev.Runtime{W.World{ns,a,s,r,e,p,g,n,clock,lifecycle},rn,batches,positions,next,eventTick,fs,b,cap,d},ra,Sys.Registry{an,ai,na,aa,ca},rb,Sys.Registry{bn,bi,nb,ba,cb}},label++":world="++tick(Clock.now(clock))++":event="++Nat.show(eventTick)++":A="++cursor(ca)++":B="++cursor(cb)++":positions="++List.show(&2,Ev.Position,position,positions))
 def completion(c:Ev.Completion<String,String,Bool>) -> String:
   match c:
     case Ev.Succeeded{text}:"ok:"++text
@@ -95,12 +95,12 @@ def created(result:W.Creation<S,Unit,Unit,U32>) -> String:
 # No relation messages/classifier semantics are inferred from this empty domain.
 def seed(world:World()) -> World():
   match world:
-    case W.World{ns,a,s,r,e,p,g,n,_}:W.World{ns,a,s,r,e,p,g,n,Clock.State{Tick.Tick{0n,4294967295},[]}}
+    case W.World{ns,a,s,r,e,p,g,n,_,lifecycle}:W.World{ns,a,s,r,e,p,g,n,Clock.State{Tick.Tick{0n,4294967295},[]},lifecycle}
 def classify(_:U32) -> Maybe<Domains.DescriptorKey<S>>:None{}
 def identity(world:World()) -> World() & Unit:(world,Unit{})
 def bridge_view(runtime:Failure.Runtime<S,Unit,Unit,U32>) -> Failure.Runtime<S,Unit,Unit,U32> & String:
   match runtime:
-    case Failure.Runtime{W.World{ns,a,s,r,e,p,g,n,+clock},domains,positions,+t,fs,b,cap,nr}:(Failure.Runtime{W.World{ns,a,s,r,e,p,g,n,clock},domains,positions,t,fs,b,cap,nr},"bridge:world="++tick(Clock.now(clock))++":event="++Nat.show(t))
+    case Failure.Runtime{W.World{ns,a,s,r,e,p,g,n,+clock,lifecycle},domains,positions,+t,fs,b,cap,nr}:(Failure.Runtime{W.World{ns,a,s,r,e,p,g,n,clock,lifecycle},domains,positions,t,fs,b,cap,nr},"bridge:world="++tick(Clock.now(clock))++":event="++Nat.show(t))
 def bridge_end(prefix:String,result:Failure.Runtime<S,Unit,Unit,U32> & String) -> String:
   match result:
     case (_,line):prefix++"\n"++line
@@ -133,10 +133,10 @@ def transition(value:Maybe<&2,Machine.Transition<U32>>) -> String:
     case Some{Machine.Transition{a,b}}:U32.show(a)++">"++U32.show(b)
 def machine_description(label:String,latest:Maybe<&2,Machine.Transition<U32>>,through:Nat,world:W.World<S,Unit,MachineState(),U32>) -> W.World<S,Unit,MachineState(),U32> & String:
   match world:
-    case W.World{ns,a,s,r,e,p,g,n,+clock}:(W.World{ns,a,s,r,e,p,g,n,clock},label++":"++transition(latest)++":through="++Nat.show(through)++":now="++tick(Clock.now(clock))++":active="++tick(Clock.current(clock)))
+    case W.World{ns,a,s,r,e,p,g,n,+clock,lifecycle}:(W.World{ns,a,s,r,e,p,g,n,clock,lifecycle},label++":"++transition(latest)++":through="++Nat.show(through)++":now="++tick(Clock.now(clock))++":active="++tick(Clock.current(clock)))
 def machine_finished(prefix:String,world:W.World<S,Unit,MachineState(),U32>) -> String:
   match world:
-    case W.World{_,_,_,_,_,_,_,_,Clock.State{now,scopes}}:prefix++"\nleave:now="++tick(now)++":scopes="++List.show(&2,Tick.Tick,tick,scopes)
+    case W.World{_,_,_,_,_,_,_,_,Clock.State{now,scopes},lifecycle}:prefix++"\nleave:now="++tick(now)++":scopes="++List.show(&2,Tick.Tick,tick,scopes)
 def machine_last_described(prefix:String,result:W.World<S,Unit,MachineState(),U32> & String) -> String:
   match result:
     case (world,line):machine_finished(prefix++"\n"++line,W.leave_run(~S,~Unit,~MachineState(),~U32,world))

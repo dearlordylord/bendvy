@@ -67,7 +67,7 @@ def allocator(value:Alloc.Allocator) -> String:
     case Alloc.Allocator{next,high,slots,capacity,depth,free,order}:U32.show(next) ++ ":" ++ U32.show(high) ++ ":" ++ U32.show(capacity) ++ ":" ++ Nat.show(depth) ++ ":" ++ Nat.show(List.length(&2,U32,free)) ++ ":" ++ Nat.show(List.length(&2,Key.Key,order)) ++ ":" ++ slot(Array.get(Alloc.Slot,slots,0))
 def world(~S:Data,value:Schema.World(~S)) -> String:
   match value:
-    case W.World{namespace,entities,_,resource,events,pending,registered,nextSystemId,time}:"world=" ++ U32.show(namespace) ++ ":" ++ resources(~S,resource) ++ ":events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ":pending=" ++ Nat.show(List.length(&1,Deferred.Command<Schema.World(~S)>,pending)) ++ ":registered=" ++ registrations(registered) ++ ":next=" ++ U32.show(nextSystemId) ++ ":clock=" ++ clock(time) ++ ":allocator=" ++ allocator(entities)
+    case W.World{namespace,entities,_,resource,events,pending,registered,nextSystemId,time,lifecycle}:"world=" ++ U32.show(namespace) ++ ":" ++ resources(~S,resource) ++ ":events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ":pending=" ++ Nat.show(List.length(&1,Deferred.Command<Schema.World(~S)>,pending)) ++ ":registered=" ++ registrations(registered) ++ ":next=" ++ U32.show(nextSystemId) ++ ":clock=" ++ clock(time) ++ ":allocator=" ++ allocator(entities)
 def owner(namespace:U32,id:U32,name:String,access:List<&2,String>,last:Maybe<&2,Tick.Tick>,owned:Schema.Local) -> String:
   U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ local(owned) ++ ":access=" ++ strings(access) ++ ":cursor=" ++ cursor(last)
 def writer(~S:Data,owner:Setup.Writer(~S)) -> String:

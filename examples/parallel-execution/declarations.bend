@@ -22,7 +22,7 @@ def combined(~S:Data,~H:Type,~B:Type,positions:A.ComponentWrite<S,H,P.Position,S
 def position_granted(~S:Data,~H:Type,~B:Type,~resource_write:Build.ResourceWrite(~S,~Store(~S),~Resources(~S),~H,~B),result:B & A.ComponentWrite<S,H,P.Position,String>) -> B & Ops(~S)(H):
   match result:
     case (book,positions):combined(~S,~H,~B,positions,resource_write(resource_layout(),first_route(),{==},{==},book))
-def selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Store(~S),~Resources(~S),~H,~B),~component_write:Build.ComponentWrite(~S,~Store(~S),~Resources(~S),~H,~B),~resource_read:Build.ResourceRead(~S,~Store(~S),~Resources(~S),~H,~B),~resource_write:Build.ResourceWrite(~S,~Store(~S),~Resources(~S),~H,~B),~query:Build.Query(~S,~Store(~S),~Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):
+def selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Store(~S),~Resources(~S),~H,~B),~component_write:Build.ComponentWrite(~S,~Store(~S),~Resources(~S),~H,~B),~resource_read:Build.ResourceRead(~S,~Store(~S),~Resources(~S),~H,~B),~resource_write:Build.ResourceWrite(~S,~Store(~S),~Resources(~S),~H,~B),~query:Build.Query(~S,~Store(~S),~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Store(~S),~Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):
   position_granted(~S,~H,~B,~resource_write,component_write(component_layout(),first_route(),{==},{==},book))
 def declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):
   builder(Ops(~S),selection(~S,~H,~B),book)

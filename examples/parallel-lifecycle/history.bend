@@ -43,7 +43,7 @@ def seeded_store(~S:Data,seedError:Bool,tick:Tick.Tick,store:D.Store(~S)) -> D.S
     case True{} Product.Owner{Product.Owner{input,Layout.ColumnSlot{output}},rest}:seeded_column(~S,rest,input,Col.modify_runtime(~S,~Layout.Viewed<P.Output,U32>,~Unit,error_seed,output,1,tick))
 def historical_world(~S:Data,now:Tick.Tick,+stamp:Tick.Tick,seedError:Bool,world:Application.Runtime(~S)) -> Application.Runtime(~S):
   match world:
-    case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystem,_}:W.World{namespace,allocator,seeded_store(~S,seedError,stamp,historical_store(~S,stamp,store)),resource,events,pending,registrations,nextSystem,Clock.State{now,[]}}
+    case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystem,_,lifecycle}:W.World{namespace,allocator,seeded_store(~S,seedError,stamp,historical_store(~S,stamp,store)),resource,events,pending,registrations,nextSystem,Clock.State{now,[]},lifecycle}
 def historical_app(~S:Data,~mode:Query.Mode,prior:Maybe<&2,Tick.Tick>,application:Application.QueryApp(~S,~mode)) -> Application.QueryApp(~S,~mode):
   match application:
     case Execute.Application{world,Sys.Owner{namespace,id,name,access,_,local}}:Execute.Application{world,Sys.Owner{namespace,id,name,access,prior,local}}

@@ -23,7 +23,7 @@ def resource_layout() -> Layout.Layout:Layout.LayoutLeaf{Mailbox,U32,view,"mailb
 def Resources() -> Type:Layout.resources(~Nominal,resource_layout())
 def World() -> Type:W.World<Nominal,Unit,Resources(),Unit>
 def Ops(H:Type) -> Type:Access.ResourceWrite<H,Mailbox,U32>
-def selection(~H:Type,~B:Type,~cr:Build.ComponentRead(~Nominal,~Unit,~Resources(),~H,~B),~cw:Build.ComponentWrite(~Nominal,~Unit,~Resources(),~H,~B),~rr:Build.ResourceRead(~Nominal,~Unit,~Resources(),~H,~B),~rw:Build.ResourceWrite(~Nominal,~Unit,~Resources(),~H,~B),~query:Build.Query(~Nominal,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(H):
+def selection(~H:Type,~B:Type,~cr:Build.ComponentRead(~Nominal,~Unit,~Resources(),~H,~B),~cw:Build.ComponentWrite(~Nominal,~Unit,~Resources(),~H,~B),~rr:Build.ResourceRead(~Nominal,~Unit,~Resources(),~H,~B),~rw:Build.ResourceWrite(~Nominal,~Unit,~Resources(),~H,~B),~query:Build.Query(~Nominal,~Unit,~Resources(),~H,~B),~lifecycle:Build.Lifecycle(~Nominal,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(H):
   rw(resource_layout(),Layout.AtLeaf{},{==},{==},book)
 def program(~H:Type,~B:Type,~builder:Build.Builder(~Nominal,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(H):
   builder(Ops,selection(~H,~B),book)
@@ -64,7 +64,7 @@ def pending(owner:Maybe<&1,Array<U32>>) -> String:
     case Some{owner}:array_id(Array.get(U32,owner,0))
 def observed(first:String,result:Application() & Execute.Status<String,String>) -> String:
   match result:
-    case (Execute.Application{W.World{_,_,_,Layout.ResourceSlot{Layout.Viewed{Mailbox{token,slot},_}},_,_,_,_,_},Sys.Owner{_,_,_,_,_,Local{owner,runs}}},status):first ++ "," ++ done(status) ++ ";mailbox=" ++ array_id(Array.get(U32,token,0)) ++ ";retained=" ++ pending(slot) ++ ";pending=" ++ pending(owner) ++ ";runs=" ++ U32.show(runs)
+    case (Execute.Application{W.World{_,_,_,Layout.ResourceSlot{Layout.Viewed{Mailbox{token,slot},_}},_,_,_,_,_,lifecycle},Sys.Owner{_,_,_,_,_,Local{owner,runs}}},status):first ++ "," ++ done(status) ++ ";mailbox=" ++ array_id(Array.get(U32,token,0)) ++ ";retained=" ++ pending(slot) ++ ";pending=" ++ pending(owner) ++ ";runs=" ++ U32.show(runs)
 def first(result:Application() & Execute.Status<String,String>) -> String:
   match result:
     case (application,status):observed(done(status),Execute.run(~Nominal,~Unit,~Resources(),~Unit,~Ops,~Local,~String,~String,~program,~body,application))

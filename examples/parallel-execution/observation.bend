@@ -25,7 +25,7 @@ def resources(~S:Data,value:D.Resources(~S)) -> String:
     case Product.Owner{Layout.ResourceSlot{Layout.Viewed{counter,_}},Layout.ResourceSlot{Layout.Viewed{secret,_}}}:"counter=" ++ Common.projected(~P.Counter,P.counter(counter)) ++ ";secret=" ++ Common.projected(~P.Secret,P.secret(secret))
 def world(~S:Data,value:W.World<S,D.Store(~S),D.Resources(~S),Unit>) -> String:
   match value:
-    case W.World{namespace,allocator,components,resource,events,pending,registrations,next,clock}:"namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ Common.allocator(allocator) ++ "};" ++ store(~S,components) ++ ";" ++ resources(~S,resource) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<S,D.Store(~S),D.Resources(~S),Unit>>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,Common.registration,registrations) ++ ";next-system=" ++ U32.show(next) ++ ";clock=" ++ Common.clock(clock)
+    case W.World{namespace,allocator,components,resource,events,pending,registrations,next,clock,lifecycle}:"namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ Common.allocator(allocator) ++ "};" ++ store(~S,components) ++ ";" ++ resources(~S,resource) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<S,D.Store(~S),D.Resources(~S),Unit>>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,Common.registration,registrations) ++ ";next-system=" ++ U32.show(next) ++ ";clock=" ++ Common.clock(clock)
 def local_token(runs:U32,handle:String,result:Array<U32> & U32) -> String:
   match result:
     case (_,id):U32.show(id) ++ ":" ++ U32.show(runs) ++ ":" ++ handle

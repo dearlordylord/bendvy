@@ -13,7 +13,7 @@ def Ops(H:Type) -> Type:Unit
 def Local() -> Type:Capture.Local<Array<U32>,Context.Count()>
 def World() -> Type:W.World<S,Unit,Unit,Unit>
 def Owner() -> Type:Sys.Owner<S,Unit,Unit,Unit,Ops,Local(),String,U32,declaration,body>
-def selection(~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Unit,~H,~B),~cw:Build.ComponentWrite(~S,~Unit,~Unit,~H,~B),~rr:Build.ResourceRead(~S,~Unit,~Unit,~H,~B),~rw:Build.ResourceWrite(~S,~Unit,~Unit,~H,~B),~q:Build.Query(~S,~Unit,~Unit,~H,~B),book:B) -> B & Unit:(book,Unit{})
+def selection(~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Unit,~H,~B),~cw:Build.ComponentWrite(~S,~Unit,~Unit,~H,~B),~rr:Build.ResourceRead(~S,~Unit,~Unit,~H,~B),~rw:Build.ResourceWrite(~S,~Unit,~Unit,~H,~B),~q:Build.Query(~S,~Unit,~Unit,~H,~B),~lifecycle:Build.Lifecycle(~S,~Unit,~Unit,~H,~B),book:B) -> B & Unit:(book,Unit{})
 def declaration(~H:Type,~B:Type,~builder:Build.Builder(~S,~Unit,~Unit,~H,~B),book:B) -> B & Unit:
   builder(Ops,selection(~H,~B),book)
 def completed(count:U32,failed:Bool) -> Sys.Completion<String,U32>:
@@ -43,7 +43,7 @@ def released(trace:String,result:Life.Released<Local()>) -> String:
     case Life.Released{identity,Capture.Local{state,capture}}:local_observed(trace,identity,capture,Context.count_snapshot(state))
 def final_retired(trace:String,result:Life.Retirement<World(),Owner()>) -> String:
   match result:
-    case Life.Retired{W.World{_,_,_,_,_,_,registrations,nextId,_},detached}:released(trace ++ "|registrations=" ++ Nat.show(List.length(&2,W.RegistrationMeta,registrations)) ++ "|nextId=" ++ U32.show(nextId),Life.release(~S,~Unit,~Unit,~Unit,~Ops,~Local(),~String,~U32,~declaration,~body,detached))
+    case Life.Retired{W.World{_,_,_,_,_,_,registrations,nextId,_,lifecycle},detached}:released(trace ++ "|registrations=" ++ Nat.show(List.length(&2,W.RegistrationMeta,registrations)) ++ "|nextId=" ++ U32.show(nextId),Life.release(~S,~Unit,~Unit,~Unit,~Ops,~Local(),~String,~U32,~declaration,~body,detached))
     case Life.RetirementRefused{_,_}:"ERROR:final-retire"
 def final_run(trace:String,result:Sys.RunResult<World(),Owner(),String,U32>) -> String:
   match result:

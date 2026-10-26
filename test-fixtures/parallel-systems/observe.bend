@@ -38,7 +38,7 @@ def handle(~S:Data,value:W.Handle<S>) -> String:
     case W.Handle{namespace,key}:U32.show(namespace) ++ ":" ++ Common.key(key)
 def observed(~S:Data,result:W.World<S,D.Store(~S),D.Resources(~S),Unit> & List<&2,W.Handle<S>>) -> String:
   match result:
-    case (W.World{namespace,allocator,store,resource,events,pending,registrations,next,clock},live):stores(~S,store) ++ ";" ++ resources(~S,resource) ++ ";live=" ++ List.show(&2,W.Handle<S>,handle(~S),live) ++ ";systems=" ++ List.show(&2,W.RegistrationMeta,Common.registration,registrations) ++ ";tick=" ++ Common.clock(clock) ++ ";allocator=" ++ Common.allocator(allocator) ++ ";namespace=" ++ U32.show(namespace) ++ ";next-system=" ++ U32.show(next) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<S,D.Store(~S),D.Resources(~S),Unit>>,pending))
+    case (W.World{namespace,allocator,store,resource,events,pending,registrations,next,clock,lifecycle},live):stores(~S,store) ++ ";" ++ resources(~S,resource) ++ ";live=" ++ List.show(&2,W.Handle<S>,handle(~S),live) ++ ";systems=" ++ List.show(&2,W.RegistrationMeta,Common.registration,registrations) ++ ";tick=" ++ Common.clock(clock) ++ ";allocator=" ++ Common.allocator(allocator) ++ ";namespace=" ++ U32.show(namespace) ++ ";next-system=" ++ U32.show(next) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<S,D.Store(~S),D.Resources(~S),Unit>>,pending))
 def world(~S:Data,value:W.World<S,D.Store(~S),D.Resources(~S),Unit>) -> String:
   observed(~S,W.handles(~S,~D.Store(~S),~D.Resources(~S),~Unit,value))
 def local_observed(runs:U32,result:Array<U32> & U32) -> String:

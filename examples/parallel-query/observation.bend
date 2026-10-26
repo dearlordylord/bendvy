@@ -85,7 +85,7 @@ def clock(value:Clock.State) -> String:
     case Clock.State{now,scopes}: tick(now) ++ ":" ++ List.show(&2,Tick.Tick,tick,scopes)
 def world(~S:Data,value:W.World<S,D.Store(~S),D.Resources(~S),Unit>) -> String:
   match value:
-    case W.World{namespace,alloc,components,res,events,pending,registrations,nextSystem,worldClock}: "namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ allocator(alloc) ++ "};" ++ store(~S,components) ++ ";resource=" ++ resource(~S,res) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<S,D.Store(~S),D.Resources(~S),Unit>>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,registration,registrations) ++ ";nextSystem=" ++ U32.show(nextSystem) ++ ";clock=" ++ clock(worldClock)
+    case W.World{namespace,alloc,components,res,events,pending,registrations,nextSystem,worldClock,lifecycle}: "namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ allocator(alloc) ++ "};" ++ store(~S,components) ++ ";resource=" ++ resource(~S,res) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<S,D.Store(~S),D.Resources(~S),Unit>>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,registration,registrations) ++ ";nextSystem=" ++ U32.show(nextSystem) ++ ";clock=" ++ clock(worldClock)
 def local_result(runs:U32,result:Array<U32> & U32) -> String:
   match result:
     case (_,token): U32.show(token) ++ ":" ++ U32.show(runs)

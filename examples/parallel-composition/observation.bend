@@ -68,7 +68,7 @@ def resources(value:Schema.Resources()) -> String:
     case Product.Owner{Layout.ResourceSlot{Layout.Viewed{count,cc}},Product.Owner{Layout.ResourceSlot{Layout.Viewed{host,hc}},Layout.ResourceSlot{Layout.Viewed{optional,oc}}}}:"counter=" ++ counter(count) ++ "/cache=" ++ cc ++ ";host=" ++ service(host) ++ "/cache=" ++ readiness(hc) ++ ";optional=" ++ Common.projected(~Maybe<&1,Array<String>>,Schema.optional(optional)) ++ "/cache=" ++ oc
 def world(value:Schema.World()) -> String:
   match value:
-    case W.World{namespace,allocator,components,resource,events,pending,registrations,next,clock}:"namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ Common.allocator(allocator) ++ "};" ++ store(components) ++ ";" ++ resources(resource) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";pending=" ++ Nat.show(List.length(&1,Deferred.Command<Schema.World()>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,Common.registration,registrations) ++ ";next=" ++ U32.show(next) ++ ";clock=" ++ Common.clock(clock)
+    case W.World{namespace,allocator,components,resource,events,pending,registrations,next,clock,lifecycle}:"namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ Common.allocator(allocator) ++ "};" ++ store(components) ++ ";" ++ resources(resource) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";pending=" ++ Nat.show(List.length(&1,Deferred.Command<Schema.World()>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,Common.registration,registrations) ++ ";next=" ++ U32.show(next) ++ ";clock=" ++ Common.clock(clock)
 def handle(value:W.Handle<Schema.Nominal>) -> String:
   match value:
     case W.Handle{namespace,key}:U32.show(namespace) ++ ":" ++ Common.key(key)

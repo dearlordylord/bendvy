@@ -142,7 +142,7 @@ def access_text(access: C.Access<List<&2,U32>>) -> String:
     case C.ComponentAbsent{}: "absent"
 def show_resource(~S: Data,world: W.World<S,Store<S>,U32,U32>,a: String,b: String) -> String:
   match world:
-    case W.World{_,_,_,_,_,_,_,score,events,pending,_,_,_}: a ++ ":" ++ b ++ ":" ++ U32.show(score) ++ ":" ++ numbers(events) ++ ":" ++ U32.show(U32.from_nat(List.length(&1,W.World<S,Store<S>,U32,U32> -> W.World<S,Store<S>,U32,U32>,pending)))
+    case W.World{_,_,_,_,_,_,_,score,events,pending,_,_,_,lifecycle}: a ++ ":" ++ b ++ ":" ++ U32.show(score) ++ ":" ++ numbers(events) ++ ":" ++ U32.show(U32.from_nat(List.length(&1,W.World<S,Store<S>,U32,U32> -> W.World<S,Store<S>,U32,U32>,pending)))
 def show_right(~S: Data,result: W.World<S,Store<S>,U32,U32> & C.Access<List<&2,U32>>,a: String) -> String:
   (world,access) = result
   show_resource(~S,world,a,access_text(access))
@@ -162,7 +162,7 @@ def log_show(logger: R.Logger) -> String:
     case R.Logger{array}: log_first(Array.get(U32,array,0))
 def snapshot_resource(~S: Data,world: W.World<S,Store<S>,U32,U32>,a: String,b: String) -> W.World<S,Store<S>,U32,U32> & String:
   match world:
-    case W.World{ns,next,high,live,cap,depth,store,+score,+events,pending,registrations,system,clock}: (W.World{ns,next,high,live,cap,depth,store,score,events,pending,registrations,system,clock},a ++ ":" ++ b ++ ":" ++ U32.show(score) ++ ":" ++ numbers(events) )
+    case W.World{ns,next,high,live,cap,depth,store,+score,+events,pending,registrations,system,clock,lifecycle}: (W.World{ns,next,high,live,cap,depth,store,score,events,pending,registrations,system,clock,lifecycle},a ++ ":" ++ b ++ ":" ++ U32.show(score) ++ ":" ++ numbers(events) )
 def snapshot_right(~S: Data,result: W.World<S,Store<S>,U32,U32> & C.Access<List<&2,U32>>,a: String) -> W.World<S,Store<S>,U32,U32> & String:
   (world,access) = result
   snapshot_resource(~S,world,a,access_text(access))

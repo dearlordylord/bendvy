@@ -1,4 +1,5 @@
 import Base
+import ./execution-lifecycle-notices.bend as Notice
 import ./execution-projection.bend as Projection
 import ./execution-state.bend as State
 import ./execution-declaration.bend as D
@@ -22,59 +23,59 @@ def ComponentWrites(~S:Data,~P:Type,~V:Data,H:Type) -> Type:ComponentWrite<S,H,P
 def ResourceReads(~V:Data,H:Type) -> Type:ResourceRead<H,V>
 def ResourceWrites(~P:Type,~V:Data,H:Type) -> Type:ResourceWrite<H,P,V>
 
-def component_returned(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,resource:R,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,rest:Rest,result:Col.Column<S,P> & Maybe<&2,V>) -> State.Scope<S,C,R> & Maybe<&2,V>:
+def component_returned(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,resource:R,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,rest:Rest,result:Col.Column<S,P> & Maybe<&2,V>,+lifecycleView:Notice.View<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
   match result:
-    case (column,value):(State.Scope{Product.put_field(~C,~Col.Column<S,P>,~Rest,lens)(rest,column),resource,handles,tick,prior},value)
-def component_taken(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,resource:R,handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,index:U32,result:Rest & Col.Column<S,P>) -> State.Scope<S,C,R> & Maybe<&2,V>:
+    case (column,value):(State.Scope{Product.put_field(~C,~Col.Column<S,P>,~Rest,lens)(rest,column),resource,handles,tick,prior,lifecycleView},value)
+def component_taken(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,resource:R,handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,index:U32,result:Rest & Col.Column<S,P>,+lifecycleView:Notice.View<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
   match result:
-    case (rest,column):component_returned(~S,~C,~R,~P,~Rest,~V,~lens,resource,handles,tick,prior,rest,Col.view(~S,~P,~V,~project,column,index))
+    case (rest,column):component_returned(~S,~C,~R,~P,~Rest,~V,~lens,resource,handles,tick,prior,rest,Col.view(~S,~P,~V,~project,column,index),lifecycleView)
 def component_read_checked(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,allowed:Bool,scope:State.Scope<S,C,R>,handle:W.Handle<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
   match allowed scope:
     case False{} scope:(scope,None{})
-    case True{} State.Scope{store,resource,handles,tick,prior}:component_taken(~S,~C,~R,~P,~Rest,~V,~lens,~project,resource,handles,tick,prior,W.handle_index(~S,handle),Product.get_field(~C,~Col.Column<S,P>,~Rest,lens)(store))
+    case True{} State.Scope{store,resource,handles,tick,prior,+lifecycleView}:component_taken(~S,~C,~R,~P,~Rest,~V,~lens,~project,resource,handles,tick,prior,W.handle_index(~S,handle),Product.get_field(~C,~Col.Column<S,P>,~Rest,lens)(store),lifecycleView)
 def component_get(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,scope:State.Scope<S,C,R>,+handle:W.Handle<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
   match scope:
-    case State.Scope{store,resource,+handles,tick,prior}:component_read_checked(~S,~C,~R,~P,~Rest,~V,~lens,~project,State.member(~S,handle,handles),State.Scope{store,resource,handles,tick,prior},handle)
-def component_modified(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,transform:P -> P & V,resource:R,handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,index:U32,result:Rest & Col.Column<S,P>) -> State.Scope<S,C,R> & Maybe<&2,V>:
+    case State.Scope{store,resource,+handles,tick,prior,+lifecycleView}:component_read_checked(~S,~C,~R,~P,~Rest,~V,~lens,~project,State.member(~S,handle,handles),State.Scope{store,resource,handles,tick,prior,lifecycleView},handle)
+def component_modified(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,transform:P -> P & V,resource:R,handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,index:U32,result:Rest & Col.Column<S,P>,+lifecycleView:Notice.View<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
   match result:
-    case (rest,column):component_returned(~S,~C,~R,~P,~Rest,~V,~lens,resource,handles,tick,prior,rest,Col.modify_runtime(~S,~P,~V,transform,column,index,tick))
+    case (rest,column):component_returned(~S,~C,~R,~P,~Rest,~V,~lens,resource,handles,tick,prior,rest,Col.modify_runtime(~S,~P,~V,transform,column,index,tick),lifecycleView)
 def component_modify_checked(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,transform:P -> P & V,allowed:Bool,scope:State.Scope<S,C,R>,handle:W.Handle<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
   match allowed scope:
     case False{} scope:(scope,None{})
-    case True{} State.Scope{store,resource,handles,tick,prior}:component_modified(~S,~C,~R,~P,~Rest,~V,~lens,transform,resource,handles,tick,prior,W.handle_index(~S,handle),Product.get_field(~C,~Col.Column<S,P>,~Rest,lens)(store))
+    case True{} State.Scope{store,resource,handles,tick,prior,+lifecycleView}:component_modified(~S,~C,~R,~P,~Rest,~V,~lens,transform,resource,handles,tick,prior,W.handle_index(~S,handle),Product.get_field(~C,~Col.Column<S,P>,~Rest,lens)(store),lifecycleView)
 def component_modify(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,transform:P -> P & V,scope:State.Scope<S,C,R>,+handle:W.Handle<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
   match scope:
-    case State.Scope{store,resource,+handles,tick,prior}:component_modify_checked(~S,~C,~R,~P,~Rest,~V,~lens,transform,State.member(~S,handle,handles),State.Scope{store,resource,handles,tick,prior},handle)
+    case State.Scope{store,resource,+handles,tick,prior,+lifecycleView}:component_modify_checked(~S,~C,~R,~P,~Rest,~V,~lens,transform,State.member(~S,handle,handles),State.Scope{store,resource,handles,tick,prior,lifecycleView},handle)
 def component_modify_once(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,transform:P -> P & V,scope:State.Scope<S,C,R>,handle:W.Handle<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
   component_modify(~S,~C,~R,~P,~Rest,~V,~lens,transform,scope,handle)
 def component_read(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,projection:Projection.Affine<P,V,project>,identity:Identity.Declaration<S,P>) -> D.Declaration<S,C,R,ComponentReads(~S,~V)>:
   D.Declaration{ComponentRead{scope=>handle=>component_get(~S,~C,~R,~P,~Rest,~V,~lens,~project,scope,handle)},[D.Access{Identity.key(~S,~P,identity),D.ComponentAccess{},D.Exclusive{},D.ReadOnly{}}]}
 def component_write(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,projection:Projection.Affine<P,V,project>,identity:Identity.Declaration<S,P>) -> D.Declaration<S,C,R,ComponentWrites(~S,~P,~V)>:
   D.Declaration{ComponentWrite{scope=>handle=>component_get(~S,~C,~R,~P,~Rest,~V,~lens,~project,scope,handle),component_modify_once(~S,~C,~R,~P,~Rest,~V,~lens)},[D.Access{Identity.key(~S,~P,identity),D.ComponentAccess{},D.Exclusive{},D.Writable{}}]}
-def resource_returned(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,store:C,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,rest:Rest,result:P & V) -> State.Scope<S,C,R> & V:
+def resource_returned(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,store:C,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,rest:Rest,result:P & V,+lifecycleView:Notice.View<S>) -> State.Scope<S,C,R> & V:
   match result:
-    case (payload,value):(State.Scope{store,Product.put_field(~R,~P,~Rest,lens)(rest,payload),handles,tick,prior},value)
-def resource_taken(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,~project:P -> P & V,store:C,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,result:Rest & P) -> State.Scope<S,C,R> & V:
+    case (payload,value):(State.Scope{store,Product.put_field(~R,~P,~Rest,lens)(rest,payload),handles,tick,prior,lifecycleView},value)
+def resource_taken(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,~project:P -> P & V,store:C,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,result:Rest & P,+lifecycleView:Notice.View<S>) -> State.Scope<S,C,R> & V:
   match result:
-    case (rest,payload):resource_returned(~S,~C,~R,~P,~Rest,~V,~lens,store,handles,tick,prior,rest,project(payload))
+    case (rest,payload):resource_returned(~S,~C,~R,~P,~Rest,~V,~lens,store,handles,tick,prior,rest,project(payload),lifecycleView)
 def resource_get(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,~project:P -> P & V,scope:State.Scope<S,C,R>) -> State.Scope<S,C,R> & V:
   match scope:
-    case State.Scope{store,resource,handles,tick,prior}:resource_taken(~S,~C,~R,~P,~Rest,~V,~lens,~project,store,handles,tick,prior,Product.get_field(~R,~P,~Rest,lens)(resource))
-def resource_transform_taken(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,transform:P -> P & V,store:C,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,result:Rest & P) -> State.Scope<S,C,R> & V:
+    case State.Scope{store,resource,handles,tick,prior,+lifecycleView}:resource_taken(~S,~C,~R,~P,~Rest,~V,~lens,~project,store,handles,tick,prior,Product.get_field(~R,~P,~Rest,lens)(resource),lifecycleView)
+def resource_transform_taken(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,transform:P -> P & V,store:C,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,result:Rest & P,+lifecycleView:Notice.View<S>) -> State.Scope<S,C,R> & V:
   match result:
-    case (rest,payload):resource_returned(~S,~C,~R,~P,~Rest,~V,~lens,store,handles,tick,prior,rest,transform(payload))
+    case (rest,payload):resource_returned(~S,~C,~R,~P,~Rest,~V,~lens,store,handles,tick,prior,rest,transform(payload),lifecycleView)
 def resource_modify(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,transform:P -> P & V,scope:State.Scope<S,C,R>) -> State.Scope<S,C,R> & V:
   match scope:
-    case State.Scope{store,resource,handles,tick,prior}:resource_transform_taken(~S,~C,~R,~P,~Rest,~V,~lens,transform,store,handles,tick,prior,Product.get_field(~R,~P,~Rest,lens)(resource))
-def resource_owned_returned(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~lens:Product.Lens<R,P,Rest>,-Out:Type,store:C,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,rest:Rest,result:P & Out) -> State.Scope<S,C,R> & Out:
+    case State.Scope{store,resource,handles,tick,prior,+lifecycleView}:resource_transform_taken(~S,~C,~R,~P,~Rest,~V,~lens,transform,store,handles,tick,prior,Product.get_field(~R,~P,~Rest,lens)(resource),lifecycleView)
+def resource_owned_returned(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~lens:Product.Lens<R,P,Rest>,-Out:Type,store:C,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,rest:Rest,result:P & Out,+lifecycleView:Notice.View<S>) -> State.Scope<S,C,R> & Out:
   match result:
-    case (payload,value):(State.Scope{store,Product.put_field(~R,~P,~Rest,lens)(rest,payload),handles,tick,prior},value)
-def resource_owned_taken(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~lens:Product.Lens<R,P,Rest>,-Out:Type,transform:P -> P & Out,store:C,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,result:Rest & P) -> State.Scope<S,C,R> & Out:
+    case (payload,value):(State.Scope{store,Product.put_field(~R,~P,~Rest,lens)(rest,payload),handles,tick,prior,lifecycleView},value)
+def resource_owned_taken(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~lens:Product.Lens<R,P,Rest>,-Out:Type,transform:P -> P & Out,store:C,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,result:Rest & P,+lifecycleView:Notice.View<S>) -> State.Scope<S,C,R> & Out:
   match result:
-    case (rest,payload):resource_owned_returned(~S,~C,~R,~P,~Rest,~lens,Out,store,handles,tick,prior,rest,transform(payload))
+    case (rest,payload):resource_owned_returned(~S,~C,~R,~P,~Rest,~lens,Out,store,handles,tick,prior,rest,transform(payload),lifecycleView)
 def resource_own(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~lens:Product.Lens<R,P,Rest>,-Out:Type,transform:P -> P & Out,scope:State.Scope<S,C,R>) -> State.Scope<S,C,R> & Out:
   match scope:
-    case State.Scope{store,resource,handles,tick,prior}:resource_owned_taken(~S,~C,~R,~P,~Rest,~lens,Out,transform,store,handles,tick,prior,Product.get_field(~R,~P,~Rest,lens)(resource))
+    case State.Scope{store,resource,handles,tick,prior,+lifecycleView}:resource_owned_taken(~S,~C,~R,~P,~Rest,~lens,Out,transform,store,handles,tick,prior,Product.get_field(~R,~P,~Rest,lens)(resource),lifecycleView)
 def resource_read(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,~project:P -> P & V,projection:Projection.Affine<P,V,project>,identity:Schema.Resource<S,P>) -> D.Declaration<S,C,R,ResourceReads(~V)>:
   D.Declaration{ResourceRead{resource_get(~S,~C,~R,~P,~Rest,~V,~lens,~project)},[D.Access{Schema.resource_key(~S,~P,identity),D.ResourceAccess{},D.Exclusive{},D.ReadOnly{}}]}
 def resource_write(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,~project:P -> P & V,projection:Projection.Affine<P,V,project>,identity:Schema.Resource<S,P>) -> D.Declaration<S,C,R,ResourceWrites(~P,~V)>:

@@ -1,4 +1,5 @@
 import Base
+import ../execution-lifecycle-notices.bend as Notice
 import ../change-tick.bend as Tick
 import ../clock-state.bend as Clock
 import ../world.bend as W
@@ -39,12 +40,12 @@ def matches(~S:Data,~Store:Type,~Rest:Type,~Payload:Type,~take:Store -> Rest & C
 def slot(~S:Data,~Store:Type,~Rest:Type,~Payload:Type,~V:Data,~take:Store -> Rest & Col.Column<S,Payload>,~put:Rest -> Col.Column<S,Payload> -> Store,~view:Payload -> Payload & V,~mode:Q.Selection) -> P.DeclaredSelection<Owner<S,Store>,S,C.Access<V>>:
   P.DeclaredSelection{owner=>target=>matches(~S,~Store,~Rest,~Payload,~take,~put,~mode,owner,target),owner=>target=>read(~S,~Store,~Rest,~Payload,~V,~take,~put,~view,owner,target)}
 
-def restore(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,resource:R,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,Store,R,E>>>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:Clock.State,observed:Owner<S,Store> & List<&2,IQ.ProjectedRow<S,V>>) -> I.Frame<S,Store,R,E> & List<&2,IQ.ProjectedRow<S,V>>:
+def restore(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,resource:R,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,Store,R,E>>>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:Clock.State,observed:Owner<S,Store> & List<&2,IQ.ProjectedRow<S,V>>,lifecycle:Notice.Journal<S>) -> I.Frame<S,Store,R,E> & List<&2,IQ.ProjectedRow<S,V>>:
   match observed:
-    case (Owner{namespace,allocator,store,cursor},rows):(I.Frame{W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},cursor},rows)
+    case (Owner{namespace,allocator,store,cursor},rows):(I.Frame{W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,lifecycle},cursor},rows)
 def enter_world(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,~selection:P.DeclaredSelection<Owner<S,Store>,S,V>,world:W.World<S,Store,R,E>,cursor:Maybe<&2,Tick.Tick>,targets:List<&2,W.Handle<S>>) -> I.Frame<S,Store,R,E> & List<&2,IQ.ProjectedRow<S,V>>:
   match world:
-    case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:restore(~S,~Store,~R,~E,~V,resource,events,pending,registrations,nextSystemId,clock,IQ.composed_scanned(~Owner<S,Store>,~S,~V,~selection,(Owner{namespace,allocator,store,cursor},targets)))
+    case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,lifecycle}:restore(~S,~Store,~R,~E,~V,resource,events,pending,registrations,nextSystemId,clock,IQ.composed_scanned(~Owner<S,Store>,~S,~V,~selection,(Owner{namespace,allocator,store,cursor},targets)),lifecycle)
 def enter(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,~selection:P.DeclaredSelection<Owner<S,Store>,S,V>,observed:I.Frame<S,Store,R,E> & List<&2,W.Handle<S>>) -> I.Frame<S,Store,R,E> & List<&2,IQ.ProjectedRow<S,V>>:
   match observed:
     case (I.Frame{world,cursor},targets):enter_world(~S,~Store,~R,~E,~V,~selection,world,cursor,targets)

@@ -1,4 +1,5 @@
 import Base
+import ./execution-lifecycle-notices.bend as Notice
 import ./world.bend as W
 import ./execution-state.bend as State
 import ./execution-parallel.bend as Parallel
@@ -19,18 +20,18 @@ def leave(~S:Data,~C:Type,~R:Type,~E:Data,permits:List<&2,Scope.Permit>,world:W.
     case Scope.Permit{_,allowed,_} <> rest:leave(~S,~C,~R,~E,rest,Task.leave(~S,~C,~R,~E,allowed,world))
 def joined_right(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~Error:Data,~Out:Data,~L:Type,~R:Type,lc:CL,lr:RL,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,left:L,leftOut:List<&2,Ready.Completed<Error,Out>>,right:State.Scope<S,CR,RR> & (R & List<&2,Ready.Completed<Error,Out>>)) -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & (Product.Owner<L,R> & List<&2,Ready.Completed<Error,Out>>):
   match right:
-    case (State.Scope{rc,rr,_,_,_},(right,rightOut)):(State.Scope{Product.Owner{lc,rc},Product.Owner{lr,rr},handles,tick,prior},(Product.Owner{left,right},List.append(&2,Ready.Completed<Error,Out>,leftOut,rightOut)))
+    case (State.Scope{rc,rr,_,_,_,+lifecycleView},(right,rightOut)):(State.Scope{Product.Owner{lc,rc},Product.Owner{lr,rr},handles,tick,prior,lifecycleView},(Product.Owner{left,right},List.append(&2,Ready.Completed<Error,Out>,leftOut,rightOut)))
 def joined(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~Error:Data,~Out:Data,~L:Type,~R:Type,left:State.Scope<S,CL,RL> & (L & List<&2,Ready.Completed<Error,Out>>),right:State.Scope<S,CR,RR> & (R & List<&2,Ready.Completed<Error,Out>>)) -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & (Product.Owner<L,R> & List<&2,Ready.Completed<Error,Out>>):
   match left:
-    case (State.Scope{lc,lr,handles,tick,prior},(left,leftOut)):joined_right(~S,~CL,~CR,~RL,~RR,~E,~Error,~Out,~L,~R,lc,lr,handles,tick,prior,left,leftOut,right)
+    case (State.Scope{lc,lr,handles,tick,prior,+lifecycleView},(left,leftOut)):joined_right(~S,~CL,~CR,~RL,~RR,~E,~Error,~Out,~L,~R,lc,lr,handles,tick,prior,left,leftOut,right)
 def execute(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~Error:Data,~Out:Data,~L:Type,~R:Type,mode:Parallel.Mode,leftInvoke:List<&2,Scope.Permit> -> State.Scope<S,CL,RL> -> L -> State.Scope<S,CL,RL> & (L & List<&2,Ready.Completed<Error,Out>>),rightInvoke:List<&2,Scope.Permit> -> State.Scope<S,CR,RR> -> R -> State.Scope<S,CR,RR> & (R & List<&2,Ready.Completed<Error,Out>>),+permits:List<&2,Scope.Permit>,scope:State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>>,owners:Product.Owner<L,R>) -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & (Product.Owner<L,R> & List<&2,Ready.Completed<Error,Out>>):
   match mode scope owners:
-    case Parallel.Serial{} State.Scope{Product.Owner{lc,rc},Product.Owner{lr,rr},+handles,+tick,+prior} Product.Owner{left,right}:
-      l = leftInvoke(permits,State.Scope{lc,lr,handles,tick,prior},left)
-      r = rightInvoke(permits,State.Scope{rc,rr,handles,tick,prior},right)
+    case Parallel.Serial{} State.Scope{Product.Owner{lc,rc},Product.Owner{lr,rr},+handles,+tick,+prior,+lifecycleView} Product.Owner{left,right}:
+      l = leftInvoke(permits,State.Scope{lc,lr,handles,tick,prior,lifecycleView},left)
+      r = rightInvoke(permits,State.Scope{rc,rr,handles,tick,prior,lifecycleView},right)
       joined(~S,~CL,~CR,~RL,~RR,~E,~Error,~Out,~L,~R,l,r)
-    case Parallel.Native{} State.Scope{Product.Owner{lc,rc},Product.Owner{lr,rr},+handles,+tick,+prior} Product.Owner{left,right}:
-      l r = leftInvoke(permits,State.Scope{lc,lr,handles,tick,prior},left) rightInvoke(permits,State.Scope{rc,rr,handles,tick,prior},right)
+    case Parallel.Native{} State.Scope{Product.Owner{lc,rc},Product.Owner{lr,rr},+handles,+tick,+prior,+lifecycleView} Product.Owner{left,right}:
+      l r = leftInvoke(permits,State.Scope{lc,lr,handles,tick,prior,lifecycleView},left) rightInvoke(permits,State.Scope{rc,rr,handles,tick,prior,lifecycleView},right)
       joined(~S,~CL,~CR,~RL,~RR,~E,~Error,~Out,~L,~R,l,r)
 def finished(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~Error:Data,~Out:Data,~L:Type,~R:Type,admin:State.Administration<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,permits:List<&2,Scope.Permit>,result:State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & (Product.Owner<L,R> & List<&2,Ready.Completed<Error,Out>>)) -> Product.Owner<L,R> & (W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E> & List<&2,Ready.Completed<Error,Out>>):
   match result:

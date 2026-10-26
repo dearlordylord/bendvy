@@ -1,5 +1,6 @@
 import ./deferred-command.bend as Deferred
 import Base
+import ./execution-lifecycle-notices.bend as Notice
 import ./change-tick.bend as Tick
 import ./clock-state.bend as Clock
 import ./restore-lifecycle.bend as Lifecycle
@@ -28,16 +29,16 @@ def spawn(~S:Data,~C:Type,~Resources:Type,~E:Data,~emit:R.Change<S> -> E,entitie
   match entities:
     case []:Spawned{world,List.reverse(&2,R.Binding<S>,bindings)}
     case Snapshot.Entity{saved,_} <> rest:reserved(~S,~C,~Resources,~E,~emit,saved,bindings,world => bindings => spawn(~S,~C,~Resources,~E,~emit,rest,world,bindings),Lifecycle.spawn(~S,~C,~Resources,~E,world))
-def inserted(~S:Data,~C:Type,~Resources:Type,~E:Data,~State:Type,~Custom:Data,+namespace:U32,allocator:Alloc.Allocator,+oldEvents:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,Resources,E>>>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,bindings:List<&2,R.Binding<S>>,observed:(C & Resources) & State) -> ApplyResult<S,C,Resources,E,State,Custom>:
+def inserted(~S:Data,~C:Type,~Resources:Type,~E:Data,~State:Type,~Custom:Data,+namespace:U32,allocator:Alloc.Allocator,+oldEvents:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,Resources,E>>>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,bindings:List<&2,R.Binding<S>>,observed:(C & Resources) & State,lifecycle:Notice.Journal<S>) -> ApplyResult<S,C,Resources,E,State,Custom>:
   match observed:
-    case ((store,resource),state):Applied{W.World{namespace,allocator,store,resource,oldEvents,pending,registrations,nextSystem,clock},state,bindings}
+    case ((store,resource),state):Applied{W.World{namespace,allocator,store,resource,oldEvents,pending,registrations,nextSystem,clock,lifecycle},state,bindings}
 def capacity_error(~Custom:Data,input:Snapshot.Snapshot) -> R.Error<Custom>:
   match input:
     case Snapshot.Snapshot{_,floor,_,_}:R.Capacity{floor}
 def install(~S:Data,~C:Type,~Resources:Type,~E:Data,~State:Type,~Custom:Data,~insert:C -> Resources -> State -> List<&2,R.Binding<S>> -> Tick.Tick -> (C & Resources) & State,state:State,+input:Snapshot.Snapshot,observed:Spawned<S,C,Resources,E>) -> ApplyResult<S,C,Resources,E,State,Custom>:
   match observed:
     case Exhausted{world,_}:Refused{world,state,input,capacity_error(~Custom,input)}
-    case Spawned{W.World{namespace,allocator,store,resource,oldEvents,pending,registrations,nextSystem,+clock},+bindings}:inserted(~S,~C,~Resources,~E,~State,~Custom,namespace,allocator,oldEvents,pending,registrations,nextSystem,clock,bindings,insert(store,resource,state,bindings,Clock.current(clock)))
+    case Spawned{W.World{namespace,allocator,store,resource,oldEvents,pending,registrations,nextSystem,+clock,lifecycle},+bindings}:inserted(~S,~C,~Resources,~E,~State,~Custom,namespace,allocator,oldEvents,pending,registrations,nextSystem,clock,bindings,insert(store,resource,state,bindings,Clock.current(clock)),lifecycle)
 def progressed(~S:Data,~C:Type,~Resources:Type,~E:Data,~State:Type,~Custom:Data,~insert:C -> Resources -> State -> List<&2,R.Binding<S>> -> Tick.Tick -> (C & Resources) & State,~emit:R.Change<S> -> E,state:State,+input:Snapshot.Snapshot,observed:W.World<S,C,Resources,E> & Bool) -> ApplyResult<S,C,Resources,E,State,Custom>:
   match input observed:
     case Snapshot.Snapshot{version,floor,entities,resources},(world,False{}):Refused{world,state,Snapshot.Snapshot{version,floor,entities,resources},R.Capacity{floor}}

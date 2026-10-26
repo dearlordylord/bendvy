@@ -1,4 +1,5 @@
 import Base
+import ./execution-lifecycle-notices.bend as Notice
 import ./clock-state.bend as Clock
 import ./deferred-command.bend as Deferred
 import entity-allocator.bend as Alloc
@@ -44,14 +45,14 @@ def slot_observed(~S:Data,~R:Type,~P:Type,~Rest:Type,~take:R -> Rest & Slot<P>,~
   match declaration value:
     case Declaration{+id,+key}, (rest,Missing{}):(put(rest,Missing{}),Status{id,key,False{}})
     case Declaration{+id,+key}, (rest,BendvyReady{owner}):(put(rest,BendvyReady{owner}),Status{id,key,True{}})
-def world_restored(~S:Data,~C:Type,~R:Type,~E:Data,+ns:U32,allocator:Alloc.Allocator,store:C,+events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,value:R & Status<S>) -> W.World<S,C,R,E> & List<&2,Status<S>>:
+def world_restored(~S:Data,~C:Type,~R:Type,~E:Data,+ns:U32,allocator:Alloc.Allocator,store:C,+events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,value:R & Status<S>,lifecycle:Notice.Journal<S>) -> W.World<S,C,R,E> & List<&2,Status<S>>:
   match value:
-    case (resource,status):(W.World{ns,allocator,store,resource,events,pending,registrations,nextSystem,clock},[status])
+    case (resource,status):(W.World{ns,allocator,store,resource,events,pending,registrations,nextSystem,clock,lifecycle},[status])
 # Advanced availability scan: take and replace the actual slot, returning World
 # with one detached Status. Does not invoke call; trusted lenses must preserve owners.
 def world_observed(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Rest:Type,~take:R -> Rest & Slot<P>,~put:Rest -> Slot<P> -> R,~call:P -> P,declaration:Declaration<S,R,P,Rest,take,put,call>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & List<&2,Status<S>>:
   match world:
-    case W.World{+ns,allocator,store,resource,+events,pending,+registrations,+nextSystem,+clock}:world_restored(~S,~C,~R,~E,ns,allocator,store,events,pending,registrations,nextSystem,clock,slot_observed(~S,~R,~P,~Rest,~take,~put,~call,declaration,take(resource)))
+    case W.World{+ns,allocator,store,resource,+events,pending,+registrations,+nextSystem,+clock,lifecycle}:world_restored(~S,~C,~R,~E,ns,allocator,store,events,pending,registrations,nextSystem,clock,slot_observed(~S,~R,~P,~Rest,~take,~put,~call,declaration,take(resource)),lifecycle)
 # Detached service inventory with an erased World availability scan. Entries and
 # scan should come from the same operational declarations; raw forgery is trusted.
 type Setup<S:Data,C:Type,R:Type,E:Data,-scan:W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,Status<S>>> is Data:
@@ -100,7 +101,7 @@ def slot_called(~R:Type,~P:Type,~Rest:Type,~put:Rest -> Slot<P> -> R,~call:P -> 
 # No Tx journal, host exception recovery or rollback of external effects is added.
 def runner(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Rest:Type,~take:R -> Rest & Slot<P>,~put:Rest -> Slot<P> -> R,~call:P -> P,~declaration:Declaration<S,R,P,Rest,take,put,call>,world:W.World<S,C,R,E>,_:Unit) -> Sys.Outcome<W.World<S,C,R,E>,Unit,Unit>:
   match world:
-    case W.World{+ns,allocator,store,resource,+events,pending,+registrations,+nextSystem,+clock}:Sys.Succeeded{W.World{ns,allocator,store,slot_called(~R,~P,~Rest,~put,~call,take(resource)),events,pending,registrations,nextSystem,clock},Unit{}}
+    case W.World{+ns,allocator,store,resource,+events,pending,+registrations,+nextSystem,+clock,lifecycle}:Sys.Succeeded{W.World{ns,allocator,store,slot_called(~R,~P,~Rest,~put,~call,take(resource)),events,pending,registrations,nextSystem,clock,lifecycle},Unit{}}
 # Register the declaration-bound runner with its operational key as access
 # metadata. Returns ordinary registration success/refusal with World; does not
 # call the service or itself enforce a schedule availability preflight.

@@ -1,4 +1,5 @@
 import Base
+import ./execution-lifecycle-notices.bend as Notice
 import ./clock-state.bend as Clock
 import ./deferred-command.bend as Deferred
 import entity-allocator.bend as Alloc
@@ -24,14 +25,14 @@ def column_returned(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~P:Type,~V:Da
 def column_taken(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~P:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,record:RC.Record<S,P>,taken:Rest & Col.Column<S,P>) -> Store & RC.Record<S,P>:
   match record taken:
     case RC.Record{handle,stamp,payload}, (rest,column):column_returned(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,rest,RC.undo_column(~S,~P,handle,stamp,payload,column))
-def undone(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~P:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,ns:U32,allocator:Alloc.Allocator,resource:R,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,Store,R,E>>>,regs:List<&2,W.RegistrationMeta>,sid:U32,clock:Clock.State,result:Store & RC.Record<S,P>) -> W.World<S,Store,R,E> & RC.Record<S,P>:
+def undone(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~P:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,ns:U32,allocator:Alloc.Allocator,resource:R,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,Store,R,E>>>,regs:List<&2,W.RegistrationMeta>,sid:U32,clock:Clock.State,result:Store & RC.Record<S,P>,lifecycle:Notice.Journal<S>) -> W.World<S,Store,R,E> & RC.Record<S,P>:
   match result:
-    case (store,released):(W.World{ns,allocator,store,resource,events,pending,regs,sid,clock},released)
+    case (store,released):(W.World{ns,allocator,store,resource,events,pending,regs,sid,clock,lifecycle},released)
 # Canonical undo_column restores the saved stamp and returns the displaced
 # payload with its pre-undo stamp. Neither clocks nor unrelated owners rewind.
 def undo_valid(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~P:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,record:RC.Record<S,P>,world:W.World<S,Store,R,E>) -> W.World<S,Store,R,E> & RC.Record<S,P>:
   match world:
-    case W.World{ns,allocator,store,resource,events,pending,regs,sid,clock}:undone(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,ns,allocator,resource,events,pending,regs,sid,clock,column_taken(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,record,take(store)))
+    case W.World{ns,allocator,store,resource,events,pending,regs,sid,clock,lifecycle}:undone(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,ns,allocator,resource,events,pending,regs,sid,clock,column_taken(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,record,take(store)),lifecycle)
 def undo_checked(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~P:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,record:RC.Record<S,P>,checked:W.World<S,Store,R,E> & Bool) -> W.World<S,Store,R,E> & RC.Record<S,P>:
   match checked:
     case (world,False{}):(world,record)

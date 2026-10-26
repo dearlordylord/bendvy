@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-lifecycle-notices.bend as Notice
 import ../../src/ecs/change-tick.bend as Tick
 import ../../src/ecs/clock-state.bend as Clock
 import ../../src/ecs/world.bend as W
@@ -83,7 +84,7 @@ def save_basic(world:W.World<S,Cell,Cell,U32>) -> W.World<S,Cell,Cell,U32> & Dat
   Save.save(~S,~Cell,~Cell,~U32,~component_fields,~resource_fields,schema(),world)
 def finish_basic(prefix:String,result:W.World<S,Cell,Cell,U32> & Data.Outcome<Data.Snapshot>) -> String:
   match result:
-    case (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},outcome):prefix++outcome_text(outcome)++" owners="++cell_text(store)++";"++cell_text(resource)++" clock="++Tick.show(Clock.now(clock))++"\n"
+    case (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,lifecycle},outcome):prefix++outcome_text(outcome)++" owners="++cell_text(store)++";"++cell_text(resource)++" clock="++Tick.show(Clock.now(clock))++"\n"
 def refused_count(prefix:String,result:W.World<S,Cell,Cell,U32> & U32) -> String:
   match result:
     case (world,count):finish_basic(prefix++"pending="++U32.show(count)++" retry=",save_basic(W.barrier(~S,~Cell,~Cell,~U32,world)))
@@ -155,14 +156,14 @@ def machines_text(machines:Machines) -> String:
     case Machines{token,slot,calls}:nums(cells(token))++"/"++U32.show(calls)++"/"++slot_text(slot)
 def graph_finished(prefix:String,result:W.World<S,Rel.Store<S,Cell>,Product.Owner<Cell,Machines>,U32> & Data.Outcome<GraphData.Snapshot>) -> String:
   match result:
-    case (W.World{_,_,Rel.Store{store,_},Product.Owner{resource,machines},_,_,_,_,_},outcome):prefix++graph_outcome(outcome)++" owners="++cell_text(store)++";"++cell_text(resource)++";"++machines_text(machines)++"\n"
+    case (W.World{_,_,Rel.Store{store,_},Product.Owner{resource,machines},_,_,_,_,_,lifecycle},outcome):prefix++graph_outcome(outcome)++" owners="++cell_text(store)++";"++cell_text(resource)++";"++machines_text(machines)++"\n"
 def graph_after_refusal(result:W.World<S,Rel.Store<S,Cell>,Product.Owner<Cell,Machines>,U32> & Data.Outcome<GraphData.Snapshot>) -> String:
   match result:
-    case (W.World{namespace,allocator,Rel.Store{store,graph},Product.Owner{resource,Machines{token,slot,+calls}},events,pending,registrations,nextSystemId,clock},outcome):graph_finished("graph="++graph_outcome(outcome)++" precalls="++U32.show(calls)++" retry=",save_graph(W.barrier(~S,~Rel.Store<S,Cell>,~Product.Owner<Cell,Machines>,~U32,W.World{namespace,allocator,Rel.Store{store,graph},Product.Owner{resource,Machines{token,slot,calls}},events,pending,registrations,nextSystemId,clock})))
+    case (W.World{namespace,allocator,Rel.Store{store,graph},Product.Owner{resource,Machines{token,slot,+calls}},events,pending,registrations,nextSystemId,clock,lifecycle},outcome):graph_finished("graph="++graph_outcome(outcome)++" precalls="++U32.show(calls)++" retry=",save_graph(W.barrier(~S,~Rel.Store<S,Cell>,~Product.Owner<Cell,Machines>,~U32,W.World{namespace,allocator,Rel.Store{store,graph},Product.Owner{resource,Machines{token,slot,calls}},events,pending,registrations,nextSystemId,clock,lifecycle})))
 # Trusted graph setup below isolates save traversal, not relation validation.
 # The machine has committed value 4 and separately pending value 9.
 def graph_world() -> W.World<S,Rel.Store<S,Cell>,Product.Owner<Cell,Machines>,U32>:
-  W.World{30,Alloc.empty(),Rel.Store{Cell{ANode{ALeaf{101},ALeaf{102}},0,[]},G.Graph{[],[G.Inverse{descriptor(),K.EntityKey{1,0},[K.EntityKey{2,0},K.EntityKey{3,0}]}]}},Product.Owner{Cell{ANode{ALeaf{201},ALeaf{202}},0,[]},Machines{ANode{ALeaf{301},ALeaf{302}},M.Present{4,M.Queued{9,False{}},None{},False{}},0}},[],[],[],1,Clock.empty()}
+  W.World{30,Alloc.empty(),Rel.Store{Cell{ANode{ALeaf{101},ALeaf{102}},0,[]},G.Graph{[],[G.Inverse{descriptor(),K.EntityKey{1,0},[K.EntityKey{2,0},K.EntityKey{3,0}]}]}},Product.Owner{Cell{ANode{ALeaf{201},ALeaf{202}},0,[]},Machines{ANode{ALeaf{301},ALeaf{302}},M.Present{4,M.Queued{9,False{}},None{},False{}},0}},[],[],[],1,Clock.empty(),Notice.empty(~S,30)}
 def graph() -> String:
   graph_after_refusal(save_graph(W.enqueue(~S,~Rel.Store<S,Cell>,~Product.Owner<Cell,Machines>,~U32,graph_world(),world => world)))
 def refusing_basic(world:W.World<S,Rel.Store<S,Cell>,Product.Owner<Cell,Machines>,U32>) -> W.World<S,Rel.Store<S,Cell>,Product.Owner<Cell,Machines>,U32> & Data.Outcome<Data.Snapshot>:

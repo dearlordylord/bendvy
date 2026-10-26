@@ -1,4 +1,5 @@
 import Base
+import ./execution-lifecycle-notices.bend as Notice
 import ./world.bend as W
 import ./execution-state.bend as State
 import ./execution-system.bend as Sys
@@ -27,7 +28,7 @@ def meta_cursor(meta:Task.Meta) -> Maybe<&2,Tick.Tick>:
     case Task.Meta{_,_,_,_,cursor}:cursor
 def retick(~S:Data,~C:Type,~R:Type,scope:State.Scope<S,C,R>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>) -> State.Scope<S,C,R>:
   match scope:
-    case State.Scope{store,resource,handles,_,_}:State.Scope{store,resource,handles,tick,prior}
+    case State.Scope{store,resource,handles,_,_,+lifecycleView}:State.Scope{store,resource,handles,tick,prior,lifecycleView}
 def entered(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),~WC:Type,~WR:Type,meta:Task.Meta,local:Local,+id:U32,+allowed:Bool,result:W.World<S,WC,WR,E> & Tick.Tick) -> W.World<S,WC,WR,E> & (Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body> & List<&2,Permit>):
   match result:
     case (world,tick):(world,(Task.restored(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,meta,local),[Permit{id,allowed,tick}]))

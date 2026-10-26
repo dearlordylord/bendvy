@@ -139,8 +139,8 @@ def report_columns(rebuild:Col.Column<Game,Health> -> Resources -> World,resourc
     case (health,points):report_resource(rebuild(health),points,observed_resource(resource))
 def report_values(world:World,handles:List<&2,W.Handle<Game>>) -> World & List<&2,U32>:
   match world:
-    case W.World{ns,allocator,Store{health,decay},resource,events,pending,registrations,next,clock}:
-      report_columns(health=>resource=>W.World{ns,allocator,Store{health,decay},resource,events,pending,registrations,next,clock},resource,values_start(handles,health))
+    case W.World{ns,allocator,Store{health,decay},resource,events,pending,registrations,next,clock,lifecycle}:
+      report_columns(health=>resource=>W.World{ns,allocator,Store{health,decay},resource,events,pending,registrations,next,clock,lifecycle},resource,values_start(handles,health))
 def report_handles(result:World & List<&2,W.Handle<Game>>) -> World & List<&2,U32>:
   match result:
     case (world,handles):report_values(world,handles)

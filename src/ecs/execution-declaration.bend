@@ -12,6 +12,7 @@ type AccessKind is Data:
   ComponentAccess{}
   ResourceAccess{}
   ServiceAccess{}
+  LifecycleAccess{}
 type Access is Data:
   Access{key:String,kind:AccessKind,mode:Mode,permission:Permission}
 def keys(accesses:List<&2,Access>) -> List<&2,String>:
@@ -42,9 +43,11 @@ def requirement_key(kind:AccessKind,key:String) -> String:
     case ComponentAccess{}:"component/" ++ key
     case ResourceAccess{}:"resource/" ++ key
     case ServiceAccess{}:"service/" ++ key
+    case LifecycleAccess{}:"lifecycle/" ++ key
 def qualified(accesses:List<&2,Access>) -> List<&2,String>:
   match accesses:
     case []:[]
+    case Access{_,LifecycleAccess{},_,_} <> rest:qualified(rest)
     case Access{key,kind,_,_} <> rest:requirement_key(kind,key) <> qualified(rest)
 def requirement_keys(~S:Data,~C:Type,~R:Type,~Ops:Type -> Type,value:Declaration<S,C,R,Ops>) -> List<&2,String>:
   qualified(requirements(~S,~C,~R,~Ops,value))

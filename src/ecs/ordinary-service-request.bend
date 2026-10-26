@@ -1,4 +1,5 @@
 import Base
+import ./execution-lifecycle-notices.bend as Notice
 import ./clock-state.bend as Clock
 import ./capabilities.bend as Cap
 import ./ordinary-service-declaration.bend as Service
@@ -37,12 +38,12 @@ def slot_called(~S:Data,~R:Type,~P:Type,~Rest:Type,~Input:Type,~Output:Type,~ide
   match value:
     case (rest,Service.Missing{}):(put(rest,Service.Missing{}),Unavailable{input})
     case (rest,Service.BendvyReady{owner}):called(~R,~P,~Rest,~Input,~Output,~put,rest,call(owner,input))
-def world_called(~S:Data,~C:Type,~R:Type,~E:Data,~Input:Type,~Output:Type,+namespace:U32,allocator:Alloc.Allocator,store:C,+events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,value:R & RequestResult<Input,Output>) -> W.World<S,C,R,E> & RequestResult<Input,Output>:
+def world_called(~S:Data,~C:Type,~R:Type,~E:Data,~Input:Type,~Output:Type,+namespace:U32,allocator:Alloc.Allocator,store:C,+events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,value:R & RequestResult<Input,Output>,lifecycle:Notice.Journal<S>) -> W.World<S,C,R,E> & RequestResult<Input,Output>:
   match value:
-    case (resource,result):(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystem,clock},result)
+    case (resource,result):(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystem,clock,lifecycle},result)
 def request_world(~C:Type,~E:Data,~S:Data,~R:Type,~P:Type,~Rest:Type,~Input:Type,~Output:Type,~identity:Identity<S,Input,Output>,~take:R -> Rest & Service.Slot<P>,~put:Rest -> Service.Slot<P> -> R,~call:P -> Input -> P & Output,world:W.World<S,C,R,E>,input:Input) -> W.World<S,C,R,E> & RequestResult<Input,Output>:
   match world:
-    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystem,+clock}:world_called(~S,~C,~R,~E,~Input,~Output,namespace,allocator,store,events,pending,registrations,nextSystem,clock,slot_called(~S,~R,~P,~Rest,~Input,~Output,~identity,~take,~put,~call,input,take(resource)))
+    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystem,+clock,lifecycle}:world_called(~S,~C,~R,~E,~Input,~Output,namespace,allocator,store,events,pending,registrations,nextSystem,clock,slot_called(~S,~R,~P,~Rest,~Input,~Output,~identity,~take,~put,~call,input,take(resource)),lifecycle)
 def transaction_called(~S:Data,~C:Type,~R:Type,~E:Data,~Input:Type,~Output:Type,undo:List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,commands:List<Deferred.Command<W.World<S,C,R,E>>>,events:List<&2,E>,trace:Trace.State,value:W.World<S,C,R,E> & RequestResult<Input,Output>) -> T.Tx<W.World<S,C,R,E>,E> & RequestResult<Input,Output>:
   match value:
     case (world,result):(T.Tx{world,undo,commands,events,trace},result)
@@ -70,11 +71,11 @@ def slot_observed(~S:Data,~R:Type,~P:Type,~Rest:Type,~Input:Type,~Output:Type,~i
   match value:
     case (rest,Service.Missing{}):(put(rest,Service.Missing{}),[status(~S,~Input,~Output,identity,False{})])
     case (rest,Service.BendvyReady{owner}):(put(rest,Service.BendvyReady{owner}),[status(~S,~Input,~Output,identity,True{})])
-def world_observed_join(~S:Data,~C:Type,~R:Type,~E:Data,+namespace:U32,allocator:Alloc.Allocator,store:C,+events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,value:R & List<&2,Service.Status<S>>) -> W.World<S,C,R,E> & List<&2,Service.Status<S>>:
+def world_observed_join(~S:Data,~C:Type,~R:Type,~E:Data,+namespace:U32,allocator:Alloc.Allocator,store:C,+events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,value:R & List<&2,Service.Status<S>>,lifecycle:Notice.Journal<S>) -> W.World<S,C,R,E> & List<&2,Service.Status<S>>:
   match value:
-    case (resource,statuses):(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystem,clock},statuses)
+    case (resource,statuses):(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystem,clock,lifecycle},statuses)
 def world_observed(~C:Type,~E:Data,~S:Data,~R:Type,~P:Type,~Rest:Type,~Input:Type,~Output:Type,~identity:Identity<S,Input,Output>,~take:R -> Rest & Service.Slot<P>,~put:Rest -> Service.Slot<P> -> R,~call:P -> Input -> P & Output,~declaration:Declaration<S,R,P,Rest,Input,Output,identity,take,put,call>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & List<&2,Service.Status<S>>:
   match world:
-    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystem,+clock}:world_observed_join(~S,~C,~R,~E,namespace,allocator,store,events,pending,registrations,nextSystem,clock,slot_observed(~S,~R,~P,~Rest,~Input,~Output,~identity,~take,~put,~call,take(resource)))
+    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystem,+clock,lifecycle}:world_observed_join(~S,~C,~R,~E,namespace,allocator,store,events,pending,registrations,nextSystem,clock,slot_observed(~S,~R,~P,~Rest,~Input,~Output,~identity,~take,~put,~call,take(resource)),lifecycle)
 def setup(~C:Type,~E:Data,~S:Data,~R:Type,~P:Type,~Rest:Type,~Input:Type,~Output:Type,~identity:Identity<S,Input,Output>,~take:R -> Rest & Service.Slot<P>,~put:Rest -> Service.Slot<P> -> R,~call:P -> Input -> P & Output,~declaration:Declaration<S,R,P,Rest,Input,Output,identity,take,put,call>) -> Service.Setup<S,C,R,E,world_observed(~C,~E,~S,~R,~P,~Rest,~Input,~Output,~identity,~take,~put,~call,~declaration)>:
   Service.Setup{[declaration_entry(~S,~R,~P,~Rest,~Input,~Output,~identity,~take,~put,~call,declaration)]}

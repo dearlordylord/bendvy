@@ -8,7 +8,7 @@ import transaction.bend as T
 # The registered runner remains indexed by this closed provider selection.
 def map_store(~S:Data,~Store:Type,~R:Type,~E:Data,~map:Store -> Store,world:W.World<S,Store,R,E>) -> W.World<S,Store,R,E>:
   match world:
-    case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}: W.World{namespace,allocator,map(store),resource,events,pending,registrations,nextSystemId,clock}
+    case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,lifecycle}: W.World{namespace,allocator,map(store),resource,events,pending,registrations,nextSystemId,clock,lifecycle}
 def recovered(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,~recover:Store -> Store,result:Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
   match result:
     case Q.Executed{world,outcome,values}: Q.Executed{map_store(~S,~Store,~R,~E,~recover,world),outcome,values}

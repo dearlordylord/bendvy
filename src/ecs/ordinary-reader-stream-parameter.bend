@@ -450,23 +450,23 @@ def removal_release_world_checked(~S:Data,~C:Type,~R:Type,~P:Data,~Payload:Type,
   retained:Bool,world:W.World<S,C,R,Notice.Notice<S,P>>) -> W.World<S,C,R,Notice.Notice<S,P>>:
   match retained world:
     case True{} world:world
-    case False{} W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:
+    case False{} W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,lifecycle}:
       W.World{namespace,allocator,store,resource,
-        removal_events_kept(~S,~P,~Payload,~select,events),pending,registrations,nextSystemId,clock}
+        removal_events_kept(~S,~P,~Payload,~select,events),pending,registrations,nextSystemId,clock,lifecycle}
 def removal_world_retained(~S:Data,~C:Type,~R:Type,~P:Data,
   world:W.World<S,C,R,Notice.Notice<S,P>>) -> W.World<S,C,R,Notice.Notice<S,P>> & Bool:
   match world:
-    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
-      (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},
+    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock,lifecycle}:
+      (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,lifecycle},
         removal_registration_remains(registrations))
 def removal_release_world(~S:Data,~C:Type,~R:Type,~P:Data,~Payload:Type,
   ~select:Notice.Notice<S,P> -> Maybe<&2,Rm.Record<S,Identity.Declaration<S,Payload>>>,
   world:W.World<S,C,R,Notice.Notice<S,P>>) -> W.World<S,C,R,Notice.Notice<S,P>>:
   match world:
-    case W.World{namespace,allocator,store,resource,events,pending,+registrations,nextSystemId,clock}:
+    case W.World{namespace,allocator,store,resource,events,pending,+registrations,nextSystemId,clock,lifecycle}:
       removal_release_world_checked(~S,~C,~R,~P,~Payload,~select,
         removal_registration_remains(registrations),
-        W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock})
+        W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,lifecycle})
 
 def removal_publication_selected_value(~S:Data,~P:Data,~Payload:Type,
   selected:Maybe<&2,Rm.Record<S,Identity.Declaration<S,Payload>>>) -> Bool:

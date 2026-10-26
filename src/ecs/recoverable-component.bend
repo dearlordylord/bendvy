@@ -1,4 +1,5 @@
 import Base
+import ./execution-lifecycle-notices.bend as Notice
 import ./clock-state.bend as Clock
 import ./deferred-command.bend as Deferred
 import entity-key.bend as Key
@@ -41,17 +42,17 @@ def undo_stamped(~S:Data,~P:Type,+handle:W.Handle<S>,stamp:Life.Stamp,payload:Ma
 def undo_column(~S:Data,~P:Type,+handle:W.Handle<S>,stamp:Life.Stamp,payload:Maybe<P>,column:Col.Column<S,P>) -> Col.Column<S,P> & Record<S,P>:
   match handle:
     case W.Handle{_,Key.EntityKey{id,_}}:undo_stamped(~S,~P,handle,stamp,payload,Col.lifecycle(~S,~P,column,id))
-def undone(~S:Data,~P:Type,~R:Type,~E:Data,ns:U32,allocator:Alloc.Allocator,resource:R,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,Col.Column<S,P>,R,E>>>,regs:List<&2,W.RegistrationMeta>,sid:U32,clock:Clock.State,result:Col.Column<S,P> & Record<S,P>) -> W.World<S,Col.Column<S,P>,R,E> & Record<S,P>:
+def undone(~S:Data,~P:Type,~R:Type,~E:Data,ns:U32,allocator:Alloc.Allocator,resource:R,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,Col.Column<S,P>,R,E>>>,regs:List<&2,W.RegistrationMeta>,sid:U32,clock:Clock.State,result:Col.Column<S,P> & Record<S,P>,lifecycle:Notice.Journal<S>) -> W.World<S,Col.Column<S,P>,R,E> & Record<S,P>:
   match result:
-    case (column,record):(W.World{ns,allocator,column,resource,events,pending,regs,sid,clock},record)
+    case (column,record):(W.World{ns,allocator,column,resource,events,pending,regs,sid,clock,lifecycle},record)
 # Trusted inverse: ordinary grants never alter allocation/live state or inject
 # records. Canonical ensure preserves every cell and covers the saved live id;
 # undo restores its exact stamp and returns the displaced owner with its own
 # pre-undo stamp. World clock and every unrelated owner remain unchanged.
 def undo_valid(~S:Data,~P:Type,~R:Type,~E:Data,record:Record<S,P>,world:W.World<S,Col.Column<S,P>,R,E>) -> W.World<S,Col.Column<S,P>,R,E> & Record<S,P>:
   match record world:
-    case Record{handle,stamp,payload},W.World{ns,allocator,column,resource,events,pending,regs,sid,clock}:
-      undone(~S,~P,~R,~E,ns,allocator,resource,events,pending,regs,sid,clock,undo_column(~S,~P,handle,stamp,payload,column))
+    case Record{handle,stamp,payload},W.World{ns,allocator,column,resource,events,pending,regs,sid,clock,lifecycle}:
+      undone(~S,~P,~R,~E,ns,allocator,resource,events,pending,regs,sid,clock,undo_column(~S,~P,handle,stamp,payload,column),lifecycle)
 
 # Invalid raw records remain intact; ordinary journal records use the accepted
 # path because component operations cannot change namespace or entity liveness.

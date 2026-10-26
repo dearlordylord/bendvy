@@ -107,7 +107,7 @@ def record_text(~S:Data,value:Record) -> String:
     case Record{_,_,text}:text
 def world(~S:Data,world:W.World<S,Store(~S),Resources(~S),Unit>) -> String:
   match world:
-    case W.World{namespace,allocator,Product.Owner{store,_},Product.Owner{resource,_},events,pending,registrations,next,clock}:"namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ Observe.allocator(allocator) ++ "};" ++ QueryObserve.store(~S,store) ++ ";resource=" ++ QueryObserve.resource(~S,resource) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";legacy-pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<S,Store(~S),Resources(~S),Unit>>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,Observe.registration,registrations) ++ ";next=" ++ U32.show(next) ++ ";clock=" ++ Observe.clock(clock)
+    case W.World{namespace,allocator,Product.Owner{store,_},Product.Owner{resource,_},events,pending,registrations,next,clock,lifecycle}:"namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ Observe.allocator(allocator) ++ "};" ++ QueryObserve.store(~S,store) ++ ";resource=" ++ QueryObserve.resource(~S,resource) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";legacy-pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<S,Store(~S),Resources(~S),Unit>>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,Observe.registration,registrations) ++ ";next=" ++ U32.show(next) ++ ";clock=" ++ Observe.clock(clock)
 def event(~S:Data,value:Exec.Observation<String,String>) -> String:
   match value:
     case Exec.Ran{id,out}:"ran:" ++ U32.show(id) ++ ":" ++ out

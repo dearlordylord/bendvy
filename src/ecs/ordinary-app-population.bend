@@ -1,4 +1,5 @@
 import Base
+import ./execution-lifecycle-notices.bend as Notice
 import ./clock-state.bend as Clock
 import ./deferred-command.bend as Deferred
 import entity-allocator.bend as Alloc
@@ -42,12 +43,12 @@ def attached(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World
 def enabled(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,app:Application<S,C,R,E,H,Rows,observe,fold,count>,flag:Bool) -> Application<S,C,R,E,H,Rows,observe,fold,count>:
   match app:
     case Application{app}:Application{SchemaApp.enabled(~S,~C,~R,~E,~H,~Rows,~observe,~fold,app,flag)}
-def counted(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,+schema:Schema.Schema<S,C,R>,owners:H,recipe:Tree.Recipe<W.World<S,C,R,E>,Rows,observe>,alive:U32,namespace:U32,allocator:Alloc.Allocator,resource:R,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:Clock.State,result:C & List<&2,Maybe<&2,U32>>) -> Application<S,C,R,E,H,Rows,observe,fold,count> & Maybe<&2,Population>:
+def counted(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,+schema:Schema.Schema<S,C,R>,owners:H,recipe:Tree.Recipe<W.World<S,C,R,E>,Rows,observe>,alive:U32,namespace:U32,allocator:Alloc.Allocator,resource:R,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:Clock.State,result:C & List<&2,Maybe<&2,U32>>,lifecycle:Notice.Journal<S>) -> Application<S,C,R,E,H,Rows,observe,fold,count> & Maybe<&2,Population>:
   match result:
-    case (store,slots):(Application{SchemaApp.Application{schema,Build.Registered{W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},owners,recipe,True{}}}},Some{Population{alive,rows(~S,List.zip(&2,Fragment.Entry<S>,&2,Maybe<&2,U32>,Fragment.bare_entries(~S,Schema.entries(~S,~C,~R,schema)),slots))}})
+    case (store,slots):(Application{SchemaApp.Application{schema,Build.Registered{W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,lifecycle},owners,recipe,True{}}}},Some{Population{alive,rows(~S,List.zip(&2,Fragment.Entry<S>,&2,Maybe<&2,U32>,Fragment.bare_entries(~S,Schema.entries(~S,~C,~R,schema)),slots))}})
 def scanned(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,schema:Schema.Schema<S,C,R>,owners:H,recipe:Tree.Recipe<W.World<S,C,R,E>,Rows,observe>,result:W.World<S,C,R,E> & List<&2,W.Handle<S>>) -> Application<S,C,R,E,H,Rows,observe,fold,count> & Maybe<&2,Population>:
   match result:
-    case (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},+handles):counted(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~count,schema,owners,recipe,U32.from_nat(List.length(&2,W.Handle<S>,handles)),namespace,allocator,resource,events,pending,registrations,nextSystemId,clock,count(store,handles))
+    case (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,lifecycle},+handles):counted(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~count,schema,owners,recipe,U32.from_nat(List.length(&2,W.Handle<S>,handles)),namespace,allocator,resource,events,pending,registrations,nextSystemId,clock,count(store,handles),lifecycle)
 # Return the App with Some detached population only when debug is enabled;
 # disabled returns None without traversal. Enabled scans live handles and
 # preserves storage owners through the count callback. Registered query/event

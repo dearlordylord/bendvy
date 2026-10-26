@@ -1,4 +1,5 @@
 import Base
+import ./execution-lifecycle-notices.bend as Notice
 import ./clock-state.bend as Clock
 import ./deferred-command.bend as Deferred
 import entity-key.bend as Key
@@ -42,12 +43,12 @@ def enabled(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<
 # inputs under SchemaApp.create; this does not attach a registered dump App.
 def create(~S:Data,~C:Type,~R:Type,~E:Data,~empty:Unit -> C,schema:Schema.Schema<S,C,R>,factory:W.Factory,resource:R) -> Schema.Schema<S,C,R> & W.Creation<S,C,R,E>:
   SchemaApp.create(~S,~C,~R,~E,~empty,schema,factory,resource)
-def resource_returned(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,allocator:Alloc.Allocator,store:C,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:Clock.State,result:R & List<&2,Maybe<&2,String>>) -> W.World<S,C,R,E> & List<&2,Maybe<&2,String>>:
+def resource_returned(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,allocator:Alloc.Allocator,store:C,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:Clock.State,result:R & List<&2,Maybe<&2,String>>,lifecycle:Notice.Journal<S>) -> W.World<S,C,R,E> & List<&2,Maybe<&2,String>>:
   match result:
-    case (resource,slots):(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},slots)
+    case (resource,slots):(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,lifecycle},slots)
 def resource_world(~S:Data,~C:Type,~R:Type,~E:Data,~read:R -> R & List<&2,Maybe<&2,String>>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & List<&2,Maybe<&2,String>>:
   match world:
-    case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:resource_returned(~S,~C,~R,~E,namespace,allocator,store,events,pending,registrations,nextSystemId,clock,read(resource))
+    case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,lifecycle}:resource_returned(~S,~C,~R,~E,namespace,allocator,store,events,pending,registrations,nextSystemId,clock,read(resource),lifecycle)
 def finished(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,~components:C -> U32 -> C & List<&2,Maybe<&2,String>>,~resources:R -> R & List<&2,Maybe<&2,String>>,+schema:Schema.Schema<S,C,R>,owners:H,recipe:Tree.Recipe<W.World<S,C,R,E>,Rows,observe>,alive:U32,rows:List<&2,Filter.Row<S>>,result:W.World<S,C,R,E> & List<&2,Maybe<&2,String>>) -> Application<S,C,R,E,H,Rows,observe,fold,count,components,resources> & Maybe<&2,Dump<S>>:
   match result:
     case (world,slots):(Application{schema,Build.Registered{world,owners,recipe,True{}}},Some{Dump{alive,rows,Render.resources(~S,List.zip(&2,Fragment.Entry<S>,&2,Maybe<&2,String>,Fragment.bare_entries(~S,Schema.entries(~S,~C,~R,schema)),slots))}})
