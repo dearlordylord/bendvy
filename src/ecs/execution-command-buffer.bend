@@ -34,4 +34,3 @@ def pending(~S:Data,~P:Type,buffer:Buffer<S,P>) -> Buffer<S,P> & Bool:
 def take_receipts(~S:Data,~P:Type,buffer:Buffer<S,P>) -> Buffer<S,P> & List<Receipt<S,P>>:
   match buffer:
     case Buffer{pending,receipts}:(Buffer{pending,[]},List.reverse(&1,Receipt<S,P>,receipts))
-
