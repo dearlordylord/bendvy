@@ -67,3 +67,9 @@ def resource_read(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Produ
   D.Declaration{ResourceRead{resource_get(~S,~C,~R,~P,~Rest,~V,~lens,~project)},[Schema.resource_key(~S,~P,identity)]}
 def resource_write(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,~project:P -> P & V,identity:Schema.Resource<S,P>) -> D.Declaration<S,C,R,ResourceWrites(~P,~V)>:
   D.Declaration{ResourceWrite{resource_get(~S,~C,~R,~P,~Rest,~V,~lens,~project),resource_modify(~S,~C,~R,~P,~Rest,~V,~lens)},[Schema.resource_key(~S,~P,identity)]}
+def component_modify_field(~S:Data,~H:Type,~P:Type,~V:Data,cap:ComponentWrite<S,H,P,V>) -> @-transform:(P -> P & V) -> H -> W.Handle<S> -> H & Maybe<&2,V>:
+  match cap:
+    case ComponentWrite{_,modify}:modify
+def resource_modify_field(~H:Type,~P:Type,~V:Data,cap:ResourceWrite<H,P,V>) -> @-transform:(P -> P & V) -> H -> H & V:
+  match cap:
+    case ResourceWrite{_,modify}:modify

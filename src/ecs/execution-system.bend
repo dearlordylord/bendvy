@@ -51,3 +51,7 @@ def observed_namespace(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:
 def run(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:D.Declaration<S,C,R,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Completion<Error,Out>),system:Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>,world:W.World<S,C,R,E>) -> RunResult<W.World<S,C,R,E>,Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>:
   match system:
     case Owner{+namespace,id,name,access,cursor,local}:observed_namespace(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,namespace,Owner{namespace,id,name,access,cursor,local},W.namespace(~S,~C,~R,~E,world))
+
+def metadata(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:D.Declaration<S,C,R,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Completion<Error,Out>),system:Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>) -> Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body> & W.RegistrationMeta:
+  match system:
+    case Owner{+namespace,+id,+name,+access,cursor,local}:(Owner{namespace,id,name,access,cursor,local},W.RegistrationMeta{id,name,access})
