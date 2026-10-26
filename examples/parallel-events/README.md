@@ -40,6 +40,11 @@ removal, a genuine foreign-log refusal, publication refusal after shutdown,
 retired/shutdown owners reused twice, the canonical cache, final cursor owners,
 access metadata, condition and peer counts, and preserved handler capture.
 `expected.stdout` contains the complete eight-line result, not a checksum.
+The source-shared concrete entries in `cases/` preserve the full five-pass state
+and both schedule routes while bounding native compiler fanout. Their separate
+oracles account for each fresh executable's allocator. The additional Future-fast
+case observes newly published row 2 immediately after the publisher's handled
+error in the same schedule pass, then resumes at row 3 on the next pass.
 
 ## Bevy behavior
 
@@ -68,5 +73,6 @@ Finite observations do not establish universal correctness or host refinement.
 
 `check.sh` uses the existing `common.sh` build and execution path. It checks source
 controls, repeats complete JavaScript observations, and optionally builds native
-code and repeats the complete oracle with one and four workers. Its first launch
+code for each complete concrete case and repeats its full oracle with one and
+four workers. Its first launch
 requires the repository's independent runner launch review.

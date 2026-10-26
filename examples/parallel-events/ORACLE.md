@@ -44,3 +44,24 @@ LayoutAccess.resource_read source after the first backend diagnostic exposed an
 incorrect SharedView assumption. All semantic observations were already fixed
 before capture. There is no second
 event conflict catalog. Publication is observed before any structural barrier.
+
+## Bounded concrete backend entries
+
+Each `cases/{A,B}-{affine,data}.bend` uses the same generic five-pass scenario.
+Only the concrete nominal schema and payload projector change. Each separate
+executable starts a fresh host allocator, so its two primary identities are 1
+and 3 for its serial and native schedule entries. The case oracles retain every
+observation above. The original A-affine oracle remains exactly 2816 bytes.
+Splitting the entry bounds compiler monomorphization fanout; it does not split
+semantic state, reduce five-pass behavior, or omit either schedule route.
+
+The additional `A-affine-future.bend` creates the fast reader at Future after
+setup row 1. Its pass-one read therefore yields newly published row 2=101 after
+the publisher has returned its handled error in that same pass. Pass two resumes
+at row 3=102. Pass three yields row 4=103 with zero missed messages. Fast history
+is `[item2=101/missed0, item3=102/missed0, item4=103/missed0,
+empty/missed0, closed]`. Its final cursor is still 4. All other tokens, actual
+owners, handler counts, metadata, and admin operations equal the original case.
+This oracle was derived before its first backend capture. It directly observes
+same-pass dependency visibility and excludes a successful-transaction-only or
+structural-barrier-only send policy.

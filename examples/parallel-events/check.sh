@@ -43,13 +43,20 @@ for repetition in 1 2; do
   example_node "$example_output/main.js" > "$example_output/js$repetition.stdout"
   diff -u examples/parallel-events/expected.stdout "$example_output/js$repetition.stdout"
 done
+example_emit examples/parallel-events/cases/A-affine-future.bend "$example_output/future.js"
+for repetition in 1 2; do
+  example_node "$example_output/future.js" > "$example_output/future$repetition.stdout"
+  diff -u examples/parallel-events/cases/A-affine-future.expected.stdout "$example_output/future$repetition.stdout"
+done
 if [[ ${BENDVY_EXAMPLE_NATIVE:-0} == 1 ]]; then
-  example_emit examples/parallel-events/main.bend "$example_output/main.c"
-  timeout --signal=KILL 120s "${example_cpu[@]}" "$CLANG" -O3 "$example_output/main.c" -o "$example_output/main.native" -pthread -lm
-  for workers in 1 4; do
-    for repetition in 1 2; do
-      timeout --signal=KILL 5s "${example_cpu[@]}" "$example_output/main.native" --threads "$workers" --gpu off > "$example_output/native$workers-$repetition.stdout"
-      diff -u examples/parallel-events/expected.stdout "$example_output/native$workers-$repetition.stdout"
+  for case_name in A-affine B-affine A-data B-data A-affine-future; do
+    example_emit "examples/parallel-events/cases/$case_name.bend" "$example_output/$case_name.c"
+    timeout --signal=KILL 120s "${example_cpu[@]}" "$CLANG" -O3 "$example_output/$case_name.c" -o "$example_output/$case_name.native" -pthread -lm
+    for workers in 1 4; do
+      for repetition in 1 2; do
+        timeout --signal=KILL 5s "${example_cpu[@]}" "$example_output/$case_name.native" --threads "$workers" --gpu off > "$example_output/$case_name-native$workers-$repetition.stdout"
+        diff -u "examples/parallel-events/cases/$case_name.expected.stdout" "$example_output/$case_name-native$workers-$repetition.stdout"
+      done
     done
   done
 fi
