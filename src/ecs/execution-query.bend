@@ -65,11 +65,9 @@ def layout_declaration(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layo
 # abstract to gameplay, including when it is the framework command-buffer owner.
 def OutputBody(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data) -> Type:
   W.Handle<S> -> Layout.query_view(layout,route) -> Layout.query_output(layout,route) -> O -> Layout.query_output(layout,route) & (O & Maybe<&2,E>)
-def OutputCall(~S:Data,~H:Type,~layout:Layout.Layout,~route:Layout.Route,~E:Data) -> Type:
-  @-O:Type -> @-split:(O -> O & O) -> @-merge:(O -> O -> O) -> @-body:OutputBody(~S,~layout,~route,~O,~E) -> H -> O -> H & (O & Report<E>)
-type OutputEach<-S:Data,-H:Type,-layout:Layout.Layout,-route:Layout.Route,-E:Data> is Type:
-  OutputEach{run:OutputCall(~S,~H,~layout,~route,~E)}
-def OutputOps(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~E:Data,H:Type) -> Type:OutputEach<S,H,layout,route,E>
+type OutputEach<-S:Data,-H:Type,-O:Type,-E:Data> is Type:
+  OutputEach{run:H -> O -> H & (O & Report<E>)}
+def OutputOps(~S:Data,~O:Type,~E:Data,H:Type) -> Type:OutputEach<S,H,O,E>
 def handle_choice(~S:Data,handle:W.Handle<S>,rest:Maybe<&2,W.Handle<S>>,same:Bool) -> Maybe<&2,W.Handle<S>>:
   match same:
     case True{}:Some{handle}
@@ -94,11 +92,11 @@ def mode_parallel(mode:Mode) -> Bool:
   match mode:
     case Serial{}:False{}
     case Parallel{}:True{}
-def output_invoke(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~E:Data,~mode:Mode,~O:Type,~split:O -> O & O,~merge:O -> O -> O,~body:OutputBody(~S,~layout,~route,~O,~E),scope:State.Scope<S,C,R>,output:O) -> State.Scope<S,C,R> & (O & Report<E>):
+def output_invoke(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:OutputBody(~S,~layout,~route,~O,~E),mode:Mode,scope:State.Scope<S,C,R>,output:O) -> State.Scope<S,C,R> & (O & Report<E>):
   match scope:
     case State.Scope{store,resource,handles,tick}:output_taken(~S,~C,~R,~layout,~route,~same,~shape,~O,~E,~split,~merge,~body,output,resource,handles,tick,mode_parallel(mode),layout_take(~S,~C,~layout,~route,~same,~shape,store))
-def output_declaration(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~E:Data,~mode:Mode) -> D.Declaration<S,C,R,OutputOps(~S,~layout,~route,~E)>:
-  D.Declaration{OutputEach{output_invoke(~S,~C,~R,~layout,~route,~same,~shape,~E,~mode)},[D.Access{Layout.query_read_key(layout,route),D.ComponentAccess{},D.Exclusive{},D.ReadOnly{}},D.Access{Layout.query_write_key(layout,route),D.ComponentAccess{},D.Exclusive{},D.Writable{}}]}
-def each_output(~S:Data,~H:Type,~layout:Layout.Layout,~route:Layout.Route,~E:Data,cap:OutputEach<S,H,layout,route,E>) -> OutputCall(~S,~H,~layout,~route,~E):
+def output_declaration(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:OutputBody(~S,~layout,~route,~O,~E),mode:Mode) -> D.Declaration<S,C,R,OutputOps(~S,~O,~E)>:
+  D.Declaration{OutputEach{output_invoke(~S,~C,~R,~layout,~route,~same,~shape,~O,~E,~split,~merge,~body,mode)},[D.Access{Layout.query_read_key(layout,route),D.ComponentAccess{},D.Exclusive{},D.ReadOnly{}},D.Access{Layout.query_write_key(layout,route),D.ComponentAccess{},D.Exclusive{},D.Writable{}}]}
+def each_output(~S:Data,~H:Type,~O:Type,~E:Data,cap:OutputEach<S,H,O,E>) -> H -> O -> H & (O & Report<E>):
   match cap:
     case OutputEach{run}:run
