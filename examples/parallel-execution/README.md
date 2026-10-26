@@ -40,3 +40,31 @@ source-bound backend evidence, affected normal checks and applicable law process
 complete. This fixture does not establish native concurrency, universal owner
 preservation, shared-read purity or completed issue #78 acceptance. The remaining
 ordinary consumers still require migration through the later #77 slices.
+
+Ordinary registration now accepts `execution-builder.Program` instead of a raw
+capability/catalog pair. The declaration is polymorphic over both its hidden
+scope and affine metadata accumulator. Builder grant primitives return the
+updated accumulator together with their capability, so retaining a generated
+grant while discarding its recorded access requires reusing the consumed old
+accumulator. Controls reject that reuse, fabricating an empty accumulator and
+injecting a getter for the concrete scope. The raw declaration constructor is
+an internal lowering shape and is rejected at the ordinary App entry.
+
+Physical schema adapters remain a separate trusted boundary. The builder
+currently accepts typed product lenses and nominal identities from provisioning;
+it does not prove that an arbitrary user-authored lens corresponds to its key.
+Schema-derived identity/path coupling remains required follow-up work. Structural
+owner partitioning must remain the parallel executor's safety invariant regardless
+of metadata names.
+
+`check.sh` uses the shared example runner, checks the positive and negative
+controls, and compares the complete finite output with `expected.stdout`. Set
+`BENDVY_EXAMPLE_NATIVE=1` to include native runs with one and four workers. The
+observation enumerates every physical slot and lifecycle stamp in both columns,
+allocator slots/free/order/progress, registrations, clock/scopes, queue and event
+counts, resource owners, system metadata/cursor, Local and the refused foreign
+World. Empty queues and Unit events have no omitted payload observations.
+The expected output derives from three one-step movements and three ten-step
+counter increments, including the second run's error, plus unchanged sparse
+membership and the foreign World's refused invocation. Its independent review
+is part of the final verification gate.
