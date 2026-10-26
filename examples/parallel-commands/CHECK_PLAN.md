@@ -6,8 +6,10 @@ command-program specialization `368471370`, with native checks enabled. Positive
 sources, all five intended authority refusals, independent oracle regeneration,
 and complete plan/ordinary/visibility output comparisons passed on JS and native
 one/four. This is normal example validation, not a qualification packet.
-The independent invalid-configuration consumer is source/JS checked separately;
-it is not yet included in the reviewed runner.
+The successor runner adds independent invalid-configuration and foreign retry
+consumers to the same bounded checks. That runner delta awaits independent launch
+review and has not run. Their direct existing-tool development runs are recorded
+separately.
 
 The wrapper uses the existing common example lock and tool environment. It adds
 no collector, tool discovery, dependency installation or reference execution.
@@ -17,8 +19,8 @@ existing 120-second limit and each native run the existing five seconds.
 
 It checks the registered-command positive source and five intended authority
 refusals, requiring exit 1 and both expected/observed type diagnostics. It
-recomputes the two independent expected files without importing Bend source or
-observations, then compares complete JS output for all three consumers. With
+recomputes the four independent expected files without importing Bend source or
+observations, then compares complete JS output for all five consumers. With
 `BENDVY_EXAMPLE_NATIVE=1`, it compares complete native output at one/four workers.
 The Bevy Cargo development reference is retained separately and is not launched
 by this normal example check.
@@ -28,10 +30,12 @@ retained affine queue payloads, handled body errors, default final application
 and final suppression on actual native and serial entry points. The visibility
 consumer covers remove/insert receipts, automatic barriers before dependent
 conditions, ignored edges, explicit barriers, global automatic suppression,
-final suppression and repeated runs. Native entry equality does not establish
+final suppression and repeated runs. The added consumers cover rejection of
+unknown, duplicate and conditioned explicit barriers before owner mutation, and
+foreign-World refusal retaining actual queue owners until one original-World
+retry. Native entry equality does not establish
 multiple-worker participation.
 
-Remaining acceptance includes native invalid-configuration coverage, foreign-owner retry,
-capacity boundaries, broader existing-entity commands, query worker buffers,
+Remaining acceptance includes capacity boundaries, broader existing-entity commands, query worker buffers,
 qualified canonical receipts and independent implementation review. No law
 approval or proof follows from this package.

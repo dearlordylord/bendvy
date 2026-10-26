@@ -29,11 +29,11 @@ reject_source escape-buffer 'B.Buffer' 'bad~Q'
 reject_source duplicate-buffer 'queue' 'consumed more than once'
 reject_source plain-leaf 'execution-system.Owner' 'Cmd.Owner'
 reject_source undeclared-family 'P.Token' 'Other'
-for consumer in ordinary visibility; do
+for consumer in ordinary visibility invalid foreign; do
   python3 "examples/parallel-commands/$consumer-reference.py" > "$example_output/$consumer.expected.stdout"
   diff -u "examples/parallel-commands/$consumer.expected.stdout" "$example_output/$consumer.expected.stdout"
 done
-for consumer in plan ordinary main; do
+for consumer in plan ordinary main invalid foreign; do
   expected=$consumer
   if [[ $consumer == main ]]; then expected=visibility; fi
   check_source "$consumer.bend"
