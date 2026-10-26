@@ -2,10 +2,12 @@ import Base
 import ./chunk-column.bend as Column
 import ./owner-product.bend as Product
 import ./lifecycle.bend as Lifecycle
+import ./schema-fragments.bend as Fragment
 
 type Layout is Type:
   EmptyLayout{}
   LayoutLeaf{P:Type,key:String}
+  ClassifiedLayoutLeaf{P:Type,key:String,persistence:Fragment.PersistenceKind}
   LayoutPair{left:Layout,right:Layout}
 type Route is Data:
   AtLeaf{}
@@ -19,27 +21,32 @@ def columns(~S:Data,layout:Layout) -> Type:
   match layout:
     case EmptyLayout{}:Unit
     case LayoutLeaf{P,key}:ColumnSlot<S,P,key>
+    case ClassifiedLayoutLeaf{P,key,_}:ColumnSlot<S,P,key>
     case LayoutPair{left,right}:Product.Owner<columns(~S,left),columns(~S,right)>
 def resources(~S:Data,layout:Layout) -> Type:
   match layout:
     case EmptyLayout{}:Unit
     case LayoutLeaf{P,key}:ResourceSlot<S,P,key>
+    case ClassifiedLayoutLeaf{P,key,_}:ResourceSlot<S,P,key>
     case LayoutPair{left,right}:Product.Owner<resources(~S,left),resources(~S,right)>
 def payload(layout:Layout,route:Route) -> Type:
   match layout route:
     case LayoutLeaf{P,_} AtLeaf{}:P
+    case ClassifiedLayoutLeaf{P,_,_} AtLeaf{}:P
     case LayoutPair{left,_} InLeft{rest}:payload(left,rest)
     case LayoutPair{_,right} InRight{rest}:payload(right,rest)
     case _ _:Unit
 def key(layout:Layout,route:Route) -> String:
   match layout route:
     case LayoutLeaf{_,key} AtLeaf{}:key
+    case ClassifiedLayoutLeaf{_,key,_} AtLeaf{}:key
     case LayoutPair{left,_} InLeft{rest}:key(left,rest)
     case LayoutPair{_,right} InRight{rest}:key(right,rest)
     case _ _:""
 def valid(layout:Layout,route:Route) -> Bool:
   match layout route:
     case LayoutLeaf{_,_} AtLeaf{}:True{}
+    case ClassifiedLayoutLeaf{_,_,_} AtLeaf{}:True{}
     case LayoutPair{left,_} InLeft{rest}:valid(left,rest)
     case LayoutPair{_,right} InRight{rest}:valid(right,rest)
     case _ _:False{}
@@ -49,10 +56,12 @@ def empty_columns(~S:Data,layout:Layout) -> columns(~S,layout):
   match layout:
     case EmptyLayout{}:Unit{}
     case LayoutLeaf{P,key}:ColumnSlot{empty_column(S,P)}
+    case ClassifiedLayoutLeaf{P,key,_}:ColumnSlot{empty_column(S,P)}
     case LayoutPair{left,right}:Product.Owner{empty_columns(~S,left),empty_columns(~S,right)}
 def column_rest(~S:Data,layout:Layout,route:Route) -> Type:
   match layout route:
     case LayoutLeaf{_,_} AtLeaf{}:Unit
+    case ClassifiedLayoutLeaf{_,_,_} AtLeaf{}:Unit
     case LayoutPair{left,right} InLeft{rest}:columns(~S,right) & column_rest(~S,left,rest)
     case LayoutPair{left,right} InRight{rest}:columns(~S,left) & column_rest(~S,right,rest)
     case layout _:columns(~S,layout)
@@ -63,8 +72,11 @@ def column_take(~S:Data,layout:Layout,route:Route,owner:columns(~S,layout)) -> c
   match layout route owner:
     case EmptyLayout{} _ owner:(owner,ColumnSlot{Column.empty(~S,~Unit)})
     case LayoutLeaf{P,key} AtLeaf{} owner:(Unit{},owner)
+    case ClassifiedLayoutLeaf{P,key,_} AtLeaf{} owner:(Unit{},owner)
     case LayoutLeaf{P,key} InLeft{_} owner:(owner,ColumnSlot{Column.empty(~S,~Unit)})
+    case ClassifiedLayoutLeaf{P,key,_} InLeft{_} owner:(owner,ColumnSlot{Column.empty(~S,~Unit)})
     case LayoutLeaf{P,key} InRight{_} owner:(owner,ColumnSlot{Column.empty(~S,~Unit)})
+    case ClassifiedLayoutLeaf{P,key,_} InRight{_} owner:(owner,ColumnSlot{Column.empty(~S,~Unit)})
     case LayoutPair{left,right} AtLeaf{} owner:(owner,ColumnSlot{Column.empty(~S,~Unit)})
     case LayoutPair{left,right} InLeft{rest} Product.Owner{l,r}:column_joined(~S,payload(left,rest),key(left,rest),columns(~S,right),column_rest(~S,left,rest),r,column_take(~S,left,rest,l))
     case LayoutPair{left,right} InRight{rest} Product.Owner{l,r}:column_joined(~S,payload(right,rest),key(right,rest),columns(~S,left),column_rest(~S,right,rest),l,column_take(~S,right,rest,r))
@@ -72,14 +84,18 @@ def column_put(~S:Data,layout:Layout,route:Route,rest:column_rest(~S,layout,rout
   match layout route rest:
     case EmptyLayout{} _ rest:rest
     case LayoutLeaf{P,key} AtLeaf{} _:slot
+    case ClassifiedLayoutLeaf{P,key,_} AtLeaf{} _:slot
     case LayoutLeaf{P,key} InLeft{_} rest:rest
+    case ClassifiedLayoutLeaf{P,key,_} InLeft{_} rest:rest
     case LayoutLeaf{P,key} InRight{_} rest:rest
+    case ClassifiedLayoutLeaf{P,key,_} InRight{_} rest:rest
     case LayoutPair{left,right} AtLeaf{} rest:rest
     case LayoutPair{left,right} InLeft{path}, (outer,inner):Product.Owner{column_put(~S,left,path,inner,slot),outer}
     case LayoutPair{left,right} InRight{path}, (outer,inner):Product.Owner{outer,column_put(~S,right,path,inner,slot)}
 def resource_rest(~S:Data,layout:Layout,route:Route) -> Type:
   match layout route:
     case LayoutLeaf{_,_} AtLeaf{}:Unit
+    case ClassifiedLayoutLeaf{_,_,_} AtLeaf{}:Unit
     case LayoutPair{left,right} InLeft{rest}:resources(~S,right) & resource_rest(~S,left,rest)
     case LayoutPair{left,right} InRight{rest}:resources(~S,left) & resource_rest(~S,right,rest)
     case layout _:resources(~S,layout)
@@ -90,8 +106,11 @@ def resource_take(~S:Data,layout:Layout,route:Route,owner:resources(~S,layout)) 
   match layout route owner:
     case EmptyLayout{} _ owner:(owner,ResourceSlot{Unit{}})
     case LayoutLeaf{P,key} AtLeaf{} owner:(Unit{},owner)
+    case ClassifiedLayoutLeaf{P,key,_} AtLeaf{} owner:(Unit{},owner)
     case LayoutLeaf{P,key} InLeft{_} owner:(owner,ResourceSlot{Unit{}})
+    case ClassifiedLayoutLeaf{P,key,_} InLeft{_} owner:(owner,ResourceSlot{Unit{}})
     case LayoutLeaf{P,key} InRight{_} owner:(owner,ResourceSlot{Unit{}})
+    case ClassifiedLayoutLeaf{P,key,_} InRight{_} owner:(owner,ResourceSlot{Unit{}})
     case LayoutPair{left,right} AtLeaf{} owner:(owner,ResourceSlot{Unit{}})
     case LayoutPair{left,right} InLeft{rest} Product.Owner{l,r}:resource_joined(~S,payload(left,rest),key(left,rest),resources(~S,right),resource_rest(~S,left,rest),r,resource_take(~S,left,rest,l))
     case LayoutPair{left,right} InRight{rest} Product.Owner{l,r}:resource_joined(~S,payload(right,rest),key(right,rest),resources(~S,left),resource_rest(~S,right,rest),l,resource_take(~S,right,rest,r))
@@ -99,8 +118,11 @@ def resource_put(~S:Data,layout:Layout,route:Route,rest:resource_rest(~S,layout,
   match layout route rest:
     case EmptyLayout{} _ rest:rest
     case LayoutLeaf{P,key} AtLeaf{} _:slot
+    case ClassifiedLayoutLeaf{P,key,_} AtLeaf{} _:slot
     case LayoutLeaf{P,key} InLeft{_} rest:rest
+    case ClassifiedLayoutLeaf{P,key,_} InLeft{_} rest:rest
     case LayoutLeaf{P,key} InRight{_} rest:rest
+    case ClassifiedLayoutLeaf{P,key,_} InRight{_} rest:rest
     case LayoutPair{left,right} AtLeaf{} rest:rest
     case LayoutPair{left,right} InLeft{path}, (outer,inner):Product.Owner{resource_put(~S,left,path,inner,slot),outer}
     case LayoutPair{left,right} InRight{path}, (outer,inner):Product.Owner{outer,resource_put(~S,right,path,inner,slot)}
@@ -111,6 +133,7 @@ def names(layout:Layout) -> List<&2,String>:
   match layout:
     case EmptyLayout{}:[]
     case LayoutLeaf{_,name}:[name]
+    case ClassifiedLayoutLeaf{_,name,_}:[name]
     case LayoutPair{left,right}:List.append(&2,String,names(left),names(right))
 def contains_name(values:List<&2,String>,+name:String) -> Bool:
   match values:
@@ -144,7 +167,9 @@ def subtree_take(~S:Data,layout:Layout,route:Route,owner:columns(~S,layout)) -> 
     case EmptyLayout{} InLeft{_} owner:(owner,Unit{})
     case EmptyLayout{} InRight{_} owner:(owner,Unit{})
     case LayoutLeaf{_,_} InLeft{_} owner:(owner,Unit{})
+    case ClassifiedLayoutLeaf{_,_,_} InLeft{_} owner:(owner,Unit{})
     case LayoutLeaf{_,_} InRight{_} owner:(owner,Unit{})
+    case ClassifiedLayoutLeaf{_,_,_} InRight{_} owner:(owner,Unit{})
     case LayoutPair{left,right} InLeft{rest} Product.Owner{l,r}:subtree_joined(columns(~S,right),subtree_rest(~S,left,rest),columns(~S,subtree(left,rest)),r,subtree_take(~S,left,rest,l))
     case LayoutPair{left,right} InRight{rest} Product.Owner{l,r}:subtree_joined(columns(~S,left),subtree_rest(~S,right,rest),columns(~S,subtree(right,rest)),l,subtree_take(~S,right,rest,r))
 def subtree_put(~S:Data,layout:Layout,route:Route,rest:subtree_rest(~S,layout,route),selected:columns(~S,subtree(layout,route))) -> columns(~S,layout):
@@ -153,20 +178,31 @@ def subtree_put(~S:Data,layout:Layout,route:Route,rest:subtree_rest(~S,layout,ro
     case EmptyLayout{} InLeft{_} rest:rest
     case EmptyLayout{} InRight{_} rest:rest
     case LayoutLeaf{_,_} InLeft{_} rest:rest
+    case ClassifiedLayoutLeaf{_,_,_} InLeft{_} rest:rest
     case LayoutLeaf{_,_} InRight{_} rest:rest
+    case ClassifiedLayoutLeaf{_,_,_} InRight{_} rest:rest
     case LayoutPair{left,right} InLeft{path}, (outer,inner):Product.Owner{subtree_put(~S,left,path,inner,selected),outer}
     case LayoutPair{left,right} InRight{path}, (outer,inner):Product.Owner{outer,subtree_put(~S,right,path,inner,selected)}
 def pair_input(layout:Layout) -> Type:
   match layout:
     case LayoutPair{LayoutLeaf{P,_},LayoutLeaf{_,_}}:P
+    case LayoutPair{LayoutLeaf{P,_},ClassifiedLayoutLeaf{_,_,_}}:P
+    case LayoutPair{ClassifiedLayoutLeaf{P,_,_},LayoutLeaf{_,_}}:P
+    case LayoutPair{ClassifiedLayoutLeaf{P,_,_},ClassifiedLayoutLeaf{_,_,_}}:P
     case _:Unit
 def pair_output(layout:Layout) -> Type:
   match layout:
     case LayoutPair{LayoutLeaf{_,_},LayoutLeaf{P,_}}:P
+    case LayoutPair{LayoutLeaf{_,_},ClassifiedLayoutLeaf{P,_,_}}:P
+    case LayoutPair{ClassifiedLayoutLeaf{_,_,_},LayoutLeaf{P,_}}:P
+    case LayoutPair{ClassifiedLayoutLeaf{_,_,_},ClassifiedLayoutLeaf{P,_,_}}:P
     case _:Unit
 def pair_leaves(layout:Layout) -> Bool:
   match layout:
     case LayoutPair{LayoutLeaf{_,_},LayoutLeaf{_,_}}:True{}
+    case LayoutPair{LayoutLeaf{_,_},ClassifiedLayoutLeaf{_,_,_}}:True{}
+    case LayoutPair{ClassifiedLayoutLeaf{_,_,_},LayoutLeaf{_,_}}:True{}
+    case LayoutPair{ClassifiedLayoutLeaf{_,_,_},ClassifiedLayoutLeaf{_,_,_}}:True{}
     case _:False{}
 def query_input(layout:Layout,route:Route) -> Type:pair_input(subtree(layout,route))
 def query_output(layout:Layout,route:Route) -> Type:pair_output(subtree(layout,route))
