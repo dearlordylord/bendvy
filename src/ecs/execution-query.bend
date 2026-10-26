@@ -8,6 +8,7 @@ import ./ordinary-declaration.bend as Identity
 import ./owner-product.bend as Product
 import ./world.bend as W
 import ./change-tick.bend as Tick
+import ./execution-composer-layout.bend as Layout
 
 type Mode is Data:
   Serial{}
@@ -41,3 +42,19 @@ def declaration(~S:Data,~C:Type,~R:Type,~A:Type,~B:Type,~Rest:Type,~V:Data,~E:Da
 def each(~S:Data,~H:Type,~E:Data,cap:Each<S,H,E>) -> H -> H & Report<E>:
   match cap:
     case Each{run}: run
+
+def layout_unwrapped(~S:Data,~layout:Layout.Layout,~route:Layout.Route,rest:Layout.subtree_rest(~S,layout,route),selected:Layout.query_pair(~S,~layout,~route)) -> Layout.subtree_rest(~S,layout,route) & Product.Owner<Col.Column<S,Layout.query_input(layout,route)>,Col.Column<S,Layout.query_output(layout,route)>>:
+  match selected:
+    case Product.Owner{Layout.ColumnSlot{read},Layout.ColumnSlot{write}}: (rest,Product.Owner{read,write})
+def layout_selected(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},result:Layout.subtree_rest(~S,layout,route) & Layout.columns(~S,Layout.subtree(layout,route))) -> Layout.subtree_rest(~S,layout,route) & Product.Owner<Col.Column<S,Layout.query_input(layout,route)>,Col.Column<S,Layout.query_output(layout,route)>>:
+  match result:
+    case (rest,selected): layout_unwrapped(~S,~layout,~route,rest,Layout.checked_owner(Layout.columns(~S,Layout.subtree(layout,route)),Layout.query_pair(~S,~layout,~route),shape,selected))
+def layout_take(~S:Data,~C:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},owner:C) -> Layout.subtree_rest(~S,layout,route) & Product.Owner<Col.Column<S,Layout.query_input(layout,route)>,Col.Column<S,Layout.query_output(layout,route)>>:
+  layout_selected(~S,~layout,~route,~shape,Layout.subtree_take(~S,layout,route,Layout.checked_owner(C,Layout.columns(~S,layout),same,owner)))
+def layout_put(~S:Data,~C:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},rest:Layout.subtree_rest(~S,layout,route),selected:Product.Owner<Col.Column<S,Layout.query_input(layout,route)>,Col.Column<S,Layout.query_output(layout,route)>>) -> C:
+  match selected:
+    case Product.Owner{read,write}: Layout.checked_owner(Layout.columns(~S,layout),C,Equal.sym(Type,C,Layout.columns(~S,layout),same),Layout.subtree_put(~S,layout,route,rest,Layout.checked_owner(Layout.query_pair(~S,~layout,~route),Layout.columns(~S,Layout.subtree(layout,route)),Equal.sym(Type,Layout.columns(~S,Layout.subtree(layout,route)),Layout.query_pair(~S,~layout,~route),shape),Product.Owner{Layout.ColumnSlot{read},Layout.ColumnSlot{write}})))
+def layout_lens(~S:Data,~C:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type}) -> Product.Lens<C,Product.Owner<Col.Column<S,Layout.query_input(layout,route)>,Col.Column<S,Layout.query_output(layout,route)>>,Layout.subtree_rest(~S,layout,route)>:
+  Product.Lens{layout_take(~S,~C,~layout,~route,~same,~shape),layout_put(~S,~C,~layout,~route,~same,~shape)}
+def layout_declaration(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~V:Data,~E:Data,~project:Layout.query_input(layout,route) -> Layout.query_input(layout,route) & V,~body:U32 -> V -> Layout.query_output(layout,route) -> Layout.query_output(layout,route) & Maybe<&2,E>,projection:Projection.Affine<Layout.query_input(layout,route),V,project>,mode:Mode) -> D.Declaration<S,C,R,Ops(~S,~E)>:
+  declaration(~S,~C,~R,~Layout.query_input(layout,route),~Layout.query_output(layout,route),~Layout.subtree_rest(~S,layout,route),~V,~E,~layout_lens(~S,~C,~layout,~route,~same,~shape),~project,~body,projection,mode,Identity.component(~S,~Layout.query_input(layout,route),Layout.query_read_key(layout,route)),Identity.component(~S,~Layout.query_output(layout,route),Layout.query_write_key(layout,route)))
