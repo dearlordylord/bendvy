@@ -12,5 +12,5 @@ static Term bendvy_namespace_fresh(Env e, Term* f, IoWork* w) {
   return (Term)0;
 }
 static void __attribute__((constructor)) bendvy_namespace_use(void) {
-  io_eff(CID(fresh), bendvy_namespace_fresh);
+  io_eff(CID(fresh), bendvy_namespace_fresh, 0);
 }
