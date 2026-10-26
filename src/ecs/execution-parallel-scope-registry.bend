@@ -16,7 +16,7 @@ import ./execution-composer-layout.bend as Layout
 import ./change-tick.bend as Tick
 
 type Runtime<-World:Type,-Scope:Type,-Owners:Type,Error:Data,Out:Data> is Type:
-  Runtime{owners:Owners,nodes:List<&2,Plan.Node<String>>,entries:List<&2,Part.Entry>,invalid:Maybe<&2,Plan.Invalid<String>>,deferred:List<&2,U32>,pending:Owners -> Owners & Bool,publish:Tick.Tick -> World -> Owners -> World & Owners,prepare:List<&2,U32> -> World -> Owners -> World & (Owners & List<&2,Scope.Permit>),invoke:List<&2,Scope.Permit> -> Scope -> Owners -> Scope & (Owners & List<&2,Ready.Completed<Error,Out>>)}
+  Runtime{owners:Owners,nodes:List<&2,Plan.Node<String>>,entries:List<&2,Part.Entry>,invalid:Maybe<&2,Plan.Invalid<String>>,deferred:List<&2,U32>,pending:List<&2,U32> -> Owners -> Owners & Bool,publish:List<&2,U32> -> Tick.Tick -> World -> Owners -> World & Owners,prepare:List<&2,U32> -> World -> Owners -> World & (Owners & List<&2,Scope.Permit>),invoke:List<&2,Scope.Permit> -> Scope -> Owners -> Scope & (Owners & List<&2,Ready.Completed<Error,Out>>)}
 def Family() -> Type:(@-Owners:Type -> Type)
 def Leaf(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Data,~F:Family()) -> Type:
   @-Ops:(Type -> Type) -> @-Local:Type -> @-declaration:Build.Program(~S,~C,~R,~Ops) -> @-body:(@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>)) -> Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body> -> F(Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>)
@@ -35,7 +35,7 @@ def interpreted(~S:Data,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Data,~WC:Type,~
   Runtime<W.World<S,WC,WR,E>,State.Scope<S,C,R>,Owners,Error,Out>
 def compile_leaf(~S:Data,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Data,~WC:Type,~WR:Type,~Ops:Type -> Type,~Local:Type,~declaration:Build.Program(~S,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),owner:Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>) -> Runtime<W.World<S,WC,WR,E>,State.Scope<S,C,R>,Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>:
   match owner:
-    case Sys.Owner{namespace,+id,name,access,cursor,local}:Runtime{Sys.Owner{namespace,id,name,access,cursor,local},[Plan.Node{id,D.requirement_keys(~S,~C,~R,~Ops,Build.compile(~S,~C,~R,~Ops,~declaration))}],[Part.Entry{id,Part.uses(D.requirements(~S,~C,~R,~Ops,Build.compile(~S,~C,~R,~Ops,~declaration)))}],Reg.condition_permission(D.read_only(D.requirements(~S,~C,~R,~Ops,Build.compile(~S,~C,~R,~Ops,~declaration))),id),[],(owner => (owner,False{})),(tick => world => owner => (world,owner)),Scope.prepare(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WC,~WR),Scope.invoke(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body)}
+    case Sys.Owner{namespace,+id,name,access,cursor,local}:Runtime{Sys.Owner{namespace,id,name,access,cursor,local},[Plan.Node{id,D.requirement_keys(~S,~C,~R,~Ops,Build.compile(~S,~C,~R,~Ops,~declaration))}],[Part.Entry{id,Part.uses(D.requirements(~S,~C,~R,~Ops,Build.compile(~S,~C,~R,~Ops,~declaration)))}],Reg.condition_permission(D.read_only(D.requirements(~S,~C,~R,~Ops,Build.compile(~S,~C,~R,~Ops,~declaration))),id),[],(ids => owner => (owner,False{})),(ids => tick => world => owner => (world,owner)),Scope.prepare(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WC,~WR),Scope.invoke(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body)}
 def prepared_right(~World:Type,~L:Type,~R:Type,left:L,leftPermits:List<&2,Scope.Permit>,result:World & (R & List<&2,Scope.Permit>)) -> World & (Product.Owner<L,R> & List<&2,Scope.Permit>):
   match result:
     case (world,(right,permits)):(world,(Product.Owner{left,right},List.append(&2,Scope.Permit,leftPermits,permits)))
@@ -57,27 +57,27 @@ def invoke_pair(~H:Type,~L:Type,~R:Type,~Error:Data,~Out:Data,leftInvoke:List<&2
 def pending_right(~L:Type,~R:Type,left:L,a:Bool,result:R & Bool) -> Product.Owner<L,R> & Bool:
   match result:
     case (right,b):(Product.Owner{left,right},Bool.or(a,b))
-def pending_left(~L:Type,~R:Type,rightPending:R -> R & Bool,right:R,result:L & Bool) -> Product.Owner<L,R> & Bool:
+def pending_left(~L:Type,~R:Type,rightPending:List<&2,U32> -> R -> R & Bool,ids:List<&2,U32>,right:R,result:L & Bool) -> Product.Owner<L,R> & Bool:
   match result:
-    case (left,a):pending_right(~L,~R,left,a,rightPending(right))
-def pending_pair(~L:Type,~R:Type,leftPending:L -> L & Bool,rightPending:R -> R & Bool,owners:Product.Owner<L,R>) -> Product.Owner<L,R> & Bool:
+    case (left,a):pending_right(~L,~R,left,a,rightPending(ids,right))
+def pending_pair(~L:Type,~R:Type,leftPending:List<&2,U32> -> L -> L & Bool,rightPending:List<&2,U32> -> R -> R & Bool,+ids:List<&2,U32>,owners:Product.Owner<L,R>) -> Product.Owner<L,R> & Bool:
   match owners:
-    case Product.Owner{left,right}:pending_left(~L,~R,rightPending,right,leftPending(left))
+    case Product.Owner{left,right}:pending_left(~L,~R,rightPending,ids,right,leftPending(ids,left))
 def published_right(~World:Type,~L:Type,~R:Type,left:L,result:World & R) -> World & Product.Owner<L,R>:
   match result:
     case (world,right):(world,Product.Owner{left,right})
-def published_left(~World:Type,~L:Type,~R:Type,rightPublish:Tick.Tick -> World -> R -> World & R,tick:Tick.Tick,right:R,result:World & L) -> World & Product.Owner<L,R>:
+def published_left(~World:Type,~L:Type,~R:Type,rightPublish:List<&2,U32> -> Tick.Tick -> World -> R -> World & R,ids:List<&2,U32>,tick:Tick.Tick,right:R,result:World & L) -> World & Product.Owner<L,R>:
   match result:
-    case (world,left):published_right(~World,~L,~R,left,rightPublish(tick,world,right))
-def publish_pair(~World:Type,~L:Type,~R:Type,leftPublish:Tick.Tick -> World -> L -> World & L,rightPublish:Tick.Tick -> World -> R -> World & R,+tick:Tick.Tick,world:World,owners:Product.Owner<L,R>) -> World & Product.Owner<L,R>:
+    case (world,left):published_right(~World,~L,~R,left,rightPublish(ids,tick,world,right))
+def publish_pair(~World:Type,~L:Type,~R:Type,leftPublish:List<&2,U32> -> Tick.Tick -> World -> L -> World & L,rightPublish:List<&2,U32> -> Tick.Tick -> World -> R -> World & R,+ids:List<&2,U32>,+tick:Tick.Tick,world:World,owners:Product.Owner<L,R>) -> World & Product.Owner<L,R>:
   match owners:
-    case Product.Owner{left,right}:published_left(~World,~L,~R,rightPublish,tick,right,leftPublish(tick,world,left))
+    case Product.Owner{left,right}:published_left(~World,~L,~R,rightPublish,ids,tick,right,leftPublish(ids,tick,world,left))
 def compile_join(~World:Type,~H:Type,~Error:Data,~Out:Data,~L:Type,~R:Type,left:Runtime<World,H,L,Error,Out>,right:Runtime<World,H,R,Error,Out>) -> Runtime<World,H,Product.Owner<L,R>,Error,Out>:
   match left right:
-    case Runtime{l,ln,le,li,ld,lq,ls,lp,lv} Runtime{r,rn,re,ri,rd,rq,rs,rp,rv}:Runtime{Product.Owner{l,r},List.append(&2,Plan.Node<String>,ln,rn),List.append(&2,Part.Entry,le,re),Plan.first_error(~String,li,ri),List.append(&2,U32,ld,rd),(owners => pending_pair(~L,~R,lq,rq,owners)),(tick => world => owners => publish_pair(~World,~L,~R,ls,rs,tick,world,owners)),(ids => world => owners => prepare_pair(~World,~L,~R,lp,rp,ids,world,owners)),(permits => scope => owners => invoke_pair(~H,~L,~R,~Error,~Out,lv,rv,permits,scope,owners))}
+    case Runtime{l,ln,le,li,ld,lq,ls,lp,lv} Runtime{r,rn,re,ri,rd,rq,rs,rp,rv}:Runtime{Product.Owner{l,r},List.append(&2,Plan.Node<String>,ln,rn),List.append(&2,Part.Entry,le,re),Plan.first_error(~String,li,ri),List.append(&2,U32,ld,rd),(ids => owners => pending_pair(~L,~R,lq,rq,ids,owners)),(ids => tick => world => owners => publish_pair(~World,~L,~R,ls,rs,ids,tick,world,owners)),(ids => world => owners => prepare_pair(~World,~L,~R,lp,rp,ids,world,owners)),(permits => scope => owners => invoke_pair(~H,~L,~R,~Error,~Out,lv,rv,permits,scope,owners))}
 def compile_command(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Data,~WR:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{WC == Layout.columns(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~Ops:Type -> Type,~User:Type,~declaration:Build.Program(~S,~C,~R,~Ops),~body:Cmd.Body(~S,~layout,~route,~Ops,~User,~Error,~Out),owner:Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>) -> Runtime<W.World<S,WC,WR,E>,State.Scope<S,C,R>,Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>,Error,Out>:
   match owner:
-    case Cmd.Owner{Sys.Owner{namespace,+id,name,access,cursor,local}}:Runtime{Cmd.Owner{Sys.Owner{namespace,id,name,access,cursor,local}},[Plan.Node{id,D.requirement_keys(~S,~C,~R,~Ops,Build.compile(~S,~C,~R,~Ops,~declaration))}],[Part.Entry{id,Part.uses(D.requirements(~S,~C,~R,~Ops,Build.compile(~S,~C,~R,~Ops,~declaration)))}],Some{Plan.InvalidCondition{id}},[id],Cmd.pending(~S,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body),CommandScope.publish(~S,~WC,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR,~same,~valid),CommandScope.prepare(~S,~WC,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR),CommandScope.invoke(~S,~WC,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body)}
+    case Cmd.Owner{Sys.Owner{namespace,+id,name,access,cursor,local}}:Runtime{Cmd.Owner{Sys.Owner{namespace,id,name,access,cursor,local}},[Plan.Node{id,D.requirement_keys(~S,~C,~R,~Ops,Build.compile(~S,~C,~R,~Ops,~declaration))}],[Part.Entry{id,Part.uses(D.requirements(~S,~C,~R,~Ops,Build.compile(~S,~C,~R,~Ops,~declaration)))}],Some{Plan.InvalidCondition{id}},[id],CommandScope.pending(~S,~WC,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body),CommandScope.publish(~S,~WC,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR,~same,~valid),CommandScope.prepare(~S,~WC,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR),CommandScope.invoke(~S,~WC,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body)}
 def command(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Data,~layout:Layout.Layout,~route:Layout.Route,~same:{WC == Layout.columns(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~Ops:Type -> Type,~User:Type,~declaration:Build.Program(~S,~C,~R,~Ops),~body:Cmd.Body(~S,~layout,~route,~Ops,~User,~Error,~Out),~F:Family(),~leaf:Leaf(~S,~WC,~C,~R,~E,~Error,~Out,~F),~command:CommandLeaf(~S,~WC,~C,~R,~E,~Error,~Out,~F),~join:Join(~F),owner:Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>) -> F(Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>):
   command(layout,route,same,valid,Ops,User,declaration,body,owner)
 def compile(~S:Data,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Data,~WC:Type,~WR:Type,~Owners:Type,~selection:Selection(~S,~WC,~C,~R,~E,~Error,~Out,~Owners),owners:Owners) -> Runtime<W.World<S,WC,WR,E>,State.Scope<S,C,R>,Owners,Error,Out>:
