@@ -2,6 +2,7 @@
 import concurrent.futures
 import importlib.util
 import os
+import signal
 from pathlib import Path
 import subprocess
 import sys
@@ -102,6 +103,34 @@ class Execution(unittest.TestCase):
                 self.assertIs(caught.exception.result, result)
                 self.assertEqual(caught.exception.result['stdout'], b'completed stdout')
 
+    def test_runner_cancellation_retains_logs_and_primary_with_secondary_failure(self):
+        for fail_publication in (False, True):
+            with self.subTest(fail_publication=fail_publication), tempfile.TemporaryDirectory() as directory:
+                command_logs = logs.CommandLogs(directory, ['cancel'])
+                inputs = mock.Mock()
+                inputs.guard.side_effect = [None, RuntimeError('concurrent input drift')]
+                runner = Runner(command_logs, inputs=inputs)
+                interruption = KeyboardInterrupt('original cancellation')
+                interruption.result = dict(exit=-signal.SIGKILL, failure='_Cancelled: command owner cancelled',
+                    stdout=b'partial\xff', stderr=b'error\x00', capture='split',
+                    runnerSHA256=task_runner.IMPLEMENTATION_SHA256)
+                original_record = command_logs.record
+                def record(*args):
+                    original_record(*args)
+                    if fail_publication:
+                        raise OSError('publication after durable streams')
+                with mock.patch.object(command_logs, 'record', side_effect=record), \
+                        mock.patch.object(task_runner, 'execute_result', side_effect=interruption):
+                    with self.assertRaises(KeyboardInterrupt) as caught:
+                        runner.run('cancel', ['no child'], 5)
+                self.assertIs(caught.exception, interruption)
+                self.assertEqual((Path(directory) / 'cancel.stdout').read_bytes(), b'partial\xff')
+                self.assertEqual((Path(directory) / 'cancel.stderr').read_bytes(), b'error\x00')
+                command_logs.guard()
+                self.assertTrue(any('concurrent input drift' in note for note in interruption.__notes__))
+                self.assertEqual(any('publication after durable streams' in note for note in interruption.__notes__),
+                                 fail_publication)
+
     def test_completed_process_adapter(self):
         result = task_runner.run(command('import os; os.write(1,b"a\\r\\n"); os.write(2,b"err"); exit(7)'),timeout=3,capture_output=True,text=True)
         self.assertEqual((result.returncode,result.stdout,result.stderr),(7,'a\n','err'))
@@ -117,18 +146,31 @@ class Execution(unittest.TestCase):
             pidfile = Path(directory)/'pid'
             context = task_runner.multiprocessing.get_context('fork')
             receiver, sender = context.Pipe(duplex=False)
+            interruption = KeyboardInterrupt('original cancellation')
             class InterruptedReceiver:
+                interrupted = False
                 def poll(self, timeout):
                     ready = receiver.poll(timeout)
-                    if pidfile.exists(): raise KeyboardInterrupt()
+                    if pidfile.exists() and not self.interrupted:
+                        self.interrupted = True
+                        raise interruption
                     return ready
+                def recv(self): return receiver.recv()
                 def close(self): receiver.close()
             fake_context = mock.Mock()
             fake_context.Pipe.return_value = (InterruptedReceiver(), sender)
             fake_context.Process.side_effect = context.Process
-            code = 'import os,time; open('+repr(str(pidfile))+',"w").write(str(os.getpid())); time.sleep(60)'
+            stdout, stderr = b'partial\xff' * 16384, b'error\x00' * 16384
+            code = 'import os,time; os.write(1,b"partial\\xff"*16384); os.write(2,b"error\\x00"*16384); '
+            code += 'open('+repr(str(pidfile))+',"w").write(str(os.getpid())); time.sleep(60)'
             with mock.patch.object(task_runner.multiprocessing,'get_context',return_value=fake_context):
-                with self.assertRaises(KeyboardInterrupt): execute_result(command(code),10)
+                with self.assertRaises(KeyboardInterrupt) as caught:
+                    execute_result(command(code), 10, capture='split')
+            self.assertIs(caught.exception, interruption)
+            self.assertEqual(interruption.result['exit'], -signal.SIGKILL)
+            self.assertIn('_Cancelled', interruption.result['failure'])
+            self.assertEqual((interruption.stdout, interruption.stderr), (stdout, stderr))
+            self.assertEqual(interruption.result['runnerSHA256'], task_runner.IMPLEMENTATION_SHA256)
             self.assertFalse(Path('/proc',pidfile.read_text()).exists())
 
     def test_staged_shared_module(self):
@@ -300,7 +342,7 @@ class Execution(unittest.TestCase):
         started = time.monotonic()
         result = execute_result(command('import os,time; os.write(1,b"partial\\xff"); os.write(2,b"err\\x00"); time.sleep(60)'), .2, capture='split')
         self.assertEqual(result['failure'], 'child deadline')
-        self.assertIsNone(result['exit'])
+        self.assertEqual(result['exit'], -signal.SIGKILL)
         self.assertEqual((result['stdout'], result['stderr']), (b'partial\xff', b'err\0'))
         self.assertLess(time.monotonic() - started, 4)
 

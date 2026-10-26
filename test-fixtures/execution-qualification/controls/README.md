@@ -6,8 +6,9 @@ actual collector orchestration, rather than calling ReceiptBoundary in isolation
 The only workload is the frozen `child.py` under the existing Python 3.11 binary.
 No Bend, Node, native ECS consumer, instrumentation, dependency install or network
 request is included. The collector is the exact GH80 optional-hook version from worker source
-`99b51d4b20d47f5b525b8803f803586d796d8948`; all four helpers match that
-worker tree byte-for-byte. Controls omit `workerDiagnostic`, exercising the same
+`99b51d4b20d47f5b525b8803f803586d796d8948`; the cancellation-repaired Runner is a successor to that worker tree; the
+other three helpers match byte-for-byte. The old worker plan is stale and must
+be rebound to the repaired helper with independent review before consumer launch. Controls omit `workerDiagnostic`, exercising the same
 current orchestration without invoking instrumentation or the optional validator.
 
 The data shape is twelve fixed instances of nine refusal families. Source/helper
@@ -32,13 +33,15 @@ outer admission of the exact manifest permits the harness launch.
 | cancel | Child flushes both streams and records its PID/start identity, then SIGTERMs its exact collector ancestor; owned child must terminate and both partial raw streams plus terminal command metadata must persist, INCOMPLETE. |
 | receipt-failure | Child creates directory at receipt destination; actual raw streams persist and collector raises publication error; outer terminal evidence records UNPUBLISHABLE, never invents inner receipt. |
 
-The cancellation control is normative. Source inspection suggests the current
-Runner cancellation path may clean up without returning partial streams or child
-metadata. That is a control FAILURE, not an allowed empty-log outcome. The
+The cancellation control is normative. The admitted v5 run failed this requirement: cleanup succeeded but terminal
+metadata and both raw child streams were lost. The v6 Runner source repairs that
+path by receiving the owner's actual terminal result during bounded cleanup,
+retaining Popen wait status and recording raw streams before rethrowing interruption. That is a control FAILURE, not an allowed empty-log outcome. The
 harness continues remaining cases, records each actual collector exit separately
 from semantic verdict, and ends INCOMPLETE/nonzero if any required observation is
 missing. A reviewed repair and a preserved successor would then be necessary.
-No collector/helper repair is included here. Publication failure intentionally
+The collector hook is unchanged; the shared Runner cancellation repair is included
+and remains unexecuted pending review 2. Publication failure intentionally
 cannot promise an inner receipt; the outer receipt and raw collector traceback
 are the terminal evidence. Unwritable outer destination/SIGKILL remain exceptions.
 
@@ -47,7 +50,7 @@ Preparation copies only disposable files and hashes inputs; it launches nothing:
 ```sh
 python3 test-fixtures/execution-qualification/controls/prepare.py \
   --root /tmp/bendvy-gh77-evidence \
-  --destination /tmp/gh77-collector-controls-v5 \
+  --destination /tmp/gh77-collector-controls-v6 \
   --current-source-commit EXACT_CONTROLS_COMMIT \
   --worker-root /tmp/bendvy-gh80-worker-evidence \
   --tool-snapshots /home/node/.claude/orchestrate/bendvy-gh78-94/evidence-plan/tool-snapshots.json
@@ -74,9 +77,9 @@ env -i HOME=/home/node PATH=/usr/bin:/bin LANG=C.UTF-8 LC_ALL=C.UTF-8 \
   BEND_NO_TELEMETRY=1 BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root \
   /usr/bin/python3.11 -I -S -B \
   /tmp/bendvy-gh77-evidence/test-fixtures/execution-qualification/controls/run.py \
-  --manifest /tmp/gh77-collector-controls-v5/manifest.json \
+  --manifest /tmp/gh77-collector-controls-v6/manifest.json \
   --admission /absolute/independent-gh80-control-admission.json \
-  --output /tmp/gh77-collector-controls-v5/results
+  --output /tmp/gh77-collector-controls-v6/results
 ```
 
 Per child cap5s, case cap40s, outer per-collector cap55s, twelve serial instances.
@@ -86,3 +89,23 @@ must be fresh. Preserve every failed attempt; preparation requires a fresh root.
 Passing these finite controls grants no consumer launch, issue acceptance,
 performance, concurrency, or law approval claim. ECS workload freezing is separate
 and still needs current source, complete independent oracles and launch review.
+
+## Review 2 regression sequence
+
+Preserve the failed v5 packet unchanged. Before controls, independently admit the
+changed Runner and regression source. The existing infrastructure test entry
+needs no new test framework. Its exact twelve selected test names and argv are frozen in the manifest's
+`regression` field, with cap120s. The v6 harness runs that command through the
+existing Runner first, preserving `runner-regressions.stdout/.stderr` and actual
+terminal metadata. It then executes the twelve normative collector controls.
+A regression failure stops before controls and retains INCOMPLETE. This whole
+sequence requires independent review 2 before execution.
+
+Tests require original interruption identity, actual -SIGKILL child exit, both
+binary streams larger than a pipe buffer, child cleanup, immutable publication,
+concurrent input-guard failure and preserved secondary errors. Selected existing
+ownership/deadline/concurrency tests remain included; the timeout assertion now
+requires actual killed exit instead of absent status. The cancellation control
+also requires actual -SIGKILL exit plus the owner's cancellation failure metadata.
+No consumer is admitted by this sequence. All twelve normative outcomes remain
+required before considering a separately rebound worker successor.

@@ -55,7 +55,10 @@ def check_case(name, case, result):
         label = 'child-1' if name == 'artifact-drift' else 'child-0'
         commands = [c for c in receipt['commands'] if c['label'] == label]
         require(len(commands) == 1, 'actual child terminal metadata unavailable')
-        if name != 'cancel':
+        if name == 'cancel':
+            require(commands[0]['exit'] == -9, 'actual killed child exit unavailable')
+            require('_Cancelled' in (commands[0]['failure'] or ''), 'owner cancellation result unavailable')
+        else:
             require(commands[0]['exit'] == (7 if name == 'nonzero' else 0), 'actual child exit lost')
         for suffix, expected in (('.stdout', b'control stdout\n'), ('.stderr', b'control stderr\n')):
             path = case / 'actual/logs' / (label + suffix)
@@ -93,7 +96,7 @@ def run(manifest_path, admission_path, output):
     output.mkdir(parents=True, exist_ok=False)
     logs_dir = output / 'logs'
     logs_dir.mkdir()
-    logs = logs_module.CommandLogs(logs_dir, [c['name'] for c in manifest['cases']])
+    logs = logs_module.CommandLogs(logs_dir, ['runner-regressions'] + [c['name'] for c in manifest['cases']])
     # Disposable cases deliberately mutate. Only the immutable harness/helper and
     # host closure belongs to the outer Runner's postguards.
     package = manifest_path.parent
@@ -105,6 +108,9 @@ def run(manifest_path, admission_path, output):
                'scope': 'canonical collector refusal controls; no qualification consumers'}
     with boundary_module.ReceiptBoundary(receipt, output / 'receipt.json',
                                          [('immutable-inputs', inputs.guard), ('outer-raw-logs', logs.guard)]):
+        regression = manifest['regression']
+        result = runner.run('runner-regressions', regression['argv'], regression['timeoutSeconds'])
+        receipt['regression'] = {k: v for k, v in result.items() if k not in ('stdout', 'stderr')}
         for control in manifest['cases']:
             name, case = control['name'], Path(control['directory'])
             argv = [manifest['python'], '-I', '-S', '-B', str(case / 'collect.py'),

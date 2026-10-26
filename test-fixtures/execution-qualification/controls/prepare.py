@@ -23,7 +23,7 @@ def prepare(root, destination, snapshots, current_source_commit, worker_root):
     if (source / 'collect.py').read_bytes() != reference.read_bytes():
         raise RuntimeError('control collector differs from paired worker collector')
     for helper in ('task_runner.py', 'receipt-logs.py', 'evidence_boundary.py', 'owned-tool-pins.py'):
-        if (root / 'scripts' / helper).read_bytes() != (worker_root / 'scripts' / helper).read_bytes():
+        if helper != 'task_runner.py' and (root / 'scripts' / helper).read_bytes() != (worker_root / 'scripts' / helper).read_bytes():
             raise RuntimeError('paired worker helper differs: ' + helper)
     original = json.loads(snapshots.read_text())[0]
     cfg = copy.deepcopy(original['configuration'])
@@ -50,11 +50,30 @@ def prepare(root, destination, snapshots, current_source_commit, worker_root):
                 'pairedWorkerCollector': {'path': str(reference), 'sha256': sha(reference),
                     'workerSourceCommit': '99b51d4b20d47f5b525b8803f803586d796d8948'},
                 'pairedWorkerPlan': {'path': '/tmp/gh80-worker-admission-v1/plan.json',
-                    'sha256': sha('/tmp/gh80-worker-admission-v1/plan.json')},
+                    'sha256': sha('/tmp/gh80-worker-admission-v1/plan.json'),
+                    'status': 'STALE_RUNNER_BINDING_REQUIRES_SUCCESSOR_AND_REVIEW'},
+                'runnerRepair': {'path': str(root / 'scripts/task_runner.py'),
+                    'sha256': sha(root / 'scripts/task_runner.py'),
+                    'workerPredecessorSHA256': sha(worker_root / 'scripts/task_runner.py'),
+                    'workerTreeModified': False},
                 'importedSnapshot': {'path': str(snapshots), 'sha256': sha(snapshots)},
                 'environment': cfg['env'], 'python': cfg['tools']['python'],
                 'output': str(destination / 'results'),
                 'cases': [], 'files': {}, 'directories': {},
+                'regression': {'timeoutSeconds': 120, 'argv': [cfg['tools']['python'], '-S', '-B',
+                    str(root / 'scripts/test-task-runner.py'),
+                    'Execution.test_caller_cancellation_cleans_owned_command',
+                    'Execution.test_runner_cancellation_retains_logs_and_primary_with_secondary_failure',
+                    'Execution.test_timeout_keeps_partial_bytes',
+                    'Execution.test_owner_surviving_kill_preserves_cancellation',
+                    'Execution.test_owner_surviving_kill_preserves_failure_result_and_handle',
+                    'Execution.test_timeout_reaps_detached_descendant',
+                    'Execution.test_unrelated_and_concurrent_children_survive',
+                    'Execution.test_completed_result_survives_stale_poll_before_owner_death',
+                    'Execution.test_runner_publication_and_postguard_failure_keep_process_result',
+                    'Evidence.test_runner_logs_and_refuses_nonzero',
+                    'Evidence.test_inflight_drift_retains_logs',
+                    'Evidence.test_timeout_logs_and_tamper']},
                 'prerequisites': ['Independent GH80 launch review of this exact control package',
                                   'No overlapping heavy execution; root confirms prior owner terminal']}
     for name in names:
@@ -105,11 +124,12 @@ def prepare(root, destination, snapshots, current_source_commit, worker_root):
     manifest['files'] = {str(p): sha(p) for p in sorted(destination.rglob('*')) if p.is_file()}
     for p in [source / 'controls/run.py', source / 'controls/prepare.py', source / 'controls/child.py',
               source / 'controls/README.md', source / 'README.md',
-              root / 'scripts/task_runner.py', root / 'scripts/receipt-logs.py', root / 'scripts/evidence_boundary.py']:
+              root / 'scripts/task_runner.py', root / 'scripts/test-task-runner.py',
+              root / 'scripts/check-python-source.py',
+              root / 'scripts/task-runner.md', root / 'scripts/receipt-logs.py', root / 'scripts/evidence_boundary.py']:
         manifest['files'][str(p)] = sha(p)
     manifest['files'].update(selected['pins'])
-    for path in [source / 'collect.py', reference, Path('/tmp/gh80-worker-admission-v1/plan.json')] + [
-            worker_root / 'scripts' / n for n in ('task_runner.py', 'receipt-logs.py', 'evidence_boundary.py', 'owned-tool-pins.py')]:
+    for path in [source / 'collect.py', reference, Path('/tmp/gh80-worker-admission-v1/plan.json')]:
         manifest['files'][str(path)] = sha(path)
     manifest['directories'] = {k: v for k, v in host['directories'].items()
                                if k in ('/usr/lib/python3.11', '/usr/lib/aarch64-linux-gnu', '/etc/ld.so.conf.d')}
