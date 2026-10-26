@@ -63,20 +63,20 @@ def single_returned(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~Error:D
 def dispatch(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~Error:Data,~Out:Data,~L:Type,~R:Type,~left:Tree.Selection(~S,~Product.Owner<CL,CR>,~CL,~RL,~E,~Error,~Out,~L),~right:Tree.Selection(~S,~Product.Owner<CL,CR>,~CR,~RR,~E,~Error,~Out,~R),owners:Product.Owner<L,R>,world:W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,id:U32) -> Product.Owner<L,R> & (W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E> & Exec.Invocation<Error,Out>):
   single_returned(~S,~CL,~CR,~RL,~RR,~E,~Error,~Out,~L,~R,group(~S,~CL,~CR,~RL,~RR,~E,~Error,~Out,~L,~R,~left,~right,Parallel.Serial{},owners,world,[id]))
 type Facts<-Owners:Type> is Type:
-  Facts{owners:Owners,nodes:List<&2,Plan.Node<String>>,entries:List<&2,Part.Entry>,invalid:Maybe<&2,Plan.Invalid<String>>}
+  Facts{owners:Owners,nodes:List<&2,Plan.Node<String>>,entries:List<&2,Part.Entry>,invalid:Maybe<&2,Plan.Invalid<String>>,deferred:List<&2,U32>}
 def gathered(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~Error:Data,~Out:Data,~L:Type,~R:Type,left:Tree.Runtime<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,State.Scope<S,CL,RL>,L,Error,Out>,right:Tree.Runtime<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,State.Scope<S,CR,RR>,R,Error,Out>) -> Facts<Product.Owner<L,R>>:
   match left right:
-    case Tree.Runtime{l,ln,le,li,_,_,_,_,_} Tree.Runtime{r,rn,re,ri,_,_,_,_,_}:Facts{Product.Owner{l,r},List.append(&2,Plan.Node<String>,ln,rn),List.append(&2,Part.Entry,le,re),Plan.first_error(~String,li,ri)}
+    case Tree.Runtime{l,ln,le,li,ld,_,_,_,_} Tree.Runtime{r,rn,re,ri,rd,_,_,_,_}:Facts{Product.Owner{l,r},List.append(&2,Plan.Node<String>,ln,rn),List.append(&2,Part.Entry,le,re),Plan.first_error(~String,li,ri),List.append(&2,U32,ld,rd)}
 def facts(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~Error:Data,~Out:Data,~L:Type,~R:Type,~left:Tree.Selection(~S,~Product.Owner<CL,CR>,~CL,~RL,~E,~Error,~Out,~L),~right:Tree.Selection(~S,~Product.Owner<CL,CR>,~CR,~RR,~E,~Error,~Out,~R),owners:Product.Owner<L,R>) -> Facts<Product.Owner<L,R>>:
   match owners:
     case Product.Owner{l,r}:gathered(~S,~CL,~CR,~RL,~RR,~E,~Error,~Out,~L,~R,Tree.compile(~S,~CL,~RL,~E,~Error,~Out,~Product.Owner<CL,CR>,~Product.Owner<RL,RR>,~L,~left,l),Tree.compile(~S,~CR,~RR,~E,~Error,~Out,~Product.Owner<CL,CR>,~Product.Owner<RL,RR>,~R,~right,r))
 def registered(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~Error:Data,~Out:Data,~L:Type,~R:Type,~left:Tree.Selection(~S,~Product.Owner<CL,CR>,~CL,~RL,~E,~Error,~Out,~L),~right:Tree.Selection(~S,~Product.Owner<CL,CR>,~CR,~RR,~E,~Error,~Out,~R),facts:Facts<Product.Owner<L,R>>) -> Reg.Registry<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Product.Owner<L,R>,Error,Out,dispatch(~S,~CL,~CR,~RL,~RR,~E,~Error,~Out,~L,~R,~left,~right)>:
   match facts:
-    case Facts{owners,nodes,_,_}:Reg.Registry{owners,nodes}
+    case Facts{owners,nodes,_,_,_}:Reg.Registry{owners,nodes}
 def registry(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~Error:Data,~Out:Data,~L:Type,~R:Type,~left:Tree.Selection(~S,~Product.Owner<CL,CR>,~CL,~RL,~E,~Error,~Out,~L),~right:Tree.Selection(~S,~Product.Owner<CL,CR>,~CR,~RR,~E,~Error,~Out,~R),owners:Product.Owner<L,R>) -> Reg.Registry<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Product.Owner<L,R>,Error,Out,dispatch(~S,~CL,~CR,~RL,~RR,~E,~Error,~Out,~L,~R,~left,~right)>:
   registered(~S,~CL,~CR,~RL,~RR,~E,~Error,~Out,~L,~R,~left,~right,facts(~S,~CL,~CR,~RL,~RR,~E,~Error,~Out,~L,~R,~left,~right,owners))
 def conditions_registered(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~Error:Data,~L:Type,~R:Type,~left:Tree.Selection(~S,~Product.Owner<CL,CR>,~CL,~RL,~E,~Error,~Bool,~L),~right:Tree.Selection(~S,~Product.Owner<CL,CR>,~CR,~RR,~E,~Error,~Bool,~R),facts:Facts<Product.Owner<L,R>>) -> Reg.ConditionRegistry<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Product.Owner<L,R>,Error,dispatch(~S,~CL,~CR,~RL,~RR,~E,~Error,~Bool,~L,~R,~left,~right)>:
   match facts:
-    case Facts{owners,nodes,_,invalid}:Reg.ConditionRegistry{Reg.Registry{owners,nodes},invalid}
+    case Facts{owners,nodes,_,invalid,_}:Reg.ConditionRegistry{Reg.Registry{owners,nodes},invalid}
 def condition_registry(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~Error:Data,~L:Type,~R:Type,~left:Tree.Selection(~S,~Product.Owner<CL,CR>,~CL,~RL,~E,~Error,~Bool,~L),~right:Tree.Selection(~S,~Product.Owner<CL,CR>,~CR,~RR,~E,~Error,~Bool,~R),owners:Product.Owner<L,R>) -> Reg.ConditionRegistry<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Product.Owner<L,R>,Error,dispatch(~S,~CL,~CR,~RL,~RR,~E,~Error,~Bool,~L,~R,~left,~right)>:
   conditions_registered(~S,~CL,~CR,~RL,~RR,~E,~Error,~L,~R,~left,~right,facts(~S,~CL,~CR,~RL,~RR,~E,~Error,~Bool,~L,~R,~left,~right,owners))
