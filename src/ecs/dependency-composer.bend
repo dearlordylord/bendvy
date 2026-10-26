@@ -1,19 +1,13 @@
 import Base
+import ./dependency-composer-program.bend as Scoped
 import ./dependency-plan.bend as Plan
-import ./dependency-registration.bend as Reg
-import ./dependency-executor.bend as Exec
 import ./schema-fragments.bend as Fragment
 import ./execution-declaration.bend as D
 
 type Error is Data:
   Schema{error:Fragment.Error}
   Schedule{error:Plan.Invalid<String>}
-type Feature<-S:Data,-World:Type,-Owners:Type,-Provisions:Type,-Failure:Data,-Out:Data,-dispatch:Owners -> World -> U32 -> Owners & (World & Exec.Invocation<Failure,Out>)> is Type:
-  Feature{registry:Reg.Registry<World,Owners,Failure,Out,dispatch>,fragment:Fragment.Fragment<S,Provisions>,edges:List<&2,Plan.Edge>,invalid:Maybe<&2,Error>}
-type Prepared<-S:Data,-World:Type,-Owners:Type,-Provisions:Type,-Failure:Data,-Out:Data,-dispatch:Owners -> World -> U32 -> Owners & (World & Exec.Invocation<Failure,Out>)> is Type:
-  CompositionReady{feature:Feature<S,World,Owners,Provisions,Failure,Out,dispatch>,plan:Plan.Build<String>}
-  CompositionRefused{feature:Feature<S,World,Owners,Provisions,Failure,Out,dispatch>,error:Error}
-
+  Nesting{error:Scoped.NestError}
 def first_error(first:Maybe<&2,Error>,second:Maybe<&2,Error>) -> Maybe<&2,Error>:
   match first:
     case Some{error}:Some{error}
@@ -55,24 +49,3 @@ def missing(~S:Data,nodes:List<&2,Plan.Node<String>>,+entries:List<&2,Fragment.E
     case Plan.Node{id,needs} <> rest:Plan.first_error(~String,missing_needs(~S,needs,entries,id),missing(~S,rest,entries))
 def available(key:String) -> Bool:True{}
 
-def declared(~S:Data,~World:Type,~Owners:Type,~Provisions:Type,~Failure:Data,~Out:Data,~dispatch:Owners -> World -> U32 -> Owners & (World & Exec.Invocation<Failure,Out>),registry:Reg.Registry<World,Owners,Failure,Out,dispatch>,fragment:Fragment.Fragment<S,Provisions>) -> Feature<S,World,Owners,Provisions,Failure,Out,dispatch>:
-  Feature{registry,fragment,[],None{}}
-def nested_actual(~S:Data,~World:Type,~Owners:Type,~Provisions:Type,~Failure:Data,~Out:Data,~dispatch:Owners -> World -> U32 -> Owners & (World & Exec.Invocation<Failure,Out>),feature:Feature<S,World,Owners,Provisions,Failure,Out,dispatch>,+edges:List<&2,Plan.Edge>) -> Feature<S,World,Owners,Provisions,Failure,Out,dispatch>:
-  match feature:
-    case Feature{Reg.Registry{owners,+nodes},fragment,prior,invalid}:Feature{Reg.Registry{owners,nodes},fragment,List.append(&2,Plan.Edge,prior,edges),first_error(invalid,schedule_error(Plan.endpoints(~String,edges,nodes)))}
-def nested(~S:Data,~World:Type,~Owners:Type,~Provisions:Type,~Failure:Data,~Out:Data,~dispatch:Owners -> World -> U32 -> Owners & (World & Exec.Invocation<Failure,Out>),feature:Feature<S,World,Owners,Provisions,Failure,Out,dispatch>,edges:List<&2,Plan.Edge>) -> Feature<S,World,Owners,Provisions,Failure,Out,dispatch>:
-  nested_actual(~S,~World,~Owners,~Provisions,~Failure,~Out,~dispatch,feature,edges)
-def paired(~S:Data,~World:Type,~L:Type,~R:Type,~LP:Type,~RP:Type,~Failure:Data,~Out:Data,~ld:L -> World -> U32 -> L & (World & Exec.Invocation<Failure,Out>),~rd:R -> World -> U32 -> R & (World & Exec.Invocation<Failure,Out>),left:Feature<S,World,L,LP,Failure,Out,ld>,right:Feature<S,World,R,RP,Failure,Out,rd>) -> Feature<S,World,Reg.Product<L,R>,LP & RP,Failure,Out,Reg.paired_dispatch(~World,~L,~R,~Failure,~Out,~ld,~rd)>:
-  match left right:
-    case Feature{lr,Fragment.Fragment{le,lp},ledges,li} Feature{rr,Fragment.Fragment{re,rp},redges,ri}:Feature{Reg.paired(~World,~L,~R,~Failure,~Out,~ld,~rd,lr,rr),Fragment.Fragment{List.append(&2,Fragment.Entry<S>,le,re),(lp,rp)},List.append(&2,Plan.Edge,ledges,redges),first_error(li,ri)}
-def prepared_plan(~S:Data,~World:Type,~Owners:Type,~Provisions:Type,~Failure:Data,~Out:Data,~dispatch:Owners -> World -> U32 -> Owners & (World & Exec.Invocation<Failure,Out>),feature:Feature<S,World,Owners,Provisions,Failure,Out,dispatch>,plan:Plan.Build<String>) -> Prepared<S,World,Owners,Provisions,Failure,Out,dispatch>:
-  match plan:
-    case Plan.Rejected{error}:CompositionRefused{feature,Schedule{error}}
-    case Plan.Planned{order,edges}:CompositionReady{feature,Plan.Planned{order,edges}}
-def prepared_checked(~S:Data,~World:Type,~Owners:Type,~Provisions:Type,~Failure:Data,~Out:Data,~dispatch:Owners -> World -> U32 -> Owners & (World & Exec.Invocation<Failure,Out>),invalid:Maybe<&2,Error>,feature:Feature<S,World,Owners,Provisions,Failure,Out,dispatch>,plan:Plan.Build<String>) -> Prepared<S,World,Owners,Provisions,Failure,Out,dispatch>:
-  match invalid:
-    case Some{error}:CompositionRefused{feature,error}
-    case None{}:prepared_plan(~S,~World,~Owners,~Provisions,~Failure,~Out,~dispatch,feature,plan)
-def prepare(~S:Data,~World:Type,~Owners:Type,~Provisions:Type,~Failure:Data,~Out:Data,~dispatch:Owners -> World -> U32 -> Owners & (World & Exec.Invocation<Failure,Out>),feature:Feature<S,World,Owners,Provisions,Failure,Out,dispatch>) -> Prepared<S,World,Owners,Provisions,Failure,Out,dispatch>:
-  match feature:
-    case Feature{Reg.Registry{owners,+nodes},Fragment.Fragment{+entries,provisions},+edges,+invalid}:prepared_checked(~S,~World,~Owners,~Provisions,~Failure,~Out,~dispatch,first_error(invalid,first_error(schema_error(Fragment.validate(~S,entries)),schedule_error(missing(~S,nodes,entries)))),Feature{Reg.Registry{owners,nodes},Fragment.Fragment{entries,provisions},edges,invalid},Plan.build(~String,~available,nodes,edges))
