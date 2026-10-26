@@ -23,6 +23,11 @@ body invocations. Its chain-order and ready-set cases distinguish completion
 dependencies from blanket serial ordering. Intended access controls remain a
 separate gate.
 
+`ordinary/admission-controls.bend` registers an actual writable condition whose
+body would increment the resource. The App rejects its declaration before
+condition or system invocation. Its full owner and World observation remains at
+initial values in both nominal schemas.
+
 `bevy-reference` uses the manifest-pinned Bevy source at
 `ad678262ce53b5d142fe49ee5e08caff6f00ab60`. Its serial schedule runs twice after a
 writer error, a false condition, a condition error and skipped admission. The
