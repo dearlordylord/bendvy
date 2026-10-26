@@ -26,11 +26,7 @@ def left_tree(~S:Data,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~D.Store(~S),~D.LeftSt
 def right_tree(~S:Data,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~D.Store(~S),~D.RightStore(~S),~D.RightResource(~S),~Unit,~String,~String,~F),~command:Tree.CommandLeaf(~S,~D.Store(~S),~D.RightStore(~S),~D.RightResource(~S),~Unit,~String,~String,~F),~join:Tree.Join(~F),owner:RightOwner(~S)) -> F(RightOwner(~S)):
   leaf(D.RightOps(~S),Body.RightLocal(),D.right(~S),Body.right(~S),owner)
 def Application(~S:Data) -> Type:Schedule.Scheduled<DepApp.Application<W.World<S,D.Store(~S),D.Resources(~S),Unit>,Product.Owner<LeftTree(~S),RightOwner(~S)>,Unit,Common.Handler,String,String,Root.dispatch(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.LeftResource(~S),~D.RightResource(~S),~Unit,~String,~String,~LeftTree(~S),~RightOwner(~S),~left_tree(~S),~right_tree(~S)),Reg.empty_dispatch(~W.World<S,D.Store(~S),D.Resources(~S),Unit>,~String,~Bool),Common.handle>>
-def report(value:DepApp.Report<String,String>) -> String:
-  match value:
-    case DepApp.Finished{+events}:"[" ++ Common.event_for(1,events) ++ ", " ++ Common.event_for(2,events) ++ ", " ++ Common.event_for(3,events) ++ "]"
-    case DepApp.Stopped{_,events}:"stopped" ++ List.show(&2,Exec.Observation<String,String>,Common.event,events)
-    case DepApp.Invalid{_}:"invalid"
+def report(value:DepApp.Report<String,String>) -> String:Common.report(value)
 def observed(~S:Data,trace:String,app:Application(~S)) -> String:
   match app:
     case Schedule.Scheduled{DepApp.Application{DepApp.State{world,Product.Owner{Product.Owner{Sys.Owner{_,_,_,_,lc,ll},Sys.Owner{_,_,_,_,oc,ol}},Sys.Owner{_,_,_,_,rc,rl}},_,handler,_},_,_},_,_}:trace ++ "|world=" ++ Observe.world(~S,world) ++ "|locals=" ++ Body.observe_left(ll) ++ "," ++ Body.observe_right(rl) ++ "," ++ Body.observe_left(ol) ++ "|cursors=" ++ Tick.cursor_show(lc) ++ "," ++ Tick.cursor_show(rc) ++ "," ++ Tick.cursor_show(oc) ++ "|handler=" ++ Common.handler(handler)

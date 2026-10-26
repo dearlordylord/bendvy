@@ -131,3 +131,13 @@ from another nominal schema, escape from abstract scope, a Score operation throu
 a Counter capability, and writes through a shared resource read. The resource
 payloads and captured contexts contain actual affine Arrays. These are intended
 affinity and authority errors, not parser or missing-symbol failures.
+
+Report observations retain every scheduler event. They use the pinned Base stable
+sort by numeric system ID, preserving duplicate events and unknown IDs. Every
+event variant renders all its fields. Stopped reports retain their error, and
+invalid plans render the reason variant and its fields. `report-probe.bend` checks
+duplicate ID 1, unknown IDs, every event variant, stopped error and every invalid
+plan reason against an independently written expected observation. The normal
+main entry checks this pure probe before running the real systems. Successful
+probe validation adds no line to the ordinary output. Its complete four-line
+oracle remains unchanged.

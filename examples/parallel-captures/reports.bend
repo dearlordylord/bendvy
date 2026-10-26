@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/dependency-plan.bend as Plan
 import ../../src/ecs/dependency-executor.bend as Exec
 import ../../src/ecs/dependency-application.bend as DepApp
 type Handler is Type:
@@ -23,14 +24,24 @@ def event_id(value:Exec.Observation<String,String>) -> U32:
     case Exec.ConditionFailed{id,_}:id
     case Exec.ConditionRejected{id}:id
     case Exec.AdmissionRejected{id}:id
-def event_selected(selected:Bool,value:Exec.Observation<String,String>,rest:String) -> String:
-  match selected:
-    case True{}:event(value)
-    case False{}:rest
-def event_for(+id:U32,values:List<&2,Exec.Observation<String,String>>) -> String:
-  match values:
-    case []:"missing"
-    case +first <> rest:event_selected(U32.is_eq(id,event_id(first)),first,event_for(id,rest))
+def event_le(left:Exec.Observation<String,String>,right:Exec.Observation<String,String>) -> Bool:
+  U32.is_le(event_id(left),event_id(right))
+def canonical(events:List<&2,Exec.Observation<String,String>>) -> List<&2,Exec.Observation<String,String>>:
+  List.sort(~Exec.Observation<String,String>,~event_le,events)
+def events(values:List<&2,Exec.Observation<String,String>>) -> String:
+  List.show(&2,Exec.Observation<String,String>,event,canonical(values))
+def invalid(reason:Plan.Invalid<String>) -> String:
+  match reason:
+    case Plan.Duplicate{id}:"duplicate/" ++ U32.show(id)
+    case Plan.UnknownDependency{id}:"unknown-dependency/" ++ U32.show(id)
+    case Plan.Missing{id,requirement}:"missing/" ++ U32.show(id) ++ "/" ++ requirement
+    case Plan.Cycle{}:"cycle"
+    case Plan.InvalidCondition{id}:"invalid-condition/" ++ U32.show(id)
+def report(value:DepApp.Report<String,String>) -> String:
+  match value:
+    case DepApp.Finished{values}:events(values)
+    case DepApp.Stopped{error,values}:"stopped/" ++ error ++ "/" ++ events(values)
+    case DepApp.Invalid{reason}:"invalid/" ++ invalid(reason)
 def handler_observed(errors:U32,result:Array<U32> & U32) -> String:
   match result:
     case (_,id):U32.show(id) ++ ":" ++ U32.show(errors)

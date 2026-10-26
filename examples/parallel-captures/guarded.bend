@@ -31,11 +31,7 @@ def left_tree(~S:Data,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~D.Store(~S),~D.LeftSt
 def right_tree(~S:Data,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~D.Store(~S),~D.RightStore(~S),~D.RightResource(~S),~Unit,~String,~String,~F),~command:Tree.CommandLeaf(~S,~D.Store(~S),~D.RightStore(~S),~D.RightResource(~S),~Unit,~String,~String,~F),~join:Tree.Join(~F),owner:RightOwner(~S)) -> F(RightOwner(~S)):
   leaf(D.RightOps(~S),Body.RightLocal(),D.right(~S),Body.right(~S),owner)
 def Application(~S:Data) -> Type:Schedule.Scheduled<DepApp.Application<W.World<S,D.Store(~S),D.Resources(~S),Unit>,Product.Owner<LeftTree(~S),RightOwner(~S)>,GuardOwner(~S),Common.Handler,String,String,Root.dispatch(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.LeftResource(~S),~D.RightResource(~S),~Unit,~String,~String,~LeftTree(~S),~RightOwner(~S),~left_tree(~S),~right_tree(~S)),Reg.leaf_dispatch(~S,~D.Store(~S),~D.Resources(~S),~Unit,~Cond.Ops(~S),~Cond.Local(),~String,~Bool,~Cond.declaration(~S),~Cond.body(~S)),Common.handle>>
-def report(value:DepApp.Report<String,String>) -> String:
-  match value:
-    case DepApp.Finished{+events}:"[" ++ Common.event_for(1,events) ++ ", " ++ Common.event_for(2,events) ++ ", " ++ Common.event_for(3,events) ++ "]"
-    case DepApp.Stopped{_,events}:"stopped" ++ List.show(&2,Exec.Observation<String,String>,Common.event,events)
-    case DepApp.Invalid{_}:"invalid"
+def report(value:DepApp.Report<String,String>) -> String:Common.report(value)
 def text(value:String) -> String:value
 def released(~S:Data,trace:String,ll:Body.LeftLocal(),ol:Body.LeftLocal(),lc:Maybe<&2,Tick.Tick>,oc:Maybe<&2,Tick.Tick>,gl:Cond.Local(),gc:Maybe<&2,Tick.Tick>,handler:Common.Handler,world:World(~S),result:Life.Released<Body.RightLocal()>) -> String:
   match result:
