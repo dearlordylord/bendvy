@@ -35,8 +35,9 @@ def grown(~S:Data,~C:Type,fuel:Nat,column:Column<S,C>,+size:U32,+depth:Nat,+targ
 def ensure_sized(~S:Data,~C:Type,+target:U32,result:Column<S,C> & U32) -> Column<S,C>:
   match result:
     case (column,+size): grown(~S,~C,14n,column,size,Nat.sub(U32.log2(size),3n),target,U32.is_le(target,size))
+def maximum_capacity() -> U32:131072
 def ensure(~S:Data,~C:Type,column:Column<S,C>,target:U32) -> Column<S,C>:
-  ensure_sized(~S,~C,U32.min(target,131072),capacity(~S,~C,column))
+  ensure_sized(~S,~C,U32.min(target,maximum_capacity()),capacity(~S,~C,column))
 
 def present(~C:Type,value:Maybe<&1,C>) -> Maybe<&1,C> & Bool:
   match value:

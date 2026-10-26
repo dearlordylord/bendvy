@@ -39,7 +39,7 @@ def remove_bounded(~S:Data,~layout:Layout.Layout,~route:Layout.Route,allocator:A
 def prepared(~S:Data,~layout:Layout.Layout,~route:Layout.Route,allocator:A.Allocator,column:Column.Column<S,Layout.stored(layout,route)>,+handle:W.Handle<S>,incoming:Maybe<&1,Layout.payload(layout,route)>,tick:Tick.Tick) -> Applied<S,layout,route>:
   match handle incoming:
     case handle None{}:remove_bounded(~S,~layout,~route,allocator,handle,tick,Column.capacity(~S,~(Layout.stored(layout,route)),column))
-    case W.Handle{+namespace,+key} Some{owner}:insert_bounded(~S,~layout,~route,allocator,column,W.Handle{namespace,key},owner,tick,U32.is_lt(Key.index(key),131072))
+    case W.Handle{+namespace,+key} Some{owner}:insert_bounded(~S,~layout,~route,allocator,column,W.Handle{namespace,key},owner,tick,U32.is_lt(Key.index(key),Column.maximum_capacity()))
 def admitted(~S:Data,~layout:Layout.Layout,~route:Layout.Route,column:Column.Column<S,Layout.stored(layout,route)>,handle:W.Handle<S>,incoming:Maybe<&1,Layout.payload(layout,route)>,tick:Tick.Tick,result:A.Allocator & Bool) -> Applied<S,layout,route>:
   match result:
     case (allocator,False{}):Applied{allocator,column,Buffer.Refused{handle,incoming}}
