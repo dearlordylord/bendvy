@@ -24,7 +24,7 @@ def left_combined(~S:Data,~H:Type,~B:Type,component:A.ComponentWrite<S,H,P.Posit
 def left_component_granted(~S:Data,~H:Type,~B:Type,~resource_write:Build.ResourceWrite(~S,~LeftStore(~S),~LeftResource(),~H,~B),result:B & A.ComponentWrite<S,H,P.Position,String>) -> B & LeftOps(~S)(H):
   match result:
     case (book,component):left_combined(~S,~H,~B,component,resource_write(P.Counter,Unit,String,left_resource(),P.counter,Projection.trusted_affine(~P.Counter,~String,~P.counter),Schema.resource(~S,~P.Counter,"counter"),book))
-def left_selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~LeftStore(~S),~LeftResource(),~H,~B),~component_write:Build.ComponentWrite(~S,~LeftStore(~S),~LeftResource(),~H,~B),~resource_read:Build.ResourceRead(~S,~LeftStore(~S),~LeftResource(),~H,~B),~resource_write:Build.ResourceWrite(~S,~LeftStore(~S),~LeftResource(),~H,~B),book:B) -> B & LeftOps(~S)(H):
+def left_selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~LeftStore(~S),~LeftResource(),~H,~B),~component_write:Build.ComponentWrite(~S,~LeftStore(~S),~LeftResource(),~H,~B),~resource_read:Build.ResourceRead(~S,~LeftStore(~S),~LeftResource(),~H,~B),~resource_write:Build.ResourceWrite(~S,~LeftStore(~S),~LeftResource(),~H,~B),~query:Build.Query(~S,~LeftStore(~S),~LeftResource(),~H,~B),book:B) -> B & LeftOps(~S)(H):
   left_component_granted(~S,~H,~B,~resource_write,component_write(P.Position,Unit,String,left_column(~S),P.position,Projection.trusted_affine(~P.Position,~String,~P.position),Identity.component(~S,~P.Position,"position"),book))
 def left(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~LeftStore(~S),~LeftResource(),~H,~B),book:B) -> B & LeftOps(~S)(H):
   builder(LeftOps(~S),left_selection(~S,~H,~B),book)
@@ -42,7 +42,7 @@ def right_combined(~S:Data,~H:Type,~B:Type,component:A.ComponentWrite<S,H,P.Heal
 def right_component_granted(~S:Data,~H:Type,~B:Type,~resource_write:Build.ResourceWrite(~S,~RightStore(~S),~RightResource(),~H,~B),result:B & A.ComponentWrite<S,H,P.Health,String>) -> B & RightOps(~S)(H):
   match result:
     case (book,component):right_combined(~S,~H,~B,component,resource_write(P.Score,Unit,String,right_resource(),P.score,Projection.trusted_affine(~P.Score,~String,~P.score),Schema.resource(~S,~P.Score,"score"),book))
-def right_selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~RightStore(~S),~RightResource(),~H,~B),~component_write:Build.ComponentWrite(~S,~RightStore(~S),~RightResource(),~H,~B),~resource_read:Build.ResourceRead(~S,~RightStore(~S),~RightResource(),~H,~B),~resource_write:Build.ResourceWrite(~S,~RightStore(~S),~RightResource(),~H,~B),book:B) -> B & RightOps(~S)(H):
+def right_selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~RightStore(~S),~RightResource(),~H,~B),~component_write:Build.ComponentWrite(~S,~RightStore(~S),~RightResource(),~H,~B),~resource_read:Build.ResourceRead(~S,~RightStore(~S),~RightResource(),~H,~B),~resource_write:Build.ResourceWrite(~S,~RightStore(~S),~RightResource(),~H,~B),~query:Build.Query(~S,~RightStore(~S),~RightResource(),~H,~B),book:B) -> B & RightOps(~S)(H):
   right_component_granted(~S,~H,~B,~resource_write,component_write(P.Health,Unit,String,right_column(~S),P.health,Projection.trusted_affine(~P.Health,~String,~P.health),Identity.component(~S,~P.Health,"health"),book))
 def right(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~RightStore(~S),~RightResource(),~H,~B),book:B) -> B & RightOps(~S)(H):
   builder(RightOps(~S),right_selection(~S,~H,~B),book)
