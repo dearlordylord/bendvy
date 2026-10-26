@@ -3,30 +3,31 @@ import ./world.bend as W
 import ./execution-system.bend as Sys
 import ./execution-state.bend as State
 import ./execution-declaration.bend as D
+import ./execution-builder.bend as Build
 import ./execution-parallel.bend as Parallel
 import ./owner-product.bend as Product
 import ./change-tick.bend as Tick
 
 type Meta is Data:
   Meta{namespace:U32,id:U32,name:String,access:List<&2,String>,cursor:Maybe<&2,Tick.Tick>}
-def detached(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:D.Declaration<S,C,R,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),owner:Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>) -> Meta & Local:
+def detached(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),owner:Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>) -> Meta & Local:
   match owner:
     case Sys.Owner{namespace,id,name,access,cursor,local}:(Meta{namespace,id,name,access,cursor},local)
-def restored(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:D.Declaration<S,C,R,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),meta:Meta,local:Local) -> Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>:
+def restored(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),meta:Meta,local:Local) -> Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>:
   match meta:
     case Meta{namespace,id,name,access,cursor}:Sys.Owner{namespace,id,name,access,cursor,local}
 def completed_meta(allowed:Bool,tick:Tick.Tick,meta:Meta) -> Meta:
   match allowed meta:
     case False{} meta:meta
     case True{} Meta{namespace,id,name,access,_}:Meta{namespace,id,name,access,Some{tick}}
-def registered(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:D.Declaration<S,C,R,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),~WC:Type,~WR:Type,namespace:U32,name:String,access:List<&2,String>,local:Local,result:W.World<S,WC,WR,E> & W.Registration) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
+def registered(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),~WC:Type,~WR:Type,namespace:U32,name:String,access:List<&2,String>,local:Local,result:W.World<S,WC,WR,E> & W.Registration) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
   match result:
     case (world,W.RegistrationRejected{_}):Sys.DefinitionRefused{world,local}
     case (world,W.Registered{id}):Sys.Defined{world,Sys.Owner{namespace,id,name,access,None{},local}}
-def named(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:D.Declaration<S,C,R,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),~WC:Type,~WR:Type,+name:String,local:Local,result:W.World<S,WC,WR,E> & U32) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
+def named(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),~WC:Type,~WR:Type,+name:String,local:Local,result:W.World<S,WC,WR,E> & U32) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
   match result:
-    case (world,namespace):registered(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WC,~WR,namespace,name,D.access(~S,~C,~R,~Ops,declaration),local,W.register(~S,~WC,~WR,~E,world,name,D.access(~S,~C,~R,~Ops,declaration)))
-def define(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:D.Declaration<S,C,R,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),~WC:Type,~WR:Type,world:W.World<S,WC,WR,E>,name:String,local:Local) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
+    case (world,namespace):registered(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WC,~WR,namespace,name,D.access(~S,~C,~R,~Ops,Build.compile(~S,~C,~R,~Ops,~declaration)),local,W.register(~S,~WC,~WR,~E,world,name,D.access(~S,~C,~R,~Ops,Build.compile(~S,~C,~R,~Ops,~declaration))))
+def define(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),~WC:Type,~WR:Type,world:W.World<S,WC,WR,E>,name:String,local:Local) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
   named(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WC,~WR,name,local,W.namespace(~S,~WC,~WR,~E,world))
 def registration_verified(~S:Data,~C:Type,~R:Type,~E:Data,same:Bool,result:W.World<S,C,R,E> & Bool) -> W.World<S,C,R,E> & Bool:
   match result:
