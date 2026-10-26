@@ -55,10 +55,11 @@ def create_checked(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~E
     case Fragment.Valid{}:created(~S,~components,~resources,~E,W.create(~S,~Layout.columns(~S,components),~Layout.resources(~S,resources),~E,~empty_columns(~S,~components),factory,owners))
 def create(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~E:Data,factory:W.Factory,owners:Layout.resources(~S,resources)) -> Initialized<S,components,resources,E>:
   create_checked(~S,~components,~resources,~E,validate(~S,~components,~resources),factory,owners)
-# The closed seed constructs initial storage and never receives runtime authority.
-def create_seeded_checked(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~E:Data,~seed:Unit -> Layout.columns(~S,components),result:Fragment.Validation,factory:W.Factory,owners:Layout.resources(~S,resources)) -> Initialized<S,components,resources,E>:
+# The trusted closed seed must initialize every occupied row through Layout.initialize.
+# It constructs initial storage and never receives runtime execution authority.
+def trusted_create_seeded_checked(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~E:Data,~seed:Unit -> Layout.columns(~S,components),result:Fragment.Validation,factory:W.Factory,owners:Layout.resources(~S,resources)) -> Initialized<S,components,resources,E>:
   match result:
     case Fragment.Invalid{error}:SchemaRefused{factory,owners,error}
     case Fragment.Valid{}:created(~S,~components,~resources,~E,W.create(~S,~Layout.columns(~S,components),~Layout.resources(~S,resources),~E,~seed,factory,owners))
-def create_seeded(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~E:Data,~seed:Unit -> Layout.columns(~S,components),factory:W.Factory,owners:Layout.resources(~S,resources)) -> Initialized<S,components,resources,E>:
-  create_seeded_checked(~S,~components,~resources,~E,~seed,validate(~S,~components,~resources),factory,owners)
+def trusted_create_seeded(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~E:Data,~seed:Unit -> Layout.columns(~S,components),factory:W.Factory,owners:Layout.resources(~S,resources)) -> Initialized<S,components,resources,E>:
+  trusted_create_seeded_checked(~S,~components,~resources,~E,~seed,validate(~S,~components,~resources),factory,owners)
