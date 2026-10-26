@@ -48,3 +48,11 @@ def qualified(accesses:List<&2,Access>) -> List<&2,String>:
     case Access{key,kind,_,_} <> rest:requirement_key(kind,key) <> qualified(rest)
 def requirement_keys(~S:Data,~C:Type,~R:Type,~Ops:Type -> Type,value:Declaration<S,C,R,Ops>) -> List<&2,String>:
   qualified(requirements(~S,~C,~R,~Ops,value))
+def permitted_read(permission:Permission) -> Bool:
+  match permission:
+    case ReadOnly{}:True{}
+    case Writable{}:False{}
+def read_only(accesses:List<&2,Access>) -> Bool:
+  match accesses:
+    case []:True{}
+    case Access{_,_,_,permission} <> rest:Bool.and(permitted_read(permission),read_only(rest))
