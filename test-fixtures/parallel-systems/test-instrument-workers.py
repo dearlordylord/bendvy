@@ -64,7 +64,7 @@ class InstrumentationBoundary(unittest.TestCase):
         frozen = dict(root=str(root), files={str(validator): collector.sha(validator)})
         expected = dict(workerLimit=4, groups={'body': dict(count=1, minimumWorkers=2)},
                         forks=1, minimumUnionWorkers=2)
-        receipt = dict(status='INCOMPLETE', commands=[dict(label='native4', exitCode=0)])
+        receipt = dict(status='INCOMPLETE', commands=[dict(label='native4', exit=0)])
         with tempfile.TemporaryDirectory() as directory:
             destination = Path(directory) / 'receipt.json'
             with self.assertRaises(ValueError):
@@ -73,7 +73,7 @@ class InstrumentationBoundary(unittest.TestCase):
                                                 b'BENDVY_WORKERS body=1/1 forks=1\n', receipt)
             observed = json.loads(destination.read_text())
             self.assertEqual(observed['status'], 'INCOMPLETE')
-            self.assertEqual(observed['commands'][0]['exitCode'], 0)
+            self.assertEqual(observed['commands'][0]['exit'], 0)
             self.assertEqual(observed['workerDiagnostics'][0]['status'], 'FAIL')
 
     def test_semantic_worker_receipt(self):
