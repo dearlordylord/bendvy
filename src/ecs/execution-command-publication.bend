@@ -60,6 +60,10 @@ def family_selected(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.
 def family(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,world:W.World<S,Layout.columns(~S,layout),R,E>,handle:W.Handle<S>,incoming:Maybe<&1,Layout.payload(layout,route)>,tick:Tick.Tick) -> W.World<S,Layout.columns(~S,layout),R,E> & Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>:
   match world:
     case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:family_selected(~S,~R,~E,~layout,~route,allocator,Remainder{namespace,resource,events,pending,registrations,nextSystemId,clock},handle,incoming,tick,Layout.column_take(~S,layout,route,store))
+# Bevy ad678262 system/commands/mod.rs EntityCommands::despawn queues a handled
+# entity command; world/mod.rs despawn_with_caller refuses a missing entity and
+# despawn removes all components before freeing its index. This boundary also
+# returns each actual affine payload instead of dropping it.
 def despawn_removed(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,allocator:A.Allocator,remainder:Remainder<S,Layout.columns(~S,layout),R,E>,+handle:W.Handle<S>,result:Layout.columns(~S,layout) & Removed.Removed(layout)) -> W.World<S,Layout.columns(~S,layout),R,E> & Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>:
   match remainder result:
     case Remainder{namespace,resource,events,pending,registrations,nextSystemId,clock}, (store,removed):(W.World{namespace,A.release(A.write_phase(allocator,W.handle_key(~S,handle),A.DeadRetained{}),W.handle_key(~S,handle)),store,resource,events,pending,registrations,nextSystemId,clock},Buffer.Despawned{handle,removed})

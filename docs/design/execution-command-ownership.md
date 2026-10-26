@@ -48,6 +48,14 @@ raw affine owner in the receipt, then releases the cleared allocator slot. Repea
 stale-handle commands produce refusal receipts. Removal notices remain a separate
 publication-boundary integration.
 
+`execution-command-lifecycle.bend` retires, restores and rebinds the same
+program-indexed command owner. It validates the persisted permission before
+metadata changes, retains the actual local queue and receipts, and returns the
+actual detached owner on refusal. Rebuilding a Schedule can legitimately produce
+empty admitted history beside a retained queue; its exact pending query still
+reports that queue. The lifecycle consumer checks this case, metadata/cursor
+preservation and registration-exhaustion refusal with actual affine payloads.
+
 The complete World must be reassembled before publication. Root cuts retain the
 allocator and administrative state outside gameplay scopes, so a branch cannot
 apply structural commands to a half World or duplicate allocator ownership.

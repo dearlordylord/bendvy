@@ -3,7 +3,6 @@ import ./controls/removed-positive.bend as Fixture
 import ../../src/ecs/execution-command-permission.bend as Permission
 import ../../src/ecs/execution-command-removed.bend as Removed
 import ./controls/positive.bend as P
-import ./controls/registered.bend as Registered
 import ../../src/ecs/world.bend as W
 import ../../src/ecs/execution-system.bend as Sys
 import ../../src/ecs/execution-builder.bend as Build
@@ -91,12 +90,6 @@ def receipt(value:Buffer.Receipt<Schema,P.Token,Removed.Removed(layout())>) -> S
     case Buffer.Refused{handle,incoming}:"refused:" ++ handle_text(handle) ++ ":" ++ maybe_token(incoming)
     case Buffer.Despawned{handle,Product.Owner{removed,_}}:"despawned:" ++ handle_text(handle) ++ ":" ++ Fixture.receipt(removed)
     case Buffer.DespawnRefused{handle}:"despawn-refused:" ++ handle_text(handle)
-def viewed_result(+cache:U32,result:Array<U32> & U32) -> Layout.Viewed<P.Token,U32> & String:
-  match result:
-    case (owner,+value):(Layout.Viewed{P.Token{owner},cache},U32.show(value) ++ "/cache=" ++ U32.show(cache))
-def viewed(value:Layout.Viewed<P.Token,U32>) -> Layout.Viewed<P.Token,U32> & String:
-  match value:
-    case Layout.Viewed{P.Token{owner},cache}:viewed_result(cache,Array.get(U32,owner,0))
 def world(world:W.World<Schema,Store(),Resources(),Unit>) -> String:
   match world:
     case W.World{namespace,allocator,Product.Owner{Product.Owner{Layout.ColumnSlot{left},Layout.ColumnSlot{right}},_},_,events,pending,registrations,next,clock}:"namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ Observe.allocator(allocator) ++ "};left=" ++ Observe.capacity_done(~Schema,~Layout.Viewed<P.Token,U32>,~Fixture.token_project,Column.capacity(~Schema,~Layout.Viewed<P.Token,U32>,left)) ++ ";right=" ++ Observe.capacity_done(~Schema,~Layout.Viewed<Fixture.Other,U32>,~Fixture.other_project,Column.capacity(~Schema,~Layout.Viewed<Fixture.Other,U32>,right)) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";legacy-pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<Schema,Store(),Resources(),Unit>>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,Observe.registration,registrations) ++ ";next=" ++ U32.show(next) ++ ";clock=" ++ Observe.clock(clock)
@@ -127,22 +120,27 @@ def selected(native:Bool,app:Application()) -> Application() & DepApp.Report<Str
   match native:
     case False{}:Schedule.run_serial(~Schema,~Left(),~Unit,~Unit,~Unit,~Unit,~String,~Unit,~Author(),~Peer(),~left,~right,~Unit,~Handler,~Reg.empty_dispatch(~W.World<Schema,Store(),Resources(),Unit>,~String,~Bool),~Prog.empty(~W.World<Schema,Store(),Resources(),Unit>,~String,~Bool),~handle,app)
     case True{}:Schedule.run_native(~Schema,~Left(),~Unit,~Unit,~Unit,~Unit,~String,~Unit,~Author(),~Peer(),~left,~right,~Unit,~Handler,~Reg.empty_dispatch(~W.World<Schema,Store(),Resources(),Unit>,~String,~Bool),~Prog.empty(~W.World<Schema,Store(),Resources(),Unit>,~String,~Bool),~handle,app)
+def exact_pending(app:Application()) -> Application() & Bool:
+  Schedule.pending(~Schema,~Left(),~Unit,~Unit,~Unit,~Unit,~String,~Unit,~Author(),~Peer(),~left,~right,~Unit,~Handler,~Reg.empty_dispatch(~W.World<Schema,Store(),Resources(),Unit>,~String,~Bool),~Prog.empty(~W.World<Schema,Store(),Resources(),Unit>,~String,~Bool),~handle,app)
 def second(native:Bool,prefix:String,result:Application() & DepApp.Report<String,Unit>) -> String:
   match result:
-    case (app,done):pending_observed(prefix ++ ";" ++ report(done),Schedule.pending(~Schema,~Left(),~Unit,~Unit,~Unit,~Unit,~String,~Unit,~Author(),~Peer(),~left,~right,~Unit,~Handler,~Reg.empty_dispatch(~W.World<Schema,Store(),Resources(),Unit>,~String,~Bool),~Prog.empty(~W.World<Schema,Store(),Resources(),Unit>,~String,~Bool),~handle,app))
+    case (app,done):pending_observed(prefix ++ ";" ++ report(done),exact_pending(app))
 def first(+native:Bool,result:Application() & DepApp.Report<String,Unit>) -> String:
   match result:
     case (app,done):second(native,report(done),selected(native,app))
-def built(settings:Settings.Settings,+native:Bool,world:W.World<Schema,Store(),Resources(),Unit>,author:Author(),peer:Peer()) -> String:
-  first(native,selected(native,Schedule.configure(~(DepApp.Application<W.World<Schema,Store(),Resources(),Unit>,Product.Owner<Author(),Peer()>,Unit,Handler,String,Unit,Root.dispatch(~Schema,~Left(),~Unit,~Unit,~Unit,~Unit,~String,~Unit,~Author(),~Peer(),~left,~right),Reg.empty_dispatch(~W.World<Schema,Store(),Resources(),Unit>,~String,~Bool),handle>),settings,Schedule.build(~Schema,~Left(),~Unit,~Unit,~Unit,~Unit,~String,~Unit,~Author(),~Peer(),~left,~right,~Unit,~Handler,~Reg.empty_dispatch(~W.World<Schema,Store(),Resources(),Unit>,~String,~Bool),~Prog.empty(~W.World<Schema,Store(),Resources(),Unit>,~String,~Bool),~handle,~(name => True{}),world,Product.Owner{author,peer},Unit{},Handler{ALeaf{901},0},[],[]))))
-def peer_defined(settings:Settings.Settings,native:Bool,author:Author(),result:Sys.Defined<W.World<Schema,Store(),Resources(),Unit>,Peer(),Array<U32>>) -> String:
+type Setup is Type:
+  SetupReady{application:Application()}
+  SetupFailed{message:String}
+def built(settings:Settings.Settings,+native:Bool,world:W.World<Schema,Store(),Resources(),Unit>,author:Author(),peer:Peer()) -> Setup:
+  SetupReady{Schedule.configure(~(DepApp.Application<W.World<Schema,Store(),Resources(),Unit>,Product.Owner<Author(),Peer()>,Unit,Handler,String,Unit,Root.dispatch(~Schema,~Left(),~Unit,~Unit,~Unit,~Unit,~String,~Unit,~Author(),~Peer(),~left,~right),Reg.empty_dispatch(~W.World<Schema,Store(),Resources(),Unit>,~String,~Bool),handle>),settings,Schedule.build(~Schema,~Left(),~Unit,~Unit,~Unit,~Unit,~String,~Unit,~Author(),~Peer(),~left,~right,~Unit,~Handler,~Reg.empty_dispatch(~W.World<Schema,Store(),Resources(),Unit>,~String,~Bool),~Prog.empty(~W.World<Schema,Store(),Resources(),Unit>,~String,~Bool),~handle,~(name => True{}),world,Product.Owner{author,peer},Unit{},Handler{ALeaf{901},0},[],[]))}
+def peer_defined(settings:Settings.Settings,native:Bool,author:Author(),result:Sys.Defined<W.World<Schema,Store(),Resources(),Unit>,Peer(),Array<U32>>) -> Setup:
   match result:
     case Sys.Defined{world,peer}:built(settings,native,world,author,peer)
-    case Sys.DefinitionRefused{_,_}:"ERROR: peer definition"
-def author_defined(settings:Settings.Settings,native:Bool,result:Sys.Defined<W.World<Schema,Store(),Resources(),Unit>,Author(),Cmd.Captures(~Schema,~layout(),~path(),~AuthorLocal)>) -> String:
+    case Sys.DefinitionRefused{_,_}:SetupFailed{"ERROR: peer definition"}
+def author_defined(settings:Settings.Settings,native:Bool,result:Sys.Defined<W.World<Schema,Store(),Resources(),Unit>,Author(),Cmd.Captures(~Schema,~layout(),~path(),~AuthorLocal)>) -> Setup:
   match result:
     case Sys.Defined{world,author}:peer_defined(settings,native,author,Task.define(~Schema,~Unit,~Unit,~Unit,~Ops,~Array<U32>,~String,~Unit,~peer_declaration,~peer_body,~Store(),~Resources(),world,"peer",ALeaf{801}))
-    case Sys.DefinitionRefused{_,_}:"ERROR: author definition"
+    case Sys.DefinitionRefused{_,_}:SetupFailed{"ERROR: author definition"}
 def cache_selected(valid:Bool,owner:Author()) -> Author():
   match valid owner:
     case True{} owner:owner
@@ -151,14 +149,14 @@ def cache_defined(valid:Bool,result:Sys.Defined<W.World<Schema,Store(),Resources
   match result:
     case Sys.Defined{world,owner}:Sys.Defined{world,cache_selected(valid,owner)}
     case Sys.DefinitionRefused{world,local}:Sys.DefinitionRefused{world,local}
-def activated(settings:Settings.Settings,enabled:Bool,native:Bool,handle:W.Handle<Schema>,result:W.World<Schema,Store(),Resources(),Unit> & W.Status) -> String:
+def activated(settings:Settings.Settings,enabled:Bool,native:Bool,handle:W.Handle<Schema>,result:W.World<Schema,Store(),Resources(),Unit> & W.Status) -> Setup:
   match result:
     case (world,W.Accepted{}):author_defined(settings,native,cache_defined(enabled,Cmd.define(~Schema,~Left(),~Unit,~Unit,~layout(),~path(),~{==},~CmdOps,~AuthorLocal,~String,~Unit,~author_declaration,~author_body,~Resources(),world,"author",AuthorLocal{P.Capture{handle},True{}})))
-    case (_,_):"ERROR: activation"
-def reserved(settings:Settings.Settings,enabled:Bool,native:Bool,result:W.World<Schema,Store(),Resources(),Unit> & W.Reservation<Schema>) -> String:
+    case (_,_):SetupFailed{"ERROR: activation"}
+def reserved(settings:Settings.Settings,enabled:Bool,native:Bool,result:W.World<Schema,Store(),Resources(),Unit> & W.Reservation<Schema>) -> Setup:
   match result:
     case (world,W.Reserved{+handle}):activated(settings,enabled,native,handle,W.activate(~Schema,~Store(),~Resources(),~Unit,world,handle))
-    case (_,_):"ERROR: reservation"
+    case (_,_):SetupFailed{"ERROR: reservation"}
 def token_column(result:Column.SwapOutcome<Schema,Layout.Viewed<P.Token,U32>>) -> Column.Column<Schema,Layout.Viewed<P.Token,U32>>:
   match result:
     case Column.Accepted{column,_}:column
@@ -168,12 +166,18 @@ def other_column(result:Column.SwapOutcome<Schema,Layout.Viewed<Fixture.Other,U3
     case Column.Accepted{column,_}:column
     case Column.Rejected{column,_}:column
 def empty(_:Unit) -> Store():
-  Product.Owner{Product.Owner{Layout.ColumnSlot{token_column(Column.swap(~Schema,~(Layout.Viewed<P.Token,U32>),Column.empty(~Schema,~(Layout.Viewed<P.Token,U32>)),1,Some{Layout.Viewed{P.Token{ALeaf{71}},900}}))},Layout.ColumnSlot{other_column(Column.swap(~Schema,~(Layout.Viewed<Fixture.Other,U32>),Column.empty(~Schema,~(Layout.Viewed<Fixture.Other,U32>)),1,Some{Layout.Viewed{Fixture.Other{ALeaf{81}},901}}))}},Unit{}}
-def created(settings:Settings.Settings,enabled:Bool,native:Bool,result:W.Creation<Schema,Store(),Resources(),Unit>) -> String:
+  Product.Owner{Product.Owner{Layout.ColumnSlot{token_column(Column.swap(~Schema,~(Layout.Viewed<P.Token,U32>),Column.empty(~Schema,~(Layout.Viewed<P.Token,U32>)),1,Some{Layout.initialize(Fixture.layout(),Layout.InLeft{Layout.AtLeaf{}},P.Token{ALeaf{71}})}))},Layout.ColumnSlot{other_column(Column.swap(~Schema,~(Layout.Viewed<Fixture.Other,U32>),Column.empty(~Schema,~(Layout.Viewed<Fixture.Other,U32>)),1,Some{Layout.initialize(Fixture.layout(),Layout.InRight{Layout.AtLeaf{}},Fixture.Other{ALeaf{80}})}))}},Unit{}}
+def created(settings:Settings.Settings,enabled:Bool,native:Bool,result:W.Creation<Schema,Store(),Resources(),Unit>) -> Setup:
   match result:
     case W.Created{_,world}:reserved(settings,enabled,native,W.reserve_id(~Schema,~Store(),~Resources(),~Unit,world))
-    case W.CreateRejected{_,_}:"ERROR: creation"
-def run(settings:Settings.Settings,enabled:Bool,native:Bool) -> String:
+    case W.CreateRejected{_,_}:SetupFailed{"ERROR: creation"}
+def setup(settings:Settings.Settings,enabled:Bool,native:Bool) -> Setup:
   created(settings,enabled,native,W.create(~Schema,~Store(),~Resources(),~Unit,~empty,W.factory(),Product.Owner{Unit{},Unit{}}))
+def setup_run(+native:Bool,result:Setup) -> String:
+  match result:
+    case SetupReady{app}:first(native,selected(native,app))
+    case SetupFailed{message}:message
+def run(settings:Settings.Settings,enabled:Bool,+native:Bool) -> String:
+  setup_run(native,setup(settings,enabled,native))
 def main() -> IO(Unit):
   IO.print("native-final=" ++ run(Settings.defaults(),True{},True{}) ++ "\nnative-retained=" ++ run(Settings.Settings{True{},False{},[],[]},True{},True{}) ++ "\nnative-cache-mismatch=" ++ run(Settings.defaults(),False{},True{}) ++ "\nserial-final=" ++ run(Settings.defaults(),True{},False{}))

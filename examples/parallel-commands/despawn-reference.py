@@ -27,7 +27,7 @@ def expected():
         rows.append(
             f'{label}={events};{events};exact-pending={str(coherent and not final).lower()}'
             + '|world=namespace=1;allocator={' + allocator + '};left='
-            + column(71, 900, not removed) + ';right=' + column(81, 901, not removed)
+            + column(71, 71, not removed) + ';right=' + column(81, 81, not removed)
             + ';events=0;legacy-pending=0;registrations=[2:peer:[], 1:author:[]];next=3;'
             + f'clock=0:{now}:[]|permission=' + ('entity' if coherent else 'family')
             + f'|queue={queue}|receipts={receipts}|handle=1:1:0|cursor={author}|peer=801:0:{peer}'
