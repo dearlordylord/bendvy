@@ -1,4 +1,5 @@
 import Base
+import ./forms.bend as Forms
 import ./bootstrap.bend as Bootstrap
 import ./application.bend as Application
 import ./observation.bend as Observe
@@ -23,4 +24,4 @@ def repeated(application:Application.Application()) -> String:first_returned(Tru
 def invalid_groups() -> List<&2,Scoped.Nested>:
   [Scoped.Nested{[0],[Plan.Edge{1,3}]}]
 def main() -> IO(Unit):
-  IO.print("missing=" ++ Bootstrap.run(~missing,Application.groups()) ++ "\nprovided=" ++ Bootstrap.run(~provided,Application.groups()) ++ "\nrepeated=" ++ Bootstrap.run(~repeated,Application.groups()) ++ "\ninvalid-nesting=" ++ Bootstrap.run(~missing,invalid_groups()))
+  IO.print("missing=" ++ Bootstrap.run(~missing,Application.groups()) ++ "\nprovided=" ++ Bootstrap.run(~provided,Application.groups()) ++ "\nrepeated=" ++ Bootstrap.run(~repeated,Application.groups()) ++ "\ninvalid-nesting=" ++ Bootstrap.run(~missing,invalid_groups()) ++ "\noptional-none=" ++ Bootstrap.run_optional_none(~missing,Application.groups()) ++ "\nvalidation=" ++ Forms.validation() ++ "\nschema-collision=" ++ Forms.schema_refusal() ++ "\nnamespace-refusal=" ++ Forms.namespace_refusal())

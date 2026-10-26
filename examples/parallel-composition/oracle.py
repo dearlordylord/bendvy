@@ -58,7 +58,7 @@ class Model:
                     events.append(f"{system}:ran:{result}")
         return "finished:" + show(events)
 
-    def observe(self, invalid=False):
+    def observe(self, invalid=False, optional=True):
         def column(index, value, changed):
             return "capacity=8[" + "".join(
                 f"{i}={value}@0:0/0:{changed};" if i == index else f"{i}=absent@never/never;"
@@ -66,13 +66,14 @@ class Model:
             ) + "]"
 
         names = ["motion-first", "motion-second", "labels-first", "labels-second", "host-first", "host-second"]
-        access = [["position", "counter"], ["position", "counter"], ["label", "host"], ["label", "host"], ["host"], ["host"]]
+        access = [["position", "counter"], ["position", "counter"], ["label", "host"], ["label", "host"], ["host", "optional"], ["host", "optional"]]
         registrations = show(f"{i + 1}:{names[i]}:{show(access[i])}" for i in reversed(range(6)))
         position = f"101:{self.x}/cache=101:{self.x}"
         label = "LABEL-202" + "!" * self.labels + ":seed"
         host = f"HOST-901:{self.calls}" if self.present else "missing"
         allocator = "next=3,high=2,capacity=4,depth=2,slots=[0:consumed, 0:live, 0:live, 0:consumed],free=[],order=[1:0, 2:0]"
-        world = f"namespace=1;allocator={{{allocator}}};positions={column(1, position, self.position_stamp)};labels={column(2, label + '/cache=' + label, self.label_stamp)};counter=301:{self.count}/optional=some:302/cache=301:{self.count};host={host}/cache={host};optional=some:OPTIONAL-303/cache=some:OPTIONAL-303;events=0;pending=0;registrations={registrations};next=7;clock=0:{self.tick}:[]"
+        optional_text = "some:OPTIONAL-303" if optional else "none"
+        world = f"namespace=1;allocator={{{allocator}}};positions={column(1, position, self.position_stamp)};labels={column(2, label + '/cache=' + label, self.label_stamp)};counter=301:{self.count}/optional=some:302/cache=301:{self.count};host={host}/cache={host};optional={optional_text}/cache={optional_text};events=0;pending=0;registrations={registrations};next=7;clock=0:{self.tick}:[]"
 
         def meta(index, local):
             cursor = "never" if self.cursors[index] is None else f"0:{self.cursors[index]}"
@@ -104,6 +105,12 @@ def expected():
         lines.append(name + "=" + "|".join(reports) + "|" + model.observe())
     model = Model()
     lines.append("invalid-nesting=refused:invalid-nesting:[0]:unknown:3|" + model.observe(invalid=True))
+    model = Model()
+    lines.append("optional-none=" + model.run() + "|" + model.observe(optional=False))
+    lines.append("validation=valid=accepted:text:seed/owner=VALID-906:seed;invalid=rejected:$:literal:text:bad/owner=REJECT-907:bad;optional-none=none;optional-some=some:OPTIONAL-905")
+    returned = "counter=301:0/optional=some:302/cache=STALE;host=REFUSAL-HOST-904:9/cache=STALE;optional=some:OPTIONAL-303/cache=STALE"
+    lines.append("schema-collision=duplicate-key:component:duplicate;factory=1;" + returned)
+    lines.append("namespace-refusal=namespace-refused;factory=4294967295;" + returned)
     return "\n".join(lines) + "\n"
 
 

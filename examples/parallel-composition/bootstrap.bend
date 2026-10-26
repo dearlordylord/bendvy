@@ -18,11 +18,11 @@ def defined5(~finish:Application.Application() -> String,nesting:List<&2,Scoped.
     case Sys.DefinitionRefused{_,_}:"definition-refused"
 def defined4(~finish:Application.Application() -> String,nesting:List<&2,Scoped.Nested>,+first:W.Handle<Schema.Nominal>,+second:W.Handle<Schema.Nominal>,a0:D.MotionOwner(),a1:D.MotionOwner(),b0:D.LabelsOwner(),b1:D.LabelsOwner(),result:Sys.Defined<Schema.World(),D.GuardOwner(),D.GuardLocal>) -> String:
   match result:
-    case Sys.Defined{world,g0}:defined5(~finish,nesting,first,second,a0,a1,b0,b1,g0,Sys.define(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~Unit,~Access.ResourceReads(~Service.Status<String>),~D.GuardLocal,~String,~Bool,~D.guard_program,~D.guard_body,world,"host-second",D.GuardLocal{ALeaf{702},0}))
+    case Sys.Defined{world,g0}:defined5(~finish,nesting,first,second,a0,a1,b0,b1,g0,Sys.define(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~Unit,~D.GuardFamily,~D.GuardLocal,~String,~Bool,~D.guard_program,~D.guard_body,world,"host-second",D.GuardLocal{ALeaf{702},0}))
     case Sys.DefinitionRefused{_,_}:"definition-refused"
 def defined3(~finish:Application.Application() -> String,nesting:List<&2,Scoped.Nested>,+first:W.Handle<Schema.Nominal>,+second:W.Handle<Schema.Nominal>,a0:D.MotionOwner(),a1:D.MotionOwner(),b0:D.LabelsOwner(),result:Sys.Defined<Schema.World(),D.LabelsOwner(),Labels.Local<Schema.Nominal>>) -> String:
   match result:
-    case Sys.Defined{world,b1}:defined4(~finish,nesting,first,second,a0,a1,b0,b1,Sys.define(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~Unit,~Access.ResourceReads(~Service.Status<String>),~D.GuardLocal,~String,~Bool,~D.guard_program,~D.guard_body,world,"host-first",D.GuardLocal{ALeaf{701},0}))
+    case Sys.Defined{world,b1}:defined4(~finish,nesting,first,second,a0,a1,b0,b1,Sys.define(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~Unit,~D.GuardFamily,~D.GuardLocal,~String,~Bool,~D.guard_program,~D.guard_body,world,"host-first",D.GuardLocal{ALeaf{701},0}))
     case Sys.DefinitionRefused{_,_}:"definition-refused"
 def defined2(~finish:Application.Application() -> String,nesting:List<&2,Scoped.Nested>,+first:W.Handle<Schema.Nominal>,+second:W.Handle<Schema.Nominal>,a0:D.MotionOwner(),a1:D.MotionOwner(),result:Sys.Defined<Schema.World(),D.LabelsOwner(),Labels.Local<Schema.Nominal>>) -> String:
   match result:
@@ -58,3 +58,5 @@ def created(~finish:Application.Application() -> String,nesting:List<&2,Scoped.N
     case _:"creation-refused"
 def run(~finish:Application.Application() -> String,nesting:List<&2,Scoped.Nested>) -> String:
   created(~finish,nesting,Init.trusted_create_seeded(~Schema.Nominal,~Schema.components(),~Schema.resources(),~Unit,~Schema.seed,W.factory(),Schema.resource_seed()))
+def run_optional_none(~finish:Application.Application() -> String,nesting:List<&2,Scoped.Nested>) -> String:
+  created(~finish,nesting,Init.trusted_create_seeded(~Schema.Nominal,~Schema.components(),~Schema.resources(),~Unit,~Schema.seed,W.factory(),Schema.absent_optional_seed()))

@@ -12,7 +12,7 @@ same CPU lock naming as `scripts/bend-check`; backend work retains the shared
 heavy lock. Existing outer example runs pass their already-held lock through
 `BENDVY_EXAMPLE_LOCK_HELD`.
 
-The script checks the full application and two valid controls, then requires ten
+The script checks the full application and four valid controls, then requires sixteen
 invalid controls to exit exactly 1 with their intended expected/observed diagnostic.
 It rejects timeouts, signals, syntax errors and unrelated missing definitions as
 successful controls. Each source check has a 15-second wall limit. JavaScript

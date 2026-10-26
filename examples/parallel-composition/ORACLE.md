@@ -28,3 +28,14 @@ well-formed plan; the local nesting error is an explicit composition refusal.
 
 The model is finite. It does not establish universal owner preservation,
 concurrency, host rollback, finalization or validation of arbitrary trusted seeds.
+
+The eight-case successor adds an ordinary optional-resource read to each guard.
+It changes the guard access metadata to [host,optional], with no additional tick
+or owner mutation. A fresh optional-none scenario has the missing-case transition
+with actual optional resource/cache `none`; the absent optional owner is not a
+missing required service. Constructed validation accepts seed and rejects bad at
+path$ with expectedliteral, returning VALID-906 and REJECT-907 actual owners.
+Schema collision refuses duplicate component keyduplicate with factory1;
+namespace exhaustion retains factory4294967295. Both preserve the exact incoming
+resource owners and deliberately STALE caches, including REFUSAL-HOST-904 calls9.
+These expected lines were derived before capturing the eight-case output.

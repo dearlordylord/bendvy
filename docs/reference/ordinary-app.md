@@ -41,6 +41,43 @@ for slice ownership and dependencies. Source-bound consumer observations,
 authority controls, native concurrency evidence, and independent review are required
 before claiming the corresponding behavior is delivered.
 
+## Compose declaration-bound features
+
+The replacement [composition consumer](../../examples/parallel-composition/README.md)
+uses `execution-composer-app.build` with actual system and guard owners and both
+closed registration selections. It derives the schema inventory from the exact
+layouts that determine the actual store/resources, and requirements from the
+same closed grant programs used for execution. It accepts no caller-authored
+registry, cached condition flags, arbitrary World dispatcher or physical lens.
+
+A layout leaf fixes its arbitrary affine payload, canonical Data view, refresh
+function, key and optional persistence classification. These values occur in the
+actual slot type. Read/get operations return the cached Data view without invoking
+an owner callback or changing stamps. An actual write directly updates its owned
+payload and refreshes the view in that same operation. `ResourceWrite.own` also
+returns an independent affine result; read-only capabilities have no such method.
+
+Composition validates namespace-local schema collisions, declared needs and local
+nested endpoints before affected invocation. A required host service uses the same
+closed resource route for invocation and its guard. Missing service is an explicit
+condition error, not a disabled-condition skip. The selected handler may continue
+unrelated work; the affected body and host call remain suppressed. Closed-route
+service provisioning returns the actual incoming owner on refusal.
+
+Run returns the composed application and report, including every actual system,
+guard, handler, resource and provision owner. Reuse that owner for repeated work.
+Returned body errors retain writes. Host services have no automatic ECS rollback
+or finalization. Optional resources use an owned Maybe payload; constructed
+validation returns an actual owner receipt and diagnostics; transient is an
+explicit schema classification rather than an invented serializer.
+
+`execution-composer-schema.create` initializes library-empty columns and admitted
+resource views. `trusted_create_seeded` is an explicit trusted setup boundary for
+closed initial-value templates, not a generic cache-coherence theorem. See the
+consumer for complete payload/cache/lifecycle observations and finite scope.
+Replacement issue acceptance and source-bound qualification remain separate from
+these API instructions; the historical APIs below do not wrap this executor.
+
 ## Pre-migration API reference
 
 Use the ordinary App entry to run typed registrations together. The library derives dispatch, registration identities, cursors, and the schedule from the registrations you retain. The existing SchemaApp, Schedule, and execution tracing still perform the work.
