@@ -13,7 +13,7 @@ def position_get(~S:Data,~H:Type,cap:A.ComponentWrite<S,H,P.Position,String>) ->
     case A.ComponentWrite{get,_}:get
 def counter_get(~H:Type,cap:A.ResourceWrite<H,P.Counter,String>) -> H -> H & String:
   match cap:
-    case A.ResourceWrite{get,_}:get
+    case A.ResourceWrite{get,_,_}:get
 def position_text(value:Maybe<&2,String>) -> String:
   match value:
     case None{}:"absent"

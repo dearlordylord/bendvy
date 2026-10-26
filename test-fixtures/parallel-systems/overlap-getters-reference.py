@@ -20,7 +20,7 @@ def observation():
     world = (
         column({1: (101, position), 17: (118, 70)}, {1: 7})
         + ';' + column({1: (201, health), 9: (210, 80)}, {1: 8})
-        + f';301:{counter};401:{score};live=[1:1:0]'
+        + f';301:{counter}/cache=301:{counter};401:{score}/cache=401:{score};live=[1:1:0]'
         + ';systems=[3:other:[position, counter], 2:right:[health, score], 1:left:[position, counter]];tick=0:9:[]'
         + ';allocator=' + allocator(1)
         + ';namespace=1;next-system=4;events=0;pending=0'

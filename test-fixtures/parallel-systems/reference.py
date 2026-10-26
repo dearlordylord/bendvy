@@ -7,7 +7,7 @@ def column(values, changed):
         if index in values:
             token, value = values[index]
             stamp = f'0:0/0:{changed.get(index, 0)}'
-            items.append(f'{index}={token}:{value}@{stamp};')
+            items.append(f'{index}={token}:{value}/cache={token}:{value}@{stamp};')
         else:
             items.append(f'{index}=absent@never/never;')
     return 'capacity=32[' + ''.join(items) + ']'
@@ -41,7 +41,7 @@ def observation():
     world = (
         column({1: (101, position), 17: (118, 70)}, {1: 5})
         + ';' + column({1: (201, health), 9: (210, 80)}, {1: 6})
-        + f';301:{counter};401:{score};live='
+        + f';301:{counter}/cache=301:{counter};401:{score}/cache=401:{score};live='
         + array_text([f'1:{index}:0' for index in range(1, 18)])
         + ';systems=[2:right:[health, score], 1:left:[position, counter]];tick=0:6:[]'
         + ';allocator=' + allocator(17)
@@ -50,7 +50,7 @@ def observation():
     foreign = (
         column({1: (101, 10), 17: (118, 70)}, {})
         + ';' + column({1: (201, 10), 9: (210, 80)}, {})
-        + ';301:0;401:0;live=[];systems=[];tick=0:0:[]'
+        + ';301:0/cache=301:0;401:0/cache=401:0;live=[];systems=[];tick=0:0:[]'
         + ';allocator=' + allocator(0)
         + ';namespace=2;next-system=1;events=0;pending=0'
     )
