@@ -1,0 +1,68 @@
+{
+  "status": "DRAFT_UNAPPROVED_NO_GENERAL_PROOFS",
+  "source_commit": "552f90a23283ae879d3908e9f473ba82ad368eee",
+  "laws": [
+    "rejected_plan_state",
+    "body_error_continuation",
+    "disabled_condition_state",
+    "condition_error_continuation",
+    "ready_exact"
+  ],
+  "scope": "Actual pure executor transitions and raw ready-set helper; reusable Data state only; no generic affine World refinement or runtime concurrency claim.",
+  "approval_subjects": {
+    "test-fixtures/execution-laws/LAWS.bend": "3e0de6a6cf22bad713f16eccaa13ea7630c2430daf64aad42b74a538712609df",
+    "test-fixtures/execution-laws/spec.bend": "42667395eeb1b92e46c3269d5579857d0bbb7dac127538c636c4af6caed70508"
+  },
+  "production_sources": {
+    "src/ecs/dependency-executor.bend": "12b06be9871ab2525d87fc648750361cf2f12a28181c503d4120f4d7e4e770a9",
+    "src/ecs/dependency-plan.bend": "8871450d31fc40ff063b00e29672f3cb4728a6aa4e781fd7d1ff0e04a92c1c76"
+  },
+  "fixture_sources": {
+    "test-fixtures/execution-laws/controls.bend": "90ada2a2d89d103c6d2e6cf762096be422e3145383cc8ddda3ecc0b93fe90c1f",
+    "test-fixtures/execution-laws/falsify-ready.bend": "3ba3a3f7f9e2d02455ce87c1563728e437c5ca8806b462d16a2b834fd93eba6e",
+    "test-fixtures/execution-laws/falsify-transitions.bend": "a9f5cb5ac2a01042afb38bd22abef45be2899719a527422c4c514fb4329197d6",
+    "test-fixtures/execution-laws/mutants/body-error-history/counterexample.bend": "6a2beeffc2102200f87cb62ac0db1cc54dcd92e16c29fef80886d5d745c4828c",
+    "test-fixtures/execution-laws/mutants/body-error-history/dependency-executor.bend": "5aac56e5bb6641994e3b3f9fca9a5f629b80227b0d548928ae21ef7815310cfa",
+    "test-fixtures/execution-laws/mutants/body-error-history/spec.bend": "76f069473bd8940ac270c00ad9e2cf64786b8beff5373bdc656d7744b32fb650",
+    "test-fixtures/execution-laws/mutants/condition-error-handler/counterexample.bend": "ef3c5aaf4bf6ac893d193c006f8497f1cbd08f91fc5f7b400f57a2e6b52d46c2",
+    "test-fixtures/execution-laws/mutants/condition-error-handler/dependency-executor.bend": "f55063363796b58add06f0f4b88f352fcd9730ccaa21574aa1d377c6b05ca664",
+    "test-fixtures/execution-laws/mutants/condition-error-handler/spec.bend": "76f069473bd8940ac270c00ad9e2cf64786b8beff5373bdc656d7744b32fb650",
+    "test-fixtures/execution-laws/mutants/disabled-invokes/counterexample.bend": "3df6cbb670ef6a0ff8a4e2925257fe0e5ceb895a38c1256416b85fe9a96f9b8b",
+    "test-fixtures/execution-laws/mutants/disabled-invokes/dependency-executor.bend": "29f6e3ed87d312e9f071cc99871c3a85b030c1084ad5b34f6680c2514a85e574",
+    "test-fixtures/execution-laws/mutants/disabled-invokes/spec.bend": "76f069473bd8940ac270c00ad9e2cf64786b8beff5373bdc656d7744b32fb650",
+    "test-fixtures/execution-laws/mutants/ready-blocked/counterexample.bend": "90deb9dd386240a1c428f1eedd3f4c8168164cb025eba1707c7d0a6ab362f2db",
+    "test-fixtures/execution-laws/mutants/ready-blocked/dependency-plan.bend": "3cdbd579c1cc92ce5a939d60eb7eb0f119c7bbbc3739f8e59378a0121def9300",
+    "test-fixtures/execution-laws/mutants/ready-blocked/spec.bend": "f56fcf7db6210757789af1b58e8923df79173fbeb4363270b2b3dbf58c0d10cf",
+    "test-fixtures/execution-laws/mutants/rejection-reason/counterexample.bend": "fb611ec5f06b44fa82e74826ab04c737050d5fb58bb9d0640bb90179af644e31",
+    "test-fixtures/execution-laws/mutants/rejection-reason/dependency-executor.bend": "e40c970cc0587abe42ed87ab298fde8360b454702dc679a11334b20e691dd41d",
+    "test-fixtures/execution-laws/mutants/rejection-reason/spec.bend": "76f069473bd8940ac270c00ad9e2cf64786b8beff5373bdc656d7744b32fb650"
+  },
+  "tools": {
+    "compiler": "/home/node/.bend/bin/bend-2.0.35",
+    "compiler_sha256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "base": "/home/node/.bend/bend2/base.bend",
+    "base_sha256": "3cd0b0944b11e15c4da5c9af2560e3c04f27d3d37027f1617899aeec17b499ce",
+    "checker": "/workspace/formal-proofs/bendvy/scripts/bend-check",
+    "checker_sha256": "8e40a9f83c64ba8649bd81fca8846660063feb3ff7bd84b0fc1d67ef752ca2d1",
+    "configuration_sha256": "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347"
+  },
+  "finite_instances": {
+    "transitions": 324,
+    "ready": 374,
+    "selected_actual_source_controls": 5
+  },
+  "planted_defects": {
+    "rejection-reason": "rejected_2",
+    "body-error-history": "body_24",
+    "disabled-invokes": "disabled_18",
+    "condition-error-handler": "condition_error_13",
+    "ready-blocked": "ready_blocked"
+  },
+  "pending": [
+    "blind back-translation",
+    "specific approval of exact subject hashes",
+    "general proofs after approval",
+    "law-specific proof mutation controls after proof",
+    "remaining full execution/ownership/refinement laws"
+  ]
+}
