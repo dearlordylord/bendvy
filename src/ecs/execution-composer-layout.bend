@@ -107,3 +107,19 @@ def resource_put(~S:Data,layout:Layout,route:Route,rest:resource_rest(~S,layout,
 def checked_owner(-A:Type,-B:Type,same:{A == B : Type},owner:A) -> B:
   %same : _
   owner
+def names(layout:Layout) -> List<&2,String>:
+  match layout:
+    case EmptyLayout{}:[]
+    case LayoutLeaf{_,name}:[name]
+    case LayoutPair{left,right}:List.append(&2,String,names(left),names(right))
+def contains_name(values:List<&2,String>,+name:String) -> Bool:
+  match values:
+    case []:False{}
+    case current <> rest:Bool.or(String.eq(current,name),contains_name(rest,name))
+def unique_names(values:List<&2,String>) -> Bool:
+  match values:
+    case []:True{}
+    case +name <> +rest:Bool.and(Bool.not(contains_name(rest,name)),unique_names(rest))
+def unique(layout:Layout) -> Bool:unique_names(names(layout))
+def grant_valid(~layout:Layout,~route:Route) -> Bool:
+  Bool.and(unique(layout),valid(layout,route))

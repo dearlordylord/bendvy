@@ -50,12 +50,15 @@ accumulator. Controls reject that reuse, fabricating an empty accumulator and
 injecting a getter for the concrete scope. The raw declaration constructor is
 an internal lowering shape and is rejected at the ordinary App entry.
 
-Physical schema adapters remain a separate trusted boundary. The builder
-currently accepts typed product lenses and nominal identities from provisioning;
-it does not prove that an arbitrary user-authored lens corresponds to its key.
-Schema-derived identity/path coupling remains required follow-up work. Structural
-owner partitioning must remain the parallel executor's safety invariant regardless
-of metadata names.
+Component and resource grants now accept closed layout routes. Actual slot types
+include the key from that same layout. The builder requires type equality between
+the World storage and the layout-derived owner tree, and a proof that the route
+exists in a collision-free layout. Caller-supplied callback lenses and independent
+identity keys are absent from these grant primitives. Same-payload key relabeling,
+duplicate layouts, and invalid routes have separate type controls. The query
+primitive still requires migration to this layout boundary before claiming the
+complete ordinary declaration layer has that property. Raw access lowering
+remains explicit trusted library setup rather than a public Program grant.
 
 `check.sh` uses the shared example runner, checks the positive and negative
 controls, and compares the complete finite output with `expected.stdout`. Set

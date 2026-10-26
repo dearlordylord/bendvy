@@ -1,5 +1,7 @@
 import Base
 import ./execution-state.bend as State
+import ./execution-composer-layout.bend as Layout
+import ./execution-layout-access.bend as LayoutAccess
 import ./execution-declaration.bend as D
 import ./execution-access.bend as A
 import ./execution-projection.bend as Projection
@@ -12,13 +14,17 @@ import ./execution-query.bend as Q
 type Book is Type:
   Book{access:List<&2,D.Access>}
 def ComponentRead(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
-  @-P:Type -> @-Rest:Type -> @-V:Data -> @-lens:Product.Lens<C,Col.Column<S,P>,Rest> -> @-project:(P -> P & V) -> Projection.Affine<P,V,project> -> Identity.Declaration<S,P> -> B -> B & A.ComponentRead<S,H,V>
+  @-layout:Layout.Layout -> @-route:Layout.Route -> @-same:{C == Layout.columns(~S,layout) : Type} -> @-valid:{Layout.grant_valid(~layout,~route) == True{} : Bool} -> @-V:Data -> @-project:(Layout.payload(layout,route) -> Layout.payload(layout,route) & V) -> Projection.Affine<Layout.payload(layout,route),V,project> -> B -> B & A.ComponentRead<S,H,V>
+
 def ComponentWrite(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
-  @-P:Type -> @-Rest:Type -> @-V:Data -> @-lens:Product.Lens<C,Col.Column<S,P>,Rest> -> @-project:(P -> P & V) -> Projection.Affine<P,V,project> -> Identity.Declaration<S,P> -> B -> B & A.ComponentWrite<S,H,P,V>
+  @-layout:Layout.Layout -> @-route:Layout.Route -> @-same:{C == Layout.columns(~S,layout) : Type} -> @-valid:{Layout.grant_valid(~layout,~route) == True{} : Bool} -> @-V:Data -> @-project:(Layout.payload(layout,route) -> Layout.payload(layout,route) & V) -> Projection.Affine<Layout.payload(layout,route),V,project> -> B -> B & A.ComponentWrite<S,H,Layout.payload(layout,route),V>
+
 def ResourceRead(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
-  @-P:Type -> @-Rest:Type -> @-V:Data -> @-lens:Product.Lens<R,P,Rest> -> @-project:(P -> P & V) -> Projection.Affine<P,V,project> -> Schema.Resource<S,P> -> B -> B & A.ResourceRead<H,V>
+  @-layout:Layout.Layout -> @-route:Layout.Route -> @-same:{R == Layout.resources(~S,layout) : Type} -> @-valid:{Layout.grant_valid(~layout,~route) == True{} : Bool} -> @-V:Data -> @-project:(Layout.payload(layout,route) -> Layout.payload(layout,route) & V) -> Projection.Affine<Layout.payload(layout,route),V,project> -> B -> B & A.ResourceRead<H,V>
+
 def ResourceWrite(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
-  @-P:Type -> @-Rest:Type -> @-V:Data -> @-lens:Product.Lens<R,P,Rest> -> @-project:(P -> P & V) -> Projection.Affine<P,V,project> -> Schema.Resource<S,P> -> B -> B & A.ResourceWrite<H,P,V>
+  @-layout:Layout.Layout -> @-route:Layout.Route -> @-same:{R == Layout.resources(~S,layout) : Type} -> @-valid:{Layout.grant_valid(~layout,~route) == True{} : Bool} -> @-V:Data -> @-project:(Layout.payload(layout,route) -> Layout.payload(layout,route) & V) -> Projection.Affine<Layout.payload(layout,route),V,project> -> B -> B & A.ResourceWrite<H,Layout.payload(layout,route),V>
+
 def Query(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
   @-Input:Type -> @-Output:Type -> @-Rest:Type -> @-V:Data -> @-Error:Data -> @-lens:Product.Lens<C,Product.Owner<Col.Column<S,Input>,Col.Column<S,Output>>,Rest> -> @-project:(Input -> Input & V) -> @-body:(U32 -> V -> Output -> Output & Maybe<&2,Error>) -> Projection.Affine<Input,V,project> -> Q.Mode -> Identity.Declaration<S,Input> -> Identity.Declaration<S,Output> -> B -> B & Q.Each<S,H,Error>
 def Selection(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type,~Ops:Type -> Type) -> Type:
@@ -30,14 +36,18 @@ def Program(~S:Data,~C:Type,~R:Type,~Ops:Type -> Type) -> Type:
 def accumulate(~S:Data,~C:Type,~R:Type,~Ops:Type -> Type,book:Book,value:D.Declaration<S,C,R,Ops>) -> Book & Ops(State.Scope<S,C,R>):
   match book value:
     case Book{previous} D.Declaration{caps,access}:(Book{List.append(&2,D.Access,previous,access)},caps)
-def component_read_build(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,projection:Projection.Affine<P,V,project>,identity:Identity.Declaration<S,P>,book:Book) -> Book & A.ComponentRead<S,State.Scope<S,C,R>,V>:
-  accumulate(~S,~C,~R,~A.ComponentReads(~S,~V),book,A.component_read(~S,~C,~R,~P,~Rest,~V,~lens,~project,projection,identity))
-def component_write_build(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,projection:Projection.Affine<P,V,project>,identity:Identity.Declaration<S,P>,book:Book) -> Book & A.ComponentWrite<S,State.Scope<S,C,R>,P,V>:
-  accumulate(~S,~C,~R,~A.ComponentWrites(~S,~P,~V),book,A.component_write(~S,~C,~R,~P,~Rest,~V,~lens,~project,projection,identity))
-def resource_read_build(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,~project:P -> P & V,projection:Projection.Affine<P,V,project>,identity:Schema.Resource<S,P>,book:Book) -> Book & A.ResourceRead<State.Scope<S,C,R>,V>:
-  accumulate(~S,~C,~R,~A.ResourceReads(~V),book,A.resource_read(~S,~C,~R,~P,~Rest,~V,~lens,~project,projection,identity))
-def resource_write_build(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,~project:P -> P & V,projection:Projection.Affine<P,V,project>,identity:Schema.Resource<S,P>,book:Book) -> Book & A.ResourceWrite<State.Scope<S,C,R>,P,V>:
-  accumulate(~S,~C,~R,~A.ResourceWrites(~P,~V),book,A.resource_write(~S,~C,~R,~P,~Rest,~V,~lens,~project,projection,identity))
+def component_read_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~V:Data,~project:Layout.payload(layout,route) -> Layout.payload(layout,route) & V,projection:Projection.Affine<Layout.payload(layout,route),V,project>,book:Book) -> Book & A.ComponentRead<S,State.Scope<S,C,R>,V>:
+  accumulate(~S,~C,~R,~A.ComponentReads(~S,~V),book,LayoutAccess.component_read(~S,~C,~R,~layout,~route,~same,~valid,~V,~project,projection))
+
+def component_write_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~V:Data,~project:Layout.payload(layout,route) -> Layout.payload(layout,route) & V,projection:Projection.Affine<Layout.payload(layout,route),V,project>,book:Book) -> Book & A.ComponentWrite<S,State.Scope<S,C,R>,Layout.payload(layout,route),V>:
+  accumulate(~S,~C,~R,~A.ComponentWrites(~S,~Layout.payload(layout,route),~V),book,LayoutAccess.component_write(~S,~C,~R,~layout,~route,~same,~valid,~V,~project,projection))
+
+def resource_read_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~V:Data,~project:Layout.payload(layout,route) -> Layout.payload(layout,route) & V,projection:Projection.Affine<Layout.payload(layout,route),V,project>,book:Book) -> Book & A.ResourceRead<State.Scope<S,C,R>,V>:
+  accumulate(~S,~C,~R,~A.ResourceReads(~V),book,LayoutAccess.resource_read(~S,~C,~R,~layout,~route,~same,~valid,~V,~project,projection))
+
+def resource_write_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~V:Data,~project:Layout.payload(layout,route) -> Layout.payload(layout,route) & V,projection:Projection.Affine<Layout.payload(layout,route),V,project>,book:Book) -> Book & A.ResourceWrite<State.Scope<S,C,R>,Layout.payload(layout,route),V>:
+  accumulate(~S,~C,~R,~A.ResourceWrites(~Layout.payload(layout,route),~V),book,LayoutAccess.resource_write(~S,~C,~R,~layout,~route,~same,~valid,~V,~project,projection))
+
 def query_build(~S:Data,~C:Type,~R:Type,~Input:Type,~Output:Type,~Rest:Type,~V:Data,~Error:Data,~lens:Product.Lens<C,Product.Owner<Col.Column<S,Input>,Col.Column<S,Output>>,Rest>,~project:Input -> Input & V,~body:U32 -> V -> Output -> Output & Maybe<&2,Error>,projection:Projection.Affine<Input,V,project>,mode:Q.Mode,read:Identity.Declaration<S,Input>,write:Identity.Declaration<S,Output>,book:Book) -> Book & Q.Each<S,State.Scope<S,C,R>,Error>:
   accumulate(~S,~C,~R,~Q.Ops(~S,~Error),book,Q.declaration(~S,~C,~R,~Input,~Output,~Rest,~V,~Error,~lens,~project,~body,projection,mode,read,write))
 def provision(~S:Data,~C:Type,~R:Type,~Ops:Type -> Type,~selection:Selection(~S,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
