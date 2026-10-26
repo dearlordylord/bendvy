@@ -105,3 +105,39 @@ the lifecycle stamps. A fourth scenario stops immediately after the second run's
 error and observes all owners, caches, and stamps before another write can mask
 a stale cache. The independent oracle derives both the two-run and three-run
 states. Untouched, absent, and nonlive rows keep their original caches and stamps.
+
+## Affine query outputs and commands
+
+`output-declaration.bend` selects the same physical layout through the canonical
+Builder. Its command Program receives the hidden output type and canonical
+command operations at registration. It specializes the row body, split, and merge
+before runtime capabilities are stored. `OutputEach` then has a first-order
+operation taking the actual scope and output owner. There is no polymorphic
+runtime callback or raw storage adapter in gameplay.
+
+`commands.bend` runs six registered command-system scenarios: two nominal schemas,
+with a parallel query and final deferred application, a parallel query with final
+application suppressed, and a serial query with final application. The columns
+have capacity 32; matching live rows 1 and 17 occupy separate physical leaves.
+Each callback directly updates its owned row, authors an insert using the genuine
+selected handle, and row 1 returns a handled error after enqueueing. Two executions
+check that already-authored queues survive subsequent coarse splits exactly once.
+
+The complete observation includes all column slots, canonical caches and lifecycle
+stamps, allocator and resource state, registrations and clock, pending command
+payloads, displaced-owner receipts, user captures, peer owner, cursors, handler
+state and deferred inventory. Pending commands and receipts are normalized by
+handle and payload values; independent worker completion order is not a contract.
+`commands-oracle.py` derives the expected state from those operations without
+reading implementation sources or candidate output.
+
+The raw `test-fixtures/chunk-column/output.bend` scenarios additionally observe an
+actual Array-owning output prefix through serial and parallel execution, empty
+selection, missing families, handled error and whole-layout refusal. Its separate
+oracle checks both complete columns and the returned output owners.
+
+`check.sh` runs positive and intended negative authority controls and all three
+complete independent oracles on JavaScript. Set `BENDVY_EXAMPLE_NATIVE=1` to include
+native execution with one and four configured workers. The wrapper uses the
+existing common lock and compiler/runtime limits. Worker use still requires the
+separate reviewed semantic diagnostic; these finite checks make no speed claim.
