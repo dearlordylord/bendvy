@@ -60,3 +60,45 @@ def layout_body(~layout:Layout.Layout,~route:Layout.Route,~E:Data,~body:U32 -> L
   Layout.rewrite(~Layout.subtree(layout,route),~Layout.InRight{Layout.AtLeaf{}},Maybe<&2,E>,body(index,view),owner)
 def layout_declaration(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~E:Data,~body:U32 -> Layout.query_view(layout,route) -> Layout.query_output(layout,route) -> Layout.query_output(layout,route) & Maybe<&2,E>,mode:Mode) -> D.Declaration<S,C,R,Ops(~S,~E)>:
   declaration(~S,~C,~R,~Layout.stored(Layout.subtree(layout,route),Layout.InLeft{Layout.AtLeaf{}}),~Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}),~Layout.subtree_rest(~S,layout,route),~Layout.query_view(layout,route),~E,~layout_lens(~S,~C,~layout,~route,~same,~shape),~Layout.read(~Layout.query_input(layout,route),~Layout.query_view(layout,route)),~layout_body(~layout,~route,~E,~body),Projection.trusted_affine(~Layout.stored(Layout.subtree(layout,route),Layout.InLeft{Layout.AtLeaf{}}),~Layout.query_view(layout,route),~Layout.read(~Layout.query_input(layout,route),~Layout.query_view(layout,route))),mode,Identity.component(~S,~Layout.stored(Layout.subtree(layout,route),Layout.InLeft{Layout.AtLeaf{}}),Layout.query_read_key(layout,route)),Identity.component(~S,~Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}),Layout.query_write_key(layout,route)))
+
+# The output type is selected only inside the registered system body. It remains
+# abstract to gameplay, including when it is the framework command-buffer owner.
+def OutputBody(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data) -> Type:
+  W.Handle<S> -> Layout.query_view(layout,route) -> Layout.query_output(layout,route) -> O -> Layout.query_output(layout,route) & (O & Maybe<&2,E>)
+def OutputCall(~S:Data,~H:Type,~layout:Layout.Layout,~route:Layout.Route,~E:Data) -> Type:
+  @-O:Type -> @-split:(O -> O & O) -> @-merge:(O -> O -> O) -> @-body:OutputBody(~S,~layout,~route,~O,~E) -> H -> O -> H & (O & Report<E>)
+type OutputEach<-S:Data,-H:Type,-layout:Layout.Layout,-route:Layout.Route,-E:Data> is Type:
+  OutputEach{run:OutputCall(~S,~H,~layout,~route,~E)}
+def OutputOps(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~E:Data,H:Type) -> Type:OutputEach<S,H,layout,route,E>
+def handle_choice(~S:Data,handle:W.Handle<S>,rest:Maybe<&2,W.Handle<S>>,same:Bool) -> Maybe<&2,W.Handle<S>>:
+  match same:
+    case True{}:Some{handle}
+    case False{}:rest
+def selected_handle(~S:Data,+index:U32,handles:List<&2,W.Handle<S>>) -> Maybe<&2,W.Handle<S>>:
+  match handles:
+    case []:None{}
+    case +handle <> rest:handle_choice(~S,handle,selected_handle(~S,index,rest),U32.is_eq(index,W.handle_index(~S,handle)))
+def output_body_found(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data,~body:OutputBody(~S,~layout,~route,~O,~E),view:Layout.query_view(layout,route),owner:Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}),output:O,found:Maybe<&2,W.Handle<S>>) -> Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}) & (O & Maybe<&2,E>):
+  match found:
+    case None{}:(owner,(output,None{}))
+    case Some{handle}:Layout.rewrite(~Layout.subtree(layout,route),~Layout.InRight{Layout.AtLeaf{}},O & Maybe<&2,E>,payload=>body(handle,view,payload,output),owner)
+def output_body(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data,~body:OutputBody(~S,~layout,~route,~O,~E),handles:List<&2,W.Handle<S>>,index:U32,view:Layout.query_view(layout,route),owner:Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}),output:O) -> Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}) & (O & Maybe<&2,E>):
+  output_body_found(~S,~layout,~route,~O,~E,~body,view,owner,output,selected_handle(~S,index,handles))
+def output_returned(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~O:Type,~E:Data,rest:Layout.subtree_rest(~S,layout,route),resource:R,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,result:Q.OutputRun<S,Layout.stored(Layout.subtree(layout,route),Layout.InLeft{Layout.AtLeaf{}}),Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}),O,E>) -> State.Scope<S,C,R> & (O & Report<E>):
+  match result:
+    case Q.OutputRun{read,write,output,errors,aligned}:(State.Scope{layout_put(~S,~C,~layout,~route,~same,~shape,rest,Product.Owner{read,write}),resource,handles,tick},(output,report(~E,errors,aligned)))
+def output_taken(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:OutputBody(~S,~layout,~route,~O,~E),output:O,resource:R,+handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,parallel:Bool,result:Layout.subtree_rest(~S,layout,route) & Product.Owner<Col.Column<S,Layout.stored(Layout.subtree(layout,route),Layout.InLeft{Layout.AtLeaf{}})>,Col.Column<S,Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}})>>) -> State.Scope<S,C,R> & (O & Report<E>):
+  match result:
+    case (rest,Product.Owner{read,write}):output_returned(~S,~C,~R,~layout,~route,~same,~shape,~O,~E,rest,resource,handles,tick,Q.with_output(~S,~Layout.stored(Layout.subtree(layout,route),Layout.InLeft{Layout.AtLeaf{}}),~Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}),~O,~Layout.query_view(layout,route),~List<&2,W.Handle<S>>,~E,~Layout.read(~Layout.query_input(layout,route),~Layout.query_view(layout,route)),~output_body(~S,~layout,~route,~O,~E,~body),~split,~merge,handles,read,write,output,0,tick,Q.Selected{indices(~S,handles)},parallel))
+def mode_parallel(mode:Mode) -> Bool:
+  match mode:
+    case Serial{}:False{}
+    case Parallel{}:True{}
+def output_invoke(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~E:Data,~mode:Mode,~O:Type,~split:O -> O & O,~merge:O -> O -> O,~body:OutputBody(~S,~layout,~route,~O,~E),scope:State.Scope<S,C,R>,output:O) -> State.Scope<S,C,R> & (O & Report<E>):
+  match scope:
+    case State.Scope{store,resource,handles,tick}:output_taken(~S,~C,~R,~layout,~route,~same,~shape,~O,~E,~split,~merge,~body,output,resource,handles,tick,mode_parallel(mode),layout_take(~S,~C,~layout,~route,~same,~shape,store))
+def output_declaration(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~E:Data,~mode:Mode) -> D.Declaration<S,C,R,OutputOps(~S,~layout,~route,~E)>:
+  D.Declaration{OutputEach{output_invoke(~S,~C,~R,~layout,~route,~same,~shape,~E,~mode)},[D.Access{Layout.query_read_key(layout,route),D.ComponentAccess{},D.Exclusive{},D.ReadOnly{}},D.Access{Layout.query_write_key(layout,route),D.ComponentAccess{},D.Exclusive{},D.Writable{}}]}
+def each_output(~S:Data,~H:Type,~layout:Layout.Layout,~route:Layout.Route,~E:Data,cap:OutputEach<S,H,layout,route,E>) -> OutputCall(~S,~H,~layout,~route,~E):
+  match cap:
+    case OutputEach{run}:run
