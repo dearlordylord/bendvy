@@ -248,3 +248,10 @@ def query_pair(~S:Data,~layout:Layout,~route:Route) -> Type:
   Product.Owner<ColumnSlot<S,stored(subtree(layout,route),InLeft{AtLeaf{}}),query_read_key(layout,route)>,ColumnSlot<S,stored(subtree(layout,route),InRight{AtLeaf{}}),query_write_key(layout,route)>>
 def query_valid(~layout:Layout,~route:Route) -> Bool:
   Bool.and(unique(layout),pair_leaves(subtree(layout,route)))
+
+def normalize_resources(~S:Data,layout:Layout,owners:resources(~S,layout)) -> resources(~S,layout):
+  match layout owners:
+    case EmptyLayout{} owner:owner
+    case LayoutLeaf{P,V,refresh,key} ResourceSlot{Viewed{owner,_}}:ResourceSlot{initialized(P,V,refresh(owner))}
+    case ClassifiedLayoutLeaf{P,V,refresh,key,_} ResourceSlot{Viewed{owner,_}}:ResourceSlot{initialized(P,V,refresh(owner))}
+    case LayoutPair{left,right} Product.Owner{l,r}:Product.Owner{normalize_resources(~S,left,l),normalize_resources(~S,right,r)}

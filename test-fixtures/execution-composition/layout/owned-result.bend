@@ -13,18 +13,18 @@ type Publication is Type:
   PublicationAccepted{}
   PublicationRefused{owner:Array<U32>}
 type Local is Type:Local{pending:Maybe<&1,Array<U32>>,runs:U32}
-def resource_layout() -> Layout.Layout:Layout.LayoutLeaf{Mailbox,"mailbox"}
-def Resources() -> Type:Layout.resources(~Nominal,resource_layout())
-def World() -> Type:W.World<Nominal,Unit,Resources(),Unit>
-def Ops(H:Type) -> Type:Access.ResourceWrite<H,Mailbox,U32>
 def viewed(slot:Maybe<&1,Array<U32>>,result:Array<U32> & U32) -> Mailbox & U32:
   match result:
     case (token,id):(Mailbox{token,slot},id)
 def view(owner:Mailbox) -> Mailbox & U32:
   match owner:
     case Mailbox{token,slot}:viewed(slot,Array.get(U32,token,0))
+def resource_layout() -> Layout.Layout:Layout.LayoutLeaf{Mailbox,U32,view,"mailbox"}
+def Resources() -> Type:Layout.resources(~Nominal,resource_layout())
+def World() -> Type:W.World<Nominal,Unit,Resources(),Unit>
+def Ops(H:Type) -> Type:Access.ResourceWrite<H,Mailbox,U32>
 def selection(~H:Type,~B:Type,~cr:Build.ComponentRead(~Nominal,~Unit,~Resources(),~H,~B),~cw:Build.ComponentWrite(~Nominal,~Unit,~Resources(),~H,~B),~rr:Build.ResourceRead(~Nominal,~Unit,~Resources(),~H,~B),~rw:Build.ResourceWrite(~Nominal,~Unit,~Resources(),~H,~B),~query:Build.Query(~Nominal,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(H):
-  rw(resource_layout(),Layout.AtLeaf{},{==},{==},U32,view,Projection.trusted_affine(~Mailbox,~U32,~view),book)
+  rw(resource_layout(),Layout.AtLeaf{},{==},{==},book)
 def program(~H:Type,~B:Type,~builder:Build.Builder(~Nominal,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(H):
   builder(Ops,selection(~H,~B),book)
 def publish(incoming:Array<U32>,mailbox:Mailbox) -> Mailbox & Publication:
@@ -64,7 +64,7 @@ def pending(owner:Maybe<&1,Array<U32>>) -> String:
     case Some{owner}:array_id(Array.get(U32,owner,0))
 def observed(first:String,result:Application() & Execute.Status<String,String>) -> String:
   match result:
-    case (Execute.Application{W.World{_,_,_,Layout.ResourceSlot{Mailbox{token,slot}},_,_,_,_,_},Sys.Owner{_,_,_,_,_,Local{owner,runs}}},status):first ++ "," ++ done(status) ++ ";mailbox=" ++ array_id(Array.get(U32,token,0)) ++ ";retained=" ++ pending(slot) ++ ";pending=" ++ pending(owner) ++ ";runs=" ++ U32.show(runs)
+    case (Execute.Application{W.World{_,_,_,Layout.ResourceSlot{Layout.Viewed{Mailbox{token,slot},_}},_,_,_,_,_},Sys.Owner{_,_,_,_,_,Local{owner,runs}}},status):first ++ "," ++ done(status) ++ ";mailbox=" ++ array_id(Array.get(U32,token,0)) ++ ";retained=" ++ pending(slot) ++ ";pending=" ++ pending(owner) ++ ";runs=" ++ U32.show(runs)
 def first(result:Application() & Execute.Status<String,String>) -> String:
   match result:
     case (application,status):observed(done(status),Execute.run(~Nominal,~Unit,~Resources(),~Unit,~Ops,~Local,~String,~String,~program,~body,application))
@@ -78,4 +78,4 @@ def created(result:W.Creation<Nominal,Unit,Resources(),Unit>) -> String:
     case W.CreateRejected{_,_}:"creation-refused"
     case W.Created{_,world}:registered(Execute.define(~Nominal,~Unit,~Resources(),~Unit,~Ops,~Local,~String,~String,~program,~body,world,"publisher",Local{Some{ALeaf{202}},0}))
 def main() -> IO(Unit):
-  IO.print(created(W.create(~Nominal,~Unit,~Resources(),~Unit,~empty,W.factory(),Layout.ResourceSlot{Mailbox{ALeaf{101},Some{ALeaf{901}}}})))
+  IO.print(created(W.create(~Nominal,~Unit,~Resources(),~Unit,~empty,W.factory(),Layout.ResourceSlot{Layout.initialize(resource_layout(),Layout.AtLeaf{},Mailbox{ALeaf{101},Some{ALeaf{901}}})})))

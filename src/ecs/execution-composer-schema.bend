@@ -9,21 +9,21 @@ import ./world.bend as W
 
 type FragmentSchema<-S:Data,-C:Type,-R:Type> is Data:
   FragmentSchema{entries:List<&2,Fragment.Entry<S>>}
-def component(~S:Data,~P:Type,identity:Identity.Declaration<S,P>) -> Layout.Layout:
-  Layout.LayoutLeaf{P,Identity.key(~S,~P,identity)}
-def resource(~S:Data,~P:Type,identity:Resource.Resource<S,P>) -> Layout.Layout:
-  Layout.LayoutLeaf{P,Resource.resource_key(~S,~P,identity)}
-def plain(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,extension:Persist.Plain<S,P,identity>) -> Layout.Layout:
-  Layout.ClassifiedLayoutLeaf{P,Identity.key(~S,~P,identity),Fragment.Plain{}}
-def transient(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,extension:Persist.Transient<S,P,identity>) -> Layout.Layout:
-  Layout.ClassifiedLayoutLeaf{P,Identity.key(~S,~P,identity),Fragment.Transient{}}
-def constructed(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & Decode.Raw,extension:Persist.Constructed<S,P,identity,project>) -> Layout.Layout:
-  Layout.ClassifiedLayoutLeaf{P,Identity.key(~S,~P,identity),Fragment.Constructed{}}
+def component(~S:Data,~P:Type,~V:Data,~refresh:P -> P & V,identity:Identity.Declaration<S,P>) -> Layout.Layout:
+  Layout.LayoutLeaf{P,V,refresh,Identity.key(~S,~P,identity)}
+def resource(~S:Data,~P:Type,~V:Data,~refresh:P -> P & V,identity:Resource.Resource<S,P>) -> Layout.Layout:
+  Layout.LayoutLeaf{P,V,refresh,Resource.resource_key(~S,~P,identity)}
+def plain(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,~V:Data,~refresh:P -> P & V,extension:Persist.Plain<S,P,identity>) -> Layout.Layout:
+  Layout.ClassifiedLayoutLeaf{P,V,refresh,Identity.key(~S,~P,identity),Fragment.Plain{}}
+def transient(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,~V:Data,~refresh:P -> P & V,extension:Persist.Transient<S,P,identity>) -> Layout.Layout:
+  Layout.ClassifiedLayoutLeaf{P,V,refresh,Identity.key(~S,~P,identity),Fragment.Transient{}}
+def constructed(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & Decode.Raw,~V:Data,~refresh:P -> P & V,extension:Persist.Constructed<S,P,identity,project>) -> Layout.Layout:
+  Layout.ClassifiedLayoutLeaf{P,V,refresh,Identity.key(~S,~P,identity),Fragment.Constructed{}}
 def layout_entries(~S:Data,+kind:Fragment.RegistryKind,layout:Layout.Layout) -> List<&2,Fragment.Entry<S>>:
   match layout:
     case Layout.EmptyLayout{}:[]
-    case Layout.LayoutLeaf{_,+key}:[Fragment.Entry{kind,key,key}]
-    case Layout.ClassifiedLayoutLeaf{_,+key,persistence}:[Fragment.Classified{kind,key,key,persistence}]
+    case Layout.LayoutLeaf{_,_,_,+key}:[Fragment.Entry{kind,key,key}]
+    case Layout.ClassifiedLayoutLeaf{_,_,_,+key,persistence}:[Fragment.Classified{kind,key,key,persistence}]
     case Layout.LayoutPair{left,right}:List.append(&2,Fragment.Entry<S>,layout_entries(~S,kind,left),layout_entries(~S,kind,right))
 def inventory(~S:Data,~components:Layout.Layout,~resources:Layout.Layout) -> List<&2,Fragment.Entry<S>>:
   List.append(&2,Fragment.Entry<S>,layout_entries(~S,Fragment.Component{},components),layout_entries(~S,Fragment.Resource{},resources))
@@ -42,9 +42,12 @@ type Initialized<-S:Data,-Components:Layout.Layout,-Resources:Layout.Layout,-E:D
   SchemaCreated{factory:W.Factory,world:W.World<S,Layout.columns(~S,Components),Layout.resources(~S,Resources),E>}
   SchemaRefused{factory:W.Factory,resources:Layout.resources(~S,Resources),error:Fragment.Error}
   NamespaceRefused{factory:W.Factory,resources:Layout.resources(~S,Resources)}
+def initialized_world(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~E:Data,world:W.World<S,Layout.columns(~S,components),Layout.resources(~S,resources),E>) -> W.World<S,Layout.columns(~S,components),Layout.resources(~S,resources),E>:
+  match world:
+    case W.World{namespace,allocator,store,owners,events,pending,registrations,next,clock}:W.World{namespace,allocator,store,Layout.normalize_resources(~S,resources,owners),events,pending,registrations,next,clock}
 def created(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~E:Data,result:W.Creation<S,Layout.columns(~S,components),Layout.resources(~S,resources),E>) -> Initialized<S,components,resources,E>:
   match result:
-    case W.Created{factory,world}:SchemaCreated{factory,world}
+    case W.Created{factory,world}:SchemaCreated{factory,initialized_world(~S,~components,~resources,~E,world)}
     case W.CreateRejected{factory,resource}:NamespaceRefused{factory,resource}
 def create_checked(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~E:Data,result:Fragment.Validation,factory:W.Factory,owners:Layout.resources(~S,resources)) -> Initialized<S,components,resources,E>:
   match result:

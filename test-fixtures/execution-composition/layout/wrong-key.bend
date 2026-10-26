@@ -1,7 +1,8 @@
 import Base
 import ../../../src/ecs/execution-composer-layout.bend as Layout
 
-def public_layout() -> Layout.Layout:Layout.LayoutLeaf{Array<U32>,"public"}
-def secret_layout() -> Layout.Layout:Layout.LayoutLeaf{Array<U32>,"secret"}
+def project(owner:Array<U32>) -> Array<U32> & U32:Array.get(U32,owner,0)
+def public_layout() -> Layout.Layout:Layout.LayoutLeaf{Array<U32>,U32,project,"public"}
+def secret_layout() -> Layout.Layout:Layout.LayoutLeaf{Array<U32>,U32,project,"secret"}
 def relabel(owner:Layout.resources(~Unit,public_layout())) -> Layout.resources(~Unit,secret_layout()):
   Layout.checked_owner(Layout.resources(~Unit,public_layout()),Layout.resources(~Unit,secret_layout()),{==},owner)
