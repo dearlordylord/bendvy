@@ -20,8 +20,24 @@ def ResourceRead(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
 def ResourceWrite(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
   @-layout:Layout.Layout -> @-route:Layout.Route -> @-same:{R == Layout.resources(~S,layout) : Type} -> @-valid:{Layout.grant_valid(~layout,~route) == True{} : Bool} -> B -> B & A.ResourceWrite<H,Layout.payload(layout,route),Layout.view(layout,route)>
 
-def Query(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
+def BasicQuery(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
   @-layout:Layout.Layout -> @-route:Layout.Route -> @-same:{C == Layout.columns(~S,layout) : Type} -> @-shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type} -> @-valid:{Layout.query_valid(~layout,~route) == True{} : Bool} -> @-Error:Data -> @-body:(U32 -> Layout.query_view(layout,route) -> Layout.query_output(layout,route) -> Layout.query_output(layout,route) & Maybe<&2,Error>) -> Q.Mode -> B -> B & Q.Each<S,H,Error>
+
+def OutputQuery(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
+  @-layout:Layout.Layout -> @-route:Layout.Route -> @-same:{C == Layout.columns(~S,layout) : Type} -> @-shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type} -> @-valid:{Layout.query_valid(~layout,~route) == True{} : Bool} -> @-Error:Data -> @-mode:Q.Mode -> B -> B & Q.OutputEach<S,H,layout,route,Error>
+def QuerySelection(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type,~Ops:Type -> Type) -> Type:
+  @-basic:BasicQuery(~S,~C,~R,~H,~B) -> @-output:OutputQuery(~S,~C,~R,~H,~B) -> B -> B & Ops(H)
+def Query(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
+  @-Ops:(Type -> Type) -> @-selection:QuerySelection(~S,~C,~R,~H,~B,~Ops) -> B -> B & Ops(H)
+
+def basic_query_selection(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~Error:Data,~body:U32 -> Layout.query_view(layout,route) -> Layout.query_output(layout,route) -> Layout.query_output(layout,route) & Maybe<&2,Error>,~mode:Q.Mode,~H:Type,~B:Type,~basic:BasicQuery(~S,~C,~R,~H,~B),~output:OutputQuery(~S,~C,~R,~H,~B),book:B) -> B & Q.Each<S,H,Error>:
+  basic(layout,route,same,shape,valid,Error,body,mode,book)
+def basic_query(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~Error:Data,~body:U32 -> Layout.query_view(layout,route) -> Layout.query_output(layout,route) -> Layout.query_output(layout,route) & Maybe<&2,Error>,~mode:Q.Mode,~H:Type,~B:Type,~query:Query(~S,~C,~R,~H,~B),book:B) -> B & Q.Each<S,H,Error>:
+  query(Q.Ops(~S,~Error),basic_query_selection(~S,~C,~R,~layout,~route,~same,~shape,~valid,~Error,~body,~mode,~H,~B),book)
+def output_query_selection(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~Error:Data,~mode:Q.Mode,~H:Type,~B:Type,~basic:BasicQuery(~S,~C,~R,~H,~B),~output:OutputQuery(~S,~C,~R,~H,~B),book:B) -> B & Q.OutputEach<S,H,layout,route,Error>:
+  output(layout,route,same,shape,valid,Error,mode,book)
+def output_query(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~Error:Data,~mode:Q.Mode,~H:Type,~B:Type,~query:Query(~S,~C,~R,~H,~B),book:B) -> B & Q.OutputEach<S,H,layout,route,Error>:
+  query(Q.OutputOps(~S,~layout,~route,~Error),output_query_selection(~S,~C,~R,~layout,~route,~same,~shape,~valid,~Error,~mode,~H,~B),book)
 
 def Selection(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type,~Ops:Type -> Type) -> Type:
   @-component_read:ComponentRead(~S,~C,~R,~H,~B) -> @-component_write:ComponentWrite(~S,~C,~R,~H,~B) -> @-resource_read:ResourceRead(~S,~C,~R,~H,~B) -> @-resource_write:ResourceWrite(~S,~C,~R,~H,~B) -> @-query:Query(~S,~C,~R,~H,~B) -> B -> B & Ops(H)
@@ -47,8 +63,13 @@ def resource_write_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:La
 def query_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~Error:Data,~body:U32 -> Layout.query_view(layout,route) -> Layout.query_output(layout,route) -> Layout.query_output(layout,route) & Maybe<&2,Error>,mode:Q.Mode,book:Book) -> Book & Q.Each<S,State.Scope<S,C,R>,Error>:
   accumulate(~S,~C,~R,~Q.Ops(~S,~Error),book,Q.layout_declaration(~S,~C,~R,~layout,~route,~same,~shape,~valid,~Error,~body,mode))
 
+def output_query_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~Error:Data,~mode:Q.Mode,book:Book) -> Book & Q.OutputEach<S,State.Scope<S,C,R>,layout,route,Error>:
+  accumulate(~S,~C,~R,~Q.OutputOps(~S,~layout,~route,~Error),book,Q.output_declaration(~S,~C,~R,~layout,~route,~same,~shape,~valid,~Error,~mode))
+
+def query_provision(~S:Data,~C:Type,~R:Type,~Ops:Type -> Type,~selection:QuerySelection(~S,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
+  selection(query_build(~S,~C,~R),output_query_build(~S,~C,~R),book)
 def provision(~S:Data,~C:Type,~R:Type,~Ops:Type -> Type,~selection:Selection(~S,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
-  selection(component_read_build(~S,~C,~R),component_write_build(~S,~C,~R),resource_read_build(~S,~C,~R),resource_write_build(~S,~C,~R),query_build(~S,~C,~R),book)
+  selection(component_read_build(~S,~C,~R),component_write_build(~S,~C,~R),resource_read_build(~S,~C,~R),resource_write_build(~S,~C,~R),query_provision(~S,~C,~R),book)
 def compiled(~S:Data,~C:Type,~R:Type,~Ops:Type -> Type,result:Book & Ops(State.Scope<S,C,R>)) -> D.Declaration<S,C,R,Ops>:
   match result:
     case (Book{access},caps):D.Declaration{caps,access}
