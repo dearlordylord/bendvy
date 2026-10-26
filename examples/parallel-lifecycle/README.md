@@ -32,3 +32,28 @@ wrap/dormant behavior or removal/despawn readers. Those remain GH85 work. The
 serial query cases provide behavior controls, not instrumentation. No new runner
 is added or executed by this checkpoint, and no universal runtime theorem is
 claimed.
+
+`history.bend` adds six ordinary QueryApp scenarios. Trusted historical setup
+retains actual payload owners while seeding their stamps, administrative time and
+the actual registered owner's previous cursor. It distinguishes an existing
+zero cursor from first execution, crosses the low-word wrap, rejects maximally
+old component/cursor pairs, observes a recent write after a dormant cursor, and
+retains the actual written/cache/Local state and advanced cursor after a query
+body returns an error. Every case then runs twice more and performs the same
+genuine foreign-World admission refusal. Its independent model freezes all
+observations in `history.expected.stdout` with SHA256
+`ea3cfdda072a9e0a3a046bfb6d157c6a4888ba72afa19e3da0d74ade04b264ae`.
+This historical fixture is explicit setup, not a claim that ordinary gameplay
+can set its execution cursor or clock. Source checks pass; backends are pending.
+
+`scheduled.bend` uses the actual closed command/query RootSchedule consumer. It
+covers both system and query serial/native entries, two nominal schemas,
+handled errors after writes and enqueueing, final publication and retained raw
+queues. Changed observes publication's later stamp on the next admitted run;
+Added does not treat replacement of an existing component as a new insertion.
+The independent model includes actual displaced owner receipts, all component
+and administration state, exact pending status, handler state and both system
+cursors. `scheduled.expected.stdout` has SHA256
+`e629e4352ac6e75e941bfe3f5ffaf1f040f22212e60d0bea930b38e78fc7ed39`.
+Source checks pass; backends are pending. No native worker participation claim
+follows from selecting a native entry or running with four configured workers.
