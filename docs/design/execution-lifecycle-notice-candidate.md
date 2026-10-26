@@ -1,6 +1,7 @@
 # Lifecycle notice journal candidate
 
-Status: architecture candidate A, not implemented or approved. This does not
+Status: superseded architecture candidate A, not implemented. The coordinator
+selected the separate journal in `execution-lifecycle-notices.md`. This does not
 change the GH85 contract or establish a law.
 
 ## Ordinary usage

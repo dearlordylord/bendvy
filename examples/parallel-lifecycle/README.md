@@ -44,7 +44,7 @@ genuine foreign-World admission refusal. Its independent model freezes all
 observations in `history.expected.stdout` with SHA256
 `ea3cfdda072a9e0a3a046bfb6d157c6a4888ba72afa19e3da0d74ade04b264ae`.
 This historical fixture is explicit setup, not a claim that ordinary gameplay
-can set its execution cursor or clock. Source checks pass; backends are pending.
+can set its execution cursor or clock. Source and full JS/native1/native4 observations pass at source `624f13f4d`.
 
 `scheduled.bend` uses the actual closed command/query RootSchedule consumer. It
 covers both system and query serial/native entries, two nominal schemas,
@@ -55,5 +55,14 @@ The independent model includes actual displaced owner receipts, all component
 and administration state, exact pending status, handler state and both system
 cursors. `scheduled.expected.stdout` has SHA256
 `e629e4352ac6e75e941bfe3f5ffaf1f040f22212e60d0bea930b38e78fc7ed39`.
-Source checks pass; backends are pending. No native worker participation claim
+Source and full JS/native1/native4 observations pass at source `624f13f4d`. No native worker participation claim
 follows from selecting a native entry or running with four configured workers.
+
+The historical and scheduled normal-development run terminated exit0 with all
+six output streams matching their pre-capture full oracles. History is 14,066
+bytes per backend and scheduled is 9,391 bytes. All consumer stderr streams are
+empty. Source, all 70 qualified compiler resources and selected tools match their
+pre-launch bindings afterward. Raw artifacts, guards and unconditional terminal
+receipt are retained at `/tmp/gh85-history-scheduled-normal-v1`. These remain
+finite source-bound observations; they do not qualify later journal migrations
+or establish native worker participation.
