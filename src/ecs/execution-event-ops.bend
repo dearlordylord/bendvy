@@ -24,11 +24,11 @@ type Admin<-S:Data,-H:Type,-P:Type,-key:String> is Type:
 # Its physical slot remains the sole conflict identity for every event operation.
 def writer(~S:Data,~H:Type,~P:Type,~key:String,~V:Data,cap:Access.ResourceWrite<H,Family.Family<S,P,key>,V>) -> Writer<H,P>:
   Writer{payload=>Access.resource_own_field(~H,~Family.Family<S,P,key>,~V,Family.Publication<P>,cap)(family=>Family.publish(~S,~P,~key,family,payload))}
-def read_returned(~S:Data,~H:Type,~P:Type,~key:String,~V:Data,cursor:Family.Reader<S,P,key>,result:H & View.View<V>) -> H & Family.Reading<S,P,key,V>:
+def read_returned(~S:Data,~H:Type,~P:Type,~key:String,~V:Data,cursor:Family.Reader<S,P,key>,result:H & View.View<S,P,key,V>) -> H & Family.Reading<S,P,key,V>:
   match result:
     case (scope,view):(scope,View.read(~S,~P,~key,~V,view,cursor))
-def reader(~S:Data,~H:Type,~P:Type,~key:String,~V:Data,cap:Access.ResourceRead<H,View.View<V>>) -> Reader<S,H,P,key,V>:
-  Reader{cursor=>scope=>read_returned(~S,~H,~P,~key,~V,cursor,Access.resource_read_field(~H,~View.View<V>,cap)(scope))}
+def reader(~S:Data,~H:Type,~P:Type,~key:String,~V:Data,cap:Access.ResourceRead<H,View.View<S,P,key,V>>) -> Reader<S,H,P,key,V>:
+  Reader{cursor=>scope=>read_returned(~S,~H,~P,~key,~V,cursor,Access.resource_read_field(~H,~View.View<S,P,key,V>,cap)(scope))}
 def registered(~S:Data,~P:Type,~key:String,result:Family.Family<S,P,key> & Family.Registration<S,P,key>) -> Family.Family<S,P,key> & Outcome<S,P,key>:
   match result:
     case (family,result):(family,Registration{result})

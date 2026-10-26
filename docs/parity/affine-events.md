@@ -1,3 +1,41 @@
+# Affine events
+
+## Ordinary execution boundary for #84
+
+The current ordinary execution path supersedes the historical #53 transactional
+publication and successful-reader acknowledgement policy described below.
+Ordinary registered publishers write directly to their canonical owned event log.
+Already-authored publications survive a handled body error. Deferred structural
+commands retain their separate barrier contract.
+
+Each log owns its arbitrary Type payloads once. A canonical schema refresh builds
+a Data cache during initialization and Writable operations. Ordinary reader
+capabilities read that cache structurally and return an advanced affine reader
+token to System Local after every yielded item, including before a later returned
+body error. Skipped execution does not move that token. The cache and token bind
+the nominal schema, payload type, nominal family key, and runtime log identity.
+Reader creation uses the existing host identity allocator; raw pure constructors
+remain trusted setup operations.
+
+Retention uses two update generations, following pinned Bevy Messages. A lagged
+reader reports the dropped count and clamps forward. Explicit removal returns
+the token. Publication refusal returns the payload owner. Update and shutdown
+return actual retired payload owners through typed outcomes, with no automatic
+IO finalizer. The physical family slot remains conservatively Exclusive under
+its actual canonical metadata. ReadOnly readers do not acquire payload projectors
+or Writable authority.
+
+The current consumer and independent full oracle are
+[parallel events](../../examples/parallel-events/README.md) and
+[its oracle](../../examples/parallel-events/ORACLE.md). They cover two independent
+readers, Data and affine payloads, two nominal schemas, handled errors, skip and
+resumption, lag, genuine foreign-log refusal, removal, retirement, shutdown, and
+reusable refused payloads. Source-current backend and final review gates for #84
+must be assessed separately from the preserved historical #53 acceptance below.
+No historical receipt is evidence for an unexecuted ordinary replacement path.
+
+## Historical #53 contract and evidence
+
 ## Parent
 
 #1 — full Bend-native bevy-ts core parity.

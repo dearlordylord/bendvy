@@ -54,6 +54,9 @@ def without(ids:List<&2,U32>,+wanted:U32) -> List<&2,U32>:
 def published(~S:Data,~P:Type,~key:String,identity:U32,previous:List<&2,Nat>,current:List<&2,Nat>,nextReader:U32,active:List<&2,U32>,dropped:Nat,result:Log.Log<P> & Nat) -> Family<S,P,key> & Publication<P>:
   match result:
     case (log,+id):(Family{identity,True{},log,previous,List.append(&2,Nat,current,[id]),nextReader,active,dropped},Published{id})
+# Publication updates the owned log immediately, as Bevy Messages.write does.
+# https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/message/messages.rs#L120-L143
+# A later handled body error does not stage or undo this already-authored send.
 def publish(~S:Data,~P:Type,~key:String,family:Family<S,P,key>,payload:P) -> Family<S,P,key> & Publication<P>:
   match family:
     case Family{identity,False{},log,previous,current,nextReader,active,dropped}:(Family{identity,False{},log,previous,current,nextReader,active,dropped},PublicationRefused{payload})

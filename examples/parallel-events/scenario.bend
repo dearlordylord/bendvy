@@ -8,20 +8,20 @@ import ../../src/ecs/execution-composer-layout.bend as Layout
 import ../../src/ecs/execution-system.bend as Sys
 import ../../src/ecs/owned-event-log.bend as Log
 
-def layout(~S:Data,~P:Type,~project:P -> P & U32) -> Layout.Layout:Layout.LayoutLeaf{Event.Family<S,P,"events">,View.View<U32>,View.refresh(~S,~P,~"events",~U32,~project),"events"}
+def layout(~S:Data,~P:Type,~project:P -> P & U32) -> Layout.Layout:Layout.LayoutLeaf{Event.Family<S,P,"events">,View.View<S,P,"events",U32>,View.refresh(~S,~P,~"events",~U32,~project),"events"}
 def Resources(~S:Data,~P:Type,~project:P -> P & U32) -> Type:Layout.resources(~S,layout(~S,~P,~project))
 def Writers(~P:Type,H:Type) -> Type:Ops.Writer<H,P>
 def Readers(~S:Data,~P:Type,H:Type) -> Type:Ops.Reader<S,H,P,"events",U32>
 def Admins(~S:Data,~P:Type,H:Type) -> Type:Ops.Admin<S,H,P,"events">
-def writer_granted(~S:Data,~P:Type,~H:Type,~B:Type,result:B & Access.ResourceWrite<H,Event.Family<S,P,"events">,View.View<U32>>) -> B & Writers(~P,H):
+def writer_granted(~S:Data,~P:Type,~H:Type,~B:Type,result:B & Access.ResourceWrite<H,Event.Family<S,P,"events">,View.View<S,P,"events",U32>>) -> B & Writers(~P,H):
   match result:
-    case (book,cap):(book,Ops.writer(~S,~H,~P,~"events",~View.View<U32>,cap))
-def reader_granted(~S:Data,~P:Type,~H:Type,~B:Type,result:B & Access.ResourceRead<H,View.View<U32>>) -> B & Readers(~S,~P,H):
+    case (book,cap):(book,Ops.writer(~S,~H,~P,~"events",~View.View<S,P,"events",U32>,cap))
+def reader_granted(~S:Data,~P:Type,~H:Type,~B:Type,result:B & Access.ResourceRead<H,View.View<S,P,"events",U32>>) -> B & Readers(~S,~P,H):
   match result:
     case (book,cap):(book,Ops.reader(~S,~H,~P,~"events",~U32,cap))
-def admin_granted(~S:Data,~P:Type,~H:Type,~B:Type,result:B & Access.ResourceWrite<H,Event.Family<S,P,"events">,View.View<U32>>) -> B & Admins(~S,~P,H):
+def admin_granted(~S:Data,~P:Type,~H:Type,~B:Type,result:B & Access.ResourceWrite<H,Event.Family<S,P,"events">,View.View<S,P,"events",U32>>) -> B & Admins(~S,~P,H):
   match result:
-    case (book,cap):(book,Ops.admin(~S,~H,~P,~"events",~View.View<U32>,cap))
+    case (book,cap):(book,Ops.admin(~S,~H,~P,~"events",~View.View<S,P,"events",U32>,cap))
 def writer_selection(~S:Data,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~cw:Build.ComponentWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rr:Build.ResourceRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rw:Build.ResourceWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~query:Build.Query(~S,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Writers(~P,H):
   writer_granted(~S,~P,~H,~B,rw(layout(~S,~P,~project),Layout.AtLeaf{},{==},{==},book))
 def writer(~S:Data,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~builder:Build.Builder(~S,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Writers(~P,H):

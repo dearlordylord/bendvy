@@ -14,7 +14,7 @@ and does not wait for a structural barrier.
 The log owns each payload once. Its schema refresh constructs a canonical Data
 view while threading every payload owner back into the log. This refresh runs
 only at initialization and Writable operations. Ordinary reader capabilities
-use `ResourceRead<H, View<U32>>`; they read the structural cache and advance only
+use `ResourceRead<H, View<S, P, key, U32>>`; they read the structural cache and advance only
 their own affine reader token held in Local. A read receives no payload projector
 and cannot modify or duplicate an affine payload. The current canonical metadata
 conservatively marks all overlapping physical family accesses Exclusive. Readers
@@ -59,8 +59,9 @@ ownership operations; no universal Rust Drop equivalence is claimed.
 
 The source controls use actual affine arrays and unlike nominal schemas. They
 check undeclared reads, writes through read authority, nominal family mismatch,
-reader/payload duplication, abstract-scope escape, and an affine payload proposed
-as a Data read view. The pure family, view, operations, declarations, and positive
+reader/payload duplication, abstract-scope escape, an affine payload proposed as a Data read view, and wrapper construction
+against the wrong schema, payload type, or nominal family key. The cached view
+binds all three brands to the same canonical resource grant. The pure family, view, operations, declarations, and positive
 control source-check. Proof-only checking of the executable main reports its
 explicit foreign allocator dependency; backend emission checks that executable.
 Finite observations do not establish universal correctness or host refinement.

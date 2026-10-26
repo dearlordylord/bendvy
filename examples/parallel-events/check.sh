@@ -35,6 +35,9 @@ reject_source write-through-read 'ResourceWrite' 'ResourceRead'
 reject_source undeclared 'ResourceRead' 'Unit'
 reject_source escape 'State.Scope' 'escape~H'
 reject_source affine-view 'expected : Data' 'observed : Type'
+reject_source wrapper-schema 'P.SchemaB' 'P.SchemaA'
+reject_source wrapper-family '"other"' '"events"'
+reject_source wrapper-payload 'U32' 'Array<U32>'
 example_emit examples/parallel-events/main.bend "$example_output/main.js"
 for repetition in 1 2; do
   example_node "$example_output/main.js" > "$example_output/js$repetition.stdout"
