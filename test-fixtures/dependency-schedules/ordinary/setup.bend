@@ -9,19 +9,19 @@ import ../../../src/ecs/dependency-registration.bend as Reg
 import ../../../src/ecs/dependency-application.bend as App
 import ../../../src/ecs/dependency-registry-program.bend as Cond
 
-def Writer(~S:Data) -> Type:Sys.Owner<S,Unit,Schema.Resources(~S),Unit,Schema.Write(),Schema.Local,String,U32,Schema.write(~S),Body.writer>
+def Writer(~S:Data) -> Type:Sys.Owner<S,Unit,Unit,Schema.Resources(~S),Unit,Schema.Write(),Schema.Local,String,U32,Schema.write(~S),Body.writer>
 def WriterDispatch(~S:Data) -> Writer(~S) -> Schema.World(~S) -> U32 -> Writer(~S) & (Schema.World(~S) & Exec.Invocation<String,U32>):
   Reg.leaf_dispatch(~S,~Unit,~Schema.Resources(~S),~Unit,~Schema.Write(),~Schema.Local,~String,~U32,~Schema.write(~S),~Body.writer)
 
-def Reader(~S:Data) -> Type:Sys.Owner<S,Unit,Schema.Resources(~S),Unit,Schema.Read(),Schema.Local,String,U32,Schema.read(~S),Body.reader>
+def Reader(~S:Data) -> Type:Sys.Owner<S,Unit,Unit,Schema.Resources(~S),Unit,Schema.Read(),Schema.Local,String,U32,Schema.read(~S),Body.reader>
 def ReaderDispatch(~S:Data) -> Reader(~S) -> Schema.World(~S) -> U32 -> Reader(~S) & (Schema.World(~S) & Exec.Invocation<String,U32>):
   Reg.leaf_dispatch(~S,~Unit,~Schema.Resources(~S),~Unit,~Schema.Read(),~Schema.Local,~String,~U32,~Schema.read(~S),~Body.reader)
 
-def Positive(~S:Data) -> Type:Sys.Owner<S,Unit,Schema.Resources(~S),Unit,Schema.Read(),Schema.Local,String,Bool,Schema.read(~S),Body.positive>
+def Positive(~S:Data) -> Type:Sys.Owner<S,Unit,Unit,Schema.Resources(~S),Unit,Schema.Read(),Schema.Local,String,Bool,Schema.read(~S),Body.positive>
 def PositiveDispatch(~S:Data) -> Positive(~S) -> Schema.World(~S) -> U32 -> Positive(~S) & (Schema.World(~S) & Exec.Invocation<String,Bool>):
   Reg.leaf_dispatch(~S,~Unit,~Schema.Resources(~S),~Unit,~Schema.Read(),~Schema.Local,~String,~Bool,~Schema.read(~S),~Body.positive)
 
-def Changing(~S:Data) -> Type:Sys.Owner<S,Unit,Schema.Resources(~S),Unit,Schema.Read(),Schema.Local,String,Bool,Schema.read(~S),Body.changing>
+def Changing(~S:Data) -> Type:Sys.Owner<S,Unit,Unit,Schema.Resources(~S),Unit,Schema.Read(),Schema.Local,String,Bool,Schema.read(~S),Body.changing>
 def ChangingDispatch(~S:Data) -> Changing(~S) -> Schema.World(~S) -> U32 -> Changing(~S) & (Schema.World(~S) & Exec.Invocation<String,Bool>):
   Reg.leaf_dispatch(~S,~Unit,~Schema.Resources(~S),~Unit,~Schema.Read(),~Schema.Local,~String,~Bool,~Schema.read(~S),~Body.changing)
 

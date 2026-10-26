@@ -14,7 +14,7 @@ def status(value:Execute.Status<String,String>) -> String:
   match value:
     case Execute.Ran{done}:completion(done)
     case Execute.AdmissionRefused{}:"refused"
-def refused(~S:Data,original:W.World<S,D.Store(~S),D.Resources(~S),Unit>,result:Sys.RunResult<W.World<S,D.Store(~S),D.Resources(~S),Unit>,Sys.Owner<S,D.Store(~S),D.Resources(~S),Unit,D.Ops(~S),Body.Local<S>,String,String,D.declaration(~S),Body.run(~S)>,String,String>) -> String:
+def refused(~S:Data,original:W.World<S,D.Store(~S),D.Resources(~S),Unit>,result:Sys.RunResult<W.World<S,D.Store(~S),D.Resources(~S),Unit>,Sys.Owner<S,D.Store(~S),D.Store(~S),D.Resources(~S),Unit,D.Ops(~S),Body.Local<S>,String,String,D.declaration(~S),Body.run(~S)>,String,String>) -> String:
   match result:
     case Sys.Refused{world,Sys.Owner{namespace,id,name,access,cursor,local}}:"refused;" ++ Observe.world(~S,original) ++ ";system={" ++ Observe.system(namespace,id,name,access,cursor) ++ "};local=" ++ Observe.local(~S,local) ++ ";foreign=" ++ Observe.world(~S,world)
     case Sys.Executed{_,_,_}:"ERROR: foreign system body executed"

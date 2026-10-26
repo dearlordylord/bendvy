@@ -9,9 +9,9 @@ import ../../src/ecs/world.bend as W
 
 def layout() -> Layout.Layout:Layout.LayoutPair{D.left_layout(),D.right_layout()}
 def Ops(~S:Data) -> Type -> Type:A.ComponentReads(~S,~String)
-def selection(~S:Data,~H:Type,~B:Type,~read:Build.ComponentRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~write:Build.ComponentWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~resourceRead:Build.ResourceRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~resourceWrite:Build.ResourceWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~query:Build.Query(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):
+def selection(~S:Data,~H:Type,~B:Type,~read:Build.ComponentRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~write:Build.ComponentWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~resourceRead:Build.ResourceRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~resourceWrite:Build.ResourceWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~query:Build.Query(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):
   read(layout(),Layout.InLeft{Layout.AtLeaf{}},{==},{==},book)
-def declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):
+def declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):
   builder(Ops(~S),selection(~S,~H,~B),book)
 type Local<-S:Data> is Type:
   Local{token:Array<U32>,runs:U32,last:String,handle:W.Handle<S>}

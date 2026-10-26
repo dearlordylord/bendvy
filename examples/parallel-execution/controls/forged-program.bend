@@ -16,5 +16,5 @@ def revealed(store:Unit,handles:List<&2,W.Handle<Schema>>,tick:Tick.Tick,prior:M
 def reveal(scope:State.Scope<Schema,Unit,Array<U32>>) -> State.Scope<Schema,Unit,Array<U32>> & U32:
   match scope:
     case State.Scope{store,resource,handles,tick,prior,lifecycleView}:revealed(store,handles,tick,prior,Array.get(U32,resource,0),lifecycleView)
-def declaration(~H:Type,~B:Type,~builder:Build.Builder(~Schema,~Unit,~Array<U32>,~H,~B),book:B) -> B & Ops(H):
+def declaration(~H:Type,~B:Type,~builder:Build.Builder(~Schema,~Unit,~Unit,~Array<U32>,~H,~B),book:B) -> B & Ops(H):
   (book,Get{reveal})

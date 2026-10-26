@@ -18,9 +18,9 @@ import ../../src/ecs/dependency-application.bend as DepApp
 import ../../src/ecs/dependency-executor.bend as Exec
 import ../../src/ecs/change-tick.bend as Tick
 def World(~S:Data) -> Type:W.World<S,D.Store(~S),D.Resources(~S),Unit>
-def LeftOwner(~S:Data) -> Type:Sys.Owner<S,D.LeftStore(~S),D.LeftResource(~S),Unit,D.LeftOps(~S),Body.Local<S>,String,String,D.left(~S),Body.left(~S)>
-def RightOwner(~S:Data) -> Type:Sys.Owner<S,D.RightStore(~S),D.RightResource(~S),Unit,D.RightOps(~S),Body.Local<S>,String,String,D.right(~S),Body.right(~S)>
-def OtherOwner(~S:Data) -> Type:Sys.Owner<S,D.LeftStore(~S),D.LeftResource(~S),Unit,D.LeftOps(~S),Getters.Local<S>,String,String,D.left(~S),Getters.left(~S)>
+def LeftOwner(~S:Data) -> Type:Sys.Owner<S,D.Store(~S),D.LeftStore(~S),D.LeftResource(~S),Unit,D.LeftOps(~S),Body.Local<S>,String,String,D.left(~S),Body.left(~S)>
+def RightOwner(~S:Data) -> Type:Sys.Owner<S,D.Store(~S),D.RightStore(~S),D.RightResource(~S),Unit,D.RightOps(~S),Body.Local<S>,String,String,D.right(~S),Body.right(~S)>
+def OtherOwner(~S:Data) -> Type:Sys.Owner<S,D.Store(~S),D.LeftStore(~S),D.LeftResource(~S),Unit,D.LeftOps(~S),Getters.Local<S>,String,String,D.left(~S),Getters.left(~S)>
 def LeftTree(~S:Data) -> Type:Product.Owner<LeftOwner(~S),OtherOwner(~S)>
 def left_tree(~S:Data,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~D.Store(~S),~D.LeftStore(~S),~D.LeftResource(~S),~Unit,~String,~String,~F),~command:Tree.CommandLeaf(~S,~D.Store(~S),~D.LeftStore(~S),~D.LeftResource(~S),~Unit,~String,~String,~F),~join:Tree.Join(~F),owners:LeftTree(~S)) -> F(LeftTree(~S)):
   match owners:
@@ -55,7 +55,7 @@ def other_defined(~S:Data,+native:Bool,left:LeftOwner(~S),right:RightOwner(~S),r
     case Sys.DefinitionRefused{_,_}:"ERROR:other"
 def registered(~S:Data,native:Bool,handle:W.Handle<S>,result:Pair.Definition<World(~S),LeftOwner(~S),RightOwner(~S),Body.Local<S>,Body.Local<S>>) -> String:
   match result:
-    case Pair.Defined{Pair.ParallelApp{world,left,right}}:other_defined(~S,native,left,right,Task.define(~S,~D.LeftStore(~S),~D.LeftResource(~S),~Unit,~D.LeftOps(~S),~Getters.Local<S>,~String,~String,~D.left(~S),~Getters.left(~S),~D.Store(~S),~D.Resources(~S),world,"other",Getters.Local{ALeaf{801},0,"unset","unset",handle}))
+    case Pair.Defined{Pair.ParallelApp{world,left,right}}:other_defined(~S,native,left,right,Task.define(~S,~D.Store(~S),~D.LeftStore(~S),~D.LeftResource(~S),~Unit,~D.LeftOps(~S),~Getters.Local<S>,~String,~String,~D.left(~S),~Getters.left(~S),~D.Resources(~S),world,"other",Getters.Local{ALeaf{801},0,"unset","unset",handle}))
     case Pair.LeftRefused{_,_,_}:"ERROR:left"
     case Pair.RightRefused{_,_,_}:"ERROR:right"
 def activated(~S:Data,native:Bool,+handle:W.Handle<S>,result:World(~S) & W.Status) -> String:
