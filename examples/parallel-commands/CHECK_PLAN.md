@@ -1,8 +1,13 @@
 # Command example check plan
 
-Status: awaiting independent launch review. The new `check.sh` has not run.
-The consumers have already matched their complete expected outputs using direct
-unchanged `examples/common.sh` development commands on JS and native one/four.
+Status: independent launch review round 1 approved the unchanged runner at
+`d5be07b52`. Its first normal smoke run passed at source `58b7d912b` after the
+command-program specialization `368471370`, with native checks enabled. Positive
+sources, all five intended authority refusals, independent oracle regeneration,
+and complete plan/ordinary/visibility output comparisons passed on JS and native
+one/four. This is normal example validation, not a qualification packet.
+The independent invalid-configuration consumer is source/JS checked separately;
+it is not yet included in the reviewed runner.
 
 The wrapper uses the existing common example lock and tool environment. It adds
 no collector, tool discovery, dependency installation or reference execution.
@@ -26,7 +31,7 @@ conditions, ignored edges, explicit barriers, global automatic suppression,
 final suppression and repeated runs. Native entry equality does not establish
 multiple-worker participation.
 
-Remaining acceptance includes invalid configurations, foreign-owner retry,
+Remaining acceptance includes native invalid-configuration coverage, foreign-owner retry,
 capacity boundaries, broader existing-entity commands, query worker buffers,
 qualified canonical receipts and independent implementation review. No law
 approval or proof follows from this package.
