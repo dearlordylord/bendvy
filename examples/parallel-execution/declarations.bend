@@ -24,7 +24,7 @@ def combined(~S:Data,~H:Type,~B:Type,positions:A.ComponentWrite<S,H,P.Position,S
 def position_granted(~S:Data,~H:Type,~B:Type,~resource_write:Build.ResourceWrite(~S,~Store(~S),~Resources(),~H,~B),result:B & A.ComponentWrite<S,H,P.Position,String>) -> B & Ops(~S)(H):
   match result:
     case (book,positions):combined(~S,~H,~B,positions,resource_write(P.Counter,P.Secret,String,counter(),P.counter,Projection.trusted_affine(~P.Counter,~String,~P.counter),Schema.resource(~S,~P.Counter,"counter"),book))
-def selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Store(~S),~Resources(),~H,~B),~component_write:Build.ComponentWrite(~S,~Store(~S),~Resources(),~H,~B),~resource_read:Build.ResourceRead(~S,~Store(~S),~Resources(),~H,~B),~resource_write:Build.ResourceWrite(~S,~Store(~S),~Resources(),~H,~B),book:B) -> B & Ops(~S)(H):
+def selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Store(~S),~Resources(),~H,~B),~component_write:Build.ComponentWrite(~S,~Store(~S),~Resources(),~H,~B),~resource_read:Build.ResourceRead(~S,~Store(~S),~Resources(),~H,~B),~resource_write:Build.ResourceWrite(~S,~Store(~S),~Resources(),~H,~B),~query:Build.Query(~S,~Store(~S),~Resources(),~H,~B),book:B) -> B & Ops(~S)(H):
   position_granted(~S,~H,~B,~resource_write,component_write(P.Position,Col.Column<S,P.Label>,String,positions(~S),P.position,Projection.trusted_affine(~P.Position,~String,~P.position),Identity.component(~S,~P.Position,"position"),book))
 def declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~Resources(),~H,~B),book:B) -> B & Ops(~S)(H):
   builder(Ops(~S),selection(~S,~H,~B),book)
