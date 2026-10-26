@@ -49,6 +49,24 @@ def plan(source=SOURCE):
 
 
 class InstrumentationBoundary(unittest.TestCase):
+    def test_semantic_worker_receipt(self):
+        expected = dict(workerLimit=4, groups={
+            'position': dict(count=6, minimumWorkers=1),
+            'health': dict(count=3, minimumWorkers=1),
+        }, forks=6, minimumUnionWorkers=2)
+        self.assertEqual(module.validate(
+            b'BENDVY_WORKERS position=1/6 health=2/3 forks=6\n', expected
+        )['health']['mask'], 2)
+        for invalid in [
+            b'BENDVY_WORKERS position=1/6 health=1/3 forks=6\n',
+            b'BENDVY_WORKERS position=10/6 health=2/3 forks=6\n',
+            b'BENDVY_WORKERS position=1/5 health=2/3 forks=6\n',
+            b'BENDVY_WORKERS position=1/6 health=2/3 forks=0\n',
+            b'BENDVY_WORKERS position=1/6 health=2/3 forks=6\nextra\n',
+        ]:
+            with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                module.validate(invalid, expected)
+
     def test_marks_only_selected_semantic_case_and_native_fork(self):
         result = module.instrument(SOURCE, plan())
         self.assertEqual(result.count('    bendvy_diag_hit(0);'), 1)

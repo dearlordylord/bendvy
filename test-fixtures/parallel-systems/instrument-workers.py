@@ -2,6 +2,39 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import re
+
+
+def validate(stderr, expected):
+    lines = stderr.decode('ascii').splitlines()
+    if len(lines) != 1 or not lines[0].startswith('BENDVY_WORKERS '):
+        raise ValueError('expected exactly one worker diagnostic line')
+    words = lines[0].split()[1:]
+    names = list(expected['groups'])
+    if len(words) != len(names) + 1:
+        raise ValueError('worker diagnostic group membership differs')
+    limit = expected['workerLimit']
+    if type(limit) is not int or not 1 <= limit <= 64:
+        raise ValueError('invalid expected worker limit')
+    union = 0
+    observed = {}
+    for name, word in zip(names, words[:-1]):
+        match = re.fullmatch(re.escape(name) + r'=([0-9a-f]+)/([0-9]+)', word)
+        if match is None:
+            raise ValueError('worker diagnostic name or value differs')
+        mask, count = int(match[1], 16), int(match[2])
+        target = expected['groups'][name]
+        if mask >> limit or count != target['count']:
+            raise ValueError('worker mask range or semantic count differs')
+        if mask.bit_count() < target['minimumWorkers'] or bool(mask) != bool(count):
+            raise ValueError('semantic worker participation differs')
+        union |= mask
+        observed[name] = dict(mask=mask, count=count)
+    if words[-1] != 'forks=' + str(expected['forks']):
+        raise ValueError('native fork count differs')
+    if union.bit_count() < expected['minimumUnionWorkers']:
+        raise ValueError('semantic union used too few workers')
+    return observed
 
 
 def replace_once(text, before, after):
