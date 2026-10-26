@@ -151,49 +151,60 @@ def selected(native:Bool,app:Application()) -> Application() & DepApp.Report<Str
   match native:
     case False{}:Schedule.run_serial(~Schema,~Left(),~Unit,~Unit,~Unit,~Unit,~String,~Unit,~LeftTree(),~Peer(),~left,~right,~Guard(),~Handler,~Reg.leaf_dispatch(~Schema,~Store(),~Resources(),~Unit,~ReadOps,~Seen,~String,~Bool,~guard_declaration,~guard_body),~Prog.leaf(~Schema,~Store(),~Resources(),~Unit,~ReadOps,~Seen,~String,~Bool,~guard_declaration,~guard_body),~handle,app)
     case True{}:Schedule.run_native(~Schema,~Left(),~Unit,~Unit,~Unit,~Unit,~String,~Unit,~LeftTree(),~Peer(),~left,~right,~Guard(),~Handler,~Reg.leaf_dispatch(~Schema,~Store(),~Resources(),~Unit,~ReadOps,~Seen,~String,~Bool,~guard_declaration,~guard_body),~Prog.leaf(~Schema,~Store(),~Resources(),~Unit,~ReadOps,~Seen,~String,~Bool,~guard_declaration,~guard_body),~handle,app)
+def exact_pending(app:Application()) -> Application() & Bool:
+  Schedule.pending(~Schema,~Left(),~Unit,~Unit,~Unit,~Unit,~String,~Unit,~LeftTree(),~Peer(),~left,~right,~Guard(),~Handler,~Reg.leaf_dispatch(~Schema,~Store(),~Resources(),~Unit,~ReadOps,~Seen,~String,~Bool,~guard_declaration,~guard_body),~Prog.leaf(~Schema,~Store(),~Resources(),~Unit,~ReadOps,~Seen,~String,~Bool,~guard_declaration,~guard_body),~handle,app)
 def second(native:Bool,prefix:String,result:Application() & DepApp.Report<String,Unit>) -> String:
   match result:
-    case (app,done):pending_observed(prefix ++ ";" ++ report(done),Schedule.pending(~Schema,~Left(),~Unit,~Unit,~Unit,~Unit,~String,~Unit,~LeftTree(),~Peer(),~left,~right,~Guard(),~Handler,~Reg.leaf_dispatch(~Schema,~Store(),~Resources(),~Unit,~ReadOps,~Seen,~String,~Bool,~guard_declaration,~guard_body),~Prog.leaf(~Schema,~Store(),~Resources(),~Unit,~ReadOps,~Seen,~String,~Bool,~guard_declaration,~guard_body),~handle,app))
+    case (app,done):pending_observed(prefix ++ ";" ++ report(done),exact_pending(app))
 def first(+native:Bool,result:Application() & DepApp.Report<String,Unit>) -> String:
   match result:
     case (app,done):second(native,report(done),selected(native,app))
-def built(settings:Settings.Settings,+native:Bool,world:W.World<Schema,Store(),Resources(),Unit>,author:Author(),reader:Reader(),peer:Peer(),guard:Guard()) -> String:
-  first(native,selected(native,Schedule.configure(~(DepApp.Application<W.World<Schema,Store(),Resources(),Unit>,Product.Owner<LeftTree(),Peer()>,Guard(),Handler,String,Unit,Root.dispatch(~Schema,~Left(),~Unit,~Unit,~Unit,~Unit,~String,~Unit,~LeftTree(),~Peer(),~left,~right),Reg.leaf_dispatch(~Schema,~Store(),~Resources(),~Unit,~ReadOps,~Seen,~String,~Bool,~guard_declaration,~guard_body),handle>),settings,Schedule.build(~Schema,~Left(),~Unit,~Unit,~Unit,~Unit,~String,~Unit,~LeftTree(),~Peer(),~left,~right,~Guard(),~Handler,~Reg.leaf_dispatch(~Schema,~Store(),~Resources(),~Unit,~ReadOps,~Seen,~String,~Bool,~guard_declaration,~guard_body),~Prog.leaf(~Schema,~Store(),~Resources(),~Unit,~ReadOps,~Seen,~String,~Bool,~guard_declaration,~guard_body),~handle,~(name => True{}),world,Product.Owner{Product.Owner{author,reader},peer},guard,Handler{ALeaf{901},0},[Plan.Edge{1,2}],[DepApp.Binding{2,4}]))))
-def guard_defined(settings:Settings.Settings,native:Bool,author:Author(),reader:Reader(),peer:Peer(),result:Sys.Defined<W.World<Schema,Store(),Resources(),Unit>,Guard(),Seen>) -> String:
+type Setup is Type:
+  SetupReady{application:Application()}
+  SetupFailed{message:String}
+def built(settings:Settings.Settings,+native:Bool,world:W.World<Schema,Store(),Resources(),Unit>,author:Author(),reader:Reader(),peer:Peer(),guard:Guard()) -> Setup:
+  SetupReady{Schedule.configure(~(DepApp.Application<W.World<Schema,Store(),Resources(),Unit>,Product.Owner<LeftTree(),Peer()>,Guard(),Handler,String,Unit,Root.dispatch(~Schema,~Left(),~Unit,~Unit,~Unit,~Unit,~String,~Unit,~LeftTree(),~Peer(),~left,~right),Reg.leaf_dispatch(~Schema,~Store(),~Resources(),~Unit,~ReadOps,~Seen,~String,~Bool,~guard_declaration,~guard_body),handle>),settings,Schedule.build(~Schema,~Left(),~Unit,~Unit,~Unit,~Unit,~String,~Unit,~LeftTree(),~Peer(),~left,~right,~Guard(),~Handler,~Reg.leaf_dispatch(~Schema,~Store(),~Resources(),~Unit,~ReadOps,~Seen,~String,~Bool,~guard_declaration,~guard_body),~Prog.leaf(~Schema,~Store(),~Resources(),~Unit,~ReadOps,~Seen,~String,~Bool,~guard_declaration,~guard_body),~handle,~(name => True{}),world,Product.Owner{Product.Owner{author,reader},peer},guard,Handler{ALeaf{901},0},[Plan.Edge{1,2}],[DepApp.Binding{2,4}]))}
+def guard_defined(settings:Settings.Settings,native:Bool,author:Author(),reader:Reader(),peer:Peer(),result:Sys.Defined<W.World<Schema,Store(),Resources(),Unit>,Guard(),Seen>) -> Setup:
   match result:
     case Sys.Defined{world,guard}:built(settings,native,world,author,reader,peer,guard)
-    case Sys.DefinitionRefused{_,_}:"ERROR: guard definition"
-def peer_defined(settings:Settings.Settings,native:Bool,handle:W.Handle<Schema>,author:Author(),reader:Reader(),result:Sys.Defined<W.World<Schema,Store(),Resources(),Unit>,Peer(),Array<U32>>) -> String:
+    case Sys.DefinitionRefused{_,_}:SetupFailed{"ERROR: guard definition"}
+def peer_defined(settings:Settings.Settings,native:Bool,handle:W.Handle<Schema>,author:Author(),reader:Reader(),result:Sys.Defined<W.World<Schema,Store(),Resources(),Unit>,Peer(),Array<U32>>) -> Setup:
   match result:
     case Sys.Defined{world,peer}:guard_defined(settings,native,author,reader,peer,Sys.define(~Schema,~Store(),~Resources(),~Unit,~ReadOps,~Seen,~String,~Bool,~guard_declaration,~guard_body,world,"guard",Seen{ALeaf{601},0,handle,None{}}))
-    case Sys.DefinitionRefused{_,_}:"ERROR: peer definition"
-def reader_defined(settings:Settings.Settings,native:Bool,handle:W.Handle<Schema>,author:Author(),result:Sys.Defined<W.World<Schema,Store(),Resources(),Unit>,Reader(),Seen>) -> String:
+    case Sys.DefinitionRefused{_,_}:SetupFailed{"ERROR: peer definition"}
+def reader_defined(settings:Settings.Settings,native:Bool,handle:W.Handle<Schema>,author:Author(),result:Sys.Defined<W.World<Schema,Store(),Resources(),Unit>,Reader(),Seen>) -> Setup:
   match result:
     case Sys.Defined{world,reader}:peer_defined(settings,native,handle,author,reader,Task.define(~Schema,~Unit,~Unit,~Unit,~Ops,~Array<U32>,~String,~Unit,~peer_declaration,~peer_body,~Store(),~Resources(),world,"peer",ALeaf{801}))
-    case Sys.DefinitionRefused{_,_}:"ERROR: reader definition"
-def author_defined(settings:Settings.Settings,native:Bool,+handle:W.Handle<Schema>,result:Sys.Defined<W.World<Schema,Store(),Resources(),Unit>,Author(),Cmd.Captures(~Schema,~layout(),~path(),~AuthorLocal)>) -> String:
+    case Sys.DefinitionRefused{_,_}:SetupFailed{"ERROR: reader definition"}
+def author_defined(settings:Settings.Settings,native:Bool,+handle:W.Handle<Schema>,result:Sys.Defined<W.World<Schema,Store(),Resources(),Unit>,Author(),Cmd.Captures(~Schema,~layout(),~path(),~AuthorLocal)>) -> Setup:
   match result:
     case Sys.Defined{world,author}:reader_defined(settings,native,handle,author,Task.define(~Schema,~Left(),~Unit,~Unit,~ReadOps,~Seen,~String,~Unit,~reader_declaration,~reader_body,~Store(),~Resources(),world,"reader",Seen{ALeaf{501},0,handle,None{}}))
-    case Sys.DefinitionRefused{_,_}:"ERROR: author definition"
-def activated(settings:Settings.Settings,enabled:Bool,native:Bool,+handle:W.Handle<Schema>,result:W.World<Schema,Store(),Resources(),Unit> & W.Status) -> String:
+    case Sys.DefinitionRefused{_,_}:SetupFailed{"ERROR: author definition"}
+def activated(settings:Settings.Settings,enabled:Bool,native:Bool,+handle:W.Handle<Schema>,result:W.World<Schema,Store(),Resources(),Unit> & W.Status) -> Setup:
   match result:
     case (world,W.Accepted{}):author_defined(settings,native,handle,Cmd.define(~Schema,~Left(),~Unit,~Unit,~layout(),~path(),~{==},~CmdOps,~AuthorLocal,~String,~Unit,~author_declaration,~author_body,~Resources(),world,"author",AuthorLocal{P.Capture{handle},enabled}))
-    case (_,_):"ERROR: activation"
-def reserved(settings:Settings.Settings,enabled:Bool,native:Bool,result:W.World<Schema,Store(),Resources(),Unit> & W.Reservation<Schema>) -> String:
+    case (_,_):SetupFailed{"ERROR: activation"}
+def reserved(settings:Settings.Settings,enabled:Bool,native:Bool,result:W.World<Schema,Store(),Resources(),Unit> & W.Reservation<Schema>) -> Setup:
   match result:
     case (world,W.Reserved{+handle}):activated(settings,enabled,native,handle,W.activate(~Schema,~Store(),~Resources(),~Unit,world,handle))
-    case (_,_):"ERROR: reservation"
+    case (_,_):SetupFailed{"ERROR: reservation"}
 def column(result:Column.SwapOutcome<Schema,Layout.Viewed<P.Token,U32>>) -> Column.Column<Schema,Layout.Viewed<P.Token,U32>>:
   match result:
     case Column.Accepted{column,_}:column
     case Column.Rejected{column,_}:column
 def empty(_:Unit) -> Store():
   Product.Owner{Layout.ColumnSlot{column(Column.swap(~Schema,~Layout.Viewed<P.Token,U32>,Column.empty(~Schema,~Layout.Viewed<P.Token,U32>),1,Some{Layout.Viewed{P.Token{ALeaf{1}},1}}))},Unit{}}
-def created(settings:Settings.Settings,enabled:Bool,native:Bool,result:W.Creation<Schema,Store(),Resources(),Unit>) -> String:
+def created(settings:Settings.Settings,enabled:Bool,native:Bool,result:W.Creation<Schema,Store(),Resources(),Unit>) -> Setup:
   match result:
     case W.Created{_,world}:reserved(settings,enabled,native,W.reserve_id(~Schema,~Store(),~Resources(),~Unit,world))
-    case W.CreateRejected{_,_}:"ERROR: creation"
-def run(settings:Settings.Settings,enabled:Bool,native:Bool) -> String:
+    case W.CreateRejected{_,_}:SetupFailed{"ERROR: creation"}
+def setup(settings:Settings.Settings,enabled:Bool,native:Bool) -> Setup:
   created(settings,enabled,native,W.create(~Schema,~Store(),~Resources(),~Unit,~empty,W.factory(),Product.Owner{Unit{},Unit{}}))
+def setup_run(+native:Bool,result:Setup) -> String:
+  match result:
+    case SetupReady{app}:first(native,selected(native,app))
+    case SetupFailed{message}:message
+def run(settings:Settings.Settings,enabled:Bool,+native:Bool) -> String:
+  setup_run(native,setup(settings,enabled,native))
 def main() -> IO(Unit):
   IO.print("native-auto=" ++ run(Settings.defaults(),True{},True{}) ++ "\nnative-ignored=" ++ run(Settings.Settings{True{},True{},[Plan.Edge{1,2}],[]},True{},True{}) ++ "\nnative-explicit=" ++ run(Settings.Settings{False{},True{},[Plan.Edge{1,2}],[Settings.Explicit{2,None{}}]},True{},True{}) ++ "\nnative-disabled=" ++ run(Settings.Settings{False{},True{},[],[]},True{},True{}) ++ "\nnative-finaloff=" ++ run(Settings.Settings{True{},False{},[Plan.Edge{1,2}],[]},True{},True{}) ++ "\nserial-auto=" ++ run(Settings.defaults(),True{},False{}))
