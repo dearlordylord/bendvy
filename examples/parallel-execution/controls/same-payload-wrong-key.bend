@@ -5,13 +5,14 @@ import ../../../src/ecs/execution-projection.bend as Projection
 import ../../../src/ecs/execution-access.bend as Access
 
 type Nominal is Data:Nominal{}
-def actual() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutLeaf{Array<U32>,"public"},Layout.LayoutLeaf{Array<U32>,"secret"}}
-def claimed() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutLeaf{Array<U32>,"secret"},Layout.LayoutLeaf{Array<U32>,"public"}}
+def project(owner:Array<U32>) -> Array<U32> & U32:Array.get(U32,owner,0)
+def actual() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutLeaf{Array<U32>,U32,project,"public"},Layout.LayoutLeaf{Array<U32>,U32,project,"secret"}}
+def claimed() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutLeaf{Array<U32>,U32,project,"secret"},Layout.LayoutLeaf{Array<U32>,U32,project,"public"}}
 def route() -> Layout.Route:Layout.InRight{Layout.AtLeaf{}}
 def Resources() -> Type:Layout.resources(~Nominal,actual())
 def Ops(H:Type) -> Type:Access.ResourceRead<H,U32>
-def project(owner:Array<U32>) -> Array<U32> & U32:Array.get(U32,owner,0)
+
 def selection(~H:Type,~B:Type,~component_read:Build.ComponentRead(~Nominal,~Unit,~Resources(),~H,~B),~component_write:Build.ComponentWrite(~Nominal,~Unit,~Resources(),~H,~B),~resource_read:Build.ResourceRead(~Nominal,~Unit,~Resources(),~H,~B),~resource_write:Build.ResourceWrite(~Nominal,~Unit,~Resources(),~H,~B),~query:Build.Query(~Nominal,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(H):
-  resource_read(claimed(),route(),{==},{==},U32,project,Projection.trusted_affine(~Array<U32>,~U32,~project),book)
+  resource_read(claimed(),route(),{==},{==},book)
 def declaration(~H:Type,~B:Type,~builder:Build.Builder(~Nominal,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(H):
   builder(Ops,selection(~H,~B),book)
