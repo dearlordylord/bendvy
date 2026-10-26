@@ -32,6 +32,8 @@ def returned(~S:Data,~P:Type,~User:Type,~Error:Data,~Out:Data,~H:Type,result:H &
 # component family from its closed schema and inventory this buffer for barriers.
 # Both H and Q remain abstract to gameplay. The body never sees a World,
 # the allocator, the concrete buffer constructor, or an application callback.
-def invoke(~S:Data,~P:Type,~User:Type,~Error:Data,~Out:Data,~Ops:Type -> Type,~body:@-H:Type -> @-Q:Type -> @-caps:Ops(H) -> @-commands:Commands<Q,S,P> -> H -> Q -> User -> H & (Q & (User & Sys.Completion<Error,Out>)),~H:Type,~caps:Ops(H),scope:H,local:Local<S,P,User>) -> H & (Local<S,P,User> & Sys.Completion<Error,Out>):
+def canonical(~S:Data,~P:Type) -> Commands<Buffer.Buffer<S,P>,S,P>:
+  Commands{Buffer.insert(~S,~P),Buffer.remove(~S,~P),Buffer.split(~S,~P),Buffer.merge(~S,~P)}
+def invoke(~S:Data,~P:Type,~User:Type,~Error:Data,~Out:Data,~Ops:Type -> Type -> Type,~body:@-H:Type -> @-Q:Type -> @-caps:Ops(H,Q) -> @-commands:Commands<Q,S,P> -> H -> Q -> User -> H & (Q & (User & Sys.Completion<Error,Out>)),~H:Type,~caps:Ops(H,Buffer.Buffer<S,P>),scope:H,local:Local<S,P,User>) -> H & (Local<S,P,User> & Sys.Completion<Error,Out>):
   match local:
-    case Local{user,commands}:returned(~S,~P,~User,~Error,~Out,~H,body(H,Buffer.Buffer<S,P>,caps,Commands{Buffer.insert(~S,~P),Buffer.remove(~S,~P),Buffer.split(~S,~P),Buffer.merge(~S,~P)},scope,commands,user))
+    case Local{user,commands}:returned(~S,~P,~User,~Error,~Out,~H,body(H,Buffer.Buffer<S,P>,caps,canonical(~S,~P),scope,commands,user))

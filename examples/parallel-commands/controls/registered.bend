@@ -6,6 +6,7 @@ import ../../../src/ecs/execution-command-system.bend as Cmd
 import ../../../src/ecs/execution-composer-layout.bend as Layout
 import ../../../src/ecs/execution-parallel-scope-registry.bend as Tree
 import ../../../src/ecs/execution-state.bend as State
+import ../../../src/ecs/execution-command-local.bend as Local
 
 def observed(result:Array<U32> & U32) -> P.Token & U32:
   match result:
@@ -14,8 +15,8 @@ def refresh(owner:P.Token) -> P.Token & U32:
   match owner:
     case P.Token{owner}:observed(Array.get(U32,owner,0))
 def layout() -> Layout.Layout:Layout.LayoutLeaf{P.Token,U32,refresh,"token"}
-def Ops(H:Type) -> Type:Unit
-def declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~(Layout.columns(~S,layout())),~Unit,~H,~B),book:B) -> B & Unit:
+def Ops(H:Type,Q:Type) -> Type:Unit
+def declaration(~S:Data,~H:Type,~Q:Type,~commands:Local.Commands<Q,S,P.Token>,~B:Type,~builder:Build.Builder(~S,~(Layout.columns(~S,layout())),~Unit,~H,~B),book:B) -> B & Unit:
   (book,Unit{})
 def Owner(~S:Data) -> Type:
   Cmd.Owner<S,Layout.columns(~S,layout()),Unit,Unit,layout(),Layout.AtLeaf{},Ops,P.Capture<S>,String,Unit,declaration(~S),P.body(~S)>
