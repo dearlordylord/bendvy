@@ -22,9 +22,12 @@ def invocation(~Error:Data,~Out:Data,value:Sys.Completion<Error,Out>) -> Exec.In
   match value:
     case Sys.Success{output}:Exec.Completed{output}
     case Sys.BodyError{error,output}:Exec.BodyError{error,output}
-def retick(~S:Data,~C:Type,~R:Type,scope:State.Scope<S,C,R>,tick:Tick.Tick) -> State.Scope<S,C,R>:
+def meta_cursor(meta:Task.Meta) -> Maybe<&2,Tick.Tick>:
+  match meta:
+    case Task.Meta{_,_,_,_,cursor}:cursor
+def retick(~S:Data,~C:Type,~R:Type,scope:State.Scope<S,C,R>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>) -> State.Scope<S,C,R>:
   match scope:
-    case State.Scope{store,resource,handles,_}:State.Scope{store,resource,handles,tick}
+    case State.Scope{store,resource,handles,_,_}:State.Scope{store,resource,handles,tick,prior}
 def entered(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),~WC:Type,~WR:Type,meta:Task.Meta,local:Local,+id:U32,+allowed:Bool,result:W.World<S,WC,WR,E> & Tick.Tick) -> W.World<S,WC,WR,E> & (Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body> & List<&2,Permit>):
   match result:
     case (world,tick):(world,(Task.restored(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,meta,local),[Permit{id,allowed,tick}]))
@@ -46,10 +49,10 @@ def prepare(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error
 def invoked(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),meta:Task.Meta,+id:U32,+tick:Tick.Tick,result:State.Scope<S,C,R> & (Local & Sys.Completion<Error,Out>)) -> State.Scope<S,C,R> & (Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body> & List<&2,Ready.Completed<Error,Out>>):
   match result:
     case (scope,(local,status)):(scope,(Task.restored(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,Task.completed_meta(True{},tick,meta),local),[Ready.Completed{id,invocation(~Error,~Out,status)}]))
-def allowed(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),allowed:Bool,+tick:Tick.Tick,scope:State.Scope<S,C,R>,meta:Task.Meta,local:Local,+id:U32) -> State.Scope<S,C,R> & (Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body> & List<&2,Ready.Completed<Error,Out>>):
+def allowed(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),allowed:Bool,+tick:Tick.Tick,scope:State.Scope<S,C,R>,+meta:Task.Meta,local:Local,+id:U32) -> State.Scope<S,C,R> & (Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body> & List<&2,Ready.Completed<Error,Out>>):
   match allowed:
     case False{}:(scope,(Task.restored(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,meta,local),[Ready.Completed{id,Exec.AdmissionRefused{}}]))
-    case True{}:invoked(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,meta,id,tick,body(State.Scope<S,C,R>,D.grants(~S,~C,~R,~Ops,Build.compile(~S,~C,~R,~Ops,~declaration)),retick(~S,~C,~R,scope,tick),local))
+    case True{}:invoked(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,meta,id,tick,body(State.Scope<S,C,R>,D.grants(~S,~C,~R,~Ops,Build.compile(~S,~C,~R,~Ops,~declaration)),retick(~S,~C,~R,scope,tick,meta_cursor(meta)),local))
 def permit_selected(found:Bool,permit:Permit,rest:Maybe<&2,Permit>) -> Maybe<&2,Permit>:
   match found:
     case True{}:Some{permit}
