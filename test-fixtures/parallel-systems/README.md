@@ -12,8 +12,10 @@ detaches administration from one World, and returns the actual affine owners.
 | `overlap-conditions.bend` | A registered condition reads that same Position before ID 2; disabled and error outcomes retain condition Local | `overlap-conditions-reference.py` |
 | `overlap-getters.bend` | A heterogeneous same-owner leaf reads through writable capabilities without modifying the owner or its lifecycle stamp | `overlap-getters-reference.py` |
 | `overlap-refusal.bend` | A second factory-created World refuses all three original owners and retains their Local and cursors | `overlap-refusal-reference.py` |
+| `query-native.bend` | Serial root scheduling with parallel query traversal, actual output owners and command buffers | `query-reference.py native` |
+| `query-serial.bend` | Serial root scheduling and serial query traversal over the same owners | `query-reference.py serial` |
 
-Each full entry runs two nominal schemas in serial and native mode. The root-cut
+The system entries run two nominal schemas in serial and native mode. The root-cut
 schedule derives both body and condition footprints from the same closed
 registration source. Its scope tree threads one physical owner serially through
 same-owner leaves. The root cut can fork independent physical scope trees.
@@ -41,6 +43,16 @@ boundary controls in `test-instrument-workers.py`. It marks exact generated
 semantic cases and a scoped native fork branch; applying it does not launch a
 diagnostic. Instrumented compilation and execution require the workflow's
 independent launch review. No diagnostic run has been claimed by this fixture.
+
+The focused query entries each use one schema and one World. Their closed
+declaration selects the query mode independently of root scheduling. Two runs
+update both live matching rows, retain the row error and author four commands
+through the actual affine query output. The full oracle observes publication,
+the returned queue, receipts, owners, caches and lifecycle stamps. Parallel
+traversal crosses three branch nodes per run. The diagnostic therefore expects
+four owner updates, four lifecycle writes, four insertions and six query forks
+at four workers. Serial traversal and the one-worker fallback expect no query
+forks. Actual worker participation remains a separate measured requirement.
 
 Check an entry with `scripts/bend-check test-fixtures/parallel-systems/ENTRY.bend`.
 Regenerate its oracle with the corresponding Python model. Compare complete
