@@ -29,6 +29,13 @@ def insert(~S:Data,~P:Type,buffer:Buffer<S,P>,handle:W.Handle<S>,incoming:P) -> 
 def remove(~S:Data,~P:Type,buffer:Buffer<S,P>,handle:W.Handle<S>) -> Buffer<S,P>:
   match buffer:
     case Buffer{pending,receipts}:Buffer{Entry{handle,None{}} <> pending,receipts}
+# Partitioning transfers the existing queue to one worker and gives the other
+# a fresh owner. Joining transfers both queues; no command payload is copied.
+def split(~S:Data,~P:Type,buffer:Buffer<S,P>) -> Buffer<S,P> & Buffer<S,P>:
+  (buffer,empty(~S,~P))
+def merge(~S:Data,~P:Type,left:Buffer<S,P>,right:Buffer<S,P>) -> Buffer<S,P>:
+  match left right:
+    case Buffer{leftPending,leftReceipts} Buffer{rightPending,rightReceipts}:Buffer{List.append(&1,Entry<S,P>,rightPending,leftPending),List.append(&1,Receipt<S,P>,rightReceipts,leftReceipts)}
 def pending(~S:Data,~P:Type,buffer:Buffer<S,P>) -> Buffer<S,P> & Bool:
   match buffer:
     case Buffer{[],receipts}:(Buffer{[],receipts},False{})
