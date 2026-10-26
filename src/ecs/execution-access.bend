@@ -16,7 +16,7 @@ type ComponentWrite<-S:Data,-H:Type,-P:Type,-V:Data> is Type:
 type ResourceRead<-H:Type,-V:Data> is Type:
   ResourceRead{get:H -> H & V}
 type ResourceWrite<-H:Type,-P:Type,-V:Data> is Type:
-  ResourceWrite{get:H -> H & V,modify:(P -> P & V) -> H -> H & V}
+  ResourceWrite{get:H -> H & V,modify:(P -> P & V) -> H -> H & V,own:@-Out:Type -> (P -> P & Out) -> H -> H & Out}
 def ComponentReads(~S:Data,~V:Data,H:Type) -> Type:ComponentRead<S,H,V>
 def ComponentWrites(~S:Data,~P:Type,~V:Data,H:Type) -> Type:ComponentWrite<S,H,P,V>
 def ResourceReads(~V:Data,H:Type) -> Type:ResourceRead<H,V>
@@ -66,19 +66,32 @@ def resource_transform_taken(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,
 def resource_modify(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,transform:P -> P & V,scope:State.Scope<S,C,R>) -> State.Scope<S,C,R> & V:
   match scope:
     case State.Scope{store,resource,handles,tick}:resource_transform_taken(~S,~C,~R,~P,~Rest,~V,~lens,transform,store,handles,tick,Product.get_field(~R,~P,~Rest,lens)(resource))
+def resource_owned_returned(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~lens:Product.Lens<R,P,Rest>,-Out:Type,store:C,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,rest:Rest,result:P & Out) -> State.Scope<S,C,R> & Out:
+  match result:
+    case (payload,value):(State.Scope{store,Product.put_field(~R,~P,~Rest,lens)(rest,payload),handles,tick},value)
+def resource_owned_taken(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~lens:Product.Lens<R,P,Rest>,-Out:Type,transform:P -> P & Out,store:C,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,result:Rest & P) -> State.Scope<S,C,R> & Out:
+  match result:
+    case (rest,payload):resource_owned_returned(~S,~C,~R,~P,~Rest,~lens,Out,store,handles,tick,rest,transform(payload))
+def resource_own(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~lens:Product.Lens<R,P,Rest>,-Out:Type,transform:P -> P & Out,scope:State.Scope<S,C,R>) -> State.Scope<S,C,R> & Out:
+  match scope:
+    case State.Scope{store,resource,handles,tick}:resource_owned_taken(~S,~C,~R,~P,~Rest,~lens,Out,transform,store,handles,tick,Product.get_field(~R,~P,~Rest,lens)(resource))
 def resource_read(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,~project:P -> P & V,projection:Projection.Affine<P,V,project>,identity:Schema.Resource<S,P>) -> D.Declaration<S,C,R,ResourceReads(~V)>:
   D.Declaration{ResourceRead{resource_get(~S,~C,~R,~P,~Rest,~V,~lens,~project)},[D.Access{Schema.resource_key(~S,~P,identity),D.ResourceAccess{},D.Exclusive{},D.ReadOnly{}}]}
 def resource_write(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,~project:P -> P & V,projection:Projection.Affine<P,V,project>,identity:Schema.Resource<S,P>) -> D.Declaration<S,C,R,ResourceWrites(~P,~V)>:
-  D.Declaration{ResourceWrite{resource_get(~S,~C,~R,~P,~Rest,~V,~lens,~project),resource_modify(~S,~C,~R,~P,~Rest,~V,~lens)},[D.Access{Schema.resource_key(~S,~P,identity),D.ResourceAccess{},D.Exclusive{},D.Writable{}}]}
+  D.Declaration{ResourceWrite{resource_get(~S,~C,~R,~P,~Rest,~V,~lens,~project),resource_modify(~S,~C,~R,~P,~Rest,~V,~lens),resource_own(~S,~C,~R,~P,~Rest,~lens)},[D.Access{Schema.resource_key(~S,~P,identity),D.ResourceAccess{},D.Exclusive{},D.Writable{}}]}
 def component_modify_field(~S:Data,~H:Type,~P:Type,~V:Data,cap:ComponentWrite<S,H,P,V>) -> (P -> P & V) -> H -> W.Handle<S> -> H & Maybe<&2,V>:
   match cap:
     case ComponentWrite{_,modify}:modify
 def resource_modify_field(~H:Type,~P:Type,~V:Data,cap:ResourceWrite<H,P,V>) -> (P -> P & V) -> H -> H & V:
   match cap:
-    case ResourceWrite{_,modify}:modify
+    case ResourceWrite{_,modify,_}:modify
 def component_read_field(~S:Data,~H:Type,~V:Data,cap:ComponentRead<S,H,V>) -> H -> W.Handle<S> -> H & Maybe<&2,V>:
   match cap:
     case ComponentRead{get}:get
 def resource_read_field(~H:Type,~V:Data,cap:ResourceRead<H,V>) -> H -> H & V:
   match cap:
     case ResourceRead{get}:get
+
+def resource_own_field(~H:Type,~P:Type,~V:Data,-Out:Type,cap:ResourceWrite<H,P,V>) -> (P -> P & Out) -> H -> H & Out:
+  match cap:
+    case ResourceWrite{_,_,own}:own(Out)

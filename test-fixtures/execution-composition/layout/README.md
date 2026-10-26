@@ -27,3 +27,18 @@ cmp test-fixtures/execution-composition/layout/expected.stdout /tmp/gh88-layout.
 The second source check is an intended failure. This probe establishes a concrete
 layout operation and its type boundary. Ordinary builder migration, composed
 feature execution, services, backend qualification, and issue #88 remain pending.
+
+`owned-result.bend` exercises the ordinary resource grant's writable `own` method.
+Its callback may return an affine result while retaining the actual resource.
+The mailbox already owns token 901, so publication returns the incoming array.
+The first returned array changes 202 to 203. A second run returns that same local
+owner, changes 203 to 204, and reports a body error. Mailbox token 101 and its
+retained payload 901 remain present. This finite probe does not establish general
+event semantics or cleanup.
+
+The method quantifies over an erased result type. It preserves the existing Data
+view and mutation methods. Read-only grants do not expose it. The controls
+`read-only-owned-result.bend`, `owned-result-escape.bend`, and
+`duplicate-owned-result.bend` must respectively reject writable authority through
+read-only access, duplicate use of the hidden scope, and duplication of an actual
+affine result.
