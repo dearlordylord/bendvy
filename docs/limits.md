@@ -23,6 +23,7 @@ After the run, append its outcome to the same history entry.
 | Independent model / full-gold generation | 300 s at64/256; 900 s at1024 | Source-only generation; same complete observations, fresh successor outputs |
 | Experimental closed-factory evaluator | 65536 steps; depth128 | Isolated compiler budget trial only; installed compiler unchanged |
 | Heavy executions | 1 at a time | Shared queue; account for external CPU contention |
+| Aggregate CI examples job | 60 min | Infrastructure workflow examples job only; successor launch awaits independent review |
 
 Keep frozen plans and failed receipts unchanged. A changed limit gets a new plan;
 it does not turn an old timeout into a pass. For equivalent-work comparisons,
@@ -103,6 +104,8 @@ failures retain their original verdicts.
 | 2026-10-20 21:50 UTC | Autoresearch command admission; compact correctness receipt check | 600 → 900 s | Pair and all six JS/Native examples already passed. The original worker expired while serializing telemetry; retain its cancellation. Reuse actual outputs without recompilation. Successor validation (1.850s) and full-oracle cmp (0.661s) pass before the900s admission deadline; metadata sealing takes1634.825s, so900s is not an end-to-end bookkeeping bound. No Inspector/timer intervention occurred. ECS/runtime limits and acceptance criteria remain unchanged. |
 | 2026-10-20 22:19 UTC | Session budget representation | Original absolute wall deadline only | User authorized four total wall-clock hours,18:46:19–22:46:19 UTC, including preparation and delivery. Keep that deadline unchanged; preserve all consumption records, conservative lost-worker estimates and history. Remove the redundant cumulative execution-seconds ceiling, whose accounting is not remaining wall time. This grants no additional time, scope or relaxed criterion. |
 | 2026-10-20 22:32 UTC | Fixed Dense confirmation completion | 230 → 600 s | The230s technical deadline retained81 of the fixed100 pairs. Complete only missing legs under the pre-frozen continuation rule; preserve all valid samples and the original22:46:19 user deadline. Require both normal and conservative interruption tests; no interim statistical inspection, new cohort or relaxed gate. |
+
+| 2026-10-26 23:45 UTC | Aggregate infrastructure CI examples job | 10 → 60 min | Public `edff2f78a` run `40416219541` attempts 1 and 2 ended cancelled after about 10 minutes; retained examples-job logs are `ci/40416219541-examples.log` and `ci/40416219541-attempt2-examples.log` in the GH78–94 orchestration store. Attempt 2 ran for 10 min 17 s and cleanup terminated Clang. The workflow had a 10-minute job limit, so the aggregate budget is a likely cause; cancellation does not prove a source fault or a compiler result. This successor raises only the aggregate job envelope. Source checks remain 15 s, emission and Node stages 30 s, native compilation 120 s and native consumers 5 s; tool pins, all examples and the functional job's 5-minute limit are unchanged. Outcome: pending independent launch review and actual successor CI result. |
 
 ## Observed runtime representation boundary
 
