@@ -34,17 +34,17 @@ def Store(~S:Data) -> Type:Layout.columns(~S,layout(~S))
 def Resources(~S:Data) -> Type:Product.Owner<D.Resources(~S),Unit>
 def Ops(~S:Data,H:Type,O:Type) -> Type:Decl.Ops(~S,H,O)
 def PeerOps(~S:Data,H:Type) -> Type:Unit
-def author_declaration(~S:Data,~H:Type,~O:Type,~commands:Local.Commands<O,S,P.Output>,~B:Type,~builder:Build.Builder(~S,~Left(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S,H,O):
-  Decl.declaration(~S,~Query.Parallel{},~H,~O,~commands,~B,~builder,book)
+def author_declaration(~S:Data,~mode:Query.Mode,~H:Type,~O:Type,~commands:Local.Commands<O,S,P.Output>,~B:Type,~builder:Build.Builder(~S,~Left(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S,H,O):
+  Decl.declaration(~S,~mode,~H,~O,~commands,~B,~builder,book)
 def peer_declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Unit,~Unit,~H,~B),book:B) -> B & Unit:
   (book,Unit{})
 def peer_body(~S:Data,~H:Type,~caps:Unit,scope:H,token:Array<U32>) -> H & (Array<U32> & Sys.Completion<String,String>):
   (scope,(token,Sys.Success{"peer"}))
 def AuthorLocal(~S:Data) -> Type:Body.User
-def Author(~S:Data) -> Type:Cmd.Owner<S,Left(~S),D.Resources(~S),Unit,layout(~S),path(~S),Ops(~S),AuthorLocal(~S),String,String,author_declaration(~S),Body.run(~S)>
+def Author(~S:Data,~mode:Query.Mode) -> Type:Cmd.Owner<S,Left(~S),D.Resources(~S),Unit,layout(~S),path(~S),Ops(~S),AuthorLocal(~S),String,String,author_declaration(~S,~mode),Body.run(~S)>
 def Peer(~S:Data) -> Type:Sys.Owner<S,Unit,Unit,Unit,PeerOps(~S),Array<U32>,String,String,peer_declaration(~S),peer_body(~S)>
-def left(~S:Data,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~Store(~S),~Left(~S),~D.Resources(~S),~Unit,~String,~String,~F),~command:Tree.CommandLeaf(~S,~Store(~S),~Left(~S),~D.Resources(~S),~Unit,~String,~String,~F),~join:Tree.Join(~F),owner:Author(~S)) -> F(Author(~S)):
-  command(layout(~S),path(~S),{==},{==},Ops(~S),AuthorLocal(~S),author_declaration(~S),Body.run(~S),owner)
+def left(~S:Data,~mode:Query.Mode,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~Store(~S),~Left(~S),~D.Resources(~S),~Unit,~String,~String,~F),~command:Tree.CommandLeaf(~S,~Store(~S),~Left(~S),~D.Resources(~S),~Unit,~String,~String,~F),~join:Tree.Join(~F),owner:Author(~S,~mode)) -> F(Author(~S,~mode)):
+  command(layout(~S),path(~S),{==},{==},Ops(~S),AuthorLocal(~S),author_declaration(~S,~mode),Body.run(~S),owner)
 def right(~S:Data,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~Store(~S),~Unit,~Unit,~Unit,~String,~String,~F),~command:Tree.CommandLeaf(~S,~Store(~S),~Unit,~Unit,~Unit,~String,~String,~F),~join:Tree.Join(~F),owner:Peer(~S)) -> F(Peer(~S)):
   leaf(PeerOps(~S),Array<U32>,peer_declaration(~S),peer_body(~S),owner)
 type Handler is Type:
@@ -52,7 +52,7 @@ type Handler is Type:
 def handle(~S:Data,handler:Handler,error:String) -> Handler & Exec.Handling:
   match handler:
     case Handler{token,errors}:(Handler{token,U32.add(errors,1)},Exec.Continue{})
-def Application(~S:Data) -> Type:Schedule.Scheduled<DepApp.Application<W.World<S,Store(~S),Resources(~S),Unit>,Product.Owner<Author(~S),Peer(~S)>,Unit,Handler,String,String,Root.dispatch(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S),~Peer(~S),~left(~S),~right(~S)),Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),handle(~S)>>
+def Application(~S:Data,~mode:Query.Mode) -> Type:Schedule.Scheduled<DepApp.Application<W.World<S,Store(~S),Resources(~S),Unit>,Product.Owner<Author(~S,~mode),Peer(~S)>,Unit,Handler,String,String,Root.dispatch(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S,~mode),~Peer(~S),~left(~S,~mode),~right(~S)),Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),handle(~S)>>
 def token_value(~S:Data,result:Array<U32> & U32) -> String:
   match result:
     case (_,value):U32.show(value)
@@ -113,31 +113,31 @@ def report(~S:Data,value:DepApp.Report<String,String>) -> String:
     case DepApp.Finished{events}:List.show(&2,Exec.Observation<String,String>,event(~S),events)
     case DepApp.Stopped{_,events}:"stopped:" ++ List.show(&2,Exec.Observation<String,String>,event(~S),events)
     case DepApp.Invalid{_}:"invalid"
-def observed(~S:Data,prefix:String,application:Application(~S)) -> String:
+def observed(~S:Data,~mode:Query.Mode,prefix:String,application:Application(~S,~mode)) -> String:
   match application:
     case Schedule.Scheduled{DepApp.Application{DepApp.State{owner,Product.Owner{Cmd.Owner{Sys.Owner{_,_,_,_,cursor,Local.Local{Body.User{userToken,runs},Buffer.Buffer{pending,receipts}}}},Sys.Owner{_,_,_,_,peerCursor,peer}},_,Handler{handler,errors},_},_,_},_,Schedule.Deferred{_,_,unapplied}}:prefix ++ "|world=" ++ world(~S,owner) ++ "|queue=" ++ List.show(&2,Record,record_text(~S),entries(~S,pending)) ++ "|receipts=" ++ List.show(&2,Record,record_text(~S),receipt_records(~S,receipts)) ++ "|user=" ++ token_value(~S,Array.get(U32,userToken,0)) ++ ":" ++ U32.show(runs) ++ "|cursor=" ++ Tick.cursor_show(cursor) ++ "|peer=" ++ token_value(~S,Array.get(U32,peer,0)) ++ ":" ++ Tick.cursor_show(peerCursor) ++ "|handler=" ++ token_value(~S,Array.get(U32,handler,0)) ++ ":" ++ U32.show(errors) ++ "|unapplied=" ++ List.show(&2,U32,U32.show,unapplied)
-def pending_observed(~S:Data,prefix:String,result:Application(~S) & Bool) -> String:
+def pending_observed(~S:Data,~mode:Query.Mode,prefix:String,result:Application(~S,~mode) & Bool) -> String:
   match result:
-    case (application,pending):observed(~S,prefix ++ ";exact-pending=" ++ Bool.pick(String,pending,"true","false"),application)
-def selected(~S:Data,native:Bool,app:Application(~S)) -> Application(~S) & DepApp.Report<String,String>:
+    case (application,pending):observed(~S,~mode,prefix ++ ";exact-pending=" ++ Bool.pick(String,pending,"true","false"),application)
+def selected(~S:Data,~mode:Query.Mode,native:Bool,app:Application(~S,~mode)) -> Application(~S,~mode) & DepApp.Report<String,String>:
   match native:
-    case False{}:Schedule.run_serial(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S),~Peer(~S),~left(~S),~right(~S),~Unit,~Handler,~Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~Prog.empty(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~handle(~S),app)
-    case True{}:Schedule.run_native(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S),~Peer(~S),~left(~S),~right(~S),~Unit,~Handler,~Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~Prog.empty(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~handle(~S),app)
-def second(~S:Data,native:Bool,prefix:String,result:Application(~S) & DepApp.Report<String,String>) -> String:
+    case False{}:Schedule.run_serial(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S,~mode),~Peer(~S),~left(~S,~mode),~right(~S),~Unit,~Handler,~Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~Prog.empty(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~handle(~S),app)
+    case True{}:Schedule.run_native(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S,~mode),~Peer(~S),~left(~S,~mode),~right(~S),~Unit,~Handler,~Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~Prog.empty(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~handle(~S),app)
+def second(~S:Data,~mode:Query.Mode,native:Bool,prefix:String,result:Application(~S,~mode) & DepApp.Report<String,String>) -> String:
   match result:
-    case (app,done):pending_observed(~S,prefix ++ ";" ++ report(~S,done),Schedule.pending(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S),~Peer(~S),~left(~S),~right(~S),~Unit,~Handler,~Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~Prog.empty(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~handle(~S),app))
-def first(~S:Data,+native:Bool,result:Application(~S) & DepApp.Report<String,String>) -> String:
+    case (app,done):pending_observed(~S,~mode,prefix ++ ";" ++ report(~S,done),Schedule.pending(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S,~mode),~Peer(~S),~left(~S,~mode),~right(~S),~Unit,~Handler,~Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~Prog.empty(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~handle(~S),app))
+def first(~S:Data,~mode:Query.Mode,+native:Bool,result:Application(~S,~mode) & DepApp.Report<String,String>) -> String:
   match result:
-    case (app,done):second(~S,native,report(~S,done),selected(~S,native,app))
-def built(~S:Data,settings:Settings.Settings,+native:Bool,world:W.World<S,Store(~S),Resources(~S),Unit>,author:Author(~S),peer:Peer(~S)) -> String:
-  first(~S,native,selected(~S,native,Schedule.configure(~(DepApp.Application<W.World<S,Store(~S),Resources(~S),Unit>,Product.Owner<Author(~S),Peer(~S)>,Unit,Handler,String,String,Root.dispatch(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S),~Peer(~S),~left(~S),~right(~S)),Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),handle(~S)>),settings,Schedule.build(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S),~Peer(~S),~left(~S),~right(~S),~Unit,~Handler,~Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~Prog.empty(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~handle(~S),~(name => True{}),world,Product.Owner{author,peer},Unit{},Handler{ALeaf{901},0},[],[]))))
-def peer_defined(~S:Data,settings:Settings.Settings,native:Bool,author:Author(~S),result:Sys.Defined<W.World<S,Store(~S),Resources(~S),Unit>,Peer(~S),Array<U32>>) -> String:
+    case (app,done):second(~S,~mode,native,report(~S,done),selected(~S,~mode,native,app))
+def built(~S:Data,~mode:Query.Mode,settings:Settings.Settings,+native:Bool,world:W.World<S,Store(~S),Resources(~S),Unit>,author:Author(~S,~mode),peer:Peer(~S)) -> String:
+  first(~S,~mode,native,selected(~S,~mode,native,Schedule.configure(~(DepApp.Application<W.World<S,Store(~S),Resources(~S),Unit>,Product.Owner<Author(~S,~mode),Peer(~S)>,Unit,Handler,String,String,Root.dispatch(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S,~mode),~Peer(~S),~left(~S,~mode),~right(~S)),Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),handle(~S)>),settings,Schedule.build(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S,~mode),~Peer(~S),~left(~S,~mode),~right(~S),~Unit,~Handler,~Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~Prog.empty(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~handle(~S),~(name => True{}),world,Product.Owner{author,peer},Unit{},Handler{ALeaf{901},0},[],[]))))
+def peer_defined(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,author:Author(~S,~mode),result:Sys.Defined<W.World<S,Store(~S),Resources(~S),Unit>,Peer(~S),Array<U32>>) -> String:
   match result:
-    case Sys.Defined{world,peer}:built(~S,settings,native,world,author,peer)
+    case Sys.Defined{world,peer}:built(~S,~mode,settings,native,world,author,peer)
     case Sys.DefinitionRefused{_,_}:"ERROR: peer definition"
-def author_defined(~S:Data,settings:Settings.Settings,native:Bool,result:Sys.Defined<W.World<S,Store(~S),Resources(~S),Unit>,Author(~S),Cmd.Captures(~S,~layout(~S),~path(~S),~AuthorLocal(~S))>) -> String:
+def author_defined(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,result:Sys.Defined<W.World<S,Store(~S),Resources(~S),Unit>,Author(~S,~mode),Cmd.Captures(~S,~layout(~S),~path(~S),~AuthorLocal(~S))>) -> String:
   match result:
-    case Sys.Defined{world,author}:peer_defined(~S,settings,native,author,Task.define(~S,~Unit,~Unit,~Unit,~PeerOps(~S),~Array<U32>,~String,~String,~peer_declaration(~S),~peer_body(~S),~Store(~S),~Resources(~S),world,"peer",ALeaf{801}))
+    case Sys.Defined{world,author}:peer_defined(~S,~mode,settings,native,author,Task.define(~S,~Unit,~Unit,~Unit,~PeerOps(~S),~Array<U32>,~String,~String,~peer_declaration(~S),~peer_body(~S),~Store(~S),~Resources(~S),world,"peer",ALeaf{801}))
     case Sys.DefinitionRefused{_,_}:"ERROR: author definition"
 def activated(~S:Data,result:W.World<S,Store(~S),Resources(~S),Unit> & W.Status) -> W.World<S,Store(~S),Resources(~S),Unit>:
   match result:
@@ -151,9 +151,12 @@ def spawn(~S:Data,fuel:Nat,world:W.World<S,Store(~S),Resources(~S),Unit>) -> W.W
     case 0n:world
     case 1n+rest:spawn(~S,rest,reserved(~S,W.reserve_id(~S,~Store(~S),~Resources(~S),~Unit,world)))
 def empty(~S:Data,_:Unit) -> Store(~S):Product.Owner{D.empty(~S,Unit{}),Unit{}}
-def created(~S:Data,settings:Settings.Settings,native:Bool,result:W.Creation<S,Store(~S),Resources(~S),Unit>) -> String:
+def created(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,result:W.Creation<S,Store(~S),Resources(~S),Unit>) -> String:
   match result:
-    case W.Created{_,world}:author_defined(~S,settings,native,Cmd.define(~S,~Left(~S),~D.Resources(~S),~Unit,~layout(~S),~path(~S),~{==},~Ops(~S),~AuthorLocal(~S),~String,~String,~author_declaration(~S),~Body.run(~S),~Resources(~S),spawn(~S,18n,world),"author",Body.User{ALeaf{900},0}))
+    case W.Created{_,world}:author_defined(~S,~mode,settings,native,Cmd.define(~S,~Left(~S),~D.Resources(~S),~Unit,~layout(~S),~path(~S),~{==},~Ops(~S),~AuthorLocal(~S),~String,~String,~author_declaration(~S,~mode),~Body.run(~S),~Resources(~S),spawn(~S,18n,world),"author",Body.User{ALeaf{900},0}))
     case W.CreateRejected{_,_}:"ERROR: creation"
+def run_mode(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool) -> String:
+  created(~S,~mode,settings,native,W.create(~S,~Store(~S),~Resources(~S),~Unit,~empty(~S),W.factory(),Product.Owner{D.resource(~S),Unit{}}))
+
 def run(~S:Data,settings:Settings.Settings,native:Bool) -> String:
-  created(~S,settings,native,W.create(~S,~Store(~S),~Resources(~S),~Unit,~empty(~S),W.factory(),Product.Owner{D.resource(~S),Unit{}}))
+  run_mode(~S,~Query.Parallel{},settings,native)
