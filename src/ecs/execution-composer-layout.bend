@@ -240,8 +240,8 @@ def pair_leaves(layout:Layout) -> Bool:
     case LayoutPair{ClassifiedLayoutLeaf{_,V,_,_,_},ClassifiedLayoutLeaf{_,V,_,_,_}}:True{}
     case _:False{}
 def query_view(layout:Layout,route:Route) -> Data:view(subtree(layout,route),InLeft{AtLeaf{}})
-def query_input(layout:Layout,route:Route) -> Type:pair_input(subtree(layout,route))
-def query_output(layout:Layout,route:Route) -> Type:pair_output(subtree(layout,route))
+def query_input(layout:Layout,route:Route) -> Type:payload(subtree(layout,route),InLeft{AtLeaf{}})
+def query_output(layout:Layout,route:Route) -> Type:payload(subtree(layout,route),InRight{AtLeaf{}})
 def query_read_key(layout:Layout,route:Route) -> String:key(subtree(layout,route),InLeft{AtLeaf{}})
 def query_write_key(layout:Layout,route:Route) -> String:key(subtree(layout,route),InRight{AtLeaf{}})
 def query_pair(~S:Data,~layout:Layout,~route:Route) -> Type:

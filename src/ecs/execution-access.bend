@@ -27,7 +27,7 @@ def component_returned(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:
     case (column,value):(State.Scope{Product.put_field(~C,~Col.Column<S,P>,~Rest,lens)(rest,column),resource,handles,tick},value)
 def component_taken(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,resource:R,handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,index:U32,result:Rest & Col.Column<S,P>) -> State.Scope<S,C,R> & Maybe<&2,V>:
   match result:
-    case (rest,column):component_returned(~S,~C,~R,~P,~Rest,~V,~lens,resource,handles,tick,rest,Col.modify_at(~S,~P,~V,~project,column,index,tick))
+    case (rest,column):component_returned(~S,~C,~R,~P,~Rest,~V,~lens,resource,handles,tick,rest,Col.view(~S,~P,~V,~project,column,index))
 def component_read_checked(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,allowed:Bool,scope:State.Scope<S,C,R>,handle:W.Handle<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
   match allowed scope:
     case False{} scope:(scope,None{})
