@@ -5,6 +5,9 @@ import ./execution-builder.bend as Build
 import ./execution-parallel-system.bend as Task
 import ./execution-composer-layout.bend as Layout
 import ./execution-command-local.bend as Local
+import ./execution-command-buffer.bend as Buffer
+import ./execution-command-publication.bend as Publication
+import ./change-tick.bend as Tick
 
 # Command owners have a distinct type, so an ordinary Sys.Owner leaf cannot
 # silently omit their deferred inventory and publication operation.
@@ -32,3 +35,20 @@ type Metadata is Data:
 def metadata(~S:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:Body(~S,~layout,~route,~Ops,~User,~Error,~Out),owner:Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>) -> Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body> & Metadata:
   match owner:
     case Owner{Sys.Owner{namespace,+id,name,access,cursor,local}}:(Owner{Sys.Owner{namespace,id,name,access,cursor,local}},Metadata{id,Layout.key(layout,route)})
+
+def pending_returned(~S:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:Body(~S,~layout,~route,~Ops,~User,~Error,~Out),meta:Task.Meta,user:User,result:Buffer.Buffer<S,Layout.payload(layout,route)> & Bool) -> Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body> & Bool:
+  match result:
+    case (commands,pending):(Owner{Task.restored(~S,~C,~R,~E,~Ops,~Captures(~S,~layout,~route,~User),~Error,~Out,~declaration,~runner(~S,~layout,~route,~Ops,~User,~Error,~Out,~body),meta,Local.Local{user,commands})},pending)
+def pending(~S:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:Body(~S,~layout,~route,~Ops,~User,~Error,~Out),owner:Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>) -> Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body> & Bool:
+  match owner:
+    case Owner{Sys.Owner{namespace,id,name,access,cursor,Local.Local{user,commands}}}:pending_returned(~S,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,Task.Meta{namespace,id,name,access,cursor},user,Buffer.pending(~S,~(Layout.payload(layout,route)),commands))
+def published(~S:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:Body(~S,~layout,~route,~Ops,~User,~Error,~Out),~WR:Type,meta:Task.Meta,user:User,result:W.World<S,Layout.columns(~S,layout),WR,E> & Buffer.Buffer<S,Layout.payload(layout,route)>) -> W.World<S,Layout.columns(~S,layout),WR,E> & Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>:
+  match result:
+    case (world,commands):(world,Owner{Task.restored(~S,~C,~R,~E,~Ops,~Captures(~S,~layout,~route,~User),~Error,~Out,~declaration,~runner(~S,~layout,~route,~Ops,~User,~Error,~Out,~body),meta,Local.Local{user,commands})})
+def publication_allowed(~S:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~Ops:Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:Body(~S,~layout,~route,~Ops,~User,~Error,~Out),~WR:Type,meta:Task.Meta,user:User,commands:Buffer.Buffer<S,Layout.payload(layout,route)>,tick:Tick.Tick,result:W.World<S,Layout.columns(~S,layout),WR,E> & Bool) -> W.World<S,Layout.columns(~S,layout),WR,E> & Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>:
+  match result:
+    case (world,False{}):published(~S,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR,meta,user,(world,commands))
+    case (world,True{}):published(~S,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR,meta,user,Publication.apply_at(~S,~WR,~E,~layout,~route,~valid,world,commands,tick))
+def publish(~S:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~Ops:Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:Body(~S,~layout,~route,~Ops,~User,~Error,~Out),~WR:Type,tick:Tick.Tick,world:W.World<S,Layout.columns(~S,layout),WR,E>,owner:Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>) -> W.World<S,Layout.columns(~S,layout),WR,E> & Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>:
+  match owner:
+    case Owner{Sys.Owner{+namespace,+id,+name,+access,+cursor,Local.Local{user,commands}}}:publication_allowed(~S,~C,~R,~E,~layout,~route,~valid,~Ops,~User,~Error,~Out,~declaration,~body,~WR,Task.Meta{namespace,id,name,access,cursor},user,commands,tick,Task.verify(~S,~(Layout.columns(~S,layout)),~WR,~E,Task.Meta{namespace,id,name,access,cursor},world))
