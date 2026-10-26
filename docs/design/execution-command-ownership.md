@@ -1,8 +1,9 @@
 # Deferred command ownership
 
 The GH86 modules retain actual affine command payloads separately from gameplay
-storage. They are an internal foundation. Ordinary registration, scheduler
-barriers, query worker publication and their acceptance controls remain pending.
+storage. Closed command-system registration and publication adapters are
+implemented. Scheduler barrier policy, query worker publication and full ordinary
+execution acceptance remain pending.
 
 `execution-command-buffer.bend` owns one component family's pending inserts and
 removes. Enqueue transfers an incoming `Type` payload into the queue. It cannot
@@ -15,8 +16,16 @@ the incoming owner. Receipts remain owned by the buffer until taken.
 owner. Its body adapter hides both the gameplay scope `H` and queue `Q`. Gameplay
 gets typed insert/remove methods; it cannot inspect the concrete queue or supply
 a World callback. The existing `Sys.Owner` returns this local on a body error or
-admission refusal. The ordinary registration layer must still bind the component
-family to its closed schema and inventory its publication operation.
+admission refusal. `execution-command-system.bend` wraps that system in a
+distinct `Owner` indexed by its complete schema and command route.
+`Tree.CommandLeaf` binds the physical scope to the same full schema, derives
+the deferred system ID and composes the corresponding publisher. An ordinary
+`Tree.Leaf` rejects a command owner instead of dropping its deferred inventory.
+
+The publisher initializes the schema's cached Data view only for an admitted
+insert. Removal unwraps a displaced owner without refreshing it. An absent
+component outside the column's capacity is removed successfully without growing
+storage. Capacity-refused insertions retain their raw incoming owners.
 
 The complete World must be reassembled before publication. Root cuts retain the
 allocator and administrative state outside gameplay scopes, so a branch cannot
@@ -38,12 +47,21 @@ edge boundaries from synchronization distances. An ignored edge carries pending
 synchronization forward; an exclusive target overrides edge suppression.
 Unconditional explicit barriers can be reused. Disabling automatic insertion
 returns no inserted boundaries; final application is a separate executor setting.
-The ordinary registry must derive `hasDeferred` from its actual command owners.
+The closed registry derives `hasDeferred` from its actual command owners.
+It checks eligible IDs and the actual World registration before inspecting
+pending queues, so a foreign or unselected retained queue does not advance the
+publication clock. The scheduler must accumulate admitted, unapplied IDs across
+groups until a synchronization boundary; a body error still counts as admitted.
 
 The planner example covers a chain, delayed synchronization across an ignored
 edge, an explicit barrier, explicit barrier reuse, an exclusive target and global
 automatic insertion suppression. Its complete output matches the expected file
 on JS and native with one and four workers using the matching Bend 2.0.35 bundle.
-This is planner evidence, not evidence of ordinary scheduled command execution
+The focused Rust reference also matched all eight expected observations for
+automatic, ignored, disabled and explicit synchronization over two handled-error
+runs. See `examples/parallel-commands/bevy-reference/README.md` for the source
+binding and development commands.
+
+This is development evidence, not evidence of ordinary scheduled command execution
 or worker parallelism. No new mathematical law has been approved or proved for
 these modules.
