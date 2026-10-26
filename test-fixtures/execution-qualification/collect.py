@@ -47,6 +47,21 @@ def metadata(result):
             if key not in ('stdout', 'stderr')}
 
 
+def worker_diagnostic(plan, label, expected, stderr, receipt):
+    path = Path(plan['root']) / 'test-fixtures/parallel-systems/instrument-workers.py'
+    if plan['files'].get(str(path.resolve())) != sha(path):
+        raise RuntimeError('worker validator is not a frozen plan input')
+    check = {'label': label, 'status': 'FAIL'}
+    receipt.setdefault('workerDiagnostics', []).append(check)
+    try:
+        validator = load('qualified_worker_validator', path)
+        check['observed'] = validator.validate(stderr, expected)
+    except BaseException as error:
+        check['error'] = f'{type(error).__name__}: {error}'
+        raise
+    check['status'] = 'PASS'
+
+
 def collect(plan_path, approval_path, output):
     output.mkdir(parents=True, exist_ok=False)
     receipt_path = output / 'receipt.json'
@@ -187,6 +202,9 @@ def collect(plan_path, approval_path, output):
                         oracle = stage.get('oracle')
                         if oracle and result['stdout'] != Path(oracle).read_bytes():
                             raise RuntimeError('complete oracle differs: ' + stage['label'])
+                        if 'workerDiagnostic' in stage:
+                            worker_diagnostic(plan, stage['label'], stage['workerDiagnostic'],
+                                              result['stderr'], receipt)
                         verify_tools(stage['label'] + '-post')
                     receipt['cases'].append({'name': case['name'], 'status': 'PASS'})
                     case_deadline = None

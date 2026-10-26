@@ -1,6 +1,8 @@
 import hashlib
 import importlib.util
+import json
 from pathlib import Path
+import tempfile
 import unittest
 
 
@@ -49,6 +51,31 @@ def plan(source=SOURCE):
 
 
 class InstrumentationBoundary(unittest.TestCase):
+    def test_collector_retains_zero_process_exit_on_semantic_failure(self):
+        root = Path(__file__).resolve().parents[2]
+        def loaded(name, path):
+            selected = importlib.util.spec_from_file_location(name, path)
+            result = importlib.util.module_from_spec(selected)
+            selected.loader.exec_module(result)
+            return result
+        collector = loaded('collector', root / 'test-fixtures/execution-qualification/collect.py')
+        boundary = loaded('boundary', root / 'scripts/evidence_boundary.py')
+        validator = Path(module.__file__).resolve()
+        frozen = dict(root=str(root), files={str(validator): collector.sha(validator)})
+        expected = dict(workerLimit=4, groups={'body': dict(count=1, minimumWorkers=2)},
+                        forks=1, minimumUnionWorkers=2)
+        receipt = dict(status='INCOMPLETE', commands=[dict(label='native4', exitCode=0)])
+        with tempfile.TemporaryDirectory() as directory:
+            destination = Path(directory) / 'receipt.json'
+            with self.assertRaises(ValueError):
+                with boundary.ReceiptBoundary(receipt, destination, []):
+                    collector.worker_diagnostic(frozen, 'native4', expected,
+                                                b'BENDVY_WORKERS body=1/1 forks=1\n', receipt)
+            observed = json.loads(destination.read_text())
+            self.assertEqual(observed['status'], 'INCOMPLETE')
+            self.assertEqual(observed['commands'][0]['exitCode'], 0)
+            self.assertEqual(observed['workerDiagnostics'][0]['status'], 'FAIL')
+
     def test_semantic_worker_receipt(self):
         expected = dict(workerLimit=4, groups={
             'position': dict(count=6, minimumWorkers=1),
