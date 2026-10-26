@@ -9,6 +9,7 @@ type Invalid<Requirement:Data> is Data:
   UnknownDependency{id:U32}
   Missing{id:U32,requirement:Requirement}
   Cycle{}
+  InvalidCondition{id:U32}
 type Build<Requirement:Data> is Data:
   Planned{order:List<&2,Node<Requirement>>,edges:List<&2,Edge>}
   Rejected{reason:Invalid<Requirement>}
@@ -132,3 +133,18 @@ def chain(ids:List<&2,U32>) -> List<&2,Edge>:
   match ids:
     case []:[]
     case first <> rest:chain_from(rest,first)
+
+def ready_member(~Requirement:Data,blocked:Bool,node:Node<Requirement>,rest:List<&2,Node<Requirement>>) -> List<&2,Node<Requirement>>:
+  match blocked:
+    case True{}:rest
+    case False{}:node <> rest
+
+def ready_scan(~Requirement:Data,candidates:List<&2,Node<Requirement>>,+pending:List<&2,Node<Requirement>>,+edges:List<&2,Edge>) -> List<&2,Node<Requirement>>:
+  match candidates:
+    case []:[]
+    case +first <> rest:ready_member(~Requirement,predecessor_pending(~Requirement,edges,pending,node_id(~Requirement,first)),first,ready_scan(~Requirement,rest,pending,edges))
+
+# Pending contains every not-yet-completed node, including disabled or refused
+# work until its completion is recorded. Success is not a prerequisite here.
+def ready(~Requirement:Data,+pending:List<&2,Node<Requirement>>,edges:List<&2,Edge>) -> List<&2,Node<Requirement>>:
+  ready_scan(~Requirement,pending,pending,edges)
