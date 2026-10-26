@@ -199,7 +199,7 @@ class Execution(unittest.TestCase):
                                  fail_publication)
 
     def test_completed_process_adapter(self):
-        result = task_runner.run(command('import os; os.write(1,b"a\\r\\n"); os.write(2,b"err"); exit(7)'),timeout=3,capture_output=True,text=True)
+        result = task_runner.run(command('import os,sys; os.write(1,b"a\\r\\n"); os.write(2,b"err"); sys.exit(7)'),timeout=3,capture_output=True,text=True)
         self.assertEqual((result.returncode,result.stdout,result.stderr),(7,'a\n','err'))
         self.assertEqual(result.runner_result['stdout'],b'a\r\n')
         with self.assertRaises(subprocess.CalledProcessError):
@@ -253,7 +253,7 @@ class Execution(unittest.TestCase):
             self.assertEqual(result['stdout'],b"(0, '123\\n')\n")
 
     def test_raw_bytes_and_exit(self):
-        result = execute_result(command('import os; os.write(1,b"a\\x00\\xff"); os.write(2,b"b\\xfe"); exit(7)'), 3, capture='split')
+        result = execute_result(command('import os,sys; os.write(1,b"a\\x00\\xff"); os.write(2,b"b\\xfe"); sys.exit(7)'), 3, capture='split')
         self.assertEqual((result['exit'], result['failure']), (7, None))
         self.assertEqual((result['stdout'], result['stderr']), (b'a\0\xff', b'b\xfe'))
 
