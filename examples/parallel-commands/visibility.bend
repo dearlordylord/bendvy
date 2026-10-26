@@ -36,9 +36,9 @@ def Store() -> Type:Layout.columns(~Schema,layout())
 def Resources() -> Type:Product.Owner<Unit,Unit>
 def Ops(H:Type) -> Type:Unit
 def CmdOps(H:Type,Q:Type) -> Type:Unit
-def author_declaration(~H:Type,~Q:Type,~commands:Local.Commands<Q,Schema,P.Token>,~B:Type,~builder:Build.Builder(~Schema,~Left(),~Unit,~H,~B),~K:Type,~entity:Permission.Grant(~Schema,~layout(),~Q,~K),book:B,permission:K) -> B & (K & Unit):
+def author_declaration(~H:Type,~Q:Type,~commands:Local.Commands<Q,Schema,P.Token>,~B:Type,~builder:Build.Builder(~Schema,~Store(),~Left(),~Unit,~H,~B),~K:Type,~entity:Permission.Grant(~Schema,~layout(),~Q,~K),book:B,permission:K) -> B & (K & Unit):
   (book,(permission,Unit{}))
-def peer_declaration(~H:Type,~B:Type,~builder:Build.Builder(~Schema,~Unit,~Unit,~H,~B),book:B) -> B & Unit:
+def peer_declaration(~H:Type,~B:Type,~builder:Build.Builder(~Schema,~Store(),~Unit,~Unit,~H,~B),book:B) -> B & Unit:
   (book,Unit{})
 def peer_body(~H:Type,~caps:Unit,scope:H,token:Array<U32>) -> H & (Array<U32> & Sys.Completion<String,Unit>):
   (scope,(token,Sys.Success{Unit{}}))
@@ -52,15 +52,15 @@ def author_body(~H:Type,~Q:Type,~caps:Unit,~commands:Local.Commands<Q,Schema,P.T
     case AuthorLocal{P.Capture{+handle},True{}}:author_returned(~H,~Q,True{},P.body(~Schema,~H,~Q,~caps,~commands,scope,Local.remove_field(~Q,~Schema,~P.Token,commands)(queue,handle),P.Capture{handle}))
     case AuthorLocal{capture,False{}}:(scope,(queue,(AuthorLocal{capture,False{}},Sys.Success{Unit{}})))
 def Author() -> Type:Cmd.Owner<Schema,Left(),Unit,Unit,layout(),path(),CmdOps,AuthorLocal,String,Unit,author_declaration,author_body>
-def Peer() -> Type:Sys.Owner<Schema,Unit,Unit,Unit,Ops,Array<U32>,String,Unit,peer_declaration,peer_body>
+def Peer() -> Type:Sys.Owner<Schema,Store(),Unit,Unit,Unit,Ops,Array<U32>,String,Unit,peer_declaration,peer_body>
 def ReadOps(H:Type) -> Type:A.ComponentRead<Schema,H,U32>
-def reader_selection(~H:Type,~B:Type,~read:Build.ComponentRead(~Schema,~Left(),~Unit,~H,~B),~write:Build.ComponentWrite(~Schema,~Left(),~Unit,~H,~B),~rread:Build.ResourceRead(~Schema,~Left(),~Unit,~H,~B),~rwrite:Build.ResourceWrite(~Schema,~Left(),~Unit,~H,~B),~query:Build.Query(~Schema,~Left(),~Unit,~H,~B),~lifecycle:Build.Lifecycle(~Schema,~Left(),~Unit,~H,~B),book:B) -> B & ReadOps(H):
+def reader_selection(~H:Type,~B:Type,~read:Build.ComponentRead(~Schema,~Left(),~Unit,~H,~B),~write:Build.ComponentWrite(~Schema,~Left(),~Unit,~H,~B),~rread:Build.ResourceRead(~Schema,~Left(),~Unit,~H,~B),~rwrite:Build.ResourceWrite(~Schema,~Left(),~Unit,~H,~B),~query:Build.Query(~Schema,~Left(),~Unit,~H,~B),~lifecycle:Build.Lifecycle(~Schema,~Store(),~Left(),~Unit,~H,~B),book:B) -> B & ReadOps(H):
   read(Registered.layout(),Layout.AtLeaf{},{==},{==},book)
-def reader_declaration(~H:Type,~B:Type,~builder:Build.Builder(~Schema,~Left(),~Unit,~H,~B),book:B) -> B & ReadOps(H):
+def reader_declaration(~H:Type,~B:Type,~builder:Build.Builder(~Schema,~Store(),~Left(),~Unit,~H,~B),book:B) -> B & ReadOps(H):
   builder(ReadOps,reader_selection(~H,~B),book)
-def guard_selection(~H:Type,~B:Type,~read:Build.ComponentRead(~Schema,~Store(),~Resources(),~H,~B),~write:Build.ComponentWrite(~Schema,~Store(),~Resources(),~H,~B),~rread:Build.ResourceRead(~Schema,~Store(),~Resources(),~H,~B),~rwrite:Build.ResourceWrite(~Schema,~Store(),~Resources(),~H,~B),~query:Build.Query(~Schema,~Store(),~Resources(),~H,~B),~lifecycle:Build.Lifecycle(~Schema,~Store(),~Resources(),~H,~B),book:B) -> B & ReadOps(H):
+def guard_selection(~H:Type,~B:Type,~read:Build.ComponentRead(~Schema,~Store(),~Resources(),~H,~B),~write:Build.ComponentWrite(~Schema,~Store(),~Resources(),~H,~B),~rread:Build.ResourceRead(~Schema,~Store(),~Resources(),~H,~B),~rwrite:Build.ResourceWrite(~Schema,~Store(),~Resources(),~H,~B),~query:Build.Query(~Schema,~Store(),~Resources(),~H,~B),~lifecycle:Build.Lifecycle(~Schema,~Store(),~Store(),~Resources(),~H,~B),book:B) -> B & ReadOps(H):
   read(layout(),path(),{==},{==},book)
-def guard_declaration(~H:Type,~B:Type,~builder:Build.Builder(~Schema,~Store(),~Resources(),~H,~B),book:B) -> B & ReadOps(H):
+def guard_declaration(~H:Type,~B:Type,~builder:Build.Builder(~Schema,~Store(),~Store(),~Resources(),~H,~B),book:B) -> B & ReadOps(H):
   builder(ReadOps,guard_selection(~H,~B),book)
 type Seen is Type:
   Seen{token:Array<U32>,runs:U32,handle:W.Handle<Schema>,last:Maybe<&2,U32>}
@@ -80,8 +80,8 @@ def guard_returned(~H:Type,token:Array<U32>,runs:U32,handle:W.Handle<Schema>,res
 def guard_body(~H:Type,~caps:ReadOps(H),scope:H,local:Seen) -> H & (Seen & Sys.Completion<String,Bool>):
   match local:
     case Seen{token,runs,+handle,_}:guard_returned(~H,token,runs,handle,A.component_read_field(~Schema,~H,~U32,caps)(scope,handle))
-def Reader() -> Type:Sys.Owner<Schema,Left(),Unit,Unit,ReadOps,Seen,String,Unit,reader_declaration,reader_body>
-def Guard() -> Type:Sys.Owner<Schema,Store(),Resources(),Unit,ReadOps,Seen,String,Bool,guard_declaration,guard_body>
+def Reader() -> Type:Sys.Owner<Schema,Store(),Left(),Unit,Unit,ReadOps,Seen,String,Unit,reader_declaration,reader_body>
+def Guard() -> Type:Sys.Owner<Schema,Store(),Store(),Resources(),Unit,ReadOps,Seen,String,Bool,guard_declaration,guard_body>
 def LeftTree() -> Type:Product.Owner<Author(),Reader()>
 def left(~F:Tree.Family(),~leaf:Tree.Leaf(~Schema,~Store(),~Left(),~Unit,~Unit,~String,~Unit,~F),~command:Tree.CommandLeaf(~Schema,~Store(),~Left(),~Unit,~Unit,~String,~Unit,~F),~join:Tree.Join(~F),owners:LeftTree()) -> F(LeftTree()):
   match owners:
@@ -179,11 +179,11 @@ def peer_defined(settings:Settings.Settings,native:Bool,handle:W.Handle<Schema>,
     case Sys.DefinitionRefused{_,_}:SetupFailed{"ERROR: peer definition"}
 def reader_defined(settings:Settings.Settings,native:Bool,handle:W.Handle<Schema>,author:Author(),result:Sys.Defined<W.World<Schema,Store(),Resources(),Unit>,Reader(),Seen>) -> Setup:
   match result:
-    case Sys.Defined{world,reader}:peer_defined(settings,native,handle,author,reader,Task.define(~Schema,~Unit,~Unit,~Unit,~Ops,~Array<U32>,~String,~Unit,~peer_declaration,~peer_body,~Store(),~Resources(),world,"peer",ALeaf{801}))
+    case Sys.Defined{world,reader}:peer_defined(settings,native,handle,author,reader,Task.define(~Schema,~Store(),~Unit,~Unit,~Unit,~Ops,~Array<U32>,~String,~Unit,~peer_declaration,~peer_body,~Resources(),world,"peer",ALeaf{801}))
     case Sys.DefinitionRefused{_,_}:SetupFailed{"ERROR: reader definition"}
 def author_defined(settings:Settings.Settings,native:Bool,+handle:W.Handle<Schema>,result:Sys.Defined<W.World<Schema,Store(),Resources(),Unit>,Author(),Cmd.Captures(~Schema,~layout(),~path(),~AuthorLocal)>) -> Setup:
   match result:
-    case Sys.Defined{world,author}:reader_defined(settings,native,handle,author,Task.define(~Schema,~Left(),~Unit,~Unit,~ReadOps,~Seen,~String,~Unit,~reader_declaration,~reader_body,~Store(),~Resources(),world,"reader",Seen{ALeaf{501},0,handle,None{}}))
+    case Sys.Defined{world,author}:reader_defined(settings,native,handle,author,Task.define(~Schema,~Store(),~Left(),~Unit,~Unit,~ReadOps,~Seen,~String,~Unit,~reader_declaration,~reader_body,~Resources(),world,"reader",Seen{ALeaf{501},0,handle,None{}}))
     case Sys.DefinitionRefused{_,_}:SetupFailed{"ERROR: author definition"}
 def activated(settings:Settings.Settings,enabled:Bool,native:Bool,+handle:W.Handle<Schema>,result:W.World<Schema,Store(),Resources(),Unit> & W.Status) -> Setup:
   match result:

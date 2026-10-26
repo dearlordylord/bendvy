@@ -20,10 +20,10 @@ import ../../src/ecs/dependency-registry-program.bend as Prog
 import ../../src/ecs/dependency-application.bend as DepApp
 import ../../src/ecs/dependency-executor.bend as Exec
 import ../../src/ecs/change-tick.bend as Tick
-def GuardOwner(~S:Data) -> Type:Sys.Owner<S,D.Store(~S),D.Resources(~S),Unit,Cond.Ops(~S),Cond.Local(),String,Bool,Cond.declaration(~S),Cond.body(~S)>
+def GuardOwner(~S:Data) -> Type:Sys.Owner<S,D.Store(~S),D.Store(~S),D.Resources(~S),Unit,Cond.Ops(~S),Cond.Local(),String,Bool,Cond.declaration(~S),Cond.body(~S)>
 def World(~S:Data) -> Type:W.World<S,D.Store(~S),D.Resources(~S),Unit>
-def LeftOwner(~S:Data) -> Type:Sys.Owner<S,D.LeftStore(~S),D.LeftResource(~S),Unit,D.LeftOps(~S),Body.LeftLocal(),String,String,D.left(~S),Body.left(~S)>
-def RightOwner(~S:Data) -> Type:Sys.Owner<S,D.RightStore(~S),D.RightResource(~S),Unit,D.RightOps(~S),Body.RightLocal(),String,String,D.right(~S),Body.right(~S)>
+def LeftOwner(~S:Data) -> Type:Sys.Owner<S,D.Store(~S),D.LeftStore(~S),D.LeftResource(~S),Unit,D.LeftOps(~S),Body.LeftLocal(),String,String,D.left(~S),Body.left(~S)>
+def RightOwner(~S:Data) -> Type:Sys.Owner<S,D.Store(~S),D.RightStore(~S),D.RightResource(~S),Unit,D.RightOps(~S),Body.RightLocal(),String,String,D.right(~S),Body.right(~S)>
 def LeftTree(~S:Data) -> Type:Product.Owner<LeftOwner(~S),LeftOwner(~S)>
 def left_tree(~S:Data,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~D.Store(~S),~D.LeftStore(~S),~D.LeftResource(~S),~Unit,~String,~String,~F),~command:Tree.CommandLeaf(~S,~D.Store(~S),~D.LeftStore(~S),~D.LeftResource(~S),~Unit,~String,~String,~F),~join:Tree.Join(~F),owners:LeftTree(~S)) -> F(LeftTree(~S)):
   match owners:
@@ -38,11 +38,11 @@ def released(~S:Data,trace:String,ll:Body.LeftLocal(),ol:Body.LeftLocal(),lc:May
     case Life.Released{Life.Identity{namespace,id,name,access,rc},rl}:trace ++ "|world=" ++ Observe.world(~S,world) ++ "|locals=" ++ Body.observe_left(ll) ++ "," ++ Body.observe_right(rl) ++ "," ++ Body.observe_left(ol) ++ "|cursors=" ++ Tick.cursor_show(lc) ++ "," ++ Tick.cursor_show(rc) ++ "," ++ Tick.cursor_show(oc) ++ "|handler=" ++ Common.handler(handler) ++ "|guard=" ++ Cond.observed(gl) ++ "|guard-cursor=" ++ Tick.cursor_show(gc) ++ "|released=" ++ U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,text,access)
 def cleaned(~S:Data,trace:String,ll:Body.LeftLocal(),ol:Body.LeftLocal(),lc:Maybe<&2,Tick.Tick>,oc:Maybe<&2,Tick.Tick>,gl:Cond.Local(),gc:Maybe<&2,Tick.Tick>,handler:Common.Handler,result:Life.Retirement<World(~S),RightOwner(~S)>) -> String:
   match result:
-    case Life.Retired{world,detached}:released(~S,trace,ll,ol,lc,oc,gl,gc,handler,world,Life.release(~S,~D.RightStore(~S),~D.RightResource(~S),~Unit,~D.RightOps(~S),~Body.RightLocal(),~String,~String,~D.right(~S),~Body.right(~S),detached))
+    case Life.Retired{world,detached}:released(~S,trace,ll,ol,lc,oc,gl,gc,handler,world,Life.release(~S,~D.Store(~S),~D.RightStore(~S),~D.RightResource(~S),~Unit,~D.RightOps(~S),~Body.RightLocal(),~String,~String,~D.right(~S),~Body.right(~S),detached))
     case Life.RetirementRefused{_,_}:"ERROR:cleanup"
 def observed(~S:Data,trace:String,app:Application(~S)) -> String:
   match app:
-    case Schedule.Scheduled{DepApp.Application{DepApp.State{world,Product.Owner{Product.Owner{Sys.Owner{_,_,_,_,lc,ll},Sys.Owner{_,_,_,_,oc,ol}},right},Sys.Owner{_,_,_,_,gc,gl},handler,_},_,_},_,_}:cleaned(~S,trace,ll,ol,lc,oc,gl,gc,handler,Life.retire(~S,~D.RightStore(~S),~D.RightResource(~S),~Unit,~D.RightOps(~S),~Body.RightLocal(),~String,~String,~D.right(~S),~Body.right(~S),~D.Store(~S),~D.Resources(~S),~Unit,right,world))
+    case Schedule.Scheduled{DepApp.Application{DepApp.State{world,Product.Owner{Product.Owner{Sys.Owner{_,_,_,_,lc,ll},Sys.Owner{_,_,_,_,oc,ol}},right},Sys.Owner{_,_,_,_,gc,gl},handler,_},_,_},_,_}:cleaned(~S,trace,ll,ol,lc,oc,gl,gc,handler,Life.retire(~S,~D.Store(~S),~D.RightStore(~S),~D.RightResource(~S),~Unit,~D.RightOps(~S),~Body.RightLocal(),~String,~String,~D.right(~S),~Body.right(~S),~D.Resources(~S),~Unit,right,world))
 def run_selected(~S:Data,native:Bool,app:Application(~S)) -> Application(~S) & DepApp.Report<String,String>:
   match native:
     case False{}:Schedule.run_serial(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.LeftResource(~S),~D.RightResource(~S),~Unit,~String,~String,~LeftTree(~S),~RightOwner(~S),~left_tree(~S),~right_tree(~S),~GuardOwner(~S),~Common.Handler,~Reg.leaf_dispatch(~S,~D.Store(~S),~D.Resources(~S),~Unit,~Cond.Ops(~S),~Cond.Local(),~String,~Bool,~Cond.declaration(~S),~Cond.body(~S)),~Prog.leaf(~S,~D.Store(~S),~D.Resources(~S),~Unit,~Cond.Ops(~S),~Cond.Local(),~String,~Bool,~Cond.declaration(~S),~Cond.body(~S)),~Common.handle,app)
@@ -64,14 +64,14 @@ def retired_app(~S:Data,remainder:Remainder<S>,result:Life.Retirement<World(~S),
     case Life.RetirementRefused{world,right}:(rebuild(~S,remainder,world,right),"ERROR:retirement")
 def detach(~S:Data,app:Application(~S)) -> Application(~S) & String:
   match app:
-    case Schedule.Scheduled{DepApp.Application{DepApp.State{world,Product.Owner{left,right},guard,handler,stateBindings},plan,bindings},rules,deferred}:retired_app(~S,Remainder{left,guard,handler,stateBindings,plan,bindings,rules,deferred},Life.retire(~S,~D.RightStore(~S),~D.RightResource(~S),~Unit,~D.RightOps(~S),~Body.RightLocal(),~String,~String,~D.right(~S),~Body.right(~S),~D.Store(~S),~D.Resources(~S),~Unit,right,world))
+    case Schedule.Scheduled{DepApp.Application{DepApp.State{world,Product.Owner{left,right},guard,handler,stateBindings},plan,bindings},rules,deferred}:retired_app(~S,Remainder{left,guard,handler,stateBindings,plan,bindings,rules,deferred},Life.retire(~S,~D.Store(~S),~D.RightStore(~S),~D.RightResource(~S),~Unit,~D.RightOps(~S),~Body.RightLocal(),~String,~String,~D.right(~S),~Body.right(~S),~D.Resources(~S),~Unit,right,world))
 def restored_app(~S:Data,remainder:Remainder<S>,result:Life.Restoration<World(~S),RightOwner(~S)>) -> Application(~S) & String:
   match result:
     case Life.Restored{world,right}:identified_app(~S,"restored",remainder,world,identity(~S,right))
     case Life.RestorationRefused{world,Life.Detached{right}}:(rebuild(~S,remainder,world,right),"ERROR:restoration")
 def restore(~S:Data,app:Application(~S)) -> Application(~S) & String:
   match app:
-    case Schedule.Scheduled{DepApp.Application{DepApp.State{world,Product.Owner{left,right},guard,handler,stateBindings},plan,bindings},rules,deferred}:restored_app(~S,Remainder{left,guard,handler,stateBindings,plan,bindings,rules,deferred},Life.restore(~S,~D.RightStore(~S),~D.RightResource(~S),~Unit,~D.RightOps(~S),~Body.RightLocal(),~String,~String,~D.right(~S),~Body.right(~S),~D.Store(~S),~D.Resources(~S),~Unit,Life.Detached{right},world))
+    case Schedule.Scheduled{DepApp.Application{DepApp.State{world,Product.Owner{left,right},guard,handler,stateBindings},plan,bindings},rules,deferred}:restored_app(~S,Remainder{left,guard,handler,stateBindings,plan,bindings,rules,deferred},Life.restore(~S,~D.Store(~S),~D.RightStore(~S),~D.RightResource(~S),~Unit,~D.RightOps(~S),~Body.RightLocal(),~String,~String,~D.right(~S),~Body.right(~S),~D.Resources(~S),~Unit,Life.Detached{right},world))
 def fifth(~S:Data,trace:String,result:Application(~S) & DepApp.Report<String,String>) -> String:
   match result:
     case (app,status):observed(~S,trace ++ "|" ++ report(status),app)
@@ -103,7 +103,7 @@ def other_defined(~S:Data,+native:Bool,left:LeftOwner(~S),right:RightOwner(~S),r
     case Sys.DefinitionRefused{_,_}:"ERROR:other"
 def registered(~S:Data,native:Bool,result:Pair.Definition<World(~S),LeftOwner(~S),RightOwner(~S),Body.LeftLocal(),Body.RightLocal()>) -> String:
   match result:
-    case Pair.Defined{Pair.ParallelApp{world,left,right}}:other_defined(~S,native,left,right,Task.define(~S,~D.LeftStore(~S),~D.LeftResource(~S),~Unit,~D.LeftOps(~S),~Body.LeftLocal(),~String,~String,~D.left(~S),~Body.left(~S),~D.Store(~S),~D.Resources(~S),world,"other",Body.left_local(801,203)))
+    case Pair.Defined{Pair.ParallelApp{world,left,right}}:other_defined(~S,native,left,right,Task.define(~S,~D.Store(~S),~D.LeftStore(~S),~D.LeftResource(~S),~Unit,~D.LeftOps(~S),~Body.LeftLocal(),~String,~String,~D.left(~S),~Body.left(~S),~D.Resources(~S),world,"other",Body.left_local(801,203)))
     case Pair.LeftRefused{_,_,_}:"ERROR:left"
     case Pair.RightRefused{_,_,_}:"ERROR:right"
 def created(~S:Data,native:Bool,result:W.Creation<S,D.Store(~S),D.Resources(~S),Unit>) -> String:

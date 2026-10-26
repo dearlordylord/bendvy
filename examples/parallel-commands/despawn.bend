@@ -37,9 +37,9 @@ def CmdOps(H:Type,Q:Type) -> Type:Permission.EntityCommands<Q,Schema,layout()>
 def author_granted(~H:Type,~Q:Type,~B:Type,~K:Type,book:B,result:K & CmdOps(H,Q)) -> B & (K & CmdOps(H,Q)):
   match result:
     case (permission,ops):(book,(permission,ops))
-def author_declaration(~H:Type,~Q:Type,~commands:Local.Commands<Q,Schema,P.Token>,~B:Type,~builder:Build.Builder(~Schema,~Left(),~Unit,~H,~B),~K:Type,~entity:Permission.Grant(~Schema,~layout(),~Q,~K),book:B,permission:K) -> B & (K & CmdOps(H,Q)):
+def author_declaration(~H:Type,~Q:Type,~commands:Local.Commands<Q,Schema,P.Token>,~B:Type,~builder:Build.Builder(~Schema,~Store(),~Left(),~Unit,~H,~B),~K:Type,~entity:Permission.Grant(~Schema,~layout(),~Q,~K),book:B,permission:K) -> B & (K & CmdOps(H,Q)):
   author_granted(~H,~Q,~B,~K,book,entity(permission))
-def peer_declaration(~H:Type,~B:Type,~builder:Build.Builder(~Schema,~Unit,~Unit,~H,~B),book:B) -> B & Unit:
+def peer_declaration(~H:Type,~B:Type,~builder:Build.Builder(~Schema,~Store(),~Unit,~Unit,~H,~B),book:B) -> B & Unit:
   (book,Unit{})
 def peer_body(~H:Type,~caps:Unit,scope:H,token:Array<U32>) -> H & (Array<U32> & Sys.Completion<String,Unit>):
   (scope,(token,Sys.Success{Unit{}}))
@@ -56,7 +56,7 @@ def author_body(~H:Type,~Q:Type,~caps:CmdOps(H,Q),~commands:Local.Commands<Q,Sch
     case AuthorLocal{capture,True{}}:author_returned(~H,~Q,True{},despawned(~H,~Q,~caps,scope,queue,capture))
     case AuthorLocal{capture,False{}}:(scope,(queue,(AuthorLocal{capture,False{}},Sys.Success{Unit{}})))
 def Author() -> Type:Cmd.Owner<Schema,Left(),Unit,Unit,layout(),path(),CmdOps,AuthorLocal,String,Unit,author_declaration,author_body>
-def Peer() -> Type:Sys.Owner<Schema,Unit,Unit,Unit,Ops,Array<U32>,String,Unit,peer_declaration,peer_body>
+def Peer() -> Type:Sys.Owner<Schema,Store(),Unit,Unit,Unit,Ops,Array<U32>,String,Unit,peer_declaration,peer_body>
 def left(~F:Tree.Family(),~leaf:Tree.Leaf(~Schema,~Store(),~Left(),~Unit,~Unit,~String,~Unit,~F),~command:Tree.CommandLeaf(~Schema,~Store(),~Left(),~Unit,~Unit,~String,~Unit,~F),~join:Tree.Join(~F),owner:Author()) -> F(Author()):
   command(layout(),path(),{==},{==},CmdOps,AuthorLocal,author_declaration,author_body,owner)
 def right(~F:Tree.Family(),~leaf:Tree.Leaf(~Schema,~Store(),~Unit,~Unit,~Unit,~String,~Unit,~F),~command:Tree.CommandLeaf(~Schema,~Store(),~Unit,~Unit,~Unit,~String,~Unit,~F),~join:Tree.Join(~F),owner:Peer()) -> F(Peer()):
@@ -139,7 +139,7 @@ def peer_defined(settings:Settings.Settings,native:Bool,author:Author(),result:S
     case Sys.DefinitionRefused{_,_}:SetupFailed{"ERROR: peer definition"}
 def author_defined(settings:Settings.Settings,native:Bool,result:Sys.Defined<W.World<Schema,Store(),Resources(),Unit>,Author(),Cmd.Captures(~Schema,~layout(),~path(),~AuthorLocal)>) -> Setup:
   match result:
-    case Sys.Defined{world,author}:peer_defined(settings,native,author,Task.define(~Schema,~Unit,~Unit,~Unit,~Ops,~Array<U32>,~String,~Unit,~peer_declaration,~peer_body,~Store(),~Resources(),world,"peer",ALeaf{801}))
+    case Sys.Defined{world,author}:peer_defined(settings,native,author,Task.define(~Schema,~Store(),~Unit,~Unit,~Unit,~Ops,~Array<U32>,~String,~Unit,~peer_declaration,~peer_body,~Resources(),world,"peer",ALeaf{801}))
     case Sys.DefinitionRefused{_,_}:SetupFailed{"ERROR: author definition"}
 def cache_selected(valid:Bool,owner:Author()) -> Author():
   match valid owner:

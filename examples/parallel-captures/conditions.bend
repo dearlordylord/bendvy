@@ -10,9 +10,9 @@ import ../../src/ecs/execution-system.bend as Sys
 
 def layout() -> Layout.Layout:Layout.LayoutPair{D.left_layout(),D.right_layout()}
 def Ops(~S:Data) -> Type -> Type:A.ResourceReads(~String)
-def selection(~S:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~q:Build.Query(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):
+def selection(~S:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~q:Build.Query(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):
   rr(layout(),Layout.InLeft{Layout.AtLeaf{}},{==},{==},book)
-def declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):
+def declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):
   builder(Ops(~S),selection(~S,~H,~B),book)
 type Context is Type:
   Context{counter:Array<U32>,seen:Array<String>}

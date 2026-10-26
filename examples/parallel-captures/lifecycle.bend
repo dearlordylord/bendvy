@@ -12,9 +12,9 @@ type S is Data:
 def Ops(H:Type) -> Type:Unit
 def Local() -> Type:Capture.Local<Array<U32>,Context.Count()>
 def World() -> Type:W.World<S,Unit,Unit,Unit>
-def Owner() -> Type:Sys.Owner<S,Unit,Unit,Unit,Ops,Local(),String,U32,declaration,body>
-def selection(~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Unit,~H,~B),~cw:Build.ComponentWrite(~S,~Unit,~Unit,~H,~B),~rr:Build.ResourceRead(~S,~Unit,~Unit,~H,~B),~rw:Build.ResourceWrite(~S,~Unit,~Unit,~H,~B),~q:Build.Query(~S,~Unit,~Unit,~H,~B),~lifecycle:Build.Lifecycle(~S,~Unit,~Unit,~H,~B),book:B) -> B & Unit:(book,Unit{})
-def declaration(~H:Type,~B:Type,~builder:Build.Builder(~S,~Unit,~Unit,~H,~B),book:B) -> B & Unit:
+def Owner() -> Type:Sys.Owner<S,Unit,Unit,Unit,Unit,Ops,Local(),String,U32,declaration,body>
+def selection(~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Unit,~H,~B),~cw:Build.ComponentWrite(~S,~Unit,~Unit,~H,~B),~rr:Build.ResourceRead(~S,~Unit,~Unit,~H,~B),~rw:Build.ResourceWrite(~S,~Unit,~Unit,~H,~B),~q:Build.Query(~S,~Unit,~Unit,~H,~B),~lifecycle:Build.Lifecycle(~S,~Unit,~Unit,~Unit,~H,~B),book:B) -> B & Unit:(book,Unit{})
+def declaration(~H:Type,~B:Type,~builder:Build.Builder(~S,~Unit,~Unit,~Unit,~H,~B),book:B) -> B & Unit:
   builder(Ops,selection(~H,~B),book)
 def completed(count:U32,failed:Bool) -> Sys.Completion<String,U32>:
   match failed:
@@ -43,11 +43,11 @@ def released(trace:String,result:Life.Released<Local()>) -> String:
     case Life.Released{identity,Capture.Local{state,capture}}:local_observed(trace,identity,capture,Context.count_snapshot(state))
 def final_retired(trace:String,result:Life.Retirement<World(),Owner()>) -> String:
   match result:
-    case Life.Retired{W.World{_,_,_,_,_,_,registrations,nextId,_,lifecycle},detached}:released(trace ++ "|registrations=" ++ Nat.show(List.length(&2,W.RegistrationMeta,registrations)) ++ "|nextId=" ++ U32.show(nextId),Life.release(~S,~Unit,~Unit,~Unit,~Ops,~Local(),~String,~U32,~declaration,~body,detached))
+    case Life.Retired{W.World{_,_,_,_,_,_,registrations,nextId,_,lifecycle},detached}:released(trace ++ "|registrations=" ++ Nat.show(List.length(&2,W.RegistrationMeta,registrations)) ++ "|nextId=" ++ U32.show(nextId),Life.release(~S,~Unit,~Unit,~Unit,~Unit,~Ops,~Local(),~String,~U32,~declaration,~body,detached))
     case Life.RetirementRefused{_,_}:"ERROR:final-retire"
 def final_run(trace:String,result:Sys.RunResult<World(),Owner(),String,U32>) -> String:
   match result:
-    case Sys.Executed{world,owner,Sys.Success{count}}:final_retired(trace ++ "|restored-run=" ++ U32.show(count),Life.retire(~S,~Unit,~Unit,~Unit,~Ops,~Local(),~String,~U32,~declaration,~body,~Unit,~Unit,~Unit,owner,world))
+    case Sys.Executed{world,owner,Sys.Success{count}}:final_retired(trace ++ "|restored-run=" ++ U32.show(count),Life.retire(~S,~Unit,~Unit,~Unit,~Unit,~Ops,~Local(),~String,~U32,~declaration,~body,~Unit,~Unit,owner,world))
     case _:"ERROR:final-run"
 def restored(trace:String,result:Life.Restoration<World(),Owner()>) -> String:
   match result:
@@ -55,11 +55,11 @@ def restored(trace:String,result:Life.Restoration<World(),Owner()>) -> String:
     case Life.RestorationRefused{_,_}:"ERROR:restore"
 def foreign_refused(trace:String,world:World(),result:Life.Restoration<World(),Owner()>) -> String:
   match result:
-    case Life.RestorationRefused{_,detached}:restored(trace ++ "|foreign-refused",Life.restore(~S,~Unit,~Unit,~Unit,~Ops,~Local(),~String,~U32,~declaration,~body,~Unit,~Unit,~Unit,detached,world))
+    case Life.RestorationRefused{_,detached}:restored(trace ++ "|foreign-refused",Life.restore(~S,~Unit,~Unit,~Unit,~Unit,~Ops,~Local(),~String,~U32,~declaration,~body,~Unit,~Unit,detached,world))
     case Life.Restored{_,_}:"ERROR:foreign-accepted"
 def foreign_created(trace:String,world:World(),detached:Life.Detached<Owner()>,result:W.Creation<S,Unit,Unit,Unit>) -> String:
   match result:
-    case W.Created{_,foreign}:foreign_refused(trace,world,Life.restore(~S,~Unit,~Unit,~Unit,~Ops,~Local(),~String,~U32,~declaration,~body,~Unit,~Unit,~Unit,detached,foreign))
+    case W.Created{_,foreign}:foreign_refused(trace,world,Life.restore(~S,~Unit,~Unit,~Unit,~Unit,~Ops,~Local(),~String,~U32,~declaration,~body,~Unit,~Unit,detached,foreign))
     case W.CreateRejected{_,_}:"ERROR:foreign-create"
 def unregistered(trace:String,factory:W.Factory,result:Sys.RunResult<World(),Owner(),String,U32>) -> String:
   match result:
@@ -71,7 +71,7 @@ def retired(trace:String,factory:W.Factory,result:Life.Retirement<World(),Owner(
     case Life.RetirementRefused{_,_}:"ERROR:retire"
 def second(factory:W.Factory,result:Sys.RunResult<World(),Owner(),String,U32>) -> String:
   match result:
-    case Sys.Executed{world,owner,Sys.BodyError{error,count}}:retired("error=" ++ error ++ ":" ++ U32.show(count),factory,Life.retire(~S,~Unit,~Unit,~Unit,~Ops,~Local(),~String,~U32,~declaration,~body,~Unit,~Unit,~Unit,owner,world))
+    case Sys.Executed{world,owner,Sys.BodyError{error,count}}:retired("error=" ++ error ++ ":" ++ U32.show(count),factory,Life.retire(~S,~Unit,~Unit,~Unit,~Unit,~Ops,~Local(),~String,~U32,~declaration,~body,~Unit,~Unit,owner,world))
     case _:"ERROR:second"
 def first(factory:W.Factory,result:Sys.RunResult<World(),Owner(),String,U32>) -> String:
   match result:
@@ -83,7 +83,7 @@ def collision(factory:W.Factory,result:Life.Restoration<World(),Owner()>) -> Str
     case Life.Restored{_,_}:"ERROR:collision-accepted"
 def defined(factory:W.Factory,result:Sys.Defined<World(),Owner(),Local()>) -> String:
   match result:
-    case Sys.Defined{world,owner}:collision(factory,Life.restore(~S,~Unit,~Unit,~Unit,~Ops,~Local(),~String,~U32,~declaration,~body,~Unit,~Unit,~Unit,Life.Detached{owner},world))
+    case Sys.Defined{world,owner}:collision(factory,Life.restore(~S,~Unit,~Unit,~Unit,~Unit,~Ops,~Local(),~String,~U32,~declaration,~body,~Unit,~Unit,Life.Detached{owner},world))
     case Sys.DefinitionRefused{_,_}:"ERROR:define"
 def created(result:W.Creation<S,Unit,Unit,Unit>) -> String:
   match result:
