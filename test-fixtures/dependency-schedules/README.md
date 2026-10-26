@@ -17,7 +17,11 @@ allocator, events, pending work, output and error facts.
 `ordinary/reference.py` derives the complete expected output from the authored
 scenario without importing Bend implementation code. Independent author review
 of this oracle remains a delivery gate. Finite observations establish only this
-scenario. Static invalid-plan and intended access controls remain separate gates.
+scenario. `plan-controls.bend` separately checks duplicate identity, unknown dependency,
+missing provision and cycle rejection with actual returned affine state and no
+body invocations. Its chain-order and ready-set cases distinguish completion
+dependencies from blanket serial ordering. Intended access controls remain a
+separate gate.
 
 `bevy-reference` uses the manifest-pinned Bevy source at
 `ad678262ce53b5d142fe49ee5e08caff6f00ab60`. Its serial schedule runs twice after a
