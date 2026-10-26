@@ -123,3 +123,56 @@ def unique_names(values:List<&2,String>) -> Bool:
 def unique(layout:Layout) -> Bool:unique_names(names(layout))
 def grant_valid(~layout:Layout,~route:Route) -> Bool:
   Bool.and(unique(layout),valid(layout,route))
+def subtree(layout:Layout,route:Route) -> Layout:
+  match layout route:
+    case layout AtLeaf{}:layout
+    case LayoutPair{left,_} InLeft{rest}:subtree(left,rest)
+    case LayoutPair{_,right} InRight{rest}:subtree(right,rest)
+    case _ _:EmptyLayout{}
+def subtree_rest(~S:Data,layout:Layout,route:Route) -> Type:
+  match layout route:
+    case _ AtLeaf{}:Unit
+    case LayoutPair{left,right} InLeft{rest}:columns(~S,right) & subtree_rest(~S,left,rest)
+    case LayoutPair{left,right} InRight{rest}:columns(~S,left) & subtree_rest(~S,right,rest)
+    case layout _:columns(~S,layout)
+def subtree_joined(-Outer:Type,-Inner:Type,-Selected:Type,outer:Outer,result:Inner & Selected) -> (Outer & Inner) & Selected:
+  match result:
+    case (inner,selected):((outer,inner),selected)
+def subtree_take(~S:Data,layout:Layout,route:Route,owner:columns(~S,layout)) -> subtree_rest(~S,layout,route) & columns(~S,subtree(layout,route)):
+  match layout route owner:
+    case layout AtLeaf{} owner:(Unit{},owner)
+    case EmptyLayout{} InLeft{_} owner:(owner,Unit{})
+    case EmptyLayout{} InRight{_} owner:(owner,Unit{})
+    case LayoutLeaf{_,_} InLeft{_} owner:(owner,Unit{})
+    case LayoutLeaf{_,_} InRight{_} owner:(owner,Unit{})
+    case LayoutPair{left,right} InLeft{rest} Product.Owner{l,r}:subtree_joined(columns(~S,right),subtree_rest(~S,left,rest),columns(~S,subtree(left,rest)),r,subtree_take(~S,left,rest,l))
+    case LayoutPair{left,right} InRight{rest} Product.Owner{l,r}:subtree_joined(columns(~S,left),subtree_rest(~S,right,rest),columns(~S,subtree(right,rest)),l,subtree_take(~S,right,rest,r))
+def subtree_put(~S:Data,layout:Layout,route:Route,rest:subtree_rest(~S,layout,route),selected:columns(~S,subtree(layout,route))) -> columns(~S,layout):
+  match layout route rest:
+    case _ AtLeaf{} _:selected
+    case EmptyLayout{} InLeft{_} rest:rest
+    case EmptyLayout{} InRight{_} rest:rest
+    case LayoutLeaf{_,_} InLeft{_} rest:rest
+    case LayoutLeaf{_,_} InRight{_} rest:rest
+    case LayoutPair{left,right} InLeft{path}, (outer,inner):Product.Owner{subtree_put(~S,left,path,inner,selected),outer}
+    case LayoutPair{left,right} InRight{path}, (outer,inner):Product.Owner{outer,subtree_put(~S,right,path,inner,selected)}
+def pair_input(layout:Layout) -> Type:
+  match layout:
+    case LayoutPair{LayoutLeaf{P,_},LayoutLeaf{_,_}}:P
+    case _:Unit
+def pair_output(layout:Layout) -> Type:
+  match layout:
+    case LayoutPair{LayoutLeaf{_,_},LayoutLeaf{P,_}}:P
+    case _:Unit
+def pair_leaves(layout:Layout) -> Bool:
+  match layout:
+    case LayoutPair{LayoutLeaf{_,_},LayoutLeaf{_,_}}:True{}
+    case _:False{}
+def query_input(layout:Layout,route:Route) -> Type:pair_input(subtree(layout,route))
+def query_output(layout:Layout,route:Route) -> Type:pair_output(subtree(layout,route))
+def query_read_key(layout:Layout,route:Route) -> String:key(subtree(layout,route),InLeft{AtLeaf{}})
+def query_write_key(layout:Layout,route:Route) -> String:key(subtree(layout,route),InRight{AtLeaf{}})
+def query_pair(~S:Data,~layout:Layout,~route:Route) -> Type:
+  Product.Owner<ColumnSlot<S,query_input(layout,route),query_read_key(layout,route)>,ColumnSlot<S,query_output(layout,route),query_write_key(layout,route)>>
+def query_valid(~layout:Layout,~route:Route) -> Bool:
+  Bool.and(unique(layout),pair_leaves(subtree(layout,route)))
