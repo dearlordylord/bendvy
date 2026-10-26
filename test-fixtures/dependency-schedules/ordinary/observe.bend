@@ -36,7 +36,7 @@ def handler(owner:Schema.Handler) -> String:
     case Schema.Handler{token,errors}:token_value(Array.get(U32,token,0)) ++ ":" ++ strings(errors)
 def resources(~S:Data,value:Schema.Resources(~S)) -> String:
   match value:
-    case Product.Owner{Layout.ResourceSlot{count},Layout.ResourceSlot{secret}}:counter(count) ++ "/" ++ sentinel(secret)
+    case Product.Owner{Layout.ResourceSlot{Layout.Viewed{count,cachedCount}},Layout.ResourceSlot{Layout.Viewed{secret,cachedSecret}}}:counter(count) ++ ":cache=" ++ U32.show(cachedCount) ++ "/" ++ sentinel(secret) ++ ":cache=" ++ cachedSecret
 def ticks(values:List<&2,Tick.Tick>) -> String:
   match values:
     case []:""
@@ -68,6 +68,8 @@ def allocator(value:Alloc.Allocator) -> String:
 def world(~S:Data,value:Schema.World(~S)) -> String:
   match value:
     case W.World{namespace,entities,_,resource,events,pending,registered,nextSystemId,time}:"world=" ++ U32.show(namespace) ++ ":" ++ resources(~S,resource) ++ ":events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ":pending=" ++ Nat.show(List.length(&1,Deferred.Command<Schema.World(~S)>,pending)) ++ ":registered=" ++ registrations(registered) ++ ":next=" ++ U32.show(nextSystemId) ++ ":clock=" ++ clock(time) ++ ":allocator=" ++ allocator(entities)
+def owner(namespace:U32,id:U32,name:String,access:List<&2,String>,last:Maybe<&2,Tick.Tick>,owned:Schema.Local) -> String:
+  U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ local(owned) ++ ":access=" ++ strings(access) ++ ":cursor=" ++ cursor(last)
 def writer(~S:Data,owner:Setup.Writer(~S)) -> String:
   match owner:
     case Sys.Owner{namespace,id,name,access,last,owned}:U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ local(owned) ++ ":access=" ++ strings(access) ++ ":cursor=" ++ cursor(last)
@@ -80,15 +82,42 @@ def positive(~S:Data,owner:Setup.Positive(~S)) -> String:
 def changing(~S:Data,owner:Setup.Changing(~S)) -> String:
   match owner:
     case Sys.Owner{namespace,id,name,access,last,owned}:U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ local(owned) ++ ":access=" ++ strings(access) ++ ":cursor=" ++ cursor(last)
+def ids(values:List<&2,U32>) -> String:
+  match values:
+    case []:""
+    case id <> rest:U32.show(id) ++ "," ++ ids(rest)
+def bindings(values:List<&2,App.Binding>) -> String:
+  match values:
+    case []:""
+    case App.Binding{system,condition} <> rest:U32.show(system) ++ ">" ++ U32.show(condition) ++ "," ++ bindings(rest)
+def nodes(values:List<&2,Plan.Node<String>>) -> String:
+  match values:
+    case []:""
+    case Plan.Node{id,requirements} <> rest:U32.show(id) ++ ":" ++ strings(requirements) ++ ";" ++ nodes(rest)
+def edges(values:List<&2,Plan.Edge>) -> String:
+  match values:
+    case []:""
+    case Plan.Edge{before,after} <> rest:U32.show(before) ++ ">" ++ U32.show(after) ++ "," ++ edges(rest)
+def invalid(reason:Plan.Invalid<String>) -> String:
+  match reason:
+    case Plan.Duplicate{id}:"duplicate/" ++ U32.show(id)
+    case Plan.UnknownDependency{id}:"unknown/" ++ U32.show(id)
+    case Plan.Missing{id,requirement}:"missing/" ++ U32.show(id) ++ "/" ++ requirement
+    case Plan.Cycle{}:"cycle"
+    case Plan.InvalidCondition{id}:"condition/" ++ U32.show(id)
+def plan(value:Plan.Build<String>) -> String:
+  match value:
+    case Plan.Planned{order,dependencies}:"order=" ++ nodes(order) ++ ":edges=" ++ edges(dependencies)
+    case Plan.Rejected{reason}:"rejected=" ++ invalid(reason)
 def system_owners(~S:Data,owners:Setup.Owners(~S)) -> String:
   match owners:
-    case Reg.Product{Reg.Product{w,a,_},Reg.Product{b,c,_},_}:writer(~S,w) ++ "/" ++ reader(~S,a) ++ "/" ++ reader(~S,b) ++ "/" ++ reader(~S,c)
+    case Reg.Product{Reg.Product{w,a,leftIds},Reg.Product{b,c,rightIds},rootIds}:writer(~S,w) ++ "/" ++ reader(~S,a) ++ "/" ++ reader(~S,b) ++ "/" ++ reader(~S,c) ++ ":routes=" ++ ids(rootIds) ++ "/" ++ ids(leftIds) ++ "/" ++ ids(rightIds)
 def guard_owners(~S:Data,guards:Setup.Guards(~S)) -> String:
   match guards:
-    case Reg.Product{a,b,_}:positive(~S,a) ++ "/" ++ changing(~S,b)
+    case Reg.Product{a,b,leftIds}:positive(~S,a) ++ "/" ++ changing(~S,b) ++ ":routes=" ++ ids(leftIds)
 def state(~S:Data,value:App.State<Schema.World(~S),Setup.Owners(~S),Setup.Guards(~S),Schema.Handler>) -> String:
   match value:
-    case App.State{owned,owners,guards,errors,_}:world(~S,owned) ++ ";systems=" ++ system_owners(~S,owners) ++ ";guards=" ++ guard_owners(~S,guards) ++ ";handler=" ++ handler(errors)
+    case App.State{owned,owners,guards,errors,stateBindings}:world(~S,owned) ++ ";systems=" ++ system_owners(~S,owners) ++ ";guards=" ++ guard_owners(~S,guards) ++ ";handler=" ++ handler(errors) ++ ";state-bindings=" ++ bindings(stateBindings)
 def event(value:Exec.Observation<String,U32>) -> String:
   match value:
     case Exec.Ran{id,output}:"ran/" ++ U32.show(id) ++ "/" ++ U32.show(output)
@@ -108,4 +137,4 @@ def report(value:App.Report<String,U32>) -> String:
     case App.Invalid{_}:"invalid"
 def application(~S:Data,value:Setup.Application(~S)) -> String:
   match value:
-    case App.Application{owned,_,_}:state(~S,owned)
+    case App.Application{owned,actualPlan,appBindings}:state(~S,owned) ++ ";plan=" ++ plan(actualPlan) ++ ";app-bindings=" ++ bindings(appBindings)
