@@ -1,50 +1,71 @@
-# Ordinary event publication checkpoint
+# Ordinary event families
 
-`main.bend` uses a registered ordinary application and the canonical closed-layout
-resource grant. Its resource is an affine event family; its pending payload is an
-actual `Array<U32>` owner held in the system's `Local`.
+`main.bend` runs five passes of the ordinary public root schedule for Data events
+and affine `Array<U32>` events, under two unlike nominal schemas. Each case runs
+through both serial and native schedule entries. A publisher, two independent
+readers, an admin, a peer, and a registered condition retain their actual Local
+owners between passes. The condition skips the slow reader twice.
 
-The first invocation publishes array value 202 and then returns a handled body
-error. Publication has already updated the real resource log. The second
-invocation has no pending payload, so it cannot publish again. Inspection of the
-returned World drains the actual retained row and reads its array value. The
-expected result is independently derived from those authored operations: row 1
-holds 202, the publish branch ran once, and the first status is the authored
-error. `expected.stdout` records this observation.
+The publisher sends directly into its canonical event-family resource. Its first
+invocation publishes two payloads and then returns a handled body error. Both
+publications remain visible. This is separate from deferred structural commands
+and does not wait for a structural barrier.
 
-This publication is immediate. It does not enter a deferred structural command
-journal and is not rolled back on the returned body error.
+The log owns each payload once. Its schema refresh constructs a canonical Data
+view while threading every payload owner back into the log. This refresh runs
+only at initialization and Writable operations. Ordinary reader capabilities
+use `ResourceRead<H, View<U32>>`; they read the structural cache and advance only
+their own affine reader token held in Local. A read receives no payload projector
+and cannot modify or duplicate an affine payload. The current canonical metadata
+conservatively marks all overlapping physical family accesses Exclusive. Readers
+have ReadOnly permission; publisher and admin have Writable permission. No
+parallel shared ownership of the affine log is claimed.
 
-Run JavaScript through the existing example helper from the repository root:
+`execution-event-ops.bend` wraps the actual ordinary builder grant. Its writer
+returns either a publication ID or the refused actual payload. Its admin accepts
+typed commands and returns registration/removal tokens or actual retired rows.
+All outcomes remain Type values. The common writable `own` operation returns
+them through the same physical slot authority, without a second access catalog.
 
-```sh
-bash -c 'source examples/common.sh; example_emit examples/parallel-events/main.bend /tmp/parallel-events.js; example_node /tmp/parallel-events.js'
-```
+`execution-event-io.bend` allocates actual log identities through the existing
+World namespace allocator. Tokens bind nominal schema, nominal family key, and
+runtime log identity. The foreign token in the example comes from a second
+actual allocation and registration. Pure raw constructors remain trusted setup
+operations and are not universal host-identity proofs.
 
-This is a bounded GH84 checkpoint. It does not establish ordinary independent
-reader execution, the two nominal schema consumers, scheduler skip/error cursor
-behavior, full retention lifecycle observations, or backend parity. Those remain
-required before GH84 completion.
+[ORACLE.md](ORACLE.md) derives the complete expected observations independently
+of the backend capture. The trace includes partial progress before errors,
+resumed execution, retention lag, retained/future reader creation, actual reader
+removal, a genuine foreign-log refusal, publication refusal after shutdown,
+retired/shutdown owners reused twice, the canonical cache, final cursor owners,
+access metadata, condition and peer counts, and preserved handler capture.
+`expected.stdout` contains the complete eight-line result, not a checksum.
 
-The pure `execution-event-family.bend` and capability wrapper
-`execution-event-ops.bend` source-check. Checking `main.bend` with proof-only mode
-reports its explicit foreign identity allocator dependency. Its executable
-JavaScript path uses that allocator through `execution-event-io.bend`, the same
-host identity allocator used by World creation.
+## Bevy behavior
 
-## Reference behavior
-
-The family implements retained/future reader creation following pinned Bevy
+The pinned reference is Bevy `ad678262ce53b5d142fe49ee5e08caff6f00ab60`.
+Retained/future creation follows
 [`get_cursor` / `get_cursor_current`](https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/message/messages.rs#L172-L184).
-Reader advancement is per yielded item, following
-[`MessageIteratorWithId::next`](https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/message/iterators.rs#L54-L99).
-Retirement returns actual payload owners after the two-generation boundary,
-following [`update_drain`](https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/message/messages.rs#L187-L218).
-These are source-based semantic decisions; this checkpoint has not run a Rust
-reference comparison for the full event scenario.
+A read clamps to the oldest retained message, reports missed messages, and
+advances per yielded item, following
+[`MessageIteratorWithId::new` and `next`](https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/message/iterators.rs#L54-L99).
+A later returned body error does not rewind that returned token.
 
-Every operation conservatively acquires the actual family resource slot
-exclusively through the ordinary builder. The reader projection returns Data
-while restoring the payload owner. This is not a shared affine read-view claim.
-The admin command/outcome API returns reader tokens and retired payload owners
-as Type values without duplicating its canonical writable capability.
+Updates retire the previous generation after two updates, following
+[`update_drain`](https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/message/messages.rs#L187-L218).
+Bend returns the actual retired or shutdown owners explicitly. It does not
+invent an automatic IO finalizer. Shutdown and explicit token removal are Bend
+ownership operations; no universal Rust Drop equivalence is claimed.
+
+The source controls use actual affine arrays and unlike nominal schemas. They
+check undeclared reads, writes through read authority, nominal family mismatch,
+reader/payload duplication, abstract-scope escape, and an affine payload proposed
+as a Data read view. The pure family, view, operations, declarations, and positive
+control source-check. Proof-only checking of the executable main reports its
+explicit foreign allocator dependency; backend emission checks that executable.
+Finite observations do not establish universal correctness or host refinement.
+
+`check.sh` uses the existing `common.sh` build and execution path. It checks source
+controls, repeats complete JavaScript observations, and optionally builds native
+code and repeats the complete oracle with one and four workers. Its first launch
+requires the repository's independent runner launch review.

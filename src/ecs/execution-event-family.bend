@@ -1,6 +1,5 @@
 import Base
 import ./owned-event-log.bend as Log
-import ./capabilities.bend as Cap
 
 type Family<-S:Data,-P:Type,-key:String> is Type:
   Family{identity:U32,open:Bool,log:Log.Log<P>,previous:List<&2,Nat>,current:List<&2,Nat>,nextReader:U32,active:List<&2,U32>,droppedThrough:Nat}
@@ -80,34 +79,6 @@ def admission(open:Bool,identity:U32,actual:U32,id:U32,active:List<&2,U32>) -> M
   match open:
     case False{}:Some{Closed{}}
     case True{}:admission_identity(U32.is_eq(identity,actual),has(active,id))
-def selected_id(selected:Bool,id:Nat,fallback:Maybe<&2,Nat>) -> Maybe<&2,Nat>:
-  match selected:
-    case True{}:Some{id}
-    case False{}:fallback
-def first_after(ids:List<&2,Nat>,+cursor:Nat) -> Maybe<&2,Nat>:
-  match ids:
-    case []:None{}
-    case +id <> rest:selected_id(Nat.is_lt(cursor,id),id,first_after(rest,cursor))
-def project_body(~V:Data,~H:Type,~request:Cap.Request<H,Unit,V>,scope:H,_:Unit) -> H & V:
-  Cap.request(~H,~Unit,~V,~request,scope,Unit{})
-def observed(~S:Data,~P:Type,~key:String,~V:Data,identity:U32,previous:List<&2,Nat>,current:List<&2,Nat>,nextReader:U32,active:List<&2,U32>,dropped:Nat,readerIdentity:U32,readerId:U32,cursor:Nat,+id:Nat,missed:Nat,result:Log.Log<P> & Log.ReadResult<Unit,V>) -> Family<S,P,key> & Reading<S,P,key,V>:
-  match result:
-    case (log,Log.Found{value}):(Family{identity,True{},log,previous,current,nextReader,active,dropped},Item{Reader{readerIdentity,readerId,id},id,value,missed})
-    case (log,Log.Missing{_}):(Family{identity,True{},log,previous,current,nextReader,active,dropped},ReadRefused{Reader{readerIdentity,readerId,cursor},MissingPayload{}})
-def read_selected(~S:Data,~P:Type,~key:String,~V:Data,~project:P -> Unit -> P & V,wanted:Maybe<&2,Nat>,family:Family<S,P,key>,reader:Reader<S,P,key>,missed:Nat) -> Family<S,P,key> & Reading<S,P,key,V>:
-  match wanted family reader:
-    case None{} family reader:(family,Empty{reader,missed})
-    case Some{+id} Family{identity,_,log,previous,current,nextReader,active,dropped} Reader{readerIdentity,readerId,cursor}:observed(~S,~P,~key,~V,identity,previous,current,nextReader,active,dropped,readerIdentity,readerId,cursor,id,missed,Log.read(~P,~Unit,~V,~Unit,~V,~project,~project_body(~V),log,id,Unit{}))
-def read_admitted(~S:Data,~P:Type,~key:String,~V:Data,~project:P -> Unit -> P & V,refusal:Maybe<&2,Refusal>,family:Family<S,P,key>,reader:Reader<S,P,key>) -> Family<S,P,key> & Reading<S,P,key,V>:
-  match refusal family reader:
-    case Some{reason} family reader:(family,ReadRefused{reader,reason})
-    case None{} Family{identity,open,log,+previous,+current,nextReader,active,+dropped} Reader{actual,id,+cursor}:read_selected(~S,~P,~key,~V,~project,first_after(List.append(&2,Nat,previous,current),Nat.max(cursor,dropped)),Family{identity,open,log,previous,current,nextReader,active,dropped},Reader{actual,id,Nat.max(cursor,dropped)},Nat.sub(dropped,cursor))
-# Bevy advances a reader on each yielded item, not successful system completion.
-# https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/message/iterators.rs#L54-L99
-# A later returned body error does not rewind this returned reader owner.
-def read(~S:Data,~P:Type,~key:String,~V:Data,~project:P -> Unit -> P & V,family:Family<S,P,key>,reader:Reader<S,P,key>) -> Family<S,P,key> & Reading<S,P,key,V>:
-  match family reader:
-    case Family{+identity,+open,log,previous,current,nextReader,+active,dropped} Reader{+actual,+id,cursor}:read_admitted(~S,~P,~key,~V,~project,admission(open,identity,actual,id,active),Family{identity,open,log,previous,current,nextReader,active,dropped},Reader{actual,id,cursor})
 def remove_admitted(~S:Data,~P:Type,~key:String,refusal:Maybe<&2,Refusal>,family:Family<S,P,key>,reader:Reader<S,P,key>) -> Family<S,P,key> & Removal<S,P,key>:
   match refusal family reader:
     case Some{reason} family reader:(family,RemovalRefused{reader,reason})
