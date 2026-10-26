@@ -10,7 +10,7 @@ import ./ordinary-declaration.bend as Identity
 import ./ordinary-schema.bend as Schema
 import ./chunk-column.bend as Column
 
-def column_taken(~S:Data,~layout:Layout.Layout,~route:Layout.Route,result:Layout.column_rest(~S,layout,route) & Layout.ColumnSlot<S,Layout.stored(layout,route),Layout.key(layout,route)>) -> Layout.column_rest(~S,layout,route) & Column.Column<S,Layout.stored(layout,route)>:
+def column_taken(~S:Data,~layout:Layout.Layout,~route:Layout.Route,result:Layout.column_rest(~S,layout,route) & Layout.ColumnSlot<S,Layout.stored(layout,route),Layout.key(layout,route),Layout.origin(layout,route)>) -> Layout.column_rest(~S,layout,route) & Column.Column<S,Layout.stored(layout,route)>:
   match result:
     case (rest,Layout.ColumnSlot{column}):(rest,column)
 def column_take(~S:Data,~C:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},owner:C) -> Layout.column_rest(~S,layout,route) & Column.Column<S,Layout.stored(layout,route)>:
@@ -19,7 +19,7 @@ def column_put(~S:Data,~C:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{
   Layout.checked_owner(Layout.columns(~S,layout),C,Equal.sym(Type,C,Layout.columns(~S,layout),same),Layout.column_put(~S,layout,route,rest,Layout.ColumnSlot{column}))
 def column_lens(~S:Data,~C:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type}) -> Product.Lens<C,Column.Column<S,Layout.stored(layout,route)>,Layout.column_rest(~S,layout,route)>:
   Product.Lens{column_take(~S,~C,~layout,~route,~same),column_put(~S,~C,~layout,~route,~same)}
-def resource_taken(~S:Data,~layout:Layout.Layout,~route:Layout.Route,result:Layout.resource_rest(~S,layout,route) & Layout.ResourceSlot<S,Layout.stored(layout,route),Layout.key(layout,route)>) -> Layout.resource_rest(~S,layout,route) & Layout.stored(layout,route):
+def resource_taken(~S:Data,~layout:Layout.Layout,~route:Layout.Route,result:Layout.resource_rest(~S,layout,route) & Layout.ResourceSlot<S,Layout.stored(layout,route),Layout.key(layout,route),Layout.origin(layout,route)>) -> Layout.resource_rest(~S,layout,route) & Layout.stored(layout,route):
   match result:
     case (rest,Layout.ResourceSlot{owner}):(rest,owner)
 def resource_take(~S:Data,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},owner:R) -> Layout.resource_rest(~S,layout,route) & Layout.stored(layout,route):

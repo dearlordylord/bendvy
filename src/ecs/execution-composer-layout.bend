@@ -22,21 +22,28 @@ type Route is Data:
   AtLeaf{}
   InLeft{rest:Route}
   InRight{rest:Route}
-type ColumnSlot<-S:Data,-P:Type,-key:String> is Type:
+type ColumnSlot<-S:Data,-P:Type,-key:String,-origin:Layout> is Type:
   ColumnSlot{column:Column.Column<S,P>}
-type ResourceSlot<-S:Data,-P:Type,-key:String> is Type:
+type ResourceSlot<-S:Data,-P:Type,-key:String,-origin:Layout> is Type:
   ResourceSlot{owner:P}
+def origin(layout:Layout,route:Route) -> Layout:
+  match layout route:
+    case LayoutLeaf{P,V,refresh,key} AtLeaf{}:LayoutLeaf{P,V,refresh,key}
+    case ClassifiedLayoutLeaf{P,V,refresh,key,kind} AtLeaf{}:ClassifiedLayoutLeaf{P,V,refresh,key,kind}
+    case LayoutPair{left,_} InLeft{rest}:origin(left,rest)
+    case LayoutPair{_,right} InRight{rest}:origin(right,rest)
+    case _ _:EmptyLayout{}
 def columns(~S:Data,layout:Layout) -> Type:
   match layout:
     case EmptyLayout{}:Unit
-    case LayoutLeaf{P,V,_,key}:ColumnSlot<S,Viewed<P,V>,key>
-    case ClassifiedLayoutLeaf{P,V,_,key,_}:ColumnSlot<S,Viewed<P,V>,key>
+    case LayoutLeaf{P,V,refresh,key}:ColumnSlot<S,Viewed<P,V>,key,LayoutLeaf{P,V,refresh,key}>
+    case ClassifiedLayoutLeaf{P,V,refresh,key,kind}:ColumnSlot<S,Viewed<P,V>,key,ClassifiedLayoutLeaf{P,V,refresh,key,kind}>
     case LayoutPair{left,right}:Product.Owner<columns(~S,left),columns(~S,right)>
 def resources(~S:Data,layout:Layout) -> Type:
   match layout:
     case EmptyLayout{}:Unit
-    case LayoutLeaf{P,V,_,key}:ResourceSlot<S,Viewed<P,V>,key>
-    case ClassifiedLayoutLeaf{P,V,_,key,_}:ResourceSlot<S,Viewed<P,V>,key>
+    case LayoutLeaf{P,V,refresh,key}:ResourceSlot<S,Viewed<P,V>,key,LayoutLeaf{P,V,refresh,key}>
+    case ClassifiedLayoutLeaf{P,V,refresh,key,kind}:ResourceSlot<S,Viewed<P,V>,key,ClassifiedLayoutLeaf{P,V,refresh,key,kind}>
     case LayoutPair{left,right}:Product.Owner<resources(~S,left),resources(~S,right)>
 def payload(layout:Layout,route:Route) -> Type:
   match layout route:
@@ -100,10 +107,10 @@ def column_rest(~S:Data,layout:Layout,route:Route) -> Type:
     case LayoutPair{left,right} InLeft{rest}:columns(~S,right) & column_rest(~S,left,rest)
     case LayoutPair{left,right} InRight{rest}:columns(~S,left) & column_rest(~S,right,rest)
     case layout _:columns(~S,layout)
-def column_joined(~S:Data,-P:Type,-key:String,-Outer:Type,-Inner:Type,outer:Outer,result:Inner & ColumnSlot<S,P,key>) -> (Outer & Inner) & ColumnSlot<S,P,key>:
+def column_joined(~S:Data,-P:Type,-key:String,-origin:Layout,-Outer:Type,-Inner:Type,outer:Outer,result:Inner & ColumnSlot<S,P,key,origin>) -> (Outer & Inner) & ColumnSlot<S,P,key,origin>:
   match result:
     case (inner,slot):((outer,inner),slot)
-def column_take(~S:Data,layout:Layout,route:Route,owner:columns(~S,layout)) -> column_rest(~S,layout,route) & ColumnSlot<S,stored(layout,route),key(layout,route)>:
+def column_take(~S:Data,layout:Layout,route:Route,owner:columns(~S,layout)) -> column_rest(~S,layout,route) & ColumnSlot<S,stored(layout,route),key(layout,route),origin(layout,route)>:
   match layout route owner:
     case EmptyLayout{} _ owner:(owner,ColumnSlot{Column.empty(~S,~Viewed<Unit,Unit>)})
     case LayoutLeaf{P,V,_,key} AtLeaf{} owner:(Unit{},owner)
@@ -113,9 +120,9 @@ def column_take(~S:Data,layout:Layout,route:Route,owner:columns(~S,layout)) -> c
     case LayoutLeaf{P,V,_,key} InRight{_} owner:(owner,ColumnSlot{Column.empty(~S,~Viewed<Unit,Unit>)})
     case ClassifiedLayoutLeaf{P,V,_,key,_} InRight{_} owner:(owner,ColumnSlot{Column.empty(~S,~Viewed<Unit,Unit>)})
     case LayoutPair{left,right} AtLeaf{} owner:(owner,ColumnSlot{Column.empty(~S,~Viewed<Unit,Unit>)})
-    case LayoutPair{left,right} InLeft{rest} Product.Owner{l,r}:column_joined(~S,stored(left,rest),key(left,rest),columns(~S,right),column_rest(~S,left,rest),r,column_take(~S,left,rest,l))
-    case LayoutPair{left,right} InRight{rest} Product.Owner{l,r}:column_joined(~S,stored(right,rest),key(right,rest),columns(~S,left),column_rest(~S,right,rest),l,column_take(~S,right,rest,r))
-def column_put(~S:Data,layout:Layout,route:Route,rest:column_rest(~S,layout,route),slot:ColumnSlot<S,stored(layout,route),key(layout,route)>) -> columns(~S,layout):
+    case LayoutPair{left,right} InLeft{rest} Product.Owner{l,r}:column_joined(~S,stored(left,rest),key(left,rest),origin(left,rest),columns(~S,right),column_rest(~S,left,rest),r,column_take(~S,left,rest,l))
+    case LayoutPair{left,right} InRight{rest} Product.Owner{l,r}:column_joined(~S,stored(right,rest),key(right,rest),origin(right,rest),columns(~S,left),column_rest(~S,right,rest),l,column_take(~S,right,rest,r))
+def column_put(~S:Data,layout:Layout,route:Route,rest:column_rest(~S,layout,route),slot:ColumnSlot<S,stored(layout,route),key(layout,route),origin(layout,route)>) -> columns(~S,layout):
   match layout route rest:
     case EmptyLayout{} _ rest:rest
     case LayoutLeaf{P,V,_,key} AtLeaf{} _:slot
@@ -134,10 +141,10 @@ def resource_rest(~S:Data,layout:Layout,route:Route) -> Type:
     case LayoutPair{left,right} InLeft{rest}:resources(~S,right) & resource_rest(~S,left,rest)
     case LayoutPair{left,right} InRight{rest}:resources(~S,left) & resource_rest(~S,right,rest)
     case layout _:resources(~S,layout)
-def resource_joined(~S:Data,-P:Type,-key:String,-Outer:Type,-Inner:Type,outer:Outer,result:Inner & ResourceSlot<S,P,key>) -> (Outer & Inner) & ResourceSlot<S,P,key>:
+def resource_joined(~S:Data,-P:Type,-key:String,-origin:Layout,-Outer:Type,-Inner:Type,outer:Outer,result:Inner & ResourceSlot<S,P,key,origin>) -> (Outer & Inner) & ResourceSlot<S,P,key,origin>:
   match result:
     case (inner,slot):((outer,inner),slot)
-def resource_take(~S:Data,layout:Layout,route:Route,owner:resources(~S,layout)) -> resource_rest(~S,layout,route) & ResourceSlot<S,stored(layout,route),key(layout,route)>:
+def resource_take(~S:Data,layout:Layout,route:Route,owner:resources(~S,layout)) -> resource_rest(~S,layout,route) & ResourceSlot<S,stored(layout,route),key(layout,route),origin(layout,route)>:
   match layout route owner:
     case EmptyLayout{} _ owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}}})
     case LayoutLeaf{P,V,_,key} AtLeaf{} owner:(Unit{},owner)
@@ -147,9 +154,9 @@ def resource_take(~S:Data,layout:Layout,route:Route,owner:resources(~S,layout)) 
     case LayoutLeaf{P,V,_,key} InRight{_} owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}}})
     case ClassifiedLayoutLeaf{P,V,_,key,_} InRight{_} owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}}})
     case LayoutPair{left,right} AtLeaf{} owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}}})
-    case LayoutPair{left,right} InLeft{rest} Product.Owner{l,r}:resource_joined(~S,stored(left,rest),key(left,rest),resources(~S,right),resource_rest(~S,left,rest),r,resource_take(~S,left,rest,l))
-    case LayoutPair{left,right} InRight{rest} Product.Owner{l,r}:resource_joined(~S,stored(right,rest),key(right,rest),resources(~S,left),resource_rest(~S,right,rest),l,resource_take(~S,right,rest,r))
-def resource_put(~S:Data,layout:Layout,route:Route,rest:resource_rest(~S,layout,route),slot:ResourceSlot<S,stored(layout,route),key(layout,route)>) -> resources(~S,layout):
+    case LayoutPair{left,right} InLeft{rest} Product.Owner{l,r}:resource_joined(~S,stored(left,rest),key(left,rest),origin(left,rest),resources(~S,right),resource_rest(~S,left,rest),r,resource_take(~S,left,rest,l))
+    case LayoutPair{left,right} InRight{rest} Product.Owner{l,r}:resource_joined(~S,stored(right,rest),key(right,rest),origin(right,rest),resources(~S,left),resource_rest(~S,right,rest),l,resource_take(~S,right,rest,r))
+def resource_put(~S:Data,layout:Layout,route:Route,rest:resource_rest(~S,layout,route),slot:ResourceSlot<S,stored(layout,route),key(layout,route),origin(layout,route)>) -> resources(~S,layout):
   match layout route rest:
     case EmptyLayout{} _ rest:rest
     case LayoutLeaf{P,V,_,key} AtLeaf{} _:slot
@@ -245,7 +252,7 @@ def query_output(layout:Layout,route:Route) -> Type:payload(subtree(layout,route
 def query_read_key(layout:Layout,route:Route) -> String:key(subtree(layout,route),InLeft{AtLeaf{}})
 def query_write_key(layout:Layout,route:Route) -> String:key(subtree(layout,route),InRight{AtLeaf{}})
 def query_pair(~S:Data,~layout:Layout,~route:Route) -> Type:
-  Product.Owner<ColumnSlot<S,stored(subtree(layout,route),InLeft{AtLeaf{}}),query_read_key(layout,route)>,ColumnSlot<S,stored(subtree(layout,route),InRight{AtLeaf{}}),query_write_key(layout,route)>>
+  Product.Owner<ColumnSlot<S,stored(subtree(layout,route),InLeft{AtLeaf{}}),query_read_key(layout,route),origin(layout,route)>,ColumnSlot<S,stored(subtree(layout,route),InRight{AtLeaf{}}),query_write_key(layout,route),origin(layout,route)>>
 def query_valid(~layout:Layout,~route:Route) -> Bool:
   Bool.and(unique(layout),pair_leaves(subtree(layout,route)))
 

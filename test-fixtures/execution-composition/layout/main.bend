@@ -9,7 +9,7 @@ def path() -> Layout.Route:Layout.InRight{Layout.AtLeaf{}}
 def swapped(result:Array<U32> & U32) -> Array<U32>:
   match result:
     case (owner,_):owner
-def changed(result:Layout.resource_rest(~Unit,shape(),path()) & Layout.ResourceSlot<Unit,Layout.stored(shape(),path()),Layout.key(shape(),path())>) -> Layout.resources(~Unit,shape()):
+def changed(result:Layout.resource_rest(~Unit,shape(),path()) & Layout.ResourceSlot<Unit,Layout.stored(shape(),path()),Layout.key(shape(),path()),Layout.origin(shape(),path())>) -> Layout.resources(~Unit,shape()):
   match result:
     case (rest,Layout.ResourceSlot{Layout.Viewed{owner,_}}):Layout.resource_put(~Unit,shape(),path(),rest,Layout.ResourceSlot{Layout.initialize(shape(),path(),swapped(Array.swap(U32,owner,0,99)))})
 def observed(left:Array<U32> & U32,right:Array<U32> & U32) -> String:

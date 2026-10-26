@@ -13,6 +13,7 @@ check_source main.bend
 check_source controls/positive.bend
 check_source controls/metadata-preserved.bend
 check_source controls/layout-positive.bend
+check_source controls/actual-refresh.bend
 reject_source() {
   local case_name=$1 first=$2 second=$3 result
   if check_source "controls/$case_name.bend" > "$example_output/$case_name.log" 2>&1; then
@@ -40,6 +41,8 @@ reject_source same-payload-wrong-key '"public"' '"secret"'
 reject_source invalid-layout-route 'expected : False{}' 'observed : True{}'
 reject_source duplicate-layout 'expected : False{}' 'observed : True{}'
 reject_source read-projector 'expected : selection~B' 'observed : @owner:Array<U32>'
+reject_source alternate-refresh 'project' 'alternate'
+reject_source alternate-policy 'Fragment.Plain' 'Fragment.Transient'
 example_emit examples/parallel-execution/main.bend "$example_output/main.js"
 example_node "$example_output/main.js" > "$example_output/js.stdout"
 diff -u examples/parallel-execution/expected.stdout "$example_output/js.stdout"
