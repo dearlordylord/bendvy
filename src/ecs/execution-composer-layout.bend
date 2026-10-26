@@ -252,7 +252,7 @@ def query_output(layout:Layout,route:Route) -> Type:payload(subtree(layout,route
 def query_read_key(layout:Layout,route:Route) -> String:key(subtree(layout,route),InLeft{AtLeaf{}})
 def query_write_key(layout:Layout,route:Route) -> String:key(subtree(layout,route),InRight{AtLeaf{}})
 def query_pair(~S:Data,~layout:Layout,~route:Route) -> Type:
-  Product.Owner<ColumnSlot<S,stored(subtree(layout,route),InLeft{AtLeaf{}}),query_read_key(layout,route),origin(layout,route)>,ColumnSlot<S,stored(subtree(layout,route),InRight{AtLeaf{}}),query_write_key(layout,route),origin(layout,route)>>
+  Product.Owner<ColumnSlot<S,stored(subtree(layout,route),InLeft{AtLeaf{}}),query_read_key(layout,route),origin(subtree(layout,route),InLeft{AtLeaf{}})>,ColumnSlot<S,stored(subtree(layout,route),InRight{AtLeaf{}}),query_write_key(layout,route),origin(subtree(layout,route),InRight{AtLeaf{}})>>
 def query_valid(~layout:Layout,~route:Route) -> Bool:
   Bool.and(unique(layout),pair_leaves(subtree(layout,route)))
 
