@@ -1,5 +1,5 @@
 {
-  "status": "DRAFT_UNAPPROVED_NO_GENERAL_PROOFS",
+  "status": "APPROVED_EXACT_STATEMENTS_PROOFS_IN_PROGRESS",
   "source_commit": "552f90a23283ae879d3908e9f473ba82ad368eee",
   "laws": [
     "rejected_plan_state",
@@ -10,7 +10,7 @@
   ],
   "scope": "Actual pure executor transitions and raw ready-set helper; reusable Data state only; no generic affine World refinement or runtime concurrency claim.",
   "approval_subjects": {
-    "test-fixtures/execution-laws/LAWS.bend": "3e0de6a6cf22bad713f16eccaa13ea7630c2430daf64aad42b74a538712609df",
+    "test-fixtures/execution-laws/LAWS.bend": "4f4c48522a303c78238f1a647ab6eb3928c7c6ed44813371766012f60c751119",
     "test-fixtures/execution-laws/spec.bend": "42667395eeb1b92e46c3269d5579857d0bbb7dac127538c636c4af6caed70508"
   },
   "production_sources": {
@@ -59,10 +59,16 @@
     "ready-blocked": "ready_blocked"
   },
   "pending": [
-    "blind back-translation",
-    "specific approval of exact subject hashes",
-    "general proofs after approval",
-    "law-specific proof mutation controls after proof",
+    "general proofs in progress",
+    "law-specific proof mutation checks",
     "remaining full execution/ownership/refinement laws"
-  ]
+  ],
+  "approval": {
+    "user_statement": "Approve the five exact candidates for proof",
+    "attribution": "User async answer reported by coordinator /root; the later Russian explanation request did not revoke approval.",
+    "approved_commit": "c055aef5064d32c4aff351a9e583da1ebb320407",
+    "approved_laws_file_sha256": "3e0de6a6cf22bad713f16eccaa13ea7630c2430daf64aad42b74a538712609df",
+    "equations_and_imports_sha256": "89a87f132a621521696f6c21899407c348d8f9e9818e0689aa59ef22908013ea",
+    "comment_update_authorization": "User asked candidate comments to cite Bevy code and behavior; equations and independent specification remain unchanged."
+  }
 }

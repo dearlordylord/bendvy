@@ -1,7 +1,7 @@
 # Execution replacement law candidates
 
-These five candidates describe existing pure functions in the replacement
-executor. They are unapproved. No general proof definition is present.
+These five approved subjects describe existing pure functions in the replacement
+executor. General proofs are in progress; no completed proof is claimed here.
 The source basis is integration commit `552f90a23283ae879d3908e9f473ba82ad368eee`.
 [Issue #77](https://github.com/dearlordylord/bendvy/issues/77) supplies the
 nontransactional execution decisions. [Issue #79](https://github.com/dearlordylord/bendvy/issues/79)
@@ -12,7 +12,7 @@ reusable `Data` state. They do not quantify an arbitrary affine `Type` World.
 The functions return the supplied state or the state returned by the handler;
 a handler remains free to transform that state deliberately.
 
-## Exact proposed subjects
+## Exact approved subjects
 
 | Candidate | Exact behavior and domain | Excluded claim |
 | --- | --- | --- |
@@ -59,10 +59,10 @@ specification's incoming-edge conjunction. A second induction over edges proves
 that lemma. Its pending-ID membership relation also needs an exact helper lemma.
 No supporting lemma is assumed approved by this proposal.
 
-Blind back-translation remains pending. A fresh reviewer needs only the law text
-with its English comments removed and the imported functions. The review must
-identify the `Data` limitation, raw-list domain, handler freedom, and missing
-whole-run and affine refinement guarantees before an approval request is sent.
+The coordinator obtained a blind back-translation at
+`/home/node/.claude/orchestrate/bendvy-gh78-94/reviews/laws-blind/translation.md`.
+It identifies the Data-only scope, raw-list domain, handler and continuation
+freedom, and missing whole-run and affine refinement guarantees.
 
 ## Historical obligations
 
@@ -87,9 +87,13 @@ visibility, and pending-work save behavior remain separate requirements of
 Data-state model. Their exact executable subjects depend on the completed public
 APIs and representations.
 
-## Approval request after back-translation
+## Exact approval and Bevy source comments
 
-Proposed request to the user, once the blind comparison agrees:
+The user answered the coordinator's async request with the exact text
+"Approve the five exact candidates for proof". The approval refers to commit
+`c055aef5064d32c4aff351a9e583da1ebb320407` and its `SUBJECTS.json` bindings.
+The subsequent request for a Russian explanation did not revoke that approval.
+The request presented these limits:
 
 > Approve the five exact subjects in `test-fixtures/execution-laws/LAWS.bend`
 > together with its `spec.bend` at the hashes in `SUBJECTS.json`, for later proof.
@@ -102,5 +106,14 @@ Proposed request to the user, once the blind comparison agrees:
 > They do not approve a generic affine World proof, shared-access purity, native
 > concurrency, every exceptional exit, or the remaining #78–94 law subjects.
 
-Approval is pending. No proof work may start from this draft or from the #77
-implementation authorization alone.
+The user then asked for comments referencing Bevy code and behavior. Each law
+now links to actual source at Bevy commit
+`ad678262ce53b5d142fe49ee5e08caff6f00ab60`, verified in the read-only reference.
+The comments separate source-backed execution behavior from Bend-specific
+state return, observation lists and pending-list representation. They do not
+claim that Bevy proves these exact helper equations.
+
+Only comments changed in `LAWS.bend`; its equations and imports match the approved
+revision after comment and blank-line removal. `spec.bend` is byte-identical.
+`SUBJECTS.json` retains the original approval hash and records the comment-only
+successor hash. Approval does not extend to the remaining full executor laws.
