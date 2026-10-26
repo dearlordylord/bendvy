@@ -15,7 +15,7 @@ type Nominal is Data:Nominal{}
 def position_id() -> Identity.Declaration<Nominal,Motion.Position>:Identity.component(~Nominal,~Motion.Position,"position")
 def label_id() -> Identity.Declaration<Nominal,Labels.Label>:Identity.component(~Nominal,~Labels.Label,"label")
 def label_form() -> Persist.Constructed<Nominal,Labels.Label,label_id(),Labels.raw_label>:
-  Persist.constructed(~Nominal,~Labels.Label,~label_id(),~Labels.raw_label,Decode.StringValue{})
+  Persist.constructed(~Nominal,~Labels.Label,~label_id(),~Labels.raw_label,Decode.Literal{Decode.BendvyText{"seed"}})
 def host_id() -> Identity.Declaration<Nominal,Service.Slot<Labels.Host>>:Identity.component(~Nominal,~Service.Slot<Labels.Host>,"host")
 def optional_seen(result:Array<String> & String) -> Maybe<&1,Array<String>> & String:
   match result:

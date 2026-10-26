@@ -28,9 +28,12 @@ def ready(owner:Service.Slot<Host>) -> Service.Slot<Host> & Service.Status<Strin
 def invoke(owner:Host) -> Host & String:
   match owner:
     case Host{token,calls}:host(Host{token,U32.add(calls,1)})
+def token_changed(text:String,result:Array<String> & String) -> Label & String:
+  match result:
+    case (token,id):label(Label{Array.set(String,token,0,id ++ "!"),text})
 def change(owner:Label) -> Label & String:
   match owner:
-    case Label{token,text}:label(Label{token,text ++ "!"})
+    case Label{token,text}:token_changed(text,Array.get(String,token,0))
 def Ops(~S:Data,H:Type) -> Type:Cap.Bundle<Access.ComponentWrite<S,H,Label,String>,Access.ResourceWrite<H,Service.Slot<Host>,Service.Status<String>>>
 def Family(~S:Data) -> Type -> Type:Ops(~S)
 def completion(error:Bool,value:String) -> Sys.Completion<String,String>:
