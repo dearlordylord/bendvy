@@ -11,6 +11,7 @@ import ../../src/ecs/clock-state.bend as Clock
 import ../../src/ecs/entity-allocator.bend as Allocator
 import ../../src/ecs/entity-key.bend as Key
 import ../../src/ecs/deferred-command.bend as Deferred
+import ../../src/ecs/execution-composer-layout.bend as Layout
 
 def optional(value:Maybe<&2,String>) -> String:
   match value:
@@ -47,7 +48,7 @@ def column(~S:Data,~T:Type,~project:T -> T & String,value:Col.Column<S,T>) -> St
   column_sized(~S,~T,~project,Col.capacity(~S,~T,value))
 def store(~S:Data,value:D.Store(~S)) -> String:
   match value:
-    case Product.Owner{Product.Owner{input,output},_}: "input=" ++ column(~S,~P.Input,~P.input,input) ++ ";output=" ++ column(~S,~P.Output,~P.output,output)
+    case Product.Owner{Product.Owner{Layout.ColumnSlot{input},Layout.ColumnSlot{output}},_}: "input=" ++ column(~S,~P.Input,~P.input,input) ++ ";output=" ++ column(~S,~P.Output,~P.output,output)
 def phase(value:Allocator.Phase) -> String:
   match value:
     case Allocator.Consumed{}: "consumed"
@@ -67,18 +68,18 @@ def allocator(value:Allocator.Allocator) -> String:
 def resource_result(result:Array<U32> & U32) -> String:
   match result:
     case (_,token): U32.show(token)
-def resource(value:P.Resource) -> String:
+def resource(~S:Data,value:D.Resources(~S)) -> String:
   match value:
-    case P.Resource{token}: resource_result(Array.get(U32,token,0))
+    case Layout.ResourceSlot{P.Resource{token}}: resource_result(Array.get(U32,token,0))
 def registration(value:W.RegistrationMeta) -> String:
   match value:
     case W.RegistrationMeta{id,name,access}: U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,value=>value,access)
 def clock(value:Clock.State) -> String:
   match value:
     case Clock.State{now,scopes}: tick(now) ++ ":" ++ List.show(&2,Tick.Tick,tick,scopes)
-def world(~S:Data,value:W.World<S,D.Store(~S),P.Resource,Unit>) -> String:
+def world(~S:Data,value:W.World<S,D.Store(~S),D.Resources(~S),Unit>) -> String:
   match value:
-    case W.World{namespace,alloc,components,res,events,pending,registrations,nextSystem,worldClock}: "namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ allocator(alloc) ++ "};" ++ store(~S,components) ++ ";resource=" ++ resource(res) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<S,D.Store(~S),P.Resource,Unit>>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,registration,registrations) ++ ";nextSystem=" ++ U32.show(nextSystem) ++ ";clock=" ++ clock(worldClock)
+    case W.World{namespace,alloc,components,res,events,pending,registrations,nextSystem,worldClock}: "namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ allocator(alloc) ++ "};" ++ store(~S,components) ++ ";resource=" ++ resource(~S,res) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<S,D.Store(~S),D.Resources(~S),Unit>>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,registration,registrations) ++ ";nextSystem=" ++ U32.show(nextSystem) ++ ";clock=" ++ clock(worldClock)
 def local_result(runs:U32,result:Array<U32> & U32) -> String:
   match result:
     case (_,token): U32.show(token) ++ ":" ++ U32.show(runs)

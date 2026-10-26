@@ -6,9 +6,12 @@ and calls `execution-app.run` three times. Gameplay receives the abstract
 tasks, or reconstruct the World.
 
 The declaration is an abstract program over the library's closed builder. It
-selects the query primitive, which binds two distinct columns through a canonical
-owner-product lens and derives both access entries. The application cannot supply
-an arbitrary capability provider or access catalog to the ordinary entry.
+selects a pair of component leaves through a route in the closed component layout.
+The actual column owners carry the keys in their slot types. Equality checks bind
+the complete World storage type and selected pair to that layout. The library
+derives both payload types and access keys from the same route, then extracts and
+rejoins the actual owners. The application cannot supply an arbitrary storage
+lens, capability provider, payload identity, or access catalog to the ordinary entry.
 Its input projector produces a reusable `U32` view. The closed item body
 receives that view and one affine output owner. Both families have nested affine
 token arrays. The implementation partitions actual child column owners and their
@@ -75,10 +78,17 @@ timeout --signal=KILL 5s /tmp/parallel-query.native --threads 4 --gpu off > /tmp
 cmp /tmp/parallel-query.expected.stdout /tmp/parallel-query-native4.stdout
 ```
 
-Use `scripts/bend-check` for `controls/positive.bend`. The other five controls
-must fail for their intended authority boundaries. They test schema mismatch,
-an undeclared component capability, replacing a read projection with an affine
-input owner, copying the affine output owner, and escaping the abstract scope.
+Use `scripts/bend-check` for `controls/positive.bend` and
+`controls/layout-positive.bend`. The latter selects two columns with the same
+payload type and different keys. Its otherwise identical wrong-key counterpart
+must fail the equality check against the actual keyed owner types. This refusal
+does not depend on differing component payload types.
+
+The remaining controls must fail for their intended authority boundaries.
+They test schema mismatch, an undeclared component capability, replacing a read
+projection with an affine input owner, copying the affine output owner, and
+escaping the abstract scope. They also reject selecting a single leaf as a query
+pair and reject a layout containing duplicate query keys.
 The source-current `examples/parallel-execution/controls/forged-declaration.bend`
 additionally checks the shared ordinary entry. It must refuse a raw declaration
 that exposes a resource while supplying an empty access catalog.

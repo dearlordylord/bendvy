@@ -1,5 +1,4 @@
 import Base
-import ../payloads.bend as Payload
 import ../../../src/ecs/execution-query.bend as Query
 import ../../../src/ecs/execution-access.bend as Access
 import ../../../src/ecs/world.bend as World
