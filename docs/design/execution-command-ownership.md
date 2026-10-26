@@ -2,8 +2,9 @@
 
 The GH86 modules retain actual affine command payloads separately from gameplay
 storage. Closed command-system registration and publication adapters are
-implemented. Scheduler barrier policy, query worker publication and full ordinary
-execution acceptance remain pending.
+implemented, including ordinary scheduler barriers and final-application settings.
+Query worker publication, broader existing-entity commands and full issue
+acceptance remain pending.
 
 `execution-command-buffer.bend` owns one component family's pending inserts and
 removes. Enqueue transfers an incoming `Type` payload into the queue. It cannot
@@ -17,7 +18,10 @@ owner. Its body adapter hides both the gameplay scope `H` and queue `Q`. Gamepla
 gets typed insert/remove methods; it cannot inspect the concrete queue or supply
 a World callback. The existing `Sys.Owner` returns this local on a body error or
 admission refusal. `execution-command-system.bend` wraps that system in a
-distinct `Owner` indexed by its complete schema and command route.
+distinct `Owner` indexed by its complete schema and command route. Registration
+binds the canonical concrete queue and command capability before provisioning
+query grants. Runtime grants are monomorphic in that queue; the public command
+body still receives a hidden `Q` and returns its actual owner.
 `Tree.CommandLeaf` binds the physical scope to the same full schema, derives
 the deferred system ID and composes the corresponding publisher. An ordinary
 `Tree.Leaf` rejects a command owner instead of dropping its deferred inventory.
@@ -50,8 +54,13 @@ returns no inserted boundaries; final application is a separate executor setting
 The closed registry derives `hasDeferred` from its actual command owners.
 It checks eligible IDs and the actual World registration before inspecting
 pending queues, so a foreign or unselected retained queue does not advance the
-publication clock. The scheduler must accumulate admitted, unapplied IDs across
+publication clock. The scheduler accumulates admitted, unapplied IDs across
 groups until a synchronization boundary; a body error still counts as admitted.
+This history can include commandless systems and is not a queue inventory.
+`Schedule.pending` inspects all actual closed command owners without projecting
+storage, checking World applicability or applying anything. It returns the actual
+scheduled owner and exact nonempty-queue status, including retained foreign
+queues omitted from the current admitted history.
 
 The planner example covers a chain, delayed synchronization across an ignored
 edge, an explicit barrier, explicit barrier reuse, an exclusive target and global
@@ -62,6 +71,13 @@ automatic, ignored, disabled and explicit synchronization over two handled-error
 runs. See `examples/parallel-commands/bevy-reference/README.md` for the source
 binding and development commands.
 
-This is development evidence, not evidence of ordinary scheduled command execution
-or worker parallelism. No new mathematical law has been approved or proved for
-these modules.
+The ordinary consumers additionally exercise registered owners through native
+and serial schedule entry points. They observe retained affine payloads after
+handled body errors, remove/insert receipts, automatic and explicit publication
+before dependent conditions, ignored edges, final suppression and exact pending
+status for commandless bodies. Complete independent oracles match JS and native
+one/four outputs. The reviewed normal example check passes these consumers and
+intended authority refusals. Equal native outputs do not establish actual
+multiple-worker participation. These are normal development checks, not a
+canonical qualification packet. No new mathematical law has been approved or
+proved for these modules.
