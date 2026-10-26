@@ -4,15 +4,17 @@ import ../../src/ecs/chunk-column.bend as Col
 import ../../src/ecs/owner-product.bend as Product
 import ../../src/ecs/execution-query.bend as Q
 import ../../src/ecs/execution-projection.bend as Projection
-import ../../src/ecs/execution-declaration.bend as D
+import ../../src/ecs/execution-builder.bend as Build
 import ../../src/ecs/ordinary-declaration.bend as Identity
 
 def Columns(~S:Data) -> Type: Product.Owner<Col.Column<S,P.Input>,Col.Column<S,P.Output>>
 def Store(~S:Data) -> Type: Product.Owner<Columns(~S),Unit>
 def columns(~S:Data) -> Product.Lens<Store(~S),Columns(~S),Unit>:
   Product.lens(~Columns(~S),~Unit,~Product.Left{})
-def declaration(~S:Data,~mode:Q.Mode) -> D.Declaration<S,Store(~S),P.Resource,Q.Ops(~S,~String)>:
-  Q.declaration(~S,~Store(~S),~P.Resource,~P.Input,~P.Output,~Unit,~U32,~String,~columns(~S),~P.read,~P.update,Projection.trusted_affine(~P.Input,~U32,~P.read),mode,Identity.component(~S,~P.Input,"input"),Identity.component(~S,~P.Output,"output"))
+def selection(~S:Data,~mode:Q.Mode,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Store(~S),~P.Resource,~H,~B),~component_write:Build.ComponentWrite(~S,~Store(~S),~P.Resource,~H,~B),~resource_read:Build.ResourceRead(~S,~Store(~S),~P.Resource,~H,~B),~resource_write:Build.ResourceWrite(~S,~Store(~S),~P.Resource,~H,~B),~query:Build.Query(~S,~Store(~S),~P.Resource,~H,~B),book:B) -> B & Q.Each<S,H,String>:
+  query(P.Input,P.Output,Unit,U32,String,columns(~S),P.read,P.update,Projection.trusted_affine(~P.Input,~U32,~P.read),mode,Identity.component(~S,~P.Input,"input"),Identity.component(~S,~P.Output,"output"),book)
+def declaration(~S:Data,~mode:Q.Mode,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~P.Resource,~H,~B),book:B) -> B & Q.Each<S,H,String>:
+  builder(Q.Ops(~S,~String),selection(~S,~mode,~H,~B),book)
 def inserted(~S:Data,~T:Type,result:Col.SwapOutcome<S,T>) -> Col.Column<S,T>:
   match result:
     case Col.Accepted{column,_}: column

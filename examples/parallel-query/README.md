@@ -5,8 +5,11 @@ and calls `execution-app.run` three times. Gameplay receives the abstract
 `execution-query.Each` capability. It does not split columns, dispatch native
 tasks, or reconstruct the World.
 
-The declaration binds two distinct columns through a canonical owner-product
-lens. Its input projector produces a reusable `U32` view. The closed item body
+The declaration is an abstract program over the library's closed builder. It
+selects the query primitive, which binds two distinct columns through a canonical
+owner-product lens and derives both access entries. The application cannot supply
+an arbitrary capability provider or access catalog to the ordinary entry.
+Its input projector produces a reusable `U32` view. The closed item body
 receives that view and one affine output owner. Both families have nested affine
 token arrays. The implementation partitions actual child column owners and their
 metadata, runs native parallel calls between chunks, and rejoins those owners.
@@ -76,6 +79,9 @@ Use `scripts/bend-check` for `controls/positive.bend`. The other five controls
 must fail for their intended authority boundaries. They test schema mismatch,
 an undeclared component capability, replacing a read projection with an affine
 input owner, copying the affine output owner, and escaping the abstract scope.
+The source-current `examples/parallel-execution/controls/forged-declaration.bend`
+additionally checks the shared ordinary entry. It must refuse a raw declaration
+that exposes a resource while supplying an empty access catalog.
 
 Passing the finite oracle at four configured threads does not prove that the
 query used multiple workers. A source-bound semantic worker diagnostic remains
