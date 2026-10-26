@@ -2,7 +2,8 @@
 
 The exact five laws are user-approved. `PROOF.bend` fills all five and passes
 the matching pinned compiler and BendTT kernel. The literal instances below
-remain finite falsification checks; proof-level mutation controls are pending.
+remain finite falsification checks. All five isolated proof mutation controls
+now pass their expected positive/negative outcomes.
 The existing `/workspace/formal-proofs/bendvy/scripts/bend-check` selects the
 pinned compiler and serializes its CPU affinity locks.
 
@@ -49,3 +50,33 @@ scripts/bend-check test-fixtures/execution-laws/mutants/disabled-invokes/counter
 The second command must fail at `disabled_18`. These checks do not execute
 JavaScript or native code, establish worker use, or verify the complete public
 App. No new runner, dependency, compiler, or proof tool is installed.
+
+## Isolated proof mutation controls
+
+Each mutant directory contains a one-law `LAWS.bend` and its corresponding
+`PROOF.bend` section. `LAWS-positive.bend` and `PROOF-positive.bend` use the exact
+same approved equation and proof against actual production/specification imports.
+The mutation copy changes one production line and adjusts only imports needed
+for the selected nominal types. All modified production subjects compile.
+
+| Mutant | Positive proof | Mutated proof | Actual failure location |
+| --- | --- | --- | --- |
+| `rejection-reason` | Exit 0 | Exit 1 | `Laws.rejected_plan_state` |
+| `body-error-history` | Exit 0 | Exit 1 | `Laws.body_error_continuation` |
+| `disabled-invokes` | Exit 0 | Exit 1 | `Laws.disabled_condition_state` |
+| `condition-error-handler` | Exit 0 | Exit 1 | `Laws.condition_error_continuation` |
+| `ready-blocked` | Exit 0 | Exit 1 | `keep_actual` within the ready proof section |
+
+`PROOF-CONTROLS.json` binds every selected source and diagnostic. Mutation checks
+use the plain checker; the complete actual proof additionally passes the kernel
+verdict in both resource closures recorded in `SUBJECTS.json`.
+
+```sh
+scripts/bend-check test-fixtures/execution-laws/mutants/disabled-invokes/PROOF-positive.bend
+scripts/bend-check test-fixtures/execution-laws/mutants/disabled-invokes/PROOF.bend
+```
+
+The first command passes. The second fails at `Laws.disabled_condition_state`.
+The other four directories follow the same positive and negative command shape.
+These controls prove neither public App reachability nor generic affine-owner
+identity; those are outside the approved five equations.

@@ -2,7 +2,8 @@
 
 These five approved subjects describe existing pure functions in the replacement
 executor. All five exact equations pass the pinned compiler and matching BendTT
-kernel through `PROOF.bend --verdict`. Proof-level mutation checks remain pending.
+kernel through `PROOF.bend --verdict`. All five compiling planted defects also
+fail the corresponding isolated proofs, with passing actual-source controls.
 The source basis is integration commit `552f90a23283ae879d3908e9f473ba82ad368eee`.
 [Issue #77](https://github.com/dearlordylord/bendvy/issues/77) supplies the
 nontransactional execution decisions. [Issue #79](https://github.com/dearlordylord/bendvy/issues/79)
@@ -43,7 +44,9 @@ instances pass the existing pinned source checker. Five source-compiling
 planted defects fail at their named equality instance, while the same five
 instances pass against the actual implementation. Literal equality checks are
 finite falsification evidence, even when the checker prints `ALL PROOFS CHECK`.
-No universal proof follows from that message.
+No universal proof follows from that literal-check message. The separate
+`PROOF.bend --verdict` gate proves exactly the five approved equations, relative
+to their imported definitions and recorded compiler/kernel closures.
 
 The transition instances cover empty and nonempty prior history, zero and
 nonzero states and errors, unchanged and changed output, and handlers that
@@ -57,7 +60,11 @@ laws use a directly proved constructor-split lemma. The ready-set proof uses
 structural list and edge induction, explicit membership equalities, and an
 eight-case Boolean identity. Every internal helper is proved rather than assumed.
 Their role is to discharge the exact approved equations; they add no behavioral
-premise or separate public contract.
+premise or separate public contract. Each isolated approved proof passes against
+the actual source and fails against its compiling defect. Four failures name
+the law's own proof definition. The ready-set failure names `keep_actual`, a
+helper inside that proof section. The complete source, expected locations and
+diagnostic hashes are in `PROOF-CONTROLS.json`.
 
 The coordinator obtained a blind back-translation at
 `/home/node/.claude/orchestrate/bendvy-gh78-94/reviews/laws-blind/translation.md`.
@@ -117,3 +124,22 @@ Only comments changed in `LAWS.bend`; its equations and imports match the approv
 revision after comment and blank-line removal. `spec.bend` is byte-identical.
 `SUBJECTS.json` retains the original approval hash and records the comment-only
 successor hash. Approval does not extend to the remaining full executor laws.
+
+## Proof tool binding
+
+The complete proof passes `--verdict` with the originally recorded compiler and
+installed resource closure, including Base SHA-256
+`3cd0b0944b11e15c4da5c9af2560e3c04f27d3d37027f1617899aeec17b499ce`.
+It also passes the preserved matching 2.0.35 resource bundle, whose 70 files were
+verified against its existing `BUNDLE-PROOF.json`. Both use the same compiler
+bytes, SHA-256 `f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a`.
+Each closure's kernel executable and source hash is recorded in `SUBJECTS.json`.
+Setting `BENDTT=/usr/bin/false` makes each verdict fail, confirming the kernel
+participates.
+
+The first attempt with the original resource closure exceeded the 15-second
+limit while building its uncached kernel. It was not counted as a proof result.
+The existing kernel source was then built using the already-installed Lean
+toolchain, and the subsequent proof verdict passed within the unchanged limit.
+No compiler patch, new dependency, native runtime concurrency test, or performance
+claim is part of this proof delivery.
