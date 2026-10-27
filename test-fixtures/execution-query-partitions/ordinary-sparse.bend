@@ -100,7 +100,7 @@ def split(scope:State.Scope<S.SchemaA,WC(),Unit>,left:LeftBinding(),right:RightB
 type Invoked is Type:
   Invoked{left:LeftInvocation(),right:RightInvocation(),join:Partition.Join<S.SchemaA,S.layout_a()>}
 def invoke_pair(left:State.Scope<S.SchemaA,HStore(),Unit>,right:State.Scope<S.SchemaA,HStore(),Unit>,join:Partition.Join<S.SchemaA,S.layout_a()>,lp:LeftBinding(),rp:RightBinding()) -> Effect.Task<S.SchemaA,RuntimePermit.Permit,Invoked>:
-  Effect.TFork{LeftInvocation(),RightInvocation(),invoke_left(left,lp),invoke_right(right,rp),l => r => Effect.TDone{Invoked{l,r,join}}}
+  Effect.TFork{LeftInvocation(),RightInvocation(),Effect.TRun{_ => invoke_left(left,lp)},Effect.TRun{_ => invoke_right(right,rp)},l => r => Effect.TDone{Invoked{l,r,join}}}
 type Finished is Type:
   Finished{joined:Partition.Joined<S.SchemaA,S.layout_a()>,left:LeftBinding(),right:RightBinding(),leftStatus:List<&2,Ready.Completed<String,Q.GeneralLookup<U32>>>,rightStatus:List<&2,Ready.Completed<String,Q.GeneralLookup<U32>>>}
   InventoryRefused{left:LeftInvocation(),right:RightInvocation(),join:Partition.Join<S.SchemaA,S.layout_a()>}
