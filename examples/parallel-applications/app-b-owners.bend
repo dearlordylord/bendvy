@@ -1,6 +1,7 @@
 import Base
 import ../../src/ecs/execution-inspector-commands.bend as Passive
 import ../../src/ecs/execution-lifetime-scope-description.bend as LinkedText
+import ../../src/ecs/execution-lifetime-scope-command.bend as ScopeCommands
 import ../../src/ecs/relation-types.bend as RelationTypes
 import ./app-b-schema.bend as D
 import ./app-b-commands.bend as Author
@@ -62,6 +63,7 @@ def entry(owner:Buffer.Entry<D.Scene,Array<U32>,Removed.Removed(D.components())>
     case Buffer.Entry{+handle,payload}:entry_component(handle,maybe_array(payload))
     case Buffer.Despawn{+handle}:(Buffer.Despawn{handle},"despawn:" ++ Inspect.handle(handle))
     case Buffer.Relation{+route,+value}:(Buffer.Relation{route,value},operation(value))
+    case Buffer.LifetimeScope{+route,+value}:(Buffer.LifetimeScope{route,value},"lifetime-scope:" ++ LinkedText.operation(~D.Scene,value))
 def receipt_bundle(+handle:W.Handle<D.Scene>,kind:Bool,result:Removed.Removed(D.components()) & String) -> Buffer.Receipt<D.Scene,Array<U32>,Removed.Removed(D.components())> & String:
   match kind result:
     case True{}, (owner,text):(Buffer.Spawned{handle,owner},"spawned:" ++ Inspect.handle(handle) ++ "/previous=" ++ text)
@@ -80,6 +82,16 @@ def relation_receipt(value:Store.Receipt<D.Scene>) -> String:
 def linked_seen(+handle:W.Handle<D.Scene>,+status:Buffer.LinkedStatus,+frames:List<&2,RelationTypes.CleanupFrame<D.Scene>>,result:List<Buffer.Receipt<D.Scene,Array<U32>,Removed.Removed(D.components())>> & List<&2,Passive.Receipt<D.Scene>>) -> Buffer.Receipt<D.Scene,Array<U32>,Removed.Removed(D.components())> & String:
   match result:
     case (actual,facts):(Buffer.LinkedDespawn{handle,status,actual,frames},"linked-despawn:" ++ Inspect.handle(handle) ++ ":" ++ LinkedText.linked_status(status) ++ ":nested=" ++ Nat.show(List.length(&2,Passive.Receipt<D.Scene>,facts)))
+def rows_join(~P:Type,head:P & String,tail:List<P> & List<&2,String>) -> List<P> & List<&2,String>:
+  match head tail:
+    case (head,text), (tail,texts):(head <> tail,text <> texts)
+def rows(~P:Type,~observe:P -> P & String,owners:List<P>) -> List<P> & List<&2,String>:
+  match owners:
+    case []:([],[])
+    case head <> tail:rows_join(~P,observe(head),rows(~P,~observe,tail))
+def scoped_seen(+route:L.Route,+operation:ScopeCommands.Operation<D.Scene>,+status:Buffer.ScopeStatus,+frames:List<&2,RelationTypes.CleanupFrame<D.Scene>>,result:List<Buffer.Receipt<D.Scene,Array<U32>,Removed.Removed(D.components())>> & List<&2,String>) -> Buffer.Receipt<D.Scene,Array<U32>,Removed.Removed(D.components())> & String:
+  match result:
+    case (actual,texts):(Buffer.ScopePublished{route,operation,status,actual,frames},"scope-published:" ++ LinkedText.operation(~D.Scene,operation) ++ ":" ++ LinkedText.status(status) ++ ":nested=" ++ List.show(&2,String,text => text,texts) ++ ":frames=" ++ Nat.show(List.length(&2,RelationTypes.CleanupFrame<D.Scene>,frames)))
 def receipt(owner:Buffer.Receipt<D.Scene,Array<U32>,Removed.Removed(D.components())>) -> Buffer.Receipt<D.Scene,Array<U32>,Removed.Removed(D.components())> & String:
   match owner:
     case Buffer.Spawned{handle,previous}:receipt_bundle(handle,True{},bundle(previous))
@@ -91,13 +103,8 @@ def receipt(owner:Buffer.Receipt<D.Scene,Array<U32>,Removed.Removed(D.components
     case Buffer.LinkedDespawn{handle,status,children,frames}:linked_seen(handle,status,frames,Passive.receipts(D.Scene,Array<U32>,Removed.Removed(D.components()),children))
     case Buffer.RelationPublished{+route,+value}:(Buffer.RelationPublished{route,value},relation_receipt(value))
     case Buffer.RelationUndeclared{+route,+value}:(Buffer.RelationUndeclared{route,value},"relation-undeclared:" ++ operation(value))
-def rows_join(~P:Type,head:P & String,tail:List<P> & List<&2,String>) -> List<P> & List<&2,String>:
-  match head tail:
-    case (head,text), (tail,texts):(head <> tail,text <> texts)
-def rows(~P:Type,~observe:P -> P & String,owners:List<P>) -> List<P> & List<&2,String>:
-  match owners:
-    case []:([],[])
-    case head <> tail:rows_join(~P,observe(head),rows(~P,~observe,tail))
+    case Buffer.ScopePublished{route,operation,status,children,frames}:scoped_seen(route,operation,status,frames,rows(~Buffer.Receipt<D.Scene,Array<U32>,Removed.Removed(D.components())>,~receipt,children))
+    case Buffer.ScopeStoreApplied{+route,+request,+result}:(Buffer.ScopeStoreApplied{route,request,result},"scope-store:" ++ LinkedText.request(~D.Scene,request) ++ ":" ++ LinkedText.outcome(~D.Scene,result))
 def identity(value:String) -> String:value
 def strings(values:List<&2,String>) -> String:List.show(&2,String,identity,values)
 def buffer_returned(pending:List<Buffer.Entry<D.Scene,Array<U32>,Removed.Removed(D.components())>> & List<&2,String>,receipts:Author.Receipts() & List<&2,String>) -> Buffer.Buffer<D.Scene,Array<U32>,Removed.Removed(D.components())> & String:
