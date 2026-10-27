@@ -11,17 +11,29 @@ import ../../src/ecs/execution-resource-query-lifecycle.bend as NodeLife
 import ../../src/ecs/execution-generalized-root-application.bend as General
 import ../../src/ecs/execution-parallel-root-application.bend as Schedule
 import ../../src/ecs/execution-system.bend as Sys
+import ../../src/ecs/execution-parallel-system.bend as Register
+import ../../src/ecs/execution-parallel-scope.bend as Scope
 import ../../src/ecs/execution-declaration.bend as Decl
 import ../../src/ecs/execution-query-schema.bend as QuerySchema
 import ../../src/ecs/execution-condition-registry.bend as Conditions
 import ../../src/ecs/execution-parallel-registration.bend as Part
 import ../../src/ecs/dependency-application.bend as DepApp
+import ../../src/ecs/dependency-executor.bend as Exec
 import ../../src/ecs/dependency-plan.bend as Plan
 import ../../src/ecs/owner-product.bend as Product
 import ../../src/ecs/world.bend as W
 import ../../src/ecs/change-tick.bend as Tick
 
-def GuardOwner(~S:Data) -> Type:Sys.Owner<S,D.Store(~S),D.Store(~S),D.Resources(~S),Unit,Cond.Ops(~S),Cond.Local(),String,Bool,Build.framework_program(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~Cond.Ops(~S),~Cond.declaration(~S)),Cond.body(~S)>
+def guard_kernel(~S:Data,~Permit:Data,~token:Permit,~H:Type,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~Permit,~H,~B),book:B) -> B & Cond.Ops(~S,Permit,H):
+  Build.framework_program(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~Cond.Ops(~S),~Cond.declaration(~S),~Permit,~token,~H,~B,~builder,book)
+def GuardCompilation(~S:Data) -> Type:Decl.Compilation<S,D.Store(~S),D.Store(~S),D.Resources(~S),Cond.Ops(~S)>
+# The closed factory supplies this witness and retains its actual registration
+# result; the witness is not a theorem about arbitrary forged bindings.
+def guard_construction(~S:Data) -> GuardCompilation(~S):Build.compile_framework(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~Cond.Ops(~S),~guard_kernel(~S))
+def GuardRawOwner(~S:Data) -> Type:Sys.Owner<S,D.Store(~S),D.Store(~S),D.Resources(~S),Unit,Cond.Ops(~S),Cond.Local(),String,Bool,guard_kernel(~S),Cond.body(~S)>
+def GuardOwner(~S:Data) -> Type:Conditions.RetainedSystem(~S,~D.Store(~S),~D.Resources(~S),~Unit,~Cond.Ops(~S),~Cond.Local(),~String,~guard_kernel(~S),~Cond.body(~S))
+def guard_dispatch(~S:Data) -> GuardOwner(~S) -> Nodes.World(~S) -> U32 -> IO(GuardOwner(~S) & (Nodes.World(~S) & Exec.Invocation<String,Bool>)):
+  Conditions.retained_leaf_dispatch(~S,~D.Store(~S),~D.Resources(~S),~Unit,~Cond.Ops(~S),~Cond.Local(),~String,~guard_kernel(~S),~Cond.body(~S),~guard_construction(~S))
 def World(~S:Data) -> Type:Nodes.World(~S)
 def Application(~S:Data) -> Type:Schedule.Scheduled<DepApp.State<General.Storage<S,Nodes.components(),D.resources_layout(),Unit>,Nodes.Nodes(~S),GuardOwner(~S),Common.Handler>>
 def report(value:DepApp.Report<String,String>) -> String:Common.report(value)
@@ -35,13 +47,13 @@ def cleaned(~S:Data,trace:String,ll:Body.LeftLocal(),ol:Body.LeftLocal(),lc:Mayb
     case Life.RetirementRefused{_,_}:"ERROR:cleanup"
 def observed_locals(~S:Data,trace:String,world:World(~S),right:Nodes.RightNode(~S),guard:GuardOwner(~S),handler:Common.Handler,left:Nodes.LeftReturned(~S),other:Nodes.LeftReturned(~S)) -> String:
   match guard left other:
-    case Sys.Owner{_,_,_,_,gc,gl} NodeLife.Released{_,_,Life.Identity{_,_,_,_,lc},ll} NodeLife.Released{_,_,Life.Identity{_,_,_,_,oc},ol}:cleaned(~S,trace,ll,ol,lc,oc,gl,gc,handler,Nodes.retire(~S,right,world))
+    case Scope.CompiledBinding{_,Sys.Owner{_,_,_,_,gc,gl}} NodeLife.Released{_,_,Life.Identity{_,_,_,_,lc},ll} NodeLife.Released{_,_,Life.Identity{_,_,_,_,oc},ol}:cleaned(~S,trace,ll,ol,lc,oc,gl,gc,handler,Nodes.retire(~S,right,world))
 def observed(~S:Data,trace:String,app:Application(~S)) -> String:
   match app:
     case Schedule.Scheduled{DepApp.State{General.Present{world,_},Product.Owner{Product.Owner{left,other},right},guard,handler,_},_,_,_,_}:observed_locals(~S,trace,world,right,guard,handler,Nodes.left_returned(~S,left),Nodes.left_returned(~S,other))
     case _:"ERROR:physical-inventory"
 def run_mode(~S:Data,~native:Bool,app:Application(~S)) -> IO(Application(~S) & DepApp.Report<String,String>):
-  General.run(~S,~Nodes.components(),~D.resources_layout(),~Unit,~Nodes.Nodes(~S),~GuardOwner(~S),~Common.Handler,~String,~String,~Nodes.dispatch(~S,native),~Conditions.leaf_dispatch(~S,~D.Store(~S),~D.Resources(~S),~Unit,~Cond.Ops(~S),~Cond.Local(),~String,~Build.framework_program(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~Cond.Ops(~S),~Cond.declaration(~S)),~Cond.body(~S)),~Common.handle,~Nodes.publish(~S),app)
+  General.run(~S,~Nodes.components(),~D.resources_layout(),~Unit,~Nodes.Nodes(~S),~GuardOwner(~S),~Common.Handler,~String,~String,~Nodes.dispatch(~S,native),~guard_dispatch(~S),~Common.handle,~Nodes.publish(~S),app)
 def run_selected(~S:Data,native:Bool,app:Application(~S)) -> IO(Application(~S) & DepApp.Report<String,String>):
   match native:
     case False{}:run_mode(~S,~False{},app)
@@ -96,13 +108,13 @@ def second(~S:Data,+native:Bool,trace:String,result:Application(~S) & DepApp.Rep
 def first(~S:Data,+native:Bool,result:Application(~S) & DepApp.Report<String,String>) -> IO(String):
   match result:
     case (app,status):IO.bind(Application(~S) & DepApp.Report<String,String>,String,run_selected(~S,native,app),next => second(~S,native,report(status),next))
-def guard_defined(~S:Data,+native:Bool,left:Nodes.LeftNode(~S),right:Nodes.RightNode(~S),other:Nodes.LeftNode(~S),result:Sys.Defined<World(~S),GuardOwner(~S),Cond.Local()>) -> IO(String):
+def guard_defined(~S:Data,+native:Bool,left:Nodes.LeftNode(~S),right:Nodes.RightNode(~S),other:Nodes.LeftNode(~S),result:GuardCompilation(~S) & Sys.Defined<World(~S),GuardRawOwner(~S),Cond.Local()>) -> IO(String):
   match result:
-    case Sys.Defined{world,guard}:IO.bind(Application(~S) & DepApp.Report<String,String>,String,run_selected(~S,native,General.build(~S,~Nodes.components(),~D.resources_layout(),~Unit,~Nodes.Nodes(~S),~GuardOwner(~S),~Common.Handler,~String,~Conditions.leaf_dispatch(~S,~D.Store(~S),~D.Resources(~S),~Unit,~Cond.Ops(~S),~Cond.Local(),~String,~Build.framework_program(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~Cond.Ops(~S),~Cond.declaration(~S)),~Cond.body(~S)),~Common.available,world,Nodes.facts(~S,Product.Owner{Product.Owner{left,other},right}),Conditions.compile_leaf(~String,~S,~D.Store(~S),~D.Resources(~S),~Unit,~Cond.Ops(~S),~Cond.Local(),~Build.framework_program(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~Cond.Ops(~S),~Cond.declaration(~S)),~Cond.body(~S),guard),Common.Handler{ALeaf{701},0},[Plan.Edge{1,2},Plan.Edge{3,2}],[DepApp.Binding{2,4}])),next => first(~S,native,next))
-    case Sys.DefinitionRefused{_,_}:IO.pure(String,"ERROR:guard")
+    case (compilation,Sys.Defined{world,guard}):IO.bind(Application(~S) & DepApp.Report<String,String>,String,run_selected(~S,native,General.build(~S,~Nodes.components(),~D.resources_layout(),~Unit,~Nodes.Nodes(~S),~GuardOwner(~S),~Common.Handler,~String,~guard_dispatch(~S),~Common.available,world,Nodes.facts(~S,Product.Owner{Product.Owner{left,other},right}),Conditions.compile_retained_leaf(~String,~S,~D.Store(~S),~D.Resources(~S),~Unit,~Cond.Ops(~S),~Cond.Local(),~guard_kernel(~S),~Cond.body(~S),~guard_construction(~S),Scope.CompiledBinding{compilation,guard}),Common.Handler{ALeaf{701},0},[Plan.Edge{1,2},Plan.Edge{3,2}],[DepApp.Binding{2,4}])),next => first(~S,native,next))
+    case (_,Sys.DefinitionRefused{_,_}):IO.pure(String,"ERROR:guard")
 def other_defined(~S:Data,+native:Bool,left:Nodes.LeftNode(~S),right:Nodes.RightNode(~S),result:Nodes.LeftCompilation(~S) & Sys.Defined<World(~S),Nodes.LeftOwner(~S),Body.LeftLocal()>) -> IO(String):
   match result:
-    case (compilation,Sys.Defined{world,other}):guard_defined(~S,native,left,right,Nodes.left_node(~S,compilation,other),Sys.define(~S,~D.Store(~S),~D.Resources(~S),~Unit,~Cond.Ops(~S),~Cond.Local(),~String,~Bool,~Cond.declaration(~S),~Cond.body(~S),world,"guard",Cond.local()))
+    case (compilation,Sys.Defined{world,other}):guard_defined(~S,native,left,right,Nodes.left_node(~S,compilation,other),Register.define_with_compilation(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~Unit,~Cond.Ops(~S),~Cond.Local(),~String,~Bool,~guard_kernel(~S),~Cond.body(~S),~D.Resources(~S),guard_construction(~S),world,"guard",Cond.local()))
     case (_,Sys.DefinitionRefused{_,_}):IO.pure(String,"ERROR:other")
 def right_defined(~S:Data,+native:Bool,left:Nodes.LeftNode(~S),result:Nodes.RightCompilation(~S) & Sys.Defined<World(~S),Nodes.RightOwner(~S),Body.RightLocal()>) -> IO(String):
   match result:
