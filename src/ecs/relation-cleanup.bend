@@ -5,6 +5,7 @@ import relation-types.bend as G
 import relation-graph.bend as C
 import relation-commands.bend as A
 import world.bend as W
+import ./relation-cleanup-control.bend as Control
 
 # Explicit experiment continuation. Exhaustion retains every affine owner/frame.
 type CleanupResult<S: Data,C: Type,R: Type,E: Data> is Type:
@@ -40,21 +41,15 @@ def entered(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<S,A.Store<S,C>,
 def children_start(~S: Data,~C: Type,~R: Type,~E: Data,observed: W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,Key.Key>,id:Key.Key,descriptor: G.Descriptor<S>,remaining: List<&2,G.Descriptor<S>>,frames: List<&2,G.CleanupFrame<S>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.CleanupFrame<S>>:
   (world,children) = observed
   (world,G.CleanupChildren{id,descriptor,remaining,children} <> frames)
-def child_step(~S: Data,~C: Type,~R: Type,~E: Data,kind: G.RelationKind,world: W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,namespace: U32,id:Key.Key,+descriptor: G.Descriptor<S>,remaining: List<&2,G.Descriptor<S>>,child:Key.Key,children: List<&2,Key.Key>,frames: List<&2,G.CleanupFrame<S>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.CleanupFrame<S>>:
-  match kind:
-    case G.Hierarchy{}: (world,G.CleanupEnter{child} <> G.CleanupChildren{id,descriptor,remaining,children} <> frames)
-    case G.Ordinary{}: (A.apply_unrelate(~S,~C,~R,~E,world,descriptor,W.Handle{namespace,child}),G.CleanupChildren{id,descriptor,remaining,children} <> frames)
-def kind(~S: Data,d: G.Descriptor<S>) -> G.RelationKind:
-  match d:
-    case G.Descriptor{_,_,_,kind}: kind
-def step(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record: W.Handle<S> -> A.Notice<S,E>,frame: G.CleanupFrame<S>,world: W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,+namespace: U32,+descriptors: List<&2,G.Descriptor<S>>,frames: List<&2,G.CleanupFrame<S>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.CleanupFrame<S>>:
-  match frame:
-    case G.CleanupEnter{+id}: entered(~S,~C,~R,~E,W.valid(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world,W.Handle{namespace,id}),id,descriptors,frames)
-    case G.CleanupDescriptors{id,[]}: (world,G.CleanupFinish{id} <> frames)
-    case G.CleanupDescriptors{+id,+d <> remaining}: children_start(~S,~C,~R,~E,W.with_store(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~List<&2,Key.Key>,store => snapshot(~S,~C,store,d,id),world),id,d,remaining,frames)
-    case G.CleanupChildren{+id,d,remaining,[]}: (A.apply_unrelate(~S,~C,~R,~E,world,d,W.Handle{namespace,id}),G.CleanupDescriptors{id,remaining} <> frames)
-    case G.CleanupChildren{id,+d,remaining,child <> children}: child_step(~S,~C,~R,~E,kind(~S,d),world,namespace,id,d,remaining,child,children,frames)
-    case G.CleanupFinish{id}: (finish(~S,~C,~R,~E,~clear,~record,world,W.Handle{namespace,id}),frames)
+def interpreted(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,intent:Control.Intent<S>,world:W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,+namespace:U32) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.CleanupFrame<S>>:
+  match intent:
+    case Control.Check{+id,descriptors,frames}:entered(~S,~C,~R,~E,W.valid(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world,W.Handle{namespace,id}),id,descriptors,frames)
+    case Control.Observe{+id,+descriptor,remaining,frames}:children_start(~S,~C,~R,~E,W.with_store(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~List<&2,Key.Key>,store => snapshot(~S,~C,store,descriptor,id),world),id,descriptor,remaining,frames)
+    case Control.Unrelate{id,descriptor,frames}:(A.apply_unrelate(~S,~C,~R,~E,world,descriptor,W.Handle{namespace,id}),frames)
+    case Control.Finish{id,frames}:(finish(~S,~C,~R,~E,~clear,~record,world,W.Handle{namespace,id}),frames)
+    case Control.Continue{frames}:(world,frames)
+def step(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,frame:G.CleanupFrame<S>,world:W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,+namespace:U32,descriptors:List<&2,G.Descriptor<S>>,frames:List<&2,G.CleanupFrame<S>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.CleanupFrame<S>>:
+  interpreted(~S,~C,~R,~E,~clear,~record,Control.next(S,frame,descriptors,frames),world,namespace)
 def resumed(~S:Data,~C:Type,~R:Type,~E:Data,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.CleanupFrame<S>>,next:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> List<&2,G.CleanupFrame<S>> -> CleanupResult<S,C,R,E>) -> CleanupResult<S,C,R,E>:
   (world,frames) = observed
   next(world,frames)
