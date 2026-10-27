@@ -112,6 +112,19 @@ resource slot, and retains the same transient resource slot. Actual Alpha/Beta
 row preparation, materialization and resource replacement compile. These pieces
 still need the enclosing restore operation and Scheduled resume adapter.
 
+`examples/parallel-persistence/restore.bend` now connects receiver preparation,
+schema/metadata admission, typed staging, row extraction, canonical clear, fresh
+materialization/map and Config replacement. Unlike Alpha/Beta World continuations
+compile. Refusal before clear returns the actual receiver World. Unexpected
+clear/publication/resource interruption has an explicit partial outcome retaining
+all live World owners, staged owners, removed/resource receipts, undo records,
+Schema and detached input. This is an internal World continuation, not yet the
+ordinary Scheduled pending-owner gate or resumed serial/native execution.
+
+`RESTORE.bend` contains three additional unapproved, unproved actual-owner law
+drafts for pending receiver refusal and empty clear/publication. Its normal source
+check reports exactly three TODOs. These drafts are not behavioral proof evidence.
+
 The four laws in `test-fixtures/execution-save-laws/LAWS.bend` and two subjects in
 `SCHEMA.bend` are unapproved, unproved drafts. They describe exact gate branching,
 Plain/Transient owner return and actual schema/World refusal branches. They do
