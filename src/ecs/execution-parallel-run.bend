@@ -1,6 +1,6 @@
 import Base
 import ./execution-reservation-task.bend as Effect
-import ./execution-reservation-permit.bend as Request
+import ./execution-reservation-authority.bend as Request
 import ./execution-reservation-driver.bend as Driver
 import ./world.bend as W
 import ./execution-system.bend as Sys

@@ -1,5 +1,5 @@
 import Base
-import ./execution-reservation-permit.bend as Request
+import ./execution-reservation-authority.bend as Request
 import ./execution-lifecycle-notices.bend as Notice
 import ./owner-product.bend as Product
 import ./execution-state.bend as State
@@ -23,8 +23,10 @@ def trusted_invoke_compiled(~S:Data,~WC:Type,~C:Type,~R:Type,~Local:Type,~Error:
     case False{} _:Effect.TDone{(scope,(local,None{}))}
     case True{} D.Unsupported{_,_,_}:Effect.TDone{(scope,(local,None{}))}
     case True{} D.Supported{D.Declaration{_,_},_}:Sys.map(S,Effect.Granted,State.Scope<S,C,R> & (Local & Sys.Completion<Error,Out>),State.Scope<S,C,R> & (Local & Maybe<&2,Sys.Completion<Error,Out>>),body(Effect.Granted,State.Scope<S,C,R>,compiledCaps,scope,local),result => completed(~State.Scope<S,C,R>,~Local,~Error,~Out,result))
+def trusted_invoke_constructed(~S:Data,~WC:Type,~C:Type,~R:Type,~Local:Type,~Error:Data,~Out:Data,~Ops:Data -> Type -> Type,~declaration:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~compilation:D.Compilation<S,WC,C,R,Ops>,context:Request.Context,allowed:Bool,scope:State.Scope<S,C,R>,local:Local) -> Effect.Task<S,Request.Permit,State.Scope<S,C,R> & (Local & Maybe<&2,Sys.Completion<Error,Out>>)>:
+  Effect.qualify(S,State.Scope<S,C,R> & (Local & Maybe<&2,Sys.Completion<Error,Out>>),context,trusted_invoke_compiled(~S,~WC,~C,~R,~Local,~Error,~Out,~Ops,~declaration,~body,~D.trusted_construction_caps(~S,~WC,~C,~R,~Ops,compilation),allowed,scope,local,compilation))
 def trusted_invoke(~S:Data,~WC:Type,~C:Type,~R:Type,~Local:Type,~Error:Data,~Out:Data,~Ops:Data -> Type -> Type,~declaration:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),context:Request.Context,allowed:Bool,scope:State.Scope<S,C,R>,local:Local) -> Effect.Task<S,Request.Permit,State.Scope<S,C,R> & (Local & Maybe<&2,Sys.Completion<Error,Out>>)>:
-  Effect.map_permit(~S,~Effect.Granted,~Request.Permit,~(State.Scope<S,C,R> & (Local & Maybe<&2,Sys.Completion<Error,Out>>)),~Request.Context,~Request.qualify,context,trusted_invoke_compiled(~S,~WC,~C,~R,~Local,~Error,~Out,~Ops,~declaration,~body,~D.trusted_construction_caps(~S,~WC,~C,~R,~Ops,Build.compile_framework(~S,~WC,~C,~R,~Ops,~declaration)),allowed,scope,local,Build.compile_framework(~S,~WC,~C,~R,~Ops,~declaration)))
+  trusted_invoke_constructed(~S,~WC,~C,~R,~Local,~Error,~Out,~Ops,~declaration,~body,~Build.compile_framework(~S,~WC,~C,~R,~Ops,~declaration),context,allowed,scope,local)
 
 def join_right(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~LL:Type,~LR:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,lc:CL,lr:RL,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,lo:LL & Maybe<&2,Sys.Completion<EL,OL>>,right:State.Scope<S,CR,RR> & (LR & Maybe<&2,Sys.Completion<ER,OR>>)) -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & ((LL & Maybe<&2,Sys.Completion<EL,OL>>) & (LR & Maybe<&2,Sys.Completion<ER,OR>>)):
   match right:
