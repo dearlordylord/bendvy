@@ -92,3 +92,10 @@ def resource_remainder(layout:L.Layout,+route:L.Route,+parent:List<&2,Recipe.Ent
 def remainder(~S:Data,~components:L.Layout,~resources:L.Layout,parent:Footprint<S,components,resources>,active:Footprint<S,components,resources>) -> Footprint<S,components,resources>:
   match parent active:
     case Footprint{ns,handles,info,ri,_,Schema.Book{pq},pr} Footprint{_,_,_,_,_,Schema.Book{aq},ar}:Footprint{ns,handles,info,ri,[],Schema.Book{query_remainder(components,L.AtLeaf{},pq,aq)},resource_remainder(resources,L.AtLeaf{},pr,ar)}
+
+# Only reached systems contribute executable domains. The admission evidence
+# and actual retained owner stay with the leaf even when this projection is empty.
+def active(~S:Data,~components:L.Layout,~resources:L.Layout,footprint:Footprint<S,components,resources>,selected:Bool) -> Footprint<S,components,resources>:
+  match footprint selected:
+    case footprint True{}:footprint
+    case Footprint{namespace,handles,componentInfo,resourceInfo,_,_,_} False{}:Footprint{namespace,handles,componentInfo,resourceInfo,[],Schema.Book{[]},[]}
