@@ -1,4 +1,6 @@
 import Base
+import ./world.bend as W
+import ./chunk-query.bend as Row
 import ./lifecycle.bend as Life
 import ./execution-resource-policy.bend as Policy
 import ./execution-query-schema.bend as Schema
@@ -156,3 +158,21 @@ def stamp_slot_checked(-S:Data,-P:Type,-V:Data,-origin:L.Layout,slot:Slot<S,P,V,
 def stamp_slot(-S:Data,-P:Type,-V:Data,-origin:L.Layout,slot:Slot<S,P,V,origin>,+index:U32) -> Slot<S,P,V,origin> & Life.Stamp:
   match slot:
     case Slot{Slice.Slot{Part.Slice{+domain,cells}},Q.ReadCache{+rows}}:stamp_slot_checked(S,P,V,origin,Slot{Slice.Slot{Part.Slice{domain,cells}},Q.ReadCache{rows}},index,D.contains(domain,index))
+
+def traverse_slot_returned(~S:Data,~layout:L.Layout,~route:L.Route,~O:Type,~E:Data,domain:D.Domain,cache:Q.ReadCache<S,L.view(layout,route),L.origin(layout,route)>,result:List<&1,Part.Cell<L.stored(layout,route)>> & (O & List<&2,Row.Error<E>>)) -> Slot<S,L.payload(layout,route),L.view(layout,route),L.origin(layout,route)> & (O & (List<&2,Row.Error<E>> & Bool)):
+  match result:
+    case (cells,(output,errors)):(Slot{Slice.Slot{Part.Slice{domain,cells}},cache},(output,(errors,True{})))
+def traverse_slot_admitted(~S:Data,~layout:L.Layout,~route:L.Route,~O:Type,~E:Data,~body:W.Handle<S> -> L.view(layout,route) -> L.payload(layout,route) -> O -> L.payload(layout,route) & (O & Maybe<&2,E>),~split:O -> O & O,~merge:O -> O -> O,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,parallel:Bool,selection:Row.Selection,output:O,cache:Q.ReadCache<S,L.view(layout,route),L.origin(layout,route)>,domain:D.Domain,cells:List<&1,Part.Cell<L.stored(layout,route)>>,admitted:Bool) -> Slot<S,L.payload(layout,route),L.view(layout,route),L.origin(layout,route)> & (O & (List<&2,Row.Error<E>> & Bool)):
+  match admitted:
+    case False{}:(Slot{Slice.Slot{Part.Slice{domain,cells}},cache},(output,([],False{})))
+    case True{}:traverse_slot_returned(~S,~layout,~route,~O,~E,domain,cache,Slice.traverse_cells(~S,~layout,~route,~O,~E,~body,~split,~merge,handles,tick,parallel,selection,cells,output))
+def traverse_slot_present(~S:Data,~layout:L.Layout,~route:L.Route,~O:Type,~E:Data,~body:W.Handle<S> -> L.view(layout,route) -> L.payload(layout,route) -> O -> L.payload(layout,route) & (O & Maybe<&2,E>),~split:O -> O & O,~merge:O -> O -> O,+handles:List<&2,W.Handle<S>>,tick:Tick.Tick,parallel:Bool,selection:Row.Selection,output:O,cache:Q.ReadCache<S,L.view(layout,route),L.origin(layout,route)>,domain:D.Domain,result:List<&1,Part.Cell<L.stored(layout,route)>> & List<&2,U32>) -> Slot<S,L.payload(layout,route),L.view(layout,route),L.origin(layout,route)> & (O & (List<&2,Row.Error<E>> & Bool)):
+  match result:
+    case (cells,offsets):traverse_slot_admitted(~S,~layout,~route,~O,~E,~body,~split,~merge,handles,tick,parallel,selection,output,cache,domain,cells,Slice.traverse_targets_present(~S,handles,offsets))
+def traverse_slot_checked(~S:Data,~layout:L.Layout,~route:L.Route,~O:Type,~E:Data,~body:W.Handle<S> -> L.view(layout,route) -> L.payload(layout,route) -> O -> L.payload(layout,route) & (O & Maybe<&2,E>),~split:O -> O & O,~merge:O -> O -> O,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,parallel:Bool,selection:Row.Selection,output:O,cache:Q.ReadCache<S,L.view(layout,route),L.origin(layout,route)>,result:Part.CheckedSlice<S,L.stored(layout,route)>) -> Slot<S,L.payload(layout,route),L.view(layout,route),L.origin(layout,route)> & (O & (List<&2,Row.Error<E>> & Bool)):
+  match result:
+    case Part.CheckedSlice{slice,False{}}:(Slot{Slice.Slot{slice},cache},(output,([],False{})))
+    case Part.CheckedSlice{Part.Slice{domain,cells},True{}}:traverse_slot_present(~S,~layout,~route,~O,~E,~body,~split,~merge,handles,tick,parallel,selection,output,cache,domain,Slice.traverse_present(~L.stored(layout,route),cells))
+def traverse_output_slot(~S:Data,~layout:L.Layout,~route:L.Route,~O:Type,~E:Data,~body:W.Handle<S> -> L.view(layout,route) -> L.payload(layout,route) -> O -> L.payload(layout,route) & (O & Maybe<&2,E>),~split:O -> O & O,~merge:O -> O -> O,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,parallel:Bool,selection:Row.Selection,slot:Slot<S,L.payload(layout,route),L.view(layout,route),L.origin(layout,route)>,output:O) -> Slot<S,L.payload(layout,route),L.view(layout,route),L.origin(layout,route)> & (O & (List<&2,Row.Error<E>> & Bool)):
+  match slot:
+    case Slot{Slice.Slot{Part.Slice{+domain,cells}},cache}:traverse_slot_checked(~S,~layout,~route,~O,~E,~body,~split,~merge,handles,tick,parallel,selection,output,cache,Part.check_slice(S,L.stored(layout,route),Col.maximum_capacity(),domain,Part.Slice{domain,cells}))

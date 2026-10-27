@@ -88,15 +88,15 @@ def selected(~Permit:Data,~H:Type,~read:H -> W.Handle<S.Workshop> -> H & Q.Gener
     case local, (scope,_):finish(~Permit,~H,scope,local,Some{Missing{}})
 def read(~H:Type,caps:Ops(Unit,H)) -> H -> W.Handle<S.Workshop> -> H & Q.GeneralLookup<P.Tree>:
   match caps:
-    case Q.GeneralWriter{Q.GeneralReader{_,get},_}:get
+    case Q.GeneralWriter{Q.GeneralReader{_,get},_,_}:get
     case _:scope => _ => (scope,Q.LookupRefused{})
 def modify(~H:Type,caps:Ops(Unit,H)) -> @-Out:Type -> H -> W.Handle<S.Workshop> -> (Array<U32> -> Array<U32> & Out) -> H & Q.GeneralEdit<Array<U32>,Out>:
   match caps:
-    case Q.GeneralWriter{_,write}:write
+    case Q.GeneralWriter{_,write,_}:write
     case _:Out => scope => _ => operation => (scope,Q.GeneralUnchanged{operation})
 def select(~H:Type,caps:Ops(Unit,H)) -> H -> H & Q.GeneralReport<S.Workshop,P.Tree>:
   match caps:
-    case Q.GeneralWriter{Q.GeneralReader{query,_},_}:query
+    case Q.GeneralWriter{Q.GeneralReader{query,_},_,_}:query
     case _:scope => (scope,Q.SelectionRefused{})
 def body(~Permit:Data,~H:Type,~caps:Ops(Permit,H),scope:H,local:Local) -> Task.Task<S.Workshop,Permit,H & (Local & Sys.Completion<Error,String>)>:selected(~Permit,~H,~read(~H,caps),~modify(~H,caps),local,select(~H,caps)(scope))
 def compiled() -> Decl.Compilation<S.Workshop,S.Store(~S.Workshop),C(),R(),Ops>:Program.compile_framework(~S.Workshop,~S.Store(~S.Workshop),~C(),~R(),~Ops,~kernel)

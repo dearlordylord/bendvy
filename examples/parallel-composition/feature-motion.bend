@@ -37,7 +37,7 @@ def moved(~S:Data,~Permit:Data,~H:Type,local:Local<S>,result:H & Q.GeneralEdit<P
     case (scope,Q.GeneralUnchanged{_}):Task.TDone{(scope,(local,Sys.Success{"absent"}))}
 def counted(~S:Data,~Permit:Data,~H:Type,positions:Q.GeneralWriter<S,H,Position,String>,local:Local<S>,result:H & Store.Edit<Counter,String>) -> Task.Task<S,Permit,H & (Local<S> & Sys.Completion<String,String>)>:
   match positions local result:
-    case Q.GeneralWriter{_,modify} Local{token,runs,+entity},(scope,Store.Edited{_}):moved(~S,~Permit,~H,Local{token,U32.add(runs,1),entity},modify(String,scope,entity,move))
+    case Q.GeneralWriter{_,modify,_} Local{token,runs,+entity},(scope,Store.Edited{_}):moved(~S,~Permit,~H,Local{token,U32.add(runs,1),entity},modify(String,scope,entity,move))
     case _ local,(scope,_):Task.TDone{(scope,(local,Sys.BodyError{"counter unavailable","local retained"}))}
 def body_caps(~S:Data,~Permit:Data,~H:Type,caps:Ops(~S,Unit,H),scope:H,local:Local<S>) -> Task.Task<S,Permit,H & (Local<S> & Sys.Completion<String,String>)>:
   match caps:

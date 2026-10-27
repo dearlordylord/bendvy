@@ -57,11 +57,11 @@ def read_decay(~H:Type,caps:Cap<H>) -> H -> W.Handle<D.Schema> -> H & Q.GeneralL
     case _:scope => _ => (scope,Q.LookupRefused{})
 def write_health(~H:Type,caps:Cap<H>) -> @-Out:Type -> H -> W.Handle<D.Schema> -> (Value.Health -> Value.Health & Out) -> H & Q.GeneralEdit<Value.Health,Out>:
   match caps:
-    case Cap{Q.GeneralWriter{_,modify},_}:modify
+    case Cap{Q.GeneralWriter{_,modify,_},_}:modify
     case _:Out => scope => _ => unused => (scope,Q.GeneralUnchanged{unused})
 def select_health(~H:Type,caps:Cap<H>) -> H -> H & Q.GeneralReport<D.Schema,Value.Health>:
   match caps:
-    case Cap{Q.GeneralWriter{Q.GeneralReader{query,_},_},_}:query
+    case Cap{Q.GeneralWriter{Q.GeneralReader{query,_},_,_},_}:query
     case _:scope => (scope,Q.SelectionRefused{})
 def body(~Permit:Data,~H:Type,~caps:Ops(Permit,H),scope:H,_:Unit) -> Task.Task<D.Schema,Permit,H & (Unit & Sys.Completion<String,Unit>)>:
   selected(~Permit,~H,~read_decay(~H,caps),~write_health(~H,caps),select_health(~H,caps)(scope))

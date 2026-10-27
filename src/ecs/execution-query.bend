@@ -170,9 +170,16 @@ type GeneralReader<-S:Data,-H:Type,-V:Data> is Type:
 type GeneralEdit<-P:Type,-Out:Type> is Type:
   GeneralEdited{output:Out}
   GeneralUnchanged{unused:P -> P & Out}
+type GeneralTargets<-S:Data> is Data:
+  AllMatched{}
+  ExplicitHandles{handles:List<&2,W.Handle<S>>}
 type GeneralWriter<-S:Data,-H:Type,-P:Type,-V:Data> is Type:
-  GeneralWriter{read:GeneralReader<S,H,V>,modify:@-Out:Type -> H -> W.Handle<S> -> (P -> P & Out) -> H & GeneralEdit<P,Out>}
+  GeneralWriter{read:GeneralReader<S,H,V>,modify:@-Out:Type -> H -> W.Handle<S> -> (P -> P & Out) -> H & GeneralEdit<P,Out>,traverse:@-O:Type -> @-E:Data -> @-split:(O -> O & O) -> @-merge:(O -> O -> O) -> @-body:(W.Handle<S> -> V -> P -> O -> P & (O & Maybe<&2,E>)) -> Mode -> H -> O -> GeneralTargets<S> -> H & (O & Report<E>)}
   UnsupportedWriter{}
+def general_traverse(~S:Data,~H:Type,~P:Type,~V:Data,~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:W.Handle<S> -> V -> P -> O -> P & (O & Maybe<&2,E>),writer:GeneralWriter<S,H,P,V>,mode:Mode,scope:H,output:O,targets:GeneralTargets<S>) -> H & (O & Report<E>):
+  match writer:
+    case GeneralWriter{_,_,traverse}:traverse(O,E,split,merge,body,mode,scope,output,targets)
+    case UnsupportedWriter{}:(scope,(output,LayoutRefused{}))
 def GeneralOps(~S:Data,~P:Type,~V:Data,kind:Recipe.QueryKind,H:Type) -> Type:
   match kind:
     case Recipe.ReadRows{}:GeneralReader<S,H,V>

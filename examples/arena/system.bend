@@ -38,11 +38,11 @@ def declaration(~Permit:Data,~H:Type,~Queue:Type,~commands:Local.Commands<Queue,
   granted(~Permit,~H,~Queue,~B,~builder,K,book,entity(permission))
 def rows(~H:Type,~Queue:Type,~Permit:Data,caps:Caps<Permit,H,Queue>) -> H -> H & Q.GeneralReport<D.Schema,G.Body>:
   match caps:
-    case Caps{Q.GeneralWriter{Q.GeneralReader{read,_},_},_}:read
+    case Caps{Q.GeneralWriter{Q.GeneralReader{read,_},_,_},_}:read
     case _:scope => (scope,Q.SelectionRefused{})
 def modify(~H:Type,~Queue:Type,~Permit:Data,caps:Caps<Permit,H,Queue>) -> @-Out:Type -> H -> W.Handle<D.Schema> -> (G.Body -> G.Body & Out) -> H & Q.GeneralEdit<G.Body,Out>:
   match caps:
-    case Caps{Q.GeneralWriter{_,write},_}:write
+    case Caps{Q.GeneralWriter{_,write,_},_}:write
     case _:Out => scope => _ => edit => (scope,Q.GeneralUnchanged{edit})
 def despawn(~H:Type,~Queue:Type,~Permit:Data,caps:Caps<Permit,H,Queue>) -> Queue -> W.Handle<D.Schema> -> Queue:
   match caps:

@@ -70,7 +70,7 @@ def selected(~fail:Bool,~H:Type,get:H -> W.Handle<S.SchemaA> -> H & Q.GeneralLoo
     case (scope,report):edited(~fail,~H,get,report,target,queue,modify(Array<U32>,scope,target,owner=>moved(token,owner)))
 def run_caps(~fail:Bool,~H:Type,caps:Caps(H),scope:H,local:Local) -> H & (Local & Sys.Completion<String,QueryResult>):
   match caps local:
-    case Q.GeneralWriter{Q.GeneralReader{query,get},modify} Local{target,Token{token},queue}:selected(~fail,~H,get,modify,target,token,queue,query(scope))
+    case Q.GeneralWriter{Q.GeneralReader{query,get},modify,_} Local{target,Token{token},queue}:selected(~fail,~H,get,modify,target,token,queue,query(scope))
     case _ local:(scope,(local,Sys.BodyError{"unavailable-or-deferred",QueryResult{Q.LookupRefused{},Q.CountSelectionRefused{},Q.SingleSelectionRefused{}}}))
 def body(~fail:Bool,~Permit:Data,~H:Type,~caps:Ops(Permit,H),scope:H,local:Local) -> Effect.Task<S.SchemaA,Permit,H & (Local & Sys.Completion<String,QueryResult>)>:
   Effect.TDone{run_caps(~fail,~H,caps,scope,local)}
