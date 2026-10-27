@@ -49,6 +49,6 @@ check_backend() {
     done
   fi
 }
-for consumer in filters history scheduled; do
+for consumer in filters history scheduled prepared-foreign; do
   check_backend "$consumer"
 done
