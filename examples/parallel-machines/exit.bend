@@ -16,7 +16,7 @@ def Ops(~S:Data,Permit:Data,H:Type,Q:Type) -> Type:D.request_ops(~S)(Permit,H)
 def declared(~S:Data,~Permit:Data,~H:Type,~Q:Type,~B:Type,~K:Type,permission:K,result:B & Ops(~S,Permit,H,Q)) -> B & (K & Ops(~S,Permit,H,Q)):
   match result:
     case (book,ops):(book,(permission,ops))
-def declaration(~S:Data,~Permit:Data,~H:Type,~Q:Type,~commands:Commands.Commands<Q,S,P.Actor<S,D.Mode>>,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.LeftStore(~S),~D.Resources(~S),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~D.component_layout(~S),~Permit,~Q,~K),book:B,permission:K) -> B & (K & Ops(~S,Permit,H,Q)):
+def declaration(~S:Data,~Permit:Data,~H:Type,~Q:Type,~commands:Commands.Commands<Q,S,P.Actor<S,D.Mode>>,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.LeftStore(~S),~D.Resources(~S),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~D.component_layout(~S),~Permit,~Q,~K),~relations:Permission.RelationGrant(~S,~D.root_layout(~S),~Q,~K),book:B,permission:K) -> B & (K & Ops(~S,Permit,H,Q)):
   declared(~S,~Permit,~H,~Q,~B,~K,permission,D.request(~S,~Permit,~H,~B,~builder,book))
 type User<-S:Data> is Type:
   User{handle:W.Handle<S>,retained:Body.Local()}
@@ -26,6 +26,6 @@ def authored(~S:Data,~H:Type,~Q:Type,~commands:Commands.Commands<Q,S,P.Actor<S,D
 def body(~S:Data,~Permit:Data,~H:Type,~Q:Type,~caps:Ops(~S,Permit,H,Q),~commands:Commands.Commands<Q,S,P.Actor<S,D.Mode>>,scope:H,queue:Q,user:User<S>) -> Effect.Task<S,Permit,H & (Q & (User<S> & Sys.Completion<String,String>))>:
   match user:
     case User{handle,retained}:Effect.TDone{authored(~S,~H,~Q,~commands,queue,handle,Body.exit_sync(~S,~Permit,~H,~caps,scope,retained))}
-def Owner(~S:Data) -> Type:Cmd.Owner<S,D.LeftStore(~S),D.Resources(~S),Unit,D.component_layout(~S),route(),Ops(~S),User<S>,String,String,declaration(~S),body(~S)>
+def Owner(~S:Data) -> Type:Cmd.Owner<S,D.LeftStore(~S),D.Resources(~S),Unit,D.component_layout(~S),D.root_layout(~S),route(),Ops(~S),User<S>,String,String,declaration(~S),body(~S)>
 
-def Captures(~S:Data) -> Type:Cmd.Captures(~S,~D.component_layout(~S),~route(),~User<S>)
+def Captures(~S:Data) -> Type:Cmd.Captures(~S,~D.component_layout(~S),~D.root_layout(~S),~route(),~User<S>)

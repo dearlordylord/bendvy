@@ -20,6 +20,7 @@ def same(left:Mode,right:Mode) -> Bool:
 def layout(~S:Data) -> Layout.Layout:Machine.leaf(~S,~Key,~Mode,"mode")
 def payload_proof(~S:Data) -> {Layout.payload(layout(~S),Layout.AtLeaf{}) == State.Cell<S,Key,Mode> : Type}:{==}
 def view_proof(~S:Data) -> {Layout.view(layout(~S),Layout.AtLeaf{}) == State.View<S,Key,Mode> : Data}:{==}
+def root_layout(~S:Data) -> Layout.Layout:Layout.LayoutPair{layout(~S),Layout.EmptyLayout{}}
 def Resources(~S:Data) -> Type:Layout.resources(~S,layout(~S))
 def actor_layout(~S:Data) -> Layout.Layout:Layout.LayoutLeaf{P.Actor<S,Mode>,Mode,P.actor(~S,~Mode),"actor-state",Policy.Ordinary{}}
 def peer_layout(~S:Data) -> Layout.Layout:Layout.LayoutLeaf{P.PeerActor<S,Mode>,Mode,P.peer(~S,~Mode),"peer-state",Policy.Ordinary{}}

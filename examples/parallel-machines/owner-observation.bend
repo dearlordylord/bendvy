@@ -72,6 +72,7 @@ def pending_entry(~S:Data,value:Buffer.Entry<S,P.Actor<S,D.Mode>,Removed.Removed
     case Buffer.Entry{handle,incoming}:"family:" ++ Observe.handle(~S,handle) ++ ":" ++ Observe.maybe_actor(~S,incoming)
     case Buffer.Despawn{handle}:"despawn:" ++ Observe.handle(~S,handle)
     case Buffer.Spawn{handle,bundle}:"spawn:" ++ Observe.handle(~S,handle) ++ ":" ++ removed(~S,bundle)
+    case Buffer.Relation{_,_}:"relation"
 def receipt(~S:Data,value:Buffer.Receipt<S,P.Actor<S,D.Mode>,Removed.Removed(D.component_layout(~S))>) -> String:
   match value:
     case Buffer.Applied{handle,previous}:"applied:" ++ Observe.handle(~S,handle) ++ ":" ++ Observe.maybe_actor(~S,previous)
@@ -80,6 +81,8 @@ def receipt(~S:Data,value:Buffer.Receipt<S,P.Actor<S,D.Mode>,Removed.Removed(D.c
     case Buffer.DespawnRefused{handle}:"despawn-refused:" ++ Observe.handle(~S,handle)
     case Buffer.Spawned{handle,previous}:"spawned:" ++ Observe.handle(~S,handle) ++ ":" ++ removed(~S,previous)
     case Buffer.SpawnRefused{handle,bundle,reason}:"spawn-refused:" ++ Observe.handle(~S,handle) ++ ":" ++ removed(~S,bundle) ++ ":" ++ spawn_refusal(reason)
+    case Buffer.RelationPublished{_,_}:"relation-published"
+    case Buffer.RelationUndeclared{_,_}:"relation-undeclared"
 def buffer(~S:Data,value:Buffer.Buffer<S,P.Actor<S,D.Mode>,Removed.Removed(D.component_layout(~S))>) -> String:
   match value:
     case Buffer.Buffer{pending,receipts}:"pending=" ++ List.show(&1,Buffer.Entry<S,P.Actor<S,D.Mode>,Removed.Removed(D.component_layout(~S))>,pending_entry(~S),pending) ++ "/receipts=" ++ List.show(&1,Buffer.Receipt<S,P.Actor<S,D.Mode>,Removed.Removed(D.component_layout(~S))>,receipt(~S),receipts)
