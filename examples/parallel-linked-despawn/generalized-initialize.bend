@@ -39,10 +39,9 @@ def graph_defined(~S:Data,factory:W.Factory,context:Captured(~S),handle:W.Handle
   match result:
     case (compilation,Sys.Defined{world,owner}):removal_defined(~S,factory,context,survivor,Scope.CompiledBinding{compilation,owner},Author.define_with_compilation(~S,~Actor.components(),~Actor.resources(~S),~Unit,~Actor.route(),~Remover.Ops(~S),~Actors.RemovalUser<S>,~String,~String,~Actors.removal_declaration(~S),~Actors.removal_body(~S),~{==},Actors.removal_compilation(~S),world,"generalized-despawn-only",Actors.RemovalUser{handle,False{},0}))
     case (compilation,result):GraphRefused{factory,context,compilation,result}
-def replacement_ready(~S:Data,factory:W.Factory,context:Captured(~S),child:W.Handle<S>,parent:W.Handle<S>,local:Actor.Session,result:Entities.Node<S>) -> Initialization<S>:
+def replacement_ready(~S:Data,factory:W.Factory,context:Captured(~S),child:W.Handle<S>,+parent:W.Handle<S>,local:Actor.Session,result:Entities.Node<S>) -> Initialization<S>:
   match result:
-    case Entities.NodeReady{world,+replacement}:match parent:
-      case +parent:graph_defined(~S,factory,context,replacement,parent,Author.define_with_compilation(~S,~Actor.components(),~Actor.resources(~S),~Unit,~Actor.route(),~Actor.Ops(~S),~Actors.GraphUser<S>,~String,~String,~Actors.graph_declaration(~S),~Actors.graph_body(~S),~{==},Actors.graph_compilation(~S),world,"generalized-graph-author",Actors.GraphUser{Actor.User{child,parent,replacement,local},False{},0}))
+    case Entities.NodeReady{world,+replacement}:graph_defined(~S,factory,context,replacement,parent,Author.define_with_compilation(~S,~Actor.components(),~Actor.resources(~S),~Unit,~Actor.route(),~Actor.Ops(~S),~Actors.GraphUser<S>,~String,~String,~Actors.graph_declaration(~S),~Actors.graph_body(~S),~{==},Actors.graph_compilation(~S),world,"generalized-graph-author",Actors.GraphUser{Actor.User{child,parent,replacement,local},False{},0}))
     case Entities.NodeRefused{world,error}:NodeRefused{factory,context,world,[child,parent],local,error}
 def parent_ready(~S:Data,factory:W.Factory,context:Captured(~S),child:W.Handle<S>,local:Actor.Session,result:Entities.Node<S>) -> Initialization<S>:
   match result:
