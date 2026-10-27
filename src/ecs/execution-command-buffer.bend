@@ -2,6 +2,9 @@ import Base
 import ./world.bend as W
 import ./execution-reservation-task.bend as Task
 import ./execution-reservation-bundle.bend as Bundle
+import ./execution-composer-layout.bend as Layout
+import ./execution-relation-operation.bend as Operation
+import ./execution-relation-store.bend as RelationStore
 
 # Framework storage for one declared component family. Payloads remain affine
 # until a whole-World barrier applies them or returns them in a refusal receipt.
@@ -9,6 +12,7 @@ type Entry<-S:Data,-P:Type,-D:Type> is Type:
   Entry{handle:W.Handle<S>,incoming:Maybe<&1,P>}
   Despawn{handle:W.Handle<S>}
   Spawn{handle:W.Handle<S>,bundle:D}
+  Relation{route:Layout.Route,operation:Operation.Operation<S>}
 type Receipt<-S:Data,-P:Type,-D:Type> is Type:
   Applied{handle:W.Handle<S>,previous:Maybe<&1,P>}
   Refused{handle:W.Handle<S>,incoming:Maybe<&1,P>}
@@ -16,12 +20,17 @@ type Receipt<-S:Data,-P:Type,-D:Type> is Type:
   DespawnRefused{handle:W.Handle<S>}
   Spawned{handle:W.Handle<S>,previous:D}
   SpawnRefused{handle:W.Handle<S>,bundle:D,reason:Bundle.Refusal}
+  RelationPublished{route:Layout.Route,receipt:RelationStore.Receipt<S>}
+  RelationUndeclared{route:Layout.Route,operation:Operation.Operation<S>}
 type Buffer<-S:Data,-P:Type,-D:Type> is Type:
   Buffer{pending:List<Entry<S,P,D>>,receipts:List<Receipt<S,P,D>>}
 # Bevy ad678262, schedule/executor/single_threaded.rs: run_without_applying_deferred
 # keeps the system's authored buffer, including after a handled RunSystemError.
 # Enqueue here only transfers ownership; no component storage is available.
 def empty(~S:Data,~P:Type,~D:Type) -> Buffer<S,P,D>:Buffer{[],[]}
+def relation(~S:Data,~P:Type,~D:Type,buffer:Buffer<S,P,D>,route:Layout.Route,operation:Operation.Operation<S>) -> Buffer<S,P,D>:
+  match buffer:
+    case Buffer{pending,receipts}:Buffer{Relation{route,operation} <> pending,receipts}
 def insert(~S:Data,~P:Type,~D:Type,buffer:Buffer<S,P,D>,handle:W.Handle<S>,incoming:P) -> Buffer<S,P,D>:
   match buffer:
     case Buffer{pending,receipts}:Buffer{Entry{handle,Some{incoming}} <> pending,receipts}
