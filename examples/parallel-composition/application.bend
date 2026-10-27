@@ -28,13 +28,13 @@ def Application() -> Type:Feature.Application<Scheduled(),Provisions>
 def Report() -> Data:Feature.Report<Dep.Report<String,String>>
 def groups() -> List<&2,Scoped.Nested>:
   [Scoped.Nested{[0],[Plan.Edge{1,2}]},Scoped.Nested{[1],[Plan.Edge{3,4}]},Scoped.Nested{[],[Plan.Edge{1,3},Plan.Edge{3,2}]}]
-def guard_dispatch() -> D.GuardOwner() -> Schema.World() -> U32 -> IO(D.GuardOwner() & (Schema.World() & Exec.Invocation<String,Bool>)):
-  Conditions.leaf_dispatch(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~Unit,~D.GuardFamily,~D.GuardLocal,~String,~D.guard_kernel,~D.guard_body)
+def guard_dispatch() -> D.GuardBinding() -> Schema.World() -> U32 -> IO(D.GuardBinding() & (Schema.World() & Exec.Invocation<String,Bool>)):
+  Conditions.retained_leaf_dispatch(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~Unit,~D.GuardFamily,~D.GuardLocal,~String,~D.guard_kernel,~D.guard_body,~D.guard_compiled())
 def guards_dispatch() -> D.Guards() -> Schema.World() -> U32 -> IO(D.Guards() & (Schema.World() & Exec.Invocation<String,Bool>)):
-  Conditions.paired_dispatch(~Schema.World(),~D.GuardOwner(),~D.GuardOwner(),~String,~guard_dispatch(),~guard_dispatch())
+  Conditions.paired_dispatch(~Schema.World(),~D.GuardBinding(),~D.GuardBinding(),~String,~guard_dispatch(),~guard_dispatch())
 def guards(owners:D.Guards()) -> Conditions.Registry<Schema.World(),D.Guards(),String,guards_dispatch()>:
   match owners:
-    case Reg.Product{left,right,_}:Conditions.compile_join(~String,~Schema.World(),~D.GuardOwner(),~D.GuardOwner(),~guard_dispatch(),~guard_dispatch(),Conditions.compile_leaf(~String,~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~Unit,~D.GuardFamily,~D.GuardLocal,~D.guard_kernel,~D.guard_body,left),Conditions.compile_leaf(~String,~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~Unit,~D.GuardFamily,~D.GuardLocal,~D.guard_kernel,~D.guard_body,right))
+    case Reg.Product{left,right,_}:Conditions.compile_join(~String,~Schema.World(),~D.GuardBinding(),~D.GuardBinding(),~guard_dispatch(),~guard_dispatch(),Conditions.compile_retained_leaf(~String,~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~Unit,~D.GuardFamily,~D.GuardLocal,~D.guard_kernel,~D.guard_body,~D.guard_compiled(),left),Conditions.compile_retained_leaf(~String,~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~Unit,~D.GuardFamily,~D.GuardLocal,~D.guard_kernel,~D.guard_body,~D.guard_compiled(),right))
 def available(key:String) -> Bool:Compose.provides(~Schema.Nominal,Inventory.inventory(~Schema.Nominal,~Schema.components(),~Schema.resources()),key)
 def assembly(a:D.MotionBinding(),b:D.MotionBinding(),c:D.LabelsBinding(),d:D.LabelsBinding()) -> Feature.Assembly<Schema.Nominal,D.Owners()>:
   Feature.pair(~Schema.Nominal,D.MotionOwners(),D.LabelsOwners(),Feature.from_facts(~Schema.Nominal,~Schema.components(),~Schema.resources(),D.MotionOwners(),"motion",Feature.Empty{},Registry.generalized_pair_facts(D.MotionNode(),D.MotionNode(),D.motion_facts(a),D.motion_facts(b))),Feature.from_facts(~Schema.Nominal,~Schema.components(),~Schema.resources(),D.LabelsOwners(),"labels",Feature.Empty{},Registry.generalized_pair_facts(D.LabelsNode(),D.LabelsNode(),D.labels_facts(c),D.labels_facts(d))))

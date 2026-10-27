@@ -107,7 +107,7 @@ def guard(value:D.GuardOwner()) -> String:
     case Sys.Owner{namespace,id,name,access,cursor,local}:metadata(namespace,id,name,access,cursor,guard_local(local))
 def guards(value:D.Guards()) -> String:
   match value:
-    case Reg.Product{a,b,ids}:"[" ++ guard(a) ++ ";" ++ guard(b) ++ "];cached-ids=" ++ List.show(&2,U32,U32.show,ids)
+    case Reg.Product{Scope.CompiledBinding{_,a},Scope.CompiledBinding{_,b},ids}:"[" ++ guard(a) ++ ";" ++ guard(b) ++ "];cached-ids=" ++ List.show(&2,U32,U32.show,ids)
 def handler(value:Application.Handler) -> String:
   match value:
     case Application.Handler{token,errors}:uint(Array.get(U32,token,0)) ++ ":" ++ List.show(&2,String,value=>value,errors)
@@ -241,8 +241,8 @@ def pending_labels(value:Registration.LabelsSlot) -> String:
     case Registration.LabelsRegistered{Scope.CompiledBinding{_,owner}}:labels(owner)
 def pending_guard(value:Registration.GuardSlot) -> String:
   match value:
-    case Registration.GuardPending{local}:"pending:" ++ guard_local(local)
-    case Registration.GuardRegistered{owner}:guard(owner)
+    case Registration.GuardPending{_,local}:"pending:" ++ guard_local(local)
+    case Registration.GuardRegistered{Scope.CompiledBinding{_,owner}}:guard(owner)
 def registration(value:Registration.Inventory) -> String:
   match value:
     case Registration.Inventory{state,a,b,c,d,e,f}:"definition-refused;world={" ++ world(state) ++ "};systems=[" ++ pending_motion(a) ++ ";" ++ pending_motion(b) ++ ";" ++ pending_labels(c) ++ ";" ++ pending_labels(d) ++ "];guards=[" ++ pending_guard(e) ++ ";" ++ pending_guard(f) ++ "]"

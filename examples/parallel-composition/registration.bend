@@ -19,8 +19,8 @@ type LabelsSlot is Type:
   LabelsPending{compilation:Decl.Compilation<S.Nominal,S.Store(),D.C(),D.R(),Labels.Family(~S.Nominal)>,local:Labels.Local<S.Nominal>}
   LabelsRegistered{binding:D.LabelsBinding()}
 type GuardSlot is Type:
-  GuardPending{local:D.GuardLocal}
-  GuardRegistered{owner:D.GuardOwner()}
+  GuardPending{compilation:D.GuardCompilation(),local:D.GuardLocal}
+  GuardRegistered{binding:D.GuardBinding()}
 type Inventory is Type:
   Inventory{world:S.World(),a:MotionSlot,b:MotionSlot,c:LabelsSlot,d:LabelsSlot,e:GuardSlot,f:GuardSlot}
 type Outcome is Type:
@@ -30,21 +30,21 @@ def finished(nesting:List<&2,Scoped.Nested>,inventory:Inventory) -> Outcome:
   match inventory:
     case Inventory{world,MotionRegistered{a},MotionRegistered{b},LabelsRegistered{c},LabelsRegistered{d},GuardRegistered{e},GuardRegistered{f}}:Registered{App.build(world,a,b,c,d,Reg.Product{e,f,[]},nesting)}
     case inventory:Refused{inventory}
-def returned5(nesting:List<&2,Scoped.Nested>,a:MotionSlot,b:MotionSlot,c:LabelsSlot,d:LabelsSlot,e:GuardSlot,result:Sys.Defined<S.World(),D.GuardOwner(),D.GuardLocal>) -> Outcome:
+def returned5(nesting:List<&2,Scoped.Nested>,a:MotionSlot,b:MotionSlot,c:LabelsSlot,d:LabelsSlot,e:GuardSlot,result:D.GuardCompilation() & Sys.Defined<S.World(),D.GuardOwner(),D.GuardLocal>) -> Outcome:
   match result:
-    case Sys.Defined{world,owner}:finished(nesting,Inventory{world,a,b,c,d,e,GuardRegistered{owner}})
-    case Sys.DefinitionRefused{world,local}:Refused{Inventory{world,a,b,c,d,e,GuardPending{local}}}
+    case (compilation,Sys.Defined{world,owner}):finished(nesting,Inventory{world,a,b,c,d,e,GuardRegistered{Scope.CompiledBinding{compilation,owner}}})
+    case (compilation,Sys.DefinitionRefused{world,local}):Refused{Inventory{world,a,b,c,d,e,GuardPending{compilation,local}}}
 def step5(nesting:List<&2,Scoped.Nested>,inventory:Inventory) -> Outcome:
   match inventory:
-    case Inventory{world,a,b,c,d,e,GuardPending{local}}:returned5(nesting,a,b,c,d,e,Register.define_framework(~S.Nominal,~S.Store(),~S.Store(),~S.Resources(),~Unit,~D.GuardFamily,~D.GuardLocal,~String,~Bool,~D.guard_kernel,~D.guard_body,~S.Resources(),world,"host-second",local))
+    case Inventory{world,a,b,c,d,e,GuardPending{compilation,local}}:returned5(nesting,a,b,c,d,e,Register.define_with_compilation(~S.Nominal,~S.Store(),~S.Store(),~S.Resources(),~Unit,~D.GuardFamily,~D.GuardLocal,~String,~Bool,~D.guard_kernel,~D.guard_body,~S.Resources(),compilation,world,"host-second",local))
     case inventory:Refused{inventory}
-def returned4(nesting:List<&2,Scoped.Nested>,a:MotionSlot,b:MotionSlot,c:LabelsSlot,d:LabelsSlot,f:GuardSlot,result:Sys.Defined<S.World(),D.GuardOwner(),D.GuardLocal>) -> Outcome:
+def returned4(nesting:List<&2,Scoped.Nested>,a:MotionSlot,b:MotionSlot,c:LabelsSlot,d:LabelsSlot,f:GuardSlot,result:D.GuardCompilation() & Sys.Defined<S.World(),D.GuardOwner(),D.GuardLocal>) -> Outcome:
   match result:
-    case Sys.Defined{world,owner}:step5(nesting,Inventory{world,a,b,c,d,GuardRegistered{owner},f})
-    case Sys.DefinitionRefused{world,local}:Refused{Inventory{world,a,b,c,d,GuardPending{local},f}}
+    case (compilation,Sys.Defined{world,owner}):step5(nesting,Inventory{world,a,b,c,d,GuardRegistered{Scope.CompiledBinding{compilation,owner}},f})
+    case (compilation,Sys.DefinitionRefused{world,local}):Refused{Inventory{world,a,b,c,d,GuardPending{compilation,local},f}}
 def step4(nesting:List<&2,Scoped.Nested>,inventory:Inventory) -> Outcome:
   match inventory:
-    case Inventory{world,a,b,c,d,GuardPending{local},f}:returned4(nesting,a,b,c,d,f,Register.define_framework(~S.Nominal,~S.Store(),~S.Store(),~S.Resources(),~Unit,~D.GuardFamily,~D.GuardLocal,~String,~Bool,~D.guard_kernel,~D.guard_body,~S.Resources(),world,"host-first",local))
+    case Inventory{world,a,b,c,d,GuardPending{compilation,local},f}:returned4(nesting,a,b,c,d,f,Register.define_with_compilation(~S.Nominal,~S.Store(),~S.Store(),~S.Resources(),~Unit,~D.GuardFamily,~D.GuardLocal,~String,~Bool,~D.guard_kernel,~D.guard_body,~S.Resources(),compilation,world,"host-first",local))
     case inventory:Refused{inventory}
 def returned3(nesting:List<&2,Scoped.Nested>,a:MotionSlot,b:MotionSlot,c:LabelsSlot,e:GuardSlot,f:GuardSlot,result:Decl.Compilation<S.Nominal,S.Store(),D.C(),D.R(),Labels.Family(~S.Nominal)> & Sys.Defined<S.World(),D.LabelsOwner(),Labels.Local<S.Nominal>>) -> Outcome:
   match result:
@@ -79,4 +79,4 @@ def step0(nesting:List<&2,Scoped.Nested>,inventory:Inventory) -> Outcome:
     case Inventory{world,MotionPending{compilation,local},b,c,d,e,f}:returned0(nesting,b,c,d,e,f,Register.define_with_compilation(~S.Nominal,~S.Store(),~D.C(),~D.R(),~Unit,~Motion.Family(~S.Nominal),~Motion.Local<S.Nominal>,~String,~String,~D.motion_kernel,~Motion.body(~S.Nominal),~S.Resources(),compilation,world,"motion-first",local))
     case inventory:Refused{inventory}
 def define(world:S.World(), +first:W.Handle<S.Nominal>, +second:W.Handle<S.Nominal>,nesting:List<&2,Scoped.Nested>) -> Outcome:
-  step0(nesting,Inventory{world,MotionPending{D.motion_compiled(),Motion.Local{ALeaf{501},0,first}},MotionPending{D.motion_compiled(),Motion.Local{ALeaf{502},0,first}},LabelsPending{D.labels_compiled(),Labels.Local{ALeaf{"LOCAL-503"},0,second}},LabelsPending{D.labels_compiled(),Labels.Local{ALeaf{"LOCAL-504"},0,second}},GuardPending{D.GuardLocal{ALeaf{701},0}},GuardPending{D.GuardLocal{ALeaf{702},0}}})
+  step0(nesting,Inventory{world,MotionPending{D.motion_compiled(),Motion.Local{ALeaf{501},0,first}},MotionPending{D.motion_compiled(),Motion.Local{ALeaf{502},0,first}},LabelsPending{D.labels_compiled(),Labels.Local{ALeaf{"LOCAL-503"},0,second}},LabelsPending{D.labels_compiled(),Labels.Local{ALeaf{"LOCAL-504"},0,second}},GuardPending{D.guard_compiled(),D.GuardLocal{ALeaf{701},0}},GuardPending{D.guard_compiled(),D.GuardLocal{ALeaf{702},0}}})

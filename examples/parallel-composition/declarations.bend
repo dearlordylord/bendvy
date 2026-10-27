@@ -90,7 +90,11 @@ def guard_caps(~Permit:Data,~H:Type,caps:GuardFamily(Unit,H),scope:H,local:Guard
 def guard_body(~Permit:Data,~H:Type,~caps:GuardFamily(Permit,H),scope:H,local:GuardLocal) -> Task.Task<Schema.Nominal,Permit,H & (GuardLocal & Sys.Completion<String,Bool>)>:
   guard_caps(~Permit,~H,caps,scope,local)
 def GuardOwner() -> Type:Sys.Owner<Schema.Nominal,Schema.Store(),Schema.Store(),Schema.Resources(),Unit,GuardFamily,GuardLocal,String,Bool,guard_kernel,guard_body>
+def GuardCompilation() -> Type:D.Compilation<Schema.Nominal,Schema.Store(),Schema.Store(),Schema.Resources(),GuardFamily>
+def guard_compiled() -> GuardCompilation():
+  Program.compile_framework(~Schema.Nominal,~Schema.Store(),~Schema.Store(),~Schema.Resources(),~GuardFamily,~guard_kernel)
+def GuardBinding() -> Type:Scope.CompiledBinding<GuardCompilation(),GuardOwner()>
 def MotionOwners() -> Type:Product.Owner<MotionNode(),MotionNode()>
 def LabelsOwners() -> Type:Product.Owner<LabelsNode(),LabelsNode()>
 def Owners() -> Type:Product.Owner<MotionOwners(),LabelsOwners()>
-def Guards() -> Type:Reg.Product<GuardOwner(),GuardOwner()>
+def Guards() -> Type:Reg.Product<GuardBinding(),GuardBinding()>
