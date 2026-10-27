@@ -9,7 +9,7 @@ control_lock="/tmp/bendvy-source-check-$(id -u)-cpu-$control_cpu.lock"
 check_source() {
   flock "$control_lock" timeout --signal=KILL 15s taskset -c "$control_cpu" "$BEND" "$1" --check-only
 }
-for consumer in filters history scheduled; do
+for consumer in main history scheduled; do
   check_source "examples/parallel-lifecycle/$consumer.bend"
 done
 check_source examples/parallel-query/controls/output-positive.bend
@@ -32,9 +32,9 @@ reject_source output-escape 'Array<U32>' 'escape~O'
 reject_source output-undeclared 'Local.Commands' 'Query.OutputEach'
 reject_source write-through-read '@_:U32' '@read:Payload.Input'
 check_backend() {
-  local case_name=$1 workers
-  python3 "examples/parallel-lifecycle/$case_name-oracle.py" > "$example_output/$case_name.expected"
-  diff -u "examples/parallel-lifecycle/$case_name.expected.stdout" "$example_output/$case_name.expected"
+  local case_name=$1 oracle_name=${2:-$1} workers
+  python3 "examples/parallel-lifecycle/$oracle_name-oracle.py" > "$example_output/$case_name.expected"
+  diff -u "examples/parallel-lifecycle/$oracle_name.expected.stdout" "$example_output/$case_name.expected"
   example_emit "examples/parallel-lifecycle/$case_name.bend" "$example_output/$case_name.js"
   example_node "$example_output/$case_name.js" > "$example_output/$case_name.js.stdout" 2> "$example_output/$case_name.js.stderr"
   diff -u "$example_output/$case_name.expected" "$example_output/$case_name.js.stdout"
@@ -49,6 +49,7 @@ check_backend() {
     done
   fi
 }
-for consumer in filters history scheduled prepared-foreign; do
+check_backend main filters
+for consumer in history scheduled prepared-foreign; do
   check_backend "$consumer"
 done
