@@ -50,9 +50,9 @@ def take_receipts(~S:Data,~P:Type,~D:Type,buffer:Buffer<S,P,D>) -> Buffer<S,P,D>
 type SpawnAdmission<-S:Data,-D:Type> is Type:
   SpawnQueued{handle:W.Handle<S>}
   SpawnRejected{bundle:D,error:W.WorldError}
-def stage(~S:Data,~P:Type,~D:Type,buffer:Buffer<S,P,D>,bundle:D,answer:W.Reservation<S>) -> Task.Task<S,Buffer<S,P,D> & SpawnAdmission<S,D>>:
+def stage(~S:Data,~P:Type,~D:Type,~Permit:Data,buffer:Buffer<S,P,D>,bundle:D,answer:W.Reservation<S>) -> Task.Task<S,Permit,Buffer<S,P,D> & SpawnAdmission<S,D>>:
   match buffer answer:
     case Buffer{pending,receipts} W.ReservationRejected{error}:Task.TDone{(Buffer{pending,receipts},SpawnRejected{bundle,error})}
     case Buffer{pending,receipts} W.Reserved{+handle}:Task.TDone{(Buffer{Spawn{handle,bundle} <> pending,receipts},SpawnQueued{handle})}
-def spawn(~S:Data,~P:Type,~D:Type,buffer:Buffer<S,P,D>,bundle:D) -> Task.Task<S,Buffer<S,P,D> & SpawnAdmission<S,D>>:
-  Task.TNeed{answer => stage(~S,~P,~D,buffer,bundle,answer)}
+def spawn(~S:Data,~P:Type,~D:Type,~Permit:Data,~token:Permit,buffer:Buffer<S,P,D>,bundle:D) -> Task.Task<S,Permit,Buffer<S,P,D> & SpawnAdmission<S,D>>:
+  Task.TNeed{token,answer => stage(~S,~P,~D,~Permit,buffer,bundle,answer)}
