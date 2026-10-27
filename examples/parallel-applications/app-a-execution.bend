@@ -21,6 +21,8 @@ import ../../src/ecs/dependency-executor.bend as Exec
 import ../../src/ecs/dependency-plan.bend as Plan
 import ../../src/ecs/owner-product.bend as Product
 import ../../src/ecs/world.bend as W
+import ../../src/ecs/execution-composer-layout.bend as L
+import ../../src/ecs/change-tick.bend as Tick
 
 def Storage() -> Type:General.Storage<P.AuditWorkshop,D.components(),Author.resources(),Unit>
 def ApplicationState() -> Type:App.State<Storage(),Captures.Nodes(),Condition.Owner(),Unit>
@@ -43,8 +45,10 @@ def observed(result:Root.ObservedScheduled<ApplicationState(),String,String>) ->
   match result:
     case Root.ObservedScheduled{application,report,boundaries}:IO.bind(Unit,Application() & App.Report<String,String>,IO.print("AppA deferred boundaries|" ++ List.show(&2,DeferredSchedule.Boundary,boundary,boundaries)),_=>IO.pure(Application() & App.Report<String,String>,(application,report)))
 # The existing application keeps the same returned owner between all three runs.
+def run_mode(on:Bool,app:Application()) -> IO(Application() & App.Report<String,String>):
+  IO.bind(Root.ObservedScheduled<ApplicationState(),String,String>,Application() & App.Report<String,String>,run_observed(on,app),observed)
 def run(app:Application()) -> IO(Application() & App.Report<String,String>):
-  IO.bind(Root.ObservedScheduled<ApplicationState(),String,String>,Application() & App.Report<String,String>,run_observed(True{},app),observed)
+  run_mode(True{},app)
 def facts(writer:Systems.WriterBinding(),query:Systems.QueryBinding(),reader:Systems.ReaderBinding()) -> Tree.GeneralizedFacts<Captures.Nodes()>:
   Tree.generalized_pair_facts(Systems.WriterNode(),Product.Owner<Systems.QueryNode(),Systems.ReaderNode()>,Tree.generalized_leaf_facts(~P.AuditWorkshop,~D.components(),~Author.resources(),~Unit,~String,~String,~Systems.WriterOps,~Systems.WriterLocal,~Systems.writer_kernel,~Systems.writer_body,writer),Tree.generalized_pair_facts(Systems.QueryNode(),Systems.ReaderNode(),Tree.generalized_leaf_facts(~P.AuditWorkshop,~D.components(),~Author.resources(),~Unit,~String,~String,~Systems.QueryOps,~Systems.QueryLocal,~Systems.query_kernel,~Systems.query_body,query),Tree.generalized_leaf_facts(~P.AuditWorkshop,~D.components(),~Author.resources(),~Unit,~String,~String,~Systems.ReaderOps,~Array<U32>,~Systems.reader_kernel,~Systems.reader_body,reader)))
 type Definition is Type:
@@ -69,12 +73,30 @@ def registered(result:Systems.Registration) -> Definition:
     case Systems.Registered{world,writer,Scope.CompiledBinding{compilation,Sys.Owner{namespace,+id,name,access,cursor,local}},reader}:ordered(world,Scope.CompiledBinding{compilation,Sys.Owner{namespace,id,name,access,cursor,local}},id,writer_id(writer),reader_id(reader))
     case inventory:RegistrationRefused{inventory}
 def define(world:Systems.World(),target:W.Handle<P.AuditWorkshop>) -> Definition:registered(Systems.define(world,target))
-def snapshot_returned(displaced:List<&1,Schema.displacements(~P.AuditWorkshop,D.components())>,guard:Condition.Owner(),handler:Unit,stateBindings:List<&2,App.Binding>,plan:Plan.Build<String>,bindings:List<&2,App.Binding>,rules:Registration.Rules,deferred:Root.Deferred,worldResult:Systems.World() & String,nodeResult:Captures.Nodes() & String) -> Application() & String:
-  match worldResult nodeResult:
-    case (world,values), (nodes,captures):(Root.Scheduled{App.State{General.Present{world,displaced},nodes,guard,handler,stateBindings},plan,bindings,rules,deferred},values ++ ";" ++ captures)
+def guard_observed(owner:Condition.Owner()) -> Condition.Owner() & String:
+  match owner:
+    case Sys.Owner{+namespace,+id,name,access,+cursor,+local}:(Sys.Owner{namespace,id,name,access,cursor,local},"condition-ns=" ++ U32.show(namespace) ++ ";id=" ++ U32.show(id) ++ ";calls=" ++ U32.show(local) ++ ";cursor=" ++ Tick.cursor_show(cursor))
+def clock_observed(result:Systems.World() & Tick.Tick) -> Systems.World() & String:
+  match result:
+    case (world,tick):(world,"clock=" ++ Tick.show(tick))
+def clock_named(namespace:U32,result:Systems.World() & String) -> Systems.World() & String:
+  match result:
+    case (world,text):(world,"world-ns=" ++ U32.show(namespace) ++ ";" ++ text)
+def namespace_observed(result:Systems.World() & U32) -> Systems.World() & String:
+  match result:
+    case (world,namespace):clock_named(namespace,clock_observed(W.clock(~P.AuditWorkshop,~Systems.Columns(),~L.resources(~P.AuditWorkshop,Author.resources()),~Unit,world)))
+def world_values(metadata:String,result:Systems.World() & String) -> Systems.World() & String:
+  match result:
+    case (world,text):(world,metadata ++ ";" ++ text)
+def world_observed(target:W.Handle<P.AuditWorkshop>,result:Systems.World() & String) -> Systems.World() & String:
+  match result:
+    case (world,text):world_values(text,Inspect.paired(world,target))
+def snapshot_returned(displaced:List<&1,Schema.displacements(~P.AuditWorkshop,D.components())>,guardResult:Condition.Owner() & String,handler:Unit,stateBindings:List<&2,App.Binding>,plan:Plan.Build<String>,bindings:List<&2,App.Binding>,rules:Registration.Rules,deferred:Root.Deferred,worldResult:Systems.World() & String,nodeResult:Captures.Nodes() & String) -> Application() & String:
+  match guardResult worldResult nodeResult:
+    case (guard,condition), (world,values), (nodes,captures):(Root.Scheduled{App.State{General.Present{world,displaced},nodes,guard,handler,stateBindings},plan,bindings,rules,deferred},values ++ ";" ++ captures ++ ";" ++ condition)
 def snapshot(target:W.Handle<P.AuditWorkshop>,app:Application()) -> Application() & String:
   match app:
-    case Root.Scheduled{App.State{General.Present{world,displaced},nodes,guard,handler,stateBindings},plan,bindings,rules,deferred}:snapshot_returned(displaced,guard,handler,stateBindings,plan,bindings,rules,deferred,Inspect.paired(world,target),Captures.nodes(nodes))
+    case Root.Scheduled{App.State{General.Present{world,displaced},nodes,guard,handler,stateBindings},plan,bindings,rules,deferred}:snapshot_returned(displaced,guard_observed(guard),handler,stateBindings,plan,bindings,rules,deferred,world_observed(target,namespace_observed(W.namespace(~P.AuditWorkshop,~Systems.Columns(),~L.resources(~P.AuditWorkshop,Author.resources()),~Unit,world))),Captures.nodes(nodes))
     case app:(app,"refused-storage-inventory-retained")
 def event(value:Exec.Observation<String,String>) -> String:
   match value:

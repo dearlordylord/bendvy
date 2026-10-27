@@ -27,22 +27,22 @@ def arrays(owners:List<Array<U32>>) -> List<Array<U32>> & List<&2,String>:
     case []:([],[])
     case head <> tail:array_cons(array(head),arrays(tail))
 def text(value:String) -> String:value
-def writer_returned(namespace:U32,id:U32,name:String,access:List<&2,String>,+cursor:Maybe<&2,Tick.Tick>,unused:List<(Array<U32> -> Array<U32> & Array<U32>)>,result:List<Array<U32>> & List<&2,String>) -> Systems.Writer() & String:
+def writer_returned(+namespace:U32,+id:U32,name:String,access:List<&2,String>,+cursor:Maybe<&2,Tick.Tick>,unused:List<(Array<U32> -> Array<U32> & Array<U32>)>,result:List<Array<U32>> & List<&2,String>) -> Systems.Writer() & String:
   match result:
-    case (returned,texts):(Sys.Owner{namespace,id,name,access,cursor,Systems.WriterLocal{returned,unused}},"counter-displaced=" ++ List.show(&2,String,text,texts) ++ ";cursor=" ++ Tick.cursor_show(cursor))
+    case (returned,texts):(Sys.Owner{namespace,id,name,access,cursor,Systems.WriterLocal{returned,unused}},"writer-ns=" ++ U32.show(namespace) ++ ";id=" ++ U32.show(id) ++ ";counter-displaced=" ++ List.show(&2,String,text,texts) ++ ";cursor=" ++ Tick.cursor_show(cursor))
 def writer(owner:Systems.Writer()) -> Systems.Writer() & String:
   match owner:
     case Sys.Owner{namespace,id,name,access,cursor,Systems.WriterLocal{returned,unused}}:writer_returned(namespace,id,name,access,cursor,unused,arrays(returned))
-def query_returned(namespace:U32,id:U32,name:String,access:List<&2,String>,+cursor:Maybe<&2,Tick.Tick>,target:W.Handle<P.AuditWorkshop>,calls:Array<U32> & String,values:Array<U32> & String) -> Systems.Query() & String:
+def query_returned(+namespace:U32,+id:U32,name:String,access:List<&2,String>,+cursor:Maybe<&2,Tick.Tick>,target:W.Handle<P.AuditWorkshop>,calls:Array<U32> & String,values:Array<U32> & String) -> Systems.Query() & String:
   match calls values:
-    case (calls,callText), (values,valueText):(Sys.Owner{namespace,id,name,access,cursor,Systems.QueryReady{target,P.QueryPack{calls,values}}},"query-calls=" ++ callText ++ ";query-values=" ++ valueText ++ ";cursor=" ++ Tick.cursor_show(cursor))
+    case (calls,callText), (values,valueText):(Sys.Owner{namespace,id,name,access,cursor,Systems.QueryReady{target,P.QueryPack{calls,values}}},"query-ns=" ++ U32.show(namespace) ++ ";id=" ++ U32.show(id) ++ ";query-calls=" ++ callText ++ ";query-values=" ++ valueText ++ ";cursor=" ++ Tick.cursor_show(cursor))
 def query(owner:Systems.Query()) -> Systems.Query() & String:
   match owner:
     case Sys.Owner{namespace,id,name,access,cursor,Systems.QueryReady{target,P.QueryPack{calls,values}}}:query_returned(namespace,id,name,access,cursor,target,array(calls),array(values))
     case owner:(owner,"query-capture-retained-in-refused-operation")
-def reader_returned(namespace:U32,id:U32,name:String,access:List<&2,String>,+cursor:Maybe<&2,Tick.Tick>,result:Array<U32> & String) -> Systems.Reader() & String:
+def reader_returned(+namespace:U32,+id:U32,name:String,access:List<&2,String>,+cursor:Maybe<&2,Tick.Tick>,result:Array<U32> & String) -> Systems.Reader() & String:
   match result:
-    case (owner,text):(Sys.Owner{namespace,id,name,access,cursor,owner},"resource-capture=" ++ text ++ ";cursor=" ++ Tick.cursor_show(cursor))
+    case (owner,text):(Sys.Owner{namespace,id,name,access,cursor,owner},"reader-ns=" ++ U32.show(namespace) ++ ";id=" ++ U32.show(id) ++ ";resource-capture=" ++ text ++ ";cursor=" ++ Tick.cursor_show(cursor))
 def reader(owner:Systems.Reader()) -> Systems.Reader() & String:
   match owner:
     case Sys.Owner{namespace,id,name,access,cursor,local}:reader_returned(namespace,id,name,access,cursor,array(local))

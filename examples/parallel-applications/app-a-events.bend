@@ -104,9 +104,9 @@ def accept(owners:Owners(),target:W.Handle<P.AuditWorkshop>,payload:Array<U32>) 
   match owners:
     case Product.Owner{Sys.Owner{wn,wi,wname,wa,wc,WriterLocal{None{},returned,history}},Sys.Owner{rn,ri,rname,ra,rc,ReaderLocal{reader,oldTarget,scratch,readings,values,lagged}}}:(Product.Owner{Sys.Owner{wn,wi,wname,wa,wc,WriterLocal{Some{payload},returned,history}},Sys.Owner{rn,ri,rname,ra,rc,ReaderLocal{reader,Some{target},scratch,readings,values,lagged}}},None{})
     case owners:(owners,Some{payload})
-def scratch_observed(writer:Writer(),namespace:U32,id:U32,name:String,access:List<&2,String>,cursor:Maybe<&2,Tick.Tick>,reader:Reader(),target:Maybe<&2,W.Handle<P.AuditWorkshop>>,+readings:List<&2,U32>,+values:List<&2,U32>,lagged:Bool,result:Array<U32> & List<&2,U32>) -> Owners() & String:
-  match result:
-    case (scratch,view):(Product.Owner{writer,Sys.Owner{namespace,id,name,access,cursor,ReaderLocal{reader,target,scratch,readings,values,lagged}}},"readings=" ++ List.show(&2,U32,U32.show,readings) ++ ";prior-scalars=" ++ List.show(&2,U32,U32.show,values) ++ ";scratch=" ++ List.show(&2,U32,U32.show,view))
+def scratch_observed(writer:Writer(),+namespace:U32,+id:U32,name:String,access:List<&2,String>,+cursor:Maybe<&2,Tick.Tick>,reader:Reader(),target:Maybe<&2,W.Handle<P.AuditWorkshop>>,+readings:List<&2,U32>,+values:List<&2,U32>,+lagged:Bool,result:Array<U32> & List<&2,U32>) -> Owners() & String:
+  match reader result:
+    case Event.Reader{+identity,+readerId,+readCursor}, (scratch,view):(Product.Owner{writer,Sys.Owner{namespace,id,name,access,cursor,ReaderLocal{Event.Reader{identity,readerId,readCursor},target,scratch,readings,values,lagged}}},"event-reader-system-ns=" ++ U32.show(namespace) ++ ";id=" ++ U32.show(id) ++ ";system-cursor=" ++ Tick.cursor_show(cursor) ++ ";family-identity=" ++ U32.show(identity) ++ ";reader-id=" ++ U32.show(readerId) ++ ";reader-cursor=" ++ Nat.show(readCursor) ++ ";lagged=" ++ Bool.show(lagged) ++ ";readings=" ++ List.show(&2,U32,U32.show,readings) ++ ";prior-scalars=" ++ List.show(&2,U32,U32.show,values) ++ ";scratch=" ++ List.show(&2,U32,U32.show,view))
 def observed(owners:Owners()) -> Owners() & String:
   match owners:
     case Product.Owner{writer,Sys.Owner{namespace,id,name,access,cursor,ReaderLocal{reader,target,scratch,readings,values,lagged}}}:scratch_observed(writer,namespace,id,name,access,cursor,reader,target,readings,values,lagged,P.project(scratch))
