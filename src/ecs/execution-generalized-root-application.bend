@@ -16,6 +16,7 @@ import ./dependency-executor.bend as Exec
 import ./dependency-plan.bend as Plan
 import ./world.bend as W
 import ./execution-relation-context.bend as Context
+import ./execution-owner-continuation.bend as Continuation
 
 # A refused physical cut is still an actual affine inventory. It cannot be
 # treated as a World for later guards, publication, or lifecycle maintenance.
@@ -31,17 +32,27 @@ def returned(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,-Nodes:Typ
     case Execution.CutInventoryRefused{admin,inventory,nodes,status,displaced}:(App.State{CutRefused{admin,inventory,List.append(&1,Schema.displacements(~S,components),prior,displaced)},nodes,guards,handler,bindings},status)
     case Execution.JoinInventoryRefused{admin,inventory,nodes,status,displaced}:(App.State{JoinRefused{admin,inventory,List.append(&1,Schema.displacements(~S,components),prior,displaced)},nodes,guards,handler,bindings},status)
     case Execution.NestedInventoryRefused{Inventory,admin,inventory,nodes,status,displaced}:(App.State{NestedRefused{Inventory,admin,inventory,List.append(&1,Schema.displacements(~S,components),prior,displaced)},nodes,guards,handler,bindings},status)
+def group_refused(-State:Type,-Error:Data,-Out:Data,pair:(State & List<&2,U32>) & Unit) -> State & List<&2,Ready.Completed<Error,Out>>:
+  match pair:
+    case ((state,ids),Unit{}):(state,Execution.completed_statuses(Error,Out,[],ids))
+def condition_refused(-State:Type,-Error:Data,pair:State & Unit) -> State & Exec.Condition<Error>:
+  match pair:
+    case (state,Unit{}):(state,Exec.ConditionRefused{})
 def group(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,~Nodes:Type,~Guards:Type,~Handler:Type,~Error:Data,~Out:Data,~dispatch:Nodes -> W.World<S,L.columns(~S,components),L.resources(~S,resources),E> -> List<&2,U32> -> IO(Execution.RunResult<S,components,resources,E,Nodes,Error,Out>),state:App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler>,ids:List<&2,U32>) -> IO(App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & List<&2,Ready.Completed<Error,Out>>):
   match state:
     case App.State{Present{world,prior},nodes,guards,handler,bindings}:Root.mapped(Execution.RunResult<S,components,resources,E,Nodes,Error,Out>,App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & List<&2,Ready.Completed<Error,Out>>,dispatch(nodes,world,ids),result => returned(~S,~components,~resources,~E,Nodes,Guards,Handler,Error,Out,guards,handler,bindings,prior,result))
-    case state:IO.pure(App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & List<&2,Ready.Completed<Error,Out>>,(state,Execution.completed_statuses(Error,Out,[],ids)))
+    case state:
+      header:Continuation.PairedHeader<Unit,App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & List<&2,Ready.Completed<Error,Out>>> = Continuation.PairedHeader{App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & List<&2,U32>,(state,ids),pair => group_refused(App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler>,Error,Out,pair)}
+      Continuation.pure_paired(App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & List<&2,Ready.Completed<Error,Out>>,header)
 def conditioned(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,-Nodes:Type,-Guards:Type,-Handler:Type,-Error:Data,displaced:List<&1,Schema.displacements(~S,components)>,result:App.State<W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,Nodes,Guards,Handler> & Exec.Condition<Error>) -> App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & Exec.Condition<Error>:
   match result:
     case (App.State{world,nodes,guards,handler,bindings},condition):(App.State{Present{world,displaced},nodes,guards,handler,bindings},condition)
 def condition(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,~Nodes:Type,~Guards:Type,~Handler:Type,~Error:Data,~dispatch:Guards -> W.World<S,L.columns(~S,components),L.resources(~S,resources),E> -> U32 -> IO(Guards & (W.World<S,L.columns(~S,components),L.resources(~S,resources),E> & Exec.Invocation<Error,Bool>)),state:App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler>,id:U32) -> IO(App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & Exec.Condition<Error>):
   match state:
     case App.State{Present{world,displaced},nodes,guards,handler,bindings}:Root.mapped(App.State<W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,Nodes,Guards,Handler> & Exec.Condition<Error>,App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & Exec.Condition<Error>,Root.condition_state(~W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,~Nodes,~Guards,~Handler,~Error,~dispatch,App.State{world,nodes,guards,handler,bindings},id),result => conditioned(~S,~components,~resources,~E,Nodes,Guards,Handler,Error,displaced,result))
-    case state:IO.pure(App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & Exec.Condition<Error>,(state,Exec.ConditionRefused{}))
+    case state:
+      header:Continuation.PairedHeader<Unit,App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & Exec.Condition<Error>> = Continuation.PairedHeader{App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler>,state,pair => condition_refused(App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler>,Error,pair)}
+      Continuation.pure_paired(App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & Exec.Condition<Error>,header)
 def published(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,-Nodes:Type,-Guards:Type,-Handler:Type,guards:Guards,handler:Handler,bindings:List<&2,App.Binding>,displaced:List<&1,Schema.displacements(~S,components)>,result:W.World<S,L.columns(~S,components),L.resources(~S,resources),E> & (Nodes & List<&2,U32>)) -> App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & List<&2,U32>:
   match result:
     case (world,(nodes,remaining)):(App.State{Present{world,displaced},nodes,guards,handler,bindings},remaining)

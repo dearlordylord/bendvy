@@ -19,3 +19,5 @@ type PairedHeader<-Input:Type,-Output:Type> is Type:
 def paired_returned(-Input:Type,-Output:Type,header:PairedHeader<Input,Output>,value:Input) -> Output:
   match header:
     case PairedHeader{Held,held,resume}:resume((held,value))
+def pure_paired(-Output:Type,header:PairedHeader<Unit,Output>) -> IO(Output):
+  R => k => k(paired_returned(Unit,Output,header,Unit{}))
