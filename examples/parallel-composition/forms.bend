@@ -30,7 +30,7 @@ def validation() -> String:
 def view(owner:Array<U32>) -> Array<U32> & U32:Array.get(U32,owner,0)
 def collision() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutLeaf{Array<U32>,U32,view,"duplicate"},Layout.LayoutLeaf{Array<U32>,U32,view,"duplicate"}}
 def raw_resources() -> Schema.Resources():
-  Product.Owner{Layout.ResourceSlot{Layout.Viewed{Motion.Counter{ALeaf{301},0,Some{ALeaf{302}}},"STALE"}},Product.Owner{Layout.ResourceSlot{Layout.Viewed{Service.Provided{Labels.Host{ALeaf{"REFUSAL-HOST-904"},9}},Service.Status{Some{"STALE"}}}},Layout.ResourceSlot{Layout.Viewed{Some{ALeaf{"OPTIONAL-303"}},"STALE"}}}}
+  Product.Owner{Layout.ResourceSlot{Layout.Viewed{Motion.Counter{ALeaf{301},0,Some{ALeaf{302}}},"STALE"},Layout.unknown_stamp()},Product.Owner{Layout.ResourceSlot{Layout.Viewed{Service.Provided{Labels.Host{ALeaf{"REFUSAL-HOST-904"},9}},Service.Status{Some{"STALE"}}},Layout.unknown_stamp()},Layout.ResourceSlot{Layout.Viewed{Some{ALeaf{"OPTIONAL-303"}},"STALE"},Layout.unknown_stamp()}}}
 def refused(~components:Layout.Layout,result:Init.Initialized<Schema.Nominal,components,Schema.resources(),Unit>) -> String:
   match result:
     case Init.SchemaRefused{W.Factory{next},owners,error}:Observe.schema_error(error) ++ ";factory=" ++ U32.show(next) ++ ";" ++ Observe.resources(owners)

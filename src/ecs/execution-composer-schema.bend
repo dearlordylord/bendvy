@@ -1,4 +1,5 @@
 import Base
+import ./clock-state.bend as Clock
 import ./ordinary-declaration.bend as Identity
 import ./ordinary-schema.bend as Resource
 import ./schema-fragments.bend as Fragment
@@ -44,7 +45,7 @@ type Initialized<-S:Data,-Components:Layout.Layout,-Resources:Layout.Layout,-E:D
   NamespaceRefused{factory:W.Factory,resources:Layout.resources(~S,Resources)}
 def initialized_world(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~E:Data,world:W.World<S,Layout.columns(~S,components),Layout.resources(~S,resources),E>) -> W.World<S,Layout.columns(~S,components),Layout.resources(~S,resources),E>:
   match world:
-    case W.World{namespace,allocator,store,owners,events,pending,registrations,next,clock,lifecycle}:W.World{namespace,allocator,store,Layout.normalize_resources(~S,resources,owners),events,pending,registrations,next,clock,lifecycle}
+    case W.World{namespace,allocator,store,owners,events,pending,registrations,next,+clock,lifecycle}:W.World{namespace,allocator,store,Layout.initialize_resources(~S,resources,Clock.current(clock),owners),events,pending,registrations,next,clock,lifecycle}
 def created(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~E:Data,result:W.Creation<S,Layout.columns(~S,components),Layout.resources(~S,resources),E>) -> Initialized<S,components,resources,E>:
   match result:
     case W.Created{factory,world}:SchemaCreated{factory,initialized_world(~S,~components,~resources,~E,world)}

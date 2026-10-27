@@ -2,6 +2,7 @@ import Base
 import ./chunk-column.bend as Column
 import ./owner-product.bend as Product
 import ./lifecycle.bend as Lifecycle
+import ./change-tick.bend as Tick
 import ./schema-fragments.bend as Fragment
 
 type Viewed<-P:Type,-V:Data> is Type:
@@ -25,7 +26,8 @@ type Route is Data:
 type ColumnSlot<-S:Data,-P:Type,-key:String,-origin:Layout> is Type:
   ColumnSlot{column:Column.Column<S,P>}
 type ResourceSlot<-S:Data,-P:Type,-key:String,-origin:Layout> is Type:
-  ResourceSlot{owner:P}
+  ResourceSlot{owner:P,stamp:Lifecycle.Stamp}
+def unknown_stamp() -> Lifecycle.Stamp:Lifecycle.Stamp{None{},None{}}
 def origin(layout:Layout,route:Route) -> Layout:
   match layout route:
     case LayoutLeaf{P,V,refresh,key} AtLeaf{}:LayoutLeaf{P,V,refresh,key}
@@ -146,14 +148,14 @@ def resource_joined(~S:Data,-P:Type,-key:String,-origin:Layout,-Outer:Type,-Inne
     case (inner,slot):((outer,inner),slot)
 def resource_take(~S:Data,layout:Layout,route:Route,owner:resources(~S,layout)) -> resource_rest(~S,layout,route) & ResourceSlot<S,stored(layout,route),key(layout,route),origin(layout,route)>:
   match layout route owner:
-    case EmptyLayout{} _ owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}}})
+    case EmptyLayout{} _ owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}},unknown_stamp()})
     case LayoutLeaf{P,V,_,key} AtLeaf{} owner:(Unit{},owner)
     case ClassifiedLayoutLeaf{P,V,_,key,_} AtLeaf{} owner:(Unit{},owner)
-    case LayoutLeaf{P,V,_,key} InLeft{_} owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}}})
-    case ClassifiedLayoutLeaf{P,V,_,key,_} InLeft{_} owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}}})
-    case LayoutLeaf{P,V,_,key} InRight{_} owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}}})
-    case ClassifiedLayoutLeaf{P,V,_,key,_} InRight{_} owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}}})
-    case LayoutPair{left,right} AtLeaf{} owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}}})
+    case LayoutLeaf{P,V,_,key} InLeft{_} owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}},unknown_stamp()})
+    case ClassifiedLayoutLeaf{P,V,_,key,_} InLeft{_} owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}},unknown_stamp()})
+    case LayoutLeaf{P,V,_,key} InRight{_} owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}},unknown_stamp()})
+    case ClassifiedLayoutLeaf{P,V,_,key,_} InRight{_} owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}},unknown_stamp()})
+    case LayoutPair{left,right} AtLeaf{} owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}},unknown_stamp()})
     case LayoutPair{left,right} InLeft{rest} Product.Owner{l,r}:resource_joined(~S,stored(left,rest),key(left,rest),origin(left,rest),resources(~S,right),resource_rest(~S,left,rest),r,resource_take(~S,left,rest,l))
     case LayoutPair{left,right} InRight{rest} Product.Owner{l,r}:resource_joined(~S,stored(right,rest),key(right,rest),origin(right,rest),resources(~S,left),resource_rest(~S,right,rest),l,resource_take(~S,right,rest,r))
 def resource_put(~S:Data,layout:Layout,route:Route,rest:resource_rest(~S,layout,route),slot:ResourceSlot<S,stored(layout,route),key(layout,route),origin(layout,route)>) -> resources(~S,layout):
@@ -259,6 +261,14 @@ def query_valid(~layout:Layout,~route:Route) -> Bool:
 def normalize_resources(~S:Data,layout:Layout,owners:resources(~S,layout)) -> resources(~S,layout):
   match layout owners:
     case EmptyLayout{} owner:owner
-    case LayoutLeaf{P,V,refresh,key} ResourceSlot{Viewed{owner,_}}:ResourceSlot{initialized(P,V,refresh(owner))}
-    case ClassifiedLayoutLeaf{P,V,refresh,key,_} ResourceSlot{Viewed{owner,_}}:ResourceSlot{initialized(P,V,refresh(owner))}
+    case LayoutLeaf{P,V,refresh,key} ResourceSlot{Viewed{owner,_},stamp}:ResourceSlot{initialized(P,V,refresh(owner)),stamp}
+    case ClassifiedLayoutLeaf{P,V,refresh,key,_} ResourceSlot{Viewed{owner,_},stamp}:ResourceSlot{initialized(P,V,refresh(owner)),stamp}
     case LayoutPair{left,right} Product.Owner{l,r}:Product.Owner{normalize_resources(~S,left,l),normalize_resources(~S,right,r)}
+
+# Called only by a genuine ordinary World creation boundary, never by reads.
+def initialize_resources(~S:Data,layout:Layout,+tick:Tick.Tick,owners:resources(~S,layout)) -> resources(~S,layout):
+  match layout owners:
+    case EmptyLayout{} owner:owner
+    case LayoutLeaf{P,V,refresh,key} ResourceSlot{Viewed{owner,_},_}:ResourceSlot{initialized(P,V,refresh(owner)),Lifecycle.Stamp{Some{tick},Some{tick}}}
+    case ClassifiedLayoutLeaf{P,V,refresh,key,_} ResourceSlot{Viewed{owner,_},_}:ResourceSlot{initialized(P,V,refresh(owner)),Lifecycle.Stamp{Some{tick},Some{tick}}}
+    case LayoutPair{left,right} Product.Owner{l,r}:Product.Owner{initialize_resources(~S,left,tick,l),initialize_resources(~S,right,tick,r)}

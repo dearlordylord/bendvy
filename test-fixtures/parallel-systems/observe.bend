@@ -20,13 +20,13 @@ def left_store(~S:Data,store:D.LeftStore(~S)) -> String:
     case Layout.ColumnSlot{column}:Common.capacity_done(~S,~Layout.Viewed<P.Position,String>,~inspect(~P.Position,~P.position),Col.capacity(~S,~Layout.Viewed<P.Position,String>,column))
 def left_resource(~S:Data,resource:D.LeftResource(~S)) -> String:
   match resource:
-    case Layout.ResourceSlot{payload}:Common.projected(~Layout.Viewed<P.Counter,String>,inspect(~P.Counter,~P.counter,payload))
+    case Layout.ResourceSlot{payload,_}:Common.projected(~Layout.Viewed<P.Counter,String>,inspect(~P.Counter,~P.counter,payload))
 def right_store(~S:Data,store:D.RightStore(~S)) -> String:
   match store:
     case Layout.ColumnSlot{column}:Common.capacity_done(~S,~Layout.Viewed<P.Health,String>,~inspect(~P.Health,~P.health),Col.capacity(~S,~Layout.Viewed<P.Health,String>,column))
 def right_resource(~S:Data,resource:D.RightResource(~S)) -> String:
   match resource:
-    case Layout.ResourceSlot{payload}:Common.projected(~Layout.Viewed<P.Score,String>,inspect(~P.Score,~P.score,payload))
+    case Layout.ResourceSlot{payload,_}:Common.projected(~Layout.Viewed<P.Score,String>,inspect(~P.Score,~P.score,payload))
 def stores(~S:Data,store:D.Store(~S)) -> String:
   match store:
     case Product.Owner{left,right}:left_store(~S,left) ++ ";" ++ right_store(~S,right)

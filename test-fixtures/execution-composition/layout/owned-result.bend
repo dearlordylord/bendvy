@@ -64,7 +64,7 @@ def pending(owner:Maybe<&1,Array<U32>>) -> String:
     case Some{owner}:array_id(Array.get(U32,owner,0))
 def observed(first:String,result:Application() & Execute.Status<String,String>) -> String:
   match result:
-    case (Execute.Application{W.World{_,_,_,Layout.ResourceSlot{Layout.Viewed{Mailbox{token,slot},_}},_,_,_,_,_,lifecycle},Sys.Owner{_,_,_,_,_,Local{owner,runs}}},status):first ++ "," ++ done(status) ++ ";mailbox=" ++ array_id(Array.get(U32,token,0)) ++ ";retained=" ++ pending(slot) ++ ";pending=" ++ pending(owner) ++ ";runs=" ++ U32.show(runs)
+    case (Execute.Application{W.World{_,_,_,Layout.ResourceSlot{Layout.Viewed{Mailbox{token,slot},_},_},_,_,_,_,_,lifecycle},Sys.Owner{_,_,_,_,_,Local{owner,runs}}},status):first ++ "," ++ done(status) ++ ";mailbox=" ++ array_id(Array.get(U32,token,0)) ++ ";retained=" ++ pending(slot) ++ ";pending=" ++ pending(owner) ++ ";runs=" ++ U32.show(runs)
 def first(result:Application() & Execute.Status<String,String>) -> String:
   match result:
     case (application,status):observed(done(status),Execute.run(~Nominal,~Unit,~Resources(),~Unit,~Ops,~Local,~String,~String,~program,~body,application))
@@ -78,4 +78,4 @@ def created(result:W.Creation<Nominal,Unit,Resources(),Unit>) -> String:
     case W.CreateRejected{_,_}:"creation-refused"
     case W.Created{_,world}:registered(Execute.define(~Nominal,~Unit,~Resources(),~Unit,~Ops,~Local,~String,~String,~program,~body,world,"publisher",Local{Some{ALeaf{202}},0}))
 def main() -> IO(Unit):
-  IO.print(created(W.create(~Nominal,~Unit,~Resources(),~Unit,~empty,W.factory(),Layout.ResourceSlot{Layout.initialize(resource_layout(),Layout.AtLeaf{},Mailbox{ALeaf{101},Some{ALeaf{901}}})})))
+  IO.print(created(W.create(~Nominal,~Unit,~Resources(),~Unit,~empty,W.factory(),Layout.ResourceSlot{Layout.initialize(resource_layout(),Layout.AtLeaf{},Mailbox{ALeaf{101},Some{ALeaf{901}}}),Layout.unknown_stamp()})))

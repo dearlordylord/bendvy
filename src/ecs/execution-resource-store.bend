@@ -24,16 +24,16 @@ def owner(~S:Data,full:L.Layout,model:Model) -> Type:
     case Whole{}:L.resources(~S,full)
     case Sparse{}:Storage<S,full>
 type Lookup<-V:Data> is Data:
-  Viewed{view:V}
+  Viewed{view:V,stamp:Life.Stamp}
   LookupRefused{}
-def lookup_checked(-V:Data,cache:Maybe<&2,V>,permission:Recipe.Permission) -> Lookup<V>:
+def lookup_checked(-V:Data,cache:Maybe<&2,V>,stamp:Life.Stamp,permission:Recipe.Permission) -> Lookup<V>:
   match cache permission:
-    case Some{view} Recipe.ReadOnly{}:Viewed{view}
-    case Some{view} Recipe.Writable{}:Viewed{view}
+    case Some{view} Recipe.ReadOnly{}:Viewed{view,stamp}
+    case Some{view} Recipe.Writable{}:Viewed{view,stamp}
     case _ _:LookupRefused{}
 def read(-S:Data,-P:Type,-V:Data,-origin:L.Layout,slot:Slot<S,P,V,origin>) -> Slot<S,P,V,origin> & Lookup<V>:
   match slot:
-    case Slot{owner,+cache,+stamp,+permission}:(Slot{owner,cache,stamp,permission},lookup_checked(V,cache,permission))
+    case Slot{owner,+cache,+stamp,+permission}:(Slot{owner,cache,stamp,permission},lookup_checked(V,cache,stamp,permission))
 type Edit<-P:Type,-Out:Type> is Type:
   Edited{output:Out}
   Unchanged{unused:P -> P & Out}

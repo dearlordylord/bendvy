@@ -14,7 +14,7 @@ def id(result:Array<U32> & U32) -> String:
     case (_,value):U32.show(value)
 def observed(incoming:Array<U32>,world:World()) -> String:
   match world:
-    case W.World{_,_,_,Layout.ResourceSlot{Layout.Viewed{Service.Provided{owner},Service.Status{Some{cached}}}},_,_,_,_,_,lifecycle}:"provided=" ++ id(Array.get(U32,owner,0)) ++ ";cache=" ++ U32.show(cached) ++ ";refused=" ++ id(Array.get(U32,incoming,0))
+    case W.World{_,_,_,Layout.ResourceSlot{Layout.Viewed{Service.Provided{owner},Service.Status{Some{cached}}},_},_,_,_,_,_,lifecycle}:"provided=" ++ id(Array.get(U32,owner,0)) ++ ";cache=" ++ U32.show(cached) ++ ";refused=" ++ id(Array.get(U32,incoming,0))
     case _:"unexpected-world"
 def refused(result:Service.Provision<World(),Array<U32>>) -> String:
   match result:
@@ -29,4 +29,4 @@ def created(result:W.Creation<Unit,Unit,Resources(),Unit>) -> String:
     case W.Created{_,world}:first(Service.provide(~Unit,~Unit,~Resources(),~Unit,~Array<U32>,~layout(),~Layout.AtLeaf{},~{==},~{==},~{==},world,ALeaf{101}))
     case _:"unexpected-creation"
 def main() -> IO(Unit):
-  IO.print(created(W.create(~Unit,~Unit,~Resources(),~Unit,~empty,W.factory(),Layout.ResourceSlot{Layout.initialize(layout(),Layout.AtLeaf{},Service.Missing{})})))
+  IO.print(created(W.create(~Unit,~Unit,~Resources(),~Unit,~empty,W.factory(),Layout.ResourceSlot{Layout.initialize(layout(),Layout.AtLeaf{},Service.Missing{}),Layout.unknown_stamp()})))

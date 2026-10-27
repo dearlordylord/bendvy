@@ -35,7 +35,7 @@ def left(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~LeftStore
   builder(LeftOps(~S),left_selection(~S,~H,~B),book)
 def left_store(~S:Data) -> LeftStore(~S):
   Layout.ColumnSlot{inserted(~S,~Layout.Viewed<P.Position,String>,Col.swap(~S,~Layout.Viewed<P.Position,String>,inserted(~S,~Layout.Viewed<P.Position,String>,Col.swap(~S,~Layout.Viewed<P.Position,String>,Col.ensure(~S,~Layout.Viewed<P.Position,String>,Col.empty(~S,~Layout.Viewed<P.Position,String>),31),0,Some{Layout.initialize(left_layout(),Layout.AtLeaf{},P.Position{ALeaf{101},10})})),16,Some{Layout.initialize(left_layout(),Layout.AtLeaf{},P.Position{ALeaf{118},70})}))}
-def left_resources(~S:Data) -> LeftResource(~S):Layout.ResourceSlot{Layout.initialize(left_resource_layout(),Layout.AtLeaf{},P.Counter{ALeaf{301},0})}
+def left_resources(~S:Data) -> LeftResource(~S):Layout.ResourceSlot{Layout.initialize(left_resource_layout(),Layout.AtLeaf{},P.Counter{ALeaf{301},0}),Layout.unknown_stamp()}
 def right_combined(~S:Data,~H:Type,~B:Type,component:A.ComponentWrite<S,H,P.Health,String>,result:B & A.ResourceWrite<H,P.Score,String>) -> B & RightOps(~S)(H):
   match result:
     case (book,resource):(book,Cap.Bundle{component,resource})
@@ -48,6 +48,6 @@ def right(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~RightSto
   builder(RightOps(~S),right_selection(~S,~H,~B),book)
 def right_store(~S:Data) -> RightStore(~S):
   Layout.ColumnSlot{inserted(~S,~Layout.Viewed<P.Health,String>,Col.swap(~S,~Layout.Viewed<P.Health,String>,inserted(~S,~Layout.Viewed<P.Health,String>,Col.swap(~S,~Layout.Viewed<P.Health,String>,Col.ensure(~S,~Layout.Viewed<P.Health,String>,Col.empty(~S,~Layout.Viewed<P.Health,String>),31),0,Some{Layout.initialize(right_layout(),Layout.AtLeaf{},P.Health{ALeaf{201},10})})),8,Some{Layout.initialize(right_layout(),Layout.AtLeaf{},P.Health{ALeaf{210},80})}))}
-def right_resources(~S:Data) -> RightResource(~S):Layout.ResourceSlot{Layout.initialize(right_resource_layout(),Layout.AtLeaf{},P.Score{ALeaf{401},0})}
+def right_resources(~S:Data) -> RightResource(~S):Layout.ResourceSlot{Layout.initialize(right_resource_layout(),Layout.AtLeaf{},P.Score{ALeaf{401},0}),Layout.unknown_stamp()}
 def empty(~S:Data,_:Unit) -> Store(~S):Product.Owner{left_store(~S),right_store(~S)}
 def resources(~S:Data) -> Resources(~S):Product.Owner{left_resources(~S),right_resources(~S)}

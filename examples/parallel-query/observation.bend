@@ -76,7 +76,7 @@ def resource_result(result:Array<U32> & U32) -> String:
     case (_,token): U32.show(token)
 def resource(~S:Data,value:D.Resources(~S)) -> String:
   match value:
-    case Layout.ResourceSlot{Layout.Viewed{P.Resource{token},_}}: resource_result(Array.get(U32,token,0))
+    case Layout.ResourceSlot{Layout.Viewed{P.Resource{token},_},_}: resource_result(Array.get(U32,token,0))
 def registration(value:W.RegistrationMeta) -> String:
   match value:
     case W.RegistrationMeta{id,name,access}: U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,value=>value,access)

@@ -17,10 +17,10 @@ def inspect(~P:Type,~project:P -> P & String,value:Layout.Viewed<P,String>) -> L
     case Layout.Viewed{owner,cache}:inspected(~P,cache,project(owner))
 def left_resource(~S:Data,resource:D.LeftResource(~S)) -> String:
   match resource:
-    case Layout.ResourceSlot{payload}:Common.projected(~Layout.Viewed<P.Counter,String>,inspect(~P.Counter,~P.counter,payload))
+    case Layout.ResourceSlot{payload,_}:Common.projected(~Layout.Viewed<P.Counter,String>,inspect(~P.Counter,~P.counter,payload))
 def right_resource(~S:Data,resource:D.RightResource(~S)) -> String:
   match resource:
-    case Layout.ResourceSlot{payload}:Common.projected(~Layout.Viewed<P.Score,String>,inspect(~P.Score,~P.score,payload))
+    case Layout.ResourceSlot{payload,_}:Common.projected(~Layout.Viewed<P.Score,String>,inspect(~P.Score,~P.score,payload))
 def resources(~S:Data,resource:D.Resources(~S)) -> String:
   match resource:
     case Product.Owner{left,right}:left_resource(~S,left) ++ ";" ++ right_resource(~S,right)

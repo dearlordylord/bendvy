@@ -36,7 +36,7 @@ def handler(owner:Schema.Handler) -> String:
     case Schema.Handler{token,errors}:token_value(Array.get(U32,token,0)) ++ ":" ++ strings(errors)
 def resources(~S:Data,value:Schema.Resources(~S)) -> String:
   match value:
-    case Product.Owner{Layout.ResourceSlot{Layout.Viewed{count,cachedCount}},Layout.ResourceSlot{Layout.Viewed{secret,cachedSecret}}}:counter(count) ++ ":cache=" ++ U32.show(cachedCount) ++ "/" ++ sentinel(secret) ++ ":cache=" ++ cachedSecret
+    case Product.Owner{Layout.ResourceSlot{Layout.Viewed{count,cachedCount},_},Layout.ResourceSlot{Layout.Viewed{secret,cachedSecret},_}}:counter(count) ++ ":cache=" ++ U32.show(cachedCount) ++ "/" ++ sentinel(secret) ++ ":cache=" ++ cachedSecret
 def ticks(values:List<&2,Tick.Tick>) -> String:
   match values:
     case []:""

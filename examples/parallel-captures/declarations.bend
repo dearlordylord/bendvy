@@ -23,4 +23,4 @@ def right(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Product.Owner<Unit,
 def Store(~S:Data) -> Type:Product.Owner<Unit,Unit>
 def Resources(~S:Data) -> Type:Product.Owner<LeftResource(~S),RightResource(~S)>
 def empty(~S:Data,_:Unit) -> Store(~S):Product.Owner{Unit{},Unit{}}
-def resources(~S:Data) -> Resources(~S):Product.Owner{Layout.ResourceSlot{Layout.initialize(left_layout(),Layout.AtLeaf{},P.Counter{ALeaf{301},0})},Layout.ResourceSlot{Layout.initialize(right_layout(),Layout.AtLeaf{},P.Score{ALeaf{401},0})}}
+def resources(~S:Data) -> Resources(~S):Product.Owner{Layout.ResourceSlot{Layout.initialize(left_layout(),Layout.AtLeaf{},P.Counter{ALeaf{301},0}),Layout.unknown_stamp()},Layout.ResourceSlot{Layout.initialize(right_layout(),Layout.AtLeaf{},P.Score{ALeaf{401},0}),Layout.unknown_stamp()}}

@@ -36,6 +36,6 @@ def read_selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~
   resource_read(resource_layout(),first_route(),{==},{==},book)
 def read(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Unit,~Unit,~Resources(~S),~H,~B),book:B) -> B & Read()(H):
   builder(Read(),read_selection(~S,~H,~B),book)
-def resources(~S:Data) -> Resources(~S):Product.Owner{Layout.ResourceSlot{Layout.initialize(resource_layout(),first_route(),Counter{ALeaf{301},0})},Layout.ResourceSlot{Layout.initialize(resource_layout(),Layout.InRight{Layout.AtLeaf{}},Sentinel{ALeaf{401},"retained"})}}
+def resources(~S:Data) -> Resources(~S):Product.Owner{Layout.ResourceSlot{Layout.initialize(resource_layout(),first_route(),Counter{ALeaf{301},0}),Layout.unknown_stamp()},Layout.ResourceSlot{Layout.initialize(resource_layout(),Layout.InRight{Layout.AtLeaf{}},Sentinel{ALeaf{401},"retained"}),Layout.unknown_stamp()}}
 def empty(_:Unit) -> Unit:Unit{}
 def available(key:String) -> Bool:String.eq(key,"resource/counter")

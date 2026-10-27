@@ -9,14 +9,6 @@ import ./schema-fragments.bend as Fragment
 
 type StampEntry is Data:
   StampEntry{route:L.Route,stamp:Life.Stamp}
-def stamp_selected(stamp:Life.Stamp,next:Life.Stamp,selected:Bool) -> Life.Stamp:
-  match selected:
-    case True{}:stamp
-    case False{}:next
-def stamp_at(+route:L.Route,entries:List<&2,StampEntry>) -> Life.Stamp:
-  match entries:
-    case []:Life.Stamp{None{},None{}}
-    case StampEntry{at,stamp} <> rest:stamp_selected(stamp,stamp_at(route,rest),Routes.same_route(route,at))
 type Family<-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout> is Type:
   Family{left:Store.Slot<S,P,V,origin>,right:Store.Slot<S,P,V,origin>,rest:Maybe<&1,L.ResourceSlot<S,L.Viewed<P,V>,key,origin>>,stamp:Life.Stamp}
 def families(~S:Data,layout:L.Layout) -> Type:
@@ -38,21 +30,21 @@ def split_family(-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout,owner:P,+v
   match left right:
     case Recipe.Writable{} Recipe.Unused{}:Family{Store.Slot{Some{L.Viewed{owner,view}},Some{view},stamp,left},Store.Slot{None{},None{},stamp,right},None{},stamp}
     case Recipe.Unused{} Recipe.Writable{}:Family{Store.Slot{None{},None{},stamp,left},Store.Slot{Some{L.Viewed{owner,view}},Some{view},stamp,right},None{},stamp}
-    case left right:Family{Store.Slot{None{},cache(V,view,left),stamp,left},Store.Slot{None{},cache(V,view,right),stamp,right},Some{L.ResourceSlot{L.Viewed{owner,view}}},stamp}
-def scatter(~S:Data,layout:L.Layout,+route:L.Route,+left:List<&2,Recipe.Entry>,+right:List<&2,Recipe.Entry>,+stamps:List<&2,StampEntry>,resources:L.resources(~S,layout)) -> families(~S,layout):
+    case left right:Family{Store.Slot{None{},cache(V,view,left),stamp,left},Store.Slot{None{},cache(V,view,right),stamp,right},Some{L.ResourceSlot{L.Viewed{owner,view},stamp}},stamp}
+def scatter(~S:Data,layout:L.Layout,+route:L.Route,+left:List<&2,Recipe.Entry>,+right:List<&2,Recipe.Entry>,resources:L.resources(~S,layout)) -> families(~S,layout):
   match layout resources:
     case L.EmptyLayout{} Unit{}:Unit{}
-    case L.LayoutLeaf{P,V,refresh,key} L.ResourceSlot{L.Viewed{owner,view}}:split_family(S,P,V,key,L.LayoutLeaf{P,V,refresh,key},owner,view,stamp_at(route,stamps),Recipe.at(route,left),Recipe.at(route,right))
-    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind} L.ResourceSlot{L.Viewed{owner,view}}:split_family(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind},owner,view,stamp_at(route,stamps),Recipe.at(route,left),Recipe.at(route,right))
-    case L.LayoutPair{ll,rr} Product.Owner{l,r}:Product.Owner{scatter(~S,ll,Routes.append_route(route,L.InLeft{L.AtLeaf{}}),left,right,stamps,l),scatter(~S,rr,Routes.append_route(route,L.InRight{L.AtLeaf{}}),left,right,stamps,r)}
-def cut_checked(~S:Data,~full:L.Layout,+namespace:U32,+left:List<&2,Recipe.Entry>,+right:List<&2,Recipe.Entry>,stamps:List<&2,StampEntry>,resources:L.resources(~S,full),valid:Bool) -> Cut<S,full>:
+    case L.LayoutLeaf{P,V,refresh,key} L.ResourceSlot{L.Viewed{owner,view},stamp}:split_family(S,P,V,key,L.LayoutLeaf{P,V,refresh,key},owner,view,stamp,Recipe.at(route,left),Recipe.at(route,right))
+    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind} L.ResourceSlot{L.Viewed{owner,view},stamp}:split_family(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind},owner,view,stamp,Recipe.at(route,left),Recipe.at(route,right))
+    case L.LayoutPair{ll,rr} Product.Owner{l,r}:Product.Owner{scatter(~S,ll,Routes.append_route(route,L.InLeft{L.AtLeaf{}}),left,right,l),scatter(~S,rr,Routes.append_route(route,L.InRight{L.AtLeaf{}}),left,right,r)}
+def cut_checked(~S:Data,~full:L.Layout,+namespace:U32,+left:List<&2,Recipe.Entry>,+right:List<&2,Recipe.Entry>,resources:L.resources(~S,full),valid:Bool) -> Cut<S,full>:
   match valid:
     case False{}:Refused{resources}
-    case True{}:Partitioned{scatter(~S,full,L.AtLeaf{},left,right,stamps,resources),JoinOwner{namespace,left,right}}
+    case True{}:Partitioned{scatter(~S,full,L.AtLeaf{},left,right,resources),JoinOwner{namespace,left,right}}
 # Complete closed recipes are checked before any actual resource is extracted.
-def cut(~S:Data,~full:L.Layout,namespace:U32,left:Recipe.Book<S,full>,right:Recipe.Book<S,full>,stamps:List<&2,StampEntry>,resources:L.resources(~S,full)) -> Cut<S,full>:
+def cut(~S:Data,~full:L.Layout,namespace:U32,left:Recipe.Book<S,full>,right:Recipe.Book<S,full>,resources:L.resources(~S,full)) -> Cut<S,full>:
   match left right:
-    case Recipe.Book{+left} Recipe.Book{+right}:cut_checked(~S,~full,namespace,left,right,stamps,resources,Recipe.compatible(~full,left,right))
+    case Recipe.Book{+left} Recipe.Book{+right}:cut_checked(~S,~full,namespace,left,right,resources,Recipe.compatible(~full,left,right))
 
 def present(-A:Type,value:Maybe<&1,A>) -> Maybe<&1,A> & Bool:
   match value:
@@ -95,11 +87,14 @@ def recoveries(~S:Data,layout:L.Layout) -> Type:
     case L.LayoutLeaf{P,V,refresh,key}:Recovery<S,P,V,key,L.LayoutLeaf{P,V,refresh,key}>
     case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}:Recovery<S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}>
     case L.LayoutPair{left,right}:Product.Owner<recoveries(~S,left),recoveries(~S,right)>
+def recovered_rest(-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout,resource:L.ResourceSlot<S,L.Viewed<P,V>,key,origin>) -> Recovery<S,P,V,key,origin>:
+  match resource:
+    case L.ResourceSlot{owner,+stamp}:Recovered{L.ResourceSlot{owner,stamp},stamp}
 def recover_family(-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout,family:Family<S,P,V,key,origin>) -> Recovery<S,P,V,key,origin>:
   match family:
-    case Family{Store.Slot{Some{owner},_,stamp,Recipe.Writable{}},Store.Slot{None{},_,_,Recipe.Unused{}},None{},_}:Recovered{L.ResourceSlot{owner},stamp}
-    case Family{Store.Slot{None{},_,_,Recipe.Unused{}},Store.Slot{Some{owner},_,stamp,Recipe.Writable{}},None{},_}:Recovered{L.ResourceSlot{owner},stamp}
-    case Family{Store.Slot{None{},_,_,_},Store.Slot{None{},_,_,_},Some{owner},stamp}:Recovered{owner,stamp}
+    case Family{Store.Slot{Some{owner},_,+stamp,Recipe.Writable{}},Store.Slot{None{},_,_,Recipe.Unused{}},None{},_}:Recovered{L.ResourceSlot{owner,stamp},stamp}
+    case Family{Store.Slot{None{},_,_,Recipe.Unused{}},Store.Slot{Some{owner},_,+stamp,Recipe.Writable{}},None{},_}:Recovered{L.ResourceSlot{owner,stamp},stamp}
+    case Family{Store.Slot{None{},_,_,_},Store.Slot{None{},_,_,_},Some{owner},_}:recovered_rest(S,P,V,key,origin,owner)
     case family:Unrecovered{family}
 def recover(~S:Data,layout:L.Layout,tree:families(~S,layout)) -> recoveries(~S,layout):
   match layout tree:
