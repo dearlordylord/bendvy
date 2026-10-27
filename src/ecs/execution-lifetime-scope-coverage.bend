@@ -3,6 +3,7 @@ import ./execution-command-permission.bend as Permission
 import ./execution-composer-layout.bend as Layout
 import ./execution-resource-policy.bend as Policy
 import ./execution-relation-resource-snapshot.bend as Snapshot
+import ./execution-relation-failure-retention.bend as Retention
 
 # Cleanup may mutate every declared relation family. It refuses before mutation
 # if the accepted catalogue omits any protected graph in the actual root layout.
@@ -64,3 +65,22 @@ def has_protected(current:Layout.Layout) -> Bool:
     case Layout.LayoutLeaf{_,_,_,_,policy}:protected_leaf(policy)
     case Layout.ClassifiedLayoutLeaf{_,_,_,_,_,policy}:protected_leaf(policy)
     case Layout.LayoutPair{left,right}:Bool.or(has_protected(left),has_protected(right))
+def provisioned_leaf(policy:Policy.Policy,route:Layout.Route,graphs:List<&2,Layout.Route>,scopes:List<&2,Layout.Route>) -> Bool:
+  match policy:
+    case Policy.Ordinary{}:True{}
+    case Policy.ProtectedRelation{_,_}:Retention.contains(route,graphs)
+    case Policy.ProtectedLifetimeScope{_}:Retention.contains(route,scopes)
+def provisioned_layout(current:Layout.Layout,+prefix:Layout.Route,+graphs:List<&2,Layout.Route>,+scopes:List<&2,Layout.Route>) -> Bool:
+  match current:
+    case Layout.EmptyLayout{}:True{}
+    case Layout.LayoutLeaf{_,_,_,_,policy}:provisioned_leaf(policy,prefix,graphs,scopes)
+    case Layout.ClassifiedLayoutLeaf{_,_,_,_,_,policy}:provisioned_leaf(policy,prefix,graphs,scopes)
+    case Layout.LayoutPair{left,right}:Bool.and(provisioned_layout(left,append(prefix,Layout.InLeft{Layout.AtLeaf{}}),graphs,scopes),provisioned_layout(right,append(prefix,Layout.InRight{Layout.AtLeaf{}}),graphs,scopes))
+def cleanup_complete(~S:Data,~resources:Layout.Layout,+relations:Permission.Relations<S,resources>,routes:Maybe<&2,Permission.CleanupRoutes>) -> Bool:
+  match routes:
+    case None{}:Bool.and(layout(~S,~resources,resources,Layout.AtLeaf{},relations),scopes_layout(S,resources,resources,Layout.AtLeaf{},relations))
+    case Some{Permission.CleanupRoutes{graphs,scopes}}:provisioned_layout(resources,Layout.AtLeaf{},graphs,scopes)
+def cleanup_scopes(-S:Data,-resources:Layout.Layout,relations:Permission.Relations<S,resources>,routes:Maybe<&2,Permission.CleanupRoutes>) -> List<&2,Layout.Route>:
+  match routes:
+    case None{}:scope_routes(S,resources,relations)
+    case Some{Permission.CleanupRoutes{_,scopes}}:scopes

@@ -26,25 +26,44 @@ type DeferredRelation<-S:Data> is Data:
   DeferredRelation{route:Layout.Route,key:String,descriptor:Relation.Descriptor<S>}
   DeferredScope{route:Layout.Route,key:String}
 type Selection<-S:Data,-resources:Layout.Layout> is Type:
-  Selection{program:Dispatch.Program(~S,~resources),snapshot:Snapshot.Program(~S,~resources),scopes:ScopeDispatch.Program(~S,~resources)}
+  Selection{program:Dispatch.Program(~S,~resources),snapshot:Snapshot.Program(~S,~resources),scopes:ScopeDispatch.Program(~S,~resources),cleanup:CleanupSelection<S,resources>}
+type CleanupSelection<-S:Data,-resources:Layout.Layout> is Type:
+  Unprovisioned{}
+  CleanupActive{graphs:List<&2,Layout.Route>,scopeRoutes:List<&2,Layout.Route>}
+  Provisioned{program:Dispatch.Program(~S,~resources),snapshot:Snapshot.Program(~S,~resources),scopes:ScopeDispatch.Program(~S,~resources),graphs:List<&2,Layout.Route>,scopeRoutes:List<&2,Layout.Route>}
 def RelationSelection(~S:Data,~resources:Layout.Layout) -> Type:Selection<S,resources>
 def selection_field(~S:Data,~resources:Layout.Layout,value:Selection<S,resources>) -> Dispatch.Program(~S,~resources):
   match value:
-    case Selection{program,_,_}:program
+    case Selection{program,_,_,_}:program
 def snapshot_field(~S:Data,~resources:Layout.Layout,value:Selection<S,resources>) -> Snapshot.Program(~S,~resources):
   match value:
-    case Selection{_,snapshot,_}:snapshot
+    case Selection{_,snapshot,_,_}:snapshot
 def scopes_field(~S:Data,~resources:Layout.Layout,value:Selection<S,resources>) -> ScopeDispatch.Program(~S,~resources):
   match value:
-    case Selection{_,_,scopes}:scopes
+    case Selection{_,_,scopes,_}:scopes
 def no_selection(~S:Data,~resources:Layout.Layout) -> Selection<S,resources>:
-  Selection{Dispatch.empty(~S,~resources),Snapshot.empty(~S,~resources),ScopeDispatch.empty(~S,~resources)}
+  Selection{Dispatch.empty(~S,~resources),Snapshot.empty(~S,~resources),ScopeDispatch.empty(~S,~resources),Unprovisioned{}}
 def extend_selection(~S:Data,~resources:Layout.Layout,~route:Layout.Route,~valid:{Layout.grant_valid(~resources,~route) == True{} : Bool},~descriptor:Relation.Descriptor<S>,~payload:{Layout.payload(resources,route) == RelationStore.Store<S,descriptor> : Type},~view:{Layout.view(resources,route) == RelationStore.View<S,descriptor> : Data},~protected:{Layout.policy(resources,route) == Policy.ProtectedRelation{S,descriptor} : Policy.Policy},selection:Selection<S,resources>) -> Selection<S,resources>:
   match selection:
-    case Selection{program,snapshot,scopes}:Selection{Dispatch.extend(~S,~resources,~route,~valid,~descriptor,~payload,~view,~protected,program),Snapshot.extend(~S,~resources,~route,~descriptor,~payload,~view,~protected,snapshot),scopes}
+    case Selection{program,snapshot,scopes,cleanup}:Selection{Dispatch.extend(~S,~resources,~route,~valid,~descriptor,~payload,~view,~protected,program),Snapshot.extend(~S,~resources,~route,~descriptor,~payload,~view,~protected,snapshot),scopes,cleanup}
 def extend_scope_selection(~S:Data,~resources:Layout.Layout,~route:Layout.Route,~valid:{Layout.grant_valid(~resources,~route) == True{} : Bool},~payload:{Layout.payload(resources,route) == ScopeStore.Store<S> : Type},~view:{Layout.view(resources,route) == ScopeStore.View<S> : Data},~protected:{Layout.policy(resources,route) == Policy.ProtectedLifetimeScope{S} : Policy.Policy},selection:Selection<S,resources>) -> Selection<S,resources>:
   match selection:
-    case Selection{program,snapshot,scopes}:Selection{program,snapshot,ScopeDispatch.extend(~S,~resources,~route,~valid,~payload,~view,~protected,scopes)}
+    case Selection{program,snapshot,scopes,cleanup}:Selection{program,snapshot,ScopeDispatch.extend(~S,~resources,~route,~valid,~payload,~view,~protected,scopes),cleanup}
+def attach_cleanup(~S:Data,~resources:Layout.Layout,gameplay:Selection<S,resources>,cleanup:CleanupSelection<S,resources>) -> Selection<S,resources>:
+  match gameplay:
+    case Selection{program,snapshot,scopes,_}:Selection{program,snapshot,scopes,cleanup}
+def cleanup_selection(~S:Data,~resources:Layout.Layout,value:Selection<S,resources>) -> Selection<S,resources>:
+  match value:
+    case Selection{program,snapshot,scopes,Unprovisioned{}}:Selection{program,snapshot,scopes,Unprovisioned{}}
+    case Selection{program,snapshot,scopes,CleanupActive{graphs,routes}}:Selection{program,snapshot,scopes,CleanupActive{graphs,routes}}
+    case Selection{_,_,_,Provisioned{program,snapshot,scopes,graphs,routes}}:Selection{program,snapshot,scopes,CleanupActive{graphs,routes}}
+type CleanupRoutes is Data:
+  CleanupRoutes{graphs:List<&2,Layout.Route>,scopes:List<&2,Layout.Route>}
+def cleanup_routes(~S:Data,~resources:Layout.Layout,value:Selection<S,resources>) -> Maybe<&2,CleanupRoutes>:
+  match value:
+    case Selection{_,_,_,Unprovisioned{}}:None{}
+    case Selection{_,_,_,CleanupActive{graphs,scopes}}:Some{CleanupRoutes{graphs,scopes}}
+    case Selection{_,_,_,Provisioned{_,_,_,graphs,scopes}}:Some{CleanupRoutes{graphs,scopes}}
 # Deferred graph writes are descriptions of barrier effects, not immediate body
 # resource-write grants or resource extraction recipes.
 def deferred_descriptions(~S:Data,~resources:Layout.Layout,relations:Relations<S,resources>) -> List<&2,DeferredRelation<S>>:

@@ -1,11 +1,14 @@
 import Base
 import ../../src/ecs/execution-lifetime-scope-description.bend as LinkedText
 import ./actor.bend as Actor
+import ./remover.bend as Remover
+import ../../src/ecs/execution-schema-provisioning.bend as Provision
 import ./setup.bend as Setup
 import ../parallel-relations/failure-message-text.bend as Text
 import ../../src/ecs/execution-relation-operation.bend as O
 import ../../src/ecs/execution-relation-failure-message.bend as Message
 import ../../src/ecs/execution-stream-channel.bend as Channel
+import ../../src/ecs/change-tick.bend as Tick
 import ../../src/ecs/machine-stream-queue.bend as Queue
 import ./initialize.bend as Initialize
 import ./scheduled.bend as Scheduled
@@ -86,9 +89,16 @@ def member(value:Scope.Member) -> String:
 def failure_values(~family:T.Descriptor<Schema>,value:Channel.Store<Message.Message<Schema,family>>) -> List<&2,Message.Message<Schema,family>>:
   match value:
     case Channel.Store{queue,_,_}:Queue.read_generic(Message.Message<Schema,family>,queue,0n)
+def maintenance(value:Maybe<&2,Tick.Tick>) -> String:
+  match value:
+    case None{}:"none"
+    case Some{Tick.Tick{epoch,low}}:Nat.show(epoch) ++ ":" ++ U32.show(low)
+def channel(~family:T.Descriptor<Schema>,value:Channel.Store<Message.Message<Schema,family>>) -> String:
+  match value:
+    case Channel.Store{Queue.Queue{_,_,size,dropped,_},older,at}:"retained=" ++ Nat.show(size) ++ ",dropped=" ++ Nat.show(dropped) ++ ",older-through=" ++ Nat.show(older) ++ ",maintained=" ++ maintenance(at)
 def graph_value(~family:T.Descriptor<Schema>,owner:Store.Store<Schema,family>,cache:Store.View<Schema,family>) -> String:
   match owner cache:
-    case Store.Store{namespace,T.Graph{edges,inverses},failures,sequence,nextReader} Store.View{cachedNamespace,T.Graph{cachedEdges,cachedInverses},_,_,_}:"namespace=" ++ U32.show(namespace) ++ ",edges=" ++ List.show(&2,T.Edge<Schema>,edge,edges) ++ ",inverse=" ++ List.show(&2,T.Inverse<Schema>,inverse,inverses) ++ ",cache=" ++ U32.show(cachedNamespace) ++ "/" ++ List.show(&2,T.Edge<Schema>,edge,cachedEdges) ++ "/" ++ List.show(&2,T.Inverse<Schema>,inverse,cachedInverses) ++ ",failure-sequence=" ++ Nat.show(sequence) ++ ",failure-messages=" ++ List.show(&2,Message.Message<Schema,family>,value => Text.message(Schema,family,value),failure_values(~family,failures)) ++ ",nextReader=" ++ U32.show(nextReader)
+    case Store.Store{namespace,T.Graph{edges,inverses},+failures,sequence,nextReader} Store.View{cachedNamespace,T.Graph{cachedEdges,cachedInverses},_,_,_}:"namespace=" ++ U32.show(namespace) ++ ",edges=" ++ List.show(&2,T.Edge<Schema>,edge,edges) ++ ",inverse=" ++ List.show(&2,T.Inverse<Schema>,inverse,inverses) ++ ",cache=" ++ U32.show(cachedNamespace) ++ "/" ++ List.show(&2,T.Edge<Schema>,edge,cachedEdges) ++ "/" ++ List.show(&2,T.Inverse<Schema>,inverse,cachedInverses) ++ ",failure-sequence=" ++ Nat.show(sequence) ++ "," ++ channel(~family,failures) ++ ",failure-messages=" ++ List.show(&2,Message.Message<Schema,family>,value => Text.message(Schema,family,value),failure_values(~family,failures)) ++ ",nextReader=" ++ U32.show(nextReader)
 def resources(value:Scheduled.Resources(~Schema)) -> String:
   match value:
     case Product.Owner{Product.Owner{Layout.ResourceSlot{Layout.Viewed{parent,parentCache},_},Layout.ResourceSlot{Layout.Viewed{link,linkCache},_}},Product.Owner{Layout.ResourceSlot{Layout.Viewed{ScopeStore.Store{scopeNamespace,members},ScopeStore.View{cachedScopeNamespace,cachedMembers}},_},Layout.ResourceSlot{Layout.Viewed{Actor.Session{resourceSession},cachedSession},_}}}:"parent={" ++ graph_value(~Setup.hierarchy(~Schema),parent,parentCache) ++ "},link={" ++ graph_value(~Setup.link(~Schema),link,linkCache) ++ "},scope=" ++ U32.show(scopeNamespace) ++ "/" ++ List.show(&2,Scope.Member,member,members) ++ ",scope-cache=" ++ U32.show(cachedScopeNamespace) ++ "/" ++ List.show(&2,Scope.Member,member,cachedMembers) ++ ",resource=" ++ U32.show(resourceSession) ++ "/" ++ U32.show(cachedSession)
@@ -110,9 +120,12 @@ def components(value:Scheduled.Columns(~Schema)) -> String:
 def actor(value:Actor.Owner(~Schema)) -> String:
   match value:
     case Cmd.Owner{Sys.Owner{_,_,_,_,_,Local.Local{Actor.User{_,_,_,Actor.Session{session}},Buffer.Buffer{pending,values},_}}}:"local=" ++ U32.show(session) ++ ",pending=" ++ Nat.show(List.length(&1,Buffer.Entry<Schema,Actor.Session,Removed.Removed(Actor.components())>,pending)) ++ ",receipts=[" ++ receipts(List.reverse(&1,Buffer.Receipt<Schema,Actor.Session,Removed.Removed(Actor.components())>,values)) ++ "]"
+def remover(value:Remover.Owner(~Schema)) -> String:
+  match value:
+    case Cmd.Owner{Sys.Owner{_,_,_,_,_,Local.Local{handle,Buffer.Buffer{pending,values},permission}}}:"despawn-only=" ++ Text.handle(Schema,handle) ++ ",pending=" ++ Nat.show(List.length(&1,Buffer.Entry<Schema,Actor.Session,Removed.Removed(Actor.components())>,pending)) ++ ",receipts=[" ++ receipts(List.reverse(&1,Buffer.Receipt<Schema,Actor.Session,Removed.Removed(Actor.components())>,values)) ++ "]"
 def application(value:Scheduled.Bound(~Schema)) -> String:
   match value:
-    case Context.Bound{_,Root.Scheduled{App.State{W.World{_,_,columns,owners,_,_,_,_,_,_},Product.Owner{author,_},_,_,_},_,_,_,_}}:resources(owners) ++ "|components=" ++ components(columns) ++ "|" ++ actor(author)
+    case Provision.Bound{Context.Bound{_,Root.Scheduled{App.State{W.World{_,_,columns,owners,_,_,_,_,_,_},Product.Owner{author,despawner},_,_,_},_,_,_,_}}}:resources(owners) ++ "|components=" ++ components(columns) ++ "|" ++ actor(author) ++ "|" ++ remover(despawner)
 def report(value:Context.RunReport<App.Report<String,String>>) -> String:
   match value:
     case Context.ContextRefused{}:"context-refused"

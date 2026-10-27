@@ -7,6 +7,7 @@ import ../../src/ecs/execution-relation-schema-setup.bend as Setup
 import ../../src/ecs/execution-relation-context.bend as Context
 import ../../src/ecs/execution-composer-layout.bend as Layout
 import ../../src/ecs/schema-fragments.bend as Fragment
+import ../../src/ecs/owner-product.bend as Product
 
 type Node<-S:Data> is Type:
   NodeReady{world:Scheduled.World(~S),handle:W.Handle<S>}
@@ -44,5 +45,8 @@ def schema_created(~S:Data,session:Actor.Session,result:Context.Initialization<S
     case Context.ContextCreated{factory,world,context}:child_ready(~S,factory,context,session,node(~S,world))
     case Context.SchemaRefused{factory,owners,error}:SchemaSetupRefused{factory,owners,session,Some{error}}
     case Context.NamespaceRefused{factory,owners}:SchemaSetupRefused{factory,owners,session,None{}}
+def provisioned_created(~S:Data,session:Actor.Session,result:Setup.ProvisionedInitialization<S,Actor.components(),Actor.resources(~S),Unit,Scene.Seed(~Actor.Session),Scene.blueprint(~S,~Actor.Session,~U32,~Actor.project)>) -> Initialization<S>:
+  match result:
+    case Setup.ProvisionedInitialization{result}:schema_created(~S,session,result)
 def create(~S:Data,factory:W.Factory,resourceState:Actor.Session,localState:Actor.Session) -> Initialization<S>:
-  schema_created(~S,localState,Setup.create(~S,~Actor.components(),~Actor.resources(~S),~Unit,~Actor.Session,~Scene.owners(~S,~Actor.Session,~U32,~Actor.project),factory,resourceState))
+  provisioned_created(~S,localState,Setup.create_provisioned(~S,~Actor.components(),~Actor.resources(~S),~Unit,~Scene.Seed(~Actor.Session),~Scene.blueprint(~S,~Actor.Session,~U32,~Actor.project),factory,Product.Owner{Product.Owner{Unit{},Unit{}},Product.Owner{Unit{},resourceState}}))

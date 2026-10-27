@@ -44,7 +44,7 @@ def probe(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~D:Type,~resources:Layout.Layo
 def graphs_validated(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~D:Type,~resources:Layout.Layout,~same:{R == Layout.resources(~S,resources) : Type},~selection:Permission.Selection<S,resources>,~relations:Permission.Relations<S,resources>,~dispose:Cleanup.Dispose(~S,~C,~R,~E,~P,~D),valid:Bool,context:Context.Context<S,R,resources,same>,handle:W.Handle<S>,namespace:U32,views:List<&2,Snapshot.GraphView<S>>,tick:Tick.Tick,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & Buffer.Receipt<S,P,D>:
   match valid:
     case False{}:denied(S,C,R,E,P,D,handle,Buffer.ForeignNamespace{},[],world)
-    case True{}:probe(~S,~C,~R,~E,~P,~D,~resources,~same,~selection,~dispose,context,handle,namespace,views,Coverage.scope_routes(S,resources,relations),Coverage.scope_routes(S,resources,relations),[],tick,world)
+    case True{}:probe(~S,~C,~R,~E,~P,~D,~resources,~same,~selection,~dispose,context,handle,namespace,views,Coverage.cleanup_scopes(S,resources,relations,Permission.cleanup_routes(~S,~resources,selection)),Coverage.cleanup_scopes(S,resources,relations,Permission.cleanup_routes(~S,~resources,selection)),[],tick,world)
 def observed(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~D:Type,~resources:Layout.Layout,~same:{R == Layout.resources(~S,resources) : Type},~selection:Permission.Selection<S,resources>,~relations:Permission.Relations<S,resources>,~dispose:Cleanup.Dispose(~S,~C,~R,~E,~P,~D),context:Context.Context<S,R,resources,same>,handle:W.Handle<S>,tick:Tick.Tick,result:W.World<S,C,R,E> & List<&2,Snapshot.GraphView<S>>) -> W.World<S,C,R,E> & Buffer.Receipt<S,P,D>:
   match context result:
     case Context.Context{+namespace}, (world,+views):graphs_validated(~S,~C,~R,~E,~P,~D,~resources,~same,~selection,~relations,~dispose,Coverage.namespaces(~S,namespace,views),Context.Context{namespace},handle,namespace,views,tick,world)
@@ -55,7 +55,7 @@ def covered(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~D:Type,~resources:Layout.La
 def live_checked(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~D:Type,~resources:Layout.Layout,~same:{R == Layout.resources(~S,resources) : Type},~selection:Permission.Selection<S,resources>,~relations:Permission.Relations<S,resources>,~dispose:Cleanup.Dispose(~S,~C,~R,~E,~P,~D),context:Context.Context<S,R,resources,same>,handle:W.Handle<S>,tick:Tick.Tick,result:W.World<S,C,R,E> & Bool) -> W.World<S,C,R,E> & Buffer.Receipt<S,P,D>:
   match result:
     case (world,False{}):(world,Buffer.DespawnRefused{handle})
-    case (world,True{}):covered(~S,~C,~R,~E,~P,~D,~resources,~same,~selection,~relations,~dispose,Bool.and(Coverage.layout(~S,~resources,resources,Layout.AtLeaf{},relations),Coverage.scopes_layout(S,resources,resources,Layout.AtLeaf{},relations)),context,handle,tick,world)
+    case (world,True{}):covered(~S,~C,~R,~E,~P,~D,~resources,~same,~selection,~relations,~dispose,Coverage.cleanup_complete(~S,~resources,relations,Permission.cleanup_routes(~S,~resources,selection)),context,handle,tick,world)
 def context_checked(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~D:Type,~resources:Layout.Layout,~same:{R == Layout.resources(~S,resources) : Type},~selection:Permission.Selection<S,resources>,~relations:Permission.Relations<S,resources>,~dispose:Cleanup.Dispose(~S,~C,~R,~E,~P,~D),+context:Context.Context<S,R,resources,same>,+handle:W.Handle<S>,tick:Tick.Tick,result:W.World<S,C,R,E> & Bool) -> W.World<S,C,R,E> & Buffer.Receipt<S,P,D>:
   match result:
     case (world,False{}):denied(S,C,R,E,P,D,handle,Buffer.ForeignNamespace{},[],world)
@@ -63,4 +63,4 @@ def context_checked(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~D:Type,~resources:L
 def apply(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~D:Type,~resources:Layout.Layout,~same:{R == Layout.resources(~S,resources) : Type},~selection:Permission.Selection<S,resources>,~relations:Permission.Relations<S,resources>,~dispose:Cleanup.Dispose(~S,~C,~R,~E,~P,~D),+context:Context.Context<S,R,resources,same>,permission:Permission.Permission,world:W.World<S,C,R,E>,+handle:W.Handle<S>,tick:Tick.Tick) -> W.World<S,C,R,E> & Buffer.Receipt<S,P,D>:
   match permission:
     case Permission.FamilyOnly{}:(world,Buffer.DespawnRefused{handle})
-    case Permission.EntityStructural{}:context_checked(~S,~C,~R,~E,~P,~D,~resources,~same,~selection,~relations,~dispose,context,handle,tick,Context.matches(~S,~C,~R,~E,~resources,~same,context,world))
+    case Permission.EntityStructural{}:context_checked(~S,~C,~R,~E,~P,~D,~resources,~same,~Permission.cleanup_selection(~S,~resources,selection),~relations,~dispose,context,handle,tick,Context.matches(~S,~C,~R,~E,~resources,~same,context,world))
