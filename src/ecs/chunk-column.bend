@@ -73,26 +73,44 @@ def vacancy_selected(-S:Data,-C:Type,column:Column<S,C>,+index:U32,selected:Bool
 def vacancy_generic(-S:Data,-C:Type,column:Column<S,C>,index:U32) -> Column<S,C> & Maybe<&2,Bool>:
   vacancy_selected(S,C,column,index,True{})
 
-def present(~C:Type,value:Maybe<&1,C>) -> Maybe<&1,C> & Bool:
+def present_generic(-C:Type,value:Maybe<&1,C>) -> Maybe<&1,C> & Bool:
   match value:
     case None{}: (None{},False{})
     case Some{owner}: (Some{owner},True{})
-def swap_finish(~S:Data,~C:Type,values:Array<Maybe<&1,C>>,+index:U32,incoming:Bool,previous:Maybe<&1,C>,wasPresent:Bool,tick:Tick.Tick,result:Array<L.Stamp> & L.Stamp) -> SwapOutcome<S,C>:
+def present(~C:Type,value:Maybe<&1,C>) -> Maybe<&1,C> & Bool:
+  present_generic(C,value)
+
+def swap_finish_generic(-S:Data,-C:Type,values:Array<Maybe<&1,C>>,+index:U32,incoming:Bool,previous:Maybe<&1,C>,wasPresent:Bool,tick:Tick.Tick,result:Array<L.Stamp> & L.Stamp) -> SwapOutcome<S,C>:
   match result:
     case (stamps,stamp): Accepted{Leaf{values,Array.set(L.Stamp,stamps,index,L.after_write(incoming,wasPresent,stamp,tick))},previous}
+def swap_finish(~S:Data,~C:Type,values:Array<Maybe<&1,C>>,+index:U32,incoming:Bool,previous:Maybe<&1,C>,wasPresent:Bool,tick:Tick.Tick,result:Array<L.Stamp> & L.Stamp) -> SwapOutcome<S,C>:
+  swap_finish_generic(S,C,values,index,incoming,previous,wasPresent,tick,result)
+
+def swap_presence_generic(-S:Data,-C:Type,values:Array<Maybe<&1,C>>,stamps:Array<L.Stamp>,+index:U32,incoming:Bool,tick:Tick.Tick,result:Maybe<&1,C> & Bool) -> SwapOutcome<S,C>:
+  match result:
+    case (previous,wasPresent): swap_finish_generic(S,C,values,index,incoming,previous,wasPresent,tick,Array.get(L.Stamp,stamps,index))
 def swap_presence(~S:Data,~C:Type,values:Array<Maybe<&1,C>>,stamps:Array<L.Stamp>,+index:U32,incoming:Bool,tick:Tick.Tick,result:Maybe<&1,C> & Bool) -> SwapOutcome<S,C>:
+  swap_presence_generic(S,C,values,stamps,index,incoming,tick,result)
+
+def swap_previous_generic(-S:Data,-C:Type,stamps:Array<L.Stamp>,index:U32,incoming:Bool,tick:Tick.Tick,result:Array<Maybe<&1,C>> & Maybe<&1,C>) -> SwapOutcome<S,C>:
   match result:
-    case (previous,wasPresent): swap_finish(~S,~C,values,index,incoming,previous,wasPresent,tick,Array.get(L.Stamp,stamps,index))
+    case (values,previous): swap_presence_generic(S,C,values,stamps,index,incoming,tick,present_generic(C,previous))
 def swap_previous(~S:Data,~C:Type,stamps:Array<L.Stamp>,index:U32,incoming:Bool,tick:Tick.Tick,result:Array<Maybe<&1,C>> & Maybe<&1,C>) -> SwapOutcome<S,C>:
+  swap_previous_generic(S,C,stamps,index,incoming,tick,result)
+
+def swap_incoming_generic(-S:Data,-C:Type,values:Array<Maybe<&1,C>>,stamps:Array<L.Stamp>,+index:U32,tick:Tick.Tick,result:Maybe<&1,C> & Bool) -> SwapOutcome<S,C>:
   match result:
-    case (values,previous): swap_presence(~S,~C,values,stamps,index,incoming,tick,present(~C,previous))
+    case (incoming,isPresent): swap_previous_generic(S,C,stamps,index,isPresent,tick,Array.swap(Maybe<&1,C>,values,index,incoming))
 def swap_incoming(~S:Data,~C:Type,values:Array<Maybe<&1,C>>,stamps:Array<L.Stamp>,+index:U32,tick:Tick.Tick,result:Maybe<&1,C> & Bool) -> SwapOutcome<S,C>:
-  match result:
-    case (incoming,isPresent): swap_previous(~S,~C,stamps,index,isPresent,tick,Array.swap(Maybe<&1,C>,values,index,incoming))
-def swap_leaf(~S:Data,~C:Type,values:Array<Maybe<&1,C>>,stamps:Array<L.Stamp>,+index:U32,incoming:Maybe<&1,C>,tick:Tick.Tick,valid:Bool) -> SwapOutcome<S,C>:
+  swap_incoming_generic(S,C,values,stamps,index,tick,result)
+
+def swap_leaf_generic(-S:Data,-C:Type,values:Array<Maybe<&1,C>>,stamps:Array<L.Stamp>,+index:U32,incoming:Maybe<&1,C>,tick:Tick.Tick,valid:Bool) -> SwapOutcome<S,C>:
   match valid:
     case False{}: Rejected{Leaf{values,stamps},incoming}
-    case True{}: swap_incoming(~S,~C,values,stamps,index,tick,present(~C,incoming))
+    case True{}: swap_incoming_generic(S,C,values,stamps,index,tick,present_generic(C,incoming))
+def swap_leaf(~S:Data,~C:Type,values:Array<Maybe<&1,C>>,stamps:Array<L.Stamp>,+index:U32,incoming:Maybe<&1,C>,tick:Tick.Tick,valid:Bool) -> SwapOutcome<S,C>:
+  swap_leaf_generic(S,C,values,stamps,index,incoming,tick,valid)
+
 def swap_left(~S:Data,~C:Type,half:U32,right:Column<S,C>,result:SwapOutcome<S,C>) -> SwapOutcome<S,C>:
   match result:
     case Accepted{left,previous}: Accepted{Branch{half,left,right},previous}
