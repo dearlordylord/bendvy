@@ -1,145 +1,141 @@
-> Verification policy override (2026-10-27): semantic verification uses Bend laws only. The new non-law models, reference tests, golden outputs and check scripts have been retired at the user's direction. References below to those checks describe historical work, not current acceptance. Historical receipts remain outside the source tree; the five approved Bend helper laws do not prove the whole ECS.
-
 # Registered affine query execution
 
-The application declares unlike input and output families, registers one system,
-and calls `execution-app.run` three times. Gameplay receives the abstract
-`execution-query.Each` capability. It does not split columns, dispatch native
-tasks, or reconstruct the World.
+`main.bend` runs the original four scenarios through the current Task/IO entry:
+First/serial, First/parallel, Second/parallel, and First/error. The first three
+execute a registered query system three times; the last stops after its second
+execution. `application.bend` sequences registration, execution and foreign-World
+refusal with `IO.bind`. `body.bend` returns the existing `Task.TRun`/`Task.TDone`
+boundary and invokes its abstract `execution-query.Each` capability once per body.
+Gameplay does not split columns, dispatch workers or reconstruct the World.
 
-The declaration is an abstract program over the library's closed builder. It
-selects a pair of component leaves through a route in the closed component layout.
-The actual column owners carry the keys in their slot types. Equality checks bind
+The declaration is an abstract program over the library's closed Builder. It
+selects two component leaves through a route in the closed component layout.
+Actual column owners carry their keys in their slot types. Equality checks bind
 the complete World storage type and selected pair to that layout. The library
-derives both payload types and access keys from the same route, then extracts and
-rejoins the actual owners. The application cannot supply an arbitrary storage
-lens, capability provider, payload identity, or access catalog to the ordinary entry.
-Its input projector produces a reusable `U32` view. The closed item body
-receives that view and one affine output owner. Both families have nested affine
-token arrays. The implementation partitions actual child column owners and their
-metadata, runs native parallel calls between chunks, and rejoins those owners.
-The serial entry uses the same item body and observations.
+derives both payload types and access keys from that route, then extracts and
+rejoins the actual owners. The ordinary entry does not accept an arbitrary
+storage lens, capability provider, payload identity or access catalog.
 
-An affine projector can replace its returned owner. The declaration therefore
-requires exclusive input storage access. The gameplay body receives a read-only
-projection of that family. An affine return type alone does not prove that an
-arbitrary projector or body preserves the original owner.
+The input projector produces a reusable `U32` view; the closed item body receives
+that view and one affine output owner. Both unlike families contain nested affine
+token arrays. The library partitions actual child column owners and metadata,
+executes parallel calls between chunks, and rejoins the returned owners. Serial
+mode uses the same item body and observations. An affine projector can replace
+its returned owner, so the declaration requires exclusive input storage access.
+An affine return type alone does not prove that arbitrary gameplay preserves the
+original owner.
 
 ## Read the consumer
 
-- `declarations.bend` binds component identities and the typed storage lens.
+- `declarations.bend` binds component identities and the typed layout route.
 - `body.bend` invokes the query capability and retains its affine Local.
-- `payloads.bend` defines the closed direct update and owner observations.
-- `application.bend` creates the World, registers the system, runs it repeatedly,
-  and tests refusal against a second World from the actual advanced factory.
+- `payloads.bend` defines the direct update and owner observations.
+- `application.bend` creates the World, registers the system, executes it repeatedly,
+  and attempts admission to a second World from the advanced factory.
 - `observation.bend` consumes complete snapshots of both Worlds and the returned
   system owner.
-- `oracle.py` independently derives the finite expected observations from the
-  declared operations. It does not read Bend source or candidate output.
 
-Both columns grow from 8 to 32 slots. The chunk at slots 8 through 15 stays
-empty. Live slots 1 and 17 contain both families. Live slots 16 and 18 contain
-only input and output, respectively. Slot 31 contains both families but is not
-live. The library derives selection from the current World's live handles and
-leaves that slot untouched.
+Both columns grow from 8 to 32 physical slots. Matching live rows occupy physical
+slots 0 and 16, in separate size-eight leaf chunks. Their logical handle indices
+are 1 and 17. Physical slot 15 has unmatched input; slot 17 has unmatched output.
+The write chunk at physical slots 8–15 is empty, while its input chunk contains
+slot 15. Physical slot 30 contains both families but is not live. Selection comes
+from the current World's live handles and leaves that inactive row untouched.
 
-The first execution succeeds. The second updates slot 1 and then returns its
-item error, retains that update, and still updates slot 17. The third execution
-succeeds. The final mutable token and value pairs are `104:19` and `205:35`.
-The unmatched and inactive owners keep their initial values. Each output's
-original added tick survives, and executed rows have changed tick 3.
+The first execution succeeds. The second updates logical row 1, reports its
+handled item error, retains the write, and also updates row 17. The third
+execution succeeds. Final token/value pairs are `104:19` and `205:35`. The fourth
+scenario observes the two-run state immediately after the error, before another
+write can mask a stale cache. Each selected output rebuilds its cached Data from
+the returned actual owner, including on error. Original added ticks survive;
+untouched, absent and nonlive rows retain their caches and stamps.
 
-The observations include every allocated input and output slot and lifecycle
-stamp, allocator fields and slots, allocation order, resource owner, pending and
-event counts, registration metadata, World clock, system cursor, and Local owner.
-They also observe the complete incoming foreign World after admission refusal.
-The consumer runs serial and parallel modes under one nominal schema and
-parallel mode under a second nominal schema.
+The full observations include every allocated input/output slot, actual token
+projections, cached values, lifecycle stamps, allocator fields and slots,
+allocation order, resource owner, pending/event counts, registration metadata,
+World clock, system cursor and Local owner. They also include the complete
+incoming foreign World after admission refusal. First and Second are distinct
+nominal schemas.
 
-## Check the finite oracle
+## Run the ordinary product
 
-Revalidate the existing preserved compiler bundle and its 70 resource hashes
-against `/tmp/bendvy21-bend2035-lifecycle-pin/BUNDLE-PROOF.json` before reuse.
-Its regular compiler executable matches the repository's pinned compiler bytes.
-The default installed resources can change independently of that executable.
+From the repository root, using the preserved Bend 2.0.35 compiler and its matching
+resource tree in this local environment:
 
 ```bash
-export BEND=/tmp/bendvy21-bend2035-lifecycle-pin/bin/bend-2.0.35
-export CLANG=/tmp/bendvy-clang19-diagnostic/clang19
-export BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root
-source examples/common.sh
-python3 examples/parallel-query/oracle.py > /tmp/parallel-query.expected.stdout
-example_emit examples/parallel-query/main.bend /tmp/parallel-query.js
-example_node /tmp/parallel-query.js > /tmp/parallel-query-js.stdout
-cmp /tmp/parallel-query.expected.stdout /tmp/parallel-query-js.stdout
-example_emit examples/parallel-query/main.bend /tmp/parallel-query.c
-timeout --signal=KILL 120s "$CLANG" -O3 /tmp/parallel-query.c -o /tmp/parallel-query.native -pthread -lm
-timeout --signal=KILL 5s /tmp/parallel-query.native --threads 1 --gpu off > /tmp/parallel-query-native1.stdout
-cmp /tmp/parallel-query.expected.stdout /tmp/parallel-query-native1.stdout
-timeout --signal=KILL 5s /tmp/parallel-query.native --threads 4 --gpu off > /tmp/parallel-query-native4.stdout
-cmp /tmp/parallel-query.expected.stdout /tmp/parallel-query-native4.stdout
+BEND=/tmp/bendvy21-bend2035-lifecycle-pin/bin/bend-2.0.35
+"$BEND" examples/parallel-query/main.bend -o /tmp/parallel-query.js
+node /tmp/parallel-query.js > /tmp/parallel-query-js.stdout
+"$BEND" examples/parallel-query/main.bend -o /tmp/parallel-query.native
+/tmp/parallel-query.native --threads 1 --gpu off > /tmp/parallel-query-native1.stdout
+/tmp/parallel-query.native --threads 2 --gpu off > /tmp/parallel-query-native2.stdout
+cmp /tmp/parallel-query-js.stdout /tmp/parallel-query-native1.stdout
+cmp /tmp/parallel-query-js.stdout /tmp/parallel-query-native2.stdout
 ```
 
-Use `scripts/bend-check` for `controls/positive.bend` and
-`controls/layout-positive.bend`. The latter selects two columns with the same
-payload type and different keys. Its otherwise identical wrong-key counterpart
-must fail the equality check against the actual keyed owner types. This refusal
-does not depend on differing component payload types.
+The native `-o` route invokes the compiler's ordinary native backend and clang.
+The `/tmp` compiler path is environment-local, not a compiler bundle distributed
+by this example.
 
-The remaining controls must fail for their intended authority boundaries.
-They test schema mismatch, an undeclared component capability, replacing the schema cached view with an affine input owner or a different view type, copying the affine output owner, and
-escaping the abstract scope. They also reject selecting a single leaf as a query
-pair and reject a layout containing duplicate query keys.
-The source-current `examples/parallel-execution/controls/forged-declaration.bend`
-additionally checks the shared ordinary entry. It must refuse a raw declaration
-that exposes a resource while supplying an empty access catalog.
+At source commit `dd2da438faeb6fa67e424185ea1ce61b04b2a1cf`, unchanged pinned
+Bend 2.0.35 compiled this original entry for JS and native. Each build and each
+ordinary run exited zero. Native counts one and two produced the same complete
+four-line, 9329-byte stdout as JS; standalone comparisons exited zero. These are
+comparisons of actual product outputs, not an independent semantic oracle.
 
-Passing the finite oracle at four configured threads does not prove that the
-query used multiple workers. A source-bound semantic worker diagnostic remains
-required. This consumer does not establish universal ownership preservation,
-approved new laws, GPU execution, or numerical speedup.
+One debugger execution of that existing native artifact additionally observed
+actual nested output-token writes for physical rows 0 and 16 on allocator/worker
+identities 0 and 1 within the **same First/parallel query traversal**. Existing
+scenario entries and the whole `Q.each` call/return bracket distinguished that
+invocation from serial mode, other schemas and repeated executions. Actual
+mutation instructions, rather than callback symbols alone, established reached
+row work. The debugger's all-stop breakpoints perturb scheduling: this finite
+observation establishes neither temporal overlap nor speedup or universal worker
+placement. There is no GPU claim or universal ownership proof.
 
-Canonical schema views are cached beside actual affine payloads. Query reads
-structurally copy only the cached Data value and preserve the input lifecycle
-stamp. Every selected output write rebuilds its cache from the resulting actual
-owner, including a body error. Occupied slot observations include `@cache` before
-the lifecycle stamps. A fourth scenario stops immediately after the second run's
-error and observes all owners, caches, and stamps before another write can mask
-a stale cache. The independent oracle derives both the two-run and three-run
-states. Untouched, absent, and nonlive rows keep their original caches and stamps.
+The local receipt is outside the repository at
+`/home/node/.claude/orchestrate/bendvy-gh78-94/native81-original-query-delivery.md`.
+It binds saved outputs, binary and operation trace to that source commit. Those
+local artifacts are not a portable qualification bundle and do not transfer to
+later source changes.
+
+## Authority controls and historical evidence
+
+The existing `controls/positive.bend` and `controls/layout-positive.bend` express
+valid registration/layout cases; the latter uses equal payload types with distinct
+keys. Its wrong-key counterpart targets equality against the actual keyed owner
+types, independently of payload-type differences. Other control sources target
+schema mismatch, undeclared capabilities, replacing a cached Data view with an
+affine owner or different view type, copying affine output, escaping scope,
+selecting a single leaf as a pair, and duplicate query keys. The shared ordinary
+entry's `examples/parallel-execution/controls/forged-declaration.bend` targets a
+raw declaration whose exposed resource contradicts its empty access catalog.
+These describe the controls' intended authority boundaries; the dd2 product
+execution above does not establish fresh acceptance of every control.
+
+Historical receipts for source `8183783` describe an earlier synchronous entry
+and its then-existing independent oracles. Those receipts remain historical and
+explicitly did not establish actual multiple-worker use. The retired oracle and
+check-script commands are not current runnable instructions. Semantic proof work
+uses Bend laws: the five approved helper laws do not prove this whole ECS, and
+other draft laws have not been approved.
 
 ## Affine query outputs and commands
 
-`output-declaration.bend` selects the same physical layout through the canonical
-Builder. Its command Program receives the hidden output type and canonical
-command operations at registration. It specializes the row body, split, and merge
-before runtime capabilities are stored. `OutputEach` then has a first-order
-operation taking the actual scope and output owner. There is no polymorphic
-runtime callback or raw storage adapter in gameplay.
+The adjacent `output-declaration.bend` selects the physical layout through the
+canonical Builder. Its command Program receives the hidden output type and
+canonical command operations at registration. It specializes row body, split and
+merge before runtime capabilities are stored. `OutputEach` takes the actual scope
+and output owner without a polymorphic runtime callback or raw storage adapter
+in gameplay.
 
-`commands.bend` runs six registered command-system scenarios: two nominal schemas,
-with a parallel query and final deferred application, a parallel query with final
-application suppressed, and a serial query with final application. The columns
-have capacity 32; matching live rows 1 and 17 occupy separate physical leaves.
-Each callback directly updates its owned row, authors an insert using the genuine
-selected handle, and row 1 returns a handled error after enqueueing. Two executions
-check that already-authored queues survive subsequent coarse splits exactly once.
-
-The complete observation includes all column slots, canonical caches and lifecycle
-stamps, allocator and resource state, registrations and clock, pending command
-payloads, displaced-owner receipts, user captures, peer owner, cursors, handler
-state and deferred inventory. Pending commands and receipts are normalized by
-handle and payload values; independent worker completion order is not a contract.
-`commands-oracle.py` derives the expected state from those operations without
-reading implementation sources or candidate output.
-
-The raw `test-fixtures/chunk-column/output.bend` scenarios additionally observe an
-actual Array-owning output prefix through serial and parallel execution, empty
-selection, missing families, handled error and whole-layout refusal. Its separate
-oracle checks both complete columns and the returned output owners.
-
-`check.sh` runs positive and intended negative authority controls and all three
-complete independent oracles on JavaScript. Set `BENDVY_EXAMPLE_NATIVE=1` to include
-native execution with one and four configured workers. The wrapper uses the
-existing common lock and compiler/runtime limits. Worker use still requires the
-separate reviewed semantic diagnostic; these finite checks make no speed claim.
+`commands.bend` describes six registered command-system scenarios over two nominal
+schemas: parallel query with final deferred application, parallel query with final
+application suppressed, and serial query with final application. Callbacks update
+owned rows and author inserts using genuine selected handles; row 1 returns a
+handled error after enqueueing. Observations include columns, caches, stamps,
+allocator/resource state, queues, displaced-owner receipts and returned owners.
+The raw `test-fixtures/chunk-column/output.bend` consumer also covers an
+Array-owning output prefix. These adjacent consumers are outside the dd2 original
+`main.bend` execution and worker evidence reported above; historical oracle or
+wrapper receipts are not source-current execution claims for them.
