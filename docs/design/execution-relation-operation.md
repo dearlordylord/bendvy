@@ -49,11 +49,10 @@ an independent AccessPolicy, orthogonal to persistence, on the canonical leaf.
 `ProtectedRelation{S,descriptor}`. The latter includes nominal schema and complete
 descriptor identity. `generic_write` returns False for this policy.
 
-The layout and Builder owner still needs to add the policy to the canonical leaf
-and reject protected generic writes in both Basic and General providers, before
-clock advancement or owner extraction. A relation selector must require exact
-policy, payload, view, full origin, key, and route binding. The helper alone does
-not enforce those provider boundaries.
+The canonical leaf now retains that policy. Basic and General resource writers
+require `Layout.resource_write_valid`, which rejects protected generic writes.
+A relation selector additionally requires exact payload, view, full origin, key,
+and route binding; the policy tag alone never identifies a payload type.
 
 Extend the existing command sum after the GH87 Spawn extension:
 
@@ -223,11 +222,10 @@ original World, Binding, operation, and typed refusal before resource extraction
 The operation remains complete in every receipt and published failure message,
 including foreign namespaces and all reorder children.
 
-These helpers do not install the pending AccessPolicy field on Layout. The closed
-provider must instantiate the Binding's policy from that actual leaf field and
-reject generic Basic and General writes before clock entry or owner extraction.
-Supplying a policy proof separately is not evidence that this shared boundary is
-already connected.
+The Binding now requires `Layout.policy(resources,route)` to equal the exact
+protected descriptor family. There is no independently chosen policy argument.
+The dedicated provider retains the full-resource equality and separate exact
+payload and view equalities, while generic writers use the canonical policy gate.
 
 ### Proposed Root and command threading
 
@@ -268,5 +266,20 @@ The context-law draft quantifies an actual affine World. Its only observations
 are the actual World namespace and its mismatch with the retained Context.
 The statement preserves that World, Binding, and operation on refusal. Its checker
 reports one TODO and no type or affinity errors. It is unapproved and unproved.
-The new helpers compile normally with Bend 2.0.35. Ordinary Root wiring, protected
-policy enforcement, and the scoped-scene application remain incomplete.
+The new helpers compile normally with Bend 2.0.35. Ordinary Root wiring and the
+scoped-scene command application remain incomplete.
+
+### Namespace-bound schema provisioning
+
+`execution-relation-schema-setup.create` consumes the actual unique Factory and
+passes its next namespace to a closed resource builder with an affine seed. It
+reconstructs the same Factory for exactly one `Schema.create`, then derives the
+Context from its actual SchemaCreated World. Both rejection variants retain the
+Factory and constructed resource owners; no placeholder namespace is involved.
+
+`examples/parallel-relations/setup.bend` consumes that helper to provision the
+protected scene hierarchy beside arbitrary affine application state. Its binding
+uses the actual full layout and route with reflexive payload, view and policy
+equalities. This is schema provisioning, not an executed command scene. The same
+ordinary Buffer relation variant and its declaration-closed typed dispatcher
+remain required; no alternate queue or unsupported-operation branch was added.

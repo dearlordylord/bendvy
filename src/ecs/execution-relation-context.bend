@@ -16,7 +16,7 @@ type Bound<-S:Data,-WR:Type,-resources:Layout.Layout,-same:{WR == Layout.resourc
 type RunReport<-Report:Data> is Data:
   RunReported{report:Report}
   ContextRefused{}
-type Binding<-S:Data,-WR:Type,-resources:Layout.Layout,-same:{WR == Layout.resources(~S,resources) : Type},-route:Layout.Route,-descriptor:T.Descriptor<S>,-payload:{Layout.payload(resources,route) == Store.Store<S,descriptor> : Type},-view:{Layout.view(resources,route) == Store.View<S,descriptor> : Data},-policy:Policy.Policy,-protected:{policy == Policy.ProtectedRelation{S,descriptor} : Policy.Policy}> is Data:
+type Binding<-S:Data,-WR:Type,-resources:Layout.Layout,-same:{WR == Layout.resources(~S,resources) : Type},-route:Layout.Route,-descriptor:T.Descriptor<S>,-payload:{Layout.payload(resources,route) == Store.Store<S,descriptor> : Type},-view:{Layout.view(resources,route) == Store.View<S,descriptor> : Data},-protected:{Layout.policy(resources,route) == Policy.ProtectedRelation{S,descriptor} : Policy.Policy}> is Data:
   Binding{context:Context<S,WR,resources,same>}
 def captured(~S:Data,~C:Type,~WR:Type,~E:Data,~resources:Layout.Layout,~same:{WR == Layout.resources(~S,resources) : Type},result:W.World<S,C,WR,E> & U32) -> W.World<S,C,WR,E> & Context<S,WR,resources,same>:
   match result:
