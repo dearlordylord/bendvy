@@ -26,8 +26,8 @@ retained Local token/run count, and the returned foreign World's observations.
 This distinguishes retained partial mutation from rollback and distinguishes
 refusal from another body invocation.
 
-`controls/positive.bend` checks a normal abstract getter. The other controls must
-fail for their named authority boundaries. They use the same affine payloads
+Historically, `controls/positive.bend` checked a normal abstract getter, and the
+other controls targeted their named authority boundaries. They use the same affine payloads
 and getter/mutation operations as the consumer. Raw schema provisioning is a
 trusted boundary, as with the existing component family bindings. The explicit
 `execution-projection.trusted_affine` token does not prove that an owner-returning
@@ -37,19 +37,20 @@ alias. Component projections conservatively stamp the selected row because an
 affine projector can replace its owner. A genuine shared detached Data view and
 final lifecycle semantics remain separate replacement-executor work.
 
-The new modules are provisional until the integrated Spec and Standards review,
-source-bound backend evidence, affected normal checks and applicable law process
-complete. This fixture does not establish native concurrency, universal owner
-preservation, shared-read purity or completed issue #78 acceptance. The remaining
-ordinary consumers still require migration through the later #77 slices.
+This example does not establish native concurrency, universal owner preservation,
+shared-read purity or completed issue #78 acceptance.
 
 Ordinary registration now accepts `execution-builder.Program` instead of a raw
 capability/catalog pair. The declaration is polymorphic over both its hidden
-scope and affine metadata accumulator. Builder grant primitives return the
+Permit index, scope and affine metadata accumulator. The ordinary declaration
+receives no Permit token; the existing framework specialization supplies the
+Application's declaration identity. The body returns a reservation Task, and
+the application sequences its three runs and foreign-World refusal through IO.
+Builder grant primitives return the
 updated accumulator together with their capability, so retaining a generated
 grant while discarding its recorded access requires reusing the consumed old
-accumulator. Controls reject that reuse, fabricating an empty accumulator and
-injecting a getter for the concrete scope. The raw declaration constructor is
+accumulator. Historical controls targeted that reuse, fabricating an empty
+accumulator and injecting a getter for the concrete scope. The raw declaration constructor is
 an internal lowering shape and is rejected at the ordinary App entry.
 
 Component and resource grants now accept closed layout routes. Actual slot types
@@ -62,14 +63,26 @@ primitive still requires migration to this layout boundary before claiming the
 complete ordinary declaration layer has that property. Raw access lowering
 remains explicit trusted library setup rather than a public Program grant.
 
-`check.sh` uses the shared example runner, checks the positive and negative
-controls, and compares the complete finite output with `expected.stdout`. Set
-`BENDVY_EXAMPLE_NATIVE=1` to include native runs with one and four workers. The
-observation enumerates every physical slot and lifecycle stamp in both columns,
+Run the existing entry directly from the repository root with the qualified
+Bend 2.0.35 compiler and project clang 19:
+
+```sh
+bend examples/parallel-execution/main.bend -o /tmp/parallel-execution.js
+node /tmp/parallel-execution.js
+bend examples/parallel-execution/main.bend -o /tmp/parallel-execution.c
+clang-19 -std=c11 -O3 /tmp/parallel-execution.c -lpthread -lm -o /tmp/parallel-execution
+/tmp/parallel-execution --threads 2 --gpu off
+```
+
+These commands run the ordinary application and print its observations. They
+are finite execution receipts, not semantic laws. The retired `check.sh` and
+`expected.stdout` belonged to the historical verification contract; earlier
+receipts retain that original scope.
+
+The observation enumerates every physical slot and lifecycle stamp in both columns,
 allocator slots/free/order/progress, registrations, clock/scopes, queue and event
 counts, resource owners, system metadata/cursor, Local and the refused foreign
 World. Empty queues and Unit events have no omitted payload observations.
-The expected output derives from three one-step movements and three ten-step
-counter increments, including the second run's error, plus unchanged sparse
-membership and the foreign World's refused invocation. Its independent review
-is part of the final verification gate.
+The delivered entry prints three one-step movements and three ten-step counter
+increments, including the second run's error, plus unchanged sparse membership
+and the foreign World's refused invocation, for both nominal schemas.
