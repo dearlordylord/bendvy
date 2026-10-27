@@ -4,7 +4,7 @@ import ./ordinary-schema.bend as Schema
 import ./ordinary-query-declaration.bend as Query
 import ./world.bend as W
 import ./system.bend as Sys
-import ./resource.bend as Res
+import ./resource-legacy.bend as Res
 import ./transaction.bend as T
 import ./commands.bend as Cmd
 import ./capabilities.bend as Cap

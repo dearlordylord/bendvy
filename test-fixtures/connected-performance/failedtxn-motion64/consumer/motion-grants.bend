@@ -13,7 +13,7 @@ import motion-audit.bend as Audit
 import ../../../../src/ecs/ordinary-service-request.bend as Request
 import ../../../../src/ecs/ordinary-service-declaration.bend as Service
 import ../../../../src/ecs/schedule-provision.bend as Provision
-import ../../../../src/ecs/resource-field.bend as Field
+import ../../../../src/ecs/resource-field-legacy.bend as Field
 import ../../../../src/ecs/transaction.bend as Tx
 import ../../../../src/ecs/capabilities.bend as Cap
 

@@ -1,7 +1,7 @@
 import Base
 import ./trace-facts.bend as TraceFacts
 import ./resource-field-binding.bend as B
-import ./resource-field.bend as Field
+import ./resource-field-legacy.bend as Field
 import ./ordinary-schema.bend as Schema
 import ./ordinary-query-declaration.bend as Q
 import ./ordinary-resource-system.bend as Whole

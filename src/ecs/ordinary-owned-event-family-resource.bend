@@ -6,7 +6,7 @@ import ./capabilities.bend as Cap
 import ./ordinary-query-declaration.bend as Decl
 import ./ordinary-schema.bend as Schema
 import ./owner-product.bend as Product
-import ./resource-field.bend as Field
+import ./resource-field-legacy.bend as Field
 import ./transaction.bend as T
 # Only the user resource is writable; the affine event log is a retained sibling.
 def lens(~R:Type,~Logs:Type) -> Product.Lens<Product.Owner<R,Logs>,R,Logs>:

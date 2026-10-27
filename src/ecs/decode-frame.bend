@@ -11,7 +11,7 @@ import ./world.bend as World
 import ./capabilities.bend as Cap
 import ./component.bend as Component
 import ./transaction.bend as T
-import ./resource.bend as Resource
+import ./resource-legacy.bend as Resource
 import ./ordinary-declaration.bend as Identity
 import ./persistence-declaration.bend as Declaration
 

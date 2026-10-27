@@ -14,6 +14,7 @@ import ./capabilities.bend as Cap
 import ./ordinary-query-declaration.bend as Query
 import ./resource-field-binding.bend as Binding
 import ./resource-field.bend as Lens
+import ./resource-field-legacy.bend as LegacyLens
 import ./ordinary-resource-field-system.bend as Field
 import ./ordinary-schema.bend as Schema
 import ./owner-product.bend as Product
@@ -54,7 +55,7 @@ def read(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Rest:Type,~V:Data,~lens:Produc
 # returns String. This is not general rollback for projector side effects or IO. For explicit displaced/rejected owner
 # recovery, use ordinary-recovery-resource-field rather than this declaration.
 def write(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,~identity:Schema.Resource<S,P>,~binding:Binding.Binding<S,R,P,Rest,lens,identity>,~view:P -> P & V,~render:V -> String) -> Declaration<S,C,R,E,write_ops(~S,~P,~identity,~V),V>:
-  Declaration{Field.Declaration{Field.Write{Lens.write_observed(~S,~C,~R,~E,~P,~Rest,~V,~lens,~view,~render,~Schema.resource_key(~S,~P,identity))},[Query.Clause{Schema.resource_key(~S,~P,identity),Query.Write{}}]},W.observe_resource(~S,~C,~R,~E,~V,~Lens.project(~R,~P,~Rest,~V,~lens,~view)),render}
+  Declaration{Field.Declaration{Field.Write{LegacyLens.write_observed(~S,~C,~R,~E,~P,~Rest,~V,~lens,~view,~render,~Schema.resource_key(~S,~P,identity))},[Query.Clause{Schema.resource_key(~S,~P,identity),Query.Write{}}]},W.observe_resource(~S,~C,~R,~E,~V,~Lens.project(~R,~P,~Rest,~V,~lens,~view)),render}
 # Advanced App projection: consume this declaration and obtain its operational
 # field grant and access clauses. This does not register a system or run a write.
 def ordinary(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~V:Data,declaration:Declaration<S,C,R,E,Ops,V>) -> Field.Declaration<S,T.Tx<W.World<S,C,R,E>,E>,Ops(T.Tx<W.World<S,C,R,E>,E>)>:

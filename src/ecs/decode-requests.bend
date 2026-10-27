@@ -1,5 +1,5 @@
 import Base
-import ./resource.bend as Resource
+import ./resource-legacy.bend as Resource
 import ./bundle-batch.bend as Batch
 import ./bundle-delivery.bend as Delivery
 import ./bundle-requests.bend as Commands

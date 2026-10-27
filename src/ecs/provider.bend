@@ -4,7 +4,7 @@ import column.bend as Col
 import component.bend as Cmp
 import component-legacy.bend as CmpLegacy
 import transaction.bend as T
-import resource.bend as Res
+import resource-legacy.bend as Res
 import commands.bend as Cmd
 
 # Concrete Frame is trusted provisioning. Rank2 gameplay receives arbitrary H.

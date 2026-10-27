@@ -6,7 +6,7 @@ import ./owner-product.bend as Product
 import ./ordinary-resource-field-system.bend as Field
 import ./ordinary-query-declaration.bend as Q
 import ./world.bend as W
-import ./resource.bend as Resource
+import ./resource-legacy.bend as Resource
 import ./transaction.bend as T
 import ./capabilities.bend as Cap
 # One declaration carries actual operation, preflight and owner-return observer.

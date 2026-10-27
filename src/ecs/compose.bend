@@ -7,7 +7,7 @@ import column.bend as Col
 import component.bend as Cmp
 import component-legacy.bend as CmpLegacy
 import transaction.bend as T
-import resource.bend as Res
+import resource-legacy.bend as Res
 import commands.bend as Cmd
 import capabilities.bend as Cap
 import lifecycle.bend as L

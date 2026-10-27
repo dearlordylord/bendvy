@@ -8,7 +8,7 @@ import ./ordinary-schema.bend as Schema
 import ./owned-event-storage.bend as Storage
 import ./owned-event-log.bend as Log
 import ./owner-product.bend as Product
-import ./resource-field.bend as Field
+import ./resource-field-legacy.bend as Field
 import ./transaction.bend as T
 # Only the user resource is writable; the affine event log is a retained sibling.
 def take(~R:Type,~P:Type,resources:Storage.Resources<R,P>) -> Log.Log<P> & R:
