@@ -1,31 +1,29 @@
-# Transaction and event simulation
+# Historical transaction and event simulation
 
-This is an advanced regression example covering movement, damage, deferred
-commands, events and failed-system retry. For the application starting point
-with declaration-derived access and a registered schedule, use
-[Scheduled health](../scheduled-health/README.md).
+This scenario belongs to the superseded transactional executor. Its 23 frozen
+checkpoints cover rollback, retry, deferred commands, events, and foreign handles.
+The current replacement executor preserves partial writes after returned errors,
+so these rollback checkpoints are not current compatibility requirements.
 
-This example intentionally exposes `system.register`, query/provider lowering
-and explicit access lists. These are lower-level APIs, not the recommended
-registration pattern for a new application. Its fixed checkpoints are shared
-with historical reference and performance evidence; changing its orchestration
-requires checking that evidence rather than silently relabeling it as a new API
-example.
+The scenario, TS reference, expected data, verifier, and original check script
+remain here. The historical Bend caller and runtime are preserved at
+[`1037bab017fcc8037c518fa5d89dfa0c28e9ee30`](https://github.com/dearlordylord/bendvy/tree/1037bab017fcc8037c518fa5d89dfa0c28e9ee30/examples/user-simulation).
+[#75 completion](https://github.com/dearlordylord/bendvy/issues/75#issuecomment-6284507430)
+binds that delivery to the epoch-aware clock implementation and
+[passing CI](https://github.com/dearlordylord/bendvy/actions/runs/39377813049).
+Those observations retain their original source and contract.
 
-From the repository root:
+To inspect or replay that source, use a separate checkout with its qualified tools:
 
 ```sh
-bend examples/user-simulation/main.bend -o /tmp/bendvy-user-simulation.js
-node /tmp/bendvy-user-simulation.js > /tmp/bendvy-user-simulation.json
-python3 examples/user-simulation/verify.py /tmp/bendvy-user-simulation.json
+git worktree add --detach /tmp/bendvy-historical-simulation 1037bab017fcc8037c518fa5d89dfa0c28e9ee30
+cd /tmp/bendvy-historical-simulation
+bash examples/user-simulation/check.sh
 ```
 
-The verifier checks all 23 external checkpoints, including the approved
-foreign-world handle rejection. See [scenario.md](scenario.md) for the exact
-story and the intentional difference from the TS reference. A successful source
-check alone does not establish these runtime results.
+The historical JS verifier checks 22 reference matches and the approved
+foreign-world divergence. [scenario.md](scenario.md) defines that fixed story.
+This command does not qualify the replacement core.
 
-Current-source JS replay checked on 2026-10-17 with Bend 2.0.35 and Node
-24.20.0: all 23 checkpoints pass (22 reference matches and one approved
-foreign-world divergence). Native and comparative performance were not rerun
-for this documentation update.
+Start new applications with [Scheduled health](../scheduled-health/README.md)
+and the [replacement execution API](../../docs/reference/execution-api.md).

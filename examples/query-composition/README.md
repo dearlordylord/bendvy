@@ -1,31 +1,31 @@
-# Workshop query composition
+# Historical Workshop query composition
 
-An advanced example of required/optional components, independent filters,
-change filters, deferred changes and rollback. Payload observations include
-complete arrays. For a new application with declaration-derived access,
-registration and a schedule, start with
-[Scheduled health](../scheduled-health/README.md).
+Workshop belongs to the superseded transactional executor. Its 23 frozen
+checkpoints cover required and optional components, filters, complete arrays,
+deferred changes, and rollback. The current replacement executor preserves
+partial writes after returned errors, so the rollback checkpoints are not
+current compatibility requirements.
 
-`declarations.bend` demonstrates explicit query/provider assembly; `driver.bend`
-uses lower-level registered runners and authored access lists. These are
-specialist integration examples, not a second recommended application facade.
-The scenario is also used by frozen reference/regression evidence, so an API
-migration must preserve and requalify its full checkpoints.
+The scenario, TS reference, expected data, verifier, and original check script
+remain here. The historical Bend caller and runtime are preserved at
+[`1037bab017fcc8037c518fa5d89dfa0c28e9ee30`](https://github.com/dearlordylord/bendvy/tree/1037bab017fcc8037c518fa5d89dfa0c28e9ee30/examples/query-composition).
+[#75 completion](https://github.com/dearlordylord/bendvy/issues/75#issuecomment-6284507430)
+binds that delivery to the epoch-aware clock implementation and
+[passing CI](https://github.com/dearlordylord/bendvy/actions/runs/39377813049).
+Those observations retain their original source and contract.
 
-From the repository root:
+To inspect or replay that source, use a separate checkout with its qualified tools:
 
 ```sh
-bend examples/query-composition/main.bend -o /tmp/bendvy-workshop.js
-node /tmp/bendvy-workshop.js > /tmp/bendvy-workshop.json
-python3 examples/query-composition/verify.py /tmp/bendvy-workshop.json
+git worktree add --detach /tmp/bendvy-historical-workshop 1037bab017fcc8037c518fa5d89dfa0c28e9ee30
+cd /tmp/bendvy-historical-workshop
+bash examples/query-composition/check.sh
 ```
 
-The verifier checks all 23 checkpoints and the approved foreign-world
-`MissingEntity` divergence. [scenario.md](scenario.md) defines the fixed story.
-`timing-main.bend` is a separate historical measurement entry, not a tutorial or
-an automatic performance qualification command.
+The historical JS verifier checks 22 reference matches and the approved
+foreign-world divergence. [scenario.md](scenario.md) defines that fixed story.
+The old measurement entry remains in the same immutable source. This command
+does not qualify the replacement core or launch a performance campaign.
 
-Current-source JS replay checked on 2026-10-17 with Bend 2.0.35 and Node
-24.20.0: all 23 checkpoints pass (22 reference matches and one approved
-foreign-world divergence). Native and comparative performance were not rerun
-for this documentation update.
+Start new applications with [Scheduled health](../scheduled-health/README.md)
+and the [replacement execution API](../../docs/reference/execution-api.md).

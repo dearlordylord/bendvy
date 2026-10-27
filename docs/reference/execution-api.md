@@ -34,17 +34,17 @@ abstract capabilities available inside a system body.
 
 ## Legacy source removal
 
-The `ordinary-app-*`, `ordinary-system`, `compose`, `schedule`, and `transaction`
-modules describe the superseded ordinary execution path. They are not the entry
-for new application code. Historical examples and evidence retain their original
-source and contract.
+The obsolete transactional query runners, `transaction`, `ordinary-system`, and
+their ordinary application execution adapters are removed from current package
+source. Shared component, resource, machine, event, and relation metadata retain
+their original nominal type identities for replacement consumers.
 
-`component.bend` retains its original family, access, replacement, and result
-types. Its historical transaction operations are in `component-legacy.bend`.
-`relation-failure-reader.bend` retains the original relation declaration metadata.
-Its historical System registration is in `relation-failure-reader-legacy.bend`.
+The historical simulation and Workshop callers remain available with their
+runtime at the [qualified source revision](https://github.com/dearlordylord/bendvy/tree/1037bab017fcc8037c518fa5d89dfa0c28e9ee30).
+Their scenario, reference, expected data, and verifier files retain their original
+contract. The old rollback checkpoints do not qualify the replacement executor.
 
-Removal of legacy source is still incomplete. Shared resource, machine, and event
-modules still import legacy execution definitions. The BendHub exporter includes
-all source files under `src/ecs`, even when the aggregate does not import them.
-Changing the aggregate alone therefore does not remove the legacy package files.
+The `Feature` owned-builder migration still retains `schedule-provision`,
+`schedule`, and `system`. Their removal remains part of the current feature and
+consumer migration. The BendHub exporter includes all remaining source files
+under `src/ecs`, even when the aggregate does not import them.

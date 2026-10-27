@@ -12,8 +12,8 @@ condition, automatic barriers and passive observations through the replacement R
 | [Health browser demo](health-decay/demo/README.md) | Interactive view of health decay | Browser host, actual retained application and compiled IO |
 | [Arena](arena/README.md) | Playable browser simulation | Replacement Root, real spawn and despawn commands, required Body query |
 | [Survivors](https://github.com/dearlordylord/bendvy-ecs-examples/tree/main/examples/survivors) | Vampire Survivors clone; combat queries and entity lifecycles | [Browser demo](https://nightfall-survivors-bendvy.leafyyew32.chatgpt.site) |
-| [User simulation](user-simulation/README.md) | Transaction/event/retry regression story | Explicit provider and runner integration |
-| [Workshop](query-composition/README.md) | Query composition and rollback regression story | Explicit query/provider and runner integration |
+| [User simulation](user-simulation/README.md) | Historical transaction, event, and retry checkpoints | Qualified immutable source and original reference contract |
+| [Workshop](query-composition/README.md) | Historical query composition and rollback checkpoints | Qualified immutable source and original reference contract |
 
 The advanced regression stories retain their fixed reference checkpoints. Their
 handwritten access lists and raw setup are not the application starting pattern.
@@ -39,9 +39,9 @@ Applications retain and return affine owners rather than copying them.
 ## Historical applications
 
 User simulation and Workshop preserve fixed reference checkpoints and their
-original transactional contracts. The `ordinary-app-*`, `ordinary-system`,
-`schedule`, `compose`, and `transaction` entries used by those checkpoints are
-legacy execution code. They do not define the replacement application contract.
+original transactional contracts. Their Bend callers and runtime are retained
+in the qualified immutable source linked by each README. Their remaining check
+scripts run in that historical checkout, rather than against the replacement core.
 Current implementation and acceptance work remains in
 [issues #78 through #94](https://github.com/dearlordylord/bendvy/issues/77).
 
