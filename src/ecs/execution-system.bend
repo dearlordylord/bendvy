@@ -100,4 +100,3 @@ def metadata(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,
 
 def define(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~C,~R,~Ops),~body:Body(~S,~Ops,~Local,~Error,~Out),world:W.World<S,C,R,E>,name:String,local:Local) -> Defined<W.World<S,C,R,E>,Owner<S,C,C,R,E,Ops,Local,Error,Out,Build.framework_program(~S,~C,~C,~R,~Ops,~declaration),body>,Local>:
   define_framework(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~Build.framework_program(~S,~C,~C,~R,~Ops,~declaration),~body,world,name,local)
-

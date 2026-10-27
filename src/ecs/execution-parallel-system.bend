@@ -73,4 +73,3 @@ def define(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~L
   define_framework(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~Build.framework_program(~S,~WC,~C,~R,~Ops,~declaration),~body,~WR,world,name,local)
 def define_with_general(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~provider:Build.GeneralProvider(~S,~WC,~C,~R),~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~WR:Type,world:W.World<S,WC,WR,E>,name:String,local:Local) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,Build.framework_program(~S,~WC,~C,~R,~Ops,~declaration),body>,Local>:
   define_framework_with_general(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~provider,~Build.framework_program(~S,~WC,~C,~R,~Ops,~declaration),~body,~WR,world,name,local)
-

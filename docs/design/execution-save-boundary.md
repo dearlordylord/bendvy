@@ -252,4 +252,3 @@ or qualify it as ordinary execution.
 These finite ordinary runs
 do not establish exhaustive graph validation, rollback of partial publication or
 formal owner preservation.
-
