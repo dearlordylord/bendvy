@@ -1,4 +1,5 @@
 import Base
+import ./execution-reservation-task.bend as Effect
 import ./world.bend as W
 import ./execution-system.bend as Sys
 import ./execution-builder.bend as Build
@@ -18,11 +19,11 @@ import ./execution-state.bend as State
 def ScopedOps(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type -> Type,H:Type) -> Type:
   Permission.Prepared<Ops(H,Buffer.Buffer<S,Layout.payload(layout,route),Removed.Removed(layout)>)>
 def Program(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type -> Type) -> Type:
-  @-H:Type -> @-Q:Type -> @-commands:Local.Commands<Q,S,Layout.payload(layout,route)> -> @-B:Type -> @-builder:Build.Builder(~S,~(Layout.columns(~S,layout)),~C,~R,~H,~B) -> @-K:Type -> @-entity:Permission.Grant(~S,~layout,~Q,~K) -> B -> K -> B & (K & Ops(H,Q))
+  @-H:Type -> @-Q:Type -> @-commands:Local.Commands<Q,S,Layout.payload(layout,route),Removed.Removed(layout)> -> @-B:Type -> @-builder:Build.Builder(~S,~(Layout.columns(~S,layout)),~C,~R,~H,~B) -> @-K:Type -> @-entity:Permission.Grant(~S,~layout,~Q,~K) -> B -> K -> B & (K & Ops(H,Q))
 def program_for_buffer(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type -> Type,~declaration:Program(~S,~C,~R,~layout,~route,~Ops),~H:Type,~B:Type,~builder:Build.Builder(~S,~(Layout.columns(~S,layout)),~C,~R,~H,~B),book:B) -> B & ScopedOps(~S,~layout,~route,~Ops,H):
   Permission.prepared(~layout,B,Ops(H,Buffer.Buffer<S,Layout.payload(layout,route),Removed.Removed(layout)>),declaration(H,Buffer.Buffer<S,Layout.payload(layout,route),Removed.Removed(layout)>,Local.canonical(~S,~(Layout.payload(layout,route)),~(Removed.Removed(layout))),B,builder,Permission.Book<layout>,Permission.grant(~S,~layout,~(Buffer.Buffer<S,Layout.payload(layout,route),Removed.Removed(layout)>),~(Buffer.despawn(~S,~(Layout.payload(layout,route)),~(Removed.Removed(layout))))),book,Permission.fresh(~layout)))
 def Body(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type -> Type,~User:Type,~Error:Data,~Out:Data) -> Type:
-  @-H:Type -> @-Q:Type -> @-caps:Ops(H,Q) -> @-commands:Local.Commands<Q,S,Layout.payload(layout,route)> -> H -> Q -> User -> H & (Q & (User & Sys.Completion<Error,Out>))
+  @-H:Type -> @-Q:Type -> @-caps:Ops(H,Q) -> @-commands:Local.Commands<Q,S,Layout.payload(layout,route),Removed.Removed(layout)> -> H -> Q -> User -> Effect.Task<S,H & (Q & (User & Sys.Completion<Error,Out>))>
 def Captures(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~User:Type) -> Type:
   Local.Local<S,Layout.payload(layout,route),Removed.Removed(layout),User>
 def prepared_permission(-Ops:Type,value:Permission.Prepared<Ops>) -> Permission.Permission:
@@ -42,7 +43,7 @@ def checked_permission_agrees(permission:Permission.Permission,checked:CheckedPe
     case ReadyPermission{expected}:Permission.agrees(permission,expected)
     case UnsupportedPermission{_}:False{}
 
-def runner(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type -> Type,~User:Type,~Error:Data,~Out:Data,~body:Body(~S,~layout,~route,~Ops,~User,~Error,~Out),~H:Type,~caps:ScopedOps(~S,~layout,~route,~Ops,H),scope:H,local:Captures(~S,~layout,~route,~User)) -> H & (Captures(~S,~layout,~route,~User) & Sys.Completion<Error,Out>):
+def runner(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type -> Type,~User:Type,~Error:Data,~Out:Data,~body:Body(~S,~layout,~route,~Ops,~User,~Error,~Out),~H:Type,~caps:ScopedOps(~S,~layout,~route,~Ops,H),scope:H,local:Captures(~S,~layout,~route,~User)) -> Effect.Task<S,H & (Captures(~S,~layout,~route,~User) & Sys.Completion<Error,Out>)>:
   Local.invoke(~S,~(Layout.payload(layout,route)),~(Removed.Removed(layout)),~User,~Error,~Out,~Ops,~body,~H,~(Permission.ops_field(Ops(H,Buffer.Buffer<S,Layout.payload(layout,route),Removed.Removed(layout)>),caps)),scope,local)
 def System(~S:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Program(~S,~C,~R,~layout,~route,~Ops),~body:Body(~S,~layout,~route,~Ops,~User,~Error,~Out)) -> Type:
   Sys.Owner<S,Layout.columns(~S,layout),C,R,E,ScopedOps(~S,~layout,~route,~Ops),Captures(~S,~layout,~route,~User),Error,Out,program_for_buffer(~S,~C,~R,~layout,~route,~Ops,~declaration),runner(~S,~layout,~route,~Ops,~User,~Error,~Out,~body)>

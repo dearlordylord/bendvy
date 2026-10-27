@@ -12,6 +12,8 @@ import ./chunk-column.bend as Column
 import ./execution-command-buffer.bend as Buffer
 import ./execution-command-removed.bend as Removed
 import ./execution-command-permission.bend as Permission
+import ./execution-reservation-materialization.bend as Spawn
+import ./execution-reservation-bundle.bend as Bundle
 
 # The interpreter owns the complete World. Gameplay supplies only raw affine
 # payloads to its hidden queue; schema initialization happens at publication.
@@ -106,17 +108,22 @@ def despawn_allowed(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.
 def despawn_namespace(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,+handle:W.Handle<S>,permission:Permission.Permission,result:W.World<S,Layout.columns(~S,layout),R,E> & U32,+tick:Tick.Tick) -> W.World<S,Layout.columns(~S,layout),R,E> & Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>:
   match result:
     case (world,namespace):despawn_allowed(~S,~R,~E,~layout,~route,world,handle,Bool.and(Permission.agrees(permission,Permission.EntityStructural{}),U32.is_eq(namespace,handle_namespace(~S,handle))),tick)
-def entry(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,permission:Permission.Permission,world:W.World<S,Layout.columns(~S,layout),R,E>,value:Buffer.Entry<S,Layout.payload(layout,route)>,tick:Tick.Tick) -> W.World<S,Layout.columns(~S,layout),R,E> & Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>:
+def spawn_returned(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,result:Bundle.Publication<S,Layout.columns(~S,layout),R,E,layout>) -> W.World<S,Layout.columns(~S,layout),R,E> & Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>:
+  match result:
+    case Bundle.Materialized{world,handle,previous}:(world,Buffer.Spawned{handle,previous})
+    case Bundle.RefusedPublication{world,handle,bundle,reason}:(world,Buffer.SpawnRefused{handle,bundle,reason})
+def entry(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,permission:Permission.Permission,world:W.World<S,Layout.columns(~S,layout),R,E>,value:Buffer.Entry<S,Layout.payload(layout,route),Removed.Removed(layout)>,tick:Tick.Tick) -> W.World<S,Layout.columns(~S,layout),R,E> & Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>:
   match value:
     case Buffer.Entry{handle,incoming}:family(~S,~R,~E,~layout,~route,world,handle,incoming,tick)
+    case Buffer.Spawn{handle,bundle}:spawn_returned(~S,~R,~E,~layout,~route,Spawn.apply_at(~S,~R,~E,~layout,permission,world,handle,bundle,tick))
     case Buffer.Despawn{+handle}:despawn_namespace(~S,~R,~E,~layout,~route,handle,permission,W.namespace(~S,~(Layout.columns(~S,layout)),~R,~E,world),tick)
 def recorded(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,receipts:List<Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>>,result:W.World<S,Layout.columns(~S,layout),R,E> & Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>) -> W.World<S,Layout.columns(~S,layout),R,E> & List<Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>>:
   match result:
     case (world,receipt):(world,receipt <> receipts)
-def next(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,permission:Permission.Permission,value:Buffer.Entry<S,Layout.payload(layout,route)>,tick:Tick.Tick,result:W.World<S,Layout.columns(~S,layout),R,E> & List<Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>>) -> W.World<S,Layout.columns(~S,layout),R,E> & List<Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>>:
+def next(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,permission:Permission.Permission,value:Buffer.Entry<S,Layout.payload(layout,route),Removed.Removed(layout)>,tick:Tick.Tick,result:W.World<S,Layout.columns(~S,layout),R,E> & List<Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>>) -> W.World<S,Layout.columns(~S,layout),R,E> & List<Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>>:
   match result:
     case (world,receipts):recorded(~S,~R,~E,~layout,~route,receipts,entry(~S,~R,~E,~layout,~route,permission,world,value,tick))
-def drain(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,+permission:Permission.Permission,entries:List<Buffer.Entry<S,Layout.payload(layout,route)>>,world:W.World<S,Layout.columns(~S,layout),R,E>,+tick:Tick.Tick,receipts:List<Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>>) -> W.World<S,Layout.columns(~S,layout),R,E> & List<Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>>:
+def drain(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,+permission:Permission.Permission,entries:List<Buffer.Entry<S,Layout.payload(layout,route),Removed.Removed(layout)>>,world:W.World<S,Layout.columns(~S,layout),R,E>,+tick:Tick.Tick,receipts:List<Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>>) -> W.World<S,Layout.columns(~S,layout),R,E> & List<Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>>:
   match entries:
     case []:(world,receipts)
     case value <> rest:next(~S,~R,~E,~layout,~route,permission,value,tick,drain(~S,~R,~E,~layout,~route,permission,rest,world,tick,receipts))

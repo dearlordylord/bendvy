@@ -1,18 +1,23 @@
 import Base
 import ./world.bend as W
+import ./execution-reservation-task.bend as Task
+import ./execution-reservation-bundle.bend as Bundle
 
 # Framework storage for one declared component family. Payloads remain affine
 # until a whole-World barrier applies them or returns them in a refusal receipt.
-type Entry<-S:Data,-P:Type> is Type:
+type Entry<-S:Data,-P:Type,-D:Type> is Type:
   Entry{handle:W.Handle<S>,incoming:Maybe<&1,P>}
   Despawn{handle:W.Handle<S>}
+  Spawn{handle:W.Handle<S>,bundle:D}
 type Receipt<-S:Data,-P:Type,-D:Type> is Type:
   Applied{handle:W.Handle<S>,previous:Maybe<&1,P>}
   Refused{handle:W.Handle<S>,incoming:Maybe<&1,P>}
   Despawned{handle:W.Handle<S>,removed:D}
   DespawnRefused{handle:W.Handle<S>}
+  Spawned{handle:W.Handle<S>,previous:D}
+  SpawnRefused{handle:W.Handle<S>,bundle:D,reason:Bundle.Refusal}
 type Buffer<-S:Data,-P:Type,-D:Type> is Type:
-  Buffer{pending:List<Entry<S,P>>,receipts:List<Receipt<S,P,D>>}
+  Buffer{pending:List<Entry<S,P,D>>,receipts:List<Receipt<S,P,D>>}
 # Bevy ad678262, schedule/executor/single_threaded.rs: run_without_applying_deferred
 # keeps the system's authored buffer, including after a handled RunSystemError.
 # Enqueue here only transfers ownership; no component storage is available.
@@ -32,7 +37,7 @@ def split(~S:Data,~P:Type,~D:Type,buffer:Buffer<S,P,D>) -> Buffer<S,P,D> & Buffe
   (buffer,empty(~S,~P,~D))
 def merge(~S:Data,~P:Type,~D:Type,left:Buffer<S,P,D>,right:Buffer<S,P,D>) -> Buffer<S,P,D>:
   match left right:
-    case Buffer{leftPending,leftReceipts} Buffer{rightPending,rightReceipts}:Buffer{List.append(&1,Entry<S,P>,rightPending,leftPending),List.append(&1,Receipt<S,P,D>,rightReceipts,leftReceipts)}
+    case Buffer{leftPending,leftReceipts} Buffer{rightPending,rightReceipts}:Buffer{List.append(&1,Entry<S,P,D>,rightPending,leftPending),List.append(&1,Receipt<S,P,D>,rightReceipts,leftReceipts)}
 def pending(~S:Data,~P:Type,~D:Type,buffer:Buffer<S,P,D>) -> Buffer<S,P,D> & Bool:
   match buffer:
     case Buffer{[],receipts}:(Buffer{[],receipts},False{})
@@ -40,3 +45,14 @@ def pending(~S:Data,~P:Type,~D:Type,buffer:Buffer<S,P,D>) -> Buffer<S,P,D> & Boo
 def take_receipts(~S:Data,~P:Type,~D:Type,buffer:Buffer<S,P,D>) -> Buffer<S,P,D> & List<Receipt<S,P,D>>:
   match buffer:
     case Buffer{pending,receipts}:(Buffer{pending,[]},List.reverse(&1,Receipt<S,P,D>,receipts))
+
+# Admission returns the actual bundle if canonical reservation was refused.
+type SpawnAdmission<-S:Data,-D:Type> is Type:
+  SpawnQueued{handle:W.Handle<S>}
+  SpawnRejected{bundle:D,error:W.WorldError}
+def stage(~S:Data,~P:Type,~D:Type,buffer:Buffer<S,P,D>,bundle:D,answer:W.Reservation<S>) -> Task.Task<S,Buffer<S,P,D> & SpawnAdmission<S,D>>:
+  match buffer answer:
+    case Buffer{pending,receipts} W.ReservationRejected{error}:Task.TDone{(Buffer{pending,receipts},SpawnRejected{bundle,error})}
+    case Buffer{pending,receipts} W.Reserved{+handle}:Task.TDone{(Buffer{Spawn{handle,bundle} <> pending,receipts},SpawnQueued{handle})}
+def spawn(~S:Data,~P:Type,~D:Type,buffer:Buffer<S,P,D>,bundle:D) -> Task.Task<S,Buffer<S,P,D> & SpawnAdmission<S,D>>:
+  Task.TNeed{answer => stage(~S,~P,~D,buffer,bundle,answer)}
