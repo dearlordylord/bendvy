@@ -126,6 +126,30 @@ preserve receiver failure channels, namespace and Reader IDs. Modern machine Cel
 publication and subsequent state-driven execution still require implementation;
 the old Init.State installer cannot substitute for the new Cell ownership shape.
 
+The concrete `extended-main.bend` now executes real source-to-distinct-receiver
+World restoration for Alpha/Beta. Its source owns Array-backed parent/child Actors
+41/52, a hierarchy authored through canonical protected publication, and a
+committed Waiting Cell at revision 3. The target is independently created with
+Running revision 99 and registers an actual relation failure Reader before
+restore. Complete basic/graph/closed-mode codec admission precedes construction
+and mutation; receiver resource namespaces are also checked without changing
+owners. Staged Actor owners publish through real fresh allocation, graph mapping
+rebuilds the hierarchy, and trusted protected-slot/Cell continuations install it.
+Every preparation, constructor, mapping and partial publication outcome retains
+its actual owners and source data; no old transaction runtime is invoked.
+
+One ordinary entry invocation exited 0 for both nominal schemas: source keys
+1:0/2:0 mapped into receiver namespace 2/4 at indices 3:0/4:0, with complete Actor
+fields, hierarchy inverse ordering and Waiting revision 3 observed afterward.
+The receiver's actual registered Reader remained namespace:1:0, nextReader stayed
+2, relation channel/sequence stayed empty/0, machine stream/sequence stayed empty/0,
+both Cell stamps remained None and intent was Idle with initialPending=False.
+These are empty-channel/None-stamp cases; nonempty retained channels and stamps
+remain additional cases. The consumer has not yet resumed a Scheduled machine
+transition with captured handlers or exercised invalid graph refusal. Lifetime
+scope restore awaits its modern protected membership resource, and no full GH92
+completion is claimed.
+
 `execution-relation-restore` supplies the trusted protected-slot continuation:
 Refused returns the same slot and affine source, while Ready installs an already
 validated and remapped graph, returns the previous graph, refreshes the actual
