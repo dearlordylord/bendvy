@@ -22,7 +22,7 @@ import ./execution-state.bend as State
 import ./execution-parallel-schedule.bend as Ready
 import ./execution-compiled-binding.bend as Binding
 import ./execution-reservation-task.bend as Effect
-import ./execution-reservation-permit.bend as RuntimePermit
+import ./execution-reservation-authority.bend as RuntimePermit
 
 # The closed Program brands the symbolic and dynamic evidence together. These
 # framework records are built only from actual World handles and storage.

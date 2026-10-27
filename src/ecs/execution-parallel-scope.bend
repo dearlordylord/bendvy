@@ -5,7 +5,7 @@ import ./world.bend as W
 import ./execution-state.bend as State
 import ./execution-system.bend as Sys
 import ./execution-reservation-task.bend as Effect
-import ./execution-reservation-permit.bend as RuntimePermit
+import ./execution-reservation-authority.bend as RuntimePermit
 import ./execution-builder.bend as Build
 import ./execution-declaration.bend as D
 import ./execution-parallel-system.bend as Task
@@ -179,7 +179,7 @@ def compiled_permit(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -
   match permit:
     case None{}:Effect.TDone{trusted_qualified_invoked(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WR,namespace,permits,provenance,(scope,(Task.restored(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,meta,local),[])))}
     case Some{RawPermit{id,False{},tick}}:Effect.TDone{trusted_qualified_invoked(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WR,namespace,permits,provenance,(scope,(Task.restored(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,meta,local),[Ready.Completed{id,Exec.AdmissionRefused{}}])))}
-    case Some{RawPermit{+id,True{},+tick}}:Sys.map(S,RuntimePermit.Permit,State.Scope<S,C,R> & (Local & Sys.Completion<Error,Out>),Prep.Invocation<State.Scope<S,C,R>,W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Prep.Permit<S,WC>,List<&2,Ready.Completed<Error,Out>>>,Effect.map_permit(~S,~Effect.Granted,~RuntimePermit.Permit,~(State.Scope<S,C,R> & (Local & Sys.Completion<Error,Out>)),~RuntimePermit.Context,~RuntimePermit.qualify,RuntimePermit.Context{namespace,id,grant},body(Effect.Granted,State.Scope<S,C,R>,compiledCaps,retick(~S,~C,~R,scope,tick,meta_cursor(~Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,meta)),local)),result => trusted_qualified_invoked(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WR,namespace,permits,provenance,trusted_invoked(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,meta,id,tick,result)))
+    case Some{RawPermit{+id,True{},+tick}}:Sys.map(S,RuntimePermit.Permit,State.Scope<S,C,R> & (Local & Sys.Completion<Error,Out>),Prep.Invocation<State.Scope<S,C,R>,W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Prep.Permit<S,WC>,List<&2,Ready.Completed<Error,Out>>>,Effect.qualify(S,State.Scope<S,C,R> & (Local & Sys.Completion<Error,Out>),RuntimePermit.Context{namespace,id,grant},body(Effect.Granted,State.Scope<S,C,R>,compiledCaps,retick(~S,~C,~R,scope,tick,meta_cursor(~Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,meta)),local)),result => trusted_qualified_invoked(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WR,namespace,permits,provenance,trusted_invoked(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,meta,id,tick,result)))
 
 def compiled_admitted(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~WR:Type,~compiledCaps:Ops(Effect.Granted,State.Scope<S,C,R>),grant:RuntimePermit.Grant,admission:Prep.Admission<State.Scope<S,C,R>,W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Prep.Permit<S,WC>>) -> Effect.Task<S,RuntimePermit.Permit,Prep.Invocation<State.Scope<S,C,R>,W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Prep.Permit<S,WC>,List<&2,Ready.Completed<Error,Out>>>>:
   match admission:

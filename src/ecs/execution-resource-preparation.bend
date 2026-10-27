@@ -11,7 +11,7 @@ import ./world.bend as W
 import ./execution-state.bend as State
 import ./execution-lifecycle-notices.bend as Notice
 import ./execution-reservation-task.bend as Effect
-import ./execution-reservation-permit.bend as RuntimePermit
+import ./execution-reservation-authority.bend as RuntimePermit
 import ./execution-parallel-schedule.bend as Ready
 
 # Observation, admission, and clock entry thread the same actual compilation.

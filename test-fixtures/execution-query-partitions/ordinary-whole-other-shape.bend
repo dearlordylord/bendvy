@@ -1,7 +1,7 @@
 import Base
 import ../../src/ecs/execution-compiled-binding.bend as Binding
 import ../../src/ecs/execution-reservation-task.bend as Effect
-import ../../src/ecs/execution-reservation-permit.bend as RuntimePermit
+import ../../src/ecs/execution-reservation-authority.bend as RuntimePermit
 import ./schema.bend as S
 import ./schema-walk.bend as Walk
 import ../../src/ecs/execution-builder.bend as Build
