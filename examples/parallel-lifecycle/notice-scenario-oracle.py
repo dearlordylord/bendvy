@@ -11,7 +11,7 @@ query = runpy.run_path(str(Path(__file__).resolve().parents[1] / 'parallel-query
 shown = query['shown']
 
 
-def scenario(namespace):
+def scenario(namespace, updates=4, return_state=False):
     inputs = dict(query['INPUTS'])
     outputs = dict(query['INITIAL_OUTPUTS'])
     live = set(range(1, 19))
@@ -38,7 +38,7 @@ def scenario(namespace):
                 return f'item={sequence}:{namespace}:{entity}:0@0:{tick}/missed={missed}'
         return f'empty/missed={missed}'
 
-    for update in range(4):
+    for update in range(updates):
         now += 1
         author_cursor = now
         errors = []
@@ -83,9 +83,9 @@ def scenario(namespace):
                  + ',free=[17],order=' + shown(f'{i}:0' for i in sorted(live)))
     channel_texts = []
     for family, state in channels.items():
-        assert not state['previous'] and not state['current']
+        render = lambda rows: shown(f'{seq}:{namespace}:{entity}:0@0:{tick}' for seq, entity, tick in rows)
         channel_texts.append('{' + family + f',next={state["next"]},floor={state["floor"]}'
-                             + ',previous=[],current=[]}')
+                             + ',previous=' + render(state['previous']) + ',current=' + render(state['current']) + '}')
     journal = (f'namespace={namespace};next-reader=5;active='
                + '[1:removed/output, 2:removed/output, 3:removed/input, 4:despawn];channels='
                + shown(channel_texts))
@@ -94,15 +94,18 @@ def scenario(namespace):
              + 'resource=800;events=0;legacy-pending=0;registrations='
              + '[2:reader:[removed/output, removed/input, despawn], 1:author:[input, output]];'
              + f'next=3;clock=0:{now}:[]')
-    reader = ('token=704;runs=4;fast=' + f'{namespace}:1:{cursors["fast"]}'
+    reader = (f'token={700 + updates};runs={updates};fast=' + f'{namespace}:1:{cursors["fast"]}'
               + ';slow=' + f'{namespace}:2:{cursors["slow"]}'
               + ';input=' + f'{namespace}:3:{cursors["input"]}'
               + ';despawn=' + f'{namespace}:4:{cursors["despawn"]}'
               + ';history=' + history)
     handles = shown(f'{namespace}:{i}:0' for i in range(1, 19))
+    if return_state:
+        return dict(world=world, reader=reader, reports=reports, receipts=receipts, handles=handles,
+                    author_cursor=author_cursor, peer_cursor=peer_cursor, history=history, cursors=cursors)
     return (';'.join(reports) + ';exact-pending=false|world=' + world
             + '|queue=[]|receipts=' + shown(receipts) + '|handles=' + handles
-            + f'|user=904:4|cursor=0:{author_cursor}|peer={{{reader}}}:0:{peer_cursor}'
+            + f'|user={900 + updates}:{updates}|cursor=0:{author_cursor}|peer={{{reader}}}:0:{peer_cursor}'
             + '|handler=901:2|unapplied=[]')
 
 

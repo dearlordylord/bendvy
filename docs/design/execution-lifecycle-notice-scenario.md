@@ -38,14 +38,38 @@ Initial expected stdout SHA256:
 `36fc7176320c4912de01e6d3b55783a4a364d8cb8410edb1711dd2ec1eeae1d9`.
 These are pre-capture development bindings, not backend qualification.
 
-Still in this first scenario: genuinely created same-schema World B with matching
-family sequence numbers; retire/release A reader Local and freshly register B
-system with it. Actual system admission must succeed, Notice.read must refuse
-ForeignWorld and preserve each reader cursor, while normal invocation advances
-system cursor and body-authored token/runs. No implicit reader reset is selected.
-The original system owner in A must not be used to mask this operation with a
-Prepared namespace-admission refusal. The real IO driver and intended authority
-controls still need source checks and full frozen observation before capture.
+The first scenario now includes `notice-foreign-core.bend`: genuine IO-created
+same-schema A and B complete two and one updates respectively, producing matching
+per-family sequence numbers. It retires/releases both actual system owners,
+retains the old B Local and freshly defines B system3 with A's actual released
+Local. The B system admits through ordinary Root and calls the lifecycle ops.
+Each Notice.read must refuse ForeignWorld, preserving A's exact2/0/1/1 cursors;
+normal body token/runs and the new B system cursor advance. The full observation
+retains both authoritative Worlds, unlike Type receipts, old B Local and both
+retirement identities, report histories, registrations, active reader inventory
+and final B owner state. No original A system is invoked against B.
+
+Concrete foreign core source check passed actualexit0, log `foreign1.*`. The
+complete genuine three-World IO driver reaches exactly four foreign definitions
+(fresh/create/foreign_run/main), with no ordinary type error, in `driver2.*`.
+This is source evidence, not execution evidence. No notice backend has run.
+
+The full pre-capture observation has9018 bytes, SHA256
+`ad87bf49073fe6ff25472a88affde8b70bc4018f4c34040e5cd68358821bff97`.
+The complete model wrapper SHA256 is
+`0927119656aed72133ac47977eca2302a439033863658a50380a4e09f16b4acc`.
+Factoring the original publication model to support two/one update states left
+its original3553-byte expected observation byte-identical; its current source
+hash is935751d165a9cfe282ebd56949844a40030e39081af3063814a1576d58664907.
+No model reads captured implementation output.
+
+New source controls retain a positive canonical Unit-local grant and a positive
+definitional refresher alias. Changing the actual refresher view by+1 or changing
+the classified leaf identity under the same key refuses at full-WC equality;
+an absent route refuses at False/True validity. A pure alias of the original
+refresher is definitionally the same function, so it is deliberately positive.
+These controls do not claim every conceivable callback or raw constructor is
+confined.
 
 Both ordinary parallel forms, mixed physical/query/resource declarations,
 canonical origin/refresher/classification controls, retirement/exhaustion and

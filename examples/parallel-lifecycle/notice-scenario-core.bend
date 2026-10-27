@@ -159,16 +159,23 @@ def finished(~S:Data,~mode:Query.Mode,+native:Bool,remaining:Nat,prefix:String,r
     case 1n+rest, (app,done):finished(~S,~mode,native,rest,prefix ++ report(~S,done) ++ ";",selected(~S,~mode,native,app))
 def first(~S:Data,~mode:Query.Mode,+native:Bool,result:Application(~S,~mode) & DepApp.Report<String,String>) -> String:
   finished(~S,~mode,native,3n,"",result)
-def built(~S:Data,~mode:Query.Mode,settings:Settings.Settings,+native:Bool,world:W.World<S,Store(~S),Resources(~S),Unit>,author:Author(~S,~mode),peer:Peer(~S)) -> String:
-  first(~S,~mode,native,selected(~S,~mode,native,Schedule.configure(~(DepApp.Application<W.World<S,Store(~S),Resources(~S),Unit>,Product.Owner<Author(~S,~mode),Peer(~S)>,Unit,Handler,String,String,Root.dispatch(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S,~mode),~Peer(~S),~left(~S,~mode),~right(~S)),Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),handle(~S)>),settings,Schedule.build(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S,~mode),~Peer(~S),~left(~S,~mode),~right(~S),~Unit,~Handler,~Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~Prog.empty(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~handle(~S),~(name => True{}),world,Product.Owner{author,peer},Unit{},Handler{ALeaf{901},0},[Plan.Edge{1,2}],[]))))
-def peer_defined(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,author:Author(~S,~mode),result:Sys.Defined<W.World<S,Store(~S),Resources(~S),Unit>,Peer(~S),Readers.Captures<S>>) -> String:
+type Setup<-S:Data,-mode:Query.Mode> is Type:
+  Ready{application:Application(~S,~mode)}
+  Failed{reason:String}
+def setup_run(~S:Data,~mode:Query.Mode,+native:Bool,result:Setup<S,mode>) -> String:
+  match result:
+    case Ready{app}:first(~S,~mode,native,selected(~S,~mode,native,app))
+    case Failed{reason}:reason
+def built(~S:Data,~mode:Query.Mode,settings:Settings.Settings,+native:Bool,world:W.World<S,Store(~S),Resources(~S),Unit>,author:Author(~S,~mode),peer:Peer(~S)) -> Setup<S,mode>:
+  Ready{Schedule.configure(~(DepApp.Application<W.World<S,Store(~S),Resources(~S),Unit>,Product.Owner<Author(~S,~mode),Peer(~S)>,Unit,Handler,String,String,Root.dispatch(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S,~mode),~Peer(~S),~left(~S,~mode),~right(~S)),Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),handle(~S)>),settings,Schedule.build(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S,~mode),~Peer(~S),~left(~S,~mode),~right(~S),~Unit,~Handler,~Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~Prog.empty(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~handle(~S),~(name => True{}),world,Product.Owner{author,peer},Unit{},Handler{ALeaf{901},0},[Plan.Edge{1,2}],[]))}
+def peer_defined(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,author:Author(~S,~mode),result:Sys.Defined<W.World<S,Store(~S),Resources(~S),Unit>,Peer(~S),Readers.Captures<S>>) -> Setup<S,mode>:
   match result:
     case Sys.Defined{world,peer}:built(~S,~mode,settings,native,world,author,peer)
-    case Sys.DefinitionRefused{_,_}:"ERROR: peer definition"
-def author_defined(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,readers:Readers.Captures<S>,result:Sys.Defined<W.World<S,Store(~S),Resources(~S),Unit>,Author(~S,~mode),Cmd.Captures(~S,~layout(~S),~path(~S),~AuthorLocal(~S))>) -> String:
+    case Sys.DefinitionRefused{_,_}:Failed{"ERROR: peer definition"}
+def author_defined(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,readers:Readers.Captures<S>,result:Sys.Defined<W.World<S,Store(~S),Resources(~S),Unit>,Author(~S,~mode),Cmd.Captures(~S,~layout(~S),~path(~S),~AuthorLocal(~S))>) -> Setup<S,mode>:
   match result:
     case Sys.Defined{world,author}:peer_defined(~S,~mode,settings,native,author,Task.define(~S,~Store(~S),~Unit,~Unit,~Unit,~PeerOps(~S),~Readers.Captures<S>,~String,~String,~peer_declaration(~S),~peer_body(~S),~Resources(~S),world,"reader",readers))
-    case Sys.DefinitionRefused{_,_}:"ERROR: author definition"
+    case Sys.DefinitionRefused{_,_}:Failed{"ERROR: author definition"}
 def activated(~S:Data,result:W.World<S,Store(~S),Resources(~S),Unit> & W.Status) -> W.World<S,Store(~S),Resources(~S),Unit>:
   match result:
     case (world,_):world
@@ -181,30 +188,30 @@ def spawn(~S:Data,fuel:Nat,world:W.World<S,Store(~S),Resources(~S),Unit>) -> W.W
     case 0n:world
     case 1n+rest:spawn(~S,rest,reserved(~S,W.reserve_id(~S,~Store(~S),~Resources(~S),~Unit,world)))
 def empty(~S:Data,_:Unit) -> Store(~S):Product.Owner{D.empty(~S,Unit{}),Unit{}}
-def handles_ready(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,readers:Readers.Captures<S>,result:W.World<S,Store(~S),Resources(~S),Unit> & List<&2,W.Handle<S>>) -> String:
+def handles_ready(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,readers:Readers.Captures<S>,result:W.World<S,Store(~S),Resources(~S),Unit> & List<&2,W.Handle<S>>) -> Setup<S,mode>:
   match result:
     case (world,handles):author_defined(~S,~mode,settings,native,readers,Cmd.define(~S,~Left(~S),~D.Resources(~S),~Unit,~layout(~S),~path(~S),~{==},~Ops(~S),~AuthorLocal(~S),~String,~String,~author_declaration(~S,~mode),~Decl.body(~S),~Resources(~S),world,"author",Decl.User{ALeaf{900},0,handles}))
-def despawn_registered(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,fast:Readers.OutputReader(~S),slow:Readers.OutputReader(~S),input:Readers.InputReader(~S),result:W.World<S,Store(~S),Resources(~S),Unit> & Notice.Registration<S,Layout.EmptyLayout{},Notice.Despawned{}>) -> String:
+def despawn_registered(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,fast:Readers.OutputReader(~S),slow:Readers.OutputReader(~S),input:Readers.InputReader(~S),result:W.World<S,Store(~S),Resources(~S),Unit> & Notice.Registration<S,Layout.EmptyLayout{},Notice.Despawned{}>) -> Setup<S,mode>:
   match result:
     case (world,Notice.Registered{despawn}):handles_ready(~S,~mode,settings,native,Readers.Captures{ALeaf{700},0,fast,slow,input,despawn,""},W.handles(~S,~Store(~S),~Resources(~S),~Unit,world))
-    case (_,Notice.RegistrationRefused{_}):"ERROR: despawn reader"
-def input_registered(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,fast:Readers.OutputReader(~S),slow:Readers.OutputReader(~S),result:W.World<S,Store(~S),Resources(~S),Unit> & Notice.Registration<S,Readers.input_origin(),Notice.Removed{"input"}>) -> String:
+    case (_,Notice.RegistrationRefused{_}):Failed{"ERROR: despawn reader"}
+def input_registered(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,fast:Readers.OutputReader(~S),slow:Readers.OutputReader(~S),result:W.World<S,Store(~S),Resources(~S),Unit> & Notice.Registration<S,Readers.input_origin(),Notice.Removed{"input"}>) -> Setup<S,mode>:
   match result:
     case (world,Notice.Registered{input}):despawn_registered(~S,~mode,settings,native,fast,slow,input,Admin.register_despawn(~S,~Store(~S),~Resources(~S),~Unit,world,Notice.Retained{}))
-    case (_,Notice.RegistrationRefused{_}):"ERROR: input reader"
-def slow_registered(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,fast:Readers.OutputReader(~S),result:W.World<S,Store(~S),Resources(~S),Unit> & Notice.Registration<S,Readers.output_origin(),Notice.Removed{"output"}>) -> String:
+    case (_,Notice.RegistrationRefused{_}):Failed{"ERROR: input reader"}
+def slow_registered(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,fast:Readers.OutputReader(~S),result:W.World<S,Store(~S),Resources(~S),Unit> & Notice.Registration<S,Readers.output_origin(),Notice.Removed{"output"}>) -> Setup<S,mode>:
   match result:
     case (world,Notice.Registered{slow}):input_registered(~S,~mode,settings,native,fast,slow,Admin.register_removed(~S,~Store(~S),~Resources(~S),~Unit,~layout(~S),~Readers.input_route(),~{==},~{==},world,Notice.Retained{}))
-    case (_,Notice.RegistrationRefused{_}):"ERROR: slow reader"
-def fast_registered(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,result:W.World<S,Store(~S),Resources(~S),Unit> & Notice.Registration<S,Readers.output_origin(),Notice.Removed{"output"}>) -> String:
+    case (_,Notice.RegistrationRefused{_}):Failed{"ERROR: slow reader"}
+def fast_registered(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,result:W.World<S,Store(~S),Resources(~S),Unit> & Notice.Registration<S,Readers.output_origin(),Notice.Removed{"output"}>) -> Setup<S,mode>:
   match result:
     case (world,Notice.Registered{fast}):slow_registered(~S,~mode,settings,native,fast,Admin.register_removed(~S,~Store(~S),~Resources(~S),~Unit,~layout(~S),~Readers.output_route(),~{==},~{==},world,Notice.Retained{}))
-    case (_,Notice.RegistrationRefused{_}):"ERROR: fast reader"
-def admitted(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,world:W.World<S,Store(~S),Resources(~S),Unit>) -> String:
+    case (_,Notice.RegistrationRefused{_}):Failed{"ERROR: fast reader"}
+def admitted(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,world:W.World<S,Store(~S),Resources(~S),Unit>) -> Setup<S,mode>:
   fast_registered(~S,~mode,settings,native,Admin.register_removed(~S,~Store(~S),~Resources(~S),~Unit,~layout(~S),~Readers.output_route(),~{==},~{==},spawn(~S,18n,world),Notice.Retained{}))
-def created(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,result:W.Creation<S,Store(~S),Resources(~S),Unit>) -> String:
+def created(~S:Data,~mode:Query.Mode,settings:Settings.Settings,+native:Bool,result:W.Creation<S,Store(~S),Resources(~S),Unit>) -> String:
   match result:
-    case W.Created{_,world}:fast_registered(~S,~mode,settings,native,Admin.register_removed(~S,~Store(~S),~Resources(~S),~Unit,~layout(~S),~Readers.output_route(),~{==},~{==},spawn(~S,18n,world),Notice.Retained{}))
+    case W.Created{_,world}:setup_run(~S,~mode,native,admitted(~S,~mode,settings,native,world))
     case W.CreateRejected{_,_}:"ERROR: creation"
 type First is Data:First{}
 def first_created(result:W.Creation<First,Store(~First),Resources(~First),Unit>) -> String:
