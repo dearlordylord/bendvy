@@ -1,5 +1,10 @@
 # Register and run an ordinary App
 
+This guide documents the archived ordinary App API. Its removed module links and
+fixture examples resolve in the [historical source checkout](../../test-fixtures/HISTORICAL.md),
+not against the replacement core. For current execution APIs use the
+[execution API guide](execution-api.md) and current application examples.
+
 The ordinary execution contract is being replaced under
 [issue #77](https://github.com/dearlordylord/bendvy/issues/77) and
 [the SPEC amendment](../SPEC.md#ordinary-execution-replacement-user-amendment-2026-10-26-utc).
