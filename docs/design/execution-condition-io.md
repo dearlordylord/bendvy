@@ -75,7 +75,7 @@ this source mapping.
 
 | Consumer and source | Recorded observation | Limit |
 | --- | --- | --- |
-| Machine, `96112c9e75b547a02e38b9dcdec86687ec1cfa43` | `/tmp/conditions79-retained-default-receipt.md`: four updates; JS stdout `/tmp/conditions79-machines-js.stdout`, one line, 7,239 bytes. | Direct retained leaves; does not qualify nonempty `Conditions.compile`. Native emission timed out in this receipt. |
+| Machine, `96112c9e75b547a02e38b9dcdec86687ec1cfa43` | `/tmp/conditions79-retained-default-receipt.md`: four updates; JS stdout `/tmp/conditions79-machines-js.stdout`, one line, 7,239 bytes. | Reaches canonical nonempty `Conditions.compile` through `Schedule.build_retained` with four actual retained guards. C emission timed out with exit 137; this receipt does not qualify native Machine execution. |
 | AppA, `b56862b257e9f76992de84a0e5b3c00ecacd4071` | `retained79-app-a-condition-delivery.md` in the GH78–94 orchestration record: JS/native full comparison passed, 22 lines, 5,867 bytes; both Off/On guards retain three calls and cursor `0:17`. | Finite retained-owner observation; no general construction-witness coherence theorem or independent full-World derivation. |
 | Events, `f81afeef1be3ae57bba14107684c5822eb53d596` | `native79-retained-condition-delivery.md` in the same record: eight original modes, five passes each; JS/native full comparison passed, eight lines, 17,291 bytes, including body-error writes and foreign-reader refusal. | Recorded source only; opaque pending callbacks are not extensionally observed. |
 
