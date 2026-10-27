@@ -74,9 +74,11 @@ The source controls use actual affine arrays and unlike nominal schemas. They
 check undeclared reads, writes through read authority, nominal family mismatch,
 reader/payload duplication, abstract-scope escape, an affine payload proposed as a Data read view, and wrapper construction
 against the wrong schema, payload type, or nominal family key. The cached view
-binds all three brands to the same canonical resource grant. The pure family, view, operations, declarations, and positive
-control source-check. Proof-only checking of the executable main reports its
-explicit foreign allocator dependency; backend emission checks that executable.
+binds all three brands to the same canonical resource grant. These descriptions
+state the existing controls' intended boundaries; the current consumer migration
+does not qualify every historical control receipt. Proof-only checking of the
+executable main reports its explicit foreign Driver/allocator/IO dependencies;
+backend emission checks that executable.
 Finite observations do not establish universal correctness or host refinement.
 
 From the repository root, the ordinary product commands are:
@@ -93,3 +95,15 @@ The compiler path is local to the preserved development environment. A native
 worker count or a schedule entry named native does not establish actual worker
 participation; that requires source-bound observation of reached operations.
 Historical control receipts require their own current-source reuse assessment.
+
+At source `dd0652c354f2b24f288dc98141a0823b7f9c743b`, the unchanged pinned
+compiler emitted this complete original entry for JS and native. Each build and
+each ordinary execution exited zero. Native execution with two workers and GPU
+off produced the same complete eight-line, 11,275-byte output as JS; the standalone
+comparison exited zero. Refused payload 104 and retired/shutdown payloads
+90/101/102/103 were each projected twice from their actual returned owners.
+Reader cursors, retained-publication errors, skipped reads and resumed passes are
+present in the complete output. No new scenario or independent semantic oracle
+was added. This finite execution does not establish universal preservation,
+actual worker placement, GPU behavior or speedup. Local source-bound logs remain
+outside the repository; they are not a portable qualification bundle.
