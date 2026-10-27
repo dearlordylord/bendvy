@@ -61,6 +61,23 @@ Stopped/Invalid pass through unchanged. The historical raw entry remains and
 refuses missing protected cleanup authority rather than guessing payload types.
 Other existing application entry shapes have not been migrated automatically.
 
+`execution-provisioned-generalized-root.run_bound` supplies the same Blueprint to
+a closed typed publication factory and delegates to the existing generalized
+Root's checked completion path. It first checks the original Context, complete
+schema coverage and actual protected Store namespaces. Non-Present cut/refusal
+inventories are returned as the same Bound without execution or completion.
+Finished composes the existing generalized lifecycle policy with the Blueprint's
+retention; Stopped/Invalid remain unchanged by those callbacks.
+
+`execution-generalized-command-leaf.publication` derives gameplay relation
+metadata and selection from the same static construction Compilation used by the
+retained node. Its runtime publication still inspects and returns the actual
+Compilation unchanged. It computes the authored LifetimeScope interpreter from
+gameplay evidence before attaching schema-only cleanup. No payload type is
+recovered from a policy flag, and schema cleanup adds no gameplay writer grant.
+The existing raw generalized entry and publication methods remain explicit raw
+paths; this new entry does not migrate their callers automatically.
+
 The passive command inspector recursively reconstructs the same actual nested
 receipt owners and returns detached Data facts. Existing terminal formatters
 recognize the richer receipt. The ordinary linked consumer renders the actual
@@ -88,6 +105,31 @@ The full observed output is `/tmp/bendvy-gh89-provisioned-linked.stdout` in the
 workspace (ordinary entry session55940, exit0). This finite observation is not a
 formal proof. It does not establish the new entry's foreign/Stop/Invalid cases or
 automatic finalApply=false behavior by execution.
+
+`examples/parallel-linked-despawn/generalized-scene.bend` runs the same scene
+through two actual retained generalized command Nodes, with an author→remover
+dependency. Declaration adapters use the canonical generalized query/resource
+storage types; the remover still requests only EntityGrant. Actual provisioning,
+allocator-issued full handles, arbitrary affine Session owners, command bodies
+and full owner/message formatters are reused. Both accepted Compilation owners
+travel through their actual Node artifacts; no runtime recompilation or second
+authority catalogue is substituted.
+
+Its pinned ordinary entry completed with exit0 (session25455). The full output is
+`/tmp/bendvy-gh89-general-provision.stdout`, with stderr in the sibling `.stderr`
+file. It reports full removed owners11→33, survivor22/cache22, both empty graph
+and inverse indexes, the exact cycle failure Message, State401/401, Local601,
+pending0 and paused frames0. Automatic Finished retention reports parent
+sequence1/olderThrough1 and both maintenance ticks0:4, preserving nextReader1.
+This is one two-leaf finite observation, not a proof of arbitrary N-leaf shapes,
+repeated updates, foreign/Stop/Invalid or finalApply=false controls.
+
+This unit depends on machine90's `a7ca205ef` source plumbing: the closed
+LifetimeScope Interpreter, `Publication.scope_interpreter`, and
+`CommandScope.publish_with_compilation_interpreted`. It adds a separate
+provisioned generalized binding method and leaves the old method unchanged.
+That dependency is not an accepted fix for the ordinary machine's template
+staging failure; the successful protected generalized scene does not settle it.
 
 The shared descriptor behavior follows pinned Bevy
 ad678262ce53b5d142fe49ee5e08caff6f00ab60
