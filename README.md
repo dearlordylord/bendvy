@@ -19,7 +19,9 @@ The examples provide finite observations. Five approved Bend laws cover
 [pure executor helpers](docs/design/execution-law-candidates.md).
 Replacement execution work is still in progress. The
 [current API map](docs/reference/execution-api.md) names the implementation entries
-and remaining legacy source removal.
+and documents removal of the superseded ordinary executor. Application integration,
+normal CI and the remaining acceptance requirements of
+[issues #78–94](https://github.com/dearlordylord/bendvy/issues/77) are still in progress.
 
 ## Playable example
 
