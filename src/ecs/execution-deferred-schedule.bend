@@ -29,14 +29,14 @@ def compatible(~BaseRules:Data,~baseCompatible:BaseRules -> U32 -> U32 -> Bool,r
 def condition_returned(~Actual:Type,~Error:Data,syncs:List<&2,U32>,unapplied:List<&2,U32>,result:Actual & Exec.Condition<Error>) -> Context<Actual> & Exec.Condition<Error>:
   match result:
     case (state,value):(Context{state,unapplied,syncs},value)
-def condition_selected(~Actual:Type,~Error:Data,~condition:Actual -> U32 -> Actual & Exec.Condition<Error>,context:Context<Actual>,id:U32,isSync:Bool) -> Context<Actual> & Exec.Condition<Error>:
+def condition_selected(~Actual:Type,~Error:Data,~condition:Actual -> U32 -> IO(Actual & Exec.Condition<Error>),context:Context<Actual>,id:U32,isSync:Bool) -> IO(Context<Actual> & Exec.Condition<Error>):
   match context isSync:
-    case context True{}:(context,Exec.Allowed{})
-    case Context{state,unapplied,syncs} False{}:condition_returned(~Actual,~Error,syncs,unapplied,condition(state,id))
-def condition_id(~Actual:Type,~Error:Data,~condition:Actual -> U32 -> Actual & Exec.Condition<Error>,context:Context<Actual>,+id:U32) -> Context<Actual> & Exec.Condition<Error>:
+    case context True{}:IO.pure(Context<Actual> & Exec.Condition<Error>,(context,Exec.Allowed{}))
+    case Context{state,unapplied,syncs} False{}:IO.bind(Actual & Exec.Condition<Error>,Context<Actual> & Exec.Condition<Error>,condition(state,id),result => IO.pure(Context<Actual> & Exec.Condition<Error>,condition_returned(~Actual,~Error,syncs,unapplied,result)))
+def condition_id(~Actual:Type,~Error:Data,~condition:Actual -> U32 -> IO(Actual & Exec.Condition<Error>),context:Context<Actual>,+id:U32) -> IO(Context<Actual> & Exec.Condition<Error>):
   match context:
     case Context{state,unapplied,+syncs}:condition_selected(~Actual,~Error,~condition,Context{state,unapplied,syncs},id,Settings.member(id,syncs))
-def condition_adapter(~Actual:Type,~Error:Data,~condition:Actual -> U32 -> Actual & Exec.Condition<Error>,context:Context<Actual>,id:U32) -> Context<Actual> & Exec.Condition<Error>:
+def condition_adapter(~Actual:Type,~Error:Data,~condition:Actual -> U32 -> IO(Actual & Exec.Condition<Error>),context:Context<Actual>,id:U32) -> IO(Context<Actual> & Exec.Condition<Error>):
   condition_id(~Actual,~Error,~condition,context,id)
 def group_returned(~Actual:Type,~Error:Data,~Out:Data,syncs:List<&2,U32>,unapplied:List<&2,U32>,result:Actual & List<&2,Ready.Completed<Error,Out>>) -> Context<Actual> & List<&2,Ready.Completed<Error,Out>>:
   match result:
@@ -77,6 +77,6 @@ def finished(~Actual:Type,~Error:Data,~Out:Data,~apply:List<&2,U32> -> Actual ->
 # local/cursor update, or visible body event is generated for their private IDs.
 def ready(nodes:List<&2,Plan.Node<String>>,edges:List<&2,Plan.Edge>) -> List<&2,Plan.Node<String>>:
   Plan.ready(~String,nodes,edges)
-def run(~BaseRules:Data,~Actual:Type,~Error:Data,~Out:Data,~condition:Actual -> U32 -> Actual & Exec.Condition<Error>,~group:Actual -> List<&2,U32> -> IO(Actual & List<&2,Ready.Completed<Error,Out>>),~handler:Actual -> Error -> Actual & Exec.Handling,~apply:List<&2,U32> -> Actual -> Actual & List<&2,U32>,~baseCompatible:BaseRules -> U32 -> U32 -> Bool,settings:Settings.Settings,+syncs:List<&2,U32>,rules:BaseRules,plan:Plan.Build<String>,state:Actual,unapplied:List<&2,U32>) -> IO(Outcome<Actual,Error,Out>):
+def run(~BaseRules:Data,~Actual:Type,~Error:Data,~Out:Data,~condition:Actual -> U32 -> IO(Actual & Exec.Condition<Error>),~group:Actual -> List<&2,U32> -> IO(Actual & List<&2,Ready.Completed<Error,Out>>),~handler:Actual -> Error -> Actual & Exec.Handling,~apply:List<&2,U32> -> Actual -> Actual & List<&2,U32>,~baseCompatible:BaseRules -> U32 -> U32 -> Bool,settings:Settings.Settings,+syncs:List<&2,U32>,rules:BaseRules,plan:Plan.Build<String>,state:Actual,unapplied:List<&2,U32>) -> IO(Outcome<Actual,Error,Out>):
   match settings:
     case Settings.Settings{_,finalApply,_,_}:IO.bind(Exec.ExecutionResult<Context<Actual>,String,Error,Out>,Outcome<Actual,Error,Out>,Ready.run(~Rules<BaseRules>,~Context<Actual>,~String,~Error,~Out,~condition_adapter(~Actual,~Error,~condition),~group_adapter(~Actual,~Error,~Out,~group,~apply),~handler_adapter(~Actual,~Error,~handler),~compatible(~BaseRules,~baseCompatible),~ready,Rules{rules,syncs},plan,Context{state,unapplied,syncs}),result => IO.pure(Outcome<Actual,Error,Out>,finished(~Actual,~Error,~Out,~apply,finalApply,result)))
