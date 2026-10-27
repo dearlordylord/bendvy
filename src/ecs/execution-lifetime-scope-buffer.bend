@@ -53,3 +53,20 @@ def apply_checked(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~D:Type,~resources:Lay
     case Commands.Cleanup{scope}, (world,True{}):cleanup_allowed(~S,~C,~R,~E,~P,~D,~resources,~same,~selection,~dispose,Coverage.layout(~S,~resources,resources,Layout.AtLeaf{},relations),context,route,scope,world,tick)
 def apply(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~D:Type,~resources:Layout.Layout,~same:{R == Layout.resources(~S,resources) : Type},~selection:Permission.Selection<S,resources>,~relations:Permission.Relations<S,resources>,~dispose:Cleanup.Dispose(~S,~C,~R,~E,~P,~D),+context:Context.Context<S,R,resources,same>,route:Layout.Route,operation:Commands.Operation<S>,world:W.World<S,C,R,E>,tick:Tick.Tick) -> W.World<S,C,R,E> & Buffer.Receipt<S,P,D>:
   apply_checked(~S,~C,~R,~E,~P,~D,~resources,~same,~selection,~relations,~dispose,context,route,operation,tick,Context.matches(~S,~C,~R,~E,~resources,~same,context,world))
+
+def Interpreter(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~D:Type,~resources:Layout.Layout,~same:{R == Layout.resources(~S,resources) : Type}) -> Type:
+  @+context:Context.Context<S,R,resources,same> -> Layout.Route -> Commands.Operation<S> -> W.World<S,C,R,E> -> Tick.Tick -> W.World<S,C,R,E> & Buffer.Receipt<S,P,D>
+def unavailable(-S:Data,-C:Type,-R:Type,-E:Data,-P:Type,-D:Type,+route:Layout.Route,+scope:Scope.Scope<S>,result:W.World<S,C,R,E> & Dispatch.Outcome<S>) -> W.World<S,C,R,E> & Buffer.Receipt<S,P,D>:
+  match result:
+    case (world,result):(world,Buffer.ScopePublished{route,Commands.Cleanup{scope},Buffer.ScopeDenied{Buffer.ScopeStoreRefused{}},[Buffer.ScopeStoreApplied{route,Store.Select{scope},result}],[]})
+def unprotected_checked(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~D:Type,~resources:Layout.Layout,~same:{R == Layout.resources(~S,resources) : Type},~selection:Permission.Selection<S,resources>,+context:Context.Context<S,R,resources,same>,+route:Layout.Route,operation:Commands.Operation<S>,tick:Tick.Tick,result:W.World<S,C,R,E> & Bool) -> W.World<S,C,R,E> & Buffer.Receipt<S,P,D>:
+  match operation result:
+    case operation, (world,False{}):denied(S,C,R,E,P,D,route,operation,Buffer.ForeignNamespace{},world)
+    case Commands.Assign{+scope,+handle}, (world,True{}):assigned(S,C,R,E,P,D,route,scope,handle,Access.apply(~S,~C,~R,~E,~resources,~same,~selection,context,route,Store.Assign{scope,handle},world,tick))
+    case Commands.Cleanup{+scope}, (world,True{}):unavailable(S,C,R,E,P,D,route,scope,Access.apply(~S,~C,~R,~E,~resources,~same,~selection,context,route,Store.Select{scope},world,tick))
+def unprotected(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~D:Type,~resources:Layout.Layout,~same:{R == Layout.resources(~S,resources) : Type},~selection:Permission.Selection<S,resources>,+context:Context.Context<S,R,resources,same>,route:Layout.Route,operation:Commands.Operation<S>,world:W.World<S,C,R,E>,tick:Tick.Tick) -> W.World<S,C,R,E> & Buffer.Receipt<S,P,D>:
+  unprotected_checked(~S,~C,~R,~E,~P,~D,~resources,~same,~selection,context,route,operation,tick,Context.matches(~S,~C,~R,~E,~resources,~same,context,world))
+# Select fixed code while building the declaration, before the enclosing
+# application specializes a cleanup engine for an ordinary resource schema.
+def interpreter(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~D:Type,~resources:Layout.Layout,~same:{R == Layout.resources(~S,resources) : Type},~selection:Permission.Selection<S,resources>,~relations:Permission.Relations<S,resources>,~dispose:Cleanup.Dispose(~S,~C,~R,~E,~P,~D),~protected:Bool) -> Interpreter(~S,~C,~R,~E,~P,~D,~resources,~same):
+  Bool.pick(Interpreter(~S,~C,~R,~E,~P,~D,~resources,~same),protected,apply(~S,~C,~R,~E,~P,~D,~resources,~same,~selection,~relations,~dispose),unprotected(~S,~C,~R,~E,~P,~D,~resources,~same,~selection))
