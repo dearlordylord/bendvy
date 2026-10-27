@@ -62,7 +62,13 @@ def compilation() -> D.Compilation<S.SchemaA,Run.WC(),Run.CombinedColumns(),Run.
   ResourceProgram.compile_framework(~S.SchemaA,~Run.WC(),~Run.CombinedColumns(),~Run.CombinedResources(),~Cmd.ScopedOps(~S.SchemaA,~S.layout_b(),~Run.combined_resources(),~L.InLeft{L.AtLeaf{}},~Ops),~kernel)
 def AuthorNode() -> Type:Author.Node(~S.SchemaA,~S.layout_b(),~Run.combined_resources(),~Unit,~L.InLeft{L.AtLeaf{}},~Ops,~User,~String,~Maybe<&2,U32>,~declaration,~body)
 def Nodes() -> Type:Product.Owner<AuthorNode(),Run.CombinedRightNode(False{})>
-def ScheduledApplication() -> Type:RootApp.Scheduled<App.State<Root.Storage<S.SchemaA,S.layout_b(),Run.combined_resources(),Unit>,Nodes(),Run.RootGuard(),U32>>
+def GuardCompilation() -> Type:D.Compilation<S.SchemaA,Run.WC(),Run.WC(),L.resources(~S.SchemaA,Run.combined_resources()),Run.RootGuardOps>
+def Guard() -> Type:Scope.CompiledBinding<GuardCompilation(),Run.RootGuard()>
+def guard_construction() -> GuardCompilation():
+  ResourceProgram.compile_framework(~S.SchemaA,~Run.WC(),~Run.WC(),~L.resources(~S.SchemaA,Run.combined_resources()),~Run.RootGuardOps,~Run.root_guard_kernel)
+def guard_dispatch() -> Conditions.Dispatch(~Run.CombinedWorld(),~Guard(),~String):
+  Conditions.retained_leaf_dispatch(~S.SchemaA,~Run.WC(),~L.resources(~S.SchemaA,Run.combined_resources()),~Unit,~Run.RootGuardOps,~U32,~String,~Run.root_guard_kernel,~Run.root_guard_body,~guard_construction())
+def ScheduledApplication() -> Type:RootApp.Scheduled<App.State<Root.Storage<S.SchemaA,S.layout_b(),Run.combined_resources(),Unit>,Nodes(),Guard(),U32>>
 def CapturedContext() -> Data:Context.Context<S.SchemaA,L.resources(~S.SchemaA,Run.combined_resources()),Run.combined_resources(),{==}>
 def Application() -> Type:Context.Bound<S.SchemaA,L.resources(~S.SchemaA,Run.combined_resources()),Run.combined_resources(),{==},ScheduledApplication()>
 def dispatch(nodes:Nodes(),world:Run.CombinedWorld(),ids:List<&2,U32>) -> IO(Execution.RunResult<S.SchemaA,S.layout_b(),Run.combined_resources(),Unit,Nodes(),String,Maybe<&2,U32>>):
@@ -97,7 +103,7 @@ def handle_count(+count:U32,error:String) -> U32 & Exec.Handling:
 def handle(count:U32,error:String) -> U32 & Exec.Handling:
   handle_count(count,error)
 def run(app:Application()) -> IO(Application() & Context.RunReport<App.Report<String,Maybe<&2,U32>>>):
-  Root.run_bound(~S.SchemaA,~S.layout_b(),~Run.combined_resources(),~Unit,~Nodes(),~Run.RootGuard(),~U32,~String,~Maybe<&2,U32>,~dispatch,~Conditions.leaf_dispatch(~S.SchemaA,~Run.WC(),~L.resources(~S.SchemaA,Run.combined_resources()),~Unit,~Run.RootGuardOps,~U32,~String,~Run.root_guard_kernel,~Run.root_guard_body),~handle,~apply,app)
+  Root.run_bound(~S.SchemaA,~S.layout_b(),~Run.combined_resources(),~Unit,~Nodes(),~Guard(),~U32,~String,~Maybe<&2,U32>,~dispatch,~guard_dispatch(),~handle,~apply,app)
 
 def Compilation() -> Type:D.Compilation<S.SchemaA,Run.WC(),Run.CombinedColumns(),Run.CombinedResources(),Cmd.ScopedOps(~S.SchemaA,~S.layout_b(),~Run.combined_resources(),~L.InLeft{L.AtLeaf{}},~Ops)>
 def Owner() -> Type:Cmd.Owner<S.SchemaA,Run.CombinedColumns(),Run.CombinedResources(),Unit,S.layout_b(),Run.combined_resources(),L.InLeft{L.AtLeaf{}},Ops,User,String,Maybe<&2,U32>,declaration,body>
@@ -152,7 +158,7 @@ def storage_text(storage:Root.Storage<S.SchemaA,S.layout_b(),Run.combined_resour
 def observed_storage(rebuild:Root.Storage<S.SchemaA,S.layout_b(),Run.combined_resources(),Unit> -> ScheduledApplication(),text:String,result:Root.Storage<S.SchemaA,S.layout_b(),Run.combined_resources(),Unit> & String) -> ScheduledApplication() & String:
   match result:
     case (storage,stateText):(rebuild(storage),text ++ ";" ++ stateText)
-def observed(left:AuthorNode() & String,right:Run.CombinedRightNode(False{}),storage:Root.Storage<S.SchemaA,S.layout_b(),Run.combined_resources(),Unit>,guards:Run.RootGuard(),handler:U32,stateBindings:List<&2,App.Binding>,plan:Plan.Build<String>,bindings:List<&2,App.Binding>,rules:Part.Rules,settings:RootApp.Deferred) -> ScheduledApplication() & String:
+def observed(left:AuthorNode() & String,right:Run.CombinedRightNode(False{}),storage:Root.Storage<S.SchemaA,S.layout_b(),Run.combined_resources(),Unit>,guards:Guard(),handler:U32,stateBindings:List<&2,App.Binding>,plan:Plan.Build<String>,bindings:List<&2,App.Binding>,rules:Part.Rules,settings:RootApp.Deferred) -> ScheduledApplication() & String:
   match left:
     case (left,text):observed_storage(storage => RootApp.Scheduled{App.State{storage,Product.Owner{left,right},guards,handler,stateBindings},plan,bindings,rules,settings},text,storage_text(storage))
 def observe_scheduled(app:ScheduledApplication()) -> ScheduledApplication() & String:
@@ -185,7 +191,7 @@ def final_peer(storage:Root.Storage<S.SchemaA,S.layout_b(),Run.combined_resource
     case Sys.Owner{_,_,_,_,cursor,Run.CombinedLocal{token}}:IO.bind(Unit,Unit,IO.print("cmd-peer=" ++ Setup.local_text(token) ++ ";cursor=" ++ Tick.cursor_show(cursor)),_ => final_storage(storage))
 def final_scheduled(app:ScheduledApplication()) -> IO(Unit):
   match app:
-    case RootApp.Scheduled{App.State{storage,Product.Owner{_,right},guard,handler,_},_,_,_,_}:IO.bind(Unit,Unit,IO.print("cmd-guard=" ++ Run.root_guard_text(guard) ++ ";handler=" ++ U32.show(handler)),_ => final_peer(storage,Run.combined_restore_right(~False{},right)))
+    case RootApp.Scheduled{App.State{storage,Product.Owner{_,right},Scope.CompiledBinding{_,guard},handler,_},_,_,_,_}:IO.bind(Unit,Unit,IO.print("cmd-guard=" ++ Run.root_guard_text(guard) ++ ";handler=" ++ U32.show(handler)),_ => final_peer(storage,Run.combined_restore_right(~False{},right)))
 def observed_bound(+context:CapturedContext(),result:ScheduledApplication() & String) -> Application() & String:
   match result:
     case (app,text):(Context.Bound{context,app},text)
@@ -220,13 +226,13 @@ def foreign_refused(+context:CapturedContext(),result:Application() & Context.Ru
   match result:
     case (app,Context.ContextRefused{}):foreign_observed(context,observe(app))
     case (app,Context.RunReported{report}):IO.bind(Unit,Unit,IO.print("cmd-foreign-unexpected=" ++ Run.root_report(report)),_ => final_application(app))
-def guarded(+context:CapturedContext(),+foreign:CapturedContext(),left:Binding(),right:PeerBinding(),result:Sys.Defined<Run.CombinedWorld(),Run.RootGuard(),U32>) -> IO(Unit):
+def guarded(+context:CapturedContext(),+foreign:CapturedContext(),left:Binding(),right:PeerBinding(),result:GuardCompilation() & Sys.Defined<Run.CombinedWorld(),Run.RootGuard(),U32>) -> IO(Unit):
   match result:
-    case Sys.Defined{world,guard}:IO.bind(Application() & Context.RunReport<App.Report<String,Maybe<&2,U32>>>,Unit,run(Context.Bound{foreign,configure_scheduled(False{},Root.build(~S.SchemaA,~S.layout_b(),~Run.combined_resources(),~Unit,~Nodes(),~Run.RootGuard(),~U32,~String,~Conditions.leaf_dispatch(~S.SchemaA,~Run.WC(),~L.resources(~S.SchemaA,Run.combined_resources()),~Unit,~Run.RootGuardOps,~U32,~String,~Run.root_guard_kernel,~Run.root_guard_body),~Run.root_available,world,Tree.generalized_pair_facts(AuthorNode(),Run.CombinedRightNode(False{}),Author.facts(~S.SchemaA,~S.layout_b(),~Run.combined_resources(),~Unit,~L.InLeft{L.AtLeaf{}},~Ops,~User,~String,~Maybe<&2,U32>,~declaration,~body,left),Tree.generalized_leaf_facts(~S.SchemaA,~S.layout_b(),~Run.combined_resources(),~Unit,~String,~Maybe<&2,U32>,~Run.CombinedRightOps,~Run.CombinedLocal,~Run.combined_right_kernel(False{}),~Run.combined_right_body,right)),Conditions.compile_leaf(~String,~S.SchemaA,~Run.WC(),~L.resources(~S.SchemaA,Run.combined_resources()),~Unit,~Run.RootGuardOps,~U32,~Run.root_guard_kernel,~Run.root_guard_body,guard),0,[],[App.Binding{1,3},App.Binding{2,3}]))}),result => foreign_refused(context,result))
-    case Sys.DefinitionRefused{_,_}:IO.print("cmd-guard-registration-refused")
+    case (compilation,Sys.Defined{world,guard}):IO.bind(Application() & Context.RunReport<App.Report<String,Maybe<&2,U32>>>,Unit,run(Context.Bound{foreign,configure_scheduled(False{},Root.build(~S.SchemaA,~S.layout_b(),~Run.combined_resources(),~Unit,~Nodes(),~Guard(),~U32,~String,~guard_dispatch(),~Run.root_available,world,Tree.generalized_pair_facts(AuthorNode(),Run.CombinedRightNode(False{}),Author.facts(~S.SchemaA,~S.layout_b(),~Run.combined_resources(),~Unit,~L.InLeft{L.AtLeaf{}},~Ops,~User,~String,~Maybe<&2,U32>,~declaration,~body,left),Tree.generalized_leaf_facts(~S.SchemaA,~S.layout_b(),~Run.combined_resources(),~Unit,~String,~Maybe<&2,U32>,~Run.CombinedRightOps,~Run.CombinedLocal,~Run.combined_right_kernel(False{}),~Run.combined_right_body,right)),Conditions.compile_retained_leaf(~String,~S.SchemaA,~Run.WC(),~L.resources(~S.SchemaA,Run.combined_resources()),~Unit,~Run.RootGuardOps,~U32,~Run.root_guard_kernel,~Run.root_guard_body,~guard_construction(),Scope.CompiledBinding{compilation,guard}),0,[],[App.Binding{1,3},App.Binding{2,3}]))}),result => foreign_refused(context,result))
+    case (_,Sys.DefinitionRefused{_,_}):IO.print("cmd-guard-registration-refused")
 def peer_defined(+context:CapturedContext(),+foreign:CapturedContext(),left:Binding(),result:PeerCompilation() & Sys.Defined<Run.CombinedWorld(),Peer(),Run.CombinedLocal>) -> IO(Unit):
   match result:
-    case (compilation,Sys.Defined{world,owner}):guarded(context,foreign,left,Scope.CompiledBinding{compilation,owner},System.define_framework(~S.SchemaA,~Run.WC(),~Run.WC(),~L.resources(~S.SchemaA,Run.combined_resources()),~Unit,~Run.RootGuardOps,~U32,~String,~Bool,~Run.root_guard_kernel,~Run.root_guard_body,~L.resources(~S.SchemaA,Run.combined_resources()),world,"cmd-root-guard",0))
+    case (compilation,Sys.Defined{world,owner}):guarded(context,foreign,left,Scope.CompiledBinding{compilation,owner},System.define_with_compilation(~S.SchemaA,~Run.WC(),~Run.WC(),~L.resources(~S.SchemaA,Run.combined_resources()),~Unit,~Run.RootGuardOps,~U32,~String,~Bool,~Run.root_guard_kernel,~Run.root_guard_body,~L.resources(~S.SchemaA,Run.combined_resources()),guard_construction(),world,"cmd-root-guard",0))
     case (_,Sys.DefinitionRefused{_,_}):IO.print("cmd-peer-registration-refused")
 def author_defined(+context:CapturedContext(),+foreign:CapturedContext(),result:Compilation() & Sys.Defined<Run.CombinedWorld(),Owner(),Cmd.Captures(~S.SchemaA,~S.layout_b(),~Run.combined_resources(),~L.InLeft{L.AtLeaf{}},~User)>) -> IO(Unit):
   match result:
