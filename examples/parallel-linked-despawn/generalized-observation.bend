@@ -69,23 +69,20 @@ def linked_receipt(+handle:W.Handle<Text.Schema>,+status:Buffer.LinkedStatus,+fr
 def scope_receipt(+route:L.Route,+operation:ScopeCommands.Operation<Text.Schema>,+status:Buffer.ScopeStatus,+frames:List<&2,T.CleanupFrame<Text.Schema>>,result:List<Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>> & String) -> Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())> & String:
   match result:
     case (nested,text):(Buffer.ScopePublished{route,operation,status,nested,frames},"scope:" ++ ScopeText.operation(~Text.Schema,operation) ++ ":" ++ ScopeText.status(status) ++ "{" ++ text ++ "}/frames=" ++ Nat.show(List.length(&2,T.CleanupFrame<Text.Schema>,frames)))
-def receipt(owner:Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>,nested:List<Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>> -> List<Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>> & String) -> Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())> & String:
-  match owner:
-    case Buffer.Applied{handle,previous}:component_receipt(handle,True{},maybe(previous))
-    case Buffer.Refused{handle,incoming}:component_receipt(handle,False{},maybe(incoming))
-    case Buffer.Despawned{handle,owner}:removed_receipt(handle,True{},removed(owner))
-    case Buffer.Spawned{handle,owner}:removed_receipt(handle,False{},removed(owner))
-    case Buffer.SpawnRefused{handle,owner,reason}:spawn_refused(handle,reason,removed(owner))
-    case Buffer.DespawnRefused{+handle}:(Buffer.DespawnRefused{handle},"despawn-refused:" ++ Text.handle(handle))
-    case Buffer.RelationPublished{+route,+value}:(Buffer.RelationPublished{route,value},Text.receipts([Buffer.RelationPublished{route,value}]))
-    case Buffer.RelationUndeclared{+route,+value}:(Buffer.RelationUndeclared{route,value},Text.receipts([Buffer.RelationUndeclared{route,value}]))
-    case Buffer.LinkedDespawn{handle,status,children,frames}:linked_receipt(handle,status,frames,nested(children))
-    case Buffer.ScopePublished{route,operation,status,children,frames}:scope_receipt(route,operation,status,frames,nested(children))
-    case Buffer.ScopeStoreApplied{+route,+request,+result}:(Buffer.ScopeStoreApplied{route,request,result},"scope-store:" ++ ScopeText.request(~Text.Schema,request) ++ ":" ++ ScopeText.outcome(~Text.Schema,result))
 def receipts(owners:List<Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>>) -> List<Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>> & String:
   match owners:
     case []:([],"")
-    case owner <> rest:receipt_join(receipt(owner,receipts),receipts(rest))
+    case Buffer.Applied{handle,previous} <> rest:receipt_join(component_receipt(handle,True{},maybe(previous)),receipts(rest))
+    case Buffer.Refused{handle,incoming} <> rest:receipt_join(component_receipt(handle,False{},maybe(incoming)),receipts(rest))
+    case Buffer.Despawned{handle,owner} <> rest:receipt_join(removed_receipt(handle,True{},removed(owner)),receipts(rest))
+    case Buffer.Spawned{handle,owner} <> rest:receipt_join(removed_receipt(handle,False{},removed(owner)),receipts(rest))
+    case Buffer.SpawnRefused{handle,owner,reason} <> rest:receipt_join(spawn_refused(handle,reason,removed(owner)),receipts(rest))
+    case Buffer.DespawnRefused{+handle} <> rest:receipt_join((Buffer.DespawnRefused{handle},"despawn-refused:" ++ Text.handle(handle)),receipts(rest))
+    case Buffer.RelationPublished{+route,+value} <> rest:receipt_join((Buffer.RelationPublished{route,value},Text.receipts([Buffer.RelationPublished{route,value}])),receipts(rest))
+    case Buffer.RelationUndeclared{+route,+value} <> rest:receipt_join((Buffer.RelationUndeclared{route,value},Text.receipts([Buffer.RelationUndeclared{route,value}])),receipts(rest))
+    case Buffer.LinkedDespawn{handle,status,children,frames} <> rest:receipt_join(linked_receipt(handle,status,frames,receipts(children)),receipts(rest))
+    case Buffer.ScopePublished{route,operation,status,children,frames} <> rest:receipt_join(scope_receipt(route,operation,status,frames,receipts(children)),receipts(rest))
+    case Buffer.ScopeStoreApplied{+route,+request,+result} <> rest:receipt_join((Buffer.ScopeStoreApplied{route,request,result},"scope-store:" ++ ScopeText.request(~Text.Schema,request) ++ ":" ++ ScopeText.outcome(~Text.Schema,result)),receipts(rest))
 def component_entry(+handle:W.Handle<Text.Schema>,result:Maybe<&1,Actor.Session> & String) -> Buffer.Entry<Text.Schema,Actor.Session,Removed.Removed(Actor.components())> & String:
   match result:
     case (owner,text):(Buffer.Entry{handle,owner},"component:" ++ Text.handle(handle) ++ "/incoming=" ++ text)
