@@ -1,5 +1,7 @@
 import Base
 import ./extended-target.bend as Target
+import ./extended-reader.bend as Read
+import ../../src/ecs/execution-relation-failure-message.bend as FailureMessage
 import ../../src/ecs/execution-relation-failure-channel.bend as Failure
 import ../../src/ecs/execution-relation-store.bend as Store
 import ../../src/ecs/execution-machine-state.bend as Cell
@@ -63,13 +65,21 @@ def reader(~S:Data,value:Maybe<&1,Target.Reader(~S)>) -> String:
   match value:
     case None{}:"reader-registration-refused"
     case Some{Failure.Reader{namespace,id,cursor}}:U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ Nat.show(cursor)
-def saved(~S:Data,input:Extended.Snapshot<S>,mapping:List<&2,R.Binding<S>>,result:Admission.Recipes(~S) & (Schema.World(~S) & Gate.Outcome<Extended.Snapshot<S>,Recipe.Refusal>)) -> String:
+def read_observed(~S:Data,result:Schema.World(~S) & Read.Reading(~S)) -> String:
   match result:
-    case (_,(world,Gate.Saved{after})):"before=" ++ snapshot(~S,input) ++ "/mapping=" ++ List.show(&2,R.Binding<S>,BasicObserve.binding(~S),mapping) ++ "/after=" ++ snapshot(~S,after) ++ "/" ++ owners(~S,world)
+    case (world,Failure.Read{retained,messages,missed,tick}):owners(~S,world) ++ "/retainedReader=" ++ reader(~S,Some{retained}) ++ "/readMessages=" ++ Nat.show(List.length(&2,FailureMessage.Message<S,Schema.hierarchy(~S)>,messages)) ++ "/missed=" ++ Nat.show(missed) ++ "/readTick=" ++ Tick.show(tick)
+    case (world,Failure.Refused{retained}):owners(~S,world) ++ "/readerRefused=" ++ reader(~S,Some{retained})
+def read_world(~S:Data,world:Schema.World(~S),retained:Maybe<&1,Target.Reader(~S)>) -> String:
+  match retained:
+    case None{}:owners(~S,world) ++ "/reader-registration-refused"
+    case Some{retained}:read_observed(~S,Read.read(~S,world,retained))
+def saved(~S:Data,input:Extended.Snapshot<S>,mapping:List<&2,R.Binding<S>>,retained:Maybe<&1,Target.Reader(~S)>,result:Admission.Recipes(~S) & (Schema.World(~S) & Gate.Outcome<Extended.Snapshot<S>,Recipe.Refusal>)) -> String:
+  match result:
+    case (_,(world,Gate.Saved{after})):"before=" ++ snapshot(~S,input) ++ "/mapping=" ++ List.show(&2,R.Binding<S>,BasicObserve.binding(~S),mapping) ++ "/after=" ++ snapshot(~S,after) ++ "/" ++ read_world(~S,world,retained)
     case _:"save-refused"
-def restored(~S:Data,result:Restore.Outcome<S>) -> String:
+def restored(~S:Data,retained:Maybe<&1,Target.Reader(~S)>,result:Restore.Outcome<S>) -> String:
   match result:
-    case Restore.Restored{Restore.State{schema,input,_,_,_},world,_,mapping,_,_}:saved(~S,input,mapping,Save.save(~S,schema,world))
+    case Restore.Restored{Restore.State{schema,input,_,_,_},world,_,mapping,_,_}:saved(~S,input,mapping,retained,Save.save(~S,schema,world))
     case Restore.InputRefused{_,_,_,_}:"input-refused"
     case Restore.ReceiverRefused{_,_}:"receiver-refused"
     case Restore.NamespaceRefused{_,_}:"namespace-refused"
@@ -81,7 +91,7 @@ def restored(~S:Data,result:Restore.Outcome<S>) -> String:
     case Restore.ResourcePartial{_,_,_,_,_}:"resource-partial"
 def observed(~S:Data,result:Flow.Outcome<S>) -> String:
   match result:
-    case Flow.Restored{_,_,retainedReader,Store.Refused{_,_},result}:restored(~S,result) ++ "/retainedReader=" ++ reader(~S,retainedReader) ++ "/receiverRelation=refused"
-    case Flow.Restored{_,_,retainedReader,_,result}:restored(~S,result) ++ "/retainedReader=" ++ reader(~S,retainedReader) ++ "/receiverRelation=applied"
+    case Flow.Restored{_,_,retainedReader,Store.Refused{_,_},result}:restored(~S,retainedReader,result) ++ "/receiverRelation=refused"
+    case Flow.Restored{_,_,retainedReader,_,result}:restored(~S,retainedReader,result) ++ "/receiverRelation=applied"
     case _:"source-or-target-refused"
 def main() -> IO(Unit):IO.bind(Flow.Outcome<O.Alpha>,Unit,Flow.run(~O.Alpha),a => IO.bind(Unit,Unit,IO.print("alpha " ++ observed(~O.Alpha,a)),u => IO.bind(Flow.Outcome<O.Beta>,Unit,Flow.run(~O.Beta),b => IO.print("beta " ++ observed(~O.Beta,b)))))
