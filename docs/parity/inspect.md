@@ -387,3 +387,20 @@ payload, active reader registration and next-reader counter. The original Reader
 still has cursor zero afterwards; a subsequent normal read yields its first
 item and advances to one with no missed events. This is an ordinary finite
 observation, not a proof or a registered event-schedule acceptance claim.
+
+`execution-deferred-schedule.run_observed` now returns the unchanged execution
+Outcome together with actual reached apply-call boundaries. Each entry retains
+whether the call was a private sync or final application and the requested
+system IDs. Each return retains the actual remaining IDs; it does not assert
+that every command succeeded. Disabled final application, Stop and invalid plans
+emit no invented final boundary. A reached apply call emits boundaries even when
+its request is empty or its returned IDs remain unapplied.
+
+The existing `run` signature and Outcome are unchanged and use disabled boundary
+collection. `execution-trace-report.boundary_batch` maps the reached calls to the
+existing boundary facts. It remains a separate ordered projection from system
+outcomes because these two inputs do not establish their complete interleaving.
+The raw boundary list retains call kind and requested/remaining IDs. Source
+checking and the existing registered consumer confirm this plumbing specializes
+and preserves its prior observations; the observed Root path still needs an
+actual ordinary consumer before claiming its acceptance.

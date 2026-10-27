@@ -3,6 +3,8 @@ import ./execution-trace.bend as Trace
 import ./dependency-plan.bend as Plan
 import ./dependency-executor.bend as Executor
 import ./dependency-application.bend as Application
+import ./execution-deferred-schedule.bend as Deferred
+import ./trace-facts.bend as Facts
 
 # Report observations carry actual outcomes, but no entry/exit timestamps or
 # barrier receipts. This adapter deliberately emits only those reached facts.
@@ -34,3 +36,15 @@ def read(~Error:Data,~Out:Data,on:Bool,plan:Plan.Build<String>,+report:Applicati
   match on:
     case False{}:(report,Trace.Disabled{})
     case True{}:(report,enabled(~Error,~Out,plan,report))
+
+# Boundary and system-outcome batches are separate ordered projections. Their
+# inputs do not establish an interleaving between workers and barrier callbacks.
+def boundary_events(~Error:Data,values:List<&2,Deferred.Boundary>) -> List<&2,Trace.TraceEvent<Error>>:
+  match values:
+    case []:[]
+    case Deferred.ApplyEntered{_,_} <> rest:Trace.ExecutionOperationObserved{Facts.BoundaryFact{Facts.BarrierEntered{}}} <> boundary_events(~Error,rest)
+    case Deferred.ApplyReturned{_,_} <> rest:Trace.ExecutionOperationObserved{Facts.BoundaryFact{Facts.BarrierFinished{}}} <> boundary_events(~Error,rest)
+def boundary_batch(~Error:Data,on:Bool,values:List<&2,Deferred.Boundary>) -> Trace.Batch<Error>:
+  match on:
+    case False{}:Trace.Disabled{}
+    case True{}:Trace.BendvyReady{boundary_events(~Error,values)}
