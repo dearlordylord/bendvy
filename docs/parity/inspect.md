@@ -427,3 +427,17 @@ and two refusals. Passive Inspector then sees the published graph and inverse;
 Check returns true. The actual resource state and captured Session remain 401
 and 601. These finite observations do not cover pending affine spawn bundles,
 all generic command payloads, relation failure readers or formal preservation.
+
+`examples/parallel-inspection/pending-spawn.bend` reuses the original AppB
+registration, three actual reservation tasks, explicit flush and raw-owner
+readers. Before publication, the canonical command snapshot lists three Spawn
+handles and no receipts. The original raw-owner reader sees all three retained
+bundles, each containing its actual affine array `[7, 9]` and scalar `11`.
+Passive Inspector and cursor-free Check observe no live component rows. The
+second snapshot and raw-owner read retain those same queue contents, receipts
+and author cursor `0:1`. Explicit flush then publishes all three bundles;
+Inspector sees their components and the original raw-owner helper reads each
+actual array twice with its unchanged cache. The actual machine projection
+remains current `1`, pending `2`, revision `0` throughout. This ordinary finite
+run covers pending affine Spawn transport; it does not prove generic owner
+preservation or cover refused Spawn bundles and relation failure readers.
