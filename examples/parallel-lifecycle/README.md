@@ -2,6 +2,32 @@
 
 # Query lifecycle filters
 
+## Run the current entries
+
+From the repository root, select `main`, `history`, or `scheduled` as `entry`.
+Use the qualified Bend 2.0.35 installation and the project's Clang 19 tool.
+The commands use the existing [shared example commands](../common.sh), which
+serialize backend work. Generated files stay outside the source tree.
+
+```bash
+entry=history
+export BEND=/tmp/bendvy21-bend2035-lifecycle-pin/bin/bend-2.0.35
+export NODE=node
+export CLANG=/home/node/.local/bin/clang-19
+source examples/common.sh
+example_emit "examples/parallel-lifecycle/$entry.bend" "/tmp/lifecycle-$entry.js"
+example_node "/tmp/lifecycle-$entry.js"
+example_emit "examples/parallel-lifecycle/$entry.bend" "/tmp/lifecycle-$entry.c"
+timeout --signal=KILL 120s "${example_cpu[@]}" "$CLANG" -O3 "/tmp/lifecycle-$entry.c" -o "/tmp/lifecycle-$entry.native" -pthread -lm
+timeout --signal=KILL 30s "${example_cpu[@]}" "/tmp/lifecycle-$entry.native" --threads 2 --gpu off
+```
+
+These are direct application runs, not a replacement oracle or acceptance check.
+The paths above name local tools used for the receipts below. On another machine,
+set `BEND`, `NODE`, and `CLANG` to the corresponding installed tools.
+
+## Current source and finite observations
+
 `main.bend` runs the existing filter scenarios, then `notice-scenario.bend`.
 The notice application uses the current TaskIO bodies and IO schedule API. Its
 four updates retain the fast and dormant removal readers, input/despawn readers,
@@ -14,6 +40,48 @@ Both runtime stderr streams were empty. Independent review remains pending.
 The one source-check attempt reported the old buffer-entry arity, repaired before
 these runs; no successful full source check is claimed. Historical backend
 receipts below do not qualify this migrated source.
+
+[`history.bend`](history.bend) retains six QueryApp cases for an existing zero
+cursor, low-word wrap, dormant old and recent stamps, and serial and parallel
+body errors. Trusted setup preserves the actual payload owners while seeding
+stamps, administrative time, and the registered owner's previous cursor.
+Each case performs three admitted runs and a genuine foreign-World refusal.
+World creation remains the pure `W.create` operation. The migrated caller binds
+the QueryApp IO results and retains the returned application between runs.
+
+The existing error setup now seeds physical slot 0, whose public handle is 1.
+Physical slot 1 is absent from the Input and Output columns. With the existing input step 3, the seeded output 13
+becomes 16 and reaches the existing after-write error. Both error cases then
+perform two successful runs. Wrap and dormant selection already worked.
+`success/[]` denotes an empty error list, not an empty query result.
+
+[`scheduled.bend`](scheduled.bend) retains six command/query RootSchedule calls,
+including Added and Changed filters, serial and native entries, and retained
+queues when final publication is disabled. Its IO binds await the actual
+application results before printing. The observations include the existing
+after-enqueue error followed by peer execution.
+
+The caller migration is committed at `9a6aa7e7f452be1b6b124c45d2cc08dfb70d611e`.
+The history seed correction is committed at
+`dc4dc6642997986c994a99333c5d478634fb53a7`. Fixed history JavaScript and native
+outputs match at six lines and 14,882 bytes. Scheduled outputs match at six lines
+and 9,445 bytes. Both routes exit zero with empty runtime stderr. The local
+receipt is `/tmp/lifecycle85-history-io-receipt.md`. The two read-only GH85 round 2
+reviews found no concrete defect in this two-entry migration and seed repair.
+Those reviews do not review the separate main/notice migration described above.
+
+These source-bound observations do not establish full GH85 acceptance, native
+worker participation, compile-time access controls, or a universal execution
+proof. Historical setup does not expose cursor or clock mutation to gameplay.
+The five approved helper laws retain their existing scope.
+
+## Historical source-bound receipts
+
+The following text records the earlier contracts and exact source bindings.
+`filters-oracle.py`, `history.expected.stdout`, and `scheduled.expected.stdout`
+were retired and are absent from the current tree. Their names and hashes below
+describe historical evidence only. Do not use those outputs as expectations for
+the current IO callers or the corrected history seed.
 
 `filters.bend` runs the ordinary QueryApp with Added and Changed filters on its
 written family. Two nominal schemas use genuinely affine Array payloads. Four
