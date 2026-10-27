@@ -33,7 +33,7 @@ def Admin(~S:Data,~P:Type,~project:P -> P & U32) -> Type:Sys.Owner<S,Store(),Uni
 def Left(~S:Data,~P:Type,~project:P -> P & U32) -> Type:Product.Owner<Writer(~S,~P,~project),Product.Owner<Reader(~S,~P,~project),Product.Owner<Reader(~S,~P,~project),Admin(~S,~P,~project)>>>
 def NoOps(Permit:Data,H:Type) -> Type:Unit
 def peer_program(~S:Data,~Permit:Data,~token:Permit,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(),~Unit,~Unit,~Permit,~H,~B),book:B) -> B & Unit:(book,Unit{})
-def peer_body(~S:Data,~Permit:Data,~H:Type,~caps:Unit,scope:H,runs:U32) -> Effect.Task<S,Permit,H & (U32 & Sys.Completion<String,String>)>:Effect.TDone{(scope,(U32.add(runs,1),Sys.Success{"peer"}))}
+def peer_body(~S:Data,~Permit:Data,~H:Type,~caps:Unit,scope:H,runs:U32) -> Effect.Task<S,Permit,H & (U32 & Sys.Completion<String,String>)>:Effect.TRun{_ => Effect.TDone{(scope,(U32.add(runs,1),Sys.Success{"peer"}))}}
 def Peer(~S:Data) -> Type:Sys.Owner<S,Store(),Unit,Unit,Unit,NoOps,U32,String,String,peer_program(~S),peer_body(~S)>
 def left(~S:Data,~P:Type,~project:P -> P & U32,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~Store(),~Unit,~D.Resources(~S,~P,~project),~Unit,~resources(~S,~P,~project),~String,~String,~F),~command:Tree.CommandLeaf(~S,~Store(),~Unit,~D.Resources(~S,~P,~project),~Unit,~resources(~S,~P,~project),~String,~String,~F),~join:Tree.Join(~F),owners:Left(~S,~P,~project)) -> F(Left(~S,~P,~project)):
   match owners:
