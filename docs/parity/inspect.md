@@ -364,3 +364,17 @@ therefore uses explicit outcome events and emits neither invented timestamps nor
 inferred command publication. Dependency events state constraints, not a chosen
 worker order. The ordinary consumer retains identical simulation observations
 with tracing disabled or enabled; only its trace suffix differs.
+
+`execution-inspector-component` adapts the canonical modern component layout to
+existing Inspector Lookup, ReadQuery and Check Row result types. It validates
+the actual full handle before physical indexing, returns cached Data views
+through the exact full-origin column lens, and reads canonical lifecycle stamps.
+Required, optional, added and changed Inspector selection uses the unchanged row
+selection functions. Check exposes only required or optional plain rows.
+
+The ordinary `examples/parallel-inspection/component.bend` creates and activates
+an actual handle, stores an Array component, enumerates it twice passively, and
+runs a Check query. Both Inspector reads report the same added/changed flags;
+Check returns true, the World clock remains zero, and the final actual payload
+owner contains 7. This finite observation does not cover foreign/stale handles,
+registered component-query captures or prove universal owner preservation.
