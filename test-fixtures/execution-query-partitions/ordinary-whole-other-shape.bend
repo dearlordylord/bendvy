@@ -274,6 +274,7 @@ def root_restored(~own:Bool,storage:GeneralRoot.Storage<S.SchemaA,S.layout_b(),c
     case GeneralRoot.Present{world,moved}:combined_restore_retained(~own,Combined.Returned{world,nodes,[],moved})
     case GeneralRoot.CutRefused{admin,inventory,moved}:combined_restore_retained(~own,Combined.CutInventoryRefused{admin,inventory,nodes,[],moved})
     case GeneralRoot.JoinRefused{admin,inventory,moved}:combined_restore_retained(~own,Combined.JoinInventoryRefused{admin,inventory,nodes,[],moved})
+    case GeneralRoot.NestedRefused{Inventory,admin,inventory,moved}:combined_restore_retained(~own,Combined.NestedInventoryRefused{Inventory,admin,inventory,nodes,[],moved})
 def root_final(~own:Bool,result:RootApplication(~own) & App.Report<String,Maybe<&2,U32>>) -> IO(CombinedPipeline<own>):
   match result:
     case (RootApp.Scheduled{App.State{storage,nodes,guard,handler,_},_,_,_,_},report):IO.bind(Unit,CombinedPipeline<own>,IO.print("root-final=" ++ root_report(report) ++ "|" ++ root_guard_text(guard) ++ "|handler=" ++ U32.show(handler)),_ => root_restored(~own,storage,nodes))
