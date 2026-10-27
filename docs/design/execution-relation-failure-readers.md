@@ -65,9 +65,9 @@ and the handler continues.
 The pinned ordinary Bend entry completed with exit 0 and these observations:
 
 ```text
-first/finished/retained=0,dropped=0,older=0,maintained=0:3,sequence=0,nextReader=2,cursor=0,calls=1,received=0,missed=0,session=777
-second/finished/retained=2,dropped=0,older=2,maintained=0:7,sequence=2,nextReader=2,cursor=0,calls=2,received=0,missed=0,session=777
-third/finished/retained=1,dropped=2,older=3,maintained=0:11,sequence=3,nextReader=2,cursor=2,calls=3,received=2,missed=0,session=777
+first/finished/retained=0,dropped=0,older=0,maintained=0:3,sequence=0,nextReader=2,cursor=0,delivered-through=0,messages=[],calls=1,received=0,missed=0,session=777
+second/finished/retained=2,dropped=0,older=2,maintained=0:7,sequence=2,nextReader=2,cursor=0,delivered-through=0,messages=[],calls=2,received=0,missed=0,session=777
+third/finished/retained=1,dropped=2,older=3,maintained=0:11,sequence=3,nextReader=2,cursor=2,delivered-through=2,messages=[relation-failed{relate(1/1:0,1/1:0),family=89/scene-parent/scene-children/hierarchy,legacy=relate,source=1:0,target=1:0,reason=self-relation(1:0,scene-parent)}, relation-failed{relate(1/1:0,1/1:0),family=89/scene-parent/scene-children/hierarchy,legacy=relate,source=1:0,target=1:0,reason=self-relation(1:0,scene-parent)}],calls=3,received=2,missed=0,session=777
 ```
 
 The first update selects finalApply=false. Subsequent updates enable publication.
@@ -79,3 +79,13 @@ execution is not a formal proof. No new law approval or proof is claimed.
 Remaining GH89 gates include ordinary non-scope linked despawn, independent graph
 update scheduling, the refusal/disabled/Stop cases listed above, all entry-shape
 retention wiring, and approved laws and proofs.
+
+The schema-indexed Reader User retains the exact delivered Message values across
+body errors, rather than reducing them to a count. The formatter inspects their
+original operations, complete namespace/index/generation handles, descriptor,
+legacy projection and every error field. `sequence` is the current channel
+sequence; `delivered-through` is the actual returned Reader cursor. This API
+returns no per-message sequence IDs, so the observation assigns none. The two
+actual delivered records both retain the authored self-relation and its reason.
+The full-message follow-up ordinary entry completed with exit 0; its captured
+output is `/tmp/bendvy-gh89-failure-messages.stdout` in the delivery workspace.

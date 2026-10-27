@@ -5,6 +5,7 @@ import ./initialize.bend as Initialize
 import ./scheduled.bend as Existing
 import ./failure-initialize.bend as Attach
 import ./failure-reader.bend as Reader
+import ./failure-message-text.bend as Text
 import ./failure-scheduled.bend as Scheduled
 import ../../src/ecs/execution-relation-context.bend as Context
 import ../../src/ecs/execution-relation-store.bend as Store
@@ -33,8 +34,8 @@ def channel(value:Channel.Store<Message.Message<Schema,Scene.hierarchy(~Schema)>
     case Channel.Store{Queue.Queue{_,_,size,dropped,_},older,at}:"retained=" ++ Nat.show(size) ++ ",dropped=" ++ Nat.show(dropped) ++ ",older=" ++ Nat.show(older) ++ ",maintained=" ++ maintenance(at)
 def snapshot(bound:Scheduled.Bound(~Schema)) -> Scheduled.Bound(~Schema) & String:
   match bound:
-    case Context.Bound{context,Root.Scheduled{App.State{W.World{namespace,allocator,columns,Product.Owner{Layout.ResourceSlot{Layout.Viewed{Store.Store{storedNamespace,graph,+failures,+sequence,+nextReader},cache},stamp},resource},events,pending,registrations,nextSystem,clock,lifecycle},Product.Owner{Product.Owner{author,Sys.Owner{readerNamespace,id,name,access,systemCursor,Local.Local{Cursor.Reader{cursorNamespace,readerId,+cursor},Reader.User{Actor.Session{+session},+calls,+received,+missed}}}},peer},guards,handler,stateBindings},plan,bindings,rules,deferred}}:
-      (Context.Bound{context,Root.Scheduled{App.State{W.World{namespace,allocator,columns,Product.Owner{Layout.ResourceSlot{Layout.Viewed{Store.Store{storedNamespace,graph,failures,sequence,nextReader},cache},stamp},resource},events,pending,registrations,nextSystem,clock,lifecycle},Product.Owner{Product.Owner{author,Sys.Owner{readerNamespace,id,name,access,systemCursor,Local.Local{Cursor.Reader{cursorNamespace,readerId,cursor},Reader.User{Actor.Session{session},calls,received,missed}}}},peer},guards,handler,stateBindings},plan,bindings,rules,deferred}},channel(failures) ++ ",sequence=" ++ Nat.show(sequence) ++ ",nextReader=" ++ U32.show(nextReader) ++ ",cursor=" ++ Nat.show(cursor) ++ ",calls=" ++ Nat.show(calls) ++ ",received=" ++ Nat.show(received) ++ ",missed=" ++ Nat.show(missed) ++ ",session=" ++ U32.show(session))
+    case Context.Bound{context,Root.Scheduled{App.State{W.World{namespace,allocator,columns,Product.Owner{Layout.ResourceSlot{Layout.Viewed{Store.Store{storedNamespace,graph,+failures,+sequence,+nextReader},cache},stamp},resource},events,pending,registrations,nextSystem,clock,lifecycle},Product.Owner{Product.Owner{author,Sys.Owner{readerNamespace,id,name,access,systemCursor,Local.Local{Cursor.Reader{cursorNamespace,readerId,+cursor},Reader.User{Actor.Session{+session},+calls,+received,+missed,+messages}}}},peer},guards,handler,stateBindings},plan,bindings,rules,deferred}}:
+      (Context.Bound{context,Root.Scheduled{App.State{W.World{namespace,allocator,columns,Product.Owner{Layout.ResourceSlot{Layout.Viewed{Store.Store{storedNamespace,graph,failures,sequence,nextReader},cache},stamp},resource},events,pending,registrations,nextSystem,clock,lifecycle},Product.Owner{Product.Owner{author,Sys.Owner{readerNamespace,id,name,access,systemCursor,Local.Local{Cursor.Reader{cursorNamespace,readerId,cursor},Reader.User{Actor.Session{session},calls,received,missed,messages}}}},peer},guards,handler,stateBindings},plan,bindings,rules,deferred}},channel(failures) ++ ",sequence=" ++ Nat.show(sequence) ++ ",nextReader=" ++ U32.show(nextReader) ++ ",cursor=" ++ Nat.show(cursor) ++ ",delivered-through=" ++ Nat.show(cursor) ++ ",messages=" ++ List.show(&2,Message.Message<Schema,Scene.hierarchy(~Schema)>,value => Text.message(Schema,Scene.hierarchy(~Schema),value),messages) ++ ",calls=" ++ Nat.show(calls) ++ ",received=" ++ Nat.show(received) ++ ",missed=" ++ Nat.show(missed) ++ ",session=" ++ U32.show(session))
 def configure(finalApply:Bool,bound:Scheduled.Bound(~Schema)) -> Scheduled.Bound(~Schema):
   match bound:
     case Context.Bound{context,app}:Context.Bound{context,Root.configure(~Scheduled.State(~Schema),Settings.Settings{True{},finalApply,[],[]},app)}
@@ -71,7 +72,7 @@ def attached(value:Attach.Definition<Schema>) -> IO(Unit):
     case _:IO.print("reader-setup-refused")
 def existing_ready(value:Existing.Definition<Schema>) -> IO(Unit):
   match value:
-    case Existing.SceneReady{bound}:attached(Attach.attach(~Schema,bound,Reader.User{Actor.Session{777},0n,0n,0n}))
+    case Existing.SceneReady{bound}:attached(Attach.attach(~Schema,bound,Reader.User{Actor.Session{777},0n,0n,0n,[]}))
     case _:IO.print("scene-registration-refused")
 def initialized(value:Initialize.Initialization<Schema>) -> IO(Unit):
   match value:
