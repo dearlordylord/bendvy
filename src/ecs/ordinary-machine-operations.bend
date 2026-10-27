@@ -1,7 +1,8 @@
 import Base
 import ./ordinary-machine-declaration.bend as OD
-import ./machine-queue.bend as Q
+import ./machine-queue-legacy.bend as Q
 import ./machine.bend as M
+import ./machine-legacy.bend as LegacyMachine
 import ./machine-world.bend as MW
 import ./transaction.bend as Tx
 import ./world.bend as W
@@ -15,7 +16,7 @@ def current(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,pair:Tx.Tx<W.World<S
 # the trusted nominal slot lens, returning the transaction owner. Queued targets
 # are not committed current state; a missing slot remains explicit.
 def get(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~take:R -> R & M.Slot<S,K,V>,frame:Tx.Tx<W.World<S,C,R,E>,E>) -> Tx.Tx<W.World<S,C,R,E>,E> & M.CurrentView<S,K,V>:
-  current(~S,~K,~V,~C,~R,~E,M.read(~S,~K,~V,~W.World<S,C,R,E>,~E,~MW.take(~S,~K,~V,~C,~R,~E,~take),frame))
+  current(~S,~K,~V,~C,~R,~E,LegacyMachine.read(~S,~K,~V,~W.World<S,C,R,E>,~E,~MW.take(~S,~K,~V,~C,~R,~E,~take),frame))
 # Stage a Set or Reset next-state request in the current ECS transaction.
 # Returns the transaction owner; the slot change is journaled for rollback.
 # Does not execute handlers or immediately change committed state: transition
