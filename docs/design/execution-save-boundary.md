@@ -36,15 +36,37 @@ The old `Snapshot.save` schema cannot stand in for that complete binding. Its
 column wrappers differ from the canonical Layout column owner. Reusing its
 detached Raw/codec types does not establish an equality of those owner types.
 
-Remaining implementation includes complete layout recipe composition and
-eligibility before projection, complete entity/resource fields and membership
-plus component/resource stamps, full ordinary save output, fresh receiver handle
-mapping and lifecycle reconstruction, restore without legacy Tx, both resumed
-execution forms, unlike schemas and intended ownership controls. The ongoing
-taskful executor migration also changes the concrete Scheduled adapter shape.
+`execution-save-plan` now binds the complete static persistence extension to
+canonical Layout and nominal declarations. Constructed leaves retain their actual
+ordinary declaration/codec; the projection code is fixed in the same plan.
+`execution-save-world` checks the whole schema for Plain leaves and duplicate
+kind-local keys before metadata or payload projections. It traverses actual live
+handles in allocator order and exports full keys, field presence, Raw values and
+component/resource stamps into version 2 `execution-save-data.Snapshot`.
+The Schema and actual World return through all outcomes. Projection callbacks
+may deliberately transform payloads; this boundary retains their returned owners
+and does not assert arbitrary projections are identities.
 
-The four laws in `test-fixtures/execution-save-laws/LAWS.bend` are unapproved,
-unproved draft subjects. They describe only exact gate branching and Plain/
-Transient owner return. They do not prove that any supplied inventory is correct,
+The plan traversal is a structural fold with normal erased payload parameters.
+It does not attempt to monomorphize local payload variables as closed template
+arguments. The field adapter's consuming structural column walk uses one affine
+projection on the selected path, with whole actual column validation first. It
+preserves untouched branches, cached views and stamp arrays. Both concrete Alpha
+and Beta save entries in `examples/parallel-persistence/save.bend` instantiate
+unlike nominal schemas with actual Array payloads and compile normally.
+
+Remaining implementation includes complete ordinary scheduled output and pending
+refusal consumers using these full fields, fresh receiver handle mapping and
+lifecycle reconstruction, restore without legacy Tx, both resumed execution
+forms, and intended ownership controls. The ongoing taskful executor migration
+also changes the concrete Scheduled adapter shape. Trusted initial population
+uses the canonical Pending materializer and currently exposes an upstream
+materializer template mismatch being repaired by its owner; it is not counted
+as a working population path yet.
+
+The four laws in `test-fixtures/execution-save-laws/LAWS.bend` and two subjects in
+`SCHEMA.bend` are unapproved, unproved drafts. They describe exact gate branching,
+Plain/Transient owner return and actual schema/World refusal branches. They do
+not prove that any supplied inventory is correct,
 that a callback cannot transform owners deliberately, or that complete save and
 restore work.
