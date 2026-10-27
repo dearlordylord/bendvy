@@ -47,15 +47,15 @@ def historical_world(~S:Data,now:Tick.Tick,+stamp:Tick.Tick,seedError:Bool,world
 def historical_app(~S:Data,~mode:Query.Mode,prior:Maybe<&2,Tick.Tick>,application:Application.QueryApp(~S,~mode)) -> Application.QueryApp(~S,~mode):
   match application:
     case Execute.Application{world,Sys.Owner{namespace,id,name,access,_,local}}:Execute.Application{world,Sys.Owner{namespace,id,name,access,prior,local}}
-def built(~S:Data,~mode:Query.Mode,factory:W.Factory,prior:Maybe<&2,Tick.Tick>,result:Execute.Built<Application.QueryApp(~S,~mode),Application.Runtime(~S),Body.Local>) -> String:
+def built(~S:Data,~mode:Query.Mode,factory:W.Factory,prior:Maybe<&2,Tick.Tick>,result:Execute.Built<Application.QueryApp(~S,~mode),Application.Runtime(~S),Body.Local>) -> IO(String):
   match result:
-    case Execute.Built{application}:Application.first(~S,~mode,factory,Application.run_once(~S,~mode,historical_app(~S,~mode,prior,application)))
-    case Execute.BuildRefused{_,_}:"ERROR: definition"
-def created(~S:Data,~mode:Query.Mode,now:Tick.Tick,stamp:Tick.Tick,prior:Maybe<&2,Tick.Tick>,seedError:Bool,result:W.Creation<S,D.Store(~S),D.Resources(~S),Unit>) -> String:
+    case Execute.Built{application}:IO.bind(Application.QueryApp(~S,~mode) & Execute.Status<String,String>,String,Application.run_once(~S,~mode,historical_app(~S,~mode,prior,application)),Application.first(~S,~mode,factory))
+    case Execute.BuildRefused{_,_}:IO.pure(String,"ERROR: definition")
+def created(~S:Data,~mode:Query.Mode,now:Tick.Tick,stamp:Tick.Tick,prior:Maybe<&2,Tick.Tick>,seedError:Bool,result:W.Creation<S,D.Store(~S),D.Resources(~S),Unit>) -> IO(String):
   match result:
-    case W.Created{factory,world}:built(~S,~mode,factory,prior,Execute.define(~S,~D.Store(~S),~D.Resources(~S),~Unit,~Query.Ops(~S,~String),~Body.Local,~String,~String,~D.declaration(~S,~mode),~Body.run(~S),historical_world(~S,now,stamp,seedError,Application.spawn(~S,18n,world)),"query",Body.Local{ALeaf{900},0}))
-    case W.CreateRejected{_,_}:"ERROR: creation"
-def scenario(~S:Data,~mode:Query.Mode,now:Tick.Tick,stamp:Tick.Tick,prior:Maybe<&2,Tick.Tick>,seedError:Bool) -> String:
+    case W.Created{factory,world}:built(~S,~mode,factory,prior,Execute.define_framework(~S,~D.Store(~S),~D.Resources(~S),~Unit,~D.Ops(~S),~Body.Local,~String,~String,~Application.program(~S,~mode),~Body.run(~S),historical_world(~S,now,stamp,seedError,Application.spawn(~S,18n,world)),"query",Body.Local{ALeaf{900},0}))
+    case W.CreateRejected{_,_}:IO.pure(String,"ERROR: creation")
+def scenario(~S:Data,~mode:Query.Mode,now:Tick.Tick,stamp:Tick.Tick,prior:Maybe<&2,Tick.Tick>,seedError:Bool) -> IO(String):
   created(~S,~mode,now,stamp,prior,seedError,W.create(~S,~D.Store(~S),~D.Resources(~S),~Unit,~D.empty(~S),W.factory(),D.resource(~S)))
 
 type First is Data:
@@ -63,4 +63,4 @@ type First is Data:
 type Second is Data:
   Second{}
 def main() -> IO(Unit):
-  IO.print("First/zero-cursor=" ++ scenario(~First,~Query.ParallelWhere{Life.Added{}},Tick.Tick{0n,0},Tick.Tick{0n,0},Some{Tick.Tick{0n,0}},False{}) ++ "\nFirst/wrap=" ++ scenario(~First,~Query.ParallelWhere{Life.Changed{}},Tick.Tick{0n,4294967295},Tick.Tick{0n,4294967295},Some{Tick.Tick{0n,4294967294}},False{}) ++ "\nSecond/dormant-old=" ++ scenario(~Second,~Query.SerialWhere{Life.Changed{}},Tick.Tick{3n,0},Tick.Tick{0n,0},Some{Tick.Tick{0n,0}},False{}) ++ "\nSecond/dormant-recent=" ++ scenario(~Second,~Query.ParallelWhere{Life.Changed{}},Tick.Tick{3n,0},Tick.Tick{3n,0},Some{Tick.Tick{0n,0}},False{}) ++ "\nFirst/error=" ++ scenario(~First,~Query.ParallelWhere{Life.Changed{}},Tick.Tick{0n,0},Tick.Tick{0n,0},None{},True{}) ++ "\nSecond/error-serial=" ++ scenario(~Second,~Query.SerialWhere{Life.Added{}},Tick.Tick{0n,0},Tick.Tick{0n,0},None{},True{}))
+  IO.bind(String,Unit,scenario(~First,~Query.ParallelWhere{Life.Added{}},Tick.Tick{0n,0},Tick.Tick{0n,0},Some{Tick.Tick{0n,0}},False{}),zero => IO.bind(String,Unit,scenario(~First,~Query.ParallelWhere{Life.Changed{}},Tick.Tick{0n,4294967295},Tick.Tick{0n,4294967295},Some{Tick.Tick{0n,4294967294}},False{}),wrap => IO.bind(String,Unit,scenario(~Second,~Query.SerialWhere{Life.Changed{}},Tick.Tick{3n,0},Tick.Tick{0n,0},Some{Tick.Tick{0n,0}},False{}),old => IO.bind(String,Unit,scenario(~Second,~Query.ParallelWhere{Life.Changed{}},Tick.Tick{3n,0},Tick.Tick{3n,0},Some{Tick.Tick{0n,0}},False{}),recent => IO.bind(String,Unit,scenario(~First,~Query.ParallelWhere{Life.Changed{}},Tick.Tick{0n,0},Tick.Tick{0n,0},None{},True{}),error => IO.bind(String,Unit,scenario(~Second,~Query.SerialWhere{Life.Added{}},Tick.Tick{0n,0},Tick.Tick{0n,0},None{},True{}),serial => IO.print("First/zero-cursor=" ++ zero ++ "\nFirst/wrap=" ++ wrap ++ "\nSecond/dormant-old=" ++ old ++ "\nSecond/dormant-recent=" ++ recent ++ "\nFirst/error=" ++ error ++ "\nSecond/error-serial=" ++ serial)))))))
