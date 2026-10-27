@@ -10,22 +10,22 @@ import ./execution-command-permission.bend as Permission
 # returns it through the existing system owner, including refusal/body error.
 type Local<-S:Data,-P:Type,-D:Type,-User:Type> is Type:
   Local{user:User,commands:Buffer.Buffer<S,P,D>,permission:Permission.Permission}
-type Commands<-Q:Type,-S:Data,-P:Type,-D:Type> is Type:
-  Commands{insert:Q -> W.Handle<S> -> P -> Q,remove:Q -> W.Handle<S> -> Q,split:Q -> Q & Q,merge:Q -> Q -> Q,spawn:Q -> D -> Task.Task<S,Q & Buffer.SpawnAdmission<S,D>>}
+type Commands<-Q:Type,-S:Data,-P:Type> is Type:
+  Commands{insert:Q -> W.Handle<S> -> P -> Q,remove:Q -> W.Handle<S> -> Q,split:Q -> Q & Q,merge:Q -> Q -> Q}
 def fresh(~S:Data,~P:Type,~D:Type,~User:Type,user:User,permission:Permission.Permission) -> Local<S,P,D,User>:
   Local{user,Buffer.empty(~S,~P,~D),permission}
-def insert_field(~Q:Type,~S:Data,~P:Type,~D:Type,commands:Commands<Q,S,P,D>) -> Q -> W.Handle<S> -> P -> Q:
+def insert_field(~Q:Type,~S:Data,~P:Type,commands:Commands<Q,S,P>) -> Q -> W.Handle<S> -> P -> Q:
   match commands:
-    case Commands{insert,_,_,_,_}:insert
-def remove_field(~Q:Type,~S:Data,~P:Type,~D:Type,commands:Commands<Q,S,P,D>) -> Q -> W.Handle<S> -> Q:
+    case Commands{insert,_,_,_}:insert
+def remove_field(~Q:Type,~S:Data,~P:Type,commands:Commands<Q,S,P>) -> Q -> W.Handle<S> -> Q:
   match commands:
-    case Commands{_,remove,_,_,_}:remove
-def split_field(~Q:Type,~S:Data,~P:Type,~D:Type,commands:Commands<Q,S,P,D>) -> Q -> Q & Q:
+    case Commands{_,remove,_,_}:remove
+def split_field(~Q:Type,~S:Data,~P:Type,commands:Commands<Q,S,P>) -> Q -> Q & Q:
   match commands:
-    case Commands{_,_,split,_,_}:split
-def merge_field(~Q:Type,~S:Data,~P:Type,~D:Type,commands:Commands<Q,S,P,D>) -> Q -> Q -> Q:
+    case Commands{_,_,split,_}:split
+def merge_field(~Q:Type,~S:Data,~P:Type,commands:Commands<Q,S,P>) -> Q -> Q -> Q:
   match commands:
-    case Commands{_,_,_,merge,_}:merge
+    case Commands{_,_,_,merge}:merge
 def returned(~S:Data,~P:Type,~D:Type,~User:Type,~Error:Data,~Out:Data,~H:Type,permission:Permission.Permission,result:H & (Buffer.Buffer<S,P,D> & (User & Sys.Completion<Error,Out>))) -> H & (Local<S,P,D,User> & Sys.Completion<Error,Out>):
   match result:
     case (scope,(commands,(user,completion))):(scope,(Local{user,commands,permission},completion))
@@ -34,12 +34,8 @@ def returned(~S:Data,~P:Type,~D:Type,~User:Type,~Error:Data,~Out:Data,~H:Type,pe
 # component family from its closed schema and inventory this buffer for barriers.
 # Both H and Q remain abstract to gameplay. The body never sees a World,
 # the allocator, the concrete buffer constructor, or an application callback.
-def canonical(~S:Data,~P:Type,~D:Type) -> Commands<Buffer.Buffer<S,P,D>,S,P,D>:
-  Commands{Buffer.insert(~S,~P,~D),Buffer.remove(~S,~P,~D),Buffer.split(~S,~P,~D),Buffer.merge(~S,~P,~D),Buffer.spawn(~S,~P,~D)}
-def invoke(~S:Data,~P:Type,~D:Type,~User:Type,~Error:Data,~Out:Data,~Ops:Type -> Type -> Type,~body:@-H:Type -> @-Q:Type -> @-caps:Ops(H,Q) -> @-commands:Commands<Q,S,P,D> -> H -> Q -> User -> Task.Task<S,H & (Q & (User & Sys.Completion<Error,Out>))>,~H:Type,~caps:Ops(H,Buffer.Buffer<S,P,D>),scope:H,local:Local<S,P,D,User>) -> Task.Task<S,H & (Local<S,P,D,User> & Sys.Completion<Error,Out>)>:
+def canonical(~S:Data,~P:Type,~D:Type) -> Commands<Buffer.Buffer<S,P,D>,S,P>:
+  Commands{Buffer.insert(~S,~P,~D),Buffer.remove(~S,~P,~D),Buffer.split(~S,~P,~D),Buffer.merge(~S,~P,~D)}
+def invoke(~S:Data,~P:Type,~D:Type,~User:Type,~Error:Data,~Out:Data,~Ops:Type -> Type -> Type,~body:@-H:Type -> @-Q:Type -> @-caps:Ops(H,Q) -> @-commands:Commands<Q,S,P> -> H -> Q -> User -> Task.Task<S,H & (Q & (User & Sys.Completion<Error,Out>))>,~H:Type,~caps:Ops(H,Buffer.Buffer<S,P,D>),scope:H,local:Local<S,P,D,User>) -> Task.Task<S,H & (Local<S,P,D,User> & Sys.Completion<Error,Out>)>:
   match local:
     case Local{user,commands,permission}:Task.bind(S,H & (Buffer.Buffer<S,P,D> & (User & Sys.Completion<Error,Out>)),H & (Local<S,P,D,User> & Sys.Completion<Error,Out>),body(H,Buffer.Buffer<S,P,D>,caps,canonical(~S,~P,~D),scope,commands,user),result => Task.TDone{returned(~S,~P,~D,~User,~Error,~Out,~H,permission,result)})
-
-def spawn_field(~Q:Type,~S:Data,~P:Type,~D:Type,commands:Commands<Q,S,P,D>) -> Q -> D -> Task.Task<S,Q & Buffer.SpawnAdmission<S,D>>:
-  match commands:
-    case Commands{_,_,_,_,spawn}:spawn

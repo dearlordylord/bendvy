@@ -1,4 +1,7 @@
 import Base
+import ./execution-reservation-task.bend as Task
+import ./execution-command-buffer.bend as Buffer
+import ./execution-command-removed.bend as Removed
 import ./world.bend as W
 import ./execution-composer-layout.bend as Layout
 
@@ -12,21 +15,21 @@ type Permission is Data:
   FamilyOnly{}
   EntityStructural{}
 type EntityCommands<-Q:Type,-S:Data,-layout:Layout.Layout> is Type:
-  EntityCommands{despawn:Q -> W.Handle<S> -> Q}
+  EntityCommands{despawn:Q -> W.Handle<S> -> Q,spawn:Q -> Removed.Removed(layout) -> Task.Task<S,Q & Buffer.SpawnAdmission<S,Removed.Removed(layout)>>}
 def Grant(~S:Data,~layout:Layout.Layout,~Q:Type,~K:Type) -> Type:
   K -> K & EntityCommands<Q,S,layout>
 def fresh(~layout:Layout.Layout) -> Book<layout>:Ungranted{}
-def grant(~S:Data,~layout:Layout.Layout,~Q:Type,~despawn:Q -> W.Handle<S> -> Q,book:Book<layout>) -> Book<layout> & EntityCommands<Q,S,layout>:
+def grant(~S:Data,~layout:Layout.Layout,~Q:Type,~despawn:Q -> W.Handle<S> -> Q,~spawn:Q -> Removed.Removed(layout) -> Task.Task<S,Q & Buffer.SpawnAdmission<S,Removed.Removed(layout)>>,book:Book<layout>) -> Book<layout> & EntityCommands<Q,S,layout>:
   match book:
-    case Ungranted{}:(EntityGranted{},EntityCommands{despawn})
-    case EntityGranted{}:(EntityGranted{},EntityCommands{despawn})
+    case Ungranted{}:(EntityGranted{},EntityCommands{despawn,spawn})
+    case EntityGranted{}:(EntityGranted{},EntityCommands{despawn,spawn})
 def kind(~layout:Layout.Layout,book:Book<layout>) -> Permission:
   match book:
     case Ungranted{}:FamilyOnly{}
     case EntityGranted{}:EntityStructural{}
 def despawn_field(~Q:Type,~S:Data,~layout:Layout.Layout,commands:EntityCommands<Q,S,layout>) -> Q -> W.Handle<S> -> Q:
   match commands:
-    case EntityCommands{despawn}:despawn
+    case EntityCommands{despawn,_}:despawn
 type Prepared<-Ops:Type> is Type:
   Prepared{permission:Permission,ops:Ops}
 def prepared(~layout:Layout.Layout,-B:Type,-Ops:Type,result:B & (Book<layout> & Ops)) -> B & Prepared<Ops>:
@@ -40,3 +43,8 @@ def agrees(left:Permission,right:Permission) -> Bool:
 def ops_field(-Ops:Type,value:Prepared<Ops>) -> Ops:
   match value:
     case Prepared{_,ops}:ops
+
+# Only a declaration that consumed the structural grant can obtain this field.
+def spawn_field(~Q:Type,~S:Data,~layout:Layout.Layout,commands:EntityCommands<Q,S,layout>) -> Q -> Removed.Removed(layout) -> Task.Task<S,Q & Buffer.SpawnAdmission<S,Removed.Removed(layout)>>:
+  match commands:
+    case EntityCommands{_,spawn}:spawn
