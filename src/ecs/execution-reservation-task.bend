@@ -1,6 +1,7 @@
 import Base
 import ./entity-allocator.bend as A
 import ./world.bend as W
+import ./execution-reservation-authority.bend as Authority
 
 type Granted is Data:
   Granted{}
@@ -11,7 +12,7 @@ type Task<-S:Data,-Permit:Data,-R:Type> is Type:
   TNeed{permit:Permit,resume:W.Reservation<S> -> Task<S,Permit,R>}
   TBind{-A:Type,task:Task<S,Permit,A>,next:A -> Task<S,Permit,R>}
   TFork{-L:Type,-T:Type,left:Task<S,Permit,L>,right:Task<S,Permit,T>,join:L -> T -> Task<S,Permit,R>}
-  TMapPermit{-Inner:Data,-Context:Data,-convert:Context -> Inner -> Permit,context:Context,task:Task<S,Inner,R>}
+  TQualify{same:{Permit == Authority.Permit : Data},context:Authority.Context,task:Task<S,Granted,R>}
 type Issuer<-S:Data> is Type:
   Issuer{namespace:U32,allocator:A.Allocator,authorized:List<&2,U32>}
 def bind(-S:Data,-Permit:Data,-R:Type,-T:Type,task:Task<S,Permit,R>,next:R -> Task<S,Permit,T>) -> Task<S,Permit,T>:
@@ -38,7 +39,7 @@ def advance(-S:Data,-Permit:Data,-R:Type,task:Task<S,Permit,R>) -> Task<S,Permit
       l r = advance(S,Permit,L,left) advance(S,Permit,T,right)
       TFork{L,T,l,r,join}
     case TNeed{permit,resume}:TNeed{permit,resume}
-    case TMapPermit{Inner,Context,convert,context,task}:TMapPermit{Inner,Context,convert,context,advance(S,Inner,R,task)}
+    case TQualify{same,context,task}:TQualify{same,context,advance(S,Granted,R,task)}
     case TDone{value}:TDone{value}
 
 def service_answer(-S:Data,-Permit:Data,-R:Type,resume:W.Reservation<S> -> Task<S,Permit,R>,result:Issuer<S> & W.Reservation<S>) -> Issuer<S> & Task<S,Permit,R>:
@@ -61,31 +62,33 @@ def service_allowed(-S:Data,-Permit:Data,-R:Type,resume:W.Reservation<S> -> Task
   match allowed:
     case False{}:service_answer(S,Permit,R,resume,(issuer,W.ReservationRejected{W.ReservationUnauthorized{}}))
     case True{}:service_answer(S,Permit,R,resume,reserve(S,issuer))
-type ContextPair<-Outer:Data,-Inner:Data> is Data:
-  ContextPair{outer:Outer,inner:Inner}
-def mapped_authorized(~Inner:Data,~Permit:Data,~Outer:Data,~Map:Data,~convert:Map -> Inner -> Permit,~authorized:Outer -> Permit -> U32 -> List<&2,U32> -> Bool,context:ContextPair<Outer,Map>,permit:Inner,namespace:U32,ids:List<&2,U32>) -> Bool:
-  match context:
-    case ContextPair{outer,inner}:authorized(outer,convert(inner,permit),namespace,ids)
-def service_mapped_generic(~S:Data,~Inner:Data,~Permit:Data,~Context:Data,~convert:Context -> Inner -> Permit,-R:Type,context:Context,result:Issuer<S> & Task<S,Inner,R>) -> Issuer<S> & Task<S,Permit,R>:
+# Closed authorization modes retain reusable provenance, never a function owner.
+type Authorization<-Permit:Data> is Data:
+  Direct{same:{Permit == Authority.Permit : Data}}
+  GrantedAccess{same:{Permit == Granted : Data},context:Authority.Context}
+def runtime_permit(-Permit:Data,same:{Permit == Authority.Permit : Data},permit:Permit) -> Authority.Permit:
+  %same : _
+  permit
+def allowed(-Permit:Data,access:Authorization<Permit>,permit:Permit,namespace:U32,ids:List<&2,U32>) -> Bool:
+  match access:
+    case Direct{same}:Authority.authorized(runtime_permit(Permit,same,permit),namespace,ids)
+    case GrantedAccess{_,context}:Authority.authorized(Authority.qualified(context),namespace,ids)
+def service_request_generic(-S:Data,-Permit:Data,-R:Type,access:Authorization<Permit>,permit:Permit,resume:W.Reservation<S> -> Task<S,Permit,R>,issuer:Issuer<S>) -> Issuer<S> & Task<S,Permit,R>:
+  match issuer:
+    case Issuer{+namespace,allocator,+allowlist}:service_allowed(S,Permit,R,resume,Issuer{namespace,allocator,allowlist},allowed(Permit,access,permit,namespace,allowlist))
+def service_qualified(-S:Data,-Permit:Data,-R:Type,same:{Permit == Authority.Permit : Data},context:Authority.Context,result:Issuer<S> & Task<S,Granted,R>) -> Issuer<S> & Task<S,Permit,R>:
   match result:
     case (issuer,TDone{value}):(issuer,TDone{value})
-    case (issuer,task):(issuer,TMapPermit{Inner,Context,convert,context,task})
-def service_request_generic(~S:Data,~Permit:Data,~Context:Data,~authorized:Context -> Permit -> U32 -> List<&2,U32> -> Bool,-R:Type,context:Context,permit:Permit,resume:W.Reservation<S> -> Task<S,Permit,R>,issuer:Issuer<S>) -> Issuer<S> & Task<S,Permit,R>:
-  match issuer:
-    case Issuer{+namespace,allocator,+allowlist}:service_allowed(S,Permit,R,resume,Issuer{namespace,allocator,allowlist},authorized(context,permit,namespace,allowlist))
-def service_generic(~S:Data,~Permit:Data,~Context:Data,~authorized:Context -> Permit -> U32 -> List<&2,U32> -> Bool,-R:Type,task:Task<S,Permit,R>,+context:Context,issuer:Issuer<S>) -> Issuer<S> & Task<S,Permit,R>:
+    case (issuer,task):(issuer,TQualify{same,context,task})
+def service_generic(-S:Data,-Permit:Data,-R:Type,task:Task<S,Permit,R>,+access:Authorization<Permit>,issuer:Issuer<S>) -> Issuer<S> & Task<S,Permit,R>:
   match task:
-    case TNeed{permit,resume}:service_request_generic(~S,~Permit,~Context,~authorized,R,context,permit,resume,issuer)
-    case TBind{A,task,next}:service_bind(S,Permit,A,R,next,service_generic(~S,~Permit,~Context,~authorized,A,task,context,issuer))
-    case TFork{L,T,left,right,join}:service_left(S,Permit,L,T,R,root => service_generic(~S,~Permit,~Context,~authorized,T,right,context,root),join,service_generic(~S,~Permit,~Context,~authorized,L,left,context,issuer))
-    case TMapPermit{Inner,Map,convert,+inner,task}:service_mapped_generic(~S,~Inner,~Permit,~Map,~convert,R,inner,service_generic(~S,~Inner,~ContextPair<Context,Map>,~mapped_authorized(~Inner,~Permit,~Context,~Map,~convert,~authorized),R,task,ContextPair{context,inner},issuer))
+    case TNeed{permit,resume}:service_request_generic(S,Permit,R,access,permit,resume,issuer)
+    case TBind{A,task,next}:service_bind(S,Permit,A,R,next,service_generic(S,Permit,A,task,access,issuer))
+    case TFork{L,T,left,right,join}:service_left(S,Permit,L,T,R,root => service_generic(S,Permit,T,right,access,root),join,service_generic(S,Permit,L,left,access,issuer))
+    case TQualify{same,+context,task}:service_qualified(S,Permit,R,same,context,service_generic(S,Granted,R,task,GrantedAccess{{==},context},issuer))
     case TRun{step}:(issuer,TRun{step})
     case TDone{value}:(issuer,TDone{value})
-
-def service(~S:Data,~Permit:Data,~R:Type,~Context:Data,~authorized:Context -> Permit -> U32 -> List<&2,U32> -> Bool,task:Task<S,Permit,R>,+context:Context,issuer:Issuer<S>) -> Issuer<S> & Task<S,Permit,R>:
-  service_generic(~S,~Permit,~Context,~authorized,R,task,context,issuer)
-
-# Persistent wrapper keeps future callbacks under the same conversion. There
-# is no recursive traversal of a computed callback result and no copied closure.
-def map_permit(~S:Data,~P:Data,~Q:Data,~R:Type,~Context:Data,~convert:Context -> P -> Q,context:Context,task:Task<S,P,R>) -> Task<S,Q,R>:
-  TMapPermit{P,Context,convert,context,task}
+# The trusted prepared leaf supplies the actual namespace, id and closed grant.
+# The persistent wrapper also covers future bind/fork/request continuations.
+def qualify(-S:Data,-R:Type,context:Authority.Context,task:Task<S,Granted,R>) -> Task<S,Authority.Permit,R>:
+  TQualify{{==},context,task}
