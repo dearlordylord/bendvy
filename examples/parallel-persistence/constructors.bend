@@ -9,6 +9,8 @@ import ../../src/ecs/owner-product.bend as Product
 
 def duplicated(+raw:D.Raw) -> D.Raw & D.Raw:(raw,raw)
 def incoming(raw:D.Raw) -> D.Raw & D.Raw:duplicated(raw)
+# Undo is retained with freshly staged single-leaf allocations and runs before
+# publication. It is not a claim about arbitrary subsequently mutated owners.
 def actor_undo(~S:Data,owner:Ordinary.Actor<S>) -> D.Raw:
   match owner:
     case Ordinary.Actor{name,ALeaf{energy}}:D.Object{[D.Field{"name",D.BendvyText{name}},D.Field{"energy",D.Number{energy}}]}

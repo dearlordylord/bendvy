@@ -80,8 +80,16 @@ legacy Tx restore lifecycle. The concrete `constructors.bend` and `staging.bend`
 consumers construct Actor/Config Array payloads from their ordinary codecs and
 retain the actual declaration-derived factories, staged records, recovery input
 and Schema. Alpha and Beta instantiate this continuation and compile normally.
-The continuation requires prior admission; it is not a public restore operation
-and has not published any payload into a receiver World.
+The raw continuation requires prior admission; `staging.prepare` couples it to
+actual Schema/input admission and retains recovery on either refusal. It is not
+a public restore operation and has not published payload into a receiver World.
+
+Metadata admission now checks source namespace/journal agreement, quiescent
+clock scopes, allocator bounds/capacity/slot count, free/order membership and
+duplicate indices, generation/phase agreement with exported live entity keys,
+and nonfuture field timestamps. Source journal channels and active reader IDs
+remain detached observations; they will not overwrite receiver runtime owners.
+The metadata and typed staging continuation compile for both nominal consumers.
 
 The four laws in `test-fixtures/execution-save-laws/LAWS.bend` and two subjects in
 `SCHEMA.bend` are unapproved, unproved drafts. They describe exact gate branching,

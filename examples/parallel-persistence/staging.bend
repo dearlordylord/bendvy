@@ -10,6 +10,7 @@ import ../../src/ecs/decode-construction.bend as Constructor
 import ../../src/ecs/decode-data.bend as D
 import ../../src/ecs/owner-product.bend as Product
 import ../../src/ecs/persistence-declaration.bend as Decl
+import ../../src/ecs/execution-restore-admission.bend as Admission
 
 def Actors(~S:Data) -> Type:Leaf.State<Factory.ActorFactory(~S),D.Raw,Ordinary.Actor<S>>
 def Configs(~S:Data) -> Type:Leaf.State<Factory.ConfigFactory(~S),D.Raw,Ordinary.Config<S>>
@@ -50,3 +51,16 @@ def admitted(~S:Data,state:State<S>,input:Saved.Snapshot<S>) -> State<S> & (Save
   Stage.admitted(~S,~State<S>,~Unit,~field(~S),~release(~S),state,input)
 def alpha(state:State<Ordinary.Alpha>,input:Saved.Snapshot<Ordinary.Alpha>) -> State<Ordinary.Alpha> & (Saved.Snapshot<Ordinary.Alpha> & Maybe<&2,R.Error<Unit>>):admitted(~Ordinary.Alpha,state,input)
 def beta(state:State<Ordinary.Beta>,input:Saved.Snapshot<Ordinary.Beta>) -> State<Ordinary.Beta> & (Saved.Snapshot<Ordinary.Beta> & Maybe<&2,R.Error<Unit>>):admitted(~Ordinary.Beta,state,input)
+type Error is Data:AdmissionRefused{error:Admission.Error} ConstructorRefused{error:R.Error<Unit>}
+def completed(~S:Data,result:State<S> & (Saved.Snapshot<S> & Maybe<&2,R.Error<Unit>>)) -> State<S> & (Saved.Snapshot<S> & Maybe<&2,Error>):
+  match result:
+    case (state,(input,None{})):(state,(input,None{}))
+    case (state,(input,Some{error})):(state,(input,Some{ConstructorRefused{error}}))
+def checked(~S:Data,result:Plan.Schema<S,Ordinary.components(~S),Ordinary.resources(~S)> & (Saved.Snapshot<S> & Admission.Admission)) -> State<S> & (Saved.Snapshot<S> & Maybe<&2,Error>):
+  match result:
+    case (schema,(input,Admission.Refused{error})):(empty(~S,schema),(input,Some{AdmissionRefused{error}}))
+    case (schema,(input,Admission.Admitted{})):completed(~S,admitted(~S,empty(~S,schema),input))
+def prepare(~S:Data,schema:Plan.Schema<S,Ordinary.components(~S),Ordinary.resources(~S)>,input:Saved.Snapshot<S>) -> State<S> & (Saved.Snapshot<S> & Maybe<&2,Error>):
+  checked(~S,Admission.prepare(~S,~Ordinary.components(~S),~Ordinary.resources(~S),schema,input))
+def prepare_alpha(schema:Plan.Schema<Ordinary.Alpha,Ordinary.components(~Ordinary.Alpha),Ordinary.resources(~Ordinary.Alpha)>,input:Saved.Snapshot<Ordinary.Alpha>) -> State<Ordinary.Alpha> & (Saved.Snapshot<Ordinary.Alpha> & Maybe<&2,Error>):prepare(~Ordinary.Alpha,schema,input)
+def prepare_beta(schema:Plan.Schema<Ordinary.Beta,Ordinary.components(~Ordinary.Beta),Ordinary.resources(~Ordinary.Beta)>,input:Saved.Snapshot<Ordinary.Beta>) -> State<Ordinary.Beta> & (Saved.Snapshot<Ordinary.Beta> & Maybe<&2,Error>):prepare(~Ordinary.Beta,schema,input)

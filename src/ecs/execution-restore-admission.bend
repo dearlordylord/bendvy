@@ -6,6 +6,7 @@ import ./owner-product.bend as Product
 import ./decode-data.bend as D
 import ./decode-size.bend as Size
 import ./entity-key.bend as Key
+import ./execution-restore-metadata.bend as Metadata
 
 # Internal admission descriptors come from the retained nominal declarations.
 # They are observations, never a caller supplied storage or access catalog.
@@ -19,6 +20,7 @@ type Error is Data:
   PlainUnserializable{key:String}
   InvalidValue{key:String}
   InvalidCodec{key:String,error:D.Error}
+  InvalidMetadata{}
 type Admission is Data:Admitted{} Refused{error:Error}
 def first(left:Admission,right:Admission) -> Admission:
   match left:
@@ -84,9 +86,14 @@ def header(valid:Bool,version:U32,components:List<&2,Descriptor>,resources:List<
   match valid:
     case False{}:Refused{UnsupportedVersion{version}}
     case True{}:first(entities(values,components,[]),fields(resources,resourceValues,True{}))
+def metadata_header(~S:Data,valid:Bool,components:List<&2,Descriptor>,resources:List<&2,Descriptor>,input:Saved.Snapshot<S>) -> Admission:
+  match valid input:
+    case False{} _:Refused{InvalidMetadata{}}
+    case True{} Saved.Snapshot{+version,_,values,resourceValues}:header(U32.is_eq(version,2),version,components,resources,values,resourceValues)
+def metadata_checked(~S:Data,components:List<&2,Descriptor>,resources:List<&2,Descriptor>,+input:Saved.Snapshot<S>) -> Admission:
+  metadata_header(~S,Metadata.valid(~S,input),components,resources,input)
 def snapshot(~S:Data,components:List<&2,Descriptor>,resources:List<&2,Descriptor>,input:Saved.Snapshot<S>) -> Admission:
-  match input:
-    case Saved.Snapshot{+version,_,values,resourceValues}:header(U32.is_eq(version,2),version,components,resources,values,resourceValues)
+  metadata_checked(~S,components,resources,input)
 def schema_resources(~S:Data,~cp:Plan.Plan,~rp:Plan.Plan,components:Plan.Recipes(~S,cp),componentDescriptors:List<&2,Descriptor>,+input:Saved.Snapshot<S>,result:Plan.Recipes(~S,rp) & List<&2,Descriptor>) -> Plan.Schema<S,cp,rp> & (Saved.Snapshot<S> & Admission):
   match result:
     case (resources,resourceDescriptors):(Plan.Schema{components,resources},(input,snapshot(~S,componentDescriptors,resourceDescriptors,input)))
