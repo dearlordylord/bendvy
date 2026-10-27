@@ -16,6 +16,15 @@ import ../../src/ecs/dependency-application.bend as App
 import ../../src/ecs/dependency-executor.bend as Exec
 import ../../src/ecs/dependency-plan.bend as Plan
 import ../../src/ecs/change-tick.bend as Tick
+import ../../src/ecs/entity-allocator.bend as Allocator
+import ../../src/ecs/clock-state.bend as Clock
+import ../../src/ecs/deferred-command.bend as Deferred
+import ../../src/ecs/entity-key.bend as Key
+import ../../src/ecs/execution-command-publication.bend as Publication
+import ../../src/ecs/execution-command-buffer.bend as Buffer
+import ../../src/ecs/execution-command-removed.bend as Removed
+import ../../src/ecs/execution-command-permission.bend as Permission
+import ../../src/ecs/chunk-column.bend as Column
 
 # DRAFT ONLY: these exact statements are not approved and have no proofs.
 # Erased symbolic binders describe actual affine Type owners in equations;
@@ -263,3 +272,123 @@ law pair_run_forwards_refused_result:
   for -rc:Maybe<&2,Sys.Completion<ER,OR>>
   for refused:{Pair.kernel_when(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~OpsL,~OpsR,~dl,~dr,~bl,~br,mode,gateLeft,gateRight,app) == Run.AdmissionRefused{world,left,right,lc,rc} : Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>}
   {Pair.run_when(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~OpsL,~OpsR,~dl,~dr,~bl,~br,mode,gateLeft,gateRight,app) == Run.AdmissionRefused{world,left,right,lc,rc} : Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>}
+
+# Guarantees: reassembly returns actual Scope columns/resources and Admin owners.
+# Why it matters: a worker's returned snapshot cannot replace authoritative journal.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/world/unsafe_world_cell.rs#L350-L360
+# Bevy behavior: access to removed-component storage is World-owned metadata.
+# Bend adaptation: split/reassembly explicitly carries affine administration;
+# no Data projection or assumed final reassembly result appears in this law.
+law reassembly_preserves_actual_owners_and_authoritative_journal:
+  for -S:Data
+  for -C:Type
+  for -R:Type
+  for -E:Data
+  for -namespace:U32
+  for -allocator:Allocator.Allocator
+  for -store:C
+  for -resource:R
+  for -events:List<&2,E>
+  for -pending:List<Deferred.Command<W.World<S,C,R,E>>>
+  for -registrations:List<&2,W.RegistrationMeta>
+  for -nextSystemId:U32
+  for -clock:Clock.State
+  for -journal:Notice.Journal<S>
+  for -handles:List<&2,W.Handle<S>>
+  for -tick:Tick.Tick
+  for -prior:Maybe<&2,Tick.Tick>
+  for -view:Notice.View<S>
+  {State.reassemble(~S,~C,~R,~E,State.Administration{namespace,allocator,events,pending,registrations,nextSystemId,clock,journal},State.Scope{store,resource,handles,tick,prior,view}) == W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal} : W.World<S,C,R,E>}
+
+# Guarantees: foreign identity makes actual Sys.run return exact original owners.
+# Why it matters: admission refusal precedes tick capture, body and any maintenance.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/system/function_system.rs#L400-L419
+# Bevy behavior: SystemState validates its WorldId before using stored parameters.
+# Bend adaptation: mismatch is an owner-returning refusal, not a Rust panic.
+# The sole premise is namespace inequality, NOT an assumed Sys.run result.
+law single_foreign_admission_returns_exact_type_owners:
+  for -S:Data
+  for -C:Type
+  for -R:Type
+  for -E:Data
+  for -Ops:Type -> Type
+  for -Local:Type
+  for -Error:Data
+  for -Out:Data
+  for -declaration:Build.Program(~S,~C,~C,~R,~Ops)
+  for -body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>)
+  for -namespace:U32
+  for -allocator:Allocator.Allocator
+  for -store:C
+  for -resource:R
+  for -events:List<&2,E>
+  for -pending:List<Deferred.Command<W.World<S,C,R,E>>>
+  for -registrations:List<&2,W.RegistrationMeta>
+  for -nextSystemId:U32
+  for -clock:Clock.State
+  for -journal:Notice.Journal<S>
+  for -ownerNamespace:U32
+  for -id:U32
+  for -name:String
+  for -access:List<&2,String>
+  for -prior:Maybe<&2,Tick.Tick>
+  for -local:Local
+  for foreign:{U32.is_eq(ownerNamespace,namespace) == False{} : Bool}
+  {Sys.run(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,Sys.Owner{ownerNamespace,id,name,access,prior,local},W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal}) == Sys.Refused{W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal},Sys.Owner{ownerNamespace,id,name,access,prior,local}} : Sys.RunResult<W.World<S,C,R,E>,Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>}
+
+# Guarantees: actual reader clamps to retained floor, reports lag, acknowledges item.
+# Why it matters: arbitrary sleeping-reader lag is not success-only acknowledgement.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/message/message_cursor.rs#L130-L135
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/message/iterators.rs#L85-L101
+# Bevy behavior: missed count measures oldest minus cursor; yielding advances it.
+# Bend limit: this universally quantified retained one-item channel shape pins
+# actual Access.read; broader multi-item search/retention still needs its own law.
+law reader_lag_clamp_and_yield_preserve_actual_scope:
+  for -S:Data
+  for -C:Type
+  for -R:Type
+  for -origin:Layout.Layout
+  for -selector:Notice.Selector
+  for -store:C
+  for -resource:R
+  for -handles:List<&2,W.Handle<S>>
+  for -tick:Tick.Tick
+  for -prior:Maybe<&2,Tick.Tick>
+  for -namespace:U32
+  for -id:U32
+  for -cursor:Nat
+  for -lag:Nat
+  for -entity:Notice.Identity<S>
+  for -published:Tick.Tick
+  {Access.read(~S,~C,~R,~origin,~selector,State.Scope{store,resource,handles,tick,prior,Notice.View{namespace,[Notice.Channel{selector,Nat.add(2n,Nat.add(cursor,lag)),[],[Notice.Row{Nat.add(1n,Nat.add(cursor,lag)),entity,published}],Nat.add(cursor,lag)}],[Notice.Active{id,selector}]}},Notice.Reader{namespace,id,cursor}) == (State.Scope{store,resource,handles,tick,prior,Notice.View{namespace,[Notice.Channel{selector,Nat.add(2n,Nat.add(cursor,lag)),[],[Notice.Row{Nat.add(1n,Nat.add(cursor,lag)),entity,published}],Nat.add(cursor,lag)}],[Notice.Active{id,selector}]}},Notice.Item{Notice.Reader{namespace,id,Nat.add(1n,Nat.add(cursor,lag))},Notice.Row{Nat.add(1n,Nat.add(cursor,lag)),entity,published},lag}) : State.Scope<S,C,R> & Notice.Reading<S,origin,selector>}
+
+# Guarantees: actual command entry refuses foreign ownership without publication.
+# Why it matters: incoming raw affine payload and full World remain the originals.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/world/mod.rs#L1599-L1608
+# Bevy behavior: structural entity operations validate the actual entity first.
+# Bend adaptation: namespace is explicit and refusal returns raw payload owners.
+# The premises validate route and foreign identity, not a final publication result.
+law foreign_family_entry_retains_world_and_incoming_owner:
+  for -S:Data
+  for -R:Type
+  for -E:Data
+  for -layout:Layout.Layout
+  for -route:Layout.Route
+  for valid:{Layout.grant_valid(~layout,~route) == True{} : Bool}
+  for -permission:Permission.Permission
+  for -namespace:U32
+  for -allocator:Allocator.Allocator
+  for -store:Layout.columns(~S,layout)
+  for -resource:R
+  for -events:List<&2,E>
+  for -pending:List<Deferred.Command<W.World<S,Layout.columns(~S,layout),R,E>>>
+  for -registrations:List<&2,W.RegistrationMeta>
+  for -nextSystemId:U32
+  for -clock:Clock.State
+  for -journal:Notice.Journal<S>
+  for -actual:U32
+  for -key:Key.Key
+  for -incoming:Maybe<&1,Layout.payload(layout,route)>
+  for -tick:Tick.Tick
+  for foreign:{U32.is_eq(namespace,actual) == False{} : Bool}
+  {Publication.entry(~S,~R,~E,~layout,~route,permission,W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal},Buffer.Entry{W.Handle{actual,key},incoming},tick) == (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal},Buffer.Refused{W.Handle{actual,key},incoming}) : W.World<S,Layout.columns(~S,layout),R,E> & Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>}

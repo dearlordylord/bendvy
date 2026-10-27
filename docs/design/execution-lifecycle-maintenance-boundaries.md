@@ -45,12 +45,20 @@ subjects. The existing five approved Data laws retain their original scope.
 | foreign_reader_preserves_actual_scope_and_reader | Access.read over actual Scope/Reader | Assumes unequal namespaces; exact returned Scope/Reader, not host namespace uniqueness. |
 | pair_run_forwards_finished_result_with_maintenance | Pair.run_when wrapper forwarding an assumed kernel Finished | Kernel classification is a premise, not a conclusion. |
 | pair_run_forwards_refused_result | Pair.run_when wrapper forwarding an assumed kernel refusal | Preserves effects already supplied by the premise; no kernel refusal or admission theorem. |
+| reassembly_preserves_actual_owners_and_authoritative_journal | Actual State.reassemble with Type payload owners | No result premise; admin journal wins over arbitrary worker snapshot. |
+| single_foreign_admission_returns_exact_type_owners | Actual Sys.run with foreign owner namespace | Premise is only namespace inequality; exact original World and system are the conclusion. |
+| reader_lag_clamp_and_yield_preserve_actual_scope | Actual Access.read over arbitrary Type Scope payloads | Quantified cursor/lag and a retained one-item channel; broader search/retention needs separate laws. |
+| foreign_family_entry_retains_world_and_incoming_owner | Actual Publication.entry with foreign family handle | Valid route and namespace inequality; exact World, incoming affine owner and no notice are conclusions. |
 
-These drafts do not yet cover the actual kernel's gate/admission classification,
-reader yield/lag/retention, command publication, or exactly-once placement through
-every scheduled caller. Those need further exact production-subject laws; replacing
-them with convenient Data helper equations would not satisfy the requirement.
+These drafts do not yet cover pair kernel gate/admission classification, general
+multi-item reader search/retention, accepted command publication, or exactly-once
+placement through every scheduled caller. Those need further exact production-
+subject laws; convenient Data helper equations would not satisfy the requirement.
 No new proof is written until the exact statements and limits are approved.
+
+On the coherent82 candidate, normal Bend statement checking reports exactly
+13 unfilled law TODOs, without type/import errors. That establishes statement
+wellformedness only: there are no proofs, no kernel-verdict claim and no approval.
 
 ## Separate future kernel laws
 
@@ -58,11 +66,10 @@ These subjects are not supplied by the four wrapper-forwarding drafts. They need
 their own exact statements and approval; none may assume the kernel result it is
 meant to establish.
 
-- `single_foreign_admission_returns_exact_refusal`: actual `Sys.run`, with an
-  actual World constructor and actual Sys.Owner. Premise only
-  `U32.is_eq(ownerNamespace, worldNamespace) == False`; conclusion exact
-  `Sys.Refused{originalWorld, originalOwner}`. World C/R, pending command owners,
-  allocator/journal and Local stay Type-valued. Do not assume Sys.run refused.
+- The single foreign-admission subject is now drafted as
+  `single_foreign_admission_returns_exact_type_owners` above. Its only premise
+  is namespace inequality, not an assumed Sys.run outcome. The corresponding
+  pair subjects below remain future work.
 - `pair_admitted_both_disabled_is_finished`: actual `Pair.kernel_when` with both
   gates False, equal actual owner/World namespaces and matching actual
   registration-list metadata. Conclude `Run.Finished{world,left,right,None,None}`
