@@ -24,6 +24,7 @@ import ../../src/ecs/execution-lifecycle-notices.bend as Notice
 import ../../src/ecs/change-tick.bend as Tick
 import ../../src/ecs/lifecycle.bend as Life
 import ../../src/ecs/deferred-command.bend as Deferred
+import ../../src/ecs/execution-compiled-binding.bend as Binding
 
 def array_pair(left:Array<U32> & String,right:Array<U32> & String) -> Array<U32> & String:
   match left right:
@@ -113,9 +114,10 @@ def book(value:Schema.Book<S.SchemaA,S.layout_a()>) -> String:
 def grant(value:Admission.Granted<S.SchemaA,Run.WC()>) -> String:
   match value:
     case Admission.Granted{decl,handles}:entry(decl) ++ ":" ++ List.show(&2,W.Handle<S.SchemaA>,handle,handles)
-def evidence(~program:Build.Program(~S.SchemaA,~Run.WC(),~Run.HStore(),~Unit,~Run.Ops),value:General.Evidence<S.SchemaA,S.layout_a(),Run.HStore(),Unit,Run.Ops,program>) -> String:
+def evidence(~program:Build.FrameworkProgram(~S.SchemaA,~Run.WC(),~Run.HStore(),~Unit,~Run.Ops),value:Maybe<&2,General.Evidence<S.SchemaA,S.layout_a(),Run.HStore(),Unit,Run.Ops,program>>) -> String:
   match value:
-    case General.Evidence{namespace,handles,recipes,information,grants,domains}:"namespace=" ++ U32.show(namespace) ++ ";handles=" ++ List.show(&2,W.Handle<S.SchemaA>,handle,handles) ++ ";recipes=" ++ List.show(&2,Recipe.Recipe<S.SchemaA,Run.WC()>,recipe,recipes) ++ ";info=" ++ List.show(&2,Schema.Info,info,information) ++ ";grants=" ++ List.show(&2,Admission.Granted<S.SchemaA,Run.WC()>,grant,grants) ++ ";book=" ++ book(domains)
+    case Some{General.Evidence{namespace,handles,recipes,information,grants,domains}}:"namespace=" ++ U32.show(namespace) ++ ";handles=" ++ List.show(&2,W.Handle<S.SchemaA>,handle,handles) ++ ";recipes=" ++ List.show(&2,Recipe.Recipe<S.SchemaA,Run.WC()>,recipe,recipes) ++ ";info=" ++ List.show(&2,Schema.Info,info,information) ++ ";grants=" ++ List.show(&2,Admission.Granted<S.SchemaA,Run.WC()>,grant,grants) ++ ";book=" ++ book(domains)
+    case None{}:"unavailable"
 def permit(value:Prep.Permit<S.SchemaA,Run.WC()>) -> String:
   match value:
     case Prep.Permit{namespace,id,allowed,tick}:U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ Bool.pick(String,allowed,"true","false") ++ ":" ++ Tick.show(tick)
@@ -129,10 +131,11 @@ def incoming(value:Maybe<&1,S.Position>) -> String:
   match value:
     case None{}:"none"
     case Some{owner}:position_text(owner)
-def command(value:Commands.Entry<S.SchemaA,S.Position>) -> String:
+def command(value:Commands.Entry<S.SchemaA,S.Position,Unit>) -> String:
   match value:
     case Commands.Entry{entity,value}:handle(entity) ++ ":" ++ incoming(value)
     case Commands.Despawn{entity}:"despawn:" ++ handle(entity)
+    case _:"other-command"
 def receipt(value:Commands.Receipt<S.SchemaA,S.Position,Unit>) -> String:
   match value:
     case Commands.Applied{entity,previous}:"applied:" ++ handle(entity) ++ ":" ++ incoming(previous)
@@ -140,9 +143,10 @@ def receipt(value:Commands.Receipt<S.SchemaA,S.Position,Unit>) -> String:
     case Commands.Despawned{entity,_}:"despawned:" ++ handle(entity)
     case Commands.DespawnRefused{entity}:"despawn-refused:" ++ handle(entity)
     case Commands.LinkedDespawn{entity,_,_,_}:"linked-despawn:" ++ handle(entity)
+    case _:"other-receipt"
 def queue(value:Commands.Buffer<S.SchemaA,S.Position,Unit>) -> String:
   match value:
-    case Commands.Buffer{pending,receipts}:"pending=" ++ List.show(&1,Commands.Entry<S.SchemaA,S.Position>,command,pending) ++ ";receipts=" ++ List.show(&1,Commands.Receipt<S.SchemaA,S.Position,Unit>,receipt,receipts)
+    case Commands.Buffer{pending,receipts}:"pending=" ++ List.show(&1,Commands.Entry<S.SchemaA,S.Position,Unit>,command,pending) ++ ";receipts=" ++ List.show(&1,Commands.Receipt<S.SchemaA,S.Position,Unit>,receipt,receipts)
 def probe(result:S.Position & Array<U32>) -> String:
   match result:
     case (owner,token):"unused(probe=" ++ position_text(owner) ++ ";token=" ++ Common.projected(~Array<U32>,array(token)) ++ ")"
@@ -159,9 +163,9 @@ def left_owner(value:Run.LeftOwner()) -> String:
 def right_owner(value:Run.RightOwner()) -> String:
   match value:
     case Sys.Owner{namespace,id,name,access,cursor,state}:U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,value=>value,access) ++ ":" ++ Tick.cursor_show(cursor) ++ ":{" ++ local(state) ++ "}"
-def binding(~Owner:Type,~Evidence:Data,~owner:Owner -> String,~observed:Evidence -> String,value:General.Binding<W.World<S.SchemaA,Run.WC(),Unit,Unit>,Owner,Evidence,S.SchemaA,Run.WC()>) -> String:
+def binding(~Owner:Type,~Evidence:Data,~owner:Owner -> String,~observed:Evidence -> String,value:Binding.Binding<Run.Compilation(),W.World<S.SchemaA,Run.WC(),Unit,Unit>,Owner,Evidence,Prep.Permit<S.SchemaA,Run.WC()>>) -> String:
   match value:
-    case General.Binding{Prep.Prepared{namespace,state,permits,origin},evidence}:"namespace=" ++ U32.show(namespace) ++ ";owner={" ++ owner(state) ++ "};permits=" ++ List.show(&2,Prep.Permit<S.SchemaA,Run.WC()>,permit,permits) ++ ";provenance=" ++ provenance(origin) ++ ";evidence={" ++ observed(evidence) ++ "}"
+    case Binding.Binding{_,Prep.Prepared{namespace,state,permits,origin},evidence}:"namespace=" ++ U32.show(namespace) ++ ";owner={" ++ owner(state) ++ "};permits=" ++ List.show(&2,Prep.Permit<S.SchemaA,Run.WC()>,permit,permits) ++ ";provenance=" ++ provenance(origin) ++ ";evidence={" ++ observed(evidence) ++ "}"
 def optional(value:Maybe<&2,U32>) -> String:
   match value:
     case None{}:"none"
@@ -221,5 +225,7 @@ def seeded(value:Run.SeedRun) -> String:
   match value:
     case Run.SeedRun{W.Factory{next},value}:"factory=" ++ U32.show(next) ++ ";" ++ result(value)
     case Run.SeedRunRefused{W.Factory{next},Unit{}}:"seed-refused:" ++ U32.show(next)
+def printed(+label:String,result:Run.SeedRun) -> IO(Unit):IO.print(label ++ seeded(result))
+def mode(+label:String,target:Run.TargetMode) -> IO(Unit):IO.bind(Run.SeedRun,Unit,Run.run_mode(W.factory(),target),result => printed(label,result))
 def main() -> IO(Unit):
-  IO.print("baseline=" ++ seeded(Run.run(W.factory())) ++ "\nabsent=" ++ seeded(Run.run_mode(W.factory(),Run.Target{6})) ++ "\nexcluded=" ++ seeded(Run.run_mode(W.factory(),Run.Target{1})) ++ "\nforeign=" ++ seeded(Run.run_mode(W.factory(),Run.ForeignTarget{})) ++ "\nstale=" ++ seeded(Run.run_mode(W.factory(),Run.StaleTarget{})) ++ "\nzero=" ++ seeded(Run.run_mode(W.factory(),Run.ZeroTarget{})) ++ "\noutside=" ++ seeded(Run.run_mode(W.factory(),Run.OutsideTarget{})))
+  IO.bind(Unit,Unit,IO.bind(Run.SeedRun,Unit,Run.run(W.factory()),result => printed("baseline=",result)),_ => IO.bind(Unit,Unit,mode("absent=",Run.Target{6}),_ => IO.bind(Unit,Unit,mode("excluded=",Run.Target{1}),_ => IO.bind(Unit,Unit,mode("foreign=",Run.ForeignTarget{}),_ => IO.bind(Unit,Unit,mode("stale=",Run.StaleTarget{}),_ => IO.bind(Unit,Unit,mode("zero=",Run.ZeroTarget{}),_ => mode("outside=",Run.OutsideTarget{})))))))
