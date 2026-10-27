@@ -11,6 +11,7 @@ import ../../../../src/ecs/world.bend as W
 import ../../../../src/ecs/transaction.bend as Tx
 import ../../../../src/ecs/commands.bend as Cmd
 import ../../../../src/ecs/component.bend as Cmp
+import ../../../../src/ecs/component-legacy.bend as CmpLegacy
 import ../../../../src/ecs/structural.bend as St
 import ../../../../src/ecs/column.bend as Col
 import ../../../../src/ecs/relation-commands.bend as Notice
@@ -72,11 +73,11 @@ def written(owner:Array<U32>,frame:Frame,code:U32,result:Cmp.SetResult<Tx.Tx<F.W
     case Cmp.WriteFailure{tx,_}:completed(owner,finish(1,frame,Tx.Failure{Unit{}},tx))
 def update_read(owner:Array<U32>,frame:Frame,code:U32,handle:W.Handle<T.HealthSchema>,result:Tx.Tx<F.World(),E.event_type()> & Cmp.Access<T.VitalsView>) -> Local.Outcome<F.World(),Array<U32>,Unit,Frame>:
   match result:
-    case (tx,Cmp.Found{view}):written(owner,frame,code,Cmp.tx_set(~T.HealthSchema,~F.Store(),~F.Resources(),~E.event_type(),~F.Rest(),~T.Vitals,~T.VitalsView,~T.VitalsToken,~F.take_main,~F.put_main,~P.vitals_get,F.main_family(),tx,handle,increment(view)))
+    case (tx,Cmp.Found{view}):written(owner,frame,code,CmpLegacy.tx_set(~T.HealthSchema,~F.Store(),~F.Resources(),~E.event_type(),~F.Rest(),~T.Vitals,~T.VitalsView,~T.VitalsToken,~F.take_main,~F.put_main,~P.vitals_get,F.main_family(),tx,handle,increment(view)))
     case (tx,_):completed(owner,finish(1,frame,Tx.Failure{Unit{}},tx))
 def update(world:F.World(),owner:Array<U32>,frame:Frame) -> Local.Outcome<F.World(),Array<U32>,Unit,Frame>:
   match frame:
-    case Frame{count,+iteration,Some{+handle},reservations,facts}:update_read(bump(owner),Frame{count,iteration,Some{handle},reservations,facts},iteration,handle,Cmp.tx_get(~T.HealthSchema,~F.Store(),~F.Resources(),~E.event_type(),~F.Rest(),~T.Vitals,~T.VitalsView,~T.VitalsToken,~F.take_main,~F.put_main,~P.vitals_get,F.main_family(),Tx.begin(~F.World(),~E.event_type(),world),handle))
+    case Frame{count,+iteration,Some{+handle},reservations,facts}:update_read(bump(owner),Frame{count,iteration,Some{handle},reservations,facts},iteration,handle,CmpLegacy.tx_get(~T.HealthSchema,~F.Store(),~F.Resources(),~E.event_type(),~F.Rest(),~T.Vitals,~T.VitalsView,~T.VitalsToken,~F.take_main,~F.put_main,~P.vitals_get,F.main_family(),Tx.begin(~F.World(),~E.event_type(),world),handle))
     case _:Local.Failed{world,bump(owner),Unit{}}
 def main_cleared(rest:F.Rest(),result:Col.SwapOutcome<T.HealthSchema,T.Vitals>) -> F.Store():
   match result:

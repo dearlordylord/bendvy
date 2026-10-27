@@ -5,6 +5,7 @@ import ./trace-facts.bend as TraceFacts
 import world.bend as W
 import column.bend as Col
 import component.bend as Cmp
+import component-legacy.bend as CmpLegacy
 import transaction.bend as T
 import resource.bend as Res
 import commands.bend as Cmd
@@ -49,12 +50,12 @@ def first_error(previous: Maybe<&2,W.WorldError>,error: W.WorldError) -> Maybe<&
 def read_join(~S: Data,~Store: Type,~R: Type,~E: Data,~V: Data,+handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: Maybe<&2,Tick.Tick>,observed: T.Tx<W.World<S,Store,R,E>,E> & Cmp.Access<V>) -> Frame<S,Store,R,E> & Cmp.Access<V>:
   (tx,value) = observed
   (Frame{tx,handle,error,cursor},value)
-# Advanced row operation: read the current handle through Cmp.tx_get, returning
+# Advanced row operation: read the current handle through CmpLegacy.tx_get, returning
 # Frame and detached Access<V>. Missing/absent remains an explicit Access result;
 # this read alone does not store a new Frame access error.
 def get(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,frame: Frame<S,Store,R,E>) -> Frame<S,Store,R,E> & Cmp.Access<V>:
   match frame:
-    case Frame{tx,+handle,error,cursor}: read_join(~S,~Store,~R,~E,~V,handle,error,cursor,Cmp.tx_get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,tx,handle))
+    case Frame{tx,+handle,error,cursor}: read_join(~S,~Store,~R,~E,~V,handle,error,cursor,CmpLegacy.tx_get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,tx,handle))
 def written(~S: Data,~Store: Type,~R: Type,~E: Data,~C: Type,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: Maybe<&2,Tick.Tick>,result: Cmp.SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>) -> Frame<S,Store,R,E>:
   match result:
     case Cmp.Written{tx}: Frame{tx,handle,error,cursor}
@@ -65,7 +66,7 @@ def written(~S: Data,~Store: Type,~R: Type,~E: Data,~C: Type,handle: W.Handle<S>
 # Successful writes journal displaced payload/stamp for transaction rollback.
 def set(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,frame: Frame<S,Store,R,E>,replacement: C) -> Frame<S,Store,R,E>:
   match frame:
-    case Frame{tx,+handle,error,cursor}: written(~S,~Store,~R,~E,~C,handle,error,cursor,Cmp.tx_set(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,tx,handle,replacement))
+    case Frame{tx,+handle,error,cursor}: written(~S,~Store,~R,~E,~C,handle,error,cursor,CmpLegacy.tx_set(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,tx,handle,replacement))
 # Build a canonical component read grant for the current row. Trusted family
 # lenses/projector return their owners; gameplay sees only detached Access<V>.
 def read_family(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>) -> Cap.Read<Frame<S,Store,R,E>,V>:
@@ -335,7 +336,7 @@ def clock_read(~S: Data,~Store: Type,~R: Type,~E: Data) -> Cap.ValueRead<Frame<S
 # Data views; disabled tracing skips that presentation work.
 def set_displayed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,~display:V -> String,frame: Frame<S,Store,R,E>,replacement: C) -> Frame<S,Store,R,E>:
   match frame:
-    case Frame{tx,+handle,error,cursor}: written(~S,~Store,~R,~E,~C,handle,error,cursor,Cmp.tx_set_displayed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~display,family,tx,handle,replacement))
+    case Frame{tx,+handle,error,cursor}: written(~S,~Store,~R,~E,~C,handle,error,cursor,CmpLegacy.tx_set_displayed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~display,family,tx,handle,replacement))
 # Build component grants whose setter uses the supplied detached display function
 # for enabled tracing. This is presentation, not additional mutation authority.
 def write_family_displayed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,~display:V -> String) -> Cap.Write<Frame<S,Store,R,E>,C,V>:

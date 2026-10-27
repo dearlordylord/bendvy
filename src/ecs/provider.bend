@@ -2,6 +2,7 @@ import Base
 import world.bend as W
 import column.bend as Col
 import component.bend as Cmp
+import component-legacy.bend as CmpLegacy
 import transaction.bend as T
 import resource.bend as Res
 import commands.bend as Cmd
@@ -25,12 +26,12 @@ def read_join(~S: Data,~Store: Type,~R: Type,~E: Data,~V: Data,+handle: W.Handle
 def get(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,frame: Frame<S,Store,R,E>) -> Frame<S,Store,R,E> & Cmp.Access<V>:
   match frame:
     case Frame{tx,+handle,+mainName,+auxName,+error}:
-      read_join(~S,~Store,~R,~E,~V,handle,mainName,auxName,error,Cmp.tx_get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,Cmp.Family{mainName},tx,handle))
+      read_join(~S,~Store,~R,~E,~V,handle,mainName,auxName,error,CmpLegacy.tx_get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,Cmp.Family{mainName},tx,handle))
 
 def aux_get(~S: Data,~Store: Type,~R: Type,~E: Data,~AuxRest: Type,~AuxC: Type,~AuxV: Data,~AuxToken: Data,~aux_take: Store -> AuxRest & Col.Column<S,AuxC>,~aux_put: AuxRest -> Col.Column<S,AuxC> -> Store,~aux_project: AuxC -> AuxC & AuxV,frame: Frame<S,Store,R,E>) -> Frame<S,Store,R,E> & Cmp.Access<AuxV>:
   match frame:
     case Frame{tx,+handle,+mainName,+auxName,+error}:
-      read_join(~S,~Store,~R,~E,~AuxV,handle,mainName,auxName,error,Cmp.tx_get(~S,~Store,~R,~E,~AuxRest,~AuxC,~AuxV,~AuxToken,~aux_take,~aux_put,~aux_project,Cmp.Family{auxName},tx,handle))
+      read_join(~S,~Store,~R,~E,~AuxV,handle,mainName,auxName,error,CmpLegacy.tx_get(~S,~Store,~R,~E,~AuxRest,~AuxC,~AuxV,~AuxToken,~aux_take,~aux_put,~aux_project,Cmp.Family{auxName},tx,handle))
 
 def first_error(previous: Maybe<&2,W.WorldError>,error: W.WorldError) -> Maybe<&2,W.WorldError>:
   match previous:
@@ -46,7 +47,7 @@ def written(~S: Data,~Store: Type,~R: Type,~E: Data,~C: Type,+handle: W.Handle<S
 def set(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,frame: Frame<S,Store,R,E>,replacement: C) -> Frame<S,Store,R,E>:
   match frame:
     case Frame{tx,+handle,+mainName,+auxName,+error}:
-      written(~S,~Store,~R,~E,~C,handle,mainName,auxName,error,Cmp.tx_set(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,Cmp.Family{mainName},tx,handle,replacement))
+      written(~S,~Store,~R,~E,~C,handle,mainName,auxName,error,CmpLegacy.tx_set(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,Cmp.Family{mainName},tx,handle,replacement))
 
 def resource_join(~S: Data,~Store: Type,~R: Type,~E: Data,~RV: Data,+handle: W.Handle<S>,+mainName: String,+auxName: String,+error: Maybe<&2,W.WorldError>,observed: T.Tx<W.World<S,Store,R,E>,E> & RV) -> Frame<S,Store,R,E> & RV:
   (tx,value) = observed

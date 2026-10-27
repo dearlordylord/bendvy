@@ -10,6 +10,7 @@ import ./relation-commands.bend as Notice
 import ./relation-types.bend as G
 import ./relation-failure-runtime.bend as K
 import ./relation-failure-reader.bend as Decl
+import ./relation-failure-reader-legacy.bend as DeclLegacy
 import ./event-notice-runtime.bend as Mixed
 import ./event-family-runtime.bend as Family
 import ./event-family-routing.bend as Route
@@ -38,7 +39,7 @@ def registered(~S:Data,~C:Type,~R:Type,~P:Data,~A:Type,~Error:Data,~Out:Type,~ru
 # Reattach that state on success or refusal; select the single declared relation.
 def register_detached(~S:Data,~C:Type,~R:Type,~P:Data,~A:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,Notice.Notice<S,P>> -> K.Input<S,Notice.Notice<S,P>,A> -> Sys.Outcome<W.World<S,C,R,Notice.Notice<S,P>>,Error,Out>,~F:Type,~H:Type,+declaration:Decl.Declaration<S>,name:String,detached:K.Runtime<S,C,R,Notice.Notice<S,P>> & Family.State<P,F,H> & Nat) -> Registration<S,C,R,P,F,H,Owner<S,K.Reader<S,C,R,Notice.Notice<S,P>,A,Error,Out,runner>>>:
   match detached:
-    case (runtime,held):registered(~S,~C,~R,~P,~A,~Error,~Out,~runner,~F,~H,held,declaration,Decl.register(~S,~C,~R,~Notice.Notice<S,P>,~A,~Error,~Out,~runner,runtime,[declaration],name))
+    case (runtime,held):registered(~S,~C,~R,~P,~A,~Error,~Out,~runner,~F,~H,held,declaration,DeclLegacy.register(~S,~C,~R,~Notice.Notice<S,P>,~A,~Error,~Out,~runner,runtime,[declaration],name))
 # Register an independent reader for this relation declaration in the mixed
 # runtime. Return its owner on success, or RegistrationFailed with the runtime.
 def register(~S:Data,~C:Type,~R:Type,~P:Data,~A:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,Notice.Notice<S,P>> -> K.Input<S,Notice.Notice<S,P>,A> -> Sys.Outcome<W.World<S,C,R,Notice.Notice<S,P>>,Error,Out>,~F:Type,~H:Type,runtime:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>>,declaration:Decl.Declaration<S>,name:String) -> Registration<S,C,R,P,F,H,Owner<S,K.Reader<S,C,R,Notice.Notice<S,P>,A,Error,Out,runner>>>:register_detached(~S,~C,~R,~P,~A,~Error,~Out,~runner,~F,~H,declaration,name,Mixed.failure_runtime(~S,~C,~R,~P,~F,~H,runtime))

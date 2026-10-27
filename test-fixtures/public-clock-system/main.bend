@@ -3,6 +3,7 @@ import ../../src/ecs/compose.bend as Q
 import ../../src/ecs/capabilities.bend as Cap
 import ../../src/ecs/world.bend as W
 import ../../src/ecs/component.bend as C
+import ../../src/ecs/component-legacy.bend as CLegacy
 import ../../src/ecs/column.bend as Col
 import ../../src/ecs/system.bend as Sys
 import ../../src/ecs/transaction.bend as Tx
@@ -42,12 +43,12 @@ def second(fail:Bool,result:C.SetResult<Tx.Tx<World(),Unit>,Array<U32>>) -> Sys.
     case C.WriteFailure{tx,_}:finish(Cmd.tx_finish(~S,~Store(),~Unit,~Unit,~String,tx,Tx.Failure{"write-failed"}))
 def first(handle:W.Handle<S>,fail:Bool,result:C.SetResult<Tx.Tx<World(),Unit>,Array<U32>>) -> Sys.Outcome<World(),String,Unit>:
   match result:
-    case C.Written{tx}:second(fail,C.tx_set(~S,~Store(),~Unit,~Unit,~Unit,~Array<U32>,~List<&2,U32>,~Token,~take,~put,~project,family(),tx,handle,ANode{ALeaf{30},ALeaf{31}}))
+    case C.Written{tx}:second(fail,CLegacy.tx_set(~S,~Store(),~Unit,~Unit,~Unit,~Array<U32>,~List<&2,U32>,~Token,~take,~put,~project,family(),tx,handle,ANode{ALeaf{30},ALeaf{31}}))
     case C.WriteRejected{tx,_,_}:finish(Cmd.tx_finish(~S,~Store(),~Unit,~Unit,~String,tx,Tx.Failure{"write-rejected"}))
     case C.WriteFailure{tx,_}:finish(Cmd.tx_finish(~S,~Store(),~Unit,~Unit,~String,tx,Tx.Failure{"write-failed"}))
 def runner(world:World(),args:Args) -> Sys.Outcome<World(),String,Unit>:
   match args:
-    case Args{+handle,fail}:first(handle,fail,C.tx_set(~S,~Store(),~Unit,~Unit,~Unit,~Array<U32>,~List<&2,U32>,~Token,~take,~put,~project,family(),Tx.begin(~World(),~Unit,world),handle,ANode{ALeaf{20},ALeaf{21}}))
+    case Args{+handle,fail}:first(handle,fail,CLegacy.tx_set(~S,~Store(),~Unit,~Unit,~Unit,~Array<U32>,~List<&2,U32>,~Token,~take,~put,~project,family(),Tx.begin(~World(),~Unit,world),handle,ANode{ALeaf{20},ALeaf{21}}))
 def Registry() -> Type:Sys.Registry<S,Store(),Unit,Unit,Args,String,Unit,runner>
 def RunResultType() -> Type:Sys.RunResult<S,Store(),Unit,Unit,Args,String,Unit,runner>
 def observed(trace:Facts.State,world:World(),args:Args) -> Sys.Outcome<World(),String,Unit> & Facts.State:(runner(world,args),trace)

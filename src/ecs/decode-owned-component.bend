@@ -4,6 +4,7 @@ import ./decode-frame.bend as F
 import ./decode-owned-journal.bend as Journal
 import ./decode-requests.bend as Request
 import ./component.bend as Cmp
+import ./component-legacy.bend as CmpLegacy
 import ./column.bend as Col
 import ./compose.bend as Query
 import ./capabilities.bend as Cap
@@ -23,7 +24,7 @@ def written(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identi
 
 def set(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~Rest:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,~family:Cmp.Family<S,Store,Rest,P,V,Token,take,put,view>,frame:F.Frame<S,Store,R,E,P,Q,identity,project>,input:Query.Insert<S,P>) -> F.Frame<S,Store,R,E,P,Q,identity,project> & Output<P>:
   match frame input:
-    case F.Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,error,cursor,receipts,pending} Query.Insert{target,owner}:written(~S,~Store,~R,~E,~P,~Q,~identity,~project,declaration,prepared,handle,error,cursor,receipts,pending,Cmp.tx_set(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,family,tx,target,owner))
+    case F.Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,error,cursor,receipts,pending} Query.Insert{target,owner}:written(~S,~Store,~R,~E,~P,~Q,~identity,~project,declaration,prepared,handle,error,cursor,receipts,pending,CmpLegacy.tx_set(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,family,tx,target,owner))
 
 def grant(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~Rest:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,~family:Cmp.Family<S,Store,Rest,P,V,Token,take,put,view>) -> Cap.OwnedRequest<F.Frame<S,Store,R,E,P,Q,identity,project>,Query.Insert<S,P>,Output<P>>:
   Cap.OwnedRequest{frame => input => set(~S,~Store,~R,~E,~P,~Q,~identity,~project,~Rest,~V,~Token,~take,~put,~view,~family,frame,input)}

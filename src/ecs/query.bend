@@ -3,6 +3,7 @@ import ./trace-facts.bend as TraceFacts
 import world.bend as W
 import column.bend as Col
 import component.bend as Cmp
+import component-legacy.bend as CmpLegacy
 import transaction.bend as T
 import provider.bend as Pv
 import commands.bend as Cmd
@@ -39,14 +40,14 @@ def selected_aux(~S: Data,~Store: Type,~R: Type,~E: Data,~V: Data,mode: Selectio
 def selected_main(~S: Data,~Store: Type,~R: Type,~E: Data,~AuxRest: Type,~AuxC: Type,~AuxV: Data,~AuxToken: Data,~aux_take: Store -> AuxRest & Col.Column<S,AuxC>,~aux_put: AuxRest -> Col.Column<S,AuxC> -> Store,~aux_project: AuxC -> AuxC & AuxV,mode: Selection,auxFamily: Cmp.Family<S,Store,AuxRest,AuxC,AuxV,AuxToken,aux_take,aux_put,aux_project>,+handle: W.Handle<S>,observed: T.Tx<W.World<S,Store,R,E>,E> & Bool) -> T.Tx<W.World<S,Store,R,E>,E> & Bool:
   match observed:
     case (tx,False{}): (tx,False{})
-    case (tx,True{}): selected_aux(~S,~Store,~R,~E,~AuxV,mode,True{},Cmp.tx_get(~S,~Store,~R,~E,~AuxRest,~AuxC,~AuxV,~AuxToken,~aux_take,~aux_put,~aux_project,auxFamily,tx,handle))
+    case (tx,True{}): selected_aux(~S,~Store,~R,~E,~AuxV,mode,True{},CmpLegacy.tx_get(~S,~Store,~R,~E,~AuxRest,~AuxC,~AuxV,~AuxToken,~aux_take,~aux_put,~aux_project,auxFamily,tx,handle))
 
 def main_join(~S: Data,~Store: Type,~R: Type,~E: Data,~V: Data,observed: T.Tx<W.World<S,Store,R,E>,E> & Cmp.Access<V>) -> T.Tx<W.World<S,Store,R,E>,E> & Bool:
   (tx,value) = observed
   (tx,main_found(~V,value))
 
 def selected(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~AuxRest: Type,~AuxC: Type,~AuxV: Data,~AuxToken: Data,~aux_take: Store -> AuxRest & Col.Column<S,AuxC>,~aux_put: AuxRest -> Col.Column<S,AuxC> -> Store,~aux_project: AuxC -> AuxC & AuxV,mainFamily: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,auxFamily: Cmp.Family<S,Store,AuxRest,AuxC,AuxV,AuxToken,aux_take,aux_put,aux_project>,mode: Selection,tx: T.Tx<W.World<S,Store,R,E>,E>,+handle: W.Handle<S>) -> T.Tx<W.World<S,Store,R,E>,E> & Bool:
-  selected_main(~S,~Store,~R,~E,~AuxRest,~AuxC,~AuxV,~AuxToken,~aux_take,~aux_put,~aux_project,mode,auxFamily,handle,main_join(~S,~Store,~R,~E,~V,Cmp.tx_get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,mainFamily,tx,handle)))
+  selected_main(~S,~Store,~R,~E,~AuxRest,~AuxC,~AuxV,~AuxToken,~aux_take,~aux_put,~aux_project,mode,auxFamily,handle,main_join(~S,~Store,~R,~E,~V,CmpLegacy.tx_get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,mainFamily,tx,handle)))
 
 # Name helpers only carry diagnostic metadata, not capability authority.
 def main_name(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>) -> String:
