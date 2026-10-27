@@ -7,31 +7,31 @@ import ./change-tick.bend as Tick
 
 type Meta<-Owner:Type> is Data:
   Meta{namespace:U32,id:U32,name:String,access:List<&2,String>,cursor:Maybe<&2,Tick.Tick>}
-def detached(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),owner:Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>) -> Meta<Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>> & Local:
+def detached(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),owner:Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>) -> Meta<Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>> & Local:
   match owner:
     case Sys.Owner{namespace,id,name,access,cursor,local}:(Meta{namespace,id,name,access,cursor},local)
-def restored(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),meta:Meta<Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>>,local:Local) -> Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>:
+def restored(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),meta:Meta<Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>>,local:Local) -> Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>:
   match meta:
     case Meta{namespace,id,name,access,cursor}:Sys.Owner{namespace,id,name,access,cursor,local}
 def completed_meta(~Owner:Type,allowed:Bool,tick:Tick.Tick,meta:Meta<Owner>) -> Meta<Owner>:
   match allowed meta:
     case False{} meta:meta
     case True{} Meta{namespace,id,name,access,_}:Meta{namespace,id,name,access,Some{tick}}
-def registered(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~WR:Type,namespace:U32,name:String,access:List<&2,String>,local:Local,result:W.World<S,WC,WR,E> & W.Registration) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
+def registered(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~WR:Type,namespace:U32,name:String,access:List<&2,String>,local:Local,result:W.World<S,WC,WR,E> & W.Registration) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
   match result:
     case (world,W.RegistrationRejected{_}):Sys.DefinitionRefused{world,local}
     case (world,W.Registered{id}):Sys.Defined{world,Sys.Owner{namespace,id,name,access,None{},local}}
-def named_compilation(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~WR:Type,+name:String,local:Local,world:W.World<S,WC,WR,E>,namespace:U32,compilation:D.Compilation<S,WC,C,R,Ops>) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
+def named_compilation(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~WR:Type,+name:String,local:Local,world:W.World<S,WC,WR,E>,namespace:U32,compilation:D.Compilation<S,WC,C,R,Ops>) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
   match compilation:
     case D.Unsupported{_,_,_}:Sys.DefinitionRefused{world,local}
     case D.Supported{D.Declaration{_,access},_}:
       +keys = D.keys(access)
       registered(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WR,namespace,name,keys,local,W.register(~S,~WC,~WR,~E,world,name,keys))
-def named(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~WR:Type,+name:String,local:Local,result:W.World<S,WC,WR,E> & U32) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
+def named(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~WR:Type,+name:String,local:Local,result:W.World<S,WC,WR,E> & U32) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
   match result:
-    case (world,namespace):named_compilation(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WR,name,local,world,namespace,Build.compile(~S,~WC,~C,~R,~Ops,~declaration))
+    case (world,namespace):named_compilation(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WR,name,local,world,namespace,Build.compile_framework(~S,~WC,~C,~R,~Ops,~declaration))
 
-def define(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~WR:Type,world:W.World<S,WC,WR,E>,name:String,local:Local) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
+def define_framework(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~WR:Type,world:W.World<S,WC,WR,E>,name:String,local:Local) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
   named(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WR,name,local,W.namespace(~S,~WC,~WR,~E,world))
 def registration_verified(~S:Data,~C:Type,~R:Type,~E:Data,same:Bool,result:W.World<S,C,R,E> & Bool) -> W.World<S,C,R,E> & Bool:
   match result:
@@ -53,9 +53,15 @@ def leave(~S:Data,~C:Type,~R:Type,~E:Data,allowed:Bool,world:W.World<S,C,R,E>) -
     case False{}:world
     case True{}:W.leave_run(~S,~C,~R,~E,world)
 
-def named_with_general(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~provider:Build.GeneralProvider(~S,~WC,~C,~R),~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~WR:Type,+name:String,local:Local,result:W.World<S,WC,WR,E> & U32) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
+def named_with_general(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~provider:Build.GeneralProvider(~S,~WC,~C,~R),~declaration:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~WR:Type,+name:String,local:Local,result:W.World<S,WC,WR,E> & U32) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
   match result:
-    case (world,namespace):named_compilation(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WR,name,local,world,namespace,Build.compile_with_general(~S,~WC,~C,~R,~provider,~Ops,~declaration))
+    case (world,namespace):named_compilation(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WR,name,local,world,namespace,Build.compile_framework_with_general(~S,~WC,~C,~R,~provider,~Ops,~declaration))
 
-def define_with_general(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~provider:Build.GeneralProvider(~S,~WC,~C,~R),~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~WR:Type,world:W.World<S,WC,WR,E>,name:String,local:Local) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
+def define_framework_with_general(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~provider:Build.GeneralProvider(~S,~WC,~C,~R),~declaration:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~WR:Type,world:W.World<S,WC,WR,E>,name:String,local:Local) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
   named_with_general(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~provider,~declaration,~body,~WR,name,local,W.namespace(~S,~WC,~WR,~E,world))
+
+def define(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~WR:Type,world:W.World<S,WC,WR,E>,name:String,local:Local) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,Build.framework_program(~S,~WC,~C,~R,~Ops,~declaration),body>,Local>:
+  define_framework(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~Build.framework_program(~S,~WC,~C,~R,~Ops,~declaration),~body,~WR,world,name,local)
+def define_with_general(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~provider:Build.GeneralProvider(~S,~WC,~C,~R),~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~WR:Type,world:W.World<S,WC,WR,E>,name:String,local:Local) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,Build.framework_program(~S,~WC,~C,~R,~Ops,~declaration),body>,Local>:
+  define_framework_with_general(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~provider,~Build.framework_program(~S,~WC,~C,~R,~Ops,~declaration),~body,~WR,world,name,local)
+
