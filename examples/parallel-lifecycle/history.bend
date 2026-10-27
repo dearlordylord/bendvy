@@ -40,7 +40,7 @@ def seeded_column(~S:Data,rest:Unit,input:Layout.ColumnSlot<S,Layout.Viewed<P.In
 def seeded_store(~S:Data,seedError:Bool,tick:Tick.Tick,store:D.Store(~S)) -> D.Store(~S):
   match seedError store:
     case False{} store:store
-    case True{} Product.Owner{Product.Owner{input,Layout.ColumnSlot{output}},rest}:seeded_column(~S,rest,input,Col.modify_runtime(~S,~Layout.Viewed<P.Output,U32>,~Unit,error_seed,output,1,tick))
+    case True{} Product.Owner{Product.Owner{input,Layout.ColumnSlot{output}},rest}:seeded_column(~S,rest,input,Col.modify_runtime(~S,~Layout.Viewed<P.Output,U32>,~Unit,error_seed,output,0,tick))
 def historical_world(~S:Data,now:Tick.Tick,+stamp:Tick.Tick,seedError:Bool,world:Application.Runtime(~S)) -> Application.Runtime(~S):
   match world:
     case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystem,_,lifecycle}:W.World{namespace,allocator,seeded_store(~S,seedError,stamp,historical_store(~S,stamp,store)),resource,events,pending,registrations,nextSystem,Clock.State{now,[]},lifecycle}
