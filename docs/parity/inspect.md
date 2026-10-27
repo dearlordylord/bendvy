@@ -347,3 +347,20 @@ finite observation does not prove passive behavior universally or complete #93.
 Registered application, component/stream/relation/machine observations, pending
 commands, trace integration, authority controls and new approved laws remain to
 be completed for that issue.
+
+`examples/parallel-inspection/scheduled.bend` now carries passive resource reads
+through the registered replacement App before two actual runs. Its enabled and
+disabled paths retain the same complete simulation observations in the ordinary
+Bend execution, including handled body errors, actual affine captures and Local,
+registered cursors, allocator, clock and handler. The two nominal schemas use
+serial and native executor modes respectively. These mode observations do not
+establish native-backend concurrency or general observer purity.
+
+`execution-trace-report.read` projects the actual returned Report and actual plan
+constraints into the existing detached Trace Batch. It returns the complete
+Report alongside that Batch. The replacement executor does not currently supply
+per-system timestamps or command-barrier receipts in its Report; the adapter
+therefore uses explicit outcome events and emits neither invented timestamps nor
+inferred command publication. Dependency events state constraints, not a chosen
+worker order. The ordinary consumer retains identical simulation observations
+with tracing disabled or enabled; only its trace suffix differs.
