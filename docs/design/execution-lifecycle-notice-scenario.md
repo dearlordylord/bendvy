@@ -73,5 +73,8 @@ confined.
 
 Both ordinary parallel forms, mixed physical/query/resource declarations,
 canonical origin/refresher/classification controls, retirement/exhaustion and
-remaining Finished/Stop/Invalid policy cases remain full-GH85 gates. This fixture
+remaining Finished/Stop/Invalid policy cases remain full-GH85 gates. The existing
+GH85 independent review count is3/3, exhausted; these fixtures do not start a new
+counter or authorize a fourth review. Coordinator source/model/launch audits and
+remaining delivery checks continue under that explicit limitation. This fixture
 is not issue completion or a universal affine/concurrency theorem.

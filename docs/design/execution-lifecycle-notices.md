@@ -308,6 +308,9 @@ Scope/command wrappers use the indexed Tree and Root path. Full notice-reader
 scenarios, integrated authority checks, backend captures and remaining acceptance
 gates stay open. Existing filter/history/scheduled and event-case oracles remain
 unchanged; their earlier results do not qualify the new candidate source.
+The GH85 independent review budget remains3/3, exhausted; subsequent consumer
+fixtures do not reset it. Coordinator audits and delivery checks continue with
+that limitation explicit.
 
 ### Ordinary authority callgraph and raw adapters
 
