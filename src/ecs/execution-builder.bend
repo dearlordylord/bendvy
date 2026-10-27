@@ -1,4 +1,5 @@
 import Base
+import ./execution-reservation-task.bend as Effect
 import ./execution-lifecycle-access.bend as Life
 import ./execution-lifecycle-notices.bend as Notice
 import ./execution-state.bend as State
@@ -87,12 +88,12 @@ def despawn_lifecycle_selection(~S:Data,~WC:Type,~C:Type,~R:Type,~H:Type,~B:Type
 def despawn_lifecycle(~S:Data,~WC:Type,~C:Type,~R:Type,~H:Type,~B:Type,~lifecycle:Lifecycle(~S,~WC,~C,~R,~H,~B),book:B) -> B & Life.Next<S,H,Layout.EmptyLayout{},Notice.Despawned{}>:
   lifecycle(Life.Ops(~S,~(Layout.EmptyLayout{}),~(Notice.Despawned{})),despawn_lifecycle_selection(~S,~WC,~C,~R,~H,~B),book)
 
-def Selection(~S:Data,~WC:Type,~C:Type,~R:Type,~H:Type,~B:Type,~Ops:Type -> Type) -> Type:
-  @-component_read:ComponentRead(~S,~C,~R,~H,~B) -> @-component_write:ComponentWrite(~S,~C,~R,~H,~B) -> @-resource_read:ResourceRead(~S,~C,~R,~H,~B) -> @-resource_write:ResourceWrite(~S,~C,~R,~H,~B) -> @-query:Query(~S,~WC,~C,~R,~H,~B) -> @-lifecycle:Lifecycle(~S,~WC,~C,~R,~H,~B) -> B -> B & Ops(H)
-def Builder(~S:Data,~WC:Type,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
-  @-Ops:(Type -> Type) -> @-selection:Selection(~S,~WC,~C,~R,~H,~B,~Ops) -> B -> B & Ops(H)
-def Program(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Type -> Type) -> Type:
-  @-H:Type -> @-B:Type -> @-builder:Builder(~S,~WC,~C,~R,~H,~B) -> B -> B & Ops(H)
+def Selection(~S:Data,~WC:Type,~C:Type,~R:Type,~Permit:Data,~H:Type,~B:Type,~Ops:Data -> Type -> Type) -> Type:
+  @-component_read:ComponentRead(~S,~C,~R,~H,~B) -> @-component_write:ComponentWrite(~S,~C,~R,~H,~B) -> @-resource_read:ResourceRead(~S,~C,~R,~H,~B) -> @-resource_write:ResourceWrite(~S,~C,~R,~H,~B) -> @-query:Query(~S,~WC,~C,~R,~H,~B) -> @-lifecycle:Lifecycle(~S,~WC,~C,~R,~H,~B) -> B -> B & Ops(Permit,H)
+def Builder(~S:Data,~WC:Type,~C:Type,~R:Type,~Permit:Data,~H:Type,~B:Type) -> Type:
+  @-Ops:(Data -> Type -> Type) -> @-selection:Selection(~S,~WC,~C,~R,~Permit,~H,~B,~Ops) -> B -> B & Ops(Permit,H)
+def Program(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Data -> Type -> Type) -> Type:
+  @-Permit:Data -> @-H:Type -> @-B:Type -> @-builder:Builder(~S,~WC,~C,~R,~Permit,~H,~B) -> B -> B & Ops(Permit,H)
 def accumulate(~S:Data,~C:Type,~R:Type,~Ops:Type -> Type,book:Book,value:D.Declaration<S,C,R,Ops>) -> Book & Ops(State.Scope<S,C,R>):
   match book value:
     case Book{previous,queries,resources,supported} D.Declaration{caps,access}:(Book{List.append(&2,D.Access,previous,access),queries,resources,supported},caps)
@@ -156,17 +157,17 @@ def despawn_lifecycle_build(~S:Data,~WC:Type,~C:Type,~R:Type,book:Book) -> Book 
   accumulate(~S,~C,~R,~Life.Ops(~S,~(Layout.EmptyLayout{}),~(Notice.Despawned{})),book,Life.despawned(~S,~C,~R))
 def lifecycle_provision(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Type -> Type,~selection:LifecycleSelection(~S,~WC,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
   selection(removed_lifecycle_build(~S,~WC,~C,~R),despawn_lifecycle_build(~S,~WC,~C,~R),book)
-def provision(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Type -> Type,~selection:Selection(~S,~WC,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
+def provision(~S:Data,~WC:Type,~C:Type,~R:Type,~Permit:Data,~Ops:Data -> Type -> Type,~selection:Selection(~S,~WC,~C,~R,~Permit,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(Permit,State.Scope<S,C,R>):
   selection(component_read_build(~S,~C,~R),component_write_build(~S,~C,~R),resource_read_provision(~S,~C,~R),resource_write_provision(~S,~C,~R),query_provision(~S,~WC,~C,~R),lifecycle_provision(~S,~WC,~C,~R),book)
-def compilation_checked(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Type -> Type,caps:Ops(State.Scope<S,C,R>),access:List<&2,D.Access>,recipes:List<&2,Recipe.Entry>,resources:List<&2,Resources.Entry>,supported:Bool) -> D.Compilation<S,WC,C,R,Ops>:
+def compilation_checked(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Data -> Type -> Type,caps:Ops(Effect.Granted,State.Scope<S,C,R>),access:List<&2,D.Access>,recipes:List<&2,Recipe.Entry>,resources:List<&2,Resources.Entry>,supported:Bool) -> D.Compilation<S,WC,C,R,Ops>:
   match supported:
     case True{}:D.Supported{D.Declaration{caps,access},D.Recipes{Recipe.brand(S,WC,recipes),resources}}
     case False{}:D.Unsupported{caps,access,D.Recipes{Recipe.brand(S,WC,recipes),resources}}
-def compiled(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Type -> Type,result:Book & Ops(State.Scope<S,C,R>)) -> D.Compilation<S,WC,C,R,Ops>:
+def compiled(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Data -> Type -> Type,result:Book & Ops(Effect.Granted,State.Scope<S,C,R>)) -> D.Compilation<S,WC,C,R,Ops>:
   match result:
     case (Book{access,recipes,resources,supported},caps):compilation_checked(~S,~WC,~C,~R,~Ops,caps,access,recipes,resources,supported)
-def compile(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Type -> Type,~program:Program(~S,~WC,~C,~R,~Ops)) -> D.Compilation<S,WC,C,R,Ops>:
-  compiled(~S,~WC,~C,~R,~Ops,program(State.Scope<S,C,R>,Book,provision(~S,~WC,~C,~R),Book{[],[],[],True{}}))
+def compile(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Data -> Type -> Type,~program:Program(~S,~WC,~C,~R,~Ops)) -> D.Compilation<S,WC,C,R,Ops>:
+  compiled(~S,~WC,~C,~R,~Ops,program(Effect.Granted,State.Scope<S,C,R>,Book,provision(~S,~WC,~C,~R,~Effect.Granted),Book{[],[],[],True{}}))
 
 def general_selection(~S:Data,~WC:Type,~C:Type,~R:Type,~full:Layout.Layout,~route:Layout.Route,~same:{WC == Layout.columns(~S,full) : Type},~valid:{Layout.grant_valid(~full,~route) == True{} : Bool},~model:Store.StorageModel,~local:{C == Store.owner(~S,full,model) : Type},~kind:Recipe.QueryKind,~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,Layout.view(full,route)> -> Bool,~H:Type,~B:Type,~basic:BasicQuery(~S,~C,~R,~H,~B),~output:OutputQuery(~S,~C,~R,~H,~B),~general:GeneralQuery(~S,~WC,~C,~R,~H,~B),book:B) -> B & Q.GeneralOps(~S,~Layout.payload(full,route),~Layout.view(full,route),kind,H):
   general(full,route,same,valid,model,local,kind,bound,presence,predicate,book)
@@ -180,10 +181,10 @@ def general_build(~S:Data,~WC:Type,~C:Type,~R:Type,~provider:GeneralProvider(~S,
   (general_book(book,Recipe.Entry{route,kind,bound,presence},general_access(Layout.key(full,route),kind) <> bound_access(~full,bound),True{}),provider(full,route,same,valid,model,local,kind,bound,presence,predicate))
 def query_provision_with(~S:Data,~WC:Type,~C:Type,~R:Type,~provider:GeneralProvider(~S,~WC,~C,~R),~Ops:Type -> Type,~selection:QuerySelection(~S,~WC,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
   selection(query_build(~S,~C,~R),output_query_build(~S,~C,~R),general_build(~S,~WC,~C,~R,~provider),book)
-def provision_with_general(~S:Data,~WC:Type,~C:Type,~R:Type,~provider:GeneralProvider(~S,~WC,~C,~R),~Ops:Type -> Type,~selection:Selection(~S,~WC,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
+def provision_with_general(~S:Data,~WC:Type,~C:Type,~R:Type,~Permit:Data,~provider:GeneralProvider(~S,~WC,~C,~R),~Ops:Data -> Type -> Type,~selection:Selection(~S,~WC,~C,~R,~Permit,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(Permit,State.Scope<S,C,R>):
   selection(component_read_build(~S,~C,~R),component_write_build(~S,~C,~R),resource_read_provision(~S,~C,~R),resource_write_provision(~S,~C,~R),query_provision_with(~S,~WC,~C,~R,~provider),lifecycle_provision(~S,~WC,~C,~R),book)
-def compile_with_general(~S:Data,~WC:Type,~C:Type,~R:Type,~provider:GeneralProvider(~S,~WC,~C,~R),~Ops:Type -> Type,~program:Program(~S,~WC,~C,~R,~Ops)) -> D.Compilation<S,WC,C,R,Ops>:
-  compiled(~S,~WC,~C,~R,~Ops,program(State.Scope<S,C,R>,Book,provision_with_general(~S,~WC,~C,~R,~provider),Book{[],[],[],True{}}))
+def compile_with_general(~S:Data,~WC:Type,~C:Type,~R:Type,~provider:GeneralProvider(~S,~WC,~C,~R),~Ops:Data -> Type -> Type,~program:Program(~S,~WC,~C,~R,~Ops)) -> D.Compilation<S,WC,C,R,Ops>:
+  compiled(~S,~WC,~C,~R,~Ops,program(Effect.Granted,State.Scope<S,C,R>,Book,provision_with_general(~S,~WC,~C,~R,~Effect.Granted,~provider),Book{[],[],[],True{}}))
 
 # These dictionaries interpret the same closed selections; they add no grants.
 def ResourceReadProvider(~S:Data,~C:Type,~R:Type) -> Type:
@@ -206,7 +207,7 @@ def resource_read_provision_with(~S:Data,~C:Type,~R:Type,~provider:ResourceReadP
   selection(resource_read_build(~S,~C,~R),resource_read_with(~S,~C,~R,~provider),book)
 def resource_write_provision_with(~S:Data,~C:Type,~R:Type,~provider:ResourceWriteProvider(~S,~C,~R),~Ops:Type -> Type,~selection:ResourceWriteSelection(~S,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
   selection(resource_write_build(~S,~C,~R),resource_write_with(~S,~C,~R,~provider),book)
-def provision_with_interpreters(~S:Data,~WC:Type,~C:Type,~R:Type,~queryProvider:GeneralProvider(~S,~WC,~C,~R),~readProvider:ResourceReadProvider(~S,~C,~R),~writeProvider:ResourceWriteProvider(~S,~C,~R),~Ops:Type -> Type,~selection:Selection(~S,~WC,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
+def provision_with_interpreters(~S:Data,~WC:Type,~C:Type,~R:Type,~Permit:Data,~queryProvider:GeneralProvider(~S,~WC,~C,~R),~readProvider:ResourceReadProvider(~S,~C,~R),~writeProvider:ResourceWriteProvider(~S,~C,~R),~Ops:Data -> Type -> Type,~selection:Selection(~S,~WC,~C,~R,~Permit,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(Permit,State.Scope<S,C,R>):
   selection(component_read_build(~S,~C,~R),component_write_build(~S,~C,~R),resource_read_provision_with(~S,~C,~R,~readProvider),resource_write_provision_with(~S,~C,~R,~writeProvider),query_provision_with(~S,~WC,~C,~R,~queryProvider),lifecycle_provision(~S,~WC,~C,~R),book)
-def compile_with_interpreters(~S:Data,~WC:Type,~C:Type,~R:Type,~queryProvider:GeneralProvider(~S,~WC,~C,~R),~readProvider:ResourceReadProvider(~S,~C,~R),~writeProvider:ResourceWriteProvider(~S,~C,~R),~Ops:Type -> Type,~program:Program(~S,~WC,~C,~R,~Ops)) -> D.Compilation<S,WC,C,R,Ops>:
-  compiled(~S,~WC,~C,~R,~Ops,program(State.Scope<S,C,R>,Book,provision_with_interpreters(~S,~WC,~C,~R,~queryProvider,~readProvider,~writeProvider),Book{[],[],[],True{}}))
+def compile_with_interpreters(~S:Data,~WC:Type,~C:Type,~R:Type,~queryProvider:GeneralProvider(~S,~WC,~C,~R),~readProvider:ResourceReadProvider(~S,~C,~R),~writeProvider:ResourceWriteProvider(~S,~C,~R),~Ops:Data -> Type -> Type,~program:Program(~S,~WC,~C,~R,~Ops)) -> D.Compilation<S,WC,C,R,Ops>:
+  compiled(~S,~WC,~C,~R,~Ops,program(Effect.Granted,State.Scope<S,C,R>,Book,provision_with_interpreters(~S,~WC,~C,~R,~Effect.Granted,~queryProvider,~readProvider,~writeProvider),Book{[],[],[],True{}}))
