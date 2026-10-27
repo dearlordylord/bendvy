@@ -1,15 +1,8 @@
 import Base
-import ./world.bend as W
-import ./execution-system.bend as Sys
-import ./execution-builder.bend as Build
 import ./dependency-registration.bend as Reg
 import ./dependency-registry-program.bend as Prog
 import ./dependency-plan.bend as Plan
 import ./dependency-executor.bend as Exec
-import ./execution-parallel-registration.bend as Part
-import ./owner-product.bend as Product
-import ./execution-parallel-rootcut.bend as Root
-import ./execution-parallel-scope-registry.bend as Tree
 
 type Scope is Data:
   Scope{members:List<&2,U32>,children:List<&2,Scope>}
@@ -24,8 +17,8 @@ def ids(nodes:List<&2,Plan.Node<String>>) -> List<&2,U32>:
 def lifted(~World:Type,~Owners:Type,~Error:Data,~Out:Data,~dispatch:Prog.Dispatch(~World,~Owners,~Error,~Out),registry:Reg.Registry<World,Owners,Error,Out,dispatch>) -> Compiled<World,Owners,Error,Out,dispatch>:
   match registry:
     case Reg.Registry{owners,+nodes}:Compiled{Reg.Registry{owners,nodes},Scope{ids(nodes),[]}}
-def compile_leaf(~Error:Data,~Out:Data,~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~declaration:Build.Program(~S,~C,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),owner:Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>) -> Compiled<W.World<S,C,R,E>,Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out,Reg.leaf_dispatch(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body)>:
-  lifted(~W.World<S,C,R,E>,~Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,~Error,~Out,~Reg.leaf_dispatch(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body),Reg.leaf(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,owner))
+def compile_embed(~Error:Data,~Out:Data,~World:Type,~Owners:Type,~dispatch:Prog.Dispatch(~World,~Owners,~Error,~Out),registry:Reg.Registry<World,Owners,Error,Out,dispatch>) -> Compiled<World,Owners,Error,Out,dispatch>:
+  lifted(~World,~Owners,~Error,~Out,~dispatch,registry)
 def joined(~Error:Data,~Out:Data,~World:Type,~L:Type,~R:Type,~left:Prog.Dispatch(~World,~L,~Error,~Out),~right:Prog.Dispatch(~World,~R,~Error,~Out),leftScope:Scope,rightScope:Scope,registry:Reg.Registry<World,Reg.Product<L,R>,Error,Out,Reg.paired_dispatch(~World,~L,~R,~Error,~Out,~left,~right)>) -> Compiled<World,Reg.Product<L,R>,Error,Out,Reg.paired_dispatch(~World,~L,~R,~Error,~Out,~left,~right)>:
   match registry:
     case Reg.Registry{owners,+nodes}:Compiled{Reg.Registry{owners,nodes},Scope{ids(nodes),[leftScope,rightScope]}}
@@ -34,12 +27,8 @@ def compile_join(~Error:Data,~Out:Data,~World:Type,~L:Type,~R:Type,~left:Prog.Di
     case Compiled{lr,+ls} Compiled{rr,+rs}:joined(~Error,~Out,~World,~L,~R,~left,~right,ls,rs,Reg.paired(~World,~L,~R,~Error,~Out,~left,~right,lr,rr))
 def compile_empty(~Error:Data,~Out:Data,~World:Type) -> Compiled<World,Unit,Error,Out,Reg.empty_dispatch(~World,~Error,~Out)>:
   lifted(~World,~Unit,~Error,~Out,~Reg.empty_dispatch(~World,~Error,~Out),Reg.empty(~World,~Error,~Out))
-def compile_partition(~Error:Data,~Out:Data,~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~LL:Type,~LR:Type,~OpsL:Type -> Type,~OpsR:Type -> Type,~dl:Build.Program(~S,~Product.Owner<CL,CR>,~CL,~RL,~OpsL),~dr:Build.Program(~S,~Product.Owner<CL,CR>,~CR,~RR,~OpsR),~bl:@-H:Type -> @-caps:OpsL(H) -> H -> LL -> H & (LL & Sys.Completion<Error,Out>),~br:@-H:Type -> @-caps:OpsR(H) -> H -> LR -> H & (LR & Sys.Completion<Error,Out>),owners:Product.Owner<Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,Error,Out,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,Error,Out,dr,br>>) -> Compiled<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Product.Owner<Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,Error,Out,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,Error,Out,dr,br>>,Error,Out,Part.dispatch(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~Error,~Out,~OpsL,~OpsR,~dl,~dr,~bl,~br)>:
-  lifted(~W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,~Product.Owner<Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,Error,Out,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,Error,Out,dr,br>>,~Error,~Out,~Part.dispatch(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~Error,~Out,~OpsL,~OpsR,~dl,~dr,~bl,~br),Part.registry(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~Error,~Out,~OpsL,~OpsR,~dl,~dr,~bl,~br,owners))
-def compile_rootcut(~Error:Data,~Out:Data,~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~L:Type,~R:Type,~left:Tree.Selection(~S,~Product.Owner<CL,CR>,~CL,~RL,~E,~Error,~Out,~L),~right:Tree.Selection(~S,~Product.Owner<CL,CR>,~CR,~RR,~E,~Error,~Out,~R),owners:Product.Owner<L,R>) -> Compiled<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Product.Owner<L,R>,Error,Out,Root.dispatch(~S,~CL,~CR,~RL,~RR,~E,~Error,~Out,~L,~R,~left,~right)>:
-  lifted(~W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,~Product.Owner<L,R>,~Error,~Out,~Root.dispatch(~S,~CL,~CR,~RL,~RR,~E,~Error,~Out,~L,~R,~left,~right),Root.registry(~S,~CL,~CR,~RL,~RR,~E,~Error,~Out,~L,~R,~left,~right,owners))
 def compile(~World:Type,~Owners:Type,~Error:Data,~Out:Data,~dispatch:Prog.Dispatch(~World,~Owners,~Error,~Out),~selection:Prog.Selection(~World,~Owners,~Error,~Out,~dispatch),owners:Owners) -> Compiled<World,Owners,Error,Out,dispatch>:
-  selection(Scoped(~Error,~Out),compile_leaf(~Error,~Out),compile_join(~Error,~Out),compile_partition(~Error,~Out),compile_rootcut(~Error,~Out),compile_empty(~Error,~Out),owners)
+  selection(Scoped(~Error,~Out),compile_embed(~Error,~Out),compile_join(~Error,~Out),compile_empty(~Error,~Out),owners)
 
 
 
