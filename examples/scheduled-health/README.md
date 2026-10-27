@@ -1,7 +1,6 @@
-# Run a health simulation with registered systems
+# Run a scheduled health simulation
 
-This example creates three entities and runs six ticks on JS or Native.
-The query declares `write Health` and `read HealthDecay`. The ordinary App entry derives dispatch, registration identities, cursors, and the schedule from the retained registration. A barrier applies queued entities before each tick.
+This ordinary consumer uses the replacement generalized Root executor. A retained command author queues three entities; a retained query writes `Health` and reads required `HealthDecay`. The registered enabled condition runs through the condition kernel. The first run leaves commands pending and observes no rows. Turning on automatic barriers publishes the entities before the decay query on each of the following six updates.
 
 From the repository root:
 
@@ -10,13 +9,7 @@ bash examples/scheduled-health/run.sh js
 bash examples/scheduled-health/run.sh native
 ```
 
-Use Bend 2.0.37 (`bend` on PATH by default). Node and Clang use PATH by default. Set `BEND`, `NODE` and `CLANG` to
-select other binaries. With the private workspace Clang wrapper, also export
-`BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root`.
-Generated files stay in ignored `build/`. If another backend check holds the
-shared lock, the script exits 75 without starting competing work.
-
-Expected output, followed by a verification result:
+`BEND`, `NODE` and `CLANG` select the compiler and runtimes. The source was compiled and its ordinary JS entry executed with Bend 2.0.35 during this migration. Generated files stay in ignored `build/`. These entry runs produce finite observations; they are not formal proofs or a native qualification claim.
 
 ```text
 before-barrier=
@@ -29,30 +22,17 @@ tick=6 health=0.15625,0.0048828125
 untouched=30
 ```
 
-## Change the simulation
+- [schema.bend](schema.bend) declares the nominal schema and the `health` / `decay` component layout.
+- [spawn.bend](spawn.bend) owns the three initial bundles and retains actual reserved handles and refused bundles. Change the initial health and factors here.
+- [system.bend](system.bend) declares the health query bounded by decay presence and applies the factor to the real component owner.
+- [enabled.bend](enabled.bend) defines the always-enabled condition.
+- [registration.bend](registration.bend) registers the command author, decay system and condition with their actual compilation witnesses.
+- [root.bend](root.bend) retains those owners, derives dependency and condition bindings from their real registration identities, dispatches through the common group driver, and publishes the command queue through one barrier clock.
+- [observe.bend](observe.bend) reads cached component views through passive Inspector grants with full-handle validation. Health rows with decay form the tick output; the row without decay supplies `untouched`.
+- [application.bend](application.bend) retains each returned Root and Inspector instance across the first pending run, barrier configuration change and six updates.
 
-- [components.bend](components.bend) defines independent Health and HealthDecay.
-- [main.bend](main.bend) creates the world through `world-io.create` and queues
-  three entities. Change the starting health and decay factors here.
-- [system.bend](system.bend) defines the opaque-owner `decay_body` and operational component identities.
-- [registration.bend](registration.bend) binds those identities to the observable query and calls `Component.add`. Its type aliases name the library-derived owners, observations, plan, dispatcher, and availability observer.
-- [application.bend](application.bend) calls the primary `Entry.attach`, `Entry.run`, and `Entry.replan` route. It retains each returned App for the next tick. It does not implement numeric-ID dispatch or cursor transport.
-- [schema.bend](schema.bend) contains typed column storage and deferred spawn. These explicit projections remain application setup.
+The third entity has Health 30 and no HealthDecay. It remains outside the decay query. The first empty result demonstrates pending command visibility; the final observation demonstrates the excluded component remains 30.
 
-The third entity has no HealthDecay. The query skips it, and a final lookup
-using its actual returned handle confirms Health remains 30. The first empty
-result confirms that queued entities are invisible before the barrier.
+The replacement amendment in [SPEC](../../docs/SPEC.md) supersedes the old rollback and fail-fast execution contract. A body error is a returned completion; this consumer's handler continues, and earlier owner changes or queued commands are not rolled back. Admission and publication refusals retain their actual inventories in the new carriers. This example exercises the successful path and does not claim to demonstrate failure recovery.
 
-`verify.py` independently calculates all six tick results and checks the full
-output structure, including the excluded entity. Values are exact binary
-fractions, so the check needs no numerical tolerance.
-
-The [ordinary App guide](../../docs/reference/ordinary-app.md) describes the primary entry without this simulation's solution. Standalone System and Schedule remain available as lower layers.
-
-The [heterogeneous qualification](../../experiments/public-api-usability/health-v2/README.md) adds a separately observed service system, a second nominal schema, affine component and Local owners, provisioning repair, failure, and authority controls. Those finite checks do not establish performance qualification or complete ECS parity.
-
-## Remaining usability check
-
-- [ ] Run a separate blind API audit with a fresh reviewer who has not read this example or the implementation. Give the reviewer the Bevy ECS model, Bend language sources, and the public ordinary App guide. Ask them to build the simulation and record any API or documentation blockers. This source-informed example does not satisfy that audit.
-
-The original [API investigation](../../experiments/public-api-usability/health-v1/README.md) remains historical prototype evidence. Ordinary entry adoption is tracked in [#73](https://github.com/dearlordylord/bendvy/issues/73).
+The former transaction implementation remains available in Git history under its old contract. The pre-existing `verify.py` is retained as existing infrastructure; `run.sh` does not invoke it, and it was not run as migration evidence. This migrated entry adds no host-language behavioral verifier.

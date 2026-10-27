@@ -1,59 +1,69 @@
 import Base
-import ../../src/ecs/change-tick.bend as Tick
-import components.bend as D
-import schema.bend as S
-import ../../src/ecs/column.bend as Col
-import ../../src/ecs/component.bend as C
-import ../../src/ecs/compose.bend as Q
-import ../../src/ecs/capabilities.bend as Cap
-import ../../src/ecs/transaction.bend as T
-import ../../src/ecs/ordinary-query-declaration.bend as Decl
-import ../../src/ecs/ordinary-declaration.bend as Identity
-import ../../src/ecs/ordinary-system.bend as Ordinary
-import ../../src/ecs/system.bend as Registry
+import ./schema.bend as D
+import ./components.bend as Value
+import ../../src/ecs/world.bend as W
+import ../../src/ecs/execution-composer-layout.bend as L
+import ../../src/ecs/execution-builder.bend as Build
+import ../../src/ecs/execution-query.bend as Q
+import ../../src/ecs/execution-query-recipe.bend as Recipe
+import ../../src/ecs/execution-query-matches.bend as Match
+import ../../src/ecs/execution-query-store.bend as Store
+import ../../src/ecs/execution-resource-store.bend as Resources
+import ../../src/ecs/execution-resource-program.bend as Program
+import ../../src/ecs/execution-system.bend as Sys
+import ../../src/ecs/execution-reservation-task.bend as Task
+import ../../src/ecs/execution-declaration.bend as Decl
+import ../../src/ecs/execution-resource-query-leaf.bend as Leaf
 
-type Error is Data: MissingComponent{}
-type Ops<-H: Type> is Type:
-  Ops{health: Cap.Write<H,D.Health,D.Health>,decay: Cap.Read<H,D.HealthDecay>}
-def OpsType(H: Type) -> Type: Ops<H>
-def health_cap(~H: Type,ops: Ops<H>) -> Cap.Write<H,D.Health,D.Health>:
-  match ops:
-    case Ops{health,_}: health
-def decay_cap(~H: Type,ops: Ops<H>) -> Cap.Read<H,D.HealthDecay>:
-  match ops:
-    case Ops{_,decay}: decay
-
-def write_health(~H: Type,~ops: Ops<H>,factor: F32,result: H & C.Access<D.Health>) -> H & (T.Outcome<Error> & D.Health):
+def C() -> Type:Store.owner(~D.Schema,D.components(),Store.Sparse{})
+def R() -> Type:Resources.owner(~D.Schema,D.resources(),Resources.Sparse{})
+type Cap<-H:Type> is Type:
+  Cap{health:Q.GeneralWriter<D.Schema,H,Value.Health,Value.Health>,decay:Q.GeneralReader<D.Schema,H,Value.HealthDecay>}
+def Ops(Permit:Data,H:Type) -> Type:Cap<H>
+def any_health(_:Maybe<&2,Value.Health>) -> Bool:True{}
+def any_decay(_:Maybe<&2,Value.HealthDecay>) -> Bool:True{}
+def selected_decay(~H:Type,-B:Type,health:Q.GeneralWriter<D.Schema,H,Value.Health,Value.Health>,result:B & Q.GeneralReader<D.Schema,H,Value.HealthDecay>) -> B & Cap<H>:
   match result:
-    case (ctx,C.Found{D.Health{value}}):
-      +next : D.Health = D.Health{(value * factor : F32)}
-      (Cap.set(~H,~D.Health,~D.Health,~health_cap(~H,ops),ctx,next),(T.Success{},next))
-    case (ctx,_): (ctx,(T.Failure{MissingComponent{}},D.Health{0.0}))
-def read_decay(~H: Type,~ops: Ops<H>,result: H & C.Access<D.HealthDecay>) -> H & (T.Outcome<Error> & D.Health):
+    case (book,decay):(book,Cap{health,decay})
+def selected_health(~Permit:Data,~H:Type,~B:Type,~q:Build.Query(~D.Schema,~D.Columns(),~C(),~R(),~H,~B),result:B & Q.GeneralWriter<D.Schema,H,Value.Health,Value.Health>) -> B & Cap<H>:
   match result:
-    case (ctx,C.Found{D.HealthDecay{factor}}): write_health(~H,~ops,factor,Cap.get(~H,~D.Health,~D.Health,~health_cap(~H,ops),ctx))
-    case (ctx,_): (ctx,(T.Failure{MissingComponent{}},D.Health{0.0}))
-# Executed once per entity selected by the query below.
-def apply_decay(~H: Type,~ops: Ops<H>,_: Unit,ctx: H) -> H & (T.Outcome<Error> & D.Health):
-  read_decay(~H,~ops,Cap.read(~H,~D.HealthDecay,~decay_cap(~H,ops),ctx))
-
-
-def HealthId() -> Identity.Declaration<S.Schema,D.Health>:Identity.component(~S.Schema,~D.Health,"health")
-def DecayId() -> Identity.Declaration<S.Schema,D.HealthDecay>:Identity.component(~S.Schema,~D.HealthDecay,"decay")
-def PairOps(H:Type) -> Type:Cap.Write<H,D.Health,D.Health> & Cap.Read<H,D.HealthDecay>
-def Frame() -> Type:Q.Frame<S.Schema,S.Store,Unit,Unit>
-def declaration() -> Decl.Declaration<S.Schema,Frame(),PairOps(Frame())>:
-  Decl.pair(~S.Schema,~Frame(),~Cap.Write<Frame(),D.Health,D.Health>,~Cap.Read<Frame(),D.HealthDecay>,~Decl.write(~S.Schema,~D.Health,~S.Store,~Unit,~Unit,~Col.Column<S.Schema,D.HealthDecay>,~D.Health,~S.HealthToken,~HealthId(),~S.project_health,~S.take_health,~S.put_health),~Decl.read(~S.Schema,~D.HealthDecay,~S.Store,~Unit,~Unit,~Col.Column<S.Schema,D.Health>,~D.HealthDecay,~S.HealthDecayToken,~DecayId(),~S.project_decay,~S.take_decay,~S.put_decay))
-def adapted(~H:Type,ops:PairOps(H)) -> Ops<H>:
-  match ops:
-    case (health,decay):Ops{health,decay}
-def decay_body(~H:Type,~ops:PairOps(H),args:Unit,ctx:H) -> H & (T.Outcome<Error> & D.Health):
-  apply_decay(~H,~adapted(~H,ops),args,ctx)
-def Runner() -> S.World() -> (Unit & Maybe<&2,Tick.Tick>) -> Registry.Outcome<S.World(),Q.Error<Error>,List<&2,D.Health>>:
-  Ordinary.runner(~S.Schema,~S.Store,~Unit,~Unit,~PairOps,~Unit,~Error,~D.Health,~declaration(),~decay_body)
-def Owner() -> Type:
-  Ordinary.Owner<S.Schema,Registry.Registry<S.Schema,S.Store,Unit,Unit,Unit & Maybe<&2,Tick.Tick>,Q.Error<Error>,List<&2,D.Health>,Runner()>>
-def define(world:S.World()) -> Ordinary.Defined<S.Schema,S.World(),Registry.Registry<S.Schema,S.Store,Unit,Unit,Unit & Maybe<&2,Tick.Tick>,Q.Error<Error>,List<&2,D.Health>,Runner()>>:
-  Ordinary.define(~S.Schema,~S.Store,~Unit,~Unit,~PairOps,~Unit,~Error,~D.Health,~declaration(),~decay_body,world,"Health decay","decay")
-def tick(owner:Owner(),world:S.World()) -> Registry.RunResult<S.Schema,S.Store,Unit,Unit,Unit & Maybe<&2,Tick.Tick>,Q.Error<Error>,List<&2,D.Health>,Runner()> & (String & List<&2,Decl.Clause<S.Schema>>):
-  Ordinary.run(~S.Schema,~S.Store,~Unit,~Unit,~PairOps,~Unit,~Error,~D.Health,~declaration(),~decay_body,owner,world,Unit{})
+    case (book,health):selected_decay(~H,B,health,Build.general_query(~D.Schema,~D.Columns(),~C(),~R(),~D.components(),~L.InRight{L.AtLeaf{}},~{==},~{==},~Store.Sparse{},~{==},~Recipe.ReadRows{},~Recipe.AllLive{},~Match.Required{},~any_decay,~H,~B,~q,book))
+def selection(~Permit:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~D.Schema,~C(),~R(),~H,~B),~cw:Build.ComponentWrite(~D.Schema,~C(),~R(),~H,~B),~rr:Build.ResourceRead(~D.Schema,~C(),~R(),~H,~B),~rw:Build.ResourceWrite(~D.Schema,~C(),~R(),~H,~B),~q:Build.Query(~D.Schema,~D.Columns(),~C(),~R(),~H,~B),~life:Build.Lifecycle(~D.Schema,~D.Columns(),~C(),~R(),~H,~B),book:B) -> B & Cap<H>:
+  selected_health(~Permit,~H,~B,~q,Build.general_query(~D.Schema,~D.Columns(),~C(),~R(),~D.components(),~L.InLeft{L.AtLeaf{}},~{==},~{==},~Store.Sparse{},~{==},~Recipe.WriteRows{},~Recipe.With{L.InRight{L.AtLeaf{}}},~Match.Required{},~any_health,~H,~B,~q,book))
+def program(~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~D.Schema,~D.Columns(),~C(),~R(),~Permit,~H,~B),book:B) -> B & Ops(Permit,H):builder(Ops,selection(~Permit,~H,~B),book)
+def kernel(~Permit:Data,~token:Permit,~H:Type,~B:Type,~builder:Build.Builder(~D.Schema,~D.Columns(),~C(),~R(),~Permit,~H,~B),book:B) -> B & Ops(Permit,H):Build.framework_program(~D.Schema,~D.Columns(),~C(),~R(),~Ops,~program,~Permit,~token,~H,~B,~builder,book)
+def multiply(+factor:F32,value:Value.Health) -> Value.Health & Unit:
+  match value:
+    case Value.Health{value}:(Value.Health{F32.mul(value,factor)},Unit{})
+def edited(~Permit:Data,~H:Type,next:H -> Task.Task<D.Schema,Permit,H & (Unit & Sys.Completion<String,Unit>)>,result:H & Q.GeneralEdit<Value.Health,Unit>) -> Task.Task<D.Schema,Permit,H & (Unit & Sys.Completion<String,Unit>)>:
+  match result:
+    case (scope,Q.GeneralEdited{_}):next(scope)
+    case (scope,Q.GeneralUnchanged{_}):Task.TDone{(scope,(Unit{},Sys.BodyError{"health write refused",Unit{}}))}
+def found_decay(~Permit:Data,~H:Type,~modify:@-Out:Type -> H -> W.Handle<D.Schema> -> (Value.Health -> Value.Health & Out) -> H & Q.GeneralEdit<Value.Health,Out>,handle:W.Handle<D.Schema>,next:H -> Task.Task<D.Schema,Permit,H & (Unit & Sys.Completion<String,Unit>)>,result:H & Q.GeneralLookup<Value.HealthDecay>) -> Task.Task<D.Schema,Permit,H & (Unit & Sys.Completion<String,Unit>)>:
+  match result:
+    case (scope,Q.Matched{Some{Value.HealthDecay{factor}}}):edited(~Permit,~H,next,modify(Unit,scope,handle,multiply(factor)))
+    case (scope,_):Task.TDone{(scope,(Unit{},Sys.BodyError{"required decay query refused",Unit{}}))}
+def decay_rows(~Permit:Data,~H:Type,~read:H -> W.Handle<D.Schema> -> H & Q.GeneralLookup<Value.HealthDecay>,~modify:@-Out:Type -> H -> W.Handle<D.Schema> -> (Value.Health -> Value.Health & Out) -> H & Q.GeneralEdit<Value.Health,Out>,values:List<&2,Q.GeneralRow<D.Schema,Value.Health>>,scope:H) -> Task.Task<D.Schema,Permit,H & (Unit & Sys.Completion<String,Unit>)>:
+  match values:
+    case []:Task.TDone{(scope,(Unit{},Sys.Success{Unit{}}))}
+    case Q.GeneralRow{+handle,_} <> rest:found_decay(~Permit,~H,~modify,handle,scope => decay_rows(~Permit,~H,~read,~modify,rest,scope),read(scope,handle))
+def selected(~Permit:Data,~H:Type,~read:H -> W.Handle<D.Schema> -> H & Q.GeneralLookup<Value.HealthDecay>,~modify:@-Out:Type -> H -> W.Handle<D.Schema> -> (Value.Health -> Value.Health & Out) -> H & Q.GeneralEdit<Value.Health,Out>,result:H & Q.GeneralReport<D.Schema,Value.Health>) -> Task.Task<D.Schema,Permit,H & (Unit & Sys.Completion<String,Unit>)>:
+  match result:
+    case (scope,Q.SelectedRows{values}):decay_rows(~Permit,~H,~read,~modify,values,scope)
+    case (scope,Q.SelectionRefused{}):Task.TDone{(scope,(Unit{},Sys.BodyError{"health query refused",Unit{}}))}
+def read_decay(~H:Type,caps:Cap<H>) -> H -> W.Handle<D.Schema> -> H & Q.GeneralLookup<Value.HealthDecay>:
+  match caps:
+    case Cap{_,Q.GeneralReader{_,read}}:read
+    case _:scope => _ => (scope,Q.LookupRefused{})
+def write_health(~H:Type,caps:Cap<H>) -> @-Out:Type -> H -> W.Handle<D.Schema> -> (Value.Health -> Value.Health & Out) -> H & Q.GeneralEdit<Value.Health,Out>:
+  match caps:
+    case Cap{Q.GeneralWriter{_,modify},_}:modify
+    case _:Out => scope => _ => unused => (scope,Q.GeneralUnchanged{unused})
+def select_health(~H:Type,caps:Cap<H>) -> H -> H & Q.GeneralReport<D.Schema,Value.Health>:
+  match caps:
+    case Cap{Q.GeneralWriter{Q.GeneralReader{query,_},_},_}:query
+    case _:scope => (scope,Q.SelectionRefused{})
+def body(~Permit:Data,~H:Type,~caps:Ops(Permit,H),scope:H,_:Unit) -> Task.Task<D.Schema,Permit,H & (Unit & Sys.Completion<String,Unit>)>:
+  selected(~Permit,~H,~read_decay(~H,caps),~write_health(~H,caps),select_health(~H,caps)(scope))
+def compiled() -> Decl.Compilation<D.Schema,D.Columns(),C(),R(),Ops>:Program.compile_framework(~D.Schema,~D.Columns(),~C(),~R(),~Ops,~kernel)
+def Node() -> Type:Leaf.node_type(~D.Schema,~D.components(),~D.resources(),~Unit,~String,~Unit,~Ops,~Unit,~kernel,~body)

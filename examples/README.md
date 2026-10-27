@@ -1,12 +1,12 @@
 # Examples
 
 Start with [Scheduled health](scheduled-health/README.md): world creation,
-declaration-derived query access, a registered system, an explicit schedule,
-deferred spawn and complete output checks on JS and Native.
+declaration-derived query access, retained command and query owners, an enabled
+condition, automatic barriers and passive observations through the replacement Root executor.
 
 | Example | Purpose | Execution style |
 | --- | --- | --- |
-| [Scheduled health](scheduled-health/README.md) | Application starting point | Ordinary declarations and registered schedule |
+| [Scheduled health](scheduled-health/README.md) | Application starting point | Replacement Root, retained declarations, deferred commands and passive Inspector |
 | [Health decay](health-decay/README.md) | Small query mechanics example | Direct query execution |
 | [Health browser demo](health-decay/demo/README.md) | Interactive view of health decay | Browser host, direct query execution |
 | [Arena](arena/README.md) | Playable browser simulation | Browser host, direct query orchestration |
@@ -28,7 +28,7 @@ and [Schedule source](https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142
 
 In Bendvy, `ordinary-system` with `schedule` exercises registered ECS execution.
 `ordinary-app-*` composes schema, registration, provisioning and observation on
-top of that execution. Scheduled health currently demonstrates the first layer;
+top of that execution. Scheduled health now uses the replacement generalized Root;
 it is not evidence that every application must author its dispatcher or that
 the larger SchemaApp surface is equally convenient. The browser examples
 instead use direct query execution inside an external interactive loop.

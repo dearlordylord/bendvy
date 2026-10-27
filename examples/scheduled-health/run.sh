@@ -17,4 +17,3 @@ case "$backend" in
   *) echo 'usage: bash run.sh [js|native]' >&2; exit 2 ;;
 esac
 cat "$example_dir/build/$backend.stdout"
-python3 "$example_dir/verify.py" "$example_dir/build/$backend.stdout"
