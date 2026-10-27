@@ -7,6 +7,7 @@ trap 'rm -rf "$example_output"' EXIT
 control_cpu=$("${example_cpu[@]}" python3 -c 'import os; print(min(os.sched_getaffinity(0)))')
 control_lock="/tmp/bendvy-source-check-$(id -u)-cpu-$control_cpu.lock"
 check_source() {
+  printf 'Source check: %s\n' "$1"
   flock "$control_lock" timeout --signal=KILL 15s taskset -c "$control_cpu" "$BEND" "$1" --check-only
 }
 for consumer in main history scheduled; do
