@@ -15,6 +15,8 @@ def pack(-S:Data,-Permit:Data,-R:Type,result:T.Issuer<S> & T.Task<S,Permit,R>) -
     case (issuer,task):Fail{Frame{issuer,task}}
 def authorize_unit(~Permit:Data,~authorized:Permit -> U32 -> List<&2,U32> -> Bool,context:Unit,permit:Permit,namespace:U32,ids:List<&2,U32>) -> Bool:
   authorized(permit,namespace,ids)
-def framework_step(~S:Data,~Permit:Data,~R:Type,~authorized:Permit -> U32 -> List<&2,U32> -> Bool,frame:Frame<S,Permit,R>) -> Round(S,Permit,R):
+def framework_step_generic(~S:Data,~Permit:Data,~authorized:Permit -> U32 -> List<&2,U32> -> Bool,-R:Type,frame:Frame<S,Permit,R>) -> Round(S,Permit,R):
   match frame:
-    case Frame{issuer,task}:pack(S,Permit,R,T.service(~S,~Permit,~R,~Unit,~authorize_unit(~Permit,~authorized),T.advance(S,Permit,R,task),Unit{},issuer))
+    case Frame{issuer,task}:pack(S,Permit,R,T.service_generic(~S,~Permit,~Unit,~authorize_unit(~Permit,~authorized),R,T.advance(S,Permit,R,task),Unit{},issuer))
+def framework_step(~S:Data,~Permit:Data,~R:Type,~authorized:Permit -> U32 -> List<&2,U32> -> Bool,frame:Frame<S,Permit,R>) -> Round(S,Permit,R):
+  framework_step_generic(~S,~Permit,~authorized,R,frame)

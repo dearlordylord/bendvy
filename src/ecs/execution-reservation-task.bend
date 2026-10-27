@@ -66,21 +66,24 @@ type ContextPair<-Outer:Data,-Inner:Data> is Data:
 def mapped_authorized(~Inner:Data,~Permit:Data,~Outer:Data,~Map:Data,~convert:Map -> Inner -> Permit,~authorized:Outer -> Permit -> U32 -> List<&2,U32> -> Bool,context:ContextPair<Outer,Map>,permit:Inner,namespace:U32,ids:List<&2,U32>) -> Bool:
   match context:
     case ContextPair{outer,inner}:authorized(outer,convert(inner,permit),namespace,ids)
-def service_mapped(~S:Data,~Inner:Data,~Permit:Data,~R:Type,~Context:Data,~convert:Context -> Inner -> Permit,context:Context,result:Issuer<S> & Task<S,Inner,R>) -> Issuer<S> & Task<S,Permit,R>:
+def service_mapped_generic(~S:Data,~Inner:Data,~Permit:Data,~Context:Data,~convert:Context -> Inner -> Permit,-R:Type,context:Context,result:Issuer<S> & Task<S,Inner,R>) -> Issuer<S> & Task<S,Permit,R>:
   match result:
     case (issuer,TDone{value}):(issuer,TDone{value})
     case (issuer,task):(issuer,TMapPermit{Inner,Context,convert,context,task})
-def service_request(~S:Data,~Permit:Data,~R:Type,~Context:Data,~authorized:Context -> Permit -> U32 -> List<&2,U32> -> Bool,context:Context,permit:Permit,resume:W.Reservation<S> -> Task<S,Permit,R>,issuer:Issuer<S>) -> Issuer<S> & Task<S,Permit,R>:
+def service_request_generic(~S:Data,~Permit:Data,~Context:Data,~authorized:Context -> Permit -> U32 -> List<&2,U32> -> Bool,-R:Type,context:Context,permit:Permit,resume:W.Reservation<S> -> Task<S,Permit,R>,issuer:Issuer<S>) -> Issuer<S> & Task<S,Permit,R>:
   match issuer:
     case Issuer{+namespace,allocator,+allowlist}:service_allowed(S,Permit,R,resume,Issuer{namespace,allocator,allowlist},authorized(context,permit,namespace,allowlist))
-def service(~S:Data,~Permit:Data,~R:Type,~Context:Data,~authorized:Context -> Permit -> U32 -> List<&2,U32> -> Bool,task:Task<S,Permit,R>,+context:Context,issuer:Issuer<S>) -> Issuer<S> & Task<S,Permit,R>:
+def service_generic(~S:Data,~Permit:Data,~Context:Data,~authorized:Context -> Permit -> U32 -> List<&2,U32> -> Bool,-R:Type,task:Task<S,Permit,R>,+context:Context,issuer:Issuer<S>) -> Issuer<S> & Task<S,Permit,R>:
   match task:
-    case TNeed{permit,resume}:service_request(~S,~Permit,~R,~Context,~authorized,context,permit,resume,issuer)
-    case TBind{A,task,next}:service_bind(S,Permit,A,R,next,service(~S,~Permit,~A,~Context,~authorized,task,context,issuer))
-    case TFork{L,T,left,right,join}:service_left(S,Permit,L,T,R,root => service(~S,~Permit,~T,~Context,~authorized,right,context,root),join,service(~S,~Permit,~L,~Context,~authorized,left,context,issuer))
-    case TMapPermit{Inner,Map,convert,+inner,task}:service_mapped(~S,~Inner,~Permit,~R,~Map,~convert,inner,service(~S,~Inner,~R,~ContextPair<Context,Map>,~mapped_authorized(~Inner,~Permit,~Context,~Map,~convert,~authorized),task,ContextPair{context,inner},issuer))
+    case TNeed{permit,resume}:service_request_generic(~S,~Permit,~Context,~authorized,R,context,permit,resume,issuer)
+    case TBind{A,task,next}:service_bind(S,Permit,A,R,next,service_generic(~S,~Permit,~Context,~authorized,A,task,context,issuer))
+    case TFork{L,T,left,right,join}:service_left(S,Permit,L,T,R,root => service_generic(~S,~Permit,~Context,~authorized,T,right,context,root),join,service_generic(~S,~Permit,~Context,~authorized,L,left,context,issuer))
+    case TMapPermit{Inner,Map,convert,+inner,task}:service_mapped_generic(~S,~Inner,~Permit,~Map,~convert,R,inner,service_generic(~S,~Inner,~ContextPair<Context,Map>,~mapped_authorized(~Inner,~Permit,~Context,~Map,~convert,~authorized),R,task,ContextPair{context,inner},issuer))
     case TRun{step}:(issuer,TRun{step})
     case TDone{value}:(issuer,TDone{value})
+
+def service(~S:Data,~Permit:Data,~R:Type,~Context:Data,~authorized:Context -> Permit -> U32 -> List<&2,U32> -> Bool,task:Task<S,Permit,R>,+context:Context,issuer:Issuer<S>) -> Issuer<S> & Task<S,Permit,R>:
+  service_generic(~S,~Permit,~Context,~authorized,R,task,context,issuer)
 
 # Persistent wrapper keeps future callbacks under the same conversion. There
 # is no recursive traversal of a computed callback result and no copied closure.
