@@ -160,14 +160,14 @@ def finished(~S:Data,~mode:Query.Mode,+native:Bool,remaining:Nat,prefix:String,r
 def first(~S:Data,~mode:Query.Mode,+native:Bool,result:Application(~S,~mode) & DepApp.Report<String,String>) -> String:
   finished(~S,~mode,native,3n,"",result)
 type Setup<-S:Data,-mode:Query.Mode> is Type:
-  Ready{application:Application(~S,~mode)}
+  NoticeReady{application:Application(~S,~mode)}
   Failed{reason:String}
 def setup_run(~S:Data,~mode:Query.Mode,+native:Bool,result:Setup<S,mode>) -> String:
   match result:
-    case Ready{app}:first(~S,~mode,native,selected(~S,~mode,native,app))
+    case NoticeReady{app}:first(~S,~mode,native,selected(~S,~mode,native,app))
     case Failed{reason}:reason
 def built(~S:Data,~mode:Query.Mode,settings:Settings.Settings,+native:Bool,world:W.World<S,Store(~S),Resources(~S),Unit>,author:Author(~S,~mode),peer:Peer(~S)) -> Setup<S,mode>:
-  Ready{Schedule.configure(~(DepApp.Application<W.World<S,Store(~S),Resources(~S),Unit>,Product.Owner<Author(~S,~mode),Peer(~S)>,Unit,Handler,String,String,Root.dispatch(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S,~mode),~Peer(~S),~left(~S,~mode),~right(~S)),Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),handle(~S)>),settings,Schedule.build(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S,~mode),~Peer(~S),~left(~S,~mode),~right(~S),~Unit,~Handler,~Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~Prog.empty(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~handle(~S),~(name => True{}),world,Product.Owner{author,peer},Unit{},Handler{ALeaf{901},0},[Plan.Edge{1,2}],[]))}
+  NoticeReady{Schedule.configure(~(DepApp.Application<W.World<S,Store(~S),Resources(~S),Unit>,Product.Owner<Author(~S,~mode),Peer(~S)>,Unit,Handler,String,String,Root.dispatch(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S,~mode),~Peer(~S),~left(~S,~mode),~right(~S)),Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),handle(~S)>),settings,Schedule.build(~S,~Left(~S),~Unit,~D.Resources(~S),~Unit,~Unit,~String,~String,~Author(~S,~mode),~Peer(~S),~left(~S,~mode),~right(~S),~Unit,~Handler,~Reg.empty_dispatch(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~Prog.empty(~W.World<S,Store(~S),Resources(~S),Unit>,~String,~Bool),~handle(~S),~(name => True{}),world,Product.Owner{author,peer},Unit{},Handler{ALeaf{901},0},[Plan.Edge{1,2}],[]))}
 def peer_defined(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,author:Author(~S,~mode),result:Sys.Defined<W.World<S,Store(~S),Resources(~S),Unit>,Peer(~S),Readers.Captures<S>>) -> Setup<S,mode>:
   match result:
     case Sys.Defined{world,peer}:built(~S,~mode,settings,native,world,author,peer)

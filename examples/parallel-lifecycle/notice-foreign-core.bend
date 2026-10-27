@@ -73,5 +73,5 @@ def transfer(left:Snapshot,right:Snapshot) -> String:
     case Snapshot{world,writer,peer,errors,reports}:a_retired(writer,errors,reports,right,Lifecycle.retire(~S(),~Core.Store(~S()),~Unit,~Unit,~Unit,~Core.PeerOps(~S()),~Readers.Captures<S()>,~String,~String,~Core.peer_declaration(~S()),~Core.peer_body(~S()),~Core.Resources(~S()),~Unit,peer,world))
 def run(left:Core.Setup<S(),Query.Parallel{}>,right:Core.Setup<S(),Query.Parallel{}>) -> String:
   match left right:
-    case Core.Ready{first} Core.Ready{second}:transfer(completed(1n,"",Core.selected(~S(),~Query.Parallel{},True{},first)),completed(0n,"",Core.selected(~S(),~Query.Parallel{},True{},second)))
+    case Core.NoticeReady{first} Core.NoticeReady{second}:transfer(completed(1n,"",Core.selected(~S(),~Query.Parallel{},True{},first)),completed(0n,"",Core.selected(~S(),~Query.Parallel{},True{},second)))
     case _ _:"ERROR: setup"
