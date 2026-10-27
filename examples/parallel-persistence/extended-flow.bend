@@ -29,10 +29,11 @@ type Outcome<-S:Data> is Type:
   SaveRefused{schema:Admission.Recipes(~S),source:Schema.World(~S),previous:Population.Previous(~S),result:Gate.Outcome<Extended.Snapshot<S>,Recipe.Refusal>}
   TargetRefused{schema:Admission.Recipes(~S),source:Schema.World(~S),previous:Population.Previous(~S),input:Extended.Snapshot<S>,result:WorldIO.Creation<S,Layout.columns(~S,Schema.components(~S)),Schema.Resources(~S),Unit>}
   TargetPopulationRefused{schema:Admission.Recipes(~S),source:Schema.World(~S),previous:Population.Previous(~S),input:Extended.Snapshot<S>,reader:Maybe<&1,Target.Reader(~S)>,result:Population.Population<S>}
+  Prepared{source:Schema.World(~S),previous:Population.Previous(~S),reader:Maybe<&1,Target.Reader(~S)>,receipt:Store.Receipt<S>,schema:Admission.Recipes(~S),input:Extended.Snapshot<S>,target:Schema.World(~S)}
   Restored{source:Schema.World(~S),previous:Population.Previous(~S),reader:Maybe<&1,Target.Reader(~S)>,receipt:Store.Receipt<S>,result:Restore.Outcome<S>}
 def target_prepared(~S:Data,schema:Admission.Recipes(~S),source:Schema.World(~S),previous:Population.Previous(~S),input:Extended.Snapshot<S>,reader:Maybe<&1,Target.Reader(~S)>,result:TargetHistory.Prepared<S>) -> Outcome<S>:
   match result:
-    case TargetHistory.Prepared{world,targetPrevious,receipt}:Restored{source,List.append(&1,Bundle.Payload(Schema.components(~S)),previous,targetPrevious),reader,receipt,Restore.restore(~S,schema,input,world)}
+    case TargetHistory.Prepared{world,targetPrevious,receipt}:Prepared{source,List.append(&1,Bundle.Payload(Schema.components(~S)),previous,targetPrevious),reader,receipt,schema,input,world}
     case TargetHistory.Refused{result}:TargetPopulationRefused{schema,source,previous,input,reader,result}
 def target_registered(~S:Data,schema:Admission.Recipes(~S),source:Schema.World(~S),previous:Population.Previous(~S),input:Extended.Snapshot<S>,result:Schema.World(~S) & Maybe<&1,Target.Reader(~S)>) -> Outcome<S>:
   match result:
@@ -60,4 +61,9 @@ def created(~S:Data,result:WorldIO.Creation<S,Layout.columns(~S,Schema.component
   match result:
     case WorldIO.Created{world}:populated(~S,Population.source(~S,world))
     case other:IO.pure(Outcome<S>,SourceRefused{other})
-def run(~S:Data) -> IO(Outcome<S>):IO.bind(WorldIO.Creation<S,Layout.columns(~S,Schema.components(~S)),Schema.Resources(~S),Unit>,Outcome<S>,Schema.create(~S,Modes.Waiting{},3n),result => created(~S,result))
+def prepare(~S:Data) -> IO(Outcome<S>):IO.bind(WorldIO.Creation<S,Layout.columns(~S,Schema.components(~S)),Schema.Resources(~S),Unit>,Outcome<S>,Schema.create(~S,Modes.Waiting{},3n),result => created(~S,result))
+def finish(~S:Data,result:Outcome<S>) -> Outcome<S>:
+  match result:
+    case Prepared{source,previous,reader,receipt,schema,input,world}:Restored{source,previous,reader,receipt,Restore.restore(~S,schema,input,world)}
+    case result:result
+def run(~S:Data) -> IO(Outcome<S>):IO.bind(Outcome<S>,Outcome<S>,prepare(~S),result => IO.pure(Outcome<S>,finish(~S,result)))

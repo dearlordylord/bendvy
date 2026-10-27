@@ -174,6 +174,22 @@ self-relation refusal being published. The returned World retains channel size 1
 sequence 1 and nextReader 2; the original Reader retains its namespace/id/cursor.
 Target entities are genuinely despawned and source handles map to fresh generation
 1 target handles. These are bounded ordinary execution observations for Alpha and
-Beta, not proofs. Reader consumption, actual post-restore Scheduled transitions,
-invalid-graph refusal and modern lifetime-scope restore remain separate work.
+Beta, not proofs. The actual retained failure Reader subsequently reads one
+message, advances its cursor to 1 and reports no missed messages at time `0:8`.
+
+`parallel-persistence/extended-resume.bend` builds the receiver's actual Scheduled
+App before restore. Its actual pending fold precedes World admission. The adapter
+retains system Local arrays 603/703, state-condition Local array 903, handler array
+803 and its original registered failure Reader, both binding roles, rules and
+deferred settings. The serial Alpha and native Beta ordinary runs observe restored
+Waiting, execute a new Running transition at revision 8/time `0:11`, handle a real
+body error and return all those owners. Receiver machine stream sequence/size
+advances from 2 to 3, rather than resurrecting the source's four-event history.
+This is a subsequent genuine schedule execution, not a replay of source intent.
+The reader then consumes the retained receiver relation failure at time `0:11`.
+
+Invalid-graph refusal with a rejoined original Scheduled App and modern
+lifetime-scope restore remain separate work. The current extended Scheduled
+adapter retains Held owners plus the full low-level outcome on non-success;
+that retained result is not yet an ordinary rejoined-App refusal API.
 
