@@ -18,6 +18,10 @@ import ../../src/ecs/owner-product.bend as Product
 import ../../src/ecs/machine.bend as M
 import ../../src/ecs/decode-data.bend as D
 import ../../src/ecs/world.bend as W
+import ../../src/ecs/execution-lifetime-scope-store.bend as ScopeStore
+import ../../src/ecs/lifetime-scope.bend as Scope
+
+type Observation<-S:Data> is Data:Observation{graph:T.Graph<S>,machine:Extended.Machine,scopes:List<&2,Scope.Member>}
 
 def mode(value:Modes.Mode) -> D.Raw:
   match value:
@@ -27,15 +31,15 @@ def current(~S:Data,slot:M.Slot<S,Modes.Key,Modes.Mode>) -> Maybe<&2,D.Raw>:
   match slot:
     case M.Missing{}:None{}
     case M.Present{value,_,_,_}:Some{mode(value)}
-def project(~S:Data,resources:Schema.Resources(~S)) -> Schema.Resources(~S) & (T.Graph<S> & Extended.Machine):
+def project(~S:Data,resources:Schema.Resources(~S)) -> Schema.Resources(~S) & Observation<S>:
   match resources:
-    case Product.Owner{Layout.ResourceSlot{Layout.Viewed{Graph.Store{+namespace,+graph,failures,sequence,nextReader},view},stamp},Layout.ResourceSlot{Layout.Viewed{Cell.Cell{+slot,+stream,+revision,+cellStamp,+nextStamp,+cellSequence,+initialPending,+cellNamespace,+intent},cellView},resourceStamp}}:(Product.Owner{Layout.ResourceSlot{Layout.Viewed{Graph.Store{namespace,graph,failures,sequence,nextReader},view},stamp},Layout.ResourceSlot{Layout.Viewed{Cell.Cell{slot,stream,revision,cellStamp,nextStamp,cellSequence,initialPending,cellNamespace,intent},cellView},resourceStamp}},(graph,Extended.Machine{"restore-mode",current(~S,slot),revision,cellStamp}))
-def projected(~S:Data,schema:Plan.Schema<S,O.components(~S),Schema.resources(~S)>,basic:Basic.Snapshot<S>,result:Schema.World(~S) & (T.Graph<S> & Extended.Machine)) -> Plan.Schema<S,O.components(~S),Schema.resources(~S)> & (Schema.World(~S) & Gate.Outcome<Extended.Snapshot<S>,Recipe.Refusal>):
+    case Product.Owner{Layout.ResourceSlot{Layout.Viewed{Graph.Store{+namespace,+graph,failures,sequence,nextReader},view},stamp},Product.Owner{Layout.ResourceSlot{Layout.Viewed{Cell.Cell{+slot,stream,+revision,+cellStamp,nextStamp,cellSequence,initialPending,cellNamespace,intent},cellView},resourceStamp},Layout.ResourceSlot{Layout.Viewed{ScopeStore.Store{scopeNamespace,+members},scopeView},scopeStamp}}}:(Product.Owner{Layout.ResourceSlot{Layout.Viewed{Graph.Store{namespace,graph,failures,sequence,nextReader},view},stamp},Product.Owner{Layout.ResourceSlot{Layout.Viewed{Cell.Cell{slot,stream,revision,cellStamp,nextStamp,cellSequence,initialPending,cellNamespace,intent},cellView},resourceStamp},Layout.ResourceSlot{Layout.Viewed{ScopeStore.Store{scopeNamespace,members},scopeView},scopeStamp}}},Observation{graph,Extended.Machine{"restore-mode",current(~S,slot),revision,cellStamp},members})
+def projected(~S:Data,schema:Plan.Schema<S,O.components(~S),Schema.resources(~S)>,basic:Basic.Snapshot<S>,result:Schema.World(~S) & Observation<S>) -> Plan.Schema<S,O.components(~S),Schema.resources(~S)> & (Schema.World(~S) & Gate.Outcome<Extended.Snapshot<S>,Recipe.Refusal>):
   match result:
-    case (world,(graph,machine)):(schema,(world,Gate.Saved{Extended.Snapshot{basic,GraphSave.relations(~S,[Declaration.Declaration{Schema.hierarchy(~S)}],graph),[machine]}}))
+    case (world,Observation{graph,machine,scopes}):(schema,(world,Gate.Saved{Extended.Snapshot{basic,GraphSave.relations(~S,[Declaration.Declaration{Schema.hierarchy(~S)}],graph),[machine],scopes}}))
 def saved(~S:Data,result:Plan.Schema<S,O.components(~S),Schema.resources(~S)> & (Schema.World(~S) & Gate.Outcome<Basic.Snapshot<S>,Recipe.Refusal>)) -> Plan.Schema<S,O.components(~S),Schema.resources(~S)> & (Schema.World(~S) & Gate.Outcome<Extended.Snapshot<S>,Recipe.Refusal>):
   match result:
-    case (schema,(world,Gate.Saved{basic})):projected(~S,schema,basic,W.observe_resource(~S,~Layout.columns(~S,Schema.components(~S)),~Schema.Resources(~S),~Unit,~(T.Graph<S> & Extended.Machine),~project(~S),world))
+    case (schema,(world,Gate.Saved{basic})):projected(~S,schema,basic,W.observe_resource(~S,~Layout.columns(~S,Schema.components(~S)),~Schema.Resources(~S),~Unit,~Observation<S>,~project(~S),world))
     case (schema,(world,Gate.RefusedPending{})):(schema,(world,Gate.RefusedPending{}))
     case (schema,(world,Gate.Refused{error})):(schema,(world,Gate.Refused{error}))
 # Trusted World continuation after actual Scheduled pending gating. Both graph

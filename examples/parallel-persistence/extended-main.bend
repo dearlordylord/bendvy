@@ -1,6 +1,9 @@
 import Base
 import ./extended-target.bend as Target
 import ./extended-reader.bend as Read
+import ../../src/ecs/lifetime-scope.bend as Scope
+import ../../src/ecs/execution-lifetime-scope-store.bend as ScopeStore
+import ../../src/ecs/lifecycle.bend as Life
 import ../../src/ecs/execution-relation-failure-message.bend as FailureMessage
 import ../../src/ecs/execution-relation-failure-channel.bend as Failure
 import ../../src/ecs/execution-relation-store.bend as Store
@@ -42,9 +45,12 @@ def current(value:Maybe<&2,D.Raw>) -> String:
 def machine(value:Extended.Machine) -> String:
   match value:
     case Extended.Machine{name,value,revision,_}:name ++ ":" ++ current(value) ++ "/revision=" ++ Nat.show(revision)
+def member(value:Scope.Member) -> String:
+  match value:
+    case Scope.Member{name,key}:name ++ ":" ++ Key.show(key)
 def snapshot(~S:Data,value:Extended.Snapshot<S>) -> String:
   match value:
-    case Extended.Snapshot{basic,relations,machines}:BasicObserve.snapshot(~S,basic) ++ "/relations=" ++ List.show(&2,Graph.Relation,relation,relations) ++ "/machines=" ++ List.show(&2,Extended.Machine,machine,machines)
+    case Extended.Snapshot{basic,relations,machines,scopes}:BasicObserve.snapshot(~S,basic) ++ "/relations=" ++ List.show(&2,Graph.Relation,relation,relations) ++ "/machines=" ++ List.show(&2,Extended.Machine,machine,machines) ++ "/scopes=" ++ List.show(&2,Scope.Member,member,scopes)
 def tick(value:Maybe<&2,Tick.Tick>) -> String:
   match value:
     case None{}:"none"
@@ -54,9 +60,16 @@ def intent(~S:Data,value:Cell.Intent<Modes.Mode>) -> String:
     case Cell.Idle{}:"idle"
     case Cell.Initial{_}:"initial"
     case Cell.Transition{_,_,_}:"transition"
-def owner_values(~S:Data,world:Schema.World(~S)) -> String:
+def owner_details(~S:Data,world:Schema.World(~S)) -> String:
   match world:
-    case W.World{_,_,_,Product.Owner{Layout.ResourceSlot{Layout.Viewed{Store.Store{namespace,_,Channel.Store{Queue.Queue{_,_,size,dropped,batches},older,maintenance},sequence,nextReader},_},_},Layout.ResourceSlot{Layout.Viewed{Cell.Cell{_,Stream.Store{Queue.Queue{_,_,cellSize,_,_},cellOlder,cellMaintenance},revision,stamp,nextStamp,cellSequence,initialPending,cellNamespace,cellIntent},_},_}},_,_,_,_,_,_}:"graph-owner=" ++ U32.show(namespace) ++ "/sequence=" ++ Nat.show(sequence) ++ "/nextReader=" ++ U32.show(nextReader) ++ "/channel=" ++ Nat.show(size) ++ ":" ++ Nat.show(dropped) ++ ":" ++ Nat.show(batches) ++ ":" ++ Nat.show(older) ++ ":" ++ tick(maintenance) ++ "/cell-owner=revision:" ++ Nat.show(revision) ++ "/stamp=" ++ tick(stamp) ++ "/nextStamp=" ++ tick(nextStamp) ++ "/sequence=" ++ Nat.show(cellSequence) ++ "/stream=" ++ Nat.show(cellSize) ++ ":" ++ Nat.show(cellOlder) ++ ":" ++ tick(cellMaintenance) ++ "/initialPending=" ++ Bool.show(initialPending) ++ "/intent=" ++ intent(~S,cellIntent)
+    case W.World{_,_,_,Product.Owner{Layout.ResourceSlot{Layout.Viewed{Store.Store{namespace,_,Channel.Store{Queue.Queue{_,_,size,dropped,batches},older,maintenance},sequence,nextReader},_},_},Product.Owner{Layout.ResourceSlot{Layout.Viewed{Cell.Cell{_,Stream.Store{Queue.Queue{_,_,cellSize,_,_},cellOlder,cellMaintenance},revision,stamp,nextStamp,cellSequence,initialPending,cellNamespace,cellIntent},_},_},_}},_,_,_,_,_,_}:"graph-owner=" ++ U32.show(namespace) ++ "/sequence=" ++ Nat.show(sequence) ++ "/nextReader=" ++ U32.show(nextReader) ++ "/channel=" ++ Nat.show(size) ++ ":" ++ Nat.show(dropped) ++ ":" ++ Nat.show(batches) ++ ":" ++ Nat.show(older) ++ ":" ++ tick(maintenance) ++ "/cell-owner=revision:" ++ Nat.show(revision) ++ "/stamp=" ++ tick(stamp) ++ "/nextStamp=" ++ tick(nextStamp) ++ "/sequence=" ++ Nat.show(cellSequence) ++ "/stream=" ++ Nat.show(cellSize) ++ ":" ++ Nat.show(cellOlder) ++ ":" ++ tick(cellMaintenance) ++ "/initialPending=" ++ Bool.show(initialPending) ++ "/intent=" ++ intent(~S,cellIntent)
+def scope_summary(~S:Data,resources:Schema.Resources(~S)) -> Schema.Resources(~S) & String:
+  match resources:
+    case Product.Owner{graph,Product.Owner{cell,Layout.ResourceSlot{Layout.Viewed{ScopeStore.Store{+namespace,members},view},Life.Stamp{+added,+changed}}}}:(Product.Owner{graph,Product.Owner{cell,Layout.ResourceSlot{Layout.Viewed{ScopeStore.Store{namespace,members},view},Life.Stamp{added,changed}}}},"scope-owner=" ++ U32.show(namespace) ++ "/added=" ++ Tick.cursor_show(added) ++ "/changed=" ++ Tick.cursor_show(changed))
+def scope_observed(~S:Data,result:Schema.World(~S) & String) -> String:
+  match result:
+    case (world,text):text ++ "/" ++ owner_details(~S,world)
+def owner_values(~S:Data,world:Schema.World(~S)) -> String:scope_observed(~S,W.observe_resource(~S,~Layout.columns(~S,Schema.components(~S)),~Schema.Resources(~S),~Unit,~String,~scope_summary(~S),world))
 def owner_clock(~S:Data,result:Schema.World(~S) & Tick.Tick) -> String:
   match result:
     case (world,tick):"worldClock=" ++ Tick.show(tick) ++ "/" ++ owner_values(~S,world)

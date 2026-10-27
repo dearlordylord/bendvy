@@ -22,7 +22,7 @@ def prepared(~S:Data,input:Extended.Snapshot<S>,basic:Basic.Snapshot<S>,relation
     case Basic.Snapshot{_,_,entities,_}:(input,Validation.validate(~S,relations,keys(entities),declarations))
 def prepare(~S:Data,input:Extended.Snapshot<S>,declarations:List<&2,Declaration.Declaration<S>>) -> Extended.Snapshot<S> & Graph.GraphResult<S>:
   match input:
-    case Extended.Snapshot{+basic,+relations,+machines}:prepared(~S,Extended.Snapshot{basic,relations,machines},basic,relations,declarations)
+    case Extended.Snapshot{+basic,+relations,machines,scopes}:prepared(~S,Extended.Snapshot{basic,relations,machines,scopes},basic,relations,declarations)
 # Bindings must be returned by actual fresh receiver publication. Source keys
 # stay detached; the existing mapper rebuilds target edges and inverse ordering.
 def remap(~S:Data,graph:T.Graph<S>,bindings:List<&2,Restore.Binding<S>>) -> Mapping.Mapped<S>:

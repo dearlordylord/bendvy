@@ -17,6 +17,12 @@ import ../../src/ecs/execution-parallel-root-application.bend as Schedule
 import ../../src/ecs/dependency-application.bend as App
 import ../../src/ecs/clock-state.bend as Clock
 import ../../src/ecs/change-tick.bend as Tick
+import ../../src/ecs/lifetime-scope.bend as Scope
+import ../../src/ecs/entity-key.bend as Key
+import ../../src/ecs/entity-key-render.bend as KeyRender
+import ../../src/ecs/execution-restore-scope-admission.bend as Scopes
+
+type Corruption is Data:GraphSelf{} DuplicateScope{} StaleScope{}
 
 type Outcome<-S:Data> is Type:
   SourceRefused{result:Flow.Outcome<S>}
@@ -28,8 +34,21 @@ type Outcome<-S:Data> is Type:
 # The ordinary hierarchy validator must reject self-membership before mutation.
 def malformed(~S:Data,input:Extended.Snapshot<S>) -> Extended.Snapshot<S>:
   match input:
-    case Extended.Snapshot{Basic.Snapshot{version,metadata,Basic.Entity{+key,fields} <> rest,resources},_,machines}:Extended.Snapshot{Basic.Snapshot{version,metadata,Basic.Entity{key,fields} <> rest,resources},[Graph.Relation{"restore-parent",[Graph.Group{key,[key]}]}],machines}
+    case Extended.Snapshot{Basic.Snapshot{version,metadata,Basic.Entity{+key,fields} <> rest,resources},_,machines,scopes}:Extended.Snapshot{Basic.Snapshot{version,metadata,Basic.Entity{key,fields} <> rest,resources},[Graph.Relation{"restore-parent",[Graph.Group{key,[key]}]}],machines,scopes}
     case input:input
+def duplicate(values:List<&2,Scope.Member>) -> List<&2,Scope.Member>:
+  match values:
+    case []:[]
+    case +member <> rest:member <> member <> rest
+def stale(values:List<&2,Scope.Member>) -> List<&2,Scope.Member>:
+  match values:
+    case []:[]
+    case Scope.Member{name,Key.EntityKey{index,generation}} <> rest:Scope.Member{name,Key.EntityKey{index,U32.add(generation,1)}} <> rest
+def corrupt(~S:Data,kind:Corruption,input:Extended.Snapshot<S>) -> Extended.Snapshot<S>:
+  match kind input:
+    case GraphSelf{} input:malformed(~S,input)
+    case DuplicateScope{} Extended.Snapshot{basic,relations,machines,members}:Extended.Snapshot{basic,relations,machines,duplicate(members)}
+    case StaleScope{} Extended.Snapshot{basic,relations,machines,members}:Extended.Snapshot{basic,relations,machines,stale(members)}
 def resumed(~S:Data,invalid:Extended.Snapshot<S>,reason:Admission.Reason,refused:Extended.Snapshot<S>,result:Resume.Outcome<S>) -> Outcome<S>:Retried{invalid,reason,refused,result}
 def saved(~S:Data,native:Bool,source:Resume.Source<S>,valid:Extended.Snapshot<S>,invalid:Extended.Snapshot<S>,reason:Admission.Reason,held:Execution.Held<S>,result:Admission.Recipes(~S) & (Schema.World(~S) & Gate.Outcome<Extended.Snapshot<S>,Recipe.Refusal>)) -> IO(Outcome<S>):
   match result:
@@ -39,22 +58,28 @@ def refused(~S:Data,native:Bool,source:Resume.Source<S>,valid:Extended.Snapshot<
   match result:
     case Execution.InputRefused{Schedule.Scheduled{App.State{world,owners,guard,handler,stateBindings},plan,appBindings,rules,deferred},schema,invalid,reason}:saved(~S,native,source,valid,invalid,reason,Execution.Held{owners,guard,handler,stateBindings,plan,appBindings,rules,deferred},Save.save(~S,schema,world))
     case result:IO.pure(Outcome<S>,Unexpected{source,valid,result})
-def defined(~S:Data,native:Bool,source:Resume.Source<S>,schema:Admission.Recipes(~S),+valid:Extended.Snapshot<S>,result:Execution.Defined<S>) -> IO(Outcome<S>):
+def defined(~S:Data,kind:Corruption,native:Bool,source:Resume.Source<S>,schema:Admission.Recipes(~S),+valid:Extended.Snapshot<S>,result:Execution.Defined<S>) -> IO(Outcome<S>):
   match result:
-    case Execution.Defined{app}:refused(~S,native,source,valid,Execution.restore(~S,schema,malformed(~S,valid),app))
+    case Execution.Defined{app}:refused(~S,native,source,valid,Execution.restore(~S,schema,corrupt(~S,kind,valid),app))
     case result:IO.pure(Outcome<S>,DefinitionRefused{source,schema,valid,result})
-def prepared(~S:Data,native:Bool,result:Flow.Outcome<S>) -> IO(Outcome<S>):
+def prepared(~S:Data,kind:Corruption,native:Bool,result:Flow.Outcome<S>) -> IO(Outcome<S>):
   match result:
-    case Flow.Prepared{source,previous,reader,receipt,schema,input,target}:defined(~S,native,Resume.Source{source,previous,receipt},schema,input,Execution.setup(~S,target,reader))
+    case Flow.Prepared{source,previous,reader,receipt,schema,input,target}:defined(~S,kind,native,Resume.Source{source,previous,receipt},schema,input,Execution.setup(~S,target,reader))
     case result:IO.pure(Outcome<S>,SourceRefused{result})
-def run(~S:Data,native:Bool) -> IO(Outcome<S>):IO.bind(Flow.Outcome<S>,Outcome<S>,Flow.prepare(~S),result => prepared(~S,native,result))
+def run_kind(~S:Data,kind:Corruption,native:Bool) -> IO(Outcome<S>):IO.bind(Flow.Outcome<S>,Outcome<S>,Flow.prepare(~S),result => prepared(~S,kind,native,result))
+def run(~S:Data,native:Bool) -> IO(Outcome<S>):run_kind(~S,GraphSelf{},native)
 def time(~S:Data,input:Extended.Snapshot<S>) -> String:
   match input:
-    case Extended.Snapshot{Basic.Snapshot{_,Metadata.Metadata{_,_,clock,_},_,_},_,_}:Tick.show(Clock.now(clock))
+    case Extended.Snapshot{Basic.Snapshot{_,Metadata.Metadata{_,_,clock,_},_,_},_,_,_}:Tick.show(Clock.now(clock))
+def reason(value:Admission.Reason) -> String:
+  match value:
+    case Admission.GraphRefused{Graph.InvalidRelation{name,_,_}}:name
+    case Admission.ScopeRefused{Scopes.DuplicateEntity{key}}:"duplicate-scope/" ++ KeyRender.show(key)
+    case Admission.ScopeRefused{Scopes.MissingEntity{key}}:"missing-scope/" ++ KeyRender.show(key)
+    case _:"other-refusal"
 def observed(~S:Data,result:Outcome<S>) -> String:
   match result:
-    case Retried{invalid,Admission.GraphRefused{Graph.InvalidRelation{name,_,_}},+refused,result}:"refused=" ++ name ++ "/clock=" ++ time(~S,refused) ++ "/actualReceiver=" ++ Observe.snapshot(~S,refused) ++ "/retry=" ++ Resume.observed(~S,result)
-    case Retried{_,_,_,_}:"unexpected-refusal-reason"
+    case Retried{invalid,error,+refused,result}:"refused=" ++ reason(error) ++ "/clock=" ++ time(~S,refused) ++ "/actualReceiver=" ++ Observe.snapshot(~S,refused) ++ "/retry=" ++ Resume.observed(~S,result)
     case SourceRefused{_}:"source-refused"
     case DefinitionRefused{_,_,_,_}:"definition-refused"
     case Unexpected{_,_,_}:"unexpected-outcome"

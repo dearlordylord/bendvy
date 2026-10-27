@@ -63,7 +63,7 @@ type Restoration<-S:Data> is Type:
   ReceiverRefused{app:Application(~S),state:Restore.State<S>,reason:Receiver.Reason}
   StagingRefused{app:Application(~S),state:Restore.State<S>,error:R.Error<Unit>}
   RowsRefused{app:Application(~S),state:Restore.State<S>,rows:List<Publication.Row<Schema.components(~S)>>}
-  Restored{app:Application(~S),state:Restore.State<S>,removed:List<Ordinary.Receipt(~S)>,mapping:List<&2,R.Binding<S>>,publications:List<Publication.Receipt<S,Schema.components(~S)>>,previous:T.Graph<S>}
+  Restored{app:Application(~S),state:Restore.State<S>,removed:List<Ordinary.Receipt(~S)>,mapping:List<&2,R.Binding<S>>,publications:List<Publication.Receipt<S,Schema.components(~S)>>,previous:Restore.Previous<S>}
   Refused{held:Held<S>,result:Restore.Outcome<S>}
 def completed(~S:Data,held:Held<S>,result:Restore.Outcome<S>) -> Restoration<S>:
   match result:

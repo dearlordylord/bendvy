@@ -10,7 +10,7 @@ import ./clock-state.bend as Clock
 import ./execution-lifecycle-notices.bend as Notice
 import ./snapshot-data.bend as LegacyPending
 
-type Reason is Data:PendingWork{} MalformedColumns{} Capacity{}
+type Reason is Data:PendingWork{} ActiveExecution{} MalformedColumns{} Capacity{}
 type Prepared<-S:Data,-layout:Layout.Layout,-R:Type,-E:Data> is Type:
   Ready{world:W.World<S,Layout.columns(~S,layout),R,E>,handles:List<&2,W.Handle<S>>}
   Refused{world:W.World<S,Layout.columns(~S,layout),R,E>,reason:Reason}
@@ -52,7 +52,8 @@ def columns(~S:Data,~layout:Layout.Layout,~R:Type,~E:Data,needed:Nat,namespace:U
 def ready(~S:Data,~layout:Layout.Layout,~R:Type,~E:Data,needed:Nat,result:W.World<S,Layout.columns(~S,layout),R,E> & Bool) -> Prepared<S,layout,R,E>:
   match result:
     case (world,False{}):Refused{world,PendingWork{}}
-    case (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal},True{}):columns(~S,~layout,~R,~E,needed,namespace,allocator,resource,events,pending,registrations,nextSystemId,clock,journal,inspect(~S,layout)(store))
+    case (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,Clock.State{tick,[]},journal},True{}):columns(~S,~layout,~R,~E,needed,namespace,allocator,resource,events,pending,registrations,nextSystemId,Clock.State{tick,[]},journal,inspect(~S,layout)(store))
+    case (world,True{}):Refused{world,ActiveExecution{}}
 # Ordinary Application adapters must first fold their real scheduled owner
 # buffers. This additional World gate never flushes or discards its queue.
 def prepare(~S:Data,~layout:Layout.Layout,~R:Type,~E:Data,needed:Nat,world:W.World<S,Layout.columns(~S,layout),R,E>) -> Prepared<S,layout,R,E>:

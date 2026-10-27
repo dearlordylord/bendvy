@@ -22,7 +22,7 @@ import ../../src/ecs/relation-types.bend as T
 import ./restore.bend as Ordinary
 
 type Source<-S:Data> is Type:Source{world:Schema.World(~S),previous:Population.Previous(~S),receipt:Store.Receipt<S>}
-type Restoration<-S:Data> is Type:Restoration{state:Restore.State<S>,removed:List<Ordinary.Receipt(~S)>,mapping:List<&2,R.Binding<S>>,publications:List<Publication.Receipt<S,Schema.components(~S)>>,previous:T.Graph<S>}
+type Restoration<-S:Data> is Type:Restoration{state:Restore.State<S>,removed:List<Ordinary.Receipt(~S)>,mapping:List<&2,R.Binding<S>>,publications:List<Publication.Receipt<S,Schema.components(~S)>>,previous:Restore.Previous<S>}
 type Outcome<-S:Data> is Type:
   SourceRefused{result:Flow.Outcome<S>}
   DefinitionRefused{source:Source<S>,schema:Admission.Recipes(~S),input:Extended.Snapshot<S>,result:Execution.Defined<S>}

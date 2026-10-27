@@ -7,6 +7,8 @@ import ./extended-admission.bend as Admission
 import ./extended-target.bend as Target
 import ./extended-machine-history.bend as History
 import ./extended-target-history.bend as TargetHistory
+import ./extended-scope-setup.bend as ScopeSetup
+import ../../src/ecs/execution-lifetime-scope-store.bend as ScopeStore
 import ../parallel-machines/declarations.bend as Modes
 import ../../src/ecs/execution-restore-extended-data.bend as Extended
 import ../../src/ecs/execution-save-gate.bend as Gate
@@ -25,6 +27,7 @@ import ../../src/ecs/change-tick.bend as Tick
 type Outcome<-S:Data> is Type:
   SourceRefused{result:WorldIO.Creation<S,Layout.columns(~S,Schema.components(~S)),Schema.Resources(~S),Unit>}
   PopulationRefused{result:Population.Population<S>}
+  ScopeRefused{world:Schema.World(~S),previous:Population.Previous(~S),parent:W.Handle<S>,child:W.Handle<S>,receipt:ScopeStore.Assignment<S>}
   RelationRefused{world:Schema.World(~S),previous:Population.Previous(~S),receipt:Store.Receipt<S>}
   SaveRefused{schema:Admission.Recipes(~S),source:Schema.World(~S),previous:Population.Previous(~S),result:Gate.Outcome<Extended.Snapshot<S>,Recipe.Refusal>}
   TargetRefused{schema:Admission.Recipes(~S),source:Schema.World(~S),previous:Population.Previous(~S),input:Extended.Snapshot<S>,result:WorldIO.Creation<S,Layout.columns(~S,Schema.components(~S)),Schema.Resources(~S),Unit>}
@@ -53,9 +56,13 @@ def related(~S:Data,previous:Population.Previous(~S),result:Schema.World(~S) & (
 def clocked(~S:Data,+parent:W.Handle<S>,child:W.Handle<S>,previous:Population.Previous(~S),result:Schema.World(~S) & Tick.Tick) -> IO(Outcome<S>):
   match parent result:
     case W.Handle{namespace,key}, (world,tick):related(~S,previous,Relation.apply(~S,~Layout.columns(~S,Schema.components(~S)),~Schema.Resources(~S),~Unit,~Schema.resource_layout(~S),~{==},~Layout.InLeft{Layout.AtLeaf{}},~{==},~Schema.hierarchy(~S),~{==},~{==},~{==},Provider.bind(~S,~Schema.Resources(~S),~Schema.resource_layout(~S),~{==},~Layout.InLeft{Layout.AtLeaf{}},~{==},~Schema.hierarchy(~S),~{==},~{==},~{==},Context.Context{namespace}),world,Operation.Relate{child,W.Handle{namespace,key}},tick))
+def scoped(~S:Data,parent:W.Handle<S>,child:W.Handle<S>,previous:Population.Previous(~S),result:Schema.World(~S) & ScopeStore.Assignment<S>) -> IO(Outcome<S>):
+  match result:
+    case (world,ScopeStore.Assigned{_,_}):clocked(~S,parent,child,previous,W.write_clock(~S,~Layout.columns(~S,Schema.components(~S)),~Schema.Resources(~S),~Unit,world))
+    case (world,receipt):IO.pure(Outcome<S>,ScopeRefused{world,previous,parent,child,receipt})
 def populated(~S:Data,result:Population.Population<S>) -> IO(Outcome<S>):
   match result:
-    case Population.Populated{world,[parent,child],previous}:clocked(~S,parent,child,previous,W.write_clock(~S,~Layout.columns(~S,Schema.components(~S)),~Schema.Resources(~S),~Unit,world))
+    case Population.Populated{world,[+parent,child],previous}:scoped(~S,parent,child,previous,ScopeSetup.assign(~S,"working",parent,world))
     case other:IO.pure(Outcome<S>,PopulationRefused{other})
 def created(~S:Data,result:WorldIO.Creation<S,Layout.columns(~S,Schema.components(~S)),Schema.Resources(~S),Unit>) -> IO(Outcome<S>):
   match result:

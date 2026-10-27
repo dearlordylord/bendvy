@@ -7,6 +7,7 @@ import ../../src/ecs/execution-machine-state.bend as Cell
 import ../../src/ecs/owner-product.bend as Product
 import ../../src/ecs/lifecycle.bend as Life
 import ../../src/ecs/world.bend as W
+import ../../src/ecs/execution-lifetime-scope-store.bend as Scope
 
 def Reader(~S:Data) -> Type:Failure.Reader<S,Schema.hierarchy(~S),Schema.resource_layout(~S),Layout.InLeft{Layout.AtLeaf{}}>
 def MachineSlot(~S:Data) -> Type:Layout.resources(~S,Layout.subtree(Schema.resource_layout(~S),Layout.InRight{Layout.AtLeaf{}}))
@@ -27,7 +28,7 @@ def cell_namespace(expected:U32,value:Maybe<&2,U32>) -> Bool:
     case Some{namespace}:U32.is_eq(expected,namespace)
 def checked_resources(~S:Data,+expected:U32,resources:Schema.Resources(~S)) -> Schema.Resources(~S) & Bool:
   match resources:
-    case Product.Owner{Layout.ResourceSlot{Layout.Viewed{Store.Store{+namespace,graph,failures,sequence,nextReader},view},stamp},Layout.ResourceSlot{Layout.Viewed{Cell.Cell{slot,stream,revision,cellStamp,nextStamp,cellSequence,initialPending,+cellNamespace,intent},cellView},resourceStamp}}:(Product.Owner{Layout.ResourceSlot{Layout.Viewed{Store.Store{namespace,graph,failures,sequence,nextReader},view},stamp},Layout.ResourceSlot{Layout.Viewed{Cell.Cell{slot,stream,revision,cellStamp,nextStamp,cellSequence,initialPending,cellNamespace,intent},cellView},resourceStamp}},Bool.and(U32.is_eq(expected,namespace),cell_namespace(expected,cellNamespace)))
+    case Product.Owner{Layout.ResourceSlot{Layout.Viewed{Store.Store{+namespace,graph,failures,sequence,nextReader},view},stamp},Product.Owner{Layout.ResourceSlot{Layout.Viewed{Cell.Cell{slot,stream,revision,cellStamp,nextStamp,cellSequence,initialPending,+cellNamespace,intent},cellView},resourceStamp},Layout.ResourceSlot{Layout.Viewed{Scope.Store{+scopeNamespace,members},scopeView},scopeStamp}}}:(Product.Owner{Layout.ResourceSlot{Layout.Viewed{Store.Store{namespace,graph,failures,sequence,nextReader},view},stamp},Product.Owner{Layout.ResourceSlot{Layout.Viewed{Cell.Cell{slot,stream,revision,cellStamp,nextStamp,cellSequence,initialPending,cellNamespace,intent},cellView},resourceStamp},Layout.ResourceSlot{Layout.Viewed{Scope.Store{scopeNamespace,members},scopeView},scopeStamp}}},Bool.and(U32.is_eq(expected,namespace),Bool.and(U32.is_eq(expected,scopeNamespace),cell_namespace(expected,cellNamespace))))
 def namespaces(~S:Data,world:Schema.World(~S)) -> Schema.World(~S) & Bool:
   match world:
     case W.World{+namespace,allocator,columns,resources,events,pending,registrations,nextSystem,clock,lifecycle}:W.observe_resource_finish(~S,~Layout.columns(~S,Schema.components(~S)),~Schema.Resources(~S),~Unit,~Bool,checked_resources(~S,namespace,resources),namespace,allocator,columns,events,pending,registrations,nextSystem,clock,lifecycle)

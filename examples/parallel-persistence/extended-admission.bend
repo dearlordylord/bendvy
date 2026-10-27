@@ -18,9 +18,10 @@ import ../../src/ecs/decode-data.bend as D
 import ../../src/ecs/decode-size.bend as Size
 import ../../src/ecs/clock-state.bend as Clock
 import ../../src/ecs/change-tick.bend as Tick
+import ../../src/ecs/execution-restore-scope-admission.bend as Scopes
 
 def Recipes(~S:Data) -> Type:Plan.Schema<S,O.components(~S),Schema.resources(~S)>
-type Reason is Data:BasicRefused{error:BasicAdmission.Error} GraphRefused{error:Graph.Error} MachineShape{} MachineCodec{} MachineStamp{}
+type Reason is Data:BasicRefused{error:BasicAdmission.Error} GraphRefused{error:Graph.Error} ScopeRefused{reason:Scopes.Error} MachineShape{} MachineCodec{} MachineStamp{}
 type Prepared<-S:Data> is Type:
   Prepared{schema:Recipes(~S),input:Extended.Snapshot<S>,graph:T.Graph<S>,machine:Machine.Commit<Modes.Mode>}
   Refused{schema:Recipes(~S),input:Extended.Snapshot<S>,reason:Reason}
@@ -63,13 +64,20 @@ def graph_values(~S:Data,schema:Recipes(~S),input:Extended.Snapshot<S>,+basic:Ba
     case Basic.Snapshot{_,_,entities,_}:graph_checked(~S,schema,input,now(~S,basic),machines,Validation.validate(~S,relations,GraphAdmission.keys(entities),[Declaration.Declaration{Schema.hierarchy(~S)}]))
 def graphs(~S:Data,schema:Recipes(~S),+input:Extended.Snapshot<S>) -> Prepared<S>:
   match input:
-    case Extended.Snapshot{+basic,+relations,+machines}:graph_values(~S,schema,input,basic,relations,machines)
+    case Extended.Snapshot{+basic,+relations,+machines,_}:graph_values(~S,schema,input,basic,relations,machines)
+def scopes_checked(~S:Data,schema:Recipes(~S),input:Extended.Snapshot<S>,result:Scopes.Admission) -> Prepared<S>:
+  match result:
+    case Scopes.Refused{reason}:Refused{schema,input,ScopeRefused{reason}}
+    case Scopes.Admitted{}:graphs(~S,schema,input)
+def scopes(~S:Data,schema:Recipes(~S),+input:Extended.Snapshot<S>) -> Prepared<S>:
+  match input:
+    case Extended.Snapshot{Basic.Snapshot{_,_,entities,_},_,_,members}:scopes_checked(~S,schema,input,Scopes.admit(members,entities))
 def basic_checked(~S:Data,input:Extended.Snapshot<S>,result:Recipes(~S) & (Basic.Snapshot<S> & BasicAdmission.Admission)) -> Prepared<S>:
   match result:
     case (schema,(_,BasicAdmission.Refused{error})):Refused{schema,input,BasicRefused{error}}
-    case (schema,(_,BasicAdmission.Admitted{})):graphs(~S,schema,input)
+    case (schema,(_,BasicAdmission.Admitted{})):scopes(~S,schema,input)
 # Closed ordinary schema: graph descriptor and machine codec are tied to the
 # actual protected Store/Cell layout above, not a caller access/decoder catalog.
 def prepare(~S:Data,schema:Recipes(~S),+input:Extended.Snapshot<S>) -> Prepared<S>:
   match input:
-    case Extended.Snapshot{+basic,relations,machines}:basic_checked(~S,Extended.Snapshot{basic,relations,machines},BasicAdmission.prepare(~S,~O.components(~S),~Schema.resources(~S),schema,basic))
+    case Extended.Snapshot{+basic,relations,machines,scopes}:basic_checked(~S,Extended.Snapshot{basic,relations,machines,scopes},BasicAdmission.prepare(~S,~O.components(~S),~Schema.resources(~S),schema,basic))

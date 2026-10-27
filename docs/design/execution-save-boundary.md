@@ -1,8 +1,8 @@
 # Ordinary save and restore ownership boundary
 
 GH91 now has an executable ordinary save/restore/resume path on canonical cached
-Layout owners. GH92 has an internal detached graph preparation/remapping boundary;
-protected graph and modern machine publication remain incomplete. Ordinary entry
+Layout owners. GH92 has an executable ordinary graph, machine and lifetime-scope
+restore path with retained receiver owners and subsequent scheduling. Ordinary entry
 observations are not mathematical proofs or full runtime snapshot qualification.
 All new persistence laws are unapproved and unproved; the five approved execution
 helper laws retain their original scope.
@@ -49,7 +49,10 @@ bounds/capacity/slot count, free/order/generation/phase consistency and nonfutur
 field stamps. Canonical skipped Consumed slots from advance_floor may be absent
 order; they cannot be free or live. Source journal registrations remain detached.
 
-Receiver preparation validates actual columns, pending work and allocation room.
+Receiver preparation rejects actual pending work and nonempty execution-clock
+scopes before column inspection, constructors or clock-floor mutation, then
+validates actual columns and allocation room. ActiveExecution returns the same
+receiver World and enclosing App, including the active captured tick.
 The concrete restore preflights room using the saved next-progress floor and
 entity count before payload constructors. Typed construction stages all persisted
 payloads through actual declaration-derived reversible factories before live
@@ -113,24 +116,27 @@ controls, independent Spec/Standards review and formal laws remain incomplete.
 ## Graph and machine extension
 
 `execution-restore-extended-data` carries modern basic snapshot data, saved relation
-groups and committed machine value/revision/stamp data. It excludes live callback,
+groups, committed machine value/revision/stamp data and named lifetime membership
+with complete saved entity keys. It excludes live callback,
 pending transition, Reader and failure-channel ownership. This is a detached
-representation, not an implemented runtime restore contract.
+representation, not a serialized executable App.
 
 `execution-restore-extended-graph` adapts modern saved entity keys to the existing
 pure graph validator and reuses its hierarchy/cycle checks. Existing graph mapping
 rebuilds target edges and inverse ordering from actual fresh publication bindings.
 No old World, transaction or runtime execution is invoked. This internal boundary
 grants no protected resource access. Actual protected binding/publication must
-preserve receiver failure channels, namespace and Reader IDs. Modern machine Cell
-publication and subsequent state-driven execution still require implementation;
-the old Init.State installer cannot substitute for the new Cell ownership shape.
+preserve receiver failure channels, namespace and Reader IDs. Modern Cell
+publication preserves receiver streams and nextStamp, installs admitted committed
+value/revision/stamp and clears source pending intent. No old Init.State installer
+substitutes for the actual Cell ownership shape.
 
 The concrete `extended-main.bend` now executes real source-to-distinct-receiver
 World restoration for Alpha/Beta. Its source owns Array-backed parent/child Actors
 41/52, a hierarchy authored through canonical protected publication, and a
-committed Waiting Cell at revision 3. The target is independently created with
-Running revision 99 and registers an actual relation failure Reader before
+committed Waiting Cell at revision 7 with actual source transition history. The
+target is independently created with Running revision 99, performs two real
+transitions and registers an actual relation failure Reader before
 restore. Complete basic/graph/closed-mode codec admission precedes construction
 and mutation; receiver resource namespaces are also checked without changing
 owners. Staged Actor owners publish through real fresh allocation, graph mapping
@@ -138,17 +144,10 @@ rebuilds the hierarchy, and trusted protected-slot/Cell continuations install it
 Every preparation, constructor, mapping and partial publication outcome retains
 its actual owners and source data; no old transaction runtime is invoked.
 
-One ordinary entry invocation exited 0 for both nominal schemas: source keys
-1:0/2:0 mapped into receiver namespace 2/4 at indices 3:0/4:0, with complete Actor
-fields, hierarchy inverse ordering and Waiting revision 3 observed afterward.
-The receiver's actual registered Reader remained namespace:1:0, nextReader stayed
-2, relation channel/sequence stayed empty/0, machine stream/sequence stayed empty/0,
-both Cell stamps remained None and intent was Idle with initialPending=False.
-These are empty-channel/None-stamp cases; nonempty retained channels and stamps
-remain additional cases. The consumer has not yet resumed a Scheduled machine
-transition with captured handlers or exercised invalid graph refusal. Lifetime
-scope restore awaits its modern protected membership resource, and no full GH92
-completion is claimed.
+The ordinary entry exits 0 for both nominal schemas: source keys 1:0/2:0 map into
+receiver namespace 2/4 at full keys 2:1/1:1 after actual receiver despawns. Complete
+Actor fields, hierarchy inverse ordering and Waiting revision 7 are observed.
+These finite observations are not full GH92 qualification or mathematical proofs.
 
 `execution-relation-restore` supplies the trusted protected-slot continuation:
 Refused returns the same slot and affine source, while Ready installs an already
@@ -159,14 +158,14 @@ sequence and nextReader remain receiver-owned. Source validation and fresh-handl
 mapping must precede calling this internal helper; its Ready constructor is not
 a proof or a gameplay grant. Source well-formedness alone does not establish the
 combined ordinary graph restore or its runtime behavior.
-# Nonempty receiver history observation
+## Receiver history, scheduling and refusal
 
 The ordinary `parallel-persistence/extended-main.bend` path now performs real
 administrative machine transitions before save and before receiver restore. The
-source commits Waiting at revision 7/stamp `0:7`; the receiver retains its own
+source commits Waiting at revision 7/stamp `0:8`; the receiver retains its own
 two-event stream, sequence 2 and nextStamp `0:2`. Its actual pre-restore time is
 `0:5`; committed restoration floors time to the admitted saved clock and advances
-the publication boundary to `0:8`. Receiver cursors are not rebased and historical
+the publication boundary to `0:9`. Receiver cursors are not rebased and historical
 events are not replayed. Restore clears pending transition intent.
 
 Before restore, a registered receiver failure Reader observes an actual protected
@@ -175,18 +174,18 @@ sequence 1 and nextReader 2; the original Reader retains its namespace/id/cursor
 Target entities are genuinely despawned and source handles map to fresh generation
 1 target handles. These are bounded ordinary execution observations for Alpha and
 Beta, not proofs. The actual retained failure Reader subsequently reads one
-message, advances its cursor to 1 and reports no missed messages at time `0:8`.
+message, advances its cursor to 1 and reports no missed messages at time `0:9`.
 
 `parallel-persistence/extended-resume.bend` builds the receiver's actual Scheduled
 App before restore. Its actual pending fold precedes World admission. The adapter
 retains system Local arrays 603/703, state-condition Local array 903, handler array
 803 and its original registered failure Reader, both binding roles, rules and
 deferred settings. The serial Alpha and native Beta ordinary runs observe restored
-Waiting, execute a new Running transition at revision 8/time `0:11`, handle a real
+Waiting, execute a new Running transition at revision 8/time `0:12`, handle a real
 body error and return all those owners. Receiver machine stream sequence/size
 advances from 2 to 3, rather than resurrecting the source's four-event history.
 This is a subsequent genuine schedule execution, not a replay of source intent.
-The reader then consumes the retained receiver relation failure at time `0:11`.
+The reader then consumes the retained receiver relation failure at time `0:12`.
 
 `parallel-persistence/extended-refusal.bend` submits a self-membership hierarchy
 using an actual saved full-generation key. Complete graph admission refuses it
@@ -200,7 +199,27 @@ with the retained valid snapshot on that same App restores and runs the genuine
 subsequent transition, condition, handler and original Reader described above.
 The malformed input and refusal reason remain in the typed retry result.
 
-Modern lifetime-scope restore remains separate work. These finite ordinary runs
+The actual third resource carries ProtectedLifetimeScope policy. Source setup
+assigns the live parent through canonical namespace/liveness checks. The extended
+snapshot exports `working:1:0`; complete admission rejects missing or duplicate
+entity memberships before mutation. The same fresh binding map remaps it to
+`working:2:1`. Trusted protected-slot publication preserves receiver namespace
+(2/4), rebuilds the cached View, advances only its change stamp to the committed
+boundary `0:9`, and returns previous members alongside the previous graph.
+Source namespace and live scope capabilities are never imported. The enclosing
+pending gate and original failure/retry and Scheduled transitions remain intact.
+`extended-scope-refusal.bend` rejects duplicate scope key `1:0` and stale generation
+`1:1` before receiver mutation, then restores valid membership and resumes the
+same actual App. `extended-active.bend` opens a canonical execution scope before
+restore: typed ActiveExecution refusal retains scope `[0:6]`, clock `0:6`, all
+Local/guard/handler run counts 0, original Reader cursor 0, both binding roles,
+receiver machine revision 101/stream 2 and scope change stamp `0:0`.
+
+Modern scope queue/controller cleanup integration remains separate work. Scope
+metadata currently imports the existing lifetime-scope Data definitions, which
+still transitively import legacy modules; pure canonical type extraction is
+coordinated separately and does not imply legacy runtime execution here.
+These finite ordinary runs
 do not establish exhaustive graph validation, rollback of partial publication or
 formal owner preservation.
 
