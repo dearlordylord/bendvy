@@ -441,3 +441,17 @@ actual array twice with its unchanged cache. The actual machine projection
 remains current `1`, pending `2`, revision `0` throughout. This ordinary finite
 run covers pending affine Spawn transport; it does not prove generic owner
 preservation or cover refused Spawn bundles and relation failure readers.
+
+`examples/parallel-inspection/failure-reader.bend` reuses the actual registered
+and restored application from `parallel-persistence/extended-resume.bend`. Its
+receiver history contains one real refused self-relation. The original opaque
+failure Reader remains in the actual affine handler, together with its capture,
+while passive Inspector and Check read the protected cached graph. Before and
+after these reads, the Reader is `2/1/0`, the actual channel size/dropped/batches/
+older-through tuple is `1:0:1:0`, its sequence is `1`, next Reader identity is `2`
+and World clock is `0:11`. The existing restoration observer then performs the
+genuine normal read: one message, zero missed, original Reader cursor `1`, same
+clock. Its complete existing application observation retains the three system
+captures, handler capture, bindings, actual restored rows, graph and machine
+stream observations. The ordinary run returns successfully; these finite
+observations establish neither universal preservation nor backend qualification.
