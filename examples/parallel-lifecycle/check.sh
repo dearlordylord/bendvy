@@ -50,6 +50,7 @@ check_backend() {
   fi
 }
 check_backend main filters
+check_backend notice-scenario notice-scenario-complete
 for consumer in history scheduled prepared-foreign; do
   check_backend "$consumer"
 done
