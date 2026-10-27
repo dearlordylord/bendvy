@@ -1,6 +1,6 @@
 import Base
 import ./execution-reservation-task.bend as Effect
-import ./execution-reservation-permit.bend as Request
+import ./execution-reservation-authority.bend as Request
 import ./execution-declaration.bend as D
 import ./execution-prepared.bend as Prep
 import ./execution-lifecycle-notices.bend as Notice
