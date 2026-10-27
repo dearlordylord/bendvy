@@ -77,3 +77,5 @@ jobs:
           source examples/common.sh
           example_emit examples/parallel-query/main.bend "$RUNNER_TEMP/parallel-query.js"
           example_node "$RUNNER_TEMP/parallel-query.js"
+          example_emit examples/parallel-events/main.bend "$RUNNER_TEMP/parallel-events.js"
+          example_node "$RUNNER_TEMP/parallel-events.js"
