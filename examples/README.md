@@ -47,7 +47,7 @@ Current implementation and acceptance work remains in
 
 ## Running examples
 
-Each migrated example documents its current `run.sh` command and observable
+Each migrated example documents its current execution command and observable
 results. These commands compile and run the actual application. Finite output
 observations do not replace Bend laws or establish universal correctness.
 
