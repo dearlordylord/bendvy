@@ -85,17 +85,22 @@ output oracle or host test harness.
   component is omitted, captures 101/202/303 survive, both locals reach run count
   2 and the original Reader observes one despawn notice.
 - `pending-main.bend`: actual registered command body queues an Actor Array 515
-  with automatic/finalApply disabled. On its earlier core, both save and restore
+  with automatic/finalApply disabled. Both save and restore
   refuse, the actual queue remains 515 with zero receipts, captures remain
   101/404/202/303, Reader cursor stays 0, both binding lists remain empty and
   unapplied IDs remain [2,3]. Actor 41/Config 700/generation 0 remain in the returned
   World. The earlier relation dispatcher compile-time-route failure predates the
   closed-declaration dispatch repair in `fc7e4d2b1`. The current
   `execution-relation-buffer` receives the declaration-derived dispatch program
-  and passes the route as a runtime argument. No current `pending-main.bend`
-  runtime receipt is established here. Later ordinary JS/native observations of
-  `extended-resume.bend` and `extended-active.bend` qualify those separate entries,
-  not this pending-command save/restore path.
+  and passes the route as a runtime argument. After the existing formatter repair
+  in `aa2a4593b37b6e3ede4a406888215b40ad1938ac`, original Alpha/Beta serial/native
+  cases produce matching JavaScript and native output, four lines and 2,586 bytes.
+  JavaScript emission, Node execution, C emission, and Clang compilation each
+  returned zero. The native exit status was not separately captured from the
+  successful shell group containing output comparison. The local receipt is
+  `/tmp/pending91-original-entry-receipt.md`. These observations do not establish
+  complete World identity or full GH91/GH92 acceptance. `extended-resume.bend` and
+  `extended-active.bend` retain their separate observation scopes.
 - `floor-main.bend`: real source floor 4, separately created receiver namespace,
   actual mapping 1:0 to receiver 4:0, and resumed Config 700 to 701 for both schemas.
   An independently exhausted receiver at next 131073 refuses before constructors
