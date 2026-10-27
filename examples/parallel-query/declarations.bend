@@ -12,10 +12,11 @@ def layout() -> Layout.Layout:
 def resource_layout() -> Layout.Layout: Layout.LayoutLeaf{P.Resource,Unit,P.resource_view,"resource",Policy.Ordinary{}}
 def Store(~S:Data) -> Type: Layout.columns(~S,layout())
 def Resources(~S:Data) -> Type: Layout.resources(~S,resource_layout())
-def selection(~S:Data,~mode:Q.Mode,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Store(~S),~Resources(~S),~H,~B),~component_write:Build.ComponentWrite(~S,~Store(~S),~Resources(~S),~H,~B),~resource_read:Build.ResourceRead(~S,~Store(~S),~Resources(~S),~H,~B),~resource_write:Build.ResourceWrite(~S,~Store(~S),~Resources(~S),~H,~B),~query:Build.Query(~S,~Store(~S),~Store(~S),~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Store(~S),~Store(~S),~Resources(~S),~H,~B),book:B) -> B & Q.Each<S,H,String>:
+def Ops(~S:Data,Permit:Data,H:Type) -> Type:Q.Each<S,H,String>
+def selection(~S:Data,~mode:Q.Mode,~Permit:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Store(~S),~Resources(~S),~H,~B),~component_write:Build.ComponentWrite(~S,~Store(~S),~Resources(~S),~H,~B),~resource_read:Build.ResourceRead(~S,~Store(~S),~Resources(~S),~H,~B),~resource_write:Build.ResourceWrite(~S,~Store(~S),~Resources(~S),~H,~B),~query:Build.Query(~S,~Store(~S),~Store(~S),~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Store(~S),~Store(~S),~Resources(~S),~H,~B),book:B) -> B & Q.Each<S,H,String>:
   Build.basic_query(~S,~Store(~S),~Store(~S),~Resources(~S),~layout(),~Layout.InLeft{Layout.AtLeaf{}},~{==},~{==},~{==},~String,~P.update,~mode,~H,~B,~query,book)
-def declaration(~S:Data,~mode:Q.Mode,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~Store(~S),~Resources(~S),~H,~B),book:B) -> B & Q.Each<S,H,String>:
-  builder(Q.Ops(~S,~String),selection(~S,~mode,~H,~B),book)
+def declaration(~S:Data,~mode:Q.Mode,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~Store(~S),~Resources(~S),~Permit,~H,~B),book:B) -> B & Q.Each<S,H,String>:
+  builder(Ops(~S),selection(~S,~mode,~Permit,~H,~B),book)
 def inserted(~S:Data,~T:Type,result:Col.SwapOutcome<S,T>) -> Col.Column<S,T>:
   match result:
     case Col.Accepted{column,_}: column

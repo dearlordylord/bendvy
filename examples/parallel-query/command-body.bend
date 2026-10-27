@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-reservation-task.bend as Effect
 import ./payloads.bend as P
 import ./declarations.bend as D
 import ./output-declaration.bend as Decl
@@ -15,9 +16,12 @@ def completed(~H:Type,~O:Type,token:Array<U32>,runs:U32,result:H & (O & Q.Report
   match result:
     case (scope,(output,Q.Completed{errors})):(scope,(output,(User{token,runs},Body.completion(errors))))
     case (scope,(output,Q.LayoutRefused{})):(scope,(output,(User{token,runs},Sys.BodyError{"query-refused","not-invoked"})))
-def counted(~S:Data,~H:Type,~O:Type,~caps:Decl.Ops(~S,H,O),~commands:Local.Commands<O,S,P.Output>,scope:H,output:O,runs:U32,result:Array<U32> & U32) -> H & (O & (User & Sys.Completion<String,String>)):
+def counted(~S:Data,~Permit:Data,~H:Type,~O:Type,~caps:Decl.Ops(~S,Permit,H,O),~commands:Local.Commands<O,S,P.Output>,scope:H,output:O,runs:U32,result:Array<U32> & U32) -> H & (O & (User & Sys.Completion<String,String>)):
   match result:
     case (token,id):completed(~H,~O,Array.set(U32,token,0,U32.add(id,1)),U32.add(runs,1),Q.each_output(~S,~H,~O,~String,caps)(scope,output))
-def run(~S:Data,~H:Type,~O:Type,~caps:Decl.Ops(~S,H,O),~commands:Local.Commands<O,S,P.Output>,scope:H,output:O,user:User) -> H & (O & (User & Sys.Completion<String,String>)):
+def run_sync(~S:Data,~Permit:Data,~H:Type,~O:Type,~caps:Decl.Ops(~S,Permit,H,O),~commands:Local.Commands<O,S,P.Output>,scope:H,output:O,user:User) -> H & (O & (User & Sys.Completion<String,String>)):
   match user:
-    case User{token,runs}:counted(~S,~H,~O,~caps,~commands,scope,output,runs,Array.get(U32,token,0))
+    case User{token,runs}:counted(~S,~Permit,~H,~O,~caps,~commands,scope,output,runs,Array.get(U32,token,0))
+
+def run(~S:Data,~Permit:Data,~H:Type,~O:Type,~caps:Decl.Ops(~S,Permit,H,O),~commands:Local.Commands<O,S,P.Output>,scope:H,output:O,user:User) -> Effect.Task<S,Permit,H & (O & (User & Sys.Completion<String,String>))>:
+  Effect.TDone{run_sync(~S,~Permit,~H,~O,~caps,~commands,scope,output,user)}
