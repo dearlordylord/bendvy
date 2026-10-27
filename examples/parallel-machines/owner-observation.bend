@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-lifetime-scope-description.bend as LinkedText
 import ../../src/ecs/execution-lifetime-scope-description.bend as ScopeText
 import ../../src/ecs/relation-types.bend as RelationTypes
 import ./declarations.bend as D
@@ -82,6 +83,7 @@ def receipt(~S:Data,value:Buffer.Receipt<S,P.Actor<S,D.Mode>,Removed.Removed(D.c
     case Buffer.Refused{handle,incoming}:"refused:" ++ Observe.handle(~S,handle) ++ ":" ++ Observe.maybe_actor(~S,incoming)
     case Buffer.Despawned{handle,owners}:"despawned:" ++ Observe.handle(~S,handle) ++ ":" ++ removed(~S,owners)
     case Buffer.DespawnRefused{handle}:"despawn-refused:" ++ Observe.handle(~S,handle)
+    case Buffer.LinkedDespawn{handle,status,_,_}:"linked-despawn:" ++ Observe.handle(~S,handle) ++ ":" ++ LinkedText.linked_status(status)
     case Buffer.Spawned{handle,previous}:"spawned:" ++ Observe.handle(~S,handle) ++ ":" ++ removed(~S,previous)
     case Buffer.SpawnRefused{handle,bundle,reason}:"spawn-refused:" ++ Observe.handle(~S,handle) ++ ":" ++ removed(~S,bundle) ++ ":" ++ spawn_refusal(reason)
     case Buffer.RelationPublished{_,_}:"relation-published"

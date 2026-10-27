@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-lifetime-scope-description.bend as LinkedText
 import ../../src/ecs/entity-allocator.bend as A
 import ../../src/ecs/clock-state.bend as Clock
 import ../../src/ecs/execution-command-permission.bend as Permission
@@ -99,6 +100,7 @@ def receipt(~S:Data,value:Buffer.Receipt<S,P.Output,Removed.Removed(layout(~S))>
     case Buffer.Refused{handle,incoming}:payload_record(~S,"refused:",handle,incoming)
     case Buffer.Despawned{handle,removed}:despawn_record(~S,handle,removed)
     case Buffer.DespawnRefused{handle}:payload_record(~S,"despawn-refused:",handle,None{})
+    case Buffer.LinkedDespawn{handle,status,_,_}:payload_record(~S,"linked-despawn:" ++ LinkedText.linked_status(status) ++ ":",handle,None{})
 def record_before(~S:Data,left:Record,right:Record) -> Bool:
   match left right:
     case Record{+li,lt,_} Record{+ri,rt,_}:U32.is_lt(li,ri) || (U32.is_eq(li,ri) && U32.is_le(lt,rt))

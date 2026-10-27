@@ -25,6 +25,7 @@ def request(~S:Data,value:Store.Request<S>) -> String:
     case Store.Assign{group,entity}:"assign(" ++ scope(~S,group) ++ "," ++ handle(~S,entity) ++ ")"
     case Store.Select{group}:"select(" ++ scope(~S,group) ++ ")"
     case Store.Forget{entity}:"forget(" ++ handle(~S,entity) ++ ")"
+    case Store.Inspect{}:"inspect"
 def refusal(value:Store.Refusal) -> String:
   match value:
     case Store.NamespaceMismatch{}:"namespace"
@@ -36,6 +37,7 @@ def result(~S:Data,value:Store.Outcome<S>) -> String:
     case Store.Selection{Store.Selected{group,members}}:"selected(" ++ scope(~S,group) ++ "," ++ List.show(&2,Key.Key,key,members) ++ ")"
     case Store.Selection{Store.SnapshotRefused{group}}:"selection-refused(" ++ scope(~S,group) ++ ")"
     case Store.Forgotten{entity}:"forgotten(" ++ handle(~S,entity) ++ ")"
+    case Store.Inspected{namespace}:"inspected(" ++ U32.show(namespace) ++ ")"
     case Store.Refused{value}:"refused(" ++ request(~S,value) ++ ")"
 def outcome(~S:Data,value:Dispatch.Outcome<S>) -> String:
   match value:
@@ -48,3 +50,8 @@ def status(value:Buffer.ScopeStatus) -> String:
     case Buffer.ScopeDenied{Buffer.MissingAuthority{}}:"missing-authority"
     case Buffer.ScopeDenied{Buffer.ForeignNamespace{}}:"foreign-namespace"
     case Buffer.ScopeDenied{Buffer.ScopeStoreRefused{}}:"store-refused"
+def linked_status(value:Buffer.LinkedStatus) -> String:
+  match value:
+    case Buffer.LinkedComplete{}:"complete"
+    case Buffer.LinkedPaused{}:"paused"
+    case Buffer.LinkedDenied{reason}:status(Buffer.ScopeDenied{reason})

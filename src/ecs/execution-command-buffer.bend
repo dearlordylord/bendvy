@@ -26,11 +26,16 @@ type ScopeStatus is Data:
   ScopeComplete{}
   ScopePaused{}
   ScopeDenied{reason:ScopeDenial}
+type LinkedStatus is Data:
+  LinkedComplete{}
+  LinkedPaused{}
+  LinkedDenied{reason:ScopeDenial}
 type Receipt<-S:Data,-P:Type,-D:Type> is Type:
   Applied{handle:W.Handle<S>,previous:Maybe<&1,P>}
   Refused{handle:W.Handle<S>,incoming:Maybe<&1,P>}
   Despawned{handle:W.Handle<S>,removed:D}
   DespawnRefused{handle:W.Handle<S>}
+  LinkedDespawn{handle:W.Handle<S>,status:LinkedStatus,receipts:List<Receipt<S,P,D>>,frames:List<&2,Relation.CleanupFrame<S>>}
   Spawned{handle:W.Handle<S>,previous:D}
   SpawnRefused{handle:W.Handle<S>,bundle:D,reason:Bundle.Refusal}
   RelationPublished{route:Layout.Route,receipt:RelationStore.Receipt<S>}

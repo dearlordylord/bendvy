@@ -31,3 +31,36 @@ def namespaces(~S:Data,+namespace:U32,views:List<&2,Snapshot.GraphView<S>>) -> B
   match views:
     case []:True{}
     case Snapshot.GraphView{_,_,stored,_} <> rest:Bool.and(U32.is_eq(namespace,stored),namespaces(~S,namespace,rest))
+
+def scope_contains(-S:Data,-resources:Layout.Layout,+route:Layout.Route,relations:Permission.Relations<S,resources>) -> Bool:
+  match relations:
+    case Permission.NoRelations{}:False{}
+    case Permission.RelationAllowed{_,_,_,_,_,_,rest}:scope_contains(S,resources,route,rest)
+    case Permission.ScopeAllowed{selected,_,_,_,_,rest}:Bool.or(Permission.same_route(route,selected),scope_contains(S,resources,route,rest))
+def scopes_leaf(-S:Data,-resources:Layout.Layout,policy:Policy.Policy,route:Layout.Route,relations:Permission.Relations<S,resources>) -> Bool:
+  match policy:
+    case Policy.ProtectedLifetimeScope{_}:scope_contains(S,resources,route,relations)
+    case Policy.ProtectedRelation{_,_}:True{}
+    case Policy.Ordinary{}:True{}
+def scopes_layout(-S:Data,-resources:Layout.Layout,current:Layout.Layout,+prefix:Layout.Route,+relations:Permission.Relations<S,resources>) -> Bool:
+  match current:
+    case Layout.EmptyLayout{}:True{}
+    case Layout.LayoutLeaf{_,_,_,_,policy}:scopes_leaf(S,resources,policy,prefix,relations)
+    case Layout.ClassifiedLayoutLeaf{_,_,_,_,_,policy}:scopes_leaf(S,resources,policy,prefix,relations)
+    case Layout.LayoutPair{left,right}:Bool.and(scopes_layout(S,resources,left,append(prefix,Layout.InLeft{Layout.AtLeaf{}}),relations),scopes_layout(S,resources,right,append(prefix,Layout.InRight{Layout.AtLeaf{}}),relations))
+def scope_routes(-S:Data,-resources:Layout.Layout,relations:Permission.Relations<S,resources>) -> List<&2,Layout.Route>:
+  match relations:
+    case Permission.NoRelations{}:[]
+    case Permission.RelationAllowed{_,_,_,_,_,_,rest}:scope_routes(S,resources,rest)
+    case Permission.ScopeAllowed{route,_,_,_,_,rest}:route <> scope_routes(S,resources,rest)
+def protected_leaf(policy:Policy.Policy) -> Bool:
+  match policy:
+    case Policy.ProtectedRelation{_,_}:True{}
+    case Policy.ProtectedLifetimeScope{_}:True{}
+    case Policy.Ordinary{}:False{}
+def has_protected(current:Layout.Layout) -> Bool:
+  match current:
+    case Layout.EmptyLayout{}:False{}
+    case Layout.LayoutLeaf{_,_,_,_,policy}:protected_leaf(policy)
+    case Layout.ClassifiedLayoutLeaf{_,_,_,_,_,policy}:protected_leaf(policy)
+    case Layout.LayoutPair{left,right}:Bool.or(has_protected(left),has_protected(right))

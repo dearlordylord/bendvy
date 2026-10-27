@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-lifetime-scope-description.bend as LinkedText
 import ../../src/ecs/execution-command-permission.bend as Permission
 import ../../src/ecs/execution-command-removed.bend as Removed
 import ./controls/positive.bend as P
@@ -117,6 +118,7 @@ def receipt(value:Buffer.Receipt<Schema,P.Token,Removed.Removed(layout())>) -> S
     case Buffer.Refused{handle,incoming}:"refused:" ++ handle_text(handle) ++ ":" ++ maybe_token(incoming)
     case Buffer.Despawned{handle,Product.Owner{removed,_}}:"despawned:" ++ handle_text(handle) ++ ":" ++ maybe_token(removed)
     case Buffer.DespawnRefused{handle}:"despawn-refused:" ++ handle_text(handle)
+    case Buffer.LinkedDespawn{handle,status,_,_}:"linked-despawn:" ++ handle_text(handle) ++ ":" ++ LinkedText.linked_status(status)
 def viewed_result(+cache:U32,result:Array<U32> & U32) -> Layout.Viewed<P.Token,U32> & String:
   match result:
     case (owner,+value):(Layout.Viewed{P.Token{owner},cache},U32.show(value) ++ "/cache=" ++ U32.show(cache))

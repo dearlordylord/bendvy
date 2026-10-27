@@ -23,6 +23,7 @@ type Receipt<S:Data> is Data:
   Refused{handle:W.Handle<S>,incoming:Bool}
   Despawned{handle:W.Handle<S>}
   DespawnRefused{handle:W.Handle<S>}
+  LinkedDespawn{handle:W.Handle<S>,status:Buffer.LinkedStatus,receipts:List<&2,Receipt<S>>,frames:List<&2,Types.CleanupFrame<S>>}
   Spawned{handle:W.Handle<S>}
   SpawnRefused{handle:W.Handle<S>,reason:Bundle.Refusal}
   RelationPublished{route:Layout.Route,receipt:Relation.Receipt<S>}
@@ -63,6 +64,9 @@ def receipts_join(-S:Data,-P:Type,-D:Type,head:Buffer.Receipt<S,P,D> & Receipt<S
 def scoped_receipt(-S:Data,-P:Type,-D:Type,+route:Layout.Route,+operation:ScopeCommands.Operation<S>,+status:Buffer.ScopeStatus,+frames:List<&2,Types.CleanupFrame<S>>,children:List<Buffer.Receipt<S,P,D>> & List<&2,Receipt<S>>) -> Buffer.Receipt<S,P,D> & Receipt<S>:
   match children:
     case (actual,facts):(Buffer.ScopePublished{route,operation,status,actual,frames},ScopePublished{route,operation,status,facts,frames})
+def linked_receipt(-S:Data,-P:Type,-D:Type,+handle:W.Handle<S>,+status:Buffer.LinkedStatus,+frames:List<&2,Types.CleanupFrame<S>>,children:List<Buffer.Receipt<S,P,D>> & List<&2,Receipt<S>>) -> Buffer.Receipt<S,P,D> & Receipt<S>:
+  match children:
+    case (actual,facts):(Buffer.LinkedDespawn{handle,status,actual,frames},LinkedDespawn{handle,status,facts,frames})
 def receipts(-S:Data,-P:Type,-D:Type,values:List<Buffer.Receipt<S,P,D>>) -> List<Buffer.Receipt<S,P,D>> & List<&2,Receipt<S>>:
   match values:
     case []:([],[])
@@ -70,6 +74,7 @@ def receipts(-S:Data,-P:Type,-D:Type,values:List<Buffer.Receipt<S,P,D>>) -> List
     case Buffer.Refused{handle,incoming} <> tail:receipts_join(S,P,D,refused(S,P,D,handle,incoming),receipts(S,P,D,tail))
     case Buffer.Despawned{+handle,removed} <> tail:receipts_join(S,P,D,(Buffer.Despawned{handle,removed},Despawned{handle}),receipts(S,P,D,tail))
     case Buffer.DespawnRefused{+handle} <> tail:receipts_join(S,P,D,(Buffer.DespawnRefused{handle},DespawnRefused{handle}),receipts(S,P,D,tail))
+    case Buffer.LinkedDespawn{handle,status,children,frames} <> tail:receipts_join(S,P,D,linked_receipt(S,P,D,handle,status,frames,receipts(S,P,D,children)),receipts(S,P,D,tail))
     case Buffer.Spawned{+handle,previous} <> tail:receipts_join(S,P,D,(Buffer.Spawned{handle,previous},Spawned{handle}),receipts(S,P,D,tail))
     case Buffer.SpawnRefused{+handle,bundle,+reason} <> tail:receipts_join(S,P,D,(Buffer.SpawnRefused{handle,bundle,reason},SpawnRefused{handle,reason}),receipts(S,P,D,tail))
     case Buffer.RelationPublished{+route,+receipt} <> tail:receipts_join(S,P,D,(Buffer.RelationPublished{route,receipt},RelationPublished{route,receipt}),receipts(S,P,D,tail))

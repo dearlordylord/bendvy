@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-lifetime-scope-description.bend as LinkedText
 import ./controls/removed-positive.bend as Fixture
 import ../../src/ecs/execution-command-permission.bend as Permission
 import ../../src/ecs/execution-command-removed.bend as Removed
@@ -90,6 +91,7 @@ def receipt(value:Buffer.Receipt<Schema,P.Token,Removed.Removed(layout())>) -> S
     case Buffer.Refused{handle,incoming}:"refused:" ++ handle_text(handle) ++ ":" ++ maybe_token(incoming)
     case Buffer.Despawned{handle,Product.Owner{removed,_}}:"despawned:" ++ handle_text(handle) ++ ":" ++ Fixture.receipt(removed)
     case Buffer.DespawnRefused{handle}:"despawn-refused:" ++ handle_text(handle)
+    case Buffer.LinkedDespawn{handle,status,_,_}:"linked-despawn:" ++ handle_text(handle) ++ ":" ++ LinkedText.linked_status(status)
 def world(world:W.World<Schema,Store(),Resources(),Unit>) -> String:
   match world:
     case W.World{namespace,allocator,Product.Owner{Product.Owner{Layout.ColumnSlot{left},Layout.ColumnSlot{right}},_},_,events,pending,registrations,next,clock,lifecycle}:"namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ Observe.allocator(allocator) ++ "};left=" ++ Observe.capacity_done(~Schema,~Layout.Viewed<P.Token,U32>,~Fixture.token_project,Column.capacity(~Schema,~Layout.Viewed<P.Token,U32>,left)) ++ ";right=" ++ Observe.capacity_done(~Schema,~Layout.Viewed<Fixture.Other,U32>,~Fixture.other_project,Column.capacity(~Schema,~Layout.Viewed<Fixture.Other,U32>,right)) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";legacy-pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<Schema,Store(),Resources(),Unit>>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,Observe.registration,registrations) ++ ";next=" ++ U32.show(next) ++ ";clock=" ++ Observe.clock(clock)

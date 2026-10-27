@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-lifetime-scope-description.bend as LinkedText
 import ./actor.bend as Actor
 import ./initialize.bend as Initialize
 import ./scheduled.bend as Scheduled
@@ -41,6 +42,7 @@ def receipt(value:Buffer.Receipt<Schema,Unit,Removed.Removed(Actor.components())
     case Buffer.Refused{_,_}:"component-refused"
     case Buffer.Despawned{_,_}:"despawned"
     case Buffer.DespawnRefused{_}:"despawn-refused"
+    case Buffer.LinkedDespawn{value,status,_,_}:"linked-despawn:" ++ handle(value) ++ ":" ++ LinkedText.linked_status(status)
     case Buffer.Spawned{_,_}:"spawned"
     case Buffer.SpawnRefused{_,_,_}:"spawn-refused"
     case Buffer.ScopePublished{_,value,status,receipts,frames}:"scope:" ++ ScopeText.operation(~Schema,value) ++ ":" ++ ScopeText.status(status) ++ ":" ++ Nat.show(List.length(&1,Buffer.Receipt<Schema,Unit,Removed.Removed(Actor.components())>,receipts)) ++ ":frames=" ++ Nat.show(List.length(&2,T.CleanupFrame<Schema>,frames))

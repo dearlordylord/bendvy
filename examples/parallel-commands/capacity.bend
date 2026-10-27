@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-lifetime-scope-description.bend as LinkedText
 import ../../src/ecs/execution-resource-policy.bend as Policy
 import ../../src/ecs/execution-lifecycle-notices.bend as Notice
 import ../../src/ecs/execution-command-removed.bend as Removed
@@ -44,6 +45,7 @@ def receipt(value:Buffer.Receipt<Schema,P.Token,Removed.Removed(layout())>) -> S
     case Buffer.Refused{owner,incoming}:"refused:" ++ handle(owner) ++ ":" ++ maybe(incoming)
     case Buffer.Despawned{owner,removed}:"despawned:" ++ handle(owner) ++ ":" ++ maybe(removed)
     case Buffer.DespawnRefused{owner}:"despawn-refused:" ++ handle(owner)
+    case Buffer.LinkedDespawn{owner,status,_,_}:"linked-despawn:" ++ handle(owner) ++ ":" ++ LinkedText.linked_status(status)
 def projected(+cached:U32,result:Array<U32> & U32) -> Layout.Viewed<P.Token,U32> & String:
   match result:
     case (values,+raw):(Layout.Viewed{P.Token{values},cached},U32.show(raw) ++ "/cache=" ++ U32.show(cached))

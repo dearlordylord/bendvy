@@ -139,6 +139,7 @@ def receipt(value:Commands.Receipt<S.SchemaA,S.Position,Unit>) -> String:
     case Commands.Refused{entity,value}:"refused:" ++ handle(entity) ++ ":" ++ incoming(value)
     case Commands.Despawned{entity,_}:"despawned:" ++ handle(entity)
     case Commands.DespawnRefused{entity}:"despawn-refused:" ++ handle(entity)
+    case Commands.LinkedDespawn{entity,_,_,_}:"linked-despawn:" ++ handle(entity)
 def queue(value:Commands.Buffer<S.SchemaA,S.Position,Unit>) -> String:
   match value:
     case Commands.Buffer{pending,receipts}:"pending=" ++ List.show(&1,Commands.Entry<S.SchemaA,S.Position>,command,pending) ++ ";receipts=" ++ List.show(&1,Commands.Receipt<S.SchemaA,S.Position,Unit>,receipt,receipts)

@@ -8,14 +8,14 @@ type Progress<-S:Data,-State:Type> is Type:
 def Step(~S:Data,~State:Type) -> Type:
   G.CleanupFrame<S> -> State -> @+namespace:U32 -> List<&2,G.Descriptor<S>> -> List<&2,G.CleanupFrame<S>> -> State & List<&2,G.CleanupFrame<S>>
 
-def resumed(~S:Data,~State:Type,observed:State & List<&2,G.CleanupFrame<S>>,next:State -> List<&2,G.CleanupFrame<S>> -> Progress<S,State>) -> Progress<S,State>:
+def resumed_generic(-S:Data,-State:Type,observed:State & List<&2,G.CleanupFrame<S>>,next:State -> List<&2,G.CleanupFrame<S>> -> Progress<S,State>) -> Progress<S,State>:
   (world,frames) = observed
   next(world,frames)
 def drive(~S:Data,~State:Type,~step:Step(~S,~State),fuel: Nat,frames: List<&2,G.CleanupFrame<S>>,world: State,+namespace: U32,+descriptors: List<&2,G.Descriptor<S>>) -> Progress<S,State>:
   match fuel frames:
     case _ Nil{}: Complete{world}
     case 0n frames: Incomplete{world,frames}
-    case 1n+rest Con{frame,frames}: resumed(~S,~State,step(frame,world,namespace,descriptors,frames),world => frames => drive(~S,~State,~step,rest,frames,world,namespace,descriptors))
+    case 1n+rest Con{frame,frames}: resumed_generic(S,State,step(frame,world,namespace,descriptors,frames),world => frames => drive(~S,~State,~step,rest,frames,world,namespace,descriptors))
 
 
 # This is the existing structural inventory bound expressed as arbitrary Nat.
@@ -33,3 +33,6 @@ def owner_blocks(~S:Data,~State:Type,~step:Step(~S,~State),remaining:Nat,result:
 
 def automatic(~S:Data,~State:Type,~step:Step(~S,~State),state:State,+nodes:Nat,+edges:List<&2,G.Edge<S>>,+namespace:U32,key:Key.Key,+descriptors:List<&2,G.Descriptor<S>>) -> Progress<S,State>:
   owner_blocks(~S,~State,~step,nodes,drive(~S,~State,~step,1n,[G.CleanupEnter{key}],state,namespace,descriptors),nodes,edges,namespace,descriptors)
+
+def resumed(~S:Data,~State:Type,observed:State & List<&2,G.CleanupFrame<S>>,next:State -> List<&2,G.CleanupFrame<S>> -> Progress<S,State>) -> Progress<S,State>:
+  resumed_generic(S,State,observed,next)

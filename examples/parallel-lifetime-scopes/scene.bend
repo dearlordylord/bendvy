@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-lifetime-scope-description.bend as LinkedText
 import ./actor.bend as Actor
 import ./initialize.bend as Initialize
 import ./scheduled.bend as Scheduled
@@ -52,6 +53,7 @@ def receipts(values:List<Buffer.Receipt<Schema,Actor.Session,Removed.Removed(Act
     case Buffer.Refused{entity,incoming} <> rest:"component-refused:" ++ handle(entity) ++ "/incoming=" ++ maybe_session(incoming) ++ ";" ++ receipts(rest)
     case Buffer.Despawned{entity,owners} <> rest:"despawned:" ++ handle(entity) ++ "/owner=" ++ removed(owners) ++ ";" ++ receipts(rest)
     case Buffer.DespawnRefused{entity} <> rest:"despawn-refused:" ++ handle(entity) ++ ";" ++ receipts(rest)
+    case Buffer.LinkedDespawn{entity,status,nested,frames} <> rest:"linked-despawn:" ++ handle(entity) ++ ":" ++ LinkedText.linked_status(status) ++ "{" ++ receipts(nested) ++ "}/frames=" ++ Nat.show(List.length(&2,T.CleanupFrame<Schema>,frames)) ++ ";" ++ receipts(rest)
     case Buffer.Spawned{entity,previous} <> rest:"spawned:" ++ handle(entity) ++ "/previous=" ++ removed(previous) ++ ";" ++ receipts(rest)
     case Buffer.SpawnRefused{entity,bundle,_} <> rest:"spawn-refused:" ++ handle(entity) ++ "/bundle=" ++ removed(bundle) ++ ";" ++ receipts(rest)
     case Buffer.ScopePublished{_,value,status,nested,frames} <> rest:"scope:" ++ ScopeText.operation(~Schema,value) ++ ":" ++ ScopeText.status(status) ++ "{" ++ receipts(nested) ++ "}/frames=" ++ Nat.show(List.length(&2,T.CleanupFrame<Schema>,frames)) ++ ";" ++ receipts(rest)

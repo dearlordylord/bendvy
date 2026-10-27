@@ -28,6 +28,7 @@ def returned(~S:Data,~key:String,~origin:Layout.Layout,tick:Tick.Tick,stamp:Life
     case (allocator,(owner,Store.Assignment{Store.AssignmentRefused{scope,handle,reason}})):changed(~S,~key,~origin,False{},tick,stamp,cache,allocator,owner,Store.Assignment{Store.AssignmentRefused{scope,handle,reason}})
     case (allocator,(owner,Store.Selection{snapshot})):changed(~S,~key,~origin,False{},tick,stamp,cache,allocator,owner,Store.Selection{snapshot})
     case (allocator,(owner,Store.Forgotten{handle})):changed(~S,~key,~origin,True{},tick,stamp,cache,allocator,owner,Store.Forgotten{handle})
+    case (allocator,(owner,Store.Inspected{namespace})):changed(~S,~key,~origin,False{},tick,stamp,cache,allocator,owner,Store.Inspected{namespace})
     case (allocator,(owner,Store.Refused{request})):changed(~S,~key,~origin,False{},tick,stamp,cache,allocator,owner,Store.Refused{request})
 def slot(~S:Data,~key:String,~origin:Layout.Layout,namespace:U32,allocator:Allocator.Allocator,value:Layout.ResourceSlot<S,Layout.Viewed<Store.Store<S>,Store.View<S>>,key,origin>,request:Store.Request<S>,tick:Tick.Tick) -> Allocator.Allocator & (Layout.ResourceSlot<S,Layout.Viewed<Store.Store<S>,Store.View<S>>,key,origin> & Outcome<S>):
   match value:

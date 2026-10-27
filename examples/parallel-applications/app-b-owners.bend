@@ -1,4 +1,7 @@
 import Base
+import ../../src/ecs/execution-inspector-commands.bend as Passive
+import ../../src/ecs/execution-lifetime-scope-description.bend as LinkedText
+import ../../src/ecs/relation-types.bend as RelationTypes
 import ./app-b-schema.bend as D
 import ./app-b-commands.bend as Author
 import ./app-b-application.bend as App
@@ -74,6 +77,9 @@ def relation_receipt(value:Store.Receipt<D.Scene>) -> String:
   match value:
     case Store.Applied{value}:"relation-applied:" ++ operation(value)
     case Store.Refused{value,_}:"relation-refused:" ++ operation(value)
+def linked_seen(+handle:W.Handle<D.Scene>,+status:Buffer.LinkedStatus,+frames:List<&2,RelationTypes.CleanupFrame<D.Scene>>,result:List<Buffer.Receipt<D.Scene,Array<U32>,Removed.Removed(D.components())>> & List<&2,Passive.Receipt<D.Scene>>) -> Buffer.Receipt<D.Scene,Array<U32>,Removed.Removed(D.components())> & String:
+  match result:
+    case (actual,facts):(Buffer.LinkedDespawn{handle,status,actual,frames},"linked-despawn:" ++ Inspect.handle(handle) ++ ":" ++ LinkedText.linked_status(status) ++ ":nested=" ++ Nat.show(List.length(&2,Passive.Receipt<D.Scene>,facts)))
 def receipt(owner:Buffer.Receipt<D.Scene,Array<U32>,Removed.Removed(D.components())>) -> Buffer.Receipt<D.Scene,Array<U32>,Removed.Removed(D.components())> & String:
   match owner:
     case Buffer.Spawned{handle,previous}:receipt_bundle(handle,True{},bundle(previous))
@@ -82,6 +88,7 @@ def receipt(owner:Buffer.Receipt<D.Scene,Array<U32>,Removed.Removed(D.components
     case Buffer.Refused{handle,incoming}:receipt_component(handle,False{},maybe_array(incoming))
     case Buffer.SpawnRefused{handle,incoming,reason}:spawn_refused(handle,reason,bundle(incoming))
     case Buffer.DespawnRefused{+handle}:(Buffer.DespawnRefused{handle},"despawn-refused:" ++ Inspect.handle(handle))
+    case Buffer.LinkedDespawn{handle,status,children,frames}:linked_seen(handle,status,frames,Passive.receipts(D.Scene,Array<U32>,Removed.Removed(D.components()),children))
     case Buffer.RelationPublished{+route,+value}:(Buffer.RelationPublished{route,value},relation_receipt(value))
     case Buffer.RelationUndeclared{+route,+value}:(Buffer.RelationUndeclared{route,value},"relation-undeclared:" ++ operation(value))
 def rows_join(~P:Type,head:P & String,tail:List<P> & List<&2,String>) -> List<P> & List<&2,String>:

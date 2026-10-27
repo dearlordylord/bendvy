@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-lifetime-scope-description.bend as LinkedText
 import ../../src/ecs/execution-lifetime-scope-description.bend as ScopeText
 import ../../src/ecs/execution-reservation-task.bend as Effect
 import ../../src/ecs/execution-command-permission.bend as Permission
@@ -146,6 +147,7 @@ def receipt(~S:Data,value:Buffer.Receipt<S,P.Output,Removed.Removed(layout(~S))>
     case Buffer.Refused{handle,incoming}:payload_record(~S,"refused:",handle,incoming)
     case Buffer.Despawned{+handle,removed}:Record{W.handle_index(~S,handle),0,"despawned:" ++ handle_text(~S,handle) ++ ":" ++ bundle_text(~S,removed)}
     case Buffer.DespawnRefused{handle}:payload_record(~S,"despawn-refused:",handle,None{})
+    case Buffer.LinkedDespawn{handle,status,_,_}:payload_record(~S,"linked-despawn:" ++ LinkedText.linked_status(status) ++ ":",handle,None{})
     case Buffer.Spawned{+handle,previous}:Record{W.handle_index(~S,handle),0,"spawned:" ++ handle_text(~S,handle) ++ ":" ++ bundle_text(~S,previous)}
     case Buffer.SpawnRefused{+handle,bundle,reason}:Record{W.handle_index(~S,handle),0,"spawn-refused:" ++ handle_text(~S,handle) ++ ":" ++ bundle_text(~S,bundle) ++ ":" ++ spawn_reason(reason)}
     case Buffer.RelationPublished{route,result}:Record{0,0,"relation:" ++ route_text(route) ++ ":" ++ relation_receipt(~S,result)}

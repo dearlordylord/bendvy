@@ -52,10 +52,12 @@ type Request<-S:Data> is Data:
   Assign{scope:Scope.Scope<S>,handle:W.Handle<S>}
   Select{scope:Scope.Scope<S>}
   Forget{handle:W.Handle<S>}
+  Inspect{}
 type Outcome<-S:Data> is Data:
   Assignment{result:Assignment<S>}
   Selection{result:Snapshot<S>}
   Forgotten{handle:W.Handle<S>}
+  Inspected{namespace:U32}
   Refused{request:Request<S>}
 def assignment_returned(~S:Data,result:Allocator.Allocator & (Store<S> & Assignment<S>)) -> Allocator.Allocator & (Store<S> & Outcome<S>):
   match result:
@@ -70,8 +72,12 @@ def forgotten(~S:Data,allowed:Bool,allocator:Allocator.Allocator,store:Store<S>,
 def forget_namespace(~S:Data,+actual:U32,allocator:Allocator.Allocator,store:Store<S>,handle:W.Handle<S>,namespace:U32) -> Allocator.Allocator & (Store<S> & Outcome<S>):
   match store:
     case Store{+stored,members}:forgotten(~S,Bool.and(U32.is_eq(actual,stored),U32.is_eq(actual,namespace)),allocator,Store{stored,members},handle)
+def inspected(~S:Data,allocator:Allocator.Allocator,store:Store<S>) -> Allocator.Allocator & (Store<S> & Outcome<S>):
+  match store:
+    case Store{+namespace,members}:(allocator,(Store{namespace,members},Inspected{namespace}))
 def apply(~S:Data,+actual:U32,allocator:Allocator.Allocator,store:Store<S>,request:Request<S>) -> Allocator.Allocator & (Store<S> & Outcome<S>):
   match request:
+    case Inspect{}:inspected(~S,allocator,store)
     case Assign{scope,handle}:assignment_returned(~S,assign(~S,actual,allocator,store,scope,handle))
     case Select{scope}:selection_returned(~S,allocator,snapshot(~S,actual,store,scope))
     case Forget{W.Handle{+namespace,+key}}:forget_namespace(~S,actual,allocator,store,W.Handle{namespace,key},namespace)
