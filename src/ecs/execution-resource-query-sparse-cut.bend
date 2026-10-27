@@ -83,9 +83,16 @@ type JoinInspectionHeader<-S:Data,-components:L.Layout,-resources:L.Layout> is T
   JoinInspectionHeader{leftMetadata:Metadata<S,components>,rightMetadata:Metadata<S,components>,memo:Context<S,components,resources>,resource:Resource.Pieces<S,resources>}
 type ResourceInspectionHeader<-S:Data,-components:L.Layout,-resources:L.Layout> is Type:
   ResourceInspectionHeader{leftMetadata:Metadata<S,components>,rightMetadata:Metadata<S,components>,memo:Context<S,components,resources>,query:Query.Pieces<S,components> & Bool}
+type MetadataInspectionHeader<-S:Data,-components:L.Layout,-resources:L.Layout> is Type:
+  MetadataInspectionHeader{inspection:ResourceInspectionHeader<S,components,resources>,resource:Resource.Pieces<S,resources> & Bool}
+def joined_metadata_inspected(~S:Data,~components:L.Layout,~resources:L.Layout,pair:MetadataInspectionHeader<S,components,resources> & (Bool & Bool)) -> Joined<S,components,resources>:
+  match pair:
+    case (MetadataInspectionHeader{ResourceInspectionHeader{leftMetadata,rightMetadata,memo,query},resource},(leftValid,rightValid)):inspected_join(~S,~components,~resources,leftMetadata,rightMetadata,memo,query,resource,Bool.and(leftValid,rightValid))
 def joined_resource_inspected(~S:Data,~components:L.Layout,~resources:L.Layout,header:ResourceInspectionHeader<S,components,resources>,resource:Resource.Pieces<S,resources> & Bool) -> Joined<S,components,resources>:
   match header:
-    case ResourceInspectionHeader{+leftMetadata,+rightMetadata,Context{namespace,handles,tick,prior,view,grants,info,recipes,+left,+right},query}:inspected_join(~S,~components,~resources,leftMetadata,rightMetadata,Context{namespace,handles,tick,prior,view,grants,info,recipes,left,right},query,resource,Bool.and(metadata_valid(~S,~components,~resources,leftMetadata,left),metadata_valid(~S,~components,~resources,rightMetadata,right)))
+    case ResourceInspectionHeader{+leftMetadata,+rightMetadata,Context{namespace,handles,tick,prior,view,grants,info,recipes,+left,+right},query}:
+      continuation:Continuation.PairedHeader<(Bool & Bool),Joined<S,components,resources>> = Continuation.PairedHeader{MetadataInspectionHeader<S,components,resources>,MetadataInspectionHeader{ResourceInspectionHeader{leftMetadata,rightMetadata,Context{namespace,handles,tick,prior,view,grants,info,recipes,left,right},query},resource},joined_metadata_inspected(~S,~components,~resources)}
+      Continuation.paired_returned(Bool & Bool,Joined<S,components,resources>,continuation,(metadata_valid(~S,~components,~resources,leftMetadata,left),metadata_valid(~S,~components,~resources,rightMetadata,right)))
 def joined_query_inspected(~S:Data,~components:L.Layout,~resources:L.Layout,header:JoinInspectionHeader<S,components,resources>,query:Query.Pieces<S,components> & Bool) -> Joined<S,components,resources>:
   match header:
     case JoinInspectionHeader{leftMetadata,rightMetadata,memo,Resource.Pieces{ls,rs,rm}}:

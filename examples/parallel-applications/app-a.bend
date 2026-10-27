@@ -103,9 +103,19 @@ def running_observed(running:Running) -> Running & String:
 def both_observed(control:Control,offResult:Running & String,onResult:Running & String) -> IO(Unit):
   match offResult onResult:
     case (off,offText), (on,onText):IO.print("AppA terminal Off after On|" ++ offText ++ "\nAppA terminal On|" ++ onText)
+def on_observed(pair:(Control & (Running & String)) & (Running & String)) -> IO(Unit):
+  match pair:
+    case ((control,offResult),onResult):both_observed(control,offResult,onResult)
+def off_observed(pair:(Control & Running) & (Running & String)) -> IO(Unit):
+  match pair:
+    case ((control,on),offResult):
+      continuation:Continuation.PairedHeader<(Running & String),IO(Unit)> = Continuation.PairedHeader{Control & (Running & String),(control,offResult),on_observed}
+      Continuation.paired_returned(Running & String,IO(Unit),continuation,running_observed(on))
 def both(pair:Running & SessionResult) -> IO(Unit):
   match pair:
-    case (off,Completed{control,on}):both_observed(control,running_observed(off),running_observed(on))
+    case (off,Completed{control,on}):
+      continuation:Continuation.PairedHeader<(Running & String),IO(Unit)> = Continuation.PairedHeader{Control & Running,(control,on),off_observed}
+      Continuation.paired_returned(Running & String,IO(Unit),continuation,running_observed(off))
     case (off,Refused{Inventory,inventory,text}):IO.print("AppA On stopped|" ++ text)
 def off_finished(result:SessionResult) -> IO(Unit):
   match result:
