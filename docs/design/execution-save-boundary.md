@@ -89,9 +89,13 @@ output oracle or host test harness.
   refuse, the actual queue remains 515 with zero receipts, captures remain
   101/404/202/303, Reader cursor stays 0, both binding lists remain empty and
   unapplied IDs remain [2,3]. Actor 41/Config 700/generation 0 remain in the returned
-  World. The current resource-policy caller reaches a shared relation dispatcher
-  compile-time-route error; the earlier runtime receipt does not qualify that
-  changed dependency.
+  World. The earlier relation dispatcher compile-time-route failure predates the
+  closed-declaration dispatch repair in `fc7e4d2b1`. The current
+  `execution-relation-buffer` receives the declaration-derived dispatch program
+  and passes the route as a runtime argument. No current `pending-main.bend`
+  runtime receipt is established here. Later ordinary JS/native observations of
+  `extended-resume.bend` and `extended-active.bend` qualify those separate entries,
+  not this pending-command save/restore path.
 - `floor-main.bend`: real source floor 4, separately created receiver namespace,
   actual mapping 1:0 to receiver 4:0, and resumed Config 700 to 701 for both schemas.
   An independently exhausted receiver at next 131073 refuses before constructors
