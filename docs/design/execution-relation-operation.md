@@ -116,8 +116,8 @@ ordinary scheduler integration remain required GH89 work.
 
 Normal Bend 2.0.35 compilation of the interpreter, policy, store, access,
 command adapter, and canonical-slot publication helpers succeeds.
-`test-fixtures/execution-relation-laws/LAWS.bend` contains five unapproved,
-unproved subjects. Its checker reports exactly five TODOs and no type or affinity
+`test-fixtures/execution-relation-laws/LAWS.bend` contains seven unapproved,
+unproved subjects. Its checker reports exactly seven TODOs and no type or affinity
 errors. They cover foreign-source unrelate, ordinary-descriptor reorder refusal,
 the protected-write policy helper, foreign store refusal, and preservation of the
 actual slot, cache, stamp, and allocator on foreign publication. They do not
@@ -128,3 +128,60 @@ The existing source-of-truth architecture follows pinned Bevy
 [`relationship/mod.rs`, lines 28-41](https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/relationship/mod.rs#L28-L41).
 Bend's World namespace and hierarchy admission rules remain explicit local
 contracts. No host-language semantic tests or models were added or run.
+
+## Failure channel and retained readers
+
+The current Store constructor is:
+
+```text
+Store {
+  namespace: U32,
+  graph: Graph<S>,
+  failures: execution-stream-channel.Store<Message<S,descriptor>>,
+  sequence: Nat,
+  nextReader: U32
+}
+```
+
+`fresh` starts an empty graph and failure channel, sequence 0, and reader ID 1.
+`register` allocates an actual affine reader branded by schema, descriptor, full
+resource origin, and route. It increments `nextReader`, independently of system
+registration IDs. Exhaustion returns the actual Store unchanged.
+
+The shared `execution-stream-channel` uses the existing generic
+`machine-stream-queue` algorithms. The machine stream delegates to this same
+channel while retaining its existing Store and Reader constructors and public
+signatures. Messages use their own monotone sequence. Repeated updates at one
+World tick still rotate two generations on every completed update.
+
+An actual same-namespace interpreted relation error publishes a failure and
+increments sequence at command application. The original established Failure
+record is reused for relate and reorder. `UnrelateFailed` names unrelate explicitly
+because the old Failure operation enum has no unrelate variant. Namespace refusal
+and the internal HierarchyRequired admission refusal publish no graph failure.
+A refused graph mutation retains the graph, cached graph view, and graph stamp,
+while the owned failure channel records its message. Successful graph application
+still refreshes the cache and stamp at the captured tick.
+
+The failure-access helper consumes a typed canonical slot lens. It checks the
+actual Scope namespace before extraction, then checks the Store namespace through
+the shared channel. Refusal returns the actual Scope and Reader unchanged.
+Successful reading returns messages, missed count, tick, and the advanced Reader.
+The returned reader belongs in `execution-relation-failure-local.Local`.
+Its body adapter keeps that reader through every completion, including BodyError.
+The ordinary condition must run before this body adapter. A false condition never
+calls it, so it cannot advance the cursor.
+
+`execution-relation-failure-maintenance.completed` rotates retention only for the
+outer App.Finished report. App.Stopped and App.Invalid retain the entire scheduled
+application. The wrapper preserves the canonical graph stamp. It does not flush
+commands and introduces no direct-pair maintenance call. Connecting this wrapper
+to the ordinary application's selected maintenance path remains shared integration
+work.
+
+The source-bound law file now contains seven unapproved, unproved subjects.
+The two added subjects cover exact foreign Reader retention and the body-error
+completion adapter's actual Reader, Scope, and user owner. They do not prove all
+reader bodies or the ordinary false-condition branch. The checker reports seven
+TODOs and no type or affinity errors. No proof or ordinary GH89 completion is
+claimed.

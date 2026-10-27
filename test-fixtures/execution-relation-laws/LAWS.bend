@@ -11,6 +11,11 @@ import ../../src/ecs/execution-relation-publication.bend as Publication
 import ../../src/ecs/execution-composer-layout.bend as Layout
 import ../../src/ecs/lifecycle.bend as Life
 import ../../src/ecs/change-tick.bend as Tick
+import ../../src/ecs/execution-stream-channel.bend as Channel
+import ../../src/ecs/execution-relation-failure-message.bend as Failure
+import ../../src/ecs/execution-relation-failure-channel.bend as Reader
+import ../../src/ecs/execution-relation-failure-local.bend as Local
+import ../../src/ecs/execution-system.bend as Sys
 
 # DRAFT. These subjects are unapproved and unproved. The erased allocator
 # variables denote actual affine owners, not an inventory model.
@@ -67,9 +72,12 @@ law foreign_store_preserves_actual_owner:
   for -foreignNamespace:U32
   for -allocator:A.Allocator
   for -graph:T.Graph<S>
+  for -failures:Channel.Store<Failure.Message<S,descriptor>>
+  for -sequence:Nat
+  for -nextReader:U32
   for -operation:O.Operation<S>
   for different:{U32.is_eq(namespace,foreignNamespace) == False{} : Bool}
-  {Store.apply(~S,~descriptor,namespace,allocator,Store.Store{foreignNamespace,graph},operation) == (allocator,(Store.Store{foreignNamespace,graph},Store.Refused{operation,Store.NamespaceMismatch{}})) : A.Allocator & (Store.Store<S,descriptor> & Store.Receipt<S>)}
+  {Store.apply(~S,~descriptor,namespace,allocator,Store.Store{foreignNamespace,graph,failures,sequence,nextReader},operation) == (allocator,(Store.Store{foreignNamespace,graph,failures,sequence,nextReader},Store.Refused{operation,Store.NamespaceMismatch{}})) : A.Allocator & (Store.Store<S,descriptor> & Store.Receipt<S>)}
 
 # Refusing a foreign store preserves the actual canonical slot, its prior cache,
 # its stamp, the allocator and the original operation. This is not a full-World law.
@@ -82,9 +90,48 @@ law foreign_publication_preserves_slot_and_stamp:
   for -foreignNamespace:U32
   for -allocator:A.Allocator
   for -graph:T.Graph<S>
+  for -failures:Channel.Store<Failure.Message<S,descriptor>>
+  for -sequence:Nat
+  for -nextReader:U32
   for -view:Store.View<S,descriptor>
   for -stamp:Life.Stamp
   for -operation:O.Operation<S>
   for -tick:Tick.Tick
   for different:{U32.is_eq(namespace,foreignNamespace) == False{} : Bool}
-  {Publication.apply(~S,~descriptor,~key,~origin,namespace,allocator,Layout.ResourceSlot{Layout.Viewed{Store.Store{foreignNamespace,graph},view},stamp},operation,tick) == (allocator,(Layout.ResourceSlot{Layout.Viewed{Store.Store{foreignNamespace,graph},view},stamp},Store.Refused{operation,Store.NamespaceMismatch{}})) : A.Allocator & (Layout.ResourceSlot<S,Layout.Viewed<Store.Store<S,descriptor>,Store.View<S,descriptor>>,key,origin> & Store.Receipt<S>)}
+  {Publication.apply(~S,~descriptor,~key,~origin,namespace,allocator,Layout.ResourceSlot{Layout.Viewed{Store.Store{foreignNamespace,graph,failures,sequence,nextReader},view},stamp},operation,tick) == (allocator,(Layout.ResourceSlot{Layout.Viewed{Store.Store{foreignNamespace,graph,failures,sequence,nextReader},view},stamp},Store.Refused{operation,Store.NamespaceMismatch{}})) : A.Allocator & (Layout.ResourceSlot<S,Layout.Viewed<Store.Store<S,descriptor>,Store.View<S,descriptor>>,key,origin> & Store.Receipt<S>)}
+
+# Reader identity is independent of system registration. A foreign namespace
+# preserves its actual affine reader and the exact shared channel.
+law foreign_failure_reader_exact:
+  for -S:Data
+  for -descriptor:T.Descriptor<S>
+  for -full:Layout.Layout
+  for -route:Layout.Route
+  for -namespace:U32
+  for -foreignNamespace:U32
+  for -id:U32
+  for -cursor:Nat
+  for -sequence:Nat
+  for -tick:Tick.Tick
+  for -channel:Channel.Store<Failure.Message<S,descriptor>>
+  for different:{U32.is_eq(namespace,foreignNamespace) == False{} : Bool}
+  {Reader.read(~S,~descriptor,~full,~route,namespace,sequence,tick,Reader.Reader{foreignNamespace,id,cursor},channel) == (channel,Reader.Refused{Reader.Reader{foreignNamespace,id,cursor}}) : Channel.Store<Failure.Message<S,descriptor>> & Reader.Reading<S,descriptor,full,route>}
+
+# Once the body reports an error, Local retains the already advanced actual
+# reader alongside the returned actual scope and user owner. This pins the
+# completion adapter, not every system body or the ordinary false-condition path.
+law body_error_retains_consumed_reader:
+  for -S:Data
+  for -descriptor:T.Descriptor<S>
+  for -full:Layout.Layout
+  for -route:Layout.Route
+  for -H:Type
+  for -User:Type
+  for -Error:Data
+  for -Out:Data
+  for -scope:H
+  for -user:User
+  for -reader:Reader.Reader<S,descriptor,full,route>
+  for -error:Error
+  for -out:Out
+  {Local.completed(~S,~descriptor,~full,~route,~H,~User,~Error,~Out,reader,(scope,(user,Sys.BodyError{error,out}))) == Local.Invoked{scope,Local.Local{reader,user},Sys.BodyError{error,out}} : Local.Invocation<H,Local.Local<S,descriptor,full,route,User>,Error,Out>}
