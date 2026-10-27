@@ -9,6 +9,10 @@ import ../../src/ecs/world.bend as W
 
 # Unapproved, unproved drafts. These actual Type-owner equations describe exact
 # refusal branches, not complete save execution or correctness of projectors.
+# DRAFT, UNAPPROVED, UNPROVED. Pending work is a Bend save-policy refusal;
+# Bevy context separates deferred publication from running a system:
+# https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/schedule/executor/single_threaded.rs
+# Exact schema/World retention is a Bend ownership requirement, not a Bevy API.
 law world_pending_returns_actual_schema_and_world:
   for -S:Data
   for -cp:Plan.Plan

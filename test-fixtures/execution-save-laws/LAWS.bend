@@ -7,6 +7,11 @@ import ../../src/ecs/decode-data.bend as D
 # Draft subjects only. No approval or proof is implied by source well-formedness.
 # The actual affine application/owner is an erased logical binder, not a Data
 # summary. These statements do not establish the ordinary pending fold itself.
+# DRAFT, UNAPPROVED, UNPROVED. This file specifies Bend save policy, not a
+# Bevy serialization theorem. Deferred-buffer context only:
+# https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/schedule/executor/single_threaded.rs
+# Bevy behavior: buffer application is a separate executor step. Bend's save
+# refusal while work is pending and exact affine retention are separate policy.
 law pending_returns_actual_application:
   for -Actual:Type
   for -Value:Data

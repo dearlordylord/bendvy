@@ -14,9 +14,13 @@ import ../../src/ecs/chunk-column.bend as Col
 import ../../src/ecs/lifecycle.bend as Life
 import ../../src/ecs/change-tick.bend as Tick
 
-# Draft, unproved. Actual affine World fields and actual unlike bundle tree.
+# DRAFT, UNAPPROVED, UNPROVED. Actual affine World fields and actual unlike bundle tree.
 # This pins namespace refusal before allocator/store mutation. It does not
 # assume the result of apply_at, pending_valid, or an owner-preserving callback.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/system/commands/mod.rs
+# Bevy behavior: Commands reserves an entity before deferred bundle insertion.
+# Bend requirement: refusal returns the exact actual affine World and bundle;
+# the generation/namespace equations are not a claim about Bevy's owner types.
 law foreign_namespace_keeps_world_and_bundle:
   for -S:Data
   for -R:Type

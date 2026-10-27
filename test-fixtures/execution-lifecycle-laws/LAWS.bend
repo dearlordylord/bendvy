@@ -32,6 +32,9 @@ import ../../src/ecs/chunk-column.bend as Column
 # No Data model substitutes for World, Scope, Local, Reader or App.State.
 # Conditional public-run laws pin continuation after the stated actual result;
 # they do not independently prove admission, the body's behavior, or host IO.
+# Current ABI: declarations are FrameworkProgram, bodies are permit-indexed
+# Task programs, and run/kernel wrappers return IO. Conditional IO equations
+# below require exact IO.pure terms; arbitrary effect traces remain outside them.
 
 # Guarantees: Single.run forwards an assumed executed result and maintains its World.
 # Why it matters: the actual returned owner/completion survive success or error.
@@ -44,19 +47,19 @@ law single_run_forwards_executed_result_with_maintenance:
   for -C:Type
   for -R:Type
   for -E:Data
-  for -Ops:Type -> Type
+  for -Ops:Data -> Type -> Type
   for -Local:Type
   for -Error:Data
   for -Out:Data
-  for -declaration:Build.Program(~S,~C,~C,~R,~Ops)
-  for -body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>)
+  for -declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops)
+  for -body:Sys.Body(~S,~Ops,~Local,~Error,~Out)
   for -before:W.World<S,C,R,E>
   for -after:W.World<S,C,R,E>
   for -owner:Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>
   for -returned:Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>
   for -completion:Sys.Completion<Error,Out>
-  for executed:{Sys.run(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,owner,before) == Sys.Executed{after,returned,completion} : Sys.RunResult<W.World<S,C,R,E>,Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>}
-  {Single.run(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,Single.Application{before,owner}) == (Single.Application{W.maintain_lifecycle(~S,~C,~R,~E,after),returned},Single.Ran{completion}) : Single.Application<S,C,R,E,Ops,Local,Error,Out,declaration,body> & Single.Status<Error,Out>}
+  for executed:{Sys.run(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,owner,before) == IO.pure(Sys.RunResult<W.World<S,C,R,E>,Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>,Sys.Executed{after,returned,completion}) : IO(Sys.RunResult<W.World<S,C,R,E>,Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>)}
+  {Single.run(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,Single.Application{before,owner}) == IO.pure(Single.Application<S,C,R,E,Ops,Local,Error,Out,declaration,body> & Single.Status<Error,Out>,(Single.Application{W.maintain_lifecycle(~S,~C,~R,~E,after),returned},Single.Ran{completion})) : IO(Single.Application<S,C,R,E,Ops,Local,Error,Out,declaration,body> & Single.Status<Error,Out>)}
 
 # Guarantees: Single.run forwards an assumed exact refused World/system result.
 # Why it matters: this wrapper must not rotate history after that assumed result.
@@ -69,16 +72,16 @@ law single_run_forwards_refused_result:
   for -C:Type
   for -R:Type
   for -E:Data
-  for -Ops:Type -> Type
+  for -Ops:Data -> Type -> Type
   for -Local:Type
   for -Error:Data
   for -Out:Data
-  for -declaration:Build.Program(~S,~C,~C,~R,~Ops)
-  for -body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>)
+  for -declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops)
+  for -body:Sys.Body(~S,~Ops,~Local,~Error,~Out)
   for -world:W.World<S,C,R,E>
   for -owner:Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>
-  for refused:{Sys.run(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,owner,world) == Sys.Refused{world,owner} : Sys.RunResult<W.World<S,C,R,E>,Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>}
-  {Single.run(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,Single.Application{world,owner}) == (Single.Application{world,owner},Single.AdmissionRefused{}) : Single.Application<S,C,R,E,Ops,Local,Error,Out,declaration,body> & Single.Status<Error,Out>}
+  for refused:{Sys.run(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,owner,world) == IO.pure(Sys.RunResult<W.World<S,C,R,E>,Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>,Sys.Refused{world,owner}) : IO(Sys.RunResult<W.World<S,C,R,E>,Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>)}
+  {Single.run(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,Single.Application{world,owner}) == IO.pure(Single.Application<S,C,R,E,Ops,Local,Error,Out,declaration,body> & Single.Status<Error,Out>,(Single.Application{world,owner},Single.AdmissionRefused{})) : IO(Single.Application<S,C,R,E,Ops,Local,Error,Out,declaration,body> & Single.Status<Error,Out>)}
 
 # Guarantees: returned body error retains the actual Scope payload and affine Local.
 # Why it matters: the completed owner gets the captured tick, never a prior Local.
@@ -91,12 +94,12 @@ law body_error_reassembles_actual_type_owners:
   for -C:Type
   for -R:Type
   for -E:Data
-  for -Ops:Type -> Type
+  for -Ops:Data -> Type -> Type
   for -Local:Type
   for -Error:Data
   for -Out:Data
-  for -declaration:Build.Program(~S,~C,~C,~R,~Ops)
-  for -body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>)
+  for -declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops)
+  for -body:Sys.Body(~S,~Ops,~Local,~Error,~Out)
   for -admin:State.Administration<S,C,R,E>
   for -scope:State.Scope<S,C,R>
   for -local:Local
@@ -205,6 +208,8 @@ law foreign_reader_preserves_actual_scope_and_reader:
 # Bevy behavior: an update without a selected default schedule still clears trackers.
 # Bend limit: actual kernel Finished is a premise, including its gate/admission
 # decision. This law does not independently establish that kernel classification.
+# Current IO limit: the run-wrapper premises below require exact IO.pure terms.
+# They do not quantify over arbitrary effectful Task/IO traces or prove driver IO.
 law pair_run_forwards_finished_result_with_maintenance:
   for -S:Data
   for -CL:Type
@@ -218,12 +223,12 @@ law pair_run_forwards_finished_result_with_maintenance:
   for -ER:Data
   for -OL:Data
   for -OR:Data
-  for -OpsL:Type -> Type
-  for -OpsR:Type -> Type
-  for -dl:Build.Program(~S,~Product.Owner<CL,CR>,~CL,~RL,~OpsL)
-  for -dr:Build.Program(~S,~Product.Owner<CL,CR>,~CR,~RR,~OpsR)
-  for -bl:@-H:Type -> @-caps:OpsL(H) -> H -> LL -> H & (LL & Sys.Completion<EL,OL>)
-  for -br:@-H:Type -> @-caps:OpsR(H) -> H -> LR -> H & (LR & Sys.Completion<ER,OR>)
+  for -OpsL:Data -> Type -> Type
+  for -OpsR:Data -> Type -> Type
+  for -dl:Build.FrameworkProgram(~S,~Product.Owner<CL,CR>,~CL,~RL,~OpsL)
+  for -dr:Build.FrameworkProgram(~S,~Product.Owner<CL,CR>,~CR,~RR,~OpsR)
+  for -bl:Sys.Body(~S,~OpsL,~LL,~EL,~OL)
+  for -br:Sys.Body(~S,~OpsR,~LR,~ER,~OR)
   for -mode:Parallel.Mode
   for -gateLeft:Bool
   for -gateRight:Bool
@@ -233,8 +238,8 @@ law pair_run_forwards_finished_result_with_maintenance:
   for -right:Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>
   for -lc:Maybe<&2,Sys.Completion<EL,OL>>
   for -rc:Maybe<&2,Sys.Completion<ER,OR>>
-  for finished:{Pair.kernel_when(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~OpsL,~OpsR,~dl,~dr,~bl,~br,mode,gateLeft,gateRight,app) == Run.Finished{world,left,right,lc,rc} : Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>}
-  {Pair.run_when(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~OpsL,~OpsR,~dl,~dr,~bl,~br,mode,gateLeft,gateRight,app) == Run.Finished{W.maintain_lifecycle(~S,~Product.Owner<CL,CR>,~Product.Owner<RL,RR>,~E,world),left,right,lc,rc} : Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>}
+  for finished:{Pair.kernel_when(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~OpsL,~OpsR,~dl,~dr,~bl,~br,mode,gateLeft,gateRight,app) == IO.pure(Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>,Run.Finished{world,left,right,lc,rc}) : IO(Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>)}
+  {Pair.run_when(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~OpsL,~OpsR,~dl,~dr,~bl,~br,mode,gateLeft,gateRight,app) == IO.pure(Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>,Run.Finished{W.maintain_lifecycle(~S,~Product.Owner<CL,CR>,~Product.Owner<RL,RR>,~E,world),left,right,lc,rc}) : IO(Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>)}
 
 # Guarantees: Pair.run_when forwards an assumed refused result without maintenance.
 # Why it matters: the wrapper must preserve the owners/completions already in it.
@@ -255,12 +260,12 @@ law pair_run_forwards_refused_result:
   for -ER:Data
   for -OL:Data
   for -OR:Data
-  for -OpsL:Type -> Type
-  for -OpsR:Type -> Type
-  for -dl:Build.Program(~S,~Product.Owner<CL,CR>,~CL,~RL,~OpsL)
-  for -dr:Build.Program(~S,~Product.Owner<CL,CR>,~CR,~RR,~OpsR)
-  for -bl:@-H:Type -> @-caps:OpsL(H) -> H -> LL -> H & (LL & Sys.Completion<EL,OL>)
-  for -br:@-H:Type -> @-caps:OpsR(H) -> H -> LR -> H & (LR & Sys.Completion<ER,OR>)
+  for -OpsL:Data -> Type -> Type
+  for -OpsR:Data -> Type -> Type
+  for -dl:Build.FrameworkProgram(~S,~Product.Owner<CL,CR>,~CL,~RL,~OpsL)
+  for -dr:Build.FrameworkProgram(~S,~Product.Owner<CL,CR>,~CR,~RR,~OpsR)
+  for -bl:Sys.Body(~S,~OpsL,~LL,~EL,~OL)
+  for -br:Sys.Body(~S,~OpsR,~LR,~ER,~OR)
   for -mode:Parallel.Mode
   for -gateLeft:Bool
   for -gateRight:Bool
@@ -270,8 +275,8 @@ law pair_run_forwards_refused_result:
   for -right:Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>
   for -lc:Maybe<&2,Sys.Completion<EL,OL>>
   for -rc:Maybe<&2,Sys.Completion<ER,OR>>
-  for refused:{Pair.kernel_when(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~OpsL,~OpsR,~dl,~dr,~bl,~br,mode,gateLeft,gateRight,app) == Run.AdmissionRefused{world,left,right,lc,rc} : Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>}
-  {Pair.run_when(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~OpsL,~OpsR,~dl,~dr,~bl,~br,mode,gateLeft,gateRight,app) == Run.AdmissionRefused{world,left,right,lc,rc} : Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>}
+  for refused:{Pair.kernel_when(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~OpsL,~OpsR,~dl,~dr,~bl,~br,mode,gateLeft,gateRight,app) == IO.pure(Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>,Run.AdmissionRefused{world,left,right,lc,rc}) : IO(Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>)}
+  {Pair.run_when(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~OpsL,~OpsR,~dl,~dr,~bl,~br,mode,gateLeft,gateRight,app) == IO.pure(Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>,Run.AdmissionRefused{world,left,right,lc,rc}) : IO(Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>)}
 
 # Guarantees: reassembly returns actual Scope columns/resources and Admin owners.
 # Why it matters: a worker's returned snapshot cannot replace authoritative journal.
@@ -311,12 +316,12 @@ law single_foreign_admission_returns_exact_type_owners:
   for -C:Type
   for -R:Type
   for -E:Data
-  for -Ops:Type -> Type
+  for -Ops:Data -> Type -> Type
   for -Local:Type
   for -Error:Data
   for -Out:Data
-  for -declaration:Build.Program(~S,~C,~C,~R,~Ops)
-  for -body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>)
+  for -declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops)
+  for -body:Sys.Body(~S,~Ops,~Local,~Error,~Out)
   for -namespace:U32
   for -allocator:Allocator.Allocator
   for -store:C
@@ -334,7 +339,7 @@ law single_foreign_admission_returns_exact_type_owners:
   for -prior:Maybe<&2,Tick.Tick>
   for -local:Local
   for foreign:{U32.is_eq(ownerNamespace,namespace) == False{} : Bool}
-  {Sys.run(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,Sys.Owner{ownerNamespace,id,name,access,prior,local},W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal}) == Sys.Refused{W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal},Sys.Owner{ownerNamespace,id,name,access,prior,local}} : Sys.RunResult<W.World<S,C,R,E>,Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>}
+  {Sys.run(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,Sys.Owner{ownerNamespace,id,name,access,prior,local},W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal}) == IO.pure(Sys.RunResult<W.World<S,C,R,E>,Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>,Sys.Refused{W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal},Sys.Owner{ownerNamespace,id,name,access,prior,local}}) : IO(Sys.RunResult<W.World<S,C,R,E>,Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>)}
 
 # Guarantees: actual reader clamps to retained floor, reports lag, acknowledges item.
 # Why it matters: arbitrary sleeping-reader lag is not success-only acknowledgement.
@@ -368,27 +373,31 @@ law reader_lag_clamp_and_yield_preserve_actual_scope:
 # Bevy behavior: structural entity operations validate the actual entity first.
 # Bend adaptation: namespace is explicit and refusal returns raw payload owners.
 # The premises validate route and foreign identity, not a final publication result.
-law foreign_family_entry_retains_world_and_incoming_owner:
-  for -S:Data
-  for -R:Type
-  for -E:Data
-  for -layout:Layout.Layout
-  for -route:Layout.Route
-  for valid:{Layout.grant_valid(~layout,~route) == True{} : Bool}
-  for -permission:Permission.Permission
-  for -namespace:U32
-  for -allocator:Allocator.Allocator
-  for -store:Layout.columns(~S,layout)
-  for -resource:R
-  for -events:List<&2,E>
-  for -pending:List<Deferred.Command<W.World<S,Layout.columns(~S,layout),R,E>>>
-  for -registrations:List<&2,W.RegistrationMeta>
-  for -nextSystemId:U32
-  for -clock:Clock.State
-  for -journal:Notice.Journal<S>
-  for -actual:U32
-  for -key:Key.Key
-  for -incoming:Maybe<&1,Layout.payload(layout,route)>
-  for -tick:Tick.Tick
-  for foreign:{U32.is_eq(namespace,actual) == False{} : Bool}
-  {Publication.entry(~S,~R,~E,~layout,~route,permission,W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal},Buffer.Entry{W.Handle{actual,key},incoming},tick) == (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal},Buffer.Refused{W.Handle{actual,key},incoming}) : W.World<S,Layout.columns(~S,layout),R,E> & Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>}
+# BLOCKED pending the concrete ScopeGrant/Permission.Selection API migration.
+# Publication.entry now also needs resources, sameWR, selection and Context.
+# The original statement is retained as commented draft text, without replacing
+# it by a weaker helper law or claiming that its old call is current source.
+# BLOCKED: law foreign_family_entry_retains_world_and_incoming_owner:
+# BLOCKED:   for -S:Data
+# BLOCKED:   for -R:Type
+# BLOCKED:   for -E:Data
+# BLOCKED:   for -layout:Layout.Layout
+# BLOCKED:   for -route:Layout.Route
+# BLOCKED:   for valid:{Layout.grant_valid(~layout,~route) == True{} : Bool}
+# BLOCKED:   for -permission:Permission.Permission
+# BLOCKED:   for -namespace:U32
+# BLOCKED:   for -allocator:Allocator.Allocator
+# BLOCKED:   for -store:Layout.columns(~S,layout)
+# BLOCKED:   for -resource:R
+# BLOCKED:   for -events:List<&2,E>
+# BLOCKED:   for -pending:List<Deferred.Command<W.World<S,Layout.columns(~S,layout),R,E>>>
+# BLOCKED:   for -registrations:List<&2,W.RegistrationMeta>
+# BLOCKED:   for -nextSystemId:U32
+# BLOCKED:   for -clock:Clock.State
+# BLOCKED:   for -journal:Notice.Journal<S>
+# BLOCKED:   for -actual:U32
+# BLOCKED:   for -key:Key.Key
+# BLOCKED:   for -incoming:Maybe<&1,Layout.payload(layout,route)>
+# BLOCKED:   for -tick:Tick.Tick
+# BLOCKED:   for foreign:{U32.is_eq(namespace,actual) == False{} : Bool}
+# BLOCKED:   {Publication.entry(~S,~R,~E,~layout,~route,permission,W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal},Buffer.Entry{W.Handle{actual,key},incoming},tick) == (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal},Buffer.Refused{W.Handle{actual,key},incoming}) : W.World<S,Layout.columns(~S,layout),R,E> & Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>}

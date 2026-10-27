@@ -102,6 +102,10 @@ law foreign_publication_preserves_slot_and_stamp:
 
 # Reader identity is independent of system registration. A foreign namespace
 # preserves its actual affine reader and the exact shared channel.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/message/message_cursor.rs
+# Bevy behavior: the cursor tracks a reader's consumed message count.
+# Bend's namespace refusal and return of the same affine reader are additional
+# ownership requirements; this law does not prove ordinary reader registration.
 law foreign_failure_reader_exact:
   for -S:Data
   for -descriptor:T.Descriptor<S>
@@ -120,6 +124,9 @@ law foreign_failure_reader_exact:
 # Once the body reports an error, Local retains the already advanced actual
 # reader alongside the returned actual scope and user owner. This pins the
 # completion adapter, not every system body or the ordinary false-condition path.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/schedule/executor/single_threaded.rs
+# Bevy behavior: returned system errors reach the configured error handler.
+# Exact reader/user/scope reassembly below is Bend-specific, not error rollback.
 law body_error_retains_consumed_reader:
   for -S:Data
   for -descriptor:T.Descriptor<S>
