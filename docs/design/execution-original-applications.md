@@ -38,6 +38,13 @@ facility does not authorize the old `transaction.bend` failure-prefix machinery
 to determine the replacement ordinary schedule. Recoverable component operations
 remain separate from the three scheduled systems.
 
+`recoverable-component.bend` retains the nominal recovery records and result
+types used by the modern adapter. Old column operations live in
+`recoverable-component-legacy.bend`; their callers import that module explicitly.
+The aggregate still includes those legacy operations. This split removes that
+transitive legacy dependency from the modern recovery adapter, not from the
+whole package.
+
 ## AppB retains a distinct graph application
 
 AppB has no registered gameplay system. `main.bend` installs three bundles, queues

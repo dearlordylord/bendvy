@@ -285,6 +285,7 @@ import ./recoverable-array-owner.bend as M274
 import ./recoverable-array.bend as M275
 import ./recoverable-component-family.bend as M276
 import ./recoverable-component.bend as M277
+import ./recoverable-component-legacy.bend as M277Legacy
 import ./recoverable-owner.bend as M278
 import ./recovery-journal.bend as M279
 import ./recovery-use.bend as M280

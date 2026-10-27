@@ -8,6 +8,7 @@ import ./column.bend as Col
 import ./component.bend as C
 import ./lifecycle.bend as Life
 import ./recoverable-component.bend as RC
+import ./recoverable-component-legacy.bend as Legacy
 # Existing Family lenses remain trusted schema provisioning, not gameplay grants.
 # No caller-authored inverse or recovery pack callback is introduced.
 def replaced(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~P:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,handle:W.Handle<S>,stamp:Life.Stamp,result:C.Replacement<W.World<S,Store,R,E>,P>) -> RC.Replacement<W.World<S,Store,R,E>,S,P>:
@@ -24,7 +25,7 @@ def column_returned(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~P:Type,~V:Da
     case (column,released):(put(rest,column),released)
 def column_taken(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~P:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,record:RC.Record<S,P>,taken:Rest & Col.Column<S,P>) -> Store & RC.Record<S,P>:
   match record taken:
-    case RC.Record{handle,stamp,payload}, (rest,column):column_returned(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,rest,RC.undo_column(~S,~P,handle,stamp,payload,column))
+    case RC.Record{handle,stamp,payload}, (rest,column):column_returned(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,rest,Legacy.undo_column(~S,~P,handle,stamp,payload,column))
 def undone(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~P:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,ns:U32,allocator:Alloc.Allocator,resource:R,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,Store,R,E>>>,regs:List<&2,W.RegistrationMeta>,sid:U32,clock:Clock.State,result:Store & RC.Record<S,P>,lifecycle:Notice.Journal<S>) -> W.World<S,Store,R,E> & RC.Record<S,P>:
   match result:
     case (store,released):(W.World{ns,allocator,store,resource,events,pending,regs,sid,clock,lifecycle},released)

@@ -11,6 +11,7 @@ import ./recoverable-array.bend as A
 import ./recoverable-array-owner.bend as AO
 import ./recoverable-owner.bend as RO
 import ./recoverable-component.bend as RC
+import ./recoverable-component-legacy.bend as Legacy
 import ./recovery-journal.bend as Journal
 # Explicit opt-in recovery for captures. The normal #50 entry is unchanged.
 type ComponentAttempt<H:Type,P:Type> is Type:
@@ -44,14 +45,14 @@ def component_released(~S:Data,~P:Type,~Q:Type,~R:Type,~E:Data,capture:Array<Q>,
 def component_inverse(~S:Data,~P:Type,~Q:Type,~R:Type,~E:Data,old:RC.Record<S,P>,success:Bool,state:Product.Owner<W.World<S,Col.Column<S,P>,R,E>,Array<Q>>,recovery:Product.Owner<List<RC.Record<S,P>>,List<A.Record<Q>>>) -> Product.Owner<W.World<S,Col.Column<S,P>,R,E>,Array<Q>> & Product.Owner<List<RC.Record<S,P>>,List<A.Record<Q>>>:
   match success state recovery:
     case True{} state Product.Owner{components,captures}:(state,Product.Owner{old <> components,captures})
-    case False{} Product.Owner{world,capture} recovery:component_released(~S,~P,~Q,~R,~E,capture,recovery,RC.undo(~S,~P,~R,~E,old,world))
+    case False{} Product.Owner{world,capture} recovery:component_released(~S,~P,~Q,~R,~E,capture,recovery,Legacy.undo(~S,~P,~R,~E,old,world))
 def component_changed(~S:Data,~P:Type,~Q:Type,~R:Type,~E:Data,capture:Array<Q>,journal:List<Journal.Action(~Product.Owner<W.World<S,Col.Column<S,P>,R,E>,Array<Q>>,~Product.Owner<List<RC.Record<S,P>>,List<A.Record<Q>>>)>,result:RC.Replacement<W.World<S,Col.Column<S,P>,R,E>,S,P>) -> ComponentAttempt<O.Frame<Product.Owner<W.World<S,Col.Column<S,P>,R,E>,Array<Q>>,Product.Owner<List<RC.Record<S,P>>,List<A.Record<Q>>>>,P>:
   match result:
     case RC.Applied{world,old}:ComponentApplied{O.Frame{Product.Owner{world,capture},(success => s => r => component_inverse(~S,~P,~Q,~R,~E,old,success,s,r)) <> journal}}
     case RC.Refused{world,incoming,error}:ComponentRefused{O.Frame{Product.Owner{world,capture},journal},incoming,error}
 def frame_component(~S:Data,~P:Type,~Q:Type,~R:Type,~E:Data,~identity:Declaration.Declaration<S,P>,owner:O.Frame<Product.Owner<W.World<S,Col.Column<S,P>,R,E>,Array<Q>>,Product.Owner<List<RC.Record<S,P>>,List<A.Record<Q>>>>,handle:W.Handle<S>,incoming:Maybe<P>) -> ComponentAttempt<O.Frame<Product.Owner<W.World<S,Col.Column<S,P>,R,E>,Array<Q>>,Product.Owner<List<RC.Record<S,P>>,List<A.Record<Q>>>>,P>:
   match owner:
-    case O.Frame{Product.Owner{world,capture},journal}:component_changed(~S,~P,~Q,~R,~E,capture,journal,RC.replace(~S,~P,~R,~E,Declaration.key(~S,~P,identity),world,handle,incoming))
+    case O.Frame{Product.Owner{world,capture},journal}:component_changed(~S,~P,~Q,~R,~E,capture,journal,Legacy.replace(~S,~P,~R,~E,Declaration.key(~S,~P,identity),world,handle,incoming))
 def frame_replaced(~S:Data,~P:Type,~Q:Type,~R:Type,~E:Data,result:Product.Owner<W.World<S,Col.Column<S,P>,R,E>,Array<Q>> & List<Journal.Action(~Product.Owner<W.World<S,Col.Column<S,P>,R,E>,Array<Q>>,~Product.Owner<List<RC.Record<S,P>>,List<A.Record<Q>>>)>) -> O.Frame<Product.Owner<W.World<S,Col.Column<S,P>,R,E>,Array<Q>>,Product.Owner<List<RC.Record<S,P>>,List<A.Record<Q>>>>:
   match result:
     case (state,journal):O.Frame{state,journal}
