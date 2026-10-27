@@ -77,7 +77,7 @@ def guard_exit_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),res
     case (_,Sys.DefinitionRefused{_,_}):IO.pure(BuildResult<S>,BuildRefused{"ERROR:exit-guard"})
 def events_defined(~S:Data,apply:Registry.ApplyOwner(~S),exit:Registry.ExitOwner(~S),transition:Registry.ReadOwner(~S),enter:Registry.RequestOwner(~S),peer:PeerOwner(~S),read:Registry.ActorOwner(~S),result:Sys.Defined<World(~S),Events.Owner(~S),Events.Local<S>>) -> IO(BuildResult<S>):
   match result:
-    case Sys.Defined{world,events}:guard_exit_defined(~S,Registry.pack(~S,apply,exit,transition,enter,read,events),peer,Guards.define(~S,world,"exit-guard",Cond.Local{ALeaf{900},Cond.Exit{}}))
+    case Sys.Defined{world,events}:guard_exit_defined(~S,Registry.pack(~S,apply,exit,transition,enter,read,events),peer,Guards.define(~S,world,"exit-guard",Cond.Local{ALeaf{900},Cond.ExitPhase{}}))
     case Sys.DefinitionRefused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:events"})
 def read_defined(~S:Data,apply:Registry.ApplyOwner(~S),exit:Registry.ExitOwner(~S),transition:Registry.ReadOwner(~S),enter:Registry.RequestOwner(~S),peer:PeerOwner(~S),result:Sys.Defined<World(~S),Registry.ActorOwner(~S),Actor.Local<S>>) -> IO(BuildResult<S>):
   match result:

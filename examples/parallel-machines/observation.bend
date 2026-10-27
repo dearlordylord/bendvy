@@ -132,7 +132,7 @@ def events_local(~S:Data,value:Events.Local<S>) -> String:
     case Events.Local{owner,retained}:maybe_reader(~S,owner) ++ "/" ++ local(retained)
 def phase(value:Cond.Phase) -> String:
   match value:
-    case Cond.Exit{}:"exit"
+    case Cond.ExitPhase{}:"exit"
     case Cond.Transition{}:"transition"
     case Cond.Enter{}:"enter"
     case Cond.Running{}:"running"

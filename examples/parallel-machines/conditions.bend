@@ -9,13 +9,13 @@ import ../../src/ecs/execution-composer-layout.bend as Layout
 import ../../src/ecs/owner-product.bend as Product
 
 type Phase is Data:
-  Exit{}
+  ExitPhase{}
   Transition{}
   Enter{}
   Running{}
 def enabled(~S:Data,phase:Phase,view:State.View<S,D.Key,D.Mode>) -> Bool:
   match phase view:
-    case Exit{} State.View{_,_,_,_,_,event}:State.run_exit(D.Mode,event)
+    case ExitPhase{} State.View{_,_,_,_,_,event}:State.run_exit(D.Mode,event)
     case Transition{} State.View{_,_,_,_,_,event}:State.run_transition(D.Mode,event)
     case Enter{} State.View{_,_,_,_,_,event}:State.run_enter(D.Mode,event)
     case Running{} view:State.matches(~S,~D.Key,~D.Mode,~D.same,D.Running{},view)
