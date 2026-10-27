@@ -27,18 +27,18 @@ def component_layout(~S:Data) -> Layout.Layout:Layout.LayoutPair{actor_layout(~S
 def LeftStore(~S:Data) -> Type:Layout.columns(~S,actor_layout(~S))
 def RightStore(~S:Data) -> Type:Layout.columns(~S,peer_layout(~S))
 def Store(~S:Data) -> Type:Layout.columns(~S,component_layout(~S))
-def read_ops(~S:Data) -> Type -> Type:Machine.Reads(~S,~Key,~Mode)
-def read_selection(~S:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~LeftStore(~S),~Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~LeftStore(~S),~Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~LeftStore(~S),~Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~LeftStore(~S),~Resources(~S),~H,~B),~q:Build.Query(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~H,~B),book:B) -> B & read_ops(~S)(H):
+def read_ops(~S:Data) -> Data -> Type -> Type:Machine.Reads(~S,~Key,~Mode)
+def read_selection(~S:Data,~Permit:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~LeftStore(~S),~Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~LeftStore(~S),~Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~LeftStore(~S),~Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~LeftStore(~S),~Resources(~S),~H,~B),~q:Build.Query(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~H,~B),book:B) -> B & read_ops(~S)(Permit,H):
   Machine.select_read(~S,~Key,~Mode,~LeftStore(~S),~Resources(~S),~H,~B,~layout(~S),~Layout.AtLeaf{},~{==},~{==},~view_proof(~S),~rr,book)
-def read(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~H,~B),book:B) -> B & read_ops(~S)(H):
-  builder(read_ops(~S),read_selection(~S,~H,~B),book)
-def request_ops(~S:Data) -> Type -> Type:Machine.Writes(~S,~Key,~Mode)
-def request_selection(~S:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~LeftStore(~S),~Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~LeftStore(~S),~Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~LeftStore(~S),~Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~LeftStore(~S),~Resources(~S),~H,~B),~q:Build.Query(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~H,~B),book:B) -> B & request_ops(~S)(H):
+def read(~S:Data,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~Permit,~H,~B),book:B) -> B & read_ops(~S)(Permit,H):
+  builder(read_ops(~S),read_selection(~S,~Permit,~H,~B),book)
+def request_ops(~S:Data) -> Data -> Type -> Type:Machine.Writes(~S,~Key,~Mode)
+def request_selection(~S:Data,~Permit:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~LeftStore(~S),~Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~LeftStore(~S),~Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~LeftStore(~S),~Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~LeftStore(~S),~Resources(~S),~H,~B),~q:Build.Query(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~H,~B),book:B) -> B & request_ops(~S)(Permit,H):
   Machine.select_write(~S,~Key,~Mode,~LeftStore(~S),~Resources(~S),~H,~B,~layout(~S),~Layout.AtLeaf{},~{==},~{==},~payload_proof(~S),~view_proof(~S),~same,~rw,book)
-def request(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~H,~B),book:B) -> B & request_ops(~S)(H):
-  builder(request_ops(~S),request_selection(~S,~H,~B),book)
-def apply_ops(~S:Data) -> Type -> Type:Machine.Applies(~S,~Key,~Mode)
-def apply_selection(~S:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~LeftStore(~S),~Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~LeftStore(~S),~Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~LeftStore(~S),~Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~LeftStore(~S),~Resources(~S),~H,~B),~q:Build.Query(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~H,~B),book:B) -> B & apply_ops(~S)(H):
+def request(~S:Data,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~Permit,~H,~B),book:B) -> B & request_ops(~S)(Permit,H):
+  builder(request_ops(~S),request_selection(~S,~Permit,~H,~B),book)
+def apply_ops(~S:Data) -> Data -> Type -> Type:Machine.Applies(~S,~Key,~Mode)
+def apply_selection(~S:Data,~Permit:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~LeftStore(~S),~Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~LeftStore(~S),~Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~LeftStore(~S),~Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~LeftStore(~S),~Resources(~S),~H,~B),~q:Build.Query(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~H,~B),book:B) -> B & apply_ops(~S)(Permit,H):
   Machine.select_apply(~S,~Key,~Mode,~LeftStore(~S),~Resources(~S),~H,~B,~layout(~S),~Layout.AtLeaf{},~{==},~{==},~payload_proof(~S),~view_proof(~S),~same,~rw,book)
-def apply(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~H,~B),book:B) -> B & apply_ops(~S)(H):
-  builder(apply_ops(~S),apply_selection(~S,~H,~B),book)
+def apply(~S:Data,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~LeftStore(~S),~Resources(~S),~Permit,~H,~B),book:B) -> B & apply_ops(~S)(Permit,H):
+  builder(apply_ops(~S),apply_selection(~S,~Permit,~H,~B),book)

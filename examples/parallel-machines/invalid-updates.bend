@@ -26,15 +26,15 @@ def resources() -> Resources():Product.Owner{Layout.ResourceSlot{Layout.initiali
 def machine_shape() -> {Layout.payload(Cond.layout(~Schema),Layout.InLeft{Layout.AtLeaf{}}) == Machine.Cell<Schema,D.Key,D.Mode> : Type}:{==}
 def World() -> Type:W.World<Schema,D.Store(~Schema),Resources(),Unit>
 def Application() -> Type:DepApp.Application<World(),Unit,Unit,Report.Handler,String,String,Reg.empty_dispatch(~World(),~String,~String),Reg.empty_dispatch(~World(),~String,~Bool),Report.handle>
-def Scheduled() -> Type:Schedule.Scheduled<Application()>
+def Scheduled() -> Type:Schedule.Scheduled<DepApp.State<World(),Unit,Unit,Report.Handler>>
 def rotate(result:Application() & DepApp.Report<String,String>) -> Scheduled() & DepApp.Report<String,String>:
   match result:
-    case (app,status):Maintenance.completed(~Schema,~D.Key,~D.Mode,~D.Store(~Schema),~Resources(),~Unit,~Cond.layout(~Schema),~Layout.InLeft{Layout.AtLeaf{}},~{==},~machine_shape(),~Unit,~Unit,~Report.Handler,~String,~String,~Reg.empty_dispatch(~World(),~String,~String),~Reg.empty_dispatch(~World(),~String,~Bool),~Report.handle,(Schedule.Scheduled{app,Part.Rules{[]},Schedule.Deferred{[],Settings.Settings{False{},False{},[],[]},[]}},status))
+    case (DepApp.Application{state,plan,bindings},status):Maintenance.completed(~Schema,~D.Key,~D.Mode,~D.Store(~Schema),~Resources(),~Unit,~Cond.layout(~Schema),~Layout.InLeft{Layout.AtLeaf{}},~{==},~machine_shape(),~Unit,~Unit,~Report.Handler,~String,~String,(Schedule.Scheduled{state,plan,bindings,Part.Rules{[]},Schedule.Deferred{[],Settings.Settings{False{},False{},[],[]},[]}},status))
 def run_once(app:Application()) -> Scheduled() & DepApp.Report<String,String>:
   rotate(DepApp.run(~World(),~Unit,~Unit,~Report.Handler,~String,~String,~Reg.empty_dispatch(~World(),~String,~String),~Reg.empty_dispatch(~World(),~String,~Bool),~Report.handle,app))
 def final(trace:String,result:Scheduled() & DepApp.Report<String,String>) -> String:
   match result:
-    case (Schedule.Scheduled{DepApp.Application{DepApp.State{world,_,_,handler,_},_,_},_,_},status):trace ++ "|" ++ Report.report(status) ++ "|" ++ Observe.world(~Schema,world) ++ "|handler=" ++ Report.handler(handler)
+    case (Schedule.Scheduled{DepApp.State{world,_,_,handler,_},_,_,_,_},status):trace ++ "|" ++ Report.report(status) ++ "|" ++ Observe.world(~Schema,world) ++ "|handler=" ++ Report.handler(handler)
 def prepared(world:World()) -> String:
   final("invalid",run_once(DepApp.trusted_build_checked(~World(),~Unit,~Unit,~Report.Handler,~String,~String,~Reg.empty_dispatch(~World(),~String,~String),~Reg.empty_dispatch(~World(),~String,~Bool),~Report.handle,~Report.available,world,Reg.empty(~World(),~String,~String),Reg.empty_conditions(~World(),~String),Report.Handler{ALeaf{801},0},[Plan.Edge{99,100}],[])))
 def created(result:W.Creation<Schema,D.Store(~Schema),Resources(),Unit>) -> String:

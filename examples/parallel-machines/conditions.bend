@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-reservation-task.bend as Effect
 import ./declarations.bend as D
 import ../../src/ecs/execution-machine-state.bend as State
 import ../../src/ecs/execution-machine-access.bend as Machine
@@ -23,14 +24,17 @@ type Local is Type:
 def observed(~S:Data,~H:Type,identity:Array<U32>,+phase:Phase,result:H & State.View<S,D.Key,D.Mode>) -> H & (Local & Sys.Completion<String,Bool>):
   match result:
     case (scope,view):(scope,(Local{identity,phase},Sys.Success{enabled(~S,phase,view)}))
-def body(~S:Data,~H:Type,~caps:D.read_ops(~S)(H),scope:H,local:Local) -> H & (Local & Sys.Completion<String,Bool>):
+def body_sync(~S:Data,~Permit:Data,~H:Type,~caps:D.read_ops(~S)(Permit,H),scope:H,local:Local) -> H & (Local & Sys.Completion<String,Bool>):
   match local:
     case Local{identity,phase}:observed(~S,~H,identity,phase,Machine.read_field(~S,~D.Key,~D.Mode,~H,caps)(scope))
 
 def Resources(~S:Data) -> Type:Product.Owner<D.Resources(~S),Unit>
 def layout(~S:Data) -> Layout.Layout:Layout.LayoutPair{D.layout(~S),Layout.EmptyLayout{}}
 def view_proof(~S:Data) -> {Layout.view(layout(~S),Layout.InLeft{Layout.AtLeaf{}}) == State.View<S,D.Key,D.Mode> : Data}:{==}
-def selection(~S:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~D.Store(~S),~Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~D.Store(~S),~Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~D.Store(~S),~Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~D.Store(~S),~Resources(~S),~H,~B),~q:Build.Query(~S,~D.Store(~S),~D.Store(~S),~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~D.Store(~S),~D.Store(~S),~Resources(~S),~H,~B),book:B) -> B & D.read_ops(~S)(H):
+def selection(~S:Data,~Permit:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~D.Store(~S),~Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~D.Store(~S),~Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~D.Store(~S),~Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~D.Store(~S),~Resources(~S),~H,~B),~q:Build.Query(~S,~D.Store(~S),~D.Store(~S),~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~D.Store(~S),~D.Store(~S),~Resources(~S),~H,~B),book:B) -> B & D.read_ops(~S)(Permit,H):
   Machine.select_read(~S,~D.Key,~D.Mode,~D.Store(~S),~Resources(~S),~H,~B,~layout(~S),~Layout.InLeft{Layout.AtLeaf{}},~{==},~{==},~view_proof(~S),~rr,book)
-def declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.Store(~S),~Resources(~S),~H,~B),book:B) -> B & D.read_ops(~S)(H):
-  builder(D.read_ops(~S),selection(~S,~H,~B),book)
+def declaration(~S:Data,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.Store(~S),~Resources(~S),~Permit,~H,~B),book:B) -> B & D.read_ops(~S)(Permit,H):
+  builder(D.read_ops(~S),selection(~S,~Permit,~H,~B),book)
+
+def body(~S:Data,~Permit:Data,~H:Type,~caps:D.read_ops(~S)(Permit,H),scope:H,local:Local) -> Effect.Task<S,Permit,H & (Local & Sys.Completion<String,Bool>)>:
+  Effect.TDone{body_sync(~S,~Permit,~H,~caps,scope,local)}

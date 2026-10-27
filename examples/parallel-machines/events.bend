@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-reservation-task.bend as Effect
 import ./declarations.bend as D
 import ./bodies.bend as Body
 import ../../src/ecs/execution-machine-events.bend as Events
@@ -13,11 +14,11 @@ import ../../src/ecs/change-tick.bend as Tick
 import ../../src/ecs/world.bend as W
 
 def Reader(~S:Data) -> Type:Stream.Reader<S,D.Key,D.Mode,D.layout(~S),Layout.AtLeaf{}>
-def Ops(~S:Data) -> Type -> Type:Events.Ops(~S,~D.Key,~D.Mode,~D.layout(~S),~Layout.AtLeaf{})
-def selection(~S:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~D.LeftStore(~S),~D.Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~D.LeftStore(~S),~D.Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~D.LeftStore(~S),~D.Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~D.LeftStore(~S),~D.Resources(~S),~H,~B),~q:Build.Query(~S,~D.Store(~S),~D.LeftStore(~S),~D.Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~D.Store(~S),~D.LeftStore(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):
+def Ops(~S:Data) -> Data -> Type -> Type:Events.Ops(~S,~D.Key,~D.Mode,~D.layout(~S),~Layout.AtLeaf{})
+def selection(~S:Data,~Permit:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~D.LeftStore(~S),~D.Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~D.LeftStore(~S),~D.Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~D.LeftStore(~S),~D.Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~D.LeftStore(~S),~D.Resources(~S),~H,~B),~q:Build.Query(~S,~D.Store(~S),~D.LeftStore(~S),~D.Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~D.Store(~S),~D.LeftStore(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S)(Permit,H):
   Events.select(~S,~D.Key,~D.Mode,~D.LeftStore(~S),~D.Resources(~S),~H,~B,~D.layout(~S),~Layout.AtLeaf{},~{==},~{==},~D.payload_proof(~S),~D.view_proof(~S),~rw,book)
-def declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.LeftStore(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):
-  builder(Ops(~S),selection(~S,~H,~B),book)
+def declaration(~S:Data,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.LeftStore(~S),~D.Resources(~S),~Permit,~H,~B),book:B) -> B & Ops(~S)(Permit,H):
+  builder(Ops(~S),selection(~S,~Permit,~H,~B),book)
 type Local<-S:Data> is Type:
   Local{reader:Maybe<&1,Reader(~S)>,retained:Body.Local()}
 def event(value:M.Transition<D.Mode>) -> String:
@@ -42,11 +43,15 @@ def read(~S:Data,~H:Type,retained:Body.Local(),result:H & Stream.Reading<S,D.Key
   match retained result:
     case retained, (scope,Stream.Refused{reader}):(scope,(Local{Some{reader},retained},Sys.BodyError{"foreign-reader","refused"}))
     case Capture.Local{state,capture}, (scope,Stream.Read{reader,events,missed,tick}):advanced(~S,~H,scope,reader,capture,"events=" ++ List.show(&2,M.Transition<D.Mode>,event,events) ++ "/missed=" ++ Nat.show(missed) ++ "/tick=" ++ Tick.show(tick),Body.advance(state))
-def body(~S:Data,~H:Type,~caps:Ops(~S)(H),scope:H,local:Local<S>) -> H & (Local<S> & Sys.Completion<String,String>):
+def body_sync(~S:Data,~Permit:Data,~H:Type,~caps:Ops(~S)(Permit,H),scope:H,local:Local<S>) -> H & (Local<S> & Sys.Completion<String,String>):
   match local:
     case Local{None{},retained}:(scope,(Local{None{},retained},Sys.BodyError{"unbound-reader","not-read"}))
     case Local{Some{reader},retained}:read(~S,~H,retained,Events.read_field(~S,~D.Key,~D.Mode,~D.layout(~S),~Layout.AtLeaf{},~H,caps)(reader,scope))
-def Owner(~S:Data) -> Type:Sys.Owner<S,D.Store(~S),D.LeftStore(~S),D.Resources(~S),Unit,Ops(~S),Local<S>,String,String,declaration(~S),body(~S)>
+
+def body(~S:Data,~Permit:Data,~H:Type,~caps:Ops(~S)(Permit,H),scope:H,local:Local<S>) -> Effect.Task<S,Permit,H & (Local<S> & Sys.Completion<String,String>)>:
+  Effect.TDone{body_sync(~S,~Permit,~H,~caps,scope,local)}
+
+def Owner(~S:Data) -> Type:Sys.Owner<S,D.Store(~S),D.LeftStore(~S),D.Resources(~S),Unit,Ops(~S),Local<S>,String,String,Build.framework_program(~S,~D.Store(~S),~D.LeftStore(~S),~D.Resources(~S),~Ops(~S),~declaration(~S)),body(~S)>
 def bound_local(~S:Data,namespace:U32,id:U32,local:Local<S>) -> Local<S>:
   match local:
     case Local{None{},retained}:Local{Some{Stream.Reader{namespace,id,0n}},retained}

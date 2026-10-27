@@ -10,7 +10,7 @@ import ./capabilities.bend as Cap
 # No payload owner or raw replacement operation is returned to an ordinary body.
 type Operations<-S:Data,-K:Data,-V:Data,-Move:Data,-H:Type> is Type:
   Operations{move:H -> W.Handle<S> -> Move -> H & State.Outcome<V,Unit>}
-def Ops(~S:Data,~K:Data,~V:Data,~Move:Data,H:Type) -> Type:Operations<S,K,V,Move,H>
+def Ops(~S:Data,~K:Data,~V:Data,~Move:Data,Permit:Data,H:Type) -> Type:Operations<S,K,V,Move,H>
 def Modifier(~S:Data,~H:Type,~P:Type,~V:Data) -> Type:
   (P -> P & V) -> H -> W.Handle<S> -> H & Maybe<&2,V>
 type MoveOwner<-S:Data,-H:Type,-P:Type,-V:Data> is Type:

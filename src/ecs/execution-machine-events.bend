@@ -10,7 +10,7 @@ import ./change-tick.bend as Tick
 
 type Read<-S:Data,-K:Data,-V:Data,-origin:Layout.Layout,-route:Layout.Route,-H:Type> is Type:
   Read{read:Stream.Reader<S,K,V,origin,route> -> H -> H & Stream.Reading<S,K,V,origin,route>}
-def Ops(~S:Data,~K:Data,~V:Data,~origin:Layout.Layout,~route:Layout.Route,H:Type) -> Type:Read<S,K,V,origin,route,H>
+def Ops(~S:Data,~K:Data,~V:Data,~origin:Layout.Layout,~route:Layout.Route,Permit:Data,H:Type) -> Type:Read<S,K,V,origin,route,H>
 def returned(~S:Data,~K:Data,~V:Data,~origin:Layout.Layout,~route:Layout.Route,slot:M.Slot<S,K,V>,revision:Nat,stamp:Maybe<&2,Tick.Tick>,nextStamp:Maybe<&2,Tick.Tick>,sequence:Nat,initialPending:Bool,namespace:Maybe<&2,U32>,intent:State.Intent<V>,result:Stream.Store<V> & Stream.Reading<S,K,V,origin,route>) -> State.Cell<S,K,V> & Stream.Reading<S,K,V,origin,route>:
   match result:
     case (stream,reading):(State.Cell{slot,stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent},reading)

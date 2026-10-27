@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-reservation-task.bend as Effect
 import ./declarations.bend as D
 import ../../src/ecs/execution-machine-access.bend as Machine
 import ../../src/ecs/execution-machine-state.bend as State
@@ -47,26 +48,26 @@ def view(~S:Data,value:State.View<S,D.Key,D.Mode>) -> String:
 def apply_viewed(~S:Data,~H:Type,local:Local(),result:H & State.View<S,D.Key,D.Mode>) -> H & (Local() & Sys.Completion<String,String>):
   match result:
     case (scope,value):(scope,(local,Sys.Success{view(~S,value)}))
-def applied(~S:Data,~H:Type,~caps:D.apply_ops(~S)(H),local:Local(),result:H & State.Intent<D.Mode>) -> H & (Local() & Sys.Completion<String,String>):
+def applied(~S:Data,~Permit:Data,~H:Type,~caps:D.apply_ops(~S)(Permit,H),local:Local(),result:H & State.Intent<D.Mode>) -> H & (Local() & Sys.Completion<String,String>):
   match result:
     case (scope,_):apply_viewed(~S,~H,local,Machine.apply_read_field(~S,~D.Key,~D.Mode,~H,caps)(scope))
-def apply(~S:Data,~H:Type,~caps:D.apply_ops(~S)(H),scope:H,local:Local()) -> H & (Local() & Sys.Completion<String,String>):
-  applied(~S,~H,~caps,local,Machine.apply_field(~S,~D.Key,~D.Mode,~H,caps)(scope))
+def apply_sync(~S:Data,~Permit:Data,~H:Type,~caps:D.apply_ops(~S)(Permit,H),scope:H,local:Local()) -> H & (Local() & Sys.Completion<String,String>):
+  applied(~S,~Permit,~H,~caps,local,Machine.apply_field(~S,~D.Key,~D.Mode,~H,caps)(scope))
 def request_viewed(~S:Data,~H:Type,state:Array<U32>,capture:Captured(),runs:U32,text:String,result:H & State.View<S,D.Key,D.Mode>) -> H & (Local() & Sys.Completion<String,String>):
   match result:
     case (scope,value):(scope,(Capture.Local{state,capture},Sys.Success{"request/" ++ U32.show(runs) ++ "/" ++ text ++ "/" ++ view(~S,value)}))
-def requested(~S:Data,~H:Type,~caps:D.request_ops(~S)(H),state:Array<U32>,capture:Captured(),runs:U32,text:String,result:H & Unit) -> H & (Local() & Sys.Completion<String,String>):
+def requested(~S:Data,~Permit:Data,~H:Type,~caps:D.request_ops(~S)(Permit,H),state:Array<U32>,capture:Captured(),runs:U32,text:String,result:H & Unit) -> H & (Local() & Sys.Completion<String,String>):
   match result:
     case (scope,_):request_viewed(~S,~H,state,capture,runs,text,Machine.write_read_field(~S,~D.Key,~D.Mode,~H,caps)(scope))
-def captured(~S:Data,~H:Type,~caps:D.request_ops(~S)(H),scope:H,state:Array<U32>,runs:U32,result:Captured() & String) -> H & (Local() & Sys.Completion<String,String>):
+def captured(~S:Data,~Permit:Data,~H:Type,~caps:D.request_ops(~S)(Permit,H),scope:H,state:Array<U32>,runs:U32,result:Captured() & String) -> H & (Local() & Sys.Completion<String,String>):
   match result:
-    case (capture,text):requested(~S,~H,~caps,state,capture,runs,text,Machine.request_field(~S,~D.Key,~D.Mode,~H,caps)(M.Set{D.Running{},True{}},scope))
-def requesting(~S:Data,~H:Type,~caps:D.request_ops(~S)(H),scope:H,capture:Captured(),result:Array<U32> & U32) -> H & (Local() & Sys.Completion<String,String>):
+    case (capture,text):requested(~S,~Permit,~H,~caps,state,capture,runs,text,Machine.request_field(~S,~D.Key,~D.Mode,~H,caps)(M.Set{D.Running{},True{}},scope))
+def requesting(~S:Data,~Permit:Data,~H:Type,~caps:D.request_ops(~S)(Permit,H),scope:H,capture:Captured(),result:Array<U32> & U32) -> H & (Local() & Sys.Completion<String,String>):
   match result:
-    case (state,runs):captured(~S,~H,~caps,scope,state,runs,Capture.invoke(~Context,~Unit,~String,~append,capture,Unit{}))
-def request(~S:Data,~H:Type,~caps:D.request_ops(~S)(H),scope:H,local:Local()) -> H & (Local() & Sys.Completion<String,String>):
+    case (state,runs):captured(~S,~Permit,~H,~caps,scope,state,runs,Capture.invoke(~Context,~Unit,~String,~append,capture,Unit{}))
+def request_sync(~S:Data,~Permit:Data,~H:Type,~caps:D.request_ops(~S)(Permit,H),scope:H,local:Local()) -> H & (Local() & Sys.Completion<String,String>):
   match local:
-    case Capture.Local{state,capture}:requesting(~S,~H,~caps,scope,capture,advance(state))
+    case Capture.Local{state,capture}:requesting(~S,~Permit,~H,~caps,scope,capture,advance(state))
 def read_captured(~H:Type,scope:H,state:Array<U32>,runs:U32,value:String,result:Captured() & String) -> H & (Local() & Sys.Completion<String,String>):
   match result:
     case (capture,text):(scope,(Capture.Local{state,capture},Sys.Success{value ++ "/runs=" ++ U32.show(runs) ++ "/capture=" ++ text}))
@@ -76,7 +77,7 @@ def read_advanced(~H:Type,scope:H,capture:Captured(),value:String,result:Array<U
 def read_result(~S:Data,~H:Type,local:Local(),result:H & State.View<S,D.Key,D.Mode>) -> H & (Local() & Sys.Completion<String,String>):
   match local result:
     case Capture.Local{state,capture}, (scope,State.View{current,next,revision,stamp,nextStamp,event}):read_advanced(~H,scope,capture,view(~S,State.View{current,next,revision,stamp,nextStamp,event}),advance(state))
-def read(~S:Data,~H:Type,~caps:D.read_ops(~S)(H),scope:H,local:Local()) -> H & (Local() & Sys.Completion<String,String>):
+def read_sync(~S:Data,~Permit:Data,~H:Type,~caps:D.read_ops(~S)(Permit,H),scope:H,local:Local()) -> H & (Local() & Sys.Completion<String,String>):
   read_result(~S,~H,local,Machine.read_field(~S,~D.Key,~D.Mode,~H,caps)(scope))
 
 # A handled ordinary body error retains the returned Scope and affine Local:
@@ -86,5 +87,14 @@ def failed(~H:Type,result:H & (Local() & Sys.Completion<String,String>)) -> H & 
   match result:
     case (scope,(local,Sys.Success{out})):(scope,(local,Sys.BodyError{"exit-after-request",out}))
     case (scope,(local,Sys.BodyError{error,out})):(scope,(local,Sys.BodyError{error,out}))
-def exit(~S:Data,~H:Type,~caps:D.request_ops(~S)(H),scope:H,local:Local()) -> H & (Local() & Sys.Completion<String,String>):
-  failed(~H,request(~S,~H,~caps,scope,local))
+def exit_sync(~S:Data,~Permit:Data,~H:Type,~caps:D.request_ops(~S)(Permit,H),scope:H,local:Local()) -> H & (Local() & Sys.Completion<String,String>):
+  failed(~H,request_sync(~S,~Permit,~H,~caps,scope,local))
+
+def apply(~S:Data,~Permit:Data,~H:Type,~caps:D.apply_ops(~S)(Permit,H),scope:H,local:Local()) -> Effect.Task<S,Permit,H & (Local() & Sys.Completion<String,String>)>:
+  Effect.TDone{apply_sync(~S,~Permit,~H,~caps,scope,local)}
+def request(~S:Data,~Permit:Data,~H:Type,~caps:D.request_ops(~S)(Permit,H),scope:H,local:Local()) -> Effect.Task<S,Permit,H & (Local() & Sys.Completion<String,String>)>:
+  Effect.TDone{request_sync(~S,~Permit,~H,~caps,scope,local)}
+def read(~S:Data,~Permit:Data,~H:Type,~caps:D.read_ops(~S)(Permit,H),scope:H,local:Local()) -> Effect.Task<S,Permit,H & (Local() & Sys.Completion<String,String>)>:
+  Effect.TDone{read_sync(~S,~Permit,~H,~caps,scope,local)}
+def exit(~S:Data,~Permit:Data,~H:Type,~caps:D.request_ops(~S)(Permit,H),scope:H,local:Local()) -> Effect.Task<S,Permit,H & (Local() & Sys.Completion<String,String>)>:
+  Effect.TDone{exit_sync(~S,~Permit,~H,~caps,scope,local)}
