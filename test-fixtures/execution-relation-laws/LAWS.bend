@@ -5,6 +5,12 @@ import ../../src/ecs/world.bend as W
 import ../../src/ecs/relation-types.bend as T
 import ../../src/ecs/execution-relation-operation.bend as O
 import ../../src/ecs/execution-relation-interpreter.bend as I
+import ../../src/ecs/execution-relation-store.bend as Store
+import ../../src/ecs/execution-resource-policy.bend as Policy
+import ../../src/ecs/execution-relation-publication.bend as Publication
+import ../../src/ecs/execution-composer-layout.bend as Layout
+import ../../src/ecs/lifecycle.bend as Life
+import ../../src/ecs/change-tick.bend as Tick
 
 # DRAFT. These subjects are unapproved and unproved. The erased allocator
 # variables denote actual affine owners, not an inventory model.
@@ -41,3 +47,44 @@ law ordinary_reorder_refuses_exact:
   for -parent:W.Handle<S>
   for -children:List<&2,W.Handle<S>>
   {I.apply(~S,~(T.Descriptor{key,name,inverse,T.Ordinary{}}),namespace,allocator,graph,O.Reorder{parent,children}) == (allocator,O.Refused{graph,O.Reorder{parent,children},O.HierarchyRequired{}}) : A.Allocator & O.Outcome<S>}
+
+# Protected relation owners cannot use the generic resource-write policy.
+# This only specifies the policy helper. It does not prove every provider calls it.
+# Bevy source and behavior are the same relationship source-of-truth contract
+# cited above; direct inverse mutation cannot be a gameplay operation.
+law protected_relation_blocks_generic_write:
+  for -S:Data
+  for -descriptor:T.Descriptor<S>
+  {Policy.generic_write(Policy.ProtectedRelation{S,descriptor}) == False{} : Bool}
+
+# A foreign store refuses before using the actual allocator or graph interpreter.
+# Namespace identity is Bend-specific. Bevy's relationship contract cited above
+# motivates keeping this graph inside its owning World, not a cross-World grant.
+law foreign_store_preserves_actual_owner:
+  for -S:Data
+  for -descriptor:T.Descriptor<S>
+  for -namespace:U32
+  for -foreignNamespace:U32
+  for -allocator:A.Allocator
+  for -graph:T.Graph<S>
+  for -operation:O.Operation<S>
+  for different:{U32.is_eq(namespace,foreignNamespace) == False{} : Bool}
+  {Store.apply(~S,~descriptor,namespace,allocator,Store.Store{foreignNamespace,graph},operation) == (allocator,(Store.Store{foreignNamespace,graph},Store.Refused{operation,Store.NamespaceMismatch{}})) : A.Allocator & (Store.Store<S,descriptor> & Store.Receipt<S>)}
+
+# Refusing a foreign store preserves the actual canonical slot, its prior cache,
+# its stamp, the allocator and the original operation. This is not a full-World law.
+law foreign_publication_preserves_slot_and_stamp:
+  for -S:Data
+  for -descriptor:T.Descriptor<S>
+  for -key:String
+  for -origin:Layout.Layout
+  for -namespace:U32
+  for -foreignNamespace:U32
+  for -allocator:A.Allocator
+  for -graph:T.Graph<S>
+  for -view:Store.View<S,descriptor>
+  for -stamp:Life.Stamp
+  for -operation:O.Operation<S>
+  for -tick:Tick.Tick
+  for different:{U32.is_eq(namespace,foreignNamespace) == False{} : Bool}
+  {Publication.apply(~S,~descriptor,~key,~origin,namespace,allocator,Layout.ResourceSlot{Layout.Viewed{Store.Store{foreignNamespace,graph},view},stamp},operation,tick) == (allocator,(Layout.ResourceSlot{Layout.Viewed{Store.Store{foreignNamespace,graph},view},stamp},Store.Refused{operation,Store.NamespaceMismatch{}})) : A.Allocator & (Layout.ResourceSlot<S,Layout.Viewed<Store.Store<S,descriptor>,Store.View<S,descriptor>>,key,origin> & Store.Receipt<S>)}
