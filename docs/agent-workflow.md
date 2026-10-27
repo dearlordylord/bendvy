@@ -11,6 +11,15 @@ deferred; resume only on explicit user request. Keep correctness and normal CI.
 
 ## Delivery
 
+User override (2026-10-27): use Bend LAWS/PROOF for semantic verification. Do
+not add Python, JavaScript, TypeScript or Rust tests, models, oracles or
+comparators as substitutes. Develop the laws and actual implementation first;
+do not create artificial metadata or execution-budget campaigns. Preserve legacy
+user infrastructure. This direction supersedes older requirements below for new
+oracle or check packets. The five approved Data-helper laws retain their exact
+approval scope; they do not prove the whole ECS.
+
+
 1. Read the current consumer and evidence; identify the exact missing acceptance
    gate. Check affected-file history before repeating a performance candidate. Before freezing backend plans, trace each operation to its changed state,
    complete observation and independently derived oracle, including IO effects.

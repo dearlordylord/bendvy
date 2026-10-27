@@ -1,3 +1,5 @@
+> Verification policy override (2026-10-27): semantic verification uses Bend laws only. The new non-law models, reference tests, golden outputs and check scripts have been retired at the user's direction. References below to those checks describe historical work, not current acceptance. Historical receipts remain outside the source tree; the five approved Bend helper laws do not prove the whole ECS.
+
 # Captured execution owners
 
 `execution-capture` binds closed callback code to an actual affine context. Each
