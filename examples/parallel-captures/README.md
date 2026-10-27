@@ -57,6 +57,41 @@ The guarded entry prints `A-serial`, `A-native`, `B-serial`, and `B-native` for 
 nominal schemas. Here `native` selects the default policy. The label alone does
 not establish that multiple native workers participated.
 
+## Independent scheduled execution
+
+[scheduled.bend](scheduled.bend) retains one World across three public Schedule
+runs per phase. Its main selects serial and default Parallel policies for each
+of two nominal schemas.
+Both component stores are `Unit`, so this consumer exercises resource ownership.
+The left and other systems both write Counter and must execute sequentially.
+The independent right system writes Score. Schedule splits and reassembles the
+actual World inside the library; the application does not manually split it.
+
+Each resource and Local owns an actual Array, and each system retains its capture.
+After three runs, Counter retains token 301 with value 60, and Score retains token
+401 with value 9.
+Both Counter writers return `BodyError` on run two after their writes and capture
+updates. The handler retains two errors, and the third public run reuses the
+returned World, Local, and capture owners.
+
+`execution-parallel-rootcut.trusted_execute` wraps each actual invocation in
+`TRun` before `paired_tasks` constructs the fork. This defers body work until the
+interpreter services that branch. Evaluating the fork's arguments must not run
+the body before the fork exists.
+
+The complete four-line output is 2,304 bytes. An expectation derived from source
+before reading the outputs matched JavaScript and Bend 2.0.37 native execution
+with both one and two workers. Temporary derivation and comparison helpers were
+deleted after use.
+
+Symbol breakpoints on the unmodified two-worker native binary observed Counter
+operations on the main OS worker and Score operations on a second OS worker
+within each single-World native phase. All observed operations in serial phases
+ran on the main worker. This establishes worker participation for this consumer.
+It does not establish temporal overlap, speedup, or universal worker placement.
+The observation does not cover native component storage, and it measures neither
+memory management nor heap allocation.
+
 ## Run the guarded consumer
 
 From the repository root, emit and run the existing entry directly with Bend
@@ -110,14 +145,11 @@ consumer. Its historical observations include refusal in a second World and
 preservation of the original identity, cursor, Local, and capture. That raw-owner
 path does not establish retained-node cache preservation.
 
-[scheduled.bend](scheduled.bend), imported as `Independent` by [main.bend](main.bend),
-contains the independent three-run captured-system scenario. Its earlier
-observations cover two Counter writers and an independent Score writer. The
-2026-10-27 guarded receipt above does not qualify that separate entry. The aggregate
-`main.bend` now sequences the four existing `IO(String)` calls before printing:
-Independent A/B followed by Guarded A/B, each selecting its native Task policy.
-The aggregate at source `5ef841663` compiled and ran with the pinned 2.0.35 JS and
-native routes; all four complete output lines (2,884 bytes) matched. This includes
+[main.bend](main.bend) imports the scheduled consumer as `Independent`. The
+aggregate sequences Independent A/B followed by Guarded A/B before printing,
+each selecting its native Task policy. At historical source `5ef841663`, the
+aggregate compiled and ran with the pinned 2.0.35 JS and native routes. Its four
+complete output lines matched at 2,884 bytes. That historical receipt includes
 the retained captured-condition path and establishes no multiple-worker claim.
 
 Golden files and `check.sh` were retired on 2026-10-27 at the user's direction.
