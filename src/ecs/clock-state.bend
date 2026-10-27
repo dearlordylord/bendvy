@@ -13,6 +13,18 @@ def now(state:State) -> Tick.Tick:
   match state:
     case State{tick,_}:tick
 
+def floor_tick(ordered:Bool,current:Tick.Tick,minimum:Tick.Tick) -> Tick.Tick:
+  match ordered:
+    case True{}:minimum
+    case False{}:current
+
+# Trusted restore publication raises administrative time without rebasing any
+# retained reader cursor or captured scope. Admission requires quiescent scopes.
+# Elapsed receiver time is preserved; saved events are not replayed.
+def floor(state:State,+minimum:Tick.Tick) -> State:
+  match state:
+    case State{+current,scopes}:State{floor_tick(Tick.not_future(current,minimum),current,minimum),scopes}
+
 def entered(+tick:Tick.Tick,scopes:List<&2,Tick.Tick>) -> State & Tick.Tick:
   (State{tick,tick <> scopes},tick)
 

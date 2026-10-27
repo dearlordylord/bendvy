@@ -34,6 +34,7 @@ import ../../src/ecs/decode-data.bend as D
 import ../../src/ecs/world.bend as W
 import ../../src/ecs/restore-world.bend as Progress
 import ../../src/ecs/change-tick.bend as Tick
+import ../../src/ecs/clock-state.bend as Clock
 
 type State<-S:Data> is Type:State{schema:Admission.Recipes(~S),input:Extended.Snapshot<S>,graph:T.Graph<S>,machine:MachineRestore.Commit<Modes.Mode>,actors:Stage.Actors(~S)}
 type Outcome<-S:Data> is Type:
@@ -106,10 +107,19 @@ def cleared(~S:Data,state:State<S>,rows:List<Publication.Row<Schema.components(~
 def clocked(~S:Data,state:State<S>,rows:List<Publication.Row<Schema.components(~S)>>,handles:List<&2,W.Handle<S>>,result:Schema.World(~S) & Tick.Tick) -> Outcome<S>:
   match result:
     case (world,+tick):cleared(~S,state,rows,tick,Clear.clear(~S,~Schema.components(~S),~Layout.InLeft{Layout.AtLeaf{}},~Schema.Resources(~S),~Unit,handles,world,tick))
+def saved_clock(~S:Data,input:Extended.Snapshot<S>) -> Tick.Tick:
+  match input:
+    case Extended.Snapshot{Basic.Snapshot{_,Metadata.Metadata{_,_,clock,_},_,_},_,_}:Clock.now(clock)
+def floor_clock(~S:Data,world:Schema.World(~S),minimum:Tick.Tick) -> Schema.World(~S):
+  match world:
+    case W.World{namespace,allocator,columns,resources,events,pending,registrations,nextSystem,clock,lifecycle}:W.World{namespace,allocator,columns,resources,events,pending,registrations,nextSystem,Clock.floor(clock,minimum),lifecycle}
+def committed_clock(~S:Data,state:State<S>,rows:List<Publication.Row<Schema.components(~S)>>,handles:List<&2,W.Handle<S>>,world:Schema.World(~S)) -> Outcome<S>:
+  match state:
+    case State{schema,+input,graph,machine,actors}:clocked(~S,State{schema,input,graph,machine,actors},rows,handles,W.write_clock(~S,~Layout.columns(~S,Schema.components(~S)),~Schema.Resources(~S),~Unit,floor_clock(~S,world,saved_clock(~S,input))))
 def advanced(~S:Data,state:State<S>,rows:List<Publication.Row<Schema.components(~S)>>,handles:List<&2,W.Handle<S>>,result:Schema.World(~S) & Bool) -> Outcome<S>:
   match result:
     case (world,False{}):RowsRefused{state,world,rows}
-    case (world,True{}):clocked(~S,state,rows,handles,W.write_clock(~S,~Layout.columns(~S,Schema.components(~S)),~Schema.Resources(~S),~Unit,world))
+    case (world,True{}):committed_clock(~S,state,rows,handles,world)
 def rows_ready(~S:Data,schema:Admission.Recipes(~S),+input:Extended.Snapshot<S>,graph:T.Graph<S>,machine:MachineRestore.Commit<Modes.Mode>,world:Schema.World(~S),handles:List<&2,W.Handle<S>>,result:Rows.Rows<S>) -> Outcome<S>:
   match result:
     case Rows.Rows{actors,rows,False{}}:RowsRefused{State{schema,input,graph,machine,actors},world,rows}
