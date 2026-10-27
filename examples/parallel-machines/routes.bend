@@ -47,7 +47,6 @@ def body_ops(~Permit:Data,~H:Type,caps:Ops(Permit,H),scope:H,local:Body.Local())
 def body_sync(~Permit:Data,~H:Type,~caps:Ops(Permit,H),scope:H,local:Body.Local()) -> H & (Body.Local() & Sys.Completion<String,String>):body_ops(~Permit,~H,caps,scope,local)
 def body(~Permit:Data,~H:Type,~caps:Ops(Permit,H),scope:H,local:Body.Local()) -> Effect.Task<Schema,Permit,H & (Body.Local() & Sys.Completion<String,String>)>:
   Effect.TDone{body_sync(~Permit,~H,~caps,scope,local)}
-def program(~unit:Unit) -> Build.FrameworkProgram(~Schema,~Unit,~Unit,~Resources(),~Ops):Build.framework_program(~Schema,~Unit,~Unit,~Resources(),~Ops,~declaration)
 def empty(_:Unit) -> Unit:Unit{}
 def resources() -> Resources():Product.Owner{Layout.ResourceSlot{Layout.initialize(layout(),Layout.InLeft{Layout.AtLeaf{}},State.empty(~Schema,~D.Key,~D.Mode)),Layout.unknown_stamp()},Layout.ResourceSlot{Layout.initialize(layout(),Layout.InRight{Layout.AtLeaf{}},State.empty(~Schema,~D.Key,~D.Mode)),Layout.unknown_stamp()}}
 def initial_cell(namespace:U32,tick:Tick.Tick,value:D.Mode,cell:State.Cell<Schema,D.Key,D.Mode>) -> State.Cell<Schema,D.Key,D.Mode> & Unit:
@@ -67,13 +66,13 @@ def clocked(result:W.World<Schema,Unit,Resources(),Unit> & Tick.Tick) -> W.World
 def snapshot(value:Resources()) -> String:
   match value:
     case Product.Owner{Layout.ResourceSlot{Layout.Viewed{left,leftCache},leftStamp},Layout.ResourceSlot{Layout.Viewed{right,rightCache},rightStamp}}:"left{" ++ Observe.cell(~Schema,left) ++ "/cache=" ++ Body.view(~Schema,leftCache) ++ "/resource-stamp=" ++ Common.stamp_text(Some{leftStamp}) ++ "};right{" ++ Observe.cell(~Schema,right) ++ "/cache=" ++ Body.view(~Schema,rightCache) ++ "/resource-stamp=" ++ Common.stamp_text(Some{rightStamp}) ++ "}"
-def completed(result:Ordinary.Application<Schema,Unit,Resources(),Unit,Ops,Body.Local(),String,String,program(~Unit{}),body> & Ordinary.Status<String,String>) -> String:
+def completed(result:Ordinary.Application<Schema,Unit,Resources(),Unit,Ops,Body.Local(),String,String,Build.framework_program(~Schema,~Unit,~Unit,~Resources(),~Ops,~declaration),body> & Ordinary.Status<String,String>) -> String:
   match result:
     case (Ordinary.Application{W.World{_,_,_,resource,_,_,_,_,_,_},Sys.Owner{_,_,_,_,_,local}},Ordinary.Ran{Sys.Success{out}}):out ++ "|" ++ snapshot(resource) ++ "|local=" ++ Observe.local(local)
     case (_,_):"ERROR:run"
-def defined(result:Ordinary.Built<Ordinary.Application<Schema,Unit,Resources(),Unit,Ops,Body.Local(),String,String,program(~Unit{}),body>,W.World<Schema,Unit,Resources(),Unit>,Body.Local()>) -> IO(String):
+def defined(result:Ordinary.Built<Ordinary.Application<Schema,Unit,Resources(),Unit,Ops,Body.Local(),String,String,Build.framework_program(~Schema,~Unit,~Unit,~Resources(),~Ops,~declaration),body>,W.World<Schema,Unit,Resources(),Unit>,Body.Local()>) -> IO(String):
   match result:
-    case Ordinary.Built{app}:IO.bind(Ordinary.Application<Schema,Unit,Resources(),Unit,Ops,Body.Local(),String,String,program(~Unit{}),body> & Ordinary.Status<String,String>,String,Ordinary.run(~Schema,~Unit,~Resources(),~Unit,~Ops,~Body.Local(),~String,~String,~program(~Unit{}),~body,app),result => IO.pure(String,completed(result)))
+    case Ordinary.Built{app}:IO.bind(Ordinary.Application<Schema,Unit,Resources(),Unit,Ops,Body.Local(),String,String,Build.framework_program(~Schema,~Unit,~Unit,~Resources(),~Ops,~declaration),body> & Ordinary.Status<String,String>,String,Ordinary.run(~Schema,~Unit,~Resources(),~Unit,~Ops,~Body.Local(),~String,~String,~Build.framework_program(~Schema,~Unit,~Unit,~Resources(),~Ops,~declaration),~body,app),result => IO.pure(String,completed(result)))
     case Ordinary.BuildRefused{_,_}:IO.pure(String,"ERROR:define")
 def created(result:W.Creation<Schema,Unit,Resources(),Unit>) -> IO(String):
   match result:
