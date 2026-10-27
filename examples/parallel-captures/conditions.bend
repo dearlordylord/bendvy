@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-reservation-task.bend as Effect
 import ./declarations.bend as D
 import ./bodies.bend as Body
 import ./contexts.bend as Context
@@ -9,11 +10,11 @@ import ../../src/ecs/execution-composer-layout.bend as Layout
 import ../../src/ecs/execution-system.bend as Sys
 
 def layout() -> Layout.Layout:Layout.LayoutPair{D.left_layout(),D.right_layout()}
-def Ops(~S:Data) -> Type -> Type:A.ResourceReads(~String)
-def selection(~S:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~q:Build.Query(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):
+def Ops(~S:Data,Permit:Data,H:Type) -> Type:A.ResourceReads(~String)(H)
+def selection(~S:Data,~Permit:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~q:Build.Query(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S,Permit,H):
   Build.basic_resource_read(~S,~D.Store(~S),~D.Resources(~S),~H,~B,~layout(),~Layout.InLeft{Layout.AtLeaf{}},~{==},~{==},~rr,book)
-def declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):
-  builder(Ops(~S),selection(~S,~H,~B),book)
+def declaration(~S:Data,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~Permit,~H,~B),book:B) -> B & Ops(~S,Permit,H):
+  builder(Ops(~S),selection(~S,~Permit,~H,~B),book)
 type Context is Type:
   Context{counter:Array<U32>,seen:Array<String>}
 def captured_step(seen:Array<String>,value:String,result:Array<U32> & U32) -> Context & U32:
@@ -39,9 +40,9 @@ def advanced(~H:Type,scope:H,capture:Captured(),value:String,result:Array<U32> &
 def read(~H:Type,state:Array<U32>,capture:Captured(),result:H & String) -> H & (Local() & Sys.Completion<String,Bool>):
   match result:
     case (scope,value):advanced(~H,scope,capture,value,Body.advance(state))
-def body(~S:Data,~H:Type,~caps:Ops(~S)(H),scope:H,local:Local()) -> H & (Local() & Sys.Completion<String,Bool>):
+def body(~S:Data,~Permit:Data,~H:Type,~caps:Ops(~S,Permit,H),scope:H,local:Local()) -> Effect.Task<S,Permit,H & (Local() & Sys.Completion<String,Bool>)>:
   match local:
-    case Capture.Local{state,capture}:read(~H,state,capture,A.resource_read_field(~H,~String,caps)(scope))
+    case Capture.Local{state,capture}:Effect.TDone{read(~H,state,capture,A.resource_read_field(~H,~String,caps)(scope))}
 def observed_seen(state:String,counter:String,result:Array<String> & String) -> String:
   match result:
     case (_,seen):state ++ "/" ++ counter ++ "/seen=" ++ seen

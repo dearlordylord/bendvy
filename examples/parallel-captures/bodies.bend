@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-reservation-task.bend as Effect
 import ./payloads.bend as P
 import ./declarations.bend as D
 import ./contexts.bend as Context
@@ -25,9 +26,9 @@ def left_captured(~H:Type,~cap:A.ResourceWrite<H,P.Counter,String>,scope:H,state
 def left_advanced(~H:Type,~cap:A.ResourceWrite<H,P.Counter,String>,scope:H,capture:Context.Count(),result:Array<U32> & U32) -> H & (LeftLocal() & Sys.Completion<String,String>):
   match result:
     case (state,runs):left_captured(~H,~cap,scope,state,runs,Capture.invoke(~Array<U32>,~U32,~U32,~Context.count_step,capture,2))
-def left(~S:Data,~H:Type,~caps:D.LeftOps(~S)(H),scope:H,local:LeftLocal()) -> H & (LeftLocal() & Sys.Completion<String,String>):
+def left(~S:Data,~Permit:Data,~H:Type,~caps:D.LeftOps(~S,Permit,H),scope:H,local:LeftLocal()) -> Effect.Task<S,Permit,H & (LeftLocal() & Sys.Completion<String,String>)>:
   match local:
-    case Capture.Local{state,capture}:left_advanced(~H,~caps,scope,capture,advance(state))
+    case Capture.Local{state,capture}:Effect.TDone{left_advanced(~H,~caps,scope,capture,advance(state))}
 def right_written(~H:Type,state:Array<U32>,capture:Context.Text(),runs:U32,value:String,result:H & String) -> H & (RightLocal() & Sys.Completion<String,String>):
   match result:
     case (scope,_):(scope,(Capture.Local{state,capture},Sys.Success{U32.show(runs) ++ "/capture=" ++ value}))
@@ -37,9 +38,9 @@ def right_captured(~H:Type,~cap:A.ResourceWrite<H,P.Score,String>,scope:H,state:
 def right_advanced(~H:Type,~cap:A.ResourceWrite<H,P.Score,String>,scope:H,capture:Context.Text(),result:Array<U32> & U32) -> H & (RightLocal() & Sys.Completion<String,String>):
   match result:
     case (state,runs):right_captured(~H,~cap,scope,state,runs,Capture.invoke(~Context.TextContext,~String,~String,~Context.text_step,capture,"x"))
-def right(~S:Data,~H:Type,~caps:D.RightOps(~S)(H),scope:H,local:RightLocal()) -> H & (RightLocal() & Sys.Completion<String,String>):
+def right(~S:Data,~Permit:Data,~H:Type,~caps:D.RightOps(~S,Permit,H),scope:H,local:RightLocal()) -> Effect.Task<S,Permit,H & (RightLocal() & Sys.Completion<String,String>)>:
   match local:
-    case Capture.Local{state,capture}:right_advanced(~H,~caps,scope,capture,advance(state))
+    case Capture.Local{state,capture}:Effect.TDone{right_advanced(~H,~caps,scope,capture,advance(state))}
 def left_local(id:U32,captureId:U32) -> LeftLocal():Capture.Local{ANode{ALeaf{id},ALeaf{0}},Capture.bind(~Array<U32>,~U32,~U32,~Context.count_step,ANode{ALeaf{captureId},ALeaf{0}})}
 def right_local() -> RightLocal():Capture.Local{ANode{ALeaf{601},ALeaf{0}},Context.text()}
 def left_observed(state:String,result:Context.Count() & String) -> String:
