@@ -11,17 +11,99 @@ import ./execution-parallel-schedule.bend as Ready
 import ./dependency-executor.bend as Exec
 import ./owner-product.bend as Product
 import ./string-equality.bend as SE
+import ./execution-composer-layout.bend as Layout
+import ./execution-query-recipe.bend as Recipe
+import ./execution-query-schema.bend as Schema
 
+type Coordinates is Data:
+  EmptyCoordinates{}
+  LeafCoordinates{key:String}
+  PairCoordinates{left:Coordinates,right:Coordinates}
 type Use is Data:
   Use{key:String,mode:D.Mode}
-type Entry is Data:
-  Entry{id:U32,uses:List<&2,Use>}
-type Rules is Data:
-  Rules{entries:List<&2,Entry>}
+  SelectedQuery{key:String,mode:D.Mode,route:Layout.Route,bound:Recipe.Bound,coordinates:Coordinates}
 def uses(access:List<&2,D.Access>) -> List<&2,Use>:
   match access:
     case []:[]
     case D.Access{key,kind,mode,_} <> rest:Use{D.requirement_key(kind,key),mode} <> uses(rest)
+def coordinates(layout:Layout.Layout) -> Coordinates:
+  match layout:
+    case Layout.EmptyLayout{}:EmptyCoordinates{}
+    case Layout.LayoutLeaf{_,_,_,key,_}:LeafCoordinates{key}
+    case Layout.ClassifiedLayoutLeaf{_,_,_,key,_,_}:LeafCoordinates{key}
+    case Layout.LayoutPair{left,right}:PairCoordinates{coordinates(left),coordinates(right)}
+def same_coordinates(left:Coordinates,right:Coordinates) -> Bool:
+  match left right:
+    case EmptyCoordinates{} EmptyCoordinates{}:True{}
+    case LeafCoordinates{left} LeafCoordinates{right}:SE.equal(left,right)
+    case PairCoordinates{ll,lr} PairCoordinates{rl,rr}:Bool.and(same_coordinates(ll,rl),same_coordinates(lr,rr))
+    case _ _:False{}
+def opposite(+route:Layout.Route,+present:Bool,right:Recipe.Bound) -> Bool:
+  match right:
+    case Recipe.With{other}:Bool.and(Bool.not(present),Schema.same_route(route,other))
+    case Recipe.Without{other}:Bool.and(present,Schema.same_route(route,other))
+    case Recipe.And{left,right}:Bool.or(opposite(route,present,left),opposite(route,present,right))
+    case Recipe.Or{left,right}:Bool.and(opposite(route,present,left),opposite(route,present,right))
+    case _:False{}
+def separates(left:Recipe.Bound,+right:Recipe.Bound) -> Bool:
+  match left:
+    case Recipe.With{route}:opposite(route,True{},right)
+    case Recipe.Without{route}:opposite(route,False{},right)
+    case Recipe.And{a,b}:Bool.or(separates(a,right),separates(b,right))
+    case Recipe.Or{a,b}:Bool.and(separates(a,right),separates(b,right))
+    case _:False{}
+def separated(+left:Recipe.Bound,+right:Recipe.Bound) -> Bool:
+  Bool.or(separates(left,right),separates(right,left))
+def same_access(left:D.Access,right:D.Access) -> Bool:
+  match left right:
+    case D.Access{lk,D.ComponentAccess{},D.SharedView{},D.ReadOnly{}} D.Access{rk,D.ComponentAccess{},D.SharedView{},D.ReadOnly{}}:SE.equal(lk,rk)
+    case D.Access{lk,D.ComponentAccess{},D.Exclusive{},D.Writable{}} D.Access{rk,D.ComponentAccess{},D.Exclusive{},D.Writable{}}:SE.equal(lk,rk)
+    case _ _:False{}
+def restore_access(first:D.Access,result:Maybe<&2,List<&2,D.Access>>) -> Maybe<&2,List<&2,D.Access>>:
+  match result:
+    case None{}:None{}
+    case Some{rest}:Some{first <> rest}
+def removed_access(found:Bool,rest:List<&2,D.Access>,otherwise:Maybe<&2,List<&2,D.Access>>) -> Maybe<&2,List<&2,D.Access>>:
+  match found:
+    case True{}:Some{rest}
+    case False{}:otherwise
+def remove_access(+expected:D.Access,access:List<&2,D.Access>) -> Maybe<&2,List<&2,D.Access>>:
+  match access:
+    case []:None{}
+    case +first <> +rest:removed_access(same_access(expected,first),rest,restore_access(first,remove_access(expected,rest)))
+def validated_access(valid:Bool,expected:D.Access,access:Maybe<&2,List<&2,D.Access>>) -> Maybe<&2,List<&2,D.Access>>:
+  match valid access:
+    case True{} Some{access}:remove_access(expected,access)
+    case _ _:None{}
+def residual_uses(access:Maybe<&2,List<&2,D.Access>>) -> Maybe<&2,List<&2,Use>>:
+  match access:
+    case None{}:None{}
+    case Some{access}:Some{uses(access)}
+def selected_use(access:D.Access,route:Layout.Route,bound:Recipe.Bound,shape:Coordinates) -> Use:
+  match access:
+    case D.Access{key,kind,mode,_}:SelectedQuery{D.requirement_key(kind,key),mode,route,bound,shape}
+def prepend_selected(first:Use,result:Maybe<&2,List<&2,Use>>) -> Maybe<&2,List<&2,Use>>:
+  match result:
+    case None{}:None{}
+    case Some{rest}:Some{first <> rest}
+def project_queries(~full:Layout.Layout,queries:List<&2,Recipe.Entry>,+shape:Coordinates,access:Maybe<&2,List<&2,D.Access>>) -> Maybe<&2,List<&2,Use>>:
+  match queries:
+    case []:residual_uses(access)
+    case Recipe.Entry{+route,+kind,+bound,_} <> rest:prepend_selected(selected_use(Build.general_access(Layout.key(full,route),kind),route,bound,shape),project_queries(~full,rest,shape,validated_access(Bool.and(Layout.valid(full,route),Recipe.bound_valid(~full,bound)),Build.general_access(Layout.key(full,route),kind),access)))
+def selected_or_plain(original:List<&2,D.Access>,result:Maybe<&2,List<&2,Use>>) -> List<&2,Use>:
+  match result:
+    case None{}:uses(original)
+    case Some{selected}:selected
+def selected_valid(valid:Bool,original:List<&2,D.Access>,result:Maybe<&2,List<&2,Use>>) -> List<&2,Use>:
+  match valid:
+    case False{}:uses(original)
+    case True{}:selected_or_plain(original,result)
+def selected_uses(~full:Layout.Layout,+access:List<&2,D.Access>,queries:List<&2,Recipe.Entry>) -> List<&2,Use>:
+  selected_valid(Layout.unique(full),access,project_queries(~full,queries,coordinates(full),Some{access}))
+type Entry is Data:
+  Entry{id:U32,uses:List<&2,Use>}
+type Rules is Data:
+  Rules{entries:List<&2,Entry>}
 def guard_uses(keys:List<&2,String>) -> List<&2,Use>:
   match keys:
     case []:[]
@@ -33,6 +115,9 @@ def modes(left:D.Mode,right:D.Mode) -> Bool:
 def compatible_use(left:Use,right:Use) -> Bool:
   match left right:
     case Use{lk,lm} Use{rk,rm}:Bool.or(Bool.not(SE.equal(lk,rk)),modes(lm,rm))
+    case Use{lk,lm} SelectedQuery{rk,rm,_,_,_}:Bool.or(Bool.not(SE.equal(lk,rk)),modes(lm,rm))
+    case SelectedQuery{lk,lm,_,_,_} Use{rk,rm}:Bool.or(Bool.not(SE.equal(lk,rk)),modes(lm,rm))
+    case SelectedQuery{lk,lm,lr,lb,lc} SelectedQuery{rk,rm,rr,rb,rc}:Bool.or(Bool.or(Bool.not(SE.equal(lk,rk)),modes(lm,rm)),Bool.and(same_coordinates(lc,rc),Bool.and(Schema.same_route(lr,rr),separated(lb,rb))))
 def compatible_with(+left:Use,right:List<&2,Use>) -> Bool:
   match right:
     case []:True{}

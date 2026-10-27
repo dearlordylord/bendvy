@@ -20,6 +20,7 @@ import ./execution-command-scope.bend as CommandScope
 import ./execution-composer-layout.bend as Layout
 import ./change-tick.bend as Tick
 import ./execution-query-store.bend as QueryStore
+import ./execution-query-recipe.bend as Recipe
 import ./execution-resource-store.bend as ResourceStore
 import ./execution-resource-query-leaf.bend as GeneralLeaf
 import ./execution-resource-query-group.bend as GeneralGroup
@@ -43,13 +44,17 @@ def run_generalized(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~
 
 type GeneralizedFacts<-Nodes:Type> is Type:
   GeneralizedFacts{nodes:Nodes,planNodes:List<&2,Plan.Node<String>>,entries:List<&2,Part.Entry>,deferred:List<&2,U32>}
-def generalized_accessed(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~E:Data,~Error:Data,~Out:Data,~Ops:Data -> Type -> Type,~Local:Type,~declaration:Build.FrameworkProgram(~S,~Layout.columns(~S,components),~QueryStore.Storage<S,components>,~ResourceStore.Storage<S,resources>,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),binding:Scope.CompiledBinding<D.Compilation<S,Layout.columns(~S,components),QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>,Ops>,Sys.Owner<S,Layout.columns(~S,components),QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>,E,Ops,Local,Error,Out,declaration,body>>,+access:List<&2,D.Access>) -> GeneralizedFacts<GeneralizedNode(~S,~components,~resources,~E,~Error,~Out,~Ops,~Local,~declaration,~body)>:
+def query_entries(~S:Data,~WC:Type,queries:List<&2,Recipe.Recipe<S,WC>>) -> List<&2,Recipe.Entry>:
+  match queries:
+    case []:[]
+    case Recipe.Recipe{entry} <> rest:entry <> query_entries(~S,~WC,rest)
+def generalized_accessed(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~E:Data,~Error:Data,~Out:Data,~Ops:Data -> Type -> Type,~Local:Type,~declaration:Build.FrameworkProgram(~S,~Layout.columns(~S,components),~QueryStore.Storage<S,components>,~ResourceStore.Storage<S,resources>,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),binding:Scope.CompiledBinding<D.Compilation<S,Layout.columns(~S,components),QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>,Ops>,Sys.Owner<S,Layout.columns(~S,components),QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>,E,Ops,Local,Error,Out,declaration,body>>,access:List<&2,D.Access>,uses:List<&2,Part.Use>) -> GeneralizedFacts<GeneralizedNode(~S,~components,~resources,~E,~Error,~Out,~Ops,~Local,~declaration,~body)>:
   match binding:
-    case Scope.CompiledBinding{compilation,Sys.Owner{namespace,+id,name,ownerAccess,cursor,local}}:GeneralizedFacts{retain_generalized_leaf(~S,~components,~resources,~E,~Error,~Out,~Ops,~Local,~declaration,~body,Scope.CompiledBinding{compilation,Sys.Owner{namespace,id,name,ownerAccess,cursor,local}}),[Plan.Node{id,D.qualified(access)}],[Part.Entry{id,Part.uses(access)}],[]}
+    case Scope.CompiledBinding{compilation,Sys.Owner{namespace,+id,name,ownerAccess,cursor,local}}:GeneralizedFacts{retain_generalized_leaf(~S,~components,~resources,~E,~Error,~Out,~Ops,~Local,~declaration,~body,Scope.CompiledBinding{compilation,Sys.Owner{namespace,id,name,ownerAccess,cursor,local}}),[Plan.Node{id,D.qualified(access)}],[Part.Entry{id,uses}],[]}
 def generalized_leaf_facts(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~E:Data,~Error:Data,~Out:Data,~Ops:Data -> Type -> Type,~Local:Type,~declaration:Build.FrameworkProgram(~S,~Layout.columns(~S,components),~QueryStore.Storage<S,components>,~ResourceStore.Storage<S,resources>,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),binding:Scope.CompiledBinding<D.Compilation<S,Layout.columns(~S,components),QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>,Ops>,Sys.Owner<S,Layout.columns(~S,components),QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>,E,Ops,Local,Error,Out,declaration,body>>) -> GeneralizedFacts<GeneralizedNode(~S,~components,~resources,~E,~Error,~Out,~Ops,~Local,~declaration,~body)>:
   match binding:
-    case Scope.CompiledBinding{D.Supported{D.Declaration{caps,+access},recipes},owner}:generalized_accessed(~S,~components,~resources,~E,~Error,~Out,~Ops,~Local,~declaration,~body,Scope.CompiledBinding{D.Supported{D.Declaration{caps,access},recipes},owner},access)
-    case Scope.CompiledBinding{D.Unsupported{caps,+access,recipes},owner}:generalized_accessed(~S,~components,~resources,~E,~Error,~Out,~Ops,~Local,~declaration,~body,Scope.CompiledBinding{D.Unsupported{caps,access,recipes},owner},access)
+    case Scope.CompiledBinding{D.Supported{D.Declaration{caps,+access},D.Recipes{+queries,resourceRecipes}},owner}:generalized_accessed(~S,~components,~resources,~E,~Error,~Out,~Ops,~Local,~declaration,~body,Scope.CompiledBinding{D.Supported{D.Declaration{caps,access},D.Recipes{queries,resourceRecipes}},owner},access,Part.selected_uses(~components,access,query_entries(~S,~Layout.columns(~S,components),queries)))
+    case Scope.CompiledBinding{D.Unsupported{caps,+access,recipes},owner}:generalized_accessed(~S,~components,~resources,~E,~Error,~Out,~Ops,~Local,~declaration,~body,Scope.CompiledBinding{D.Unsupported{caps,access,recipes},owner},access,Part.uses(access))
 def generalized_pair_facts(-Left:Type,-Right:Type,left:GeneralizedFacts<Left>,right:GeneralizedFacts<Right>) -> GeneralizedFacts<Product.Owner<Left,Right>>:
   match left right:
     case GeneralizedFacts{left,ln,le,ld} GeneralizedFacts{right,rn,re,rd}:GeneralizedFacts{Product.Owner{left,right},List.append(&2,Plan.Node<String>,ln,rn),List.append(&2,Part.Entry,le,re),List.append(&2,U32,ld,rd)}
