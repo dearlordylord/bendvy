@@ -52,9 +52,13 @@ def intent(~S:Data,value:Cell.Intent<Modes.Mode>) -> String:
     case Cell.Idle{}:"idle"
     case Cell.Initial{_}:"initial"
     case Cell.Transition{_,_,_}:"transition"
-def owners(~S:Data,world:Schema.World(~S)) -> String:
+def owner_values(~S:Data,world:Schema.World(~S)) -> String:
   match world:
     case W.World{_,_,_,Product.Owner{Layout.ResourceSlot{Layout.Viewed{Store.Store{namespace,_,Channel.Store{Queue.Queue{_,_,size,dropped,batches},older,maintenance},sequence,nextReader},_},_},Layout.ResourceSlot{Layout.Viewed{Cell.Cell{_,Stream.Store{Queue.Queue{_,_,cellSize,_,_},cellOlder,cellMaintenance},revision,stamp,nextStamp,cellSequence,initialPending,cellNamespace,cellIntent},_},_}},_,_,_,_,_,_}:"graph-owner=" ++ U32.show(namespace) ++ "/sequence=" ++ Nat.show(sequence) ++ "/nextReader=" ++ U32.show(nextReader) ++ "/channel=" ++ Nat.show(size) ++ ":" ++ Nat.show(dropped) ++ ":" ++ Nat.show(batches) ++ ":" ++ Nat.show(older) ++ ":" ++ tick(maintenance) ++ "/cell-owner=revision:" ++ Nat.show(revision) ++ "/stamp=" ++ tick(stamp) ++ "/nextStamp=" ++ tick(nextStamp) ++ "/sequence=" ++ Nat.show(cellSequence) ++ "/stream=" ++ Nat.show(cellSize) ++ ":" ++ Nat.show(cellOlder) ++ ":" ++ tick(cellMaintenance) ++ "/initialPending=" ++ Bool.show(initialPending) ++ "/intent=" ++ intent(~S,cellIntent)
+def owner_clock(~S:Data,result:Schema.World(~S) & Tick.Tick) -> String:
+  match result:
+    case (world,tick):"worldClock=" ++ Tick.show(tick) ++ "/" ++ owner_values(~S,world)
+def owners(~S:Data,world:Schema.World(~S)) -> String:owner_clock(~S,W.clock(~S,~Layout.columns(~S,Schema.components(~S)),~Schema.Resources(~S),~Unit,world))
 def reader(~S:Data,value:Maybe<&1,Target.Reader(~S)>) -> String:
   match value:
     case None{}:"reader-registration-refused"
@@ -77,6 +81,7 @@ def restored(~S:Data,result:Restore.Outcome<S>) -> String:
     case Restore.ResourcePartial{_,_,_,_,_}:"resource-partial"
 def observed(~S:Data,result:Flow.Outcome<S>) -> String:
   match result:
-    case Flow.Restored{_,_,retainedReader,result}:restored(~S,result) ++ "/retainedReader=" ++ reader(~S,retainedReader)
+    case Flow.Restored{_,_,retainedReader,Store.Refused{_,_},result}:restored(~S,result) ++ "/retainedReader=" ++ reader(~S,retainedReader) ++ "/receiverRelation=refused"
+    case Flow.Restored{_,_,retainedReader,_,result}:restored(~S,result) ++ "/retainedReader=" ++ reader(~S,retainedReader) ++ "/receiverRelation=applied"
     case _:"source-or-target-refused"
 def main() -> IO(Unit):IO.bind(Flow.Outcome<O.Alpha>,Unit,Flow.run(~O.Alpha),a => IO.bind(Unit,Unit,IO.print("alpha " ++ observed(~O.Alpha,a)),u => IO.bind(Flow.Outcome<O.Beta>,Unit,Flow.run(~O.Beta),b => IO.print("beta " ++ observed(~O.Beta,b)))))

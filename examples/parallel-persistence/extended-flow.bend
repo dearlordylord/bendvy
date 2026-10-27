@@ -5,11 +5,14 @@ import ./extended-save.bend as Save
 import ./extended-restore.bend as Restore
 import ./extended-admission.bend as Admission
 import ./extended-target.bend as Target
+import ./extended-machine-history.bend as History
+import ./extended-target-history.bend as TargetHistory
 import ../parallel-machines/declarations.bend as Modes
 import ../../src/ecs/execution-restore-extended-data.bend as Extended
 import ../../src/ecs/execution-save-gate.bend as Gate
 import ../../src/ecs/execution-save-recipe.bend as Recipe
 import ../../src/ecs/execution-composer-layout.bend as Layout
+import ../../src/ecs/execution-reservation-bundle.bend as Bundle
 import ../../src/ecs/execution-relation-world-publication.bend as Relation
 import ../../src/ecs/execution-relation-operation.bend as Operation
 import ../../src/ecs/execution-relation-store.bend as Store
@@ -25,13 +28,18 @@ type Outcome<-S:Data> is Type:
   RelationRefused{world:Schema.World(~S),previous:Population.Previous(~S),receipt:Store.Receipt<S>}
   SaveRefused{schema:Admission.Recipes(~S),source:Schema.World(~S),previous:Population.Previous(~S),result:Gate.Outcome<Extended.Snapshot<S>,Recipe.Refusal>}
   TargetRefused{schema:Admission.Recipes(~S),source:Schema.World(~S),previous:Population.Previous(~S),input:Extended.Snapshot<S>,result:WorldIO.Creation<S,Layout.columns(~S,Schema.components(~S)),Schema.Resources(~S),Unit>}
-  Restored{source:Schema.World(~S),previous:Population.Previous(~S),reader:Maybe<&1,Target.Reader(~S)>,result:Restore.Outcome<S>}
+  TargetPopulationRefused{schema:Admission.Recipes(~S),source:Schema.World(~S),previous:Population.Previous(~S),input:Extended.Snapshot<S>,reader:Maybe<&1,Target.Reader(~S)>,result:Population.Population<S>}
+  Restored{source:Schema.World(~S),previous:Population.Previous(~S),reader:Maybe<&1,Target.Reader(~S)>,receipt:Store.Receipt<S>,result:Restore.Outcome<S>}
+def target_prepared(~S:Data,schema:Admission.Recipes(~S),source:Schema.World(~S),previous:Population.Previous(~S),input:Extended.Snapshot<S>,reader:Maybe<&1,Target.Reader(~S)>,result:TargetHistory.Prepared<S>) -> Outcome<S>:
+  match result:
+    case TargetHistory.Prepared{world,targetPrevious,receipt}:Restored{source,List.append(&1,Bundle.Payload(Schema.components(~S)),previous,targetPrevious),reader,receipt,Restore.restore(~S,schema,input,world)}
+    case TargetHistory.Refused{result}:TargetPopulationRefused{schema,source,previous,input,reader,result}
 def target_registered(~S:Data,schema:Admission.Recipes(~S),source:Schema.World(~S),previous:Population.Previous(~S),input:Extended.Snapshot<S>,result:Schema.World(~S) & Maybe<&1,Target.Reader(~S)>) -> Outcome<S>:
   match result:
-    case (world,reader):Restored{source,previous,reader,Restore.restore(~S,schema,input,world)}
+    case (world,reader):target_prepared(~S,schema,source,previous,input,reader,TargetHistory.prepare(~S,world))
 def target(~S:Data,schema:Admission.Recipes(~S),source:Schema.World(~S),previous:Population.Previous(~S),input:Extended.Snapshot<S>,result:WorldIO.Creation<S,Layout.columns(~S,Schema.components(~S)),Schema.Resources(~S),Unit>) -> Outcome<S>:
   match result:
-    case WorldIO.Created{world}:target_registered(~S,schema,source,previous,input,Target.register(~S,world))
+    case WorldIO.Created{world}:target_registered(~S,schema,source,previous,input,Target.register(~S,History.receiver(~S,world)))
     case other:TargetRefused{schema,source,previous,input,other}
 def saved(~S:Data,previous:Population.Previous(~S),result:Admission.Recipes(~S) & (Schema.World(~S) & Gate.Outcome<Extended.Snapshot<S>,Recipe.Refusal>)) -> IO(Outcome<S>):
   match result:
@@ -39,7 +47,7 @@ def saved(~S:Data,previous:Population.Previous(~S),result:Admission.Recipes(~S) 
     case (schema,(source,result)):IO.pure(Outcome<S>,SaveRefused{schema,source,previous,result})
 def related(~S:Data,previous:Population.Previous(~S),result:Schema.World(~S) & (Context.Binding<S,Schema.Resources(~S),Schema.resource_layout(~S),{==},Layout.InLeft{Layout.AtLeaf{}},Schema.hierarchy(~S),{==},{==},{==}> & Store.Receipt<S>)) -> IO(Outcome<S>):
   match result:
-    case (world,(_,Store.Applied{_})):saved(~S,previous,Save.save(~S,Schema.schema(~S),world))
+    case (world,(_,Store.Applied{_})):saved(~S,previous,Save.save(~S,Schema.schema(~S),History.source(~S,world)))
     case (world,(_,receipt)):IO.pure(Outcome<S>,RelationRefused{world,previous,receipt})
 def clocked(~S:Data,+parent:W.Handle<S>,child:W.Handle<S>,previous:Population.Previous(~S),result:Schema.World(~S) & Tick.Tick) -> IO(Outcome<S>):
   match parent result:

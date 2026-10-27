@@ -159,3 +159,21 @@ sequence and nextReader remain receiver-owned. Source validation and fresh-handl
 mapping must precede calling this internal helper; its Ready constructor is not
 a proof or a gameplay grant. Source well-formedness alone does not establish the
 combined ordinary graph restore or its runtime behavior.
+# Nonempty receiver history observation
+
+The ordinary `parallel-persistence/extended-main.bend` path now performs real
+administrative machine transitions before save and before receiver restore. The
+source commits Waiting at revision 7/stamp `0:7`; the receiver retains its own
+two-event stream, sequence 2 and nextStamp `0:2`. Its actual pre-restore time is
+`0:5`; committed restoration floors time to the admitted saved clock and advances
+the publication boundary to `0:8`. Receiver cursors are not rebased and historical
+events are not replayed. Restore clears pending transition intent.
+
+Before restore, a registered receiver failure Reader observes an actual protected
+self-relation refusal being published. The returned World retains channel size 1,
+sequence 1 and nextReader 2; the original Reader retains its namespace/id/cursor.
+Target entities are genuinely despawned and source handles map to fresh generation
+1 target handles. These are bounded ordinary execution observations for Alpha and
+Beta, not proofs. Reader consumption, actual post-restore Scheduled transitions,
+invalid-graph refusal and modern lifetime-scope restore remain separate work.
+
