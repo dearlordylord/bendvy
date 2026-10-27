@@ -48,7 +48,7 @@ def handled_held(~World:Type,~Owners:Type,~Guards:Type,~Handler:Type,result:(Wor
 def handle_state(~World:Type,~Owners:Type,~Guards:Type,~Handler:Type,~Error:Data,~handle:Handler -> Error -> Handler & Exec.Handling,state:DepApp.State<World,Owners,Guards,Handler>,error:Error) -> DepApp.State<World,Owners,Guards,Handler> & Exec.Handling:
   match state:
     case DepApp.State{world,owners,guards,handler,bindings}:
-      header = Continuation.PairedHeader{World & (Owners & (Guards & List<&2,DepApp.Binding>)),(world,(owners,(guards,bindings))),handled_held(~World,~Owners,~Guards,~Handler)}
+      header:Continuation.PairedHeader<(Handler & Exec.Handling),(DepApp.State<World,Owners,Guards,Handler> & Exec.Handling)> = Continuation.PairedHeader{World & (Owners & (Guards & List<&2,DepApp.Binding>)),(world,(owners,(guards,bindings))),handled_held(~World,~Owners,~Guards,~Handler)}
       Continuation.paired_returned(Handler & Exec.Handling,DepApp.State<World,Owners,Guards,Handler> & Exec.Handling,header,handle(handler,error))
 def bound_entries(entries:List<&2,Part.Entry>,+bindings:List<&2,DepApp.Binding>,+guards:List<&2,Plan.Node<String>>) -> List<&2,Part.Entry>:
   match entries:
