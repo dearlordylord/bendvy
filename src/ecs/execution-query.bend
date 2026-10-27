@@ -139,6 +139,31 @@ type GeneralLookup<-V:Data> is Data:
 type GeneralReport<-S:Data,-V:Data> is Data:
   SelectedRows{rows:List<&2,GeneralRow<S,V>>}
   SelectionRefused{}
+type GeneralCount is Data:
+  CountSelectionRefused{}
+  SelectedCount{count:U32}
+type GeneralSingle<-S:Data,-V:Data> is Data:
+  SingleSelectionRefused{}
+  NoSelectedRow{}
+  OneSelectedRow{row:GeneralRow<S,V>}
+  MultipleSelectedRows{}
+def general_rows_count(~S:Data,~V:Data,rows:List<&2,GeneralRow<S,V>>) -> U32:
+  match rows:
+    case []:0
+    case _ <> rest:U32.add(1,general_rows_count(~S,~V,rest))
+def general_count(~S:Data,~V:Data,report:GeneralReport<S,V>) -> GeneralCount:
+  match report:
+    case SelectionRefused{}:CountSelectionRefused{}
+    case SelectedRows{rows}:SelectedCount{general_rows_count(~S,~V,rows)}
+def general_rows_single(~S:Data,~V:Data,rows:List<&2,GeneralRow<S,V>>) -> GeneralSingle<S,V>:
+  match rows:
+    case []:NoSelectedRow{}
+    case row <> []:OneSelectedRow{row}
+    case _ <> _ <> _:MultipleSelectedRows{}
+def general_single(~S:Data,~V:Data,report:GeneralReport<S,V>) -> GeneralSingle<S,V>:
+  match report:
+    case SelectionRefused{}:SingleSelectionRefused{}
+    case SelectedRows{rows}:general_rows_single(~S,~V,rows)
 type GeneralReader<-S:Data,-H:Type,-V:Data> is Type:
   GeneralReader{query:H -> H & GeneralReport<S,V>,get:H -> W.Handle<S> -> H & GeneralLookup<V>}
   UnsupportedReader{}
