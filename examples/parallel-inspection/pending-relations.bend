@@ -1,4 +1,6 @@
 import Base
+import ../../src/ecs/execution-deferred-schedule.bend as Deferred
+import ../../src/ecs/execution-condition-registry.bend as Conditions
 import ../parallel-relations/actor.bend as Actor
 import ../parallel-relations/setup.bend as Setup
 import ../parallel-relations/initialize.bend as Initialize
@@ -29,6 +31,17 @@ import ../../src/ecs/world.bend as W
 import ../../src/ecs/change-tick.bend as Tick
 import ../../src/ecs/check.bend as Check
 
+def ObservedRun() -> Type:(Scheduled.Bound(~Scene.Schema) & Context.RunReport<State.Report<String,String>>) & List<&2,Deferred.Boundary>
+def run_observed(bound:Scheduled.Bound(~Scene.Schema)) -> IO(ObservedRun()):
+  Root.run_bound_native_observed(~Scene.Schema,~Actor.C(~Scene.Schema),~Unit,~Actor.R(~Scene.Schema),~Scheduled.RightResources(~Scene.Schema),~Unit,~Actor.resources(~Scene.Schema),~{==},~String,~String,~Actor.Owner(~Scene.Schema),~Scheduled.Peer(~Scene.Schema),~Scheduled.left(~Scene.Schema),~Scheduled.right(~Scene.Schema),~Unit,~Unit,~Conditions.empty_dispatch(~Scheduled.World(~Scene.Schema),~String),~Conditions.empty(~Scheduled.World(~Scene.Schema),~String),~Scheduled.handle,bound)
+def boundary_kind(kind:Deferred.BoundaryKind) -> String:
+  match kind:
+    case Deferred.Sync{ids}:"sync:" ++ List.show(&2,U32,U32.show,ids)
+    case Deferred.Final{}:"final"
+def boundary(value:Deferred.Boundary) -> String:
+  match value:
+    case Deferred.ApplyEntered{kind,requested}:"entered:" ++ boundary_kind(kind) ++ ":" ++ List.show(&2,U32,U32.show,requested)
+    case Deferred.ApplyReturned{kind,remaining}:"returned:" ++ boundary_kind(kind) ++ ":" ++ List.show(&2,U32,U32.show,remaining)
 def actor_returned(namespace:U32,id:U32,name:String,access:List<&2,String>,cursor:Maybe<&2,Tick.Tick>,user:Actor.User<Scene.Schema>,permission:Permission.Permission,result:Buffer.Buffer<Scene.Schema,Unit,Removed.Removed(Actor.components())> & Commands.Snapshot<Scene.Schema>) -> Actor.Owner(~Scene.Schema) & Commands.Snapshot<Scene.Schema>:
   match result:
     case (buffer,view):(Cmd.Owner{Sys.Owner{namespace,id,name,access,cursor,Local.Local{user,buffer,permission}}},view)
@@ -99,23 +112,23 @@ def observed_finished(trace:String,result:Scheduled.Bound(~Scene.Schema) & Strin
 def inspected_finished(trace:String,result:Scheduled.Bound(~Scene.Schema) & String) -> IO(Unit):
   match result:
     case (bound,graph):observed_finished(trace ++ "|published-passive-graph=" ++ graph,check(bound))
-def finished(before:String,graph:String,after:String,result:Scheduled.Bound(~Scene.Schema) & Context.RunReport<State.Report<String,String>>) -> IO(Unit):
+def finished(before:String,graph:String,after:String,result:ObservedRun()) -> IO(Unit):
   match result:
-    case (bound,status):inspected_finished("before=" ++ before ++ "|passive-graph=" ++ graph ++ "|after=" ++ after ++ "|" ++ Scene.report(status),inspect(bound))
+    case ((bound,status),boundaries):inspected_finished("before=" ++ before ++ "|passive-graph=" ++ graph ++ "|after=" ++ after ++ "|" ++ Scene.report(status) ++ "|boundaries=" ++ List.show(&2,Deferred.Boundary,boundary,boundaries),inspect(bound))
 def resnapshotted(before:String,graph:String,result:Scheduled.Bound(~Scene.Schema) & Commands.Snapshot<Scene.Schema>) -> IO(Unit):
   match result:
-    case (bound,view):IO.bind(Scheduled.Bound(~Scene.Schema) & Context.RunReport<State.Report<String,String>>,Unit,Scheduled.run_once(~Scene.Schema,configure(True{},bound)),next=>finished(before,graph,snapshot_text(view),next))
+    case (bound,view):IO.bind(ObservedRun(),Unit,run_observed(configure(True{},bound)),next=>finished(before,graph,snapshot_text(view),next))
 def read_graph(before:String,result:Scheduled.Bound(~Scene.Schema) & String) -> IO(Unit):
   match result:
     case (bound,graph):resnapshotted(before,graph,snapshot(bound))
 def snapshotted(result:Scheduled.Bound(~Scene.Schema) & Commands.Snapshot<Scene.Schema>) -> IO(Unit):
   match result:
     case (bound,view):read_graph(snapshot_text(view),inspect(bound))
-def ran(result:Scheduled.Bound(~Scene.Schema) & Context.RunReport<State.Report<String,String>>) -> IO(Unit):
+def ran(result:ObservedRun()) -> IO(Unit):
   match result:
-    case (bound,_):snapshotted(snapshot(bound))
+    case ((bound,_),boundaries):IO.bind(Unit,Unit,IO.print("unapplied-boundaries=" ++ List.show(&2,Deferred.Boundary,boundary,boundaries)),_ => snapshotted(snapshot(bound)))
 def initialized(result:Initialize.Initialization<Scene.Schema>) -> IO(Unit):
   match result:
-    case Initialize.SceneInitialized{_,Scheduled.SceneReady{bound}}:IO.bind(Scheduled.Bound(~Scene.Schema) & Context.RunReport<State.Report<String,String>>,Unit,Scheduled.run_once(~Scene.Schema,configure(False{},bound)),ran)
+    case Initialize.SceneInitialized{_,Scheduled.SceneReady{bound}}:IO.bind(ObservedRun(),Unit,run_observed(configure(False{},bound)),ran)
     case _:IO.print("initialization-refused")
 def main() -> IO(Unit):initialized(Initialize.create(~Scene.Schema,W.factory(),Actor.Session{401},Actor.Session{601}))
