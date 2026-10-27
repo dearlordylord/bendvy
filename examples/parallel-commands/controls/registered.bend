@@ -20,11 +20,11 @@ def refresh(owner:P.Token) -> P.Token & U32:
     case P.Token{owner}:observed(Array.get(U32,owner,0))
 def layout() -> Layout.Layout:Layout.LayoutLeaf{P.Token,U32,refresh,"token",Policy.Ordinary{}}
 def Ops(Permit:Data,H:Type,Q:Type) -> Type:Unit
-def declaration(~S:Data,~Permit:Data,~H:Type,~Q:Type,~commands:Local.Commands<Q,S,P.Token>,~B:Type,~builder:Build.Builder(~S,~(Layout.columns(~S,layout())),~(Layout.columns(~S,layout())),~Unit,~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~layout(),~Permit,~Q,~K),book:B,permission:K) -> B & (K & Unit):
+def declaration(~S:Data,~Permit:Data,~H:Type,~Q:Type,~commands:Local.Commands<Q,S,P.Token>,~B:Type,~builder:Build.Builder(~S,~(Layout.columns(~S,layout())),~(Layout.columns(~S,layout())),~Unit,~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~layout(),~Permit,~Q,~K),~relations:Permission.RelationGrant(~S,~Layout.EmptyLayout{},~Q,~K),~scopes:Permission.ScopeGrant(~S,~Layout.EmptyLayout{},~Q,~K),book:B,permission:K) -> B & (K & Unit):
   (book,(permission,Unit{}))
 def Owner(~S:Data) -> Type:
-  Cmd.Owner<S,Layout.columns(~S,layout()),Unit,Unit,layout(),Layout.AtLeaf{},Ops,P.Capture<S>,String,Unit,declaration(~S),P.body(~S)>
-def selection(~S:Data,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~(Layout.columns(~S,layout())),~(Layout.columns(~S,layout())),~Unit,~Unit,~String,~Unit,~F),~command:Tree.CommandLeaf(~S,~(Layout.columns(~S,layout())),~(Layout.columns(~S,layout())),~Unit,~Unit,~String,~Unit,~F),~join:Tree.Join(~F),owner:Owner(~S)) -> F(Owner(~S)):
+  Cmd.Owner<S,Layout.columns(~S,layout()),Unit,Unit,layout(),Layout.EmptyLayout{},Layout.AtLeaf{},Ops,P.Capture<S>,String,Unit,declaration(~S),P.body(~S)>
+def selection(~S:Data,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~(Layout.columns(~S,layout())),~(Layout.columns(~S,layout())),~Unit,~Unit,~Layout.EmptyLayout{},~String,~Unit,~F),~command:Tree.CommandLeaf(~S,~(Layout.columns(~S,layout())),~(Layout.columns(~S,layout())),~Unit,~Unit,~Layout.EmptyLayout{},~String,~Unit,~F),~join:Tree.Join(~F),owner:Owner(~S)) -> F(Owner(~S)):
   command(layout(),Layout.AtLeaf{},{==},{==},Ops,P.Capture<S>,declaration(~S),P.body(~S),owner)
 def registered(~S:Data,owner:Owner(~S)) -> Tree.Runtime<S,W.World<S,Layout.columns(~S,layout()),Unit,Unit>,Prep.Permit<S,Layout.columns(~S,layout())>,State.Scope<S,Layout.columns(~S,layout()),Unit>,Owner(~S),String,Unit>:
-  Tree.compile(~S,~(Layout.columns(~S,layout())),~Unit,~Unit,~String,~Unit,~(Layout.columns(~S,layout())),~Unit,~Owner(~S),~selection(~S),owner)
+  Tree.compile(~S,~(Layout.columns(~S,layout())),~Unit,~Unit,~Layout.EmptyLayout{},~String,~Unit,~(Layout.columns(~S,layout())),~Unit,~{==},~Owner(~S),~selection(~S),owner)
