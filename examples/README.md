@@ -52,10 +52,11 @@ results. These commands compile and run the actual application. Finite output
 observations do not replace Bend laws or establish universal correctness.
 
 The existing `bash examples/check.sh` discovers top-level directories with
-`main.bend` or `game.bend` and runs each available `check.sh`. The scripts and
-legacy smoke files remain in place. Read each example README for expectations
-that still belong to its original contract. Their presence alone does not
-establish coverage of the replacement executor.
+`main.bend` or `game.bend` and runs each available `check.sh`. Health decay runs
+its CLI output comparison and builds its browser API. Arena builds its browser
+module without running gameplay or browser checks. Their legacy host checks are
+preserved under the source bindings in each example's documentation and are not
+invoked by these current runners. Read each example README for its exact coverage.
 
 Set `BEND`, `NODE`, and `CLANG` to select installed tools. Existing Native
 example checks use `BENDVY_EXAMPLE_NATIVE=1`. CPU pinning is optional through

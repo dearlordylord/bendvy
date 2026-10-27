@@ -26,5 +26,9 @@ protocol for this module's driver effect. It does not schedule asynchronous IO.
 Generated modules in `dist/` are ignored. No browser framework is required.
 The emitted start and one Tick were executed after migration with their complete
 three-entity JSON observations. Real-browser interaction has not been rerun.
-The preserved smoke files describe the earlier synchronous API and are historical
-verification infrastructure, not evidence for the replacement runtime.
+The parent `check.sh` builds this API but does not run the browser or smoke files.
+The preserved smoke files describe the earlier synchronous `Packet` API. The
+pre-migration source snapshot is
+`790e1d413cbc3e0b4defe453da76858156e59a2b`.
+That binding reconstructs their original source contract; it does not claim a
+qualified run of those files at that commit.

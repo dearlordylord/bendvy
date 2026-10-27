@@ -58,11 +58,16 @@ The migrated emitted application was run for setup and 180 movement frames.
 Setup observed all 523 real bodies. At tick 180 it reported 77 kills, 525 enemies,
 14 projectile/effect rows and 550 total bodies, with all six original Body kinds
 present. The complete initial and final JSON were retained for the delivery.
-This is a finite product observation, not a formal proof or backend qualification.
-Real-browser interaction was not rerun.
+This run preceded the final admission/report-handling repair. The final migrated
+source was rebuilt and executed for setup and one frame. These are finite product
+observations, not formal proofs or backend qualification. Real-browser interaction
+was not rerun.
+
+`bash examples/arena/check.sh` builds the current browser module. It does not run
+gameplay, controlled scenarios, or the browser adapter.
 
 The pre-existing controlled Bend scenarios in [fixtures.bend](fixtures.bend)
 now construct this same retained application and return compiled IO. Existing
 JavaScript verifier files remain untouched and retain their former synchronous
-API expectations. They are not replacement-runtime verification and are not part
-of the run command above.
+API expectations. Their historical source binding and current runner coverage
+are documented in [CHECKS.md](CHECKS.md).

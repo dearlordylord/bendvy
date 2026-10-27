@@ -46,7 +46,11 @@ The [browser demonstration](demo/README.md) uses the same owners, declarations
 and Root. Its initial run publishes the seeds at the final boundary before
 rendering the initial values. Each Tick then runs the decay system.
 
+`bash examples/health-decay/check.sh` compiles and runs the CLI, compares its
+three output lines with `expected.stdout`, and builds the browser API. It does
+not execute the browser adapter.
+
 The CLI and browser API were emitted and run on JavaScript after migration.
-These are finite application observations, not formal proofs. Existing legacy
-smoke files remain in place; their former synchronous API expectations are not
-replacement-runtime verification.
+These are finite application observations, not formal proofs. The preserved
+legacy smoke files use the earlier synchronous API. Their source binding is
+documented in the [browser demonstration](demo/README.md).
