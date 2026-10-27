@@ -260,6 +260,7 @@ def tx_get(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data
 def trace_error(error:W.WorldError) -> String:
   match error:
     case W.MissingEntity{}:"MissingEntity"
+    case W.ReservationUnauthorized{}:"ReservationUnauthorized"
     case W.CapacityExceeded{}:"CapacityExceeded"
     case W.NamespaceExhausted{}:"NamespaceExhausted"
     case W.SystemIdExhausted{}:"SystemIdExhausted"
