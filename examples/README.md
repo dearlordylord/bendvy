@@ -7,6 +7,7 @@ condition, automatic barriers and passive observations through the replacement R
 | Example | Purpose | Execution style |
 | --- | --- | --- |
 | [Scheduled health](scheduled-health/README.md) | Application starting point | Replacement Root, retained declarations, deferred commands and passive Inspector |
+| [Captured query](captured-query/README.md) | Affine capture, Changed query and error/retry sequence | Replacement Root, retained declarations and ordinary partial writes |
 | [Health decay](health-decay/README.md) | Small query mechanics example | Direct query execution |
 | [Health browser demo](health-decay/demo/README.md) | Interactive view of health decay | Browser host, direct query execution |
 | [Arena](arena/README.md) | Playable browser simulation | Browser host, direct query orchestration |
