@@ -1,8 +1,12 @@
 # Execution law draft inventory
 
 Source reconciliation at `a417eb88778aa5efc49ba193b613a8cc435d7f05`.
-Every candidate below is **DRAFT / UNAPPROVED / UNPROVED**. This is authoring,
-not an independent review, approval request, proof run or acceptance report.
+Of the 36 subjects below, 35 remain **DRAFT / UNAPPROVED / UNPROVED**.
+The user approved only `pending_returns_actual_application` at snapshot
+`fd6826220899f261994a4a77260d6c2049e1caed`; its unchanged statement is kernel-proved
+in [the isolated proof](../../test-fixtures/execution-save-laws/pending-approved/PROOF.bend),
+with [source binding and scope](../../test-fixtures/execution-save-laws/pending-approved/SUBJECTS.json).
+This status does not approve any other subject or establish whole-capability acceptance.
 The five previously approved statements under `test-fixtures/execution-laws`
 are outside this change and remain frozen.
 
@@ -19,7 +23,7 @@ substituted for a blocked statement.
 | [lifecycle](../../test-fixtures/execution-lifecycle-laws/LAWS.bend) | 13 active | Actual `Sys.Owner`, `Sys.Body`, `Build.FrameworkProgram`, `World`, `Scope`, administration, journal, lifecycle Reader and typed command entry | Four wrapper laws are conditional on exact `IO.pure` invocation/kernel terms. They do not cover arbitrary effectful IO. Other laws pin result reassembly, Finished/Stopped/Invalid maintenance branches, foreign admission/Reader/command-entry refusal, and one retained-item lag shape. No whole-run scheduling, driver behavior or full retention search theorem. |
 | [relations](../../test-fixtures/execution-relation-laws/LAWS.bend) | 7 | Interpreter allocator/graph, protected-write policy, actual Store/slot/stamp, actual failure Reader/channel and Local | Foreign unrelate/store/publication/Reader refusals, ordinary-descriptor reorder refusal, policy helper, and body-error reassembly. No successful arbitrary graph edit, public grant completeness, registration, false-condition path or rollback theorem. |
 | [relation context](../../test-fixtures/execution-relation-context-laws/LAWS.bend) | 1 | `WorldPublication.apply`, actual World, typed Context.Binding and original operation | Assumes the exact `W.namespace` observation and namespace inequality. Preserves that World/binding on refusal; does not prove namespace allocation, ordinary Root wiring, successful publication or maintenance. |
-| [save gate/recipe](../../test-fixtures/execution-save-laws/LAWS.bend) | 4 | `Gate.checked`, actual generic application owner; `Recipe.export`, actual payload/recipe | Pending Bool branch retains application; clear branch calls exact supplied projector; Plain refuses and Transient omits while retaining owners. Does not prove pending detection, arbitrary projector preservation, serialization or schema correctness. |
+| [save gate/recipe](../../test-fixtures/execution-save-laws/LAWS.bend) | 4: 1 approved/proved, 3 drafts | `Gate.checked`, actual generic application owner; `Recipe.export`, actual payload/recipe | Only the supplied pending Bool branch is proved to retain the actual application and return RefusedPending. The clear/projector, Plain and Transient equations remain drafts. No pending detection, arbitrary projector preservation, serialization or schema theorem. |
 | [save schema](../../test-fixtures/execution-save-laws/SCHEMA.bend) | 2 | `Save.ready` and `Save.eligible`, actual schema and World | Exact pending-readiness and supplied schema-error branches. No success-path export, derived pending fold, ordering or codec theorem. |
 | [restore helpers](../../test-fixtures/execution-save-laws/RESTORE.bend) | 3 | `Receiver.ready`, `Publish.publish`, `Clear.clear`, actual World | Pending receiver refusal and empty publication/clear lists only. No nonempty restore, fresh allocation, remapping, graph reconstruction, stream/Reader preservation or lifecycle theorem. |
 
@@ -44,9 +48,9 @@ or replace actual owners with a policy Boolean. The selected `Buffer.Entry`
 family branch does not execute relation/scope dispatch or check Context admission.
 The current API requires the resource-layout equality witness. The successor
 does not quantify over an opaque `R` without that witness as the old text did.
-There are still **36 existing subjects**, now 36 active drafts and none blocked
-by the old signature. Active means an uncommented declaration, not approval,
-proof or a successful source check for every draft file.
+There are still **36 existing subjects**, with one approved/proved and 35 active
+drafts; none is blocked by the old signature. Active means an uncommented
+declaration, not approval, proof or a successful source check for every draft file.
 
 Receiver quiescence is a separate law gap. `receiver_pending_keeps_actual_world`
 only fixes the `Receiver.ready(...,(world,False{}))` branch. It does not prove
