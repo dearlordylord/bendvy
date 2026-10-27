@@ -50,12 +50,15 @@ def columns(~S:Data,layout:Layout) -> Type:
     case LayoutLeaf{P,V,refresh,key,accessPolicy}:ColumnSlot<S,Viewed<P,V>,key,LayoutLeaf{P,V,refresh,key,accessPolicy}>
     case ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}:ColumnSlot<S,Viewed<P,V>,key,ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}>
     case LayoutPair{left,right}:Product.Owner<columns(~S,left),columns(~S,right)>
-def resources(~S:Data,layout:Layout) -> Type:
+def resources_generic(-S:Data,layout:Layout) -> Type:
   match layout:
     case EmptyLayout{}:Unit
     case LayoutLeaf{P,V,refresh,key,accessPolicy}:ResourceSlot<S,Viewed<P,V>,key,LayoutLeaf{P,V,refresh,key,accessPolicy}>
     case ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}:ResourceSlot<S,Viewed<P,V>,key,ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}>
-    case LayoutPair{left,right}:Product.Owner<resources(~S,left),resources(~S,right)>
+    case LayoutPair{left,right}:Product.Owner<resources_generic(S,left),resources_generic(S,right)>
+def resources(~S:Data,layout:Layout) -> Type:
+  resources_generic(S,layout)
+
 def payload(layout:Layout,route:Route) -> Type:
   match layout route:
     case LayoutLeaf{P,V,_,_,_} AtLeaf{}:P
@@ -145,13 +148,16 @@ def column_put(~S:Data,layout:Layout,route:Route,rest:column_rest(~S,layout,rout
     case LayoutPair{left,right} AtLeaf{} rest:rest
     case LayoutPair{left,right} InLeft{path}, (outer,inner):Product.Owner{column_put(~S,left,path,inner,slot),outer}
     case LayoutPair{left,right} InRight{path}, (outer,inner):Product.Owner{outer,column_put(~S,right,path,inner,slot)}
-def resource_rest(~S:Data,layout:Layout,route:Route) -> Type:
+def resource_rest_generic(-S:Data,layout:Layout,route:Route) -> Type:
   match layout route:
     case LayoutLeaf{_,V,_,_,_} AtLeaf{}:Unit
     case ClassifiedLayoutLeaf{_,V,_,_,_,_} AtLeaf{}:Unit
-    case LayoutPair{left,right} InLeft{rest}:resources(~S,right) & resource_rest(~S,left,rest)
-    case LayoutPair{left,right} InRight{rest}:resources(~S,left) & resource_rest(~S,right,rest)
-    case layout _:resources(~S,layout)
+    case LayoutPair{left,right} InLeft{rest}:resources_generic(S,right) & resource_rest_generic(S,left,rest)
+    case LayoutPair{left,right} InRight{rest}:resources_generic(S,left) & resource_rest_generic(S,right,rest)
+    case layout _:resources_generic(S,layout)
+def resource_rest(~S:Data,layout:Layout,route:Route) -> Type:
+  resource_rest_generic(S,layout,route)
+
 def resource_joined(~S:Data,-P:Type,-key:String,-origin:Layout,-Outer:Type,-Inner:Type,outer:Outer,result:Inner & ResourceSlot<S,P,key,origin>) -> (Outer & Inner) & ResourceSlot<S,P,key,origin>:
   match result:
     case (inner,slot):((outer,inner),slot)

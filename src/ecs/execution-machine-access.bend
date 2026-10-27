@@ -18,7 +18,7 @@ def Writes(~S:Data,~K:Data,~V:Data,Permit:Data,H:Type) -> Type:Write<S,K,V,H>
 def Applies(~S:Data,~K:Data,~V:Data,Permit:Data,H:Type) -> Type:Apply<S,K,V,H>
 def leaf(~S:Data,~K:Data,~V:Data,key:String) -> Layout.Layout:
   Layout.LayoutLeaf{State.Cell<S,K,V>,State.View<S,K,V>,State.projected(~S,~K,~V),key,Policy.Ordinary{}}
-def read(~S:Data,~K:Data,~V:Data,~H:Type,cap:A.ResourceRead<H,State.View<S,K,V>>) -> Read<S,K,V,H>:
+def read(-S:Data,-K:Data,-V:Data,-H:Type,cap:A.ResourceRead<H,State.View<S,K,V>>) -> Read<S,K,V,H>:
   match cap:
     case A.ResourceRead{get}:Read{get}
 def write(~S:Data,~K:Data,~V:Data,~H:Type,~same:V -> V -> Bool,cap:A.ResourceWrite<H,State.Cell<S,K,V>,State.View<S,K,V>>) -> Write<S,K,V,H>:
@@ -36,7 +36,7 @@ def checked_write(~S:Data,~K:Data,~V:Data,~H:Type,~P:Type,~View:Data,~payload:{P
   %payload : A.ResourceWrite<H,_,State.View<S,K,V>>
   %view : A.ResourceWrite<H,P,_>
   cap
-def checked_read(~S:Data,~K:Data,~V:Data,~H:Type,~View:Data,~view:{View == State.View<S,K,V> : Data},cap:A.ResourceRead<H,View>) -> A.ResourceRead<H,State.View<S,K,V>>:
+def checked_read(-S:Data,-K:Data,-V:Data,-H:Type,-View:Data,view:{View == State.View<S,K,V> : Data},cap:A.ResourceRead<H,View>) -> A.ResourceRead<H,State.View<S,K,V>>:
   %view : A.ResourceRead<H,_>
   cap
 # These selection helpers consume the existing Builder callbacks. They return no
@@ -51,11 +51,11 @@ def selected_apply(~S:Data,~K:Data,~V:Data,~H:Type,~B:Type,~layout:Layout.Layout
     case (book,cap):(book,apply(~S,~K,~V,~H,~same,checked_write(~S,~K,~V,~H,~(Layout.payload(layout,route)),~(Layout.view(layout,route)),~payload,~view,cap)))
 def select_apply(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~H:Type,~B:Type,~layout:Layout.Layout,~route:Layout.Route,~same_resource:{R == Layout.resources(~S,layout) : Type},~valid:{Layout.resource_write_valid(~layout,~route) == True{} : Bool},~payload:{Layout.payload(layout,route) == State.Cell<S,K,V> : Type},~view:{Layout.view(layout,route) == State.View<S,K,V> : Data},~same:V -> V -> Bool,~resource_write:Build.ResourceWrite(~S,~C,~R,~H,~B),book:B) -> B & Apply<S,K,V,H>:
   selected_apply(~S,~K,~V,~H,~B,~layout,~route,~payload,~view,~same,Build.basic_resource_write(~S,~C,~R,~H,~B,~layout,~route,~same_resource,~valid,~resource_write,book))
-def selected_read(~S:Data,~K:Data,~V:Data,~H:Type,~B:Type,~layout:Layout.Layout,~route:Layout.Route,~view:{Layout.view(layout,route) == State.View<S,K,V> : Data},result:B & A.ResourceRead<H,Layout.view(layout,route)>) -> B & Read<S,K,V,H>:
+def selected_read(-S:Data,-K:Data,-V:Data,-H:Type,-B:Type,-layout:Layout.Layout,-route:Layout.Route,view:{Layout.view(layout,route) == State.View<S,K,V> : Data},result:B & A.ResourceRead<H,Layout.view(layout,route)>) -> B & Read<S,K,V,H>:
   match result:
-    case (book,cap):(book,read(~S,~K,~V,~H,checked_read(~S,~K,~V,~H,~(Layout.view(layout,route)),~view,cap)))
+    case (book,cap):(book,read(S,K,V,H,checked_read(S,K,V,H,(Layout.view(layout,route)),view,cap)))
 def select_read(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~H:Type,~B:Type,~layout:Layout.Layout,~route:Layout.Route,~same_resource:{R == Layout.resources(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~view:{Layout.view(layout,route) == State.View<S,K,V> : Data},~resource_read:Build.ResourceRead(~S,~C,~R,~H,~B),book:B) -> B & Read<S,K,V,H>:
-  selected_read(~S,~K,~V,~H,~B,~layout,~route,~view,Build.basic_resource_read(~S,~C,~R,~H,~B,~layout,~route,~same_resource,~valid,~resource_read,book))
+  selected_read(S,K,V,H,B,layout,route,view,Build.basic_resource_read(~S,~C,~R,~H,~B,~layout,~route,~same_resource,~valid,~resource_read,book))
 
 def read_field(~S:Data,~K:Data,~V:Data,~H:Type,cap:Read<S,K,V,H>) -> H -> H & State.View<S,K,V>:
   match cap:

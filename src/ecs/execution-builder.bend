@@ -24,7 +24,7 @@ def ComponentWrite(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
   @-layout:Layout.Layout -> @-route:Layout.Route -> @-same:{C == Layout.columns(~S,layout) : Type} -> @-valid:{Layout.grant_valid(~layout,~route) == True{} : Bool} -> B -> B & A.ComponentWrite<S,H,Layout.payload(layout,route),Layout.view(layout,route)>
 
 def BasicResourceRead(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
-  @-layout:Layout.Layout -> @-route:Layout.Route -> @-same:{R == Layout.resources(~S,layout) : Type} -> @-valid:{Layout.grant_valid(~layout,~route) == True{} : Bool} -> B -> B & A.ResourceRead<H,Layout.view(layout,route)>
+  @layout:Layout.Layout -> @+route:Layout.Route -> @same:{R == Layout.resources(~S,layout) : Type} -> @valid:{Bool.and(Layout.unique(layout),Layout.valid(layout,route)) == True{} : Bool} -> B -> B & A.ResourceRead<H,Layout.view(layout,route)>
 
 def BasicResourceWrite(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
   @-layout:Layout.Layout -> @-route:Layout.Route -> @-same:{R == Layout.resources(~S,layout) : Type} -> @-valid:{Layout.resource_write_valid(~layout,~route) == True{} : Bool} -> B -> B & A.ResourceWrite<H,Layout.payload(layout,route),Layout.view(layout,route)>
@@ -115,8 +115,11 @@ def record_resource(book:Book,entry:Resources.Entry) -> Book:
 def resource_book(book:Book,entry:Resources.Entry,access:D.Access,available:Bool) -> Book:
   match book:
     case Book{previous,queries,resources,supported}:Book{access <> previous,queries,entry <> resources,Bool.and(supported,available)}
-def resource_read_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},book:Book) -> Book & A.ResourceRead<State.Scope<S,C,R>,Layout.view(layout,route)>:
-  accumulate(S,C,R,A.ResourceReads(~Layout.view(layout,route)),record_resource(book,Resources.Entry{route,Layout.key(layout,route),Resources.ReadOnly{}}),LayoutAccess.resource_read(~S,~C,~R,~layout,~route,~same,~valid))
+def resource_read_recorded(-S:Data,-C:Type,-R:Type,-layout:Layout.Layout,+route:Layout.Route,book:Book,result:String & A.ResourceRead<State.Scope<S,C,R>,Layout.view(layout,route)>) -> Book & A.ResourceRead<State.Scope<S,C,R>,Layout.view(layout,route)>:
+  match result:
+    case (+key,cap):(resource_book(book,Resources.Entry{route,key,Resources.ReadOnly{}},D.Access{key,D.ResourceAccess{},D.Exclusive{},D.ReadOnly{}},True{}),cap)
+def resource_read_build(-S:Data,-C:Type,-R:Type,layout:Layout.Layout,+route:Layout.Route,same:{R == Layout.resources_generic(S,layout) : Type},valid:{Bool.and(Layout.unique(layout),Layout.valid(layout,route)) == True{} : Bool},book:Book) -> Book & A.ResourceRead<State.Scope<S,C,R>,Layout.view(layout,route)>:
+  resource_read_recorded(S,C,R,layout,route,book,LayoutAccess.resource_read(S,C,R,layout,route,same,valid))
 
 def resource_write_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},~valid:{Layout.resource_write_valid(~layout,~route) == True{} : Bool},book:Book) -> Book & A.ResourceWrite<State.Scope<S,C,R>,Layout.payload(layout,route),Layout.view(layout,route)>:
   accumulate(S,C,R,A.ResourceWrites(~Layout.payload(layout,route),~Layout.view(layout,route)),record_resource(book,Resources.Entry{route,Layout.key(layout,route),Resources.Writable{}}),LayoutAccess.resource_write(~S,~C,~R,~layout,~route,~same,~valid))
@@ -124,7 +127,7 @@ def resource_write_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:La
 def resource_read_unsupported(~S:Data,~C:Type,~R:Type,~full:Layout.Layout,~route:Layout.Route,~valid:{Layout.grant_valid(~full,~route) == True{} : Bool},~model:ResourceStore.Model,~local:{R == ResourceStore.owner(~S,full,model) : Type},book:Book) -> Book & ResourceAccess.Reader<State.Scope<S,C,R>,Layout.view(full,route)>:
   (resource_book(book,Resources.Entry{route,Layout.key(full,route),Resources.ReadOnly{}},D.Access{Layout.key(full,route),D.ResourceAccess{},D.SharedView{},D.ReadOnly{}},False{}),ResourceAccess.UnsupportedReader{})
 def resource_read_provision(~S:Data,~C:Type,~R:Type,~Ops:Type -> Type,~selection:ResourceReadSelection(~S,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
-  selection(resource_read_build(~S,~C,~R),resource_read_unsupported(~S,~C,~R),book)
+  selection(resource_read_build(S,C,R),resource_read_unsupported(~S,~C,~R),book)
 def resource_write_unsupported(~S:Data,~C:Type,~R:Type,~full:Layout.Layout,~route:Layout.Route,~valid:{Layout.resource_write_valid(~full,~route) == True{} : Bool},~model:ResourceStore.Model,~local:{R == ResourceStore.owner(~S,full,model) : Type},book:Book) -> Book & ResourceAccess.Writer<State.Scope<S,C,R>,Layout.payload(full,route),Layout.view(full,route)>:
   (resource_book(book,Resources.Entry{route,Layout.key(full,route),Resources.Writable{}},D.Access{Layout.key(full,route),D.ResourceAccess{},D.Exclusive{},D.Writable{}},False{}),ResourceAccess.UnsupportedWriter{})
 def resource_write_provision(~S:Data,~C:Type,~R:Type,~Ops:Type -> Type,~selection:ResourceWriteSelection(~S,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
@@ -216,7 +219,7 @@ def resource_read_with(~S:Data,~C:Type,~R:Type,~provider:ResourceReadProvider(~S
 def resource_write_with(~S:Data,~C:Type,~R:Type,~provider:ResourceWriteProvider(~S,~C,~R),~full:Layout.Layout,~route:Layout.Route,~valid:{Layout.resource_write_valid(~full,~route) == True{} : Bool},~model:ResourceStore.Model,~local:{R == ResourceStore.owner(~S,full,model) : Type},book:Book) -> Book & ResourceAccess.Writer<State.Scope<S,C,R>,Layout.payload(full,route),Layout.view(full,route)>:
   (resource_book(book,Resources.Entry{route,Layout.key(full,route),Resources.Writable{}},D.Access{Layout.key(full,route),D.ResourceAccess{},D.Exclusive{},D.Writable{}},True{}),provider(full,route,valid,model,local))
 def resource_read_provision_with(~S:Data,~C:Type,~R:Type,~provider:ResourceReadProvider(~S,~C,~R),~Ops:Type -> Type,~selection:ResourceReadSelection(~S,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
-  selection(resource_read_build(~S,~C,~R),resource_read_with(~S,~C,~R,~provider),book)
+  selection(resource_read_build(S,C,R),resource_read_with(~S,~C,~R,~provider),book)
 def resource_write_provision_with(~S:Data,~C:Type,~R:Type,~provider:ResourceWriteProvider(~S,~C,~R),~Ops:Type -> Type,~selection:ResourceWriteSelection(~S,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
   selection(resource_write_build(~S,~C,~R),resource_write_with(~S,~C,~R,~provider),book)
 def provision_with_interpreters(~S:Data,~WC:Type,~C:Type,~R:Type,~Permit:Data,~queryProvider:GeneralProvider(~S,~WC,~C,~R),~readProvider:ResourceReadProvider(~S,~C,~R),~writeProvider:ResourceWriteProvider(~S,~C,~R),~Ops:Data -> Type -> Type,~selection:Selection(~S,~WC,~C,~R,~Permit,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(Permit,State.Scope<S,C,R>):
