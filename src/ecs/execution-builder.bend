@@ -45,7 +45,7 @@ def ResourceRead(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
 def basic_resource_read_selection(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~basic:BasicResourceRead(~S,~C,~R,~H,~B),~general:GeneralResourceRead(~S,~C,~R,~H,~B),~failure:FailureRead(~S,~C,~R,~H,~B),book:B) -> B & A.ResourceRead<H,Layout.view(layout,route)>:
   basic(layout,route,same,valid,book)
 def basic_resource_read(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~resource:ResourceRead(~S,~C,~R,~H,~B),book:B) -> B & A.ResourceRead<H,Layout.view(layout,route)>:
-  resource(A.ResourceReads(~Layout.view(layout,route)),basic_resource_read_selection(~S,~C,~R,~H,~B,~layout,~route,~same,~valid),book)
+  resource(A.ResourceReads(~Layout.view(layout,route)),basic => general => failure => selected => basic(layout,route,same,valid,selected),book)
 def GeneralResourceWrite(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
   @-full:Layout.Layout -> @-route:Layout.Route -> @-valid:{Layout.resource_write_valid(~full,~route) == True{} : Bool} -> @-model:ResourceStore.Model -> @-local:{R == ResourceStore.owner(~S,full,model) : Type} -> B -> B & ResourceAccess.Writer<H,Layout.payload(full,route),Layout.view(full,route)>
 def ResourceWriteSelection(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type,~Ops:Type -> Type) -> Type:

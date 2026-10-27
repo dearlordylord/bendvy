@@ -158,10 +158,12 @@ def resource_rest_generic(-S:Data,layout:Layout,route:Route) -> Type:
 def resource_rest(~S:Data,layout:Layout,route:Route) -> Type:
   resource_rest_generic(S,layout,route)
 
-def resource_joined(~S:Data,-P:Type,-key:String,-origin:Layout,-Outer:Type,-Inner:Type,outer:Outer,result:Inner & ResourceSlot<S,P,key,origin>) -> (Outer & Inner) & ResourceSlot<S,P,key,origin>:
+def resource_joined_generic(-S:Data,-P:Type,-key:String,-origin:Layout,-Outer:Type,-Inner:Type,outer:Outer,result:Inner & ResourceSlot<S,P,key,origin>) -> (Outer & Inner) & ResourceSlot<S,P,key,origin>:
   match result:
     case (inner,slot):((outer,inner),slot)
-def resource_take(~S:Data,layout:Layout,route:Route,owner:resources(~S,layout)) -> resource_rest(~S,layout,route) & ResourceSlot<S,stored(layout,route),key(layout,route),origin(layout,route)>:
+def resource_joined(~S:Data,-P:Type,-key:String,-origin:Layout,-Outer:Type,-Inner:Type,outer:Outer,result:Inner & ResourceSlot<S,P,key,origin>) -> (Outer & Inner) & ResourceSlot<S,P,key,origin>:
+  resource_joined_generic(S,P,key,origin,Outer,Inner,outer,result)
+def resource_take_generic(-S:Data,layout:Layout,route:Route,owner:resources_generic(S,layout)) -> resource_rest_generic(S,layout,route) & ResourceSlot<S,stored(layout,route),key(layout,route),origin(layout,route)>:
   match layout route owner:
     case EmptyLayout{} _ owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}},unknown_stamp()})
     case LayoutLeaf{P,V,_,key,_} AtLeaf{} owner:(Unit{},owner)
@@ -171,9 +173,11 @@ def resource_take(~S:Data,layout:Layout,route:Route,owner:resources(~S,layout)) 
     case LayoutLeaf{P,V,_,key,_} InRight{_} owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}},unknown_stamp()})
     case ClassifiedLayoutLeaf{P,V,_,key,_,_} InRight{_} owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}},unknown_stamp()})
     case LayoutPair{left,right} AtLeaf{} owner:(owner,ResourceSlot{Viewed{Unit{},Unit{}},unknown_stamp()})
-    case LayoutPair{left,right} InLeft{rest} Product.Owner{l,r}:resource_joined(~S,stored(left,rest),key(left,rest),origin(left,rest),resources(~S,right),resource_rest(~S,left,rest),r,resource_take(~S,left,rest,l))
-    case LayoutPair{left,right} InRight{rest} Product.Owner{l,r}:resource_joined(~S,stored(right,rest),key(right,rest),origin(right,rest),resources(~S,left),resource_rest(~S,right,rest),l,resource_take(~S,right,rest,r))
-def resource_put(~S:Data,layout:Layout,route:Route,rest:resource_rest(~S,layout,route),slot:ResourceSlot<S,stored(layout,route),key(layout,route),origin(layout,route)>) -> resources(~S,layout):
+    case LayoutPair{left,right} InLeft{rest} Product.Owner{l,r}:resource_joined_generic(S,stored(left,rest),key(left,rest),origin(left,rest),resources_generic(S,right),resource_rest_generic(S,left,rest),r,resource_take_generic(S,left,rest,l))
+    case LayoutPair{left,right} InRight{rest} Product.Owner{l,r}:resource_joined_generic(S,stored(right,rest),key(right,rest),origin(right,rest),resources_generic(S,left),resource_rest_generic(S,right,rest),l,resource_take_generic(S,right,rest,r))
+def resource_take(~S:Data,layout:Layout,route:Route,owner:resources(~S,layout)) -> resource_rest(~S,layout,route) & ResourceSlot<S,stored(layout,route),key(layout,route),origin(layout,route)>:
+  resource_take_generic(S,layout,route,owner)
+def resource_put_generic(-S:Data,layout:Layout,route:Route,rest:resource_rest_generic(S,layout,route),slot:ResourceSlot<S,stored(layout,route),key(layout,route),origin(layout,route)>) -> resources_generic(S,layout):
   match layout route rest:
     case EmptyLayout{} _ rest:rest
     case LayoutLeaf{P,V,_,key,_} AtLeaf{} _:slot
@@ -183,8 +187,10 @@ def resource_put(~S:Data,layout:Layout,route:Route,rest:resource_rest(~S,layout,
     case LayoutLeaf{P,V,_,key,_} InRight{_} rest:rest
     case ClassifiedLayoutLeaf{P,V,_,key,_,_} InRight{_} rest:rest
     case LayoutPair{left,right} AtLeaf{} rest:rest
-    case LayoutPair{left,right} InLeft{path}, (outer,inner):Product.Owner{resource_put(~S,left,path,inner,slot),outer}
-    case LayoutPair{left,right} InRight{path}, (outer,inner):Product.Owner{outer,resource_put(~S,right,path,inner,slot)}
+    case LayoutPair{left,right} InLeft{path}, (outer,inner):Product.Owner{resource_put_generic(S,left,path,inner,slot),outer}
+    case LayoutPair{left,right} InRight{path}, (outer,inner):Product.Owner{outer,resource_put_generic(S,right,path,inner,slot)}
+def resource_put(~S:Data,layout:Layout,route:Route,rest:resource_rest(~S,layout,route),slot:ResourceSlot<S,stored(layout,route),key(layout,route),origin(layout,route)>) -> resources(~S,layout):
+  resource_put_generic(S,layout,route,rest,slot)
 def checked_owner(-A:Type,-B:Type,same:{A == B : Type},owner:A) -> B:
   %same : _
   owner
