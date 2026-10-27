@@ -89,6 +89,40 @@ including forks returned by deferred steps. Parallel permits eligible branches
 to use the parallel path. Selecting Parallel alone does not establish that two
 operations execute on different native workers.
 
+### Taskful query rows
+
+[`Build.task_output_query`](../../src/ecs/execution-builder.bend) declares a
+traversal of paired read and write columns with a taskful row callback and an abstract
+output owner `O`. The callback's `Permit` is the same type supplied to the system
+declaration. The existing `Build.output_query` provides the pure callback path.
+
+[`Q.TaskOutputBody`](../../src/ecs/execution-query.bend) receives the actual row
+handle, a read view, the writable payload, and `O`. It returns
+`Task<S,Permit,Layout.query_output(layout,route) & (O & Maybe<&2,E>)>`.
+`Q.TaskOutputEach<S,Permit,H,O,E>` contains the resulting capability.
+`Q.each_task_output` exposes its `H -> O -> Task<S,Permit,H & (O & Report<E>)>`
+operation. The system body binds that task through the existing Task interpreter
+and Driver before constructing its completion.
+
+The [chunk traversal](../../src/ecs/chunk-query.bend) sequences rows within each
+chunk. At column branches, the supplied `split` separates the actual output owner
+and `merge` rejoins the returned outputs. Parallel traversal defers both `TFork`
+children with `TRun`. Serial traversal binds the left branch before the right.
+The execution policy described above also applies to these tasks.
+
+The traversal retains the read owner while the callback owns the writable payload
+and output across suspension. The returned payload reconstructs the column and
+updates its write stamp even when the row reports an error. Invalid targets or
+mismatched column layouts return `LayoutRefused` with the supplied scope and output.
+
+The existing [output declaration](../../examples/parallel-query/output-declaration.bend)
+binds this capability, and the [command body](../../examples/parallel-query/command-body.bend)
+awaits its result. Its [row callback](../../examples/parallel-query/command-row.bend)
+returns `TDone` after authoring insertion. The six existing modes produce matching
+JavaScript and native output at 9,715 bytes, also matching the prior pure path.
+These observations do not exercise row `TNeed` or Spawn, establish native worker
+participation, complete GH87, or extend the approved helper proofs to the traversal.
+
 ## Returned inventories and registration lifecycle
 
 The generalized Root's `Storage.Present` contains the returned World and displaced
