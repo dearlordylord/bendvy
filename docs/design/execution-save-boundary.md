@@ -91,6 +91,17 @@ and nonfuture field timestamps. Source journal channels and active reader IDs
 remain detached observations; they will not overwrite receiver runtime owners.
 The metadata and typed staging continuation compile for both nominal consumers.
 
+Receiver preparation now inspects every actual cached column and asks the actual
+allocator for room before mutation. It retains the actual World on pending,
+shape and capacity refusal. The scheduled Application adapter must still fold
+all actual owner buffers before invoking this additional World-level gate.
+The new clear continuation calls canonical command despawn, retains all removed
+Type owners in receipts and emits canonical removal/despawn notices. Unexpected
+despawn refusal returns an explicit partial outcome and remaining handles.
+Both unlike nominal receiver/clear consumers compile. These pieces have not
+yet been connected to complete fresh-handle publication, resource replacement,
+ordinary Scheduled restore or resumed execution.
+
 The four laws in `test-fixtures/execution-save-laws/LAWS.bend` and two subjects in
 `SCHEMA.bend` are unapproved, unproved drafts. They describe exact gate branching,
 Plain/Transient owner return and actual schema/World refusal branches. They do
