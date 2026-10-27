@@ -21,9 +21,9 @@ def leaf(-S:Data,-K:Data,-V:Data,key:String) -> Layout.Layout:
 def read(-S:Data,-K:Data,-V:Data,-H:Type,cap:A.ResourceRead<H,State.View<S,K,V>>) -> Read<S,K,V,H>:
   match cap:
     case A.ResourceRead{get}:Read{get}
-def write(~S:Data,~K:Data,~V:Data,~H:Type,~same:V -> V -> Bool,cap:A.ResourceWrite<H,State.Cell<S,K,V>,State.View<S,K,V>>) -> Write<S,K,V,H>:
+def write(-S:Data,-K:Data,-V:Data,-H:Type,same:V -> V -> Bool,cap:A.ResourceWrite<H,State.Cell<S,K,V>,State.View<S,K,V>>) -> Write<S,K,V,H>:
   match cap:
-    case A.ResourceWrite{get,_,_,own_at}:Write{get,request => own_at(Unit,State.queued_at(~S,~K,~V,~same,request))}
+    case A.ResourceWrite{get,_,_,own_at}:Write{get,request => own_at(Unit,State.queued_at_generic(S,K,V,same,request))}
 def applied(~S:Data,~K:Data,~V:Data,cell:State.Cell<S,K,V>) -> State.Cell<S,K,V> & State.Intent<V>:
   match cell:
     case State.Cell{slot,stream,revision,stamp,nextStamp,sequence,initialPending,namespace,+intent}:(State.Cell{slot,stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent},intent)
@@ -32,7 +32,7 @@ def applying(~S:Data,~K:Data,~V:Data,~same:V -> V -> Bool,tick:Tick.Tick,cell:St
 def apply(~S:Data,~K:Data,~V:Data,~H:Type,~same:V -> V -> Bool,cap:A.ResourceWrite<H,State.Cell<S,K,V>,State.View<S,K,V>>) -> Apply<S,K,V,H>:
   match cap:
     case A.ResourceWrite{get,_,_,own_at}:Apply{own_at(State.Intent<V>,applying(~S,~K,~V,~same)),get}
-def checked_write(~S:Data,~K:Data,~V:Data,~H:Type,~P:Type,~View:Data,~payload:{P == State.Cell<S,K,V> : Type},~view:{View == State.View<S,K,V> : Data},cap:A.ResourceWrite<H,P,View>) -> A.ResourceWrite<H,State.Cell<S,K,V>,State.View<S,K,V>>:
+def checked_write(-S:Data,-K:Data,-V:Data,-H:Type,-P:Type,-View:Data,payload:{P == State.Cell<S,K,V> : Type},view:{View == State.View<S,K,V> : Data},cap:A.ResourceWrite<H,P,View>) -> A.ResourceWrite<H,State.Cell<S,K,V>,State.View<S,K,V>>:
   %payload : A.ResourceWrite<H,_,State.View<S,K,V>>
   %view : A.ResourceWrite<H,P,_>
   cap
@@ -41,14 +41,14 @@ def checked_read(-S:Data,-K:Data,-V:Data,-H:Type,-View:Data,view:{View == State.
   cap
 # These selection helpers consume the existing Builder callbacks. They return no
 # raw cell writer and keep capability+conflict metadata in the same closed Program.
-def selected_write(~S:Data,~K:Data,~V:Data,~H:Type,~B:Type,~layout:Layout.Layout,~route:Layout.Route,~payload:{Layout.payload(layout,route) == State.Cell<S,K,V> : Type},~view:{Layout.view(layout,route) == State.View<S,K,V> : Data},~same:V -> V -> Bool,result:B & A.ResourceWrite<H,Layout.payload(layout,route),Layout.view(layout,route)>) -> B & Write<S,K,V,H>:
+def selected_write(-S:Data,-K:Data,-V:Data,-H:Type,-B:Type,-layout:Layout.Layout,-route:Layout.Route,payload:{Layout.payload(layout,route) == State.Cell<S,K,V> : Type},view:{Layout.view(layout,route) == State.View<S,K,V> : Data},same:V -> V -> Bool,result:B & A.ResourceWrite<H,Layout.payload(layout,route),Layout.view(layout,route)>) -> B & Write<S,K,V,H>:
   match result:
-    case (book,cap):(book,write(~S,~K,~V,~H,~same,checked_write(~S,~K,~V,~H,~(Layout.payload(layout,route)),~(Layout.view(layout,route)),~payload,~view,cap)))
+    case (book,cap):(book,write(S,K,V,H,same,checked_write(S,K,V,H,(Layout.payload(layout,route)),(Layout.view(layout,route)),payload,view,cap)))
 def select_write(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~H:Type,~B:Type,~layout:Layout.Layout,~route:Layout.Route,~same_resource:{R == Layout.resources(~S,layout) : Type},~valid:{Layout.resource_write_valid(~layout,~route) == True{} : Bool},~payload:{Layout.payload(layout,route) == State.Cell<S,K,V> : Type},~view:{Layout.view(layout,route) == State.View<S,K,V> : Data},~same:V -> V -> Bool,~resource_write:Build.ResourceWrite(~S,~C,~R,~H,~B),book:B) -> B & Write<S,K,V,H>:
-  selected_write(~S,~K,~V,~H,~B,~layout,~route,~payload,~view,~same,Build.basic_resource_write(~S,~C,~R,~H,~B,~layout,~route,~same_resource,~valid,~resource_write,book))
+  selected_write(S,K,V,H,B,layout,route,payload,view,same,Build.basic_resource_write(~S,~C,~R,~H,~B,~layout,~route,~same_resource,~valid,~resource_write,book))
 def selected_apply(~S:Data,~K:Data,~V:Data,~H:Type,~B:Type,~layout:Layout.Layout,~route:Layout.Route,~payload:{Layout.payload(layout,route) == State.Cell<S,K,V> : Type},~view:{Layout.view(layout,route) == State.View<S,K,V> : Data},~same:V -> V -> Bool,result:B & A.ResourceWrite<H,Layout.payload(layout,route),Layout.view(layout,route)>) -> B & Apply<S,K,V,H>:
   match result:
-    case (book,cap):(book,apply(~S,~K,~V,~H,~same,checked_write(~S,~K,~V,~H,~(Layout.payload(layout,route)),~(Layout.view(layout,route)),~payload,~view,cap)))
+    case (book,cap):(book,apply(~S,~K,~V,~H,~same,checked_write(S,K,V,H,(Layout.payload(layout,route)),(Layout.view(layout,route)),payload,view,cap)))
 def select_apply(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~H:Type,~B:Type,~layout:Layout.Layout,~route:Layout.Route,~same_resource:{R == Layout.resources(~S,layout) : Type},~valid:{Layout.resource_write_valid(~layout,~route) == True{} : Bool},~payload:{Layout.payload(layout,route) == State.Cell<S,K,V> : Type},~view:{Layout.view(layout,route) == State.View<S,K,V> : Data},~same:V -> V -> Bool,~resource_write:Build.ResourceWrite(~S,~C,~R,~H,~B),book:B) -> B & Apply<S,K,V,H>:
   selected_apply(~S,~K,~V,~H,~B,~layout,~route,~payload,~view,~same,Build.basic_resource_write(~S,~C,~R,~H,~B,~layout,~route,~same_resource,~valid,~resource_write,book))
 def selected_read(-S:Data,-K:Data,-V:Data,-H:Type,-B:Type,-layout:Layout.Layout,-route:Layout.Route,view:{Layout.view(layout,route) == State.View<S,K,V> : Data},result:B & A.ResourceRead<H,Layout.view(layout,route)>) -> B & Read<S,K,V,H>:

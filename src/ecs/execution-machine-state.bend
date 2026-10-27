@@ -18,18 +18,27 @@ def empty(~S:Data,~K:Data,~V:Data) -> Cell<S,K,V>:
 def projected(-S:Data,-K:Data,-V:Data,cell:Cell<S,K,V>) -> Cell<S,K,V> & View<S,K,V>:
   match cell:
     case Cell{+slot,stream,+revision,+stamp,+nextStamp,sequence,initialPending,namespace,+intent}:(Cell{slot,stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent},View{M.current_view_generic(S,K,V,slot),M.next_view_generic(S,K,V,slot),revision,stamp,nextStamp,intent})
-def queue(~S:Data,~K:Data,~V:Data,~same:V -> V -> Bool,cell:Cell<S,K,V>,request:M.QueueInput<V>) -> Cell<S,K,V>:
+def queue_generic(-S:Data,-K:Data,-V:Data,same:V -> V -> Bool,cell:Cell<S,K,V>,request:M.QueueInput<V>) -> Cell<S,K,V>:
   match cell request:
-    case Cell{slot,stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent} M.Set{value,skipSame}:Cell{Queue.queue(~S,~K,~V,~same,slot,value,skipSame),stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent}
-    case Cell{slot,stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent} M.Reset{}:Cell{M.reset(~S,~K,~V,slot),stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent}
+    case Cell{slot,stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent} M.Set{value,skipSame}:Cell{Queue.queue_generic(S,K,V,same,slot,value,skipSame),stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent}
+    case Cell{slot,stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent} M.Reset{}:Cell{M.reset_generic(S,K,V,slot),stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent}
 # Next setters and pending consumption have their own actual write stamp:
 # https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_state/src/state/resources.rs#L197-L234
-def request_stamped(~S:Data,~K:Data,~V:Data,tick:Tick.Tick,cell:Cell<S,K,V>) -> Cell<S,K,V> & Unit:
+def queue(~S:Data,~K:Data,~V:Data,~same:V -> V -> Bool,cell:Cell<S,K,V>,request:M.QueueInput<V>) -> Cell<S,K,V>:
+  queue_generic(S,K,V,same,cell,request)
+
+def request_stamped_generic(-S:Data,-K:Data,-V:Data,tick:Tick.Tick,cell:Cell<S,K,V>) -> Cell<S,K,V> & Unit:
   match cell:
     case Cell{M.Missing{},stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent}:(Cell{M.Missing{},stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent},Unit{})
     case Cell{slot,stream,revision,stamp,_,sequence,initialPending,namespace,intent}:(Cell{slot,stream,revision,stamp,Some{tick},sequence,initialPending,namespace,intent},Unit{})
+def request_stamped(~S:Data,~K:Data,~V:Data,tick:Tick.Tick,cell:Cell<S,K,V>) -> Cell<S,K,V> & Unit:
+  request_stamped_generic(S,K,V,tick,cell)
+
+def queued_at_generic(-S:Data,-K:Data,-V:Data,same:V -> V -> Bool,request:M.QueueInput<V>,tick:Tick.Tick,cell:Cell<S,K,V>) -> Cell<S,K,V> & Unit:
+  request_stamped_generic(S,K,V,tick,queue_generic(S,K,V,same,cell,request))
 def queued_at(~S:Data,~K:Data,~V:Data,~same:V -> V -> Bool,request:M.QueueInput<V>,tick:Tick.Tick,cell:Cell<S,K,V>) -> Cell<S,K,V> & Unit:
-  request_stamped(~S,~K,~V,tick,queue(~S,~K,~V,~same,cell,request))
+  queued_at_generic(S,K,V,same,request,tick,cell)
+
 def initialized(~S:Data,~K:Data,~V:Data,+value:V,+tick:Tick.Tick,stream:Stream.Store<V>,+sequence:Nat,namespace:Maybe<&2,U32>) -> Cell<S,K,V>:
   Cell{M.Present{value,M.NoPending{},None{},True{}},Stream.publish(~V,stream,1n+sequence,M.Initial{value}),1n,Some{tick},Some{tick},1n+sequence,True{},namespace,Initial{value}}
 def initialize(~S:Data,~K:Data,~V:Data,cell:Cell<S,K,V>,value:V,tick:Tick.Tick) -> Cell<S,K,V>:

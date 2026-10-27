@@ -68,15 +68,21 @@ type Snapshot<V: Data> is Data:
 type Applied<S: Data, M: Data, V: Data> is Data:
   Applied{slot: Slot<S,M,V>, event: Maybe<&2,Transition<V>>}
 
-def queue(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>,value: V,skipSame: Bool) -> Slot<S,M,V>:
+def queue_generic(-S: Data,-M: Data,-V: Data,slot: Slot<S,M,V>,value: V,skipSame: Bool) -> Slot<S,M,V>:
   match slot:
     case Missing{}: Missing{}
     case Present{current,_,previous,changed}: Present{current,Queued{value,skipSame},previous,changed}
 
-def reset(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>) -> Slot<S,M,V>:
+def queue(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>,value: V,skipSame: Bool) -> Slot<S,M,V>:
+  queue_generic(S,M,V,slot,value,skipSame)
+
+def reset_generic(-S: Data,-M: Data,-V: Data,slot: Slot<S,M,V>) -> Slot<S,M,V>:
   match slot:
     case Missing{}: Missing{}
     case Present{current,_,previous,changed}: Present{current,NoPending{},previous,changed}
+
+def reset(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>) -> Slot<S,M,V>:
+  reset_generic(S,M,V,slot)
 
 def clear_changed(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>) -> Slot<S,M,V>:
   match slot:
