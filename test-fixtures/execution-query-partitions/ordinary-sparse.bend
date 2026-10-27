@@ -1,3 +1,14 @@
+import ../../src/ecs/execution-resource-store.bend as ResourceStore
+import ../../src/ecs/execution-resource-program.bend as ResourceProgram
+import ../../src/ecs/execution-resource-query-leaf.bend as Leaf
+import ../../src/ecs/execution-resource-query-execution.bend as Execution
+import ../../src/ecs/execution-parallel-scope-registry.bend as Tree
+import ../../src/ecs/execution-generalized-root-application.bend as Application
+import ../../src/ecs/execution-parallel-root-application.bend as Root
+import ../../src/ecs/execution-condition-registry.bend as Conditions
+import ../../src/ecs/dependency-application.bend as App
+import ../../src/ecs/dependency-executor.bend as Exec
+import ../../src/ecs/owner-product.bend as Product
 import Base
 import ./schema.bend as S
 import ../../src/ecs/execution-builder.bend as Build
@@ -5,39 +16,30 @@ import ../../src/ecs/execution-query.bend as Q
 import ../../src/ecs/execution-query-recipe.bend as Recipe
 import ../../src/ecs/execution-query-matches.bend as Match
 import ../../src/ecs/execution-query-store.bend as Store
-import ../../src/ecs/execution-query-interpreter.bend as Interpret
-import ../../src/ecs/execution-query-preparation.bend as General
-import ../../src/ecs/execution-query-partition.bend as Partition
 import ../../src/ecs/execution-command-buffer.bend as Commands
 import ../../src/ecs/execution-composer-layout.bend as L
 import ../../src/ecs/execution-system.bend as Sys
 import ../../src/ecs/execution-parallel-system.bend as Task
-import ../../src/ecs/execution-state.bend as State
-import ../../src/ecs/execution-parallel-schedule.bend as Ready
 import ../../src/ecs/world.bend as W
 import ../../src/ecs/entity-key.bend as Key
-import ../../src/ecs/change-tick.bend as Tick
-import ../../src/ecs/execution-query-schema.bend as Schema
-import ../../src/ecs/execution-prepared.bend as Prep
-import ../../src/ecs/execution-compiled-binding.bend as Binding
 import ../../src/ecs/execution-declaration.bend as D
 import ../../src/ecs/execution-parallel-scope.bend as Scope
 import ../../src/ecs/execution-reservation-task.bend as Effect
-import ../../src/ecs/execution-reservation-authority.bend as RuntimePermit
-import ../../src/ecs/execution-reservation-driver.bend as Driver
 
 def WC() -> Type:L.columns(~S.SchemaA,S.layout_a())
 def HStore() -> Type:Store.Storage<S.SchemaA,S.layout_a()>
+def HResources() -> Type:ResourceStore.Storage<S.SchemaA,L.EmptyLayout{}>
+def World() -> Type:W.World<S.SchemaA,WC(),Unit,Unit>
 def Caps(H:Type) -> Type:Q.GeneralWriter<S.SchemaA,H,S.Position,U32>
 def Ops(Permit:Data,H:Type) -> Type:Caps(H)
 def any(value:Maybe<&2,U32>) -> Bool:True{}
-def selection(~bound:Recipe.Bound,~Permit:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S.SchemaA,~HStore(),~Unit,~H,~B),~cw:Build.ComponentWrite(~S.SchemaA,~HStore(),~Unit,~H,~B),~rr:Build.ResourceRead(~S.SchemaA,~HStore(),~Unit,~H,~B),~rw:Build.ResourceWrite(~S.SchemaA,~HStore(),~Unit,~H,~B),~query:Build.Query(~S.SchemaA,~WC(),~HStore(),~Unit,~H,~B),~life:Build.Lifecycle(~S.SchemaA,~WC(),~HStore(),~Unit,~H,~B),book:B) -> B & Ops(Permit,H):
-  Build.general_query(~S.SchemaA,~WC(),~HStore(),~Unit,~S.layout_a(),~L.InLeft{L.AtLeaf{}},~{==},~{==},~Store.Sparse{},~{==},~Recipe.WriteRows{},~bound,~Match.Optional{},~any,~H,~B,~query,book)
-def program(~bound:Recipe.Bound,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S.SchemaA,~WC(),~HStore(),~Unit,~Permit,~H,~B),book:B) -> B & Ops(Permit,H):
+def selection(~bound:Recipe.Bound,~Permit:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S.SchemaA,~HStore(),~HResources(),~H,~B),~cw:Build.ComponentWrite(~S.SchemaA,~HStore(),~HResources(),~H,~B),~rr:Build.ResourceRead(~S.SchemaA,~HStore(),~HResources(),~H,~B),~rw:Build.ResourceWrite(~S.SchemaA,~HStore(),~HResources(),~H,~B),~query:Build.Query(~S.SchemaA,~WC(),~HStore(),~HResources(),~H,~B),~life:Build.Lifecycle(~S.SchemaA,~WC(),~HStore(),~HResources(),~H,~B),book:B) -> B & Ops(Permit,H):
+  Build.general_query(~S.SchemaA,~WC(),~HStore(),~HResources(),~S.layout_a(),~L.InLeft{L.AtLeaf{}},~{==},~{==},~Store.Sparse{},~{==},~Recipe.WriteRows{},~bound,~Match.Optional{},~any,~H,~B,~query,book)
+def program(~bound:Recipe.Bound,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S.SchemaA,~WC(),~HStore(),~HResources(),~Permit,~H,~B),book:B) -> B & Ops(Permit,H):
   builder(Ops,selection(~bound,~Permit,~H,~B),book)
-def left_program(~Permit:Data,~token:Permit,~H:Type,~B:Type,~builder:Build.Builder(~S.SchemaA,~WC(),~HStore(),~Unit,~Permit,~H,~B),book:B) -> B & Ops(Permit,H):
+def left_program(~Permit:Data,~token:Permit,~H:Type,~B:Type,~builder:Build.Builder(~S.SchemaA,~WC(),~HStore(),~HResources(),~Permit,~H,~B),book:B) -> B & Ops(Permit,H):
   program(~Recipe.With{L.InRight{L.AtLeaf{}}},~Permit,~H,~B,~builder,book)
-def right_program(~Permit:Data,~token:Permit,~H:Type,~B:Type,~builder:Build.Builder(~S.SchemaA,~WC(),~HStore(),~Unit,~Permit,~H,~B),book:B) -> B & Ops(Permit,H):
+def right_program(~Permit:Data,~token:Permit,~H:Type,~B:Type,~builder:Build.Builder(~S.SchemaA,~WC(),~HStore(),~HResources(),~Permit,~H,~B),book:B) -> B & Ops(Permit,H):
   program(~Recipe.Without{L.InRight{L.AtLeaf{}}},~Permit,~H,~B,~builder,book)
 type Token is Type:
   Token{array:Array<U32>}
@@ -66,53 +68,41 @@ def body(~fail:Bool,~Permit:Data,~H:Type,~caps:Ops(Permit,H),scope:H,local:Local
   Effect.TDone{run_caps(~fail,~H,caps,scope,local)}
 def left_body(~Permit:Data,~H:Type,~caps:Ops(Permit,H),scope:H,local:Local) -> Effect.Task<S.SchemaA,Permit,H & (Local & Sys.Completion<String,Q.GeneralLookup<U32>>)>:body(~True{},~Permit,~H,~caps,scope,local)
 def right_body(~Permit:Data,~H:Type,~caps:Ops(Permit,H),scope:H,local:Local) -> Effect.Task<S.SchemaA,Permit,H & (Local & Sys.Completion<String,Q.GeneralLookup<U32>>)>:body(~False{},~Permit,~H,~caps,scope,local)
-def LeftOwner() -> Type:Sys.Owner<S.SchemaA,WC(),HStore(),Unit,Unit,Ops,Local,String,Q.GeneralLookup<U32>,left_program,left_body>
-def RightOwner() -> Type:Sys.Owner<S.SchemaA,WC(),HStore(),Unit,Unit,Ops,Local,String,Q.GeneralLookup<U32>,right_program,right_body>
-def Compilation() -> Type:D.Compilation<S.SchemaA,WC(),HStore(),Unit,Ops>
-def left_compiled() -> Compilation():Build.compile_framework_with_general(~S.SchemaA,~WC(),~HStore(),~Unit,~Interpret.provider_dictionary(~S.SchemaA,~WC(),~HStore(),~Unit),~Ops,~left_program)
-def right_compiled() -> Compilation():Build.compile_framework_with_general(~S.SchemaA,~WC(),~HStore(),~Unit,~Interpret.provider_dictionary(~S.SchemaA,~WC(),~HStore(),~Unit),~Ops,~right_program)
-def LeftEvidence() -> Data:Maybe<&2,General.Evidence<S.SchemaA,S.layout_a(),HStore(),Unit,Ops,left_program>>
-def RightEvidence() -> Data:Maybe<&2,General.Evidence<S.SchemaA,S.layout_a(),HStore(),Unit,Ops,right_program>>
-def LeftBinding() -> Type:Binding.Binding<Compilation(),W.World<S.SchemaA,WC(),Unit,Unit>,LeftOwner(),LeftEvidence(),Prep.Permit<S.SchemaA,WC()>>
-def RightBinding() -> Type:Binding.Binding<Compilation(),W.World<S.SchemaA,WC(),Unit,Unit>,RightOwner(),RightEvidence(),Prep.Permit<S.SchemaA,WC()>>
-def LeftPreparation() -> Type:Binding.Preparation<Compilation(),W.World<S.SchemaA,WC(),Unit,Unit>,LeftOwner(),LeftEvidence(),Prep.Permit<S.SchemaA,WC()>>
-def RightPreparation() -> Type:Binding.Preparation<Compilation(),W.World<S.SchemaA,WC(),Unit,Unit>,RightOwner(),RightEvidence(),Prep.Permit<S.SchemaA,WC()>>
-def define_left(world:W.World<S.SchemaA,WC(),Unit,Unit>,local:Local) -> Compilation() & Sys.Defined<W.World<S.SchemaA,WC(),Unit,Unit>,LeftOwner(),Local>:
-  General.define_with_compilation(~S.SchemaA,~S.layout_a(),~HStore(),~Unit,~Unit,~Unit,~Ops,~Local,~String,~Q.GeneralLookup<U32>,~left_program,~left_body,left_compiled(),world,"general-left",local)
-def define_right(world:W.World<S.SchemaA,WC(),Unit,Unit>,local:Local) -> Compilation() & Sys.Defined<W.World<S.SchemaA,WC(),Unit,Unit>,RightOwner(),Local>:
-  General.define_with_compilation(~S.SchemaA,~S.layout_a(),~HStore(),~Unit,~Unit,~Unit,~Ops,~Local,~String,~Q.GeneralLookup<U32>,~right_program,~right_body,right_compiled(),world,"general-right",local)
-def prepare_left(compilation:Compilation(),ids:List<&2,U32>,world:W.World<S.SchemaA,WC(),Unit,Unit>,owner:LeftOwner()) -> LeftPreparation():
-  General.prepare_with_compilation(~S.SchemaA,~S.layout_a(),~HStore(),~Unit,~Unit,~Unit,~Ops,~Local,~String,~Q.GeneralLookup<U32>,~left_program,~left_body,compilation,ids,world,owner)
-def LeftInvocation() -> Type:Binding.Invocation<Compilation(),State.Scope<S.SchemaA,HStore(),Unit>,W.World<S.SchemaA,WC(),Unit,Unit>,LeftOwner(),LeftEvidence(),Prep.Permit<S.SchemaA,WC()>,List<&2,Ready.Completed<String,Q.GeneralLookup<U32>>>>
-def invoke_left(scope:State.Scope<S.SchemaA,HStore(),Unit>,binding:LeftBinding()) -> Effect.Task<S.SchemaA,RuntimePermit.Permit,LeftInvocation()>:
-  General.invoke_sparse(~S.SchemaA,~S.layout_a(),~Unit,~Unit,~Unit,~Ops,~Local,~String,~Q.GeneralLookup<U32>,~left_program,~left_body,~D.trusted_construction_caps(~S.SchemaA,~WC(),~HStore(),~Unit,~Ops,left_compiled()),~Scope.no_structural(~Ops(Effect.Granted,State.Scope<S.SchemaA,HStore(),Unit>)),scope,binding)
-def prepare_right(compilation:Compilation(),ids:List<&2,U32>,world:W.World<S.SchemaA,WC(),Unit,Unit>,owner:RightOwner()) -> RightPreparation():
-  General.prepare_with_compilation(~S.SchemaA,~S.layout_a(),~HStore(),~Unit,~Unit,~Unit,~Ops,~Local,~String,~Q.GeneralLookup<U32>,~right_program,~right_body,compilation,ids,world,owner)
-def RightInvocation() -> Type:Binding.Invocation<Compilation(),State.Scope<S.SchemaA,HStore(),Unit>,W.World<S.SchemaA,WC(),Unit,Unit>,RightOwner(),RightEvidence(),Prep.Permit<S.SchemaA,WC()>,List<&2,Ready.Completed<String,Q.GeneralLookup<U32>>>>
-def invoke_right(scope:State.Scope<S.SchemaA,HStore(),Unit>,binding:RightBinding()) -> Effect.Task<S.SchemaA,RuntimePermit.Permit,RightInvocation()>:
-  General.invoke_sparse(~S.SchemaA,~S.layout_a(),~Unit,~Unit,~Unit,~Ops,~Local,~String,~Q.GeneralLookup<U32>,~right_program,~right_body,~D.trusted_construction_caps(~S.SchemaA,~WC(),~HStore(),~Unit,~Ops,right_compiled()),~Scope.no_structural(~Ops(Effect.Granted,State.Scope<S.SchemaA,HStore(),Unit>)),scope,binding)
-type Partitioned is Type:
-  Partitioned{partition:Partition.Split<S.SchemaA,S.layout_a()>,left:LeftBinding(),right:RightBinding()}
-def split(scope:State.Scope<S.SchemaA,WC(),Unit>,left:LeftBinding(),right:RightBinding()) -> Partitioned:
-  match left right:
-    case Binding.Binding{lc,lp,Some{+le}} Binding.Binding{rc,rp,Some{+re}}:Partitioned{Partition.split(~S.SchemaA,~S.layout_a(),~Ops,~Ops,~left_program,~right_program,scope,le,re),Binding.Binding{lc,lp,Some{le}},Binding.Binding{rc,rp,Some{re}}}
-    case left right:Partitioned{Partition.SplitRefused{scope},left,right}
-type Invoked is Type:
-  Invoked{left:LeftInvocation(),right:RightInvocation(),join:Partition.Join<S.SchemaA,S.layout_a()>}
-def invoke_pair(left:State.Scope<S.SchemaA,HStore(),Unit>,right:State.Scope<S.SchemaA,HStore(),Unit>,join:Partition.Join<S.SchemaA,S.layout_a()>,lp:LeftBinding(),rp:RightBinding()) -> Effect.Task<S.SchemaA,RuntimePermit.Permit,Invoked>:
-  Effect.TFork{LeftInvocation(),RightInvocation(),Effect.TRun{_ => invoke_left(left,lp)},Effect.TRun{_ => invoke_right(right,rp)},l => r => Effect.TDone{Invoked{l,r,join}}}
-type Finished is Type:
-  Finished{joined:Partition.Joined<S.SchemaA,S.layout_a()>,left:LeftBinding(),right:RightBinding(),leftStatus:List<&2,Ready.Completed<String,Q.GeneralLookup<U32>>>,rightStatus:List<&2,Ready.Completed<String,Q.GeneralLookup<U32>>>}
-  InventoryRefused{left:LeftInvocation(),right:RightInvocation(),join:Partition.Join<S.SchemaA,S.layout_a()>}
-def finish_returned(left:State.Scope<S.SchemaA,HStore(),Unit>,right:State.Scope<S.SchemaA,HStore(),Unit>,join:Partition.Join<S.SchemaA,S.layout_a()>,lp:LeftBinding(),rp:RightBinding(),ls:List<&2,Ready.Completed<String,Q.GeneralLookup<U32>>>,rs:List<&2,Ready.Completed<String,Q.GeneralLookup<U32>>>) -> Finished:
-  Finished{Partition.join(~S.SchemaA,~S.layout_a(),left,right,join),lp,rp,ls,rs}
-def finish(left:LeftInvocation(),right:RightInvocation(),join:Partition.Join<S.SchemaA,S.layout_a()>) -> Finished:
-  match left right:
-    case Binding.Invoked{left,lp,ls} Binding.Invoked{right,rp,rs}:finish_returned(left,right,join,lp,rp,ls,rs)
-    case Binding.Invoked{left,lp,ls} Binding.InvocationRefused{right,rp,rs}:finish_returned(left,right,join,lp,rp,ls,rs)
-    case Binding.InvocationRefused{left,lp,ls} Binding.Invoked{right,rp,rs}:finish_returned(left,right,join,lp,rp,ls,rs)
-    case Binding.InvocationRefused{left,lp,ls} Binding.InvocationRefused{right,rp,rs}:finish_returned(left,right,join,lp,rp,ls,rs)
-    case left right:InventoryRefused{left,right,join}
+def LeftOwner() -> Type:Sys.Owner<S.SchemaA,WC(),HStore(),HResources(),Unit,Ops,Local,String,Q.GeneralLookup<U32>,left_program,left_body>
+def RightOwner() -> Type:Sys.Owner<S.SchemaA,WC(),HStore(),HResources(),Unit,Ops,Local,String,Q.GeneralLookup<U32>,right_program,right_body>
+def Compilation() -> Type:D.Compilation<S.SchemaA,WC(),HStore(),HResources(),Ops>
+def left_compiled() -> Compilation():ResourceProgram.compile_framework(~S.SchemaA,~WC(),~HStore(),~HResources(),~Ops,~left_program)
+def right_compiled() -> Compilation():ResourceProgram.compile_framework(~S.SchemaA,~WC(),~HStore(),~HResources(),~Ops,~right_program)
+def LeftNode() -> Type:Leaf.node_type(~S.SchemaA,~S.layout_a(),~L.EmptyLayout{},~Unit,~String,~Q.GeneralLookup<U32>,~Ops,~Local,~left_program,~left_body)
+def RightNode() -> Type:Leaf.node_type(~S.SchemaA,~S.layout_a(),~L.EmptyLayout{},~Unit,~String,~Q.GeneralLookup<U32>,~Ops,~Local,~right_program,~right_body)
+def Nodes() -> Type:Product.Owner<LeftNode(),RightNode()>
+def RegisteredLeft() -> Type:Scope.CompiledBinding<Compilation(),LeftOwner()>
+def RegisteredRight() -> Type:Scope.CompiledBinding<Compilation(),RightOwner()>
+def Scheduled() -> Type:Root.Scheduled<App.State<Application.Storage<S.SchemaA,S.layout_a(),L.EmptyLayout{},Unit>,Nodes(),Unit,U32>>
+type WorldResult is Type:
+  WorldReturned{storage:Application.Storage<S.SchemaA,S.layout_a(),L.EmptyLayout{},Unit>,nodes:Nodes(),handler:U32,report:App.Report<String,Q.GeneralLookup<U32>>}
+  TargetsRefused{world:World()}
+  LeftDefinitionRefused{world:World(),compilation:Compilation(),left:Local,right:Local}
+  RightDefinitionRefused{world:World(),left:RegisteredLeft(),compilation:Compilation(),right:Local}
+def dispatch(nodes:Nodes(),world:World(),ids:List<&2,U32>) -> IO(Execution.RunResult<S.SchemaA,S.layout_a(),L.EmptyLayout{},Unit,Nodes(),String,Q.GeneralLookup<U32>>):
+  match nodes:
+    case Product.Owner{left,right}:Tree.run_generalized(~S.SchemaA,~S.layout_a(),~L.EmptyLayout{},~Unit,~String,~Q.GeneralLookup<U32>,LeftNode(),RightNode(),ids,world,Tree.GeneralizedPair{Tree.compile_retained_generalized_leaf(~S.SchemaA,~S.layout_a(),~L.EmptyLayout{},~Unit,~String,~Q.GeneralLookup<U32>,~Ops,~Local,~left_program,~left_body,~left_compiled(),left),Tree.compile_retained_generalized_leaf(~S.SchemaA,~S.layout_a(),~L.EmptyLayout{},~Unit,~String,~Q.GeneralLookup<U32>,~Ops,~Local,~right_program,~right_body,~right_compiled(),right)})
+def publish(_:List<&2,U32>,world:World(),nodes:Nodes()) -> World() & (Nodes() & List<&2,U32>):(world,(nodes,[]))
+def handle(count:U32,_:String) -> U32 & Exec.Handling:(U32.add(count,1),Exec.Continue{})
+def available(_:String) -> Bool:True{}
+def finished(result:Scheduled() & App.Report<String,Q.GeneralLookup<U32>>) -> WorldResult:
+  match result:
+    case (Root.Scheduled{App.State{storage,nodes,Unit{},handler,_},_,_,_,_},report):WorldReturned{storage,nodes,handler,report}
+def registered(world:World(),left:RegisteredLeft(),right:RegisteredRight()) -> IO(WorldResult):
+  IO.bind(Scheduled() & App.Report<String,Q.GeneralLookup<U32>>,WorldResult,Application.run(~S.SchemaA,~S.layout_a(),~L.EmptyLayout{},~Unit,~Nodes(),~Unit,~U32,~String,~Q.GeneralLookup<U32>,~dispatch,~Conditions.empty_dispatch(~World(),~String),~handle,~publish,Application.build(~S.SchemaA,~S.layout_a(),~L.EmptyLayout{},~Unit,~Nodes(),~Unit,~U32,~String,~Conditions.empty_dispatch(~World(),~String),~available,world,Tree.generalized_pair_facts(LeftNode(),RightNode(),Tree.generalized_leaf_facts(~S.SchemaA,~S.layout_a(),~L.EmptyLayout{},~Unit,~String,~Q.GeneralLookup<U32>,~Ops,~Local,~left_program,~left_body,left),Tree.generalized_leaf_facts(~S.SchemaA,~S.layout_a(),~L.EmptyLayout{},~Unit,~String,~Q.GeneralLookup<U32>,~Ops,~Local,~right_program,~right_body,right)),Conditions.compile_empty(~String,~World()),0,[],[])),value=>IO.pure(WorldResult,finished(value)))
+def right_defined(left:RegisteredLeft(),result:Compilation() & Sys.Defined<World(),RightOwner(),Local>) -> IO(WorldResult):
+  match result:
+    case (compilation,Sys.Defined{world,owner}):registered(world,left,Scope.CompiledBinding{compilation,owner})
+    case (compilation,Sys.DefinitionRefused{world,local}):IO.pure(WorldResult,RightDefinitionRefused{world,left,compilation,local})
+def left_defined(right:Local,result:Compilation() & Sys.Defined<World(),LeftOwner(),Local>) -> IO(WorldResult):
+  match result:
+    case (compilation,Sys.Defined{world,owner}):right_defined(Scope.CompiledBinding{compilation,owner},Task.define_with_compilation(~S.SchemaA,~WC(),~HStore(),~HResources(),~Unit,~Ops,~Local,~String,~Q.GeneralLookup<U32>,~right_program,~right_body,~Unit,right_compiled(),world,"general-right",right))
+    case (compilation,Sys.DefinitionRefused{world,local}):IO.pure(WorldResult,LeftDefinitionRefused{world,compilation,local,right})
 def seeded_columns(_:Unit) -> WC():S.full_a()
 def reserved(result:W.World<S.SchemaA,WC(),Unit,Unit> & W.Reservation<S.SchemaA>) -> W.World<S.SchemaA,WC(),Unit,Unit>:
   match result:
@@ -131,43 +121,6 @@ def created(result:W.Creation<S.SchemaA,WC(),Unit,Unit>) -> Seeded:
     case W.CreateRejected{factory,resource}:SeedRefused{factory,resource}
 def seeded(factory:W.Factory) -> Seeded:
   created(W.create(~S.SchemaA,~WC(),~Unit,~Unit,~seeded_columns,factory,Unit{}))
-type Pipeline is Type:
-  TargetsRefused{world:W.World<S.SchemaA,WC(),Unit,Unit>}
-  LeftDefinitionRefused{world:W.World<S.SchemaA,WC(),Unit,Unit>,compilation:Compilation(),left:Local,right:Local}
-  RightDefinitionRefused{world:W.World<S.SchemaA,WC(),Unit,Unit>,leftCompilation:Compilation(),left:LeftOwner(),rightCompilation:Compilation(),right:Local}
-  LeftPreparationRefused{result:LeftPreparation(),rightCompilation:Compilation(),right:RightOwner()}
-  RightPreparationRefused{left:LeftBinding(),result:RightPreparation()}
-  GroupPartitionRefused{admin:State.Administration<S.SchemaA,WC(),Unit,Unit>,partition:Partitioned}
-  GroupReturned{admin:State.Administration<S.SchemaA,WC(),Unit,Unit>,finished:Finished}
-def pair_returned(result:State.Administration<S.SchemaA,WC(),Unit,Unit> & Invoked) -> Pipeline:
-  match result:
-    case (admin,Invoked{left,right,join}):GroupReturned{admin,finish(left,right,join)}
-def partition_returned(admin:State.Administration<S.SchemaA,WC(),Unit,Unit>,result:Partitioned) -> IO(Pipeline):
-  match result:
-    case Partitioned{Partition.Split{left,right,join},lp,rp}:IO.bind(State.Administration<S.SchemaA,WC(),Unit,Unit> & Invoked,Pipeline,Driver.run(~S.SchemaA,~WC(),~Unit,~Unit,Invoked,[],admin,invoke_pair(left,right,join,lp,rp)),result => IO.pure(Pipeline,pair_returned(result)))
-    case partition:IO.pure(Pipeline,GroupPartitionRefused{admin,partition})
-def separated(lp:LeftBinding(),rp:RightBinding(),result:State.Administration<S.SchemaA,WC(),Unit,Unit> & State.Scope<S.SchemaA,WC(),Unit>) -> IO(Pipeline):
-  match result:
-    case (admin,scope):partition_returned(admin,split(scope,lp,rp))
-def clocked(lp:LeftBinding(),rp:RightBinding(),result:W.World<S.SchemaA,WC(),Unit,Unit> & Tick.Tick) -> IO(Pipeline):
-  match result:
-    case (world,tick):separated(lp,rp,State.separate(~S.SchemaA,~WC(),~Unit,~Unit,world,tick))
-def right_prepared(lp:LeftBinding(),result:RightPreparation()) -> IO(Pipeline):
-  match result:
-    case Binding.CompiledPreparationReady{world,rp}:clocked(lp,rp,W.execution_clock(~S.SchemaA,~WC(),~Unit,~Unit,world))
-    case result:IO.pure(Pipeline,RightPreparationRefused{lp,result})
-def left_prepared(compilation:Compilation(),+ids:List<&2,U32>,right:RightOwner(),result:LeftPreparation()) -> IO(Pipeline):
-  match result:
-    case Binding.CompiledPreparationReady{world,lp}:right_prepared(lp,prepare_right(compilation,ids,world,right))
-    case result:IO.pure(Pipeline,LeftPreparationRefused{result,compilation,right})
-def right_defined(leftCompilation:Compilation(),left:LeftOwner(),result:Compilation() & Sys.Defined<W.World<S.SchemaA,WC(),Unit,Unit>,RightOwner(),Local>) -> IO(Pipeline):
-  match left result:
-    case left, (compilation,Sys.DefinitionRefused{world,right}):IO.pure(Pipeline,RightDefinitionRefused{world,leftCompilation,left,compilation,right})
-    case Sys.Owner{ln,+lid,lt,la,lc,ll}, (compilation,Sys.Defined{world,Sys.Owner{rn,+rid,rt,ra,rc,rl}}):left_prepared(compilation,[lid,rid],Sys.Owner{rn,rid,rt,ra,rc,rl},prepare_left(leftCompilation,[lid,rid],world,Sys.Owner{ln,lid,lt,la,lc,ll}))
-def left_defined(right:Local,result:Compilation() & Sys.Defined<W.World<S.SchemaA,WC(),Unit,Unit>,LeftOwner(),Local>) -> IO(Pipeline):
-  match result:
-    case (compilation,Sys.DefinitionRefused{world,left}):IO.pure(Pipeline,LeftDefinitionRefused{world,compilation,left,right})
-    case (compilation,Sys.Defined{world,left}):right_defined(compilation,left,define_right(world,right))
 def target_local(+handle:W.Handle<S.SchemaA>,+token:U32) -> Local:
   Local{handle,Token{[token : U32^1n]},Commands.insert(~S.SchemaA,~S.Position,~Unit,Commands.empty(~S.SchemaA,~S.Position,~Unit),handle,S.Position{[U32.add(token,100) : U32^1n]})}
 def chosen(handle:W.Handle<S.SchemaA>,rest:Maybe<&2,W.Handle<S.SchemaA>>,selected:Bool) -> Maybe<&2,W.Handle<S.SchemaA>>:
@@ -178,35 +131,21 @@ def choose(+key:U32,handles:List<&2,W.Handle<S.SchemaA>>) -> Maybe<&2,W.Handle<S
   match handles:
     case []:None{}
     case +handle <> rest:chosen(handle,choose(key,rest),U32.is_eq(key,W.handle_index(~S.SchemaA,handle)))
-def targets(world:W.World<S.SchemaA,WC(),Unit,Unit>,left:Maybe<&2,W.Handle<S.SchemaA>>,right:Maybe<&2,W.Handle<S.SchemaA>>) -> IO(Pipeline):
+def targets(world:World(),left:Maybe<&2,W.Handle<S.SchemaA>>,right:Maybe<&2,W.Handle<S.SchemaA>>) -> IO(WorldResult):
   match left right:
-    case Some{lh} Some{rh}:left_defined(target_local(rh,202),define_left(world,target_local(lh,101)))
-    case _ _:IO.pure(Pipeline,TargetsRefused{world})
-def captured(result:W.World<S.SchemaA,WC(),Unit,Unit> & List<&2,W.Handle<S.SchemaA>>) -> IO(Pipeline):
+    case Some{lh} Some{rh}:left_defined(target_local(rh,202),Task.define_with_compilation(~S.SchemaA,~WC(),~HStore(),~HResources(),~Unit,~Ops,~Local,~String,~Q.GeneralLookup<U32>,~left_program,~left_body,~Unit,left_compiled(),world,"general-left",target_local(lh,101)))
+    case _ _:IO.pure(WorldResult,TargetsRefused{world})
+def captured(result:W.World<S.SchemaA,WC(),Unit,Unit> & List<&2,W.Handle<S.SchemaA>>) -> IO(WorldResult):
   match result:
     case (world,+handles):targets(world,choose(1,handles),choose(20,handles))
-def run_world(world:W.World<S.SchemaA,WC(),Unit,Unit>) -> IO(Pipeline):
+def run_world(world:W.World<S.SchemaA,WC(),Unit,Unit>) -> IO(WorldResult):
   captured(W.handles(~S.SchemaA,~WC(),~Unit,~Unit,world))
-type WorldResult is Type:
-  WorldReturned{world:W.World<S.SchemaA,WC(),Unit,Unit>,displaced:Schema.displacements(~S.SchemaA,S.layout_a()),left:LeftBinding(),right:RightBinding(),leftStatus:List<&2,Ready.Completed<String,Q.GeneralLookup<U32>>>,rightStatus:List<&2,Ready.Completed<String,Q.GeneralLookup<U32>>>}
-  Unreassembled{pipeline:Pipeline}
-def entered(permits:List<&2,Prep.Permit<S.SchemaA,WC()>>) -> Bool:
-  match permits:
-    case []:False{}
-    case Prep.Permit{_,_,allowed,_} <> rest:Bool.or(allowed,entered(rest))
-def exited(world:W.World<S.SchemaA,WC(),Unit,Unit>,displaced:Schema.displacements(~S.SchemaA,S.layout_a()),left:LeftBinding(),right:RightBinding(),ls:List<&2,Ready.Completed<String,Q.GeneralLookup<U32>>>,rs:List<&2,Ready.Completed<String,Q.GeneralLookup<U32>>>) -> WorldResult:
-  match left right:
-    case Binding.Binding{lc,Prep.Prepared{ln,left,+lp,lt},le} Binding.Binding{rc,Prep.Prepared{rn,right,+rp,rt},re}:WorldReturned{Task.leave(~S.SchemaA,~WC(),~Unit,~Unit,entered(lp),Task.leave(~S.SchemaA,~WC(),~Unit,~Unit,entered(rp),world)),displaced,Binding.Binding{lc,Prep.Prepared{ln,left,lp,lt},le},Binding.Binding{rc,Prep.Prepared{rn,right,rp,rt},re},ls,rs}
-def reassembled(pipeline:Pipeline) -> WorldResult:
-  match pipeline:
-    case GroupReturned{admin,Finished{Partition.Joined{scope,displaced},left,right,ls,rs}}:exited(State.reassemble(~S.SchemaA,~WC(),~Unit,~Unit,admin,scope),displaced,left,right,ls,rs)
-    case pipeline:Unreassembled{pipeline}
 type SeedRun is Type:
   SeedRun{factory:W.Factory,result:WorldResult}
   SeedRunRefused{factory:W.Factory,resource:Unit}
 def run_seeded(result:Seeded) -> IO(SeedRun):
   match result:
-    case Seeded{factory,world}:IO.bind(Pipeline,SeedRun,run_world(world),result => IO.pure(SeedRun,SeedRun{factory,reassembled(result)}))
+    case Seeded{factory,world}:IO.bind(WorldResult,SeedRun,run_world(world),result => IO.pure(SeedRun,SeedRun{factory,result}))
     case SeedRefused{factory,resource}:IO.pure(SeedRun,SeedRunRefused{factory,resource})
 def run(factory:W.Factory) -> IO(SeedRun):
   run_seeded(seeded(factory))
@@ -228,14 +167,14 @@ def requested(+mode:TargetMode,handles:List<&2,W.Handle<S.SchemaA>>) -> Maybe<&2
   match mode:
     case Target{key}:choose(key,handles)
     case mode:changed_target(choose(20,handles),mode)
-def captured_mode(mode:TargetMode,result:W.World<S.SchemaA,WC(),Unit,Unit> & List<&2,W.Handle<S.SchemaA>>) -> IO(Pipeline):
+def captured_mode(mode:TargetMode,result:W.World<S.SchemaA,WC(),Unit,Unit> & List<&2,W.Handle<S.SchemaA>>) -> IO(WorldResult):
   match result:
     case (world,+handles):targets(world,choose(1,handles),requested(mode,handles))
-def run_world_mode(world:W.World<S.SchemaA,WC(),Unit,Unit>,mode:TargetMode) -> IO(Pipeline):
+def run_world_mode(world:W.World<S.SchemaA,WC(),Unit,Unit>,mode:TargetMode) -> IO(WorldResult):
   captured_mode(mode,W.handles(~S.SchemaA,~WC(),~Unit,~Unit,world))
 def run_seeded_mode(mode:TargetMode,result:Seeded) -> IO(SeedRun):
   match result:
-    case Seeded{factory,world}:IO.bind(Pipeline,SeedRun,run_world_mode(world,mode),result => IO.pure(SeedRun,SeedRun{factory,reassembled(result)}))
+    case Seeded{factory,world}:IO.bind(WorldResult,SeedRun,run_world_mode(world,mode),result => IO.pure(SeedRun,SeedRun{factory,result}))
     case SeedRefused{factory,resource}:IO.pure(SeedRun,SeedRunRefused{factory,resource})
 def run_mode(factory:W.Factory,mode:TargetMode) -> IO(SeedRun):
   run_seeded_mode(mode,seeded(factory))

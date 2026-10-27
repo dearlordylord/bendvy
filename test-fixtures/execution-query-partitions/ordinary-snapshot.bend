@@ -1,3 +1,9 @@
+import ../../src/ecs/execution-resource-admission.bend as ResourceAdmission
+import ../../src/ecs/execution-resource-query-leaf.bend as Leaf
+import ../../src/ecs/execution-resource-query-execution.bend as Execution
+import ../../src/ecs/execution-generalized-root-application.bend as Application
+import ../../src/ecs/dependency-application.bend as App
+import ../../src/ecs/execution-parallel-scope.bend as Scope
 import Base
 import ../../src/ecs/execution-builder.bend as Build
 import ./ordinary-sparse.bend as Run
@@ -115,9 +121,9 @@ def book(value:Schema.Book<S.SchemaA,S.layout_a()>) -> String:
 def grant(value:Admission.Granted<S.SchemaA,Run.WC()>) -> String:
   match value:
     case Admission.Granted{decl,handles}:entry(decl) ++ ":" ++ List.show(&2,W.Handle<S.SchemaA>,handle,handles)
-def evidence(~program:Build.FrameworkProgram(~S.SchemaA,~Run.WC(),~Run.HStore(),~Unit,~Run.Ops),value:Maybe<&2,General.Evidence<S.SchemaA,S.layout_a(),Run.HStore(),Unit,Run.Ops,program>>) -> String:
+def evidence(~program:Build.FrameworkProgram(~S.SchemaA,~Run.WC(),~Run.HStore(),~Run.HResources(),~Run.Ops),value:Maybe<&2,ResourceAdmission.Evidence<S.SchemaA,S.layout_a(),L.EmptyLayout{},Run.HStore(),Run.HResources(),Run.Ops,program>>) -> String:
   match value:
-    case Some{General.Evidence{namespace,handles,recipes,information,grants,domains}}:"namespace=" ++ U32.show(namespace) ++ ";handles=" ++ List.show(&2,W.Handle<S.SchemaA>,handle,handles) ++ ";recipes=" ++ List.show(&2,Recipe.Recipe<S.SchemaA,Run.WC()>,recipe,recipes) ++ ";info=" ++ List.show(&2,Schema.Info,info,information) ++ ";grants=" ++ List.show(&2,Admission.Granted<S.SchemaA,Run.WC()>,grant,grants) ++ ";book=" ++ book(domains)
+    case Some{ResourceAdmission.Evidence{namespace,handles,recipes,resources,information,resourceInfo,grants,domains,resourceBook}}:"namespace=" ++ U32.show(namespace) ++ ";handles=" ++ List.show(&2,W.Handle<S.SchemaA>,handle,handles) ++ ";recipes=" ++ List.show(&2,Recipe.Recipe<S.SchemaA,Run.WC()>,recipe,recipes) ++ ";info=" ++ List.show(&2,Schema.Info,info,information) ++ ";grants=" ++ List.show(&2,Admission.Granted<S.SchemaA,Run.WC()>,grant,grants) ++ ";book=" ++ book(domains)
     case None{}:"unavailable"
 def permit(value:Prep.Permit<S.SchemaA,Run.WC()>) -> String:
   match value:
@@ -218,10 +224,29 @@ def shield_cell(value:Part.Cell<L.Viewed<S.Shield,U32>>) -> String:
 def displaced(value:Schema.displacements(~S.SchemaA,S.layout_a())) -> String:
   match value:
     case Product.Owner{left,right}:List.show(&1,Part.Cell<L.Viewed<S.Position,U32>>,position_cell,left) ++ "/" ++ List.show(&1,Part.Cell<L.Viewed<S.Shield,U32>>,shield_cell,right)
+def node(~Owner:Type,~Evidence:Data,~owner:Owner -> String,~observed:Maybe<&2,Evidence> -> String,value:Leaf.Node<Run.Compilation(),Run.World(),Owner,Evidence,Prep.Permit<S.SchemaA,Run.WC()>>) -> String:
+  match value:
+    case Leaf.Uninspected{Scope.CompiledBinding{_,state}}:"uninspected;owner={" ++ owner(state) ++ "}"
+    case Leaf.Inspected{Scope.CompiledBinding{_,state},value,id,valid}:"inspected=" ++ U32.show(id) ++ ":" ++ Bool.pick(String,valid,"true","false") ++ ";owner={" ++ owner(state) ++ "};evidence={" ++ observed(value) ++ "}"
+    case Leaf.Prepared{Execution.HeldReady{value}}:binding(~Owner,~Maybe<&2,Evidence>,~owner,~observed,value)
+    case Leaf.Prepared{Execution.HeldInventory{_,_,value}}:"preparation-inventory;evidence={" ++ observed(value) ++ "}"
+def event(value:Exec.Observation<String,Q.GeneralLookup<U32>>) -> String:
+  match value:
+    case Exec.Ran{id,value}:U32.show(id) ++ ":success:" ++ lookup(value)
+    case Exec.BodyFailed{id,error,value}:U32.show(id) ++ ":error:" ++ error ++ ":" ++ lookup(value)
+    case Exec.Skipped{id}:U32.show(id) ++ ":disabled"
+    case Exec.ConditionFailed{id,error}:U32.show(id) ++ ":condition-error:" ++ error
+    case Exec.ConditionRejected{id}:U32.show(id) ++ ":condition-refused"
+    case Exec.AdmissionRejected{id}:U32.show(id) ++ ":admission-refused"
+def report(value:App.Report<String,Q.GeneralLookup<U32>>) -> String:
+  match value:
+    case App.Finished{events}:"finished:" ++ List.show(&2,Exec.Observation<String,Q.GeneralLookup<U32>>,event,events)
+    case App.Stopped{error,events}:"stopped:" ++ error ++ ":" ++ List.show(&2,Exec.Observation<String,Q.GeneralLookup<U32>>,event,events)
+    case App.Invalid{_}:"invalid"
 def result(value:Run.WorldResult) -> String:
   match value:
-    case Run.WorldReturned{actual,moved,left,right,ls,rs}:"world={" ++ world(actual) ++ "};displaced=" ++ displaced(moved) ++ ";left={" ++ binding(~Run.LeftOwner(),~Run.LeftEvidence(),~left_owner,~evidence(~Run.left_program),left) ++ "};right={" ++ binding(~Run.RightOwner(),~Run.RightEvidence(),~right_owner,~evidence(~Run.right_program),right) ++ "};left-status=" ++ List.show(&2,Ready.Completed<String,Q.GeneralLookup<U32>>,status,ls) ++ ";right-status=" ++ List.show(&2,Ready.Completed<String,Q.GeneralLookup<U32>>,status,rs)
-    case Run.Unreassembled{_}:"unexpected-unreassembled"
+    case Run.WorldReturned{Application.Present{actual,moved},Product.Owner{left,right},handler,outcome}:"world={" ++ world(actual) ++ "};displaced=" ++ List.show(&1,Schema.displacements(~S.SchemaA,S.layout_a()),displaced,moved) ++ ";left={" ++ node(~Run.LeftOwner(),~ResourceAdmission.Evidence<S.SchemaA,S.layout_a(),L.EmptyLayout{},Run.HStore(),Run.HResources(),Run.Ops,Run.left_program>,~left_owner,~evidence(~Run.left_program),left) ++ "};right={" ++ node(~Run.RightOwner(),~ResourceAdmission.Evidence<S.SchemaA,S.layout_a(),L.EmptyLayout{},Run.HStore(),Run.HResources(),Run.Ops,Run.right_program>,~right_owner,~evidence(~Run.right_program),right) ++ "};handler=" ++ U32.show(handler) ++ ";report=" ++ report(outcome)
+    case _:"unexpected-unreassembled"
 def seeded(value:Run.SeedRun) -> String:
   match value:
     case Run.SeedRun{W.Factory{next},value}:"factory=" ++ U32.show(next) ++ ";" ++ result(value)
