@@ -8,6 +8,11 @@ refusal with `IO.bind`. `body.bend` returns the existing `Task.TRun`/`Task.TDone
 boundary and invokes its abstract `execution-query.Each` capability once per body.
 Gameplay does not split columns, dispatch workers or reconstruct the World.
 
+The query itself uses pure Bend parallel calls in `chunk-query.output_pair`.
+The outer `Task.TRun` defers the body, but this main does not traverse query rows
+through `TFork`. The adjacent taskful query engine uses `TRun` and `TFork` for its
+branches and needs its own execution evidence.
+
 The declaration is an abstract program over the library's closed Builder. It
 selects two component leaves through a route in the closed component layout.
 Actual column owners carry their keys in their slot types. Equality checks bind
@@ -65,48 +70,50 @@ nominal schemas.
 
 ## Run the ordinary product
 
-From the repository root, using the preserved Bend 2.0.35 compiler and its matching
-resource tree in this local environment:
+From the repository root, use Bend 2.0.37 and project clang 19. Set `BEND` or
+`CLANG` to an explicit executable path when needed:
 
 ```bash
-BEND=/tmp/bendvy21-bend2035-lifecycle-pin/bin/bend-2.0.35
-"$BEND" examples/parallel-query/main.bend -o /tmp/parallel-query.js
-node /tmp/parallel-query.js > /tmp/parallel-query-js.stdout
-"$BEND" examples/parallel-query/main.bend -o /tmp/parallel-query.native
-/tmp/parallel-query.native --threads 1 --gpu off > /tmp/parallel-query-native1.stdout
-/tmp/parallel-query.native --threads 2 --gpu off > /tmp/parallel-query-native2.stdout
-cmp /tmp/parallel-query-js.stdout /tmp/parallel-query-native1.stdout
-cmp /tmp/parallel-query-js.stdout /tmp/parallel-query-native2.stdout
+	BEND=${BEND:-bend}
+	CLANG=${CLANG:-clang-19}
+	"$BEND" examples/parallel-query/main.bend -o /tmp/parallel-query.js
+	node /tmp/parallel-query.js > /tmp/parallel-query-js.stdout
+	"$BEND" examples/parallel-query/main.bend -o /tmp/parallel-query.c
+	"$CLANG" -std=c11 -O3 /tmp/parallel-query.c -lpthread -lm -o /tmp/parallel-query.native
+	/tmp/parallel-query.native --threads 1 --gpu off > /tmp/parallel-query-native1.stdout
+	/tmp/parallel-query.native --threads 2 --gpu off > /tmp/parallel-query-native2.stdout
+	cmp /tmp/parallel-query-js.stdout /tmp/parallel-query-native1.stdout
+	cmp /tmp/parallel-query-js.stdout /tmp/parallel-query-native2.stdout
 ```
 
-The native `-o` route invokes the compiler's ordinary native backend and clang.
-The `/tmp` compiler path is environment-local, not a compiler bundle distributed
-by this example.
+## Current observations
 
-At source commit `dd2da438faeb6fa67e424185ea1ce61b04b2a1cf`, unchanged pinned
-Bend 2.0.35 compiled this original entry for JS and native. Each build and each
-ordinary run exited zero. Native counts one and two produced the same complete
-four-line, 9329-byte stdout as JS; standalone comparisons exited zero. These are
-comparisons of actual product outputs, not an independent semantic oracle.
+The original `main.bend` output is four lines totaling 9,873 bytes. An independent
+expectation derived from source before reading outputs matched JavaScript and
+Bend 2.0.37 native runs with both one and two workers. It includes the full
+terminal observer described above, the state retained after an item error, and
+the incoming foreign World returned after admission refusal. Temporary Python
+helpers used for the derivation and comparisons were deleted after use.
 
-One debugger execution of that existing native artifact additionally observed
-actual nested output-token writes for physical rows 0 and 16 on allocator/worker
-identities 0 and 1 within the **same First/parallel query traversal**. Existing
-scenario entries and the whole `Q.each` call/return bracket distinguished that
-invocation from serial mode, other schemas and repeated executions. Actual
-mutation instructions, rather than callback symbols alone, established reached
-row work. The debugger's all-stop breakpoints perturb scheduling: this finite
-observation establishes neither temporal overlap nor speedup or universal worker
-placement. There is no GPU claim or universal ownership proof.
+A GDB trace of symbols and threads in the unmodified native artifact reached the
+closed row-body closure that consumes `Output` and invokes its payload update. Two OS
+workers executed that closure within query invocation 7, the first
+Second/parallel traversal. IO sequencing places that invocation after three
+First/serial and three First/parallel calls. Both worker observations occurred
+before invocation 8 began, within the same World and query invocation.
 
-The local receipt is outside the repository at
-`/home/node/.claude/orchestrate/bendvy-gh78-94/native81-original-query-delivery.md`.
-It binds saved outputs, binary and operation trace to that source commit. Those
-local artifacts are not a portable qualification bundle and do not transfer to
-later source changes. In particular, the subsequent terminal-observer correction
-adds resource cache/stamp and complete Journal fields to the printed output;
-the dd2 worker trace remains evidence for its original artifact, not a new trace
-of that correction.
+The source selects only two live paired rows, at physical slots 0 and 16. The
+current trace did not measure runtime row indices, allocator identities, heap
+identity, or allocation behavior. All-stop breakpoints perturb scheduling, so
+the observation establishes neither temporal overlap nor speedup or universal
+worker placement. There is no GPU claim or universal ownership proof.
+
+At historical source `dd2da438faeb6fa67e424185ea1ce61b04b2a1cf`, Bend 2.0.35 JS
+and native runs matched an earlier four-line, 9,329-byte observer. Its debugger
+trace observed physical rows 0 and 16 and allocator/worker identities 0 and 1
+within one First/parallel traversal. That trace belongs to its original artifact.
+It does not provide current row-index or allocator measurements. The later
+terminal observer adds resource cache/stamp and complete Journal fields.
 
 ## Authority controls and historical evidence
 
@@ -119,15 +126,13 @@ affine owner or different view type, copying affine output, escaping scope,
 selecting a single leaf as a pair, and duplicate query keys. The shared ordinary
 entry's `examples/parallel-execution/controls/forged-declaration.bend` targets a
 raw declaration whose exposed resource contradicts its empty access catalog.
-These describe the controls' intended authority boundaries; the dd2 product
-execution above does not establish fresh acceptance of every control.
+These describe the controls' intended authority boundaries. The product
+observations above do not establish fresh acceptance of every control.
 
-Historical receipts for source `8183783` describe an earlier synchronous entry
-and its then-existing independent oracles. Those receipts remain historical and
-explicitly did not establish actual multiple-worker use. The retired oracle and
-check-script commands are not current runnable instructions. Semantic proof work
-uses Bend laws: the five approved helper laws do not prove this whole ECS, and
-other draft laws have not been approved.
+The retired oracle and check-script commands are not current runnable
+instructions. Semantic proof work
+uses Bend laws. The five approved helper laws do not prove this whole ECS. Draft
+laws still need specific user approval before proof.
 
 ## Affine query outputs and commands
 
@@ -145,6 +150,6 @@ owned rows and author inserts using genuine selected handles; row 1 returns a
 handled error after enqueueing. Observations include columns, caches, stamps,
 allocator/resource state, queues, displaced-owner receipts and returned owners.
 The raw `test-fixtures/chunk-column/output.bend` consumer also covers an
-Array-owning output prefix. These adjacent consumers are outside the dd2 original
-`main.bend` execution and worker evidence reported above; historical oracle or
+Array-owning output prefix. These adjacent consumers are outside the original
+`main.bend` execution and worker evidence reported above. Historical oracle or
 wrapper receipts are not source-current execution claims for them.
