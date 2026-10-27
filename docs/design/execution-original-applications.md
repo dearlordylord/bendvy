@@ -113,6 +113,18 @@ These finite observations do not establish whole-run preservation. The three
 captured gameplay systems, conditional schedule and paired passive inspections
 remain incomplete.
 
+The original three gameplay leaves now have separate current declarations,
+affine locals and retained Compilation registration in `app-a-systems.bend`.
+They replace Counter with `[21,22]`, update the captured scalar query by `4`,
+and update the independent resource capture by `1 + sum(Counter)`. The query
+returns its actual QueryPack through the canonical generalized writer operation;
+refusal retains that capture in the returned operation. Resource replacement
+retains displaced owners in the writer local. `app-a-condition.bend` declares
+the query-only registered condition whose first three results are true, false,
+true. `app-a-captures.bend` preserves the same Compilation, evidence and prepared
+inventory while projecting local owners. These definitions have no current
+three-system execution claim: wiring awaits the canonical N-leaf group carrier.
+
 Final source cleanup remains incomplete. GH94 also retains its complete
 JavaScript/native delivery, applicable authority controls, and independent review
 requirements. No new law is approved or proved by this application run.
