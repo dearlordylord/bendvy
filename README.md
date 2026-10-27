@@ -11,11 +11,15 @@ A Bevy-style ECS built for [Bend 2](https://github.com/bendlang/bend), including
 - World-scoped entities, typed components and resources.
 - Heterogeneous queries with required/optional selections, filters and change detection.
 - Declared read/write access, systems, schedules and system-local state.
-- Deferred commands, explicit barriers and transactional rollback.
+- Deferred commands, dependency barriers, and retained partial writes after returned errors.
 - Typed bundles, directed relations, state machines and transition handlers.
 - Read-only Inspector/Check primitives.
 
-These pieces have scoped tests and examples. They don't yet add up to complete parity. Try the [browser ECS example](examples/arena/README.md).
+The examples provide finite observations. Five approved Bend laws cover
+[pure executor helpers](docs/design/execution-law-candidates.md).
+Replacement execution work is still in progress. The
+[current API map](docs/reference/execution-api.md) names the implementation entries
+and remaining legacy source removal.
 
 ## Playable example
 
@@ -78,7 +82,11 @@ The [browser arena](examples/arena/README.md) provides a larger interactive exam
 
 ## Parity and performance
 
-The goal is the full **Bevy ECS subset covered by bevy-ts**, with idiomatic Bend APIs. The capability deliveries are accepted; current completion work covers public API source documentation. See the [parity tracker](docs/parity/README.md) and [spec](docs/SPEC.md).
+The goal is the full **Bevy ECS subset covered by bevy-ts**, with idiomatic Bend APIs.
+The replacement executor and consumer migration remain active in
+[#78 through #94](https://github.com/dearlordylord/bendvy/issues/77).
+Earlier capability deliveries retain their original source and contract.
+See the [parity tracker](docs/parity/README.md) and [spec](docs/SPEC.md).
 
 Performance optimization and numerical acceptance are deferred in [#21](https://github.com/dearlordylord/bendvy/issues/21). Approximately 3× bevy-ts time is acceptable interim guidance, not a release gate or a claim covering every workload. Correctness, ownership and normal CI remain required; performance work resumes only by explicit user request.
 

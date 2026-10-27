@@ -8,6 +8,7 @@ measurements do not grant execution budgets or qualify the current source.
 | What are we building, and which decisions need approval? | [Specification](SPEC.md) |
 | What should be worked on next? | [Task navigation](next-core-checkpoint.md), then the governing GitHub issue |
 | Which core capabilities and gaps are tracked? | [Parity index](parity/README.md) and [remaining-core specification](parity/remaining-core-spec.md) |
+| Which API starts a replacement application? | [Replacement execution API](reference/execution-api.md) and [examples](../examples/README.md) |
 | How is implementation and evidence collected? | [Workflow](agent-workflow.md) and [check policy](check-policy.md) |
 | What are the current execution limits, and why did they change? | [Limits and change history](limits.md) |
 | Where are architecture choices and useful design findings? | [Design index](design/README.md) |
