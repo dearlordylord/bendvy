@@ -77,7 +77,7 @@ def plan() -> I.Plan<Scene.Schema,Scheduled.Columns(~Scene.Schema),Scheduled.Res
   I.Plan{Modern.resource_grant(~I.Frame<Scene.Schema,Scheduled.Columns(~Scene.Schema),Scheduled.Resources(~Scene.Schema),Unit>,~Store.View<Scene.Schema,Setup.hierarchy(~Scene.Schema)>,Modern.resource(~Scene.Schema,~Scheduled.Columns(~Scene.Schema),~Scheduled.Resources(~Scene.Schema),~Unit,~Actor.resources(~Scene.Schema),~L.InLeft{L.AtLeaf{}},~{==},~{==}))}
 def graph_read(~H:Type,result:H & Store.View<Scene.Schema,Setup.hierarchy(~Scene.Schema)>) -> H & Result<&2,&2,String,String>:
   match result:
-    case (owner,Store.View{namespace,Relation.Graph{edges,inverses}}):(owner,Done{U32.show(namespace) ++ "/" ++ List.show(&2,Relation.Edge<Scene.Schema>,Scene.edge,edges) ++ "/" ++ List.show(&2,Relation.Inverse<Scene.Schema>,Scene.inverse,inverses)})
+    case (owner,Store.View{namespace,Relation.Graph{edges,inverses},_,_,_}):(owner,Done{U32.show(namespace) ++ "/" ++ List.show(&2,Relation.Edge<Scene.Schema>,Scene.edge,edges) ++ "/" ++ List.show(&2,Relation.Inverse<Scene.Schema>,Scene.inverse,inverses)})
 def body(~H:Type,~cap:Ops(H),_:Unit,owner:H) -> H & Result<&2,&2,String,String>:
   graph_read(~H,Cap.value_read(~H,~Store.View<Scene.Schema,Setup.hierarchy(~Scene.Schema)>,~cap,owner))
 def inspected(context:Context.Context<Scene.Schema,Scheduled.Resources(~Scene.Schema),Actor.resources(~Scene.Schema),{==}>,result:Scheduled.Application(~Scene.Schema) & (I.Instance<Scene.Schema> & Result<&2,&2,String,String>)) -> Scheduled.Bound(~Scene.Schema) & String:
@@ -92,7 +92,7 @@ def configure(final:Bool,value:Scheduled.Bound(~Scene.Schema)) -> Scheduled.Boun
     case Context.Bound{context,app}:Context.Bound{context,Root.configure(~State.State<Scheduled.World(~Scene.Schema),Product.Owner<Actor.Owner(~Scene.Schema),Scheduled.Peer(~Scene.Schema)>,Unit,Unit>,Settings.Settings{False{},final,[],[]},app)}
 def checked_graph(~H:Type,result:H & Store.View<Scene.Schema,Setup.hierarchy(~Scene.Schema)>) -> H & Bool:
   match result:
-    case (owner,Store.View{_,Relation.Graph{[],_}}):(owner,False{})
+    case (owner,Store.View{_,Relation.Graph{[],_},_,_,_}):(owner,False{})
     case (owner,_):(owner,True{})
 def check_body(~H:Type,~cap:Ops(H),_:Unit,owner:H) -> H & Bool:
   checked_graph(~H,Cap.value_read(~H,~Store.View<Scene.Schema,Setup.hierarchy(~Scene.Schema)>,~cap,owner))

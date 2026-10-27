@@ -11,6 +11,7 @@ import ./owner-product.bend as Product
 import ./change-tick.bend as Tick
 import ./lifecycle.bend as Life
 import ./world.bend as W
+import ./execution-resource-store.bend as Resources
 
 type Read<-S:Data,-descriptor:T.Descriptor<S>,-full:Layout.Layout,-route:Layout.Route,-H:Type> is Type:
   Read{read:Reader.Reader<S,descriptor,full,route> -> H -> H & Reader.Reading<S,descriptor,full,route>}
@@ -45,3 +46,20 @@ def read(~S:Data,~descriptor:T.Descriptor<S>,~full:Layout.Layout,~route:Layout.R
     case Reader.Reader{+namespace,id,cursor} State.Scope{columns,resource,handles,tick,prior,+view}:checked(~S,~descriptor,~full,~route,~C,~R,~Rest,~lens,U32.is_eq(namespace,view_namespace(~S,view)),Reader.Reader{namespace,id,cursor},State.Scope{columns,resource,handles,tick,prior,view})
 def cap(~S:Data,~descriptor:T.Descriptor<S>,~full:Layout.Layout,~route:Layout.Route,~C:Type,~R:Type,~Rest:Type,~lens:Product.Lens<R,Layout.ResourceSlot<S,Layout.Viewed<Store.Store<S,descriptor>,Store.View<S,descriptor>>,Layout.key(full,route),Layout.origin(full,route)>,Rest>) -> Read<S,descriptor,full,route,State.Scope<S,C,R>>:
   Read{read(~S,~descriptor,~full,~route,~C,~R,~Rest,~lens)}
+
+def snapshot_result(~S:Data,~descriptor:T.Descriptor<S>,~full:Layout.Layout,~route:Layout.Route,result:Channel.Store<Failure.Message<S,descriptor>> & Reader.Reading<S,descriptor,full,route>) -> Reader.Reading<S,descriptor,full,route>:
+  match result:
+    case (_,reading):reading
+# Canonical projection carries the real channel. Reading advances only Local's
+# affine Reader; the Data channel and its resource stamp remain unchanged.
+def snapshot_checked(~S:Data,~descriptor:T.Descriptor<S>,~full:Layout.Layout,~route:Layout.Route,allowed:Bool,namespace:U32,sequence:Nat,tick:Tick.Tick,reader:Reader.Reader<S,descriptor,full,route>,channel:Channel.Store<Failure.Message<S,descriptor>>) -> Reader.Reading<S,descriptor,full,route>:
+  match allowed:
+    case False{}:Reader.Refused{reader}
+    case True{}:snapshot_result(~S,~descriptor,~full,~route,Reader.read(~S,~descriptor,~full,~route,namespace,sequence,tick,reader,channel))
+def snapshot(~S:Data,~descriptor:T.Descriptor<S>,~full:Layout.Layout,~route:Layout.Route,namespace:U32,tick:Tick.Tick,reader:Reader.Reader<S,descriptor,full,route>,view:Store.View<S,descriptor>) -> Reader.Reading<S,descriptor,full,route>:
+  match reader view:
+    case Reader.Reader{actual,+id,cursor} Store.View{+stored,_,failures,sequence,+nextReader}:snapshot_checked(~S,~descriptor,~full,~route,Bool.and(U32.is_eq(namespace,stored),Bool.and(U32.is_lt(0,id),U32.is_lt(id,nextReader))),stored,sequence,tick,Reader.Reader{actual,id,cursor},failures)
+def cached_returned(~S:Data,~descriptor:T.Descriptor<S>,~full:Layout.Layout,~route:Layout.Route,~H:Type,namespace:U32,tick:Tick.Tick,reader:Reader.Reader<S,descriptor,full,route>,result:H & Resources.Lookup<Store.View<S,descriptor>>) -> H & Reader.Reading<S,descriptor,full,route>:
+  match result:
+    case (owner,Resources.LookupRefused{}):(owner,Reader.Refused{reader})
+    case (owner,Resources.Viewed{view,_}):(owner,snapshot(~S,~descriptor,~full,~route,namespace,tick,reader,view))

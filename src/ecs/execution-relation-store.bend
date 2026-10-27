@@ -14,7 +14,7 @@ import ./change-tick.bend as Tick
 type Store<-S:Data,-descriptor:T.Descriptor<S>> is Type:
   Store{namespace:U32,graph:T.Graph<S>,failures:Channel.Store<Failure.Message<S,descriptor>>,sequence:Nat,nextReader:U32}
 type View<-S:Data,-descriptor:T.Descriptor<S>> is Data:
-  View{namespace:U32,graph:T.Graph<S>}
+  View{namespace:U32,graph:T.Graph<S>,failures:Channel.Store<Failure.Message<S,descriptor>>,sequence:Nat,nextReader:U32}
 type Reason is Data:
   NamespaceMismatch{}
   OperationRefused{reason:O.Reason}
@@ -26,9 +26,11 @@ type Registration<-S:Data,-descriptor:T.Descriptor<S>,-origin:Layout.Layout,-rou
   RegistrationRefused{store:Store<S,descriptor>}
 def fresh(~S:Data,~descriptor:T.Descriptor<S>,namespace:U32) -> Store<S,descriptor>:
   Store{namespace,T.Graph{[],[]},Channel.empty(~Failure.Message<S,descriptor>),0n,1}
-def project(~S:Data,~descriptor:T.Descriptor<S>,store:Store<S,descriptor>) -> Store<S,descriptor> & View<S,descriptor>:
+def project_generic(-S:Data,-descriptor:T.Descriptor<S>,store:Store<S,descriptor>) -> Store<S,descriptor> & View<S,descriptor>:
   match store:
-    case Store{+namespace,+graph,failures,sequence,nextReader}:(Store{namespace,graph,failures,sequence,nextReader},View{namespace,graph})
+    case Store{+namespace,+graph,+failures,+sequence,+nextReader}:(Store{namespace,graph,failures,sequence,nextReader},View{namespace,graph,failures,sequence,nextReader})
+def project(~S:Data,~descriptor:T.Descriptor<S>,store:Store<S,descriptor>) -> Store<S,descriptor> & View<S,descriptor>:
+  project_generic(S,descriptor,store)
 def published(~S:Data,~descriptor:T.Descriptor<S>,namespace:U32,graph:T.Graph<S>,nextReader:U32,allocator:A.Allocator,operation:O.Operation<S>,reason:O.Reason,result:Nat & Channel.Store<Failure.Message<S,descriptor>>) -> A.Allocator & (Store<S,descriptor> & Receipt<S>):
   match result:
     case (sequence,failures):(allocator,(Store{namespace,graph,failures,sequence,nextReader},Refused{operation,OperationRefused{reason}}))

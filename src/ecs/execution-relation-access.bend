@@ -31,14 +31,14 @@ def target_namespace(~S:Data,same:Bool,namespace:U32,value:Maybe<&2,K.Key>) -> L
     case True{}:Value{handle(~S,namespace,value)}
 def target_view(~S:Data,~descriptor:T.Descriptor<S>,+expected:U32,source:W.Handle<S>,view:Store.View<S,descriptor>) -> Lookup<Maybe<&2,W.Handle<S>>>:
   match view:
-    case Store.View{+actual,graph}:target_namespace(~S,U32.is_eq(expected,actual),actual,Graph.target(~S,graph,descriptor,W.handle_key(~S,source)))
+    case Store.View{+actual,graph,_,_,_}:target_namespace(~S,U32.is_eq(expected,actual),actual,Graph.target(~S,graph,descriptor,W.handle_key(~S,source)))
 def inverse_namespace(~S:Data,same:Bool,namespace:U32,keys:List<&2,K.Key>) -> Lookup<List<&2,W.Handle<S>>>:
   match same:
     case False{}:NamespaceRefused{}
     case True{}:Value{handles(~S,namespace,keys)}
 def inverse_view(~S:Data,~descriptor:T.Descriptor<S>,+expected:U32,target:W.Handle<S>,view:Store.View<S,descriptor>) -> Lookup<List<&2,W.Handle<S>>>:
   match view:
-    case Store.View{+actual,graph}:inverse_namespace(~S,U32.is_eq(expected,actual),actual,Graph.inverse(~S,graph,descriptor,W.handle_key(~S,target)))
+    case Store.View{+actual,graph,_,_,_}:inverse_namespace(~S,U32.is_eq(expected,actual),actual,Graph.inverse(~S,graph,descriptor,W.handle_key(~S,target)))
 def target_returned(~S:Data,~descriptor:T.Descriptor<S>,~H:Type,expected:U32,source:W.Handle<S>,result:H & Store.View<S,descriptor>) -> H & Lookup<Maybe<&2,W.Handle<S>>>:
   match result:
     case (owner,view):(owner,target_view(~S,~descriptor,expected,source,view))

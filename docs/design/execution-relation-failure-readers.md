@@ -10,12 +10,20 @@ The branch requires the actual full schema, route, grant validity, descriptor,
 payload equality, view equality and ProtectedRelation policy equality. A separate
 physical slot equality binds the local Whole resource model to that same full
 origin. It does not recover a type from a policy, resource key or entity index.
-The generic resource-read operations continue to expose only cached graph views.
-Sparse/general composed failure reads remain an explicit delivery gap.
+The fourth nested GeneralFailureRead selection accepts the same exact witnesses
+and a canonical Whole or Sparse resource model. The six top-level classes remain
+unchanged. Its recipe grants ReadOnly access to the existing resource view.
+That view now contains the actual Store's Data channel snapshot, sequence and
+registration counter as well as its graph. The closed provider obtains this
+snapshot through the canonical resource interpreter and captures the actual
+scope tick; it never obtains the writable graph slot.
 
 Trusted setup registers the Reader in the actual selected canonical Store.
-Registration preserves the graph, cache, stamp, failure sequence and channel;
-only its separate nextReader counter advances. The Reader remains an affine
+Registration preserves the graph, stamp, failure sequence and channel;
+its separate nextReader counter advances and the canonical snapshot refreshes.
+A refused relation operation likewise refreshes the snapshot from its returned
+actual Store, preserving its graph, stamp and complete refusal receipt.
+The Reader remains an affine
 Local owner. Local.invoke advances its cursor before calling the body and
 retains the returned cursor on BodyError. Conditions precede body invocation.
 No invocation occurs for a false condition. Actual false-condition and foreign
@@ -89,3 +97,27 @@ returns no per-message sequence IDs, so the observation assigns none. The two
 actual delivered records both retain the authored self-relation and its reason.
 The full-message follow-up ordinary entry completed with exit 0; its captured
 output is `/tmp/bendvy-gh89-failure-messages.stdout` in the delivery workspace.
+
+## Sparse composed consumer
+
+`examples/parallel-relations/sparse-failure-scene.bend` registers two actual
+Readers before publishing two protected self-relation refusals. Its ordinary
+generalized application contains two sparse ReadOnly peers using the same
+resource family, with no dependency edge between them. Each retains its actual
+Compilation, Book-derived access and affine Local across two updates. The
+existing read body returns BodyError after consuming messages, and the ordinary
+handler continues. Finished maintenance uses the complete schema catalogue.
+
+The pinned ordinary JavaScript product compiled and ran with exit 0. Both
+updates returned Finished with two real BodyFailed observations. Both Readers
+ended through=2, calls=2, received=2, missed=0, retaining both complete original
+messages and their distinct Sessions 777 and 888. The actual World retained
+Session 401, empty graph and inverse lists, sequence=2 and nextReader=3; actual
+and cached channels both ended retained=0, dropped=2, older=2. The resource stamp
+remained 0:0/0:0 while the World clock reached 0:4. Both full seed refusal
+receipts were retained. Captured output is
+`/tmp/relations89-sparse-scene.stdout` in the delivery workspace.
+
+This is a finite ordinary execution, not a new law or proof. Native execution,
+false-condition and foreign-Reader observations, Stop/Invalid observations and
+automatic retention wiring for every entry shape remain outside this evidence.

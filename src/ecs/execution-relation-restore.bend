@@ -21,8 +21,7 @@ type Publication<-S:Data,-descriptor:T.Descriptor<S>,-key:String,-origin:Layout.
   Installed{slot:Layout.ResourceSlot<S,Layout.Viewed<Store.Store<S,descriptor>,Store.View<S,descriptor>>,key,origin>,source:Source,previous:T.Graph<S>}
   Rejected{slot:Layout.ResourceSlot<S,Layout.Viewed<Store.Store<S,descriptor>,Store.View<S,descriptor>>,key,origin>,source:Source}
 def project(-S:Data,-descriptor:T.Descriptor<S>,store:Store.Store<S,descriptor>) -> Store.Store<S,descriptor> & Store.View<S,descriptor>:
-  match store:
-    case Store.Store{+namespace,+graph,failures,sequence,nextReader}:(Store.Store{namespace,graph,failures,sequence,nextReader},Store.View{namespace,graph})
+  Store.project_generic(S,descriptor,store)
 def projected(-S:Data,-descriptor:T.Descriptor<S>,-key:String,-origin:Layout.Layout,-Source:Type,source:Source,previous:T.Graph<S>,stamp:Life.Stamp,result:Store.Store<S,descriptor> & Store.View<S,descriptor>) -> Publication<S,descriptor,key,origin,Source>:
   match result:
     case (store,view):Installed{Layout.ResourceSlot{Layout.Viewed{store,view},stamp},source,previous}

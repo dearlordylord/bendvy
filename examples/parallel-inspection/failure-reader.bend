@@ -30,7 +30,7 @@ def plan(~S:Data) -> I.Plan<S,L.columns(~S,D.components(~S)),D.Resources(~S),Uni
   I.Plan{Modern.resource_grant(~I.Frame<S,L.columns(~S,D.components(~S)),D.Resources(~S),Unit>,~Store.View<S,D.hierarchy(~S)>,Modern.resource(~S,~L.columns(~S,D.components(~S)),~D.Resources(~S),~Unit,~D.resource_layout(~S),~L.InLeft{L.AtLeaf{}},~{==},~{==}))}
 def graph(~S:Data,-H:Type,result:H & Store.View<S,D.hierarchy(~S)>) -> H & Result<&2,&2,String,String>:
   match result:
-    case (owner,Store.View{namespace,T.Graph{edges,inverses}}):(owner,Done{U32.show(namespace) ++ "/edges=" ++ Nat.show(List.length(&2,T.Edge<S>,edges)) ++ "/inverse=" ++ Nat.show(List.length(&2,T.Inverse<S>,inverses))})
+    case (owner,Store.View{namespace,T.Graph{edges,inverses},_,_,_}):(owner,Done{U32.show(namespace) ++ "/edges=" ++ Nat.show(List.length(&2,T.Edge<S>,edges)) ++ "/inverse=" ++ Nat.show(List.length(&2,T.Inverse<S>,inverses))})
 def body(~S:Data,~H:Type,~cap:Ops(~S,H),_:Unit,owner:H) -> H & Result<&2,&2,String,String>:
   graph(~S,H,Cap.value_read(~H,~Store.View<S,D.hierarchy(~S)>,~cap,owner))
 def required(~S:Data,world:D.World(~S)) -> D.World(~S) & List<&2,String>:(world,[])
@@ -38,7 +38,7 @@ def check_plan(~S:Data) -> Check.Plan<S,L.columns(~S,D.components(~S)),D.Resourc
   Check.Plan{required(~S),Modern.resource_grant(~Check.Frame<S,L.columns(~S,D.components(~S)),D.Resources(~S),Unit>,~Store.View<S,D.hierarchy(~S)>,Modern.check_resource(~S,~L.columns(~S,D.components(~S)),~D.Resources(~S),~Unit,~D.resource_layout(~S),~L.InLeft{L.AtLeaf{}},~{==},~{==}))}
 def checked_graph(~S:Data,-H:Type,result:H & Store.View<S,D.hierarchy(~S)>) -> H & Bool:
   match result:
-    case (owner,Store.View{_,T.Graph{[],_}}):(owner,False{})
+    case (owner,Store.View{_,T.Graph{[],_},_,_,_}):(owner,False{})
     case (owner,_):(owner,True{})
 def check_body(~S:Data,~H:Type,~cap:Ops(~S,H),_:Unit,owner:H) -> H & Bool:
   checked_graph(~S,H,Cap.value_read(~H,~Store.View<S,D.hierarchy(~S)>,~cap,owner))

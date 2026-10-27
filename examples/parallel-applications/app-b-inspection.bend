@@ -81,10 +81,10 @@ def phase_read(~H:Type,~arrays:Query.ReadQuery<H,D.Scene,List<&2,U32>>,~scalars:
     case (owner,value):arrays_read(~H,~scalars,text ++ ";phase=" ++ phase(value),Cap.value_read(~H,~List<&2,Rows.Row<D.Scene,List<&2,U32>>>,~Query.rows_field(~H,~D.Scene,~List<&2,U32>,arrays),owner))
 def link_read(~H:Type,~phase:Cap.ValueRead<H,Phase()>,~arrays:Query.ReadQuery<H,D.Scene,List<&2,U32>>,~scalars:Query.ReadQuery<H,D.Scene,U32>,text:String,result:H & Link()) -> H & Result<&2,&2,String,String>:
   match result:
-    case (owner,Store.View{namespace,value}):phase_read(~H,~arrays,~scalars,text ++ ";Link=" ++ U32.show(namespace) ++ "/" ++ graph(value),Cap.value_read(~H,~Phase(),~phase,owner))
+    case (owner,Store.View{namespace,value,_,_,_}):phase_read(~H,~arrays,~scalars,text ++ ";Link=" ++ U32.show(namespace) ++ "/" ++ graph(value),Cap.value_read(~H,~Phase(),~phase,owner))
 def parent_read(~H:Type,~link:Cap.ValueRead<H,Link()>,~phase:Cap.ValueRead<H,Phase()>,~arrays:Query.ReadQuery<H,D.Scene,List<&2,U32>>,~scalars:Query.ReadQuery<H,D.Scene,U32>,result:H & Parent()) -> H & Result<&2,&2,String,String>:
   match result:
-    case (owner,Store.View{namespace,value}):link_read(~H,~phase,~arrays,~scalars,"Parent=" ++ U32.show(namespace) ++ "/" ++ graph(value),Cap.value_read(~H,~Link(),~link,owner))
+    case (owner,Store.View{namespace,value,_,_,_}):link_read(~H,~phase,~arrays,~scalars,"Parent=" ++ U32.show(namespace) ++ "/" ++ graph(value),Cap.value_read(~H,~Link(),~link,owner))
 def parent_cap(-H:Type,caps:Reads<H>) -> Cap.ValueRead<H,Parent()>:
   match caps:
     case Reads{parent,_,_,_,_}:parent
