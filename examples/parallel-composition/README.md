@@ -15,16 +15,18 @@ The complete slot type retains the refresh function and persistence policy.
 Changing either cannot satisfy the ordinary grant's physical-type equality.
 
 [Declarations](declarations.bend) acquire closed component/resource grants through
-`Build.Program`. Both host invocation and its required-service guards select the
+`Build.FrameworkProgram`. Body compilations retain generalized sparse query and
+resource grants. Both host invocation and its required-service guards select the
 same `Schema.host_route`. Guards also read the optional resource through its
 ordinary declaration; an absent optional owner is permitted. An absent required
 host produces `missing-service:host`, suppresses its affected body and returns
 all actual owners. The handler continues unrelated work. Host callbacks are
 owned operations; this example adds no external IO rollback or finalization.
 
-[Application](application.bend) supplies actual system/guard owners and their
-closed selections to `execution-composer-app.build`. The entry derives schema,
-requirements and registration from these declarations. Nested dependency paths
+[Application](application.bend) retains actual accepted compilations and owners
+through `Feature.from_facts`, `Feature.pair` and the generalized Taskful root.
+The entry derives schema requirements and registration from these declarations.
+[Group](group.bend) executes the same four retained nodes. Nested dependency paths
 index the selection tree, independently of resource layout routes. Local edges
 are validated before flattening: scope[0] cannot depend on the other feature's
 system even when that system exists in the final application.
@@ -42,7 +44,7 @@ a carrier, clearing its validation result, or replacing its plan/bindings bypass
 that construction contract. These records have no hostile-constructor secrecy or
 integrity guarantee. Gameplay scope/grant authority remains declaration-bound.
 
-`run` returns the same composed owner with a report. `CompositionRejected`
+`run` returns the same composed owner with a report. `Feature.Refused`
 retains the application and provisions before invocation. Otherwise the report
 uses the ordinary dependency executor's success/error/refusal observations.
 Errors retain performed writes. Reuse the returned owner on the next run.
@@ -58,9 +60,11 @@ actual incoming resource owners and their original cached values.
 [Observation](observation.bend) consumes the final application at one seam. It
 prints every column slot/stamp, actual payload and cache, allocator, clock,
 registration, system/guard local owner and cursor, handler history, actual
-provisions, schema, plan and binding. [The oracle](oracle.py) derives those values
-from the declared transitions, without reading emitted code or actual output.
-See [its contract](ORACLE.md). These finite observations do not establish a
+provisions, schema, plan and binding. Its node observer reconstructs all
+Uninspected, Inspected and Prepared variants with the same compilation, admission
+evidence, permits and provenance before the final console projection. Registration
+refusal retains accepted bindings, pending compilations and incoming local owners.
+These finite observations do not establish a
 universal correctness or ownership theorem, or native concurrency for this serial
 consumer.
 
@@ -72,7 +76,5 @@ inputs. This example validates the constructed initial Label through the same
 retained declaration before inserting it. This does not validate arbitrary seeds
 or invent a Raw-to-affine-owner inverse.
 
-Normal CI discovers [check.sh](check.sh) through the existing example runner.
-The wrapper requires independent launch review before its first execution.
-Use the existing qualified compiler/resources and common-runner limits described
-in [CHECK_PLAN.md](CHECK_PLAN.md). No performance or GPU campaign is included.
+Run this ordinary application with the qualified Bend compiler. The generated
+program is a finite behavior observation, not an additional proof or test model.

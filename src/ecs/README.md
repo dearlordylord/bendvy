@@ -26,3 +26,16 @@ The old API guide and transactional executor are preserved at
 Historical observations retain that source's original contract. The explicit
 application-owned recovery used by the migrated AppA is separate from ordinary
 execution and remains available through `execution-recoverable-component.bend`.
+`Feature` (`feature.bend`) assembles retained replacement execution nodes with
+`from_facts` and `pair`. Their accepted compilations supply schema requirements,
+registration facts and nested scope members. `lower` validates selected names,
+dependencies, fragment collisions and nested edges before execution. `run`
+returns the original root and provisions on refusal; otherwise it invokes the
+actual Taskful root and returns its report. Thread that returned owner into the
+next run. The ordinary consumer is `examples/parallel-composition`.
+`FeatureProvision.bind_feature` (`feature-provision.bend`) checks declared needs
+against the feature's own fragment and dependency closure; identical descriptor
+entries collapse for grants, while conflicts remain errors. Raw metadata,
+assemblies and closed declarations are trusted authoring operations. Historical
+schedule builders live explicitly in `feature-legacy.bend`; their metadata types
+are the same public Feature types, and the replacement entry does not import them.

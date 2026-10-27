@@ -1,5 +1,8 @@
 import Base
-import ../../src/ecs/execution-access.bend as Access
+import ../../src/ecs/execution-query.bend as Q
+import ../../src/ecs/execution-resource-access.bend as Resource
+import ../../src/ecs/execution-resource-store.bend as Store
+import ../../src/ecs/execution-reservation-task.bend as Task
 import ../../src/ecs/execution-declaration.bend as D
 import ../../src/ecs/execution-system.bend as Sys
 import ../../src/ecs/capabilities.bend as Cap
@@ -26,17 +29,19 @@ def move(owner:Position) -> Position & String:
 def increment(owner:Counter) -> Counter & String:
   match owner:
     case Counter{token,count,optional}:counter(Counter{token,U32.add(count,1),optional})
-def Ops(~S:Data,H:Type) -> Type:Cap.Bundle<Access.ComponentWrite<S,H,Position,String>,Access.ResourceWrite<H,Counter,String>>
-def Family(~S:Data) -> Type -> Type:Ops(~S)
-def result_text(value:Maybe<&2,String>) -> String:
-  match value:
-    case None{}:"absent"
-    case Some{text}:text
-def finished(~S:Data,~H:Type,local:Local<S>,result:H & Maybe<&2,String>) -> H & (Local<S> & Sys.Completion<String,String>):
+def Ops(~S:Data,Permit:Data,H:Type) -> Type:Cap.Bundle<Q.GeneralWriter<S,H,Position,String>,Resource.Writer<H,Counter,String>>
+def Family(~S:Data) -> Data -> Type -> Type:Ops(~S)
+def moved(~S:Data,~Permit:Data,~H:Type,local:Local<S>,result:H & Q.GeneralEdit<Position,String>) -> Task.Task<S,Permit,H & (Local<S> & Sys.Completion<String,String>)>:
   match result:
-    case (scope,value):(scope,(local,Sys.Success{result_text(value)}))
-def counted(~S:Data,~H:Type,positions:Access.ComponentWrite<S,H,Position,String>,local:Local<S>,result:H & String) -> H & (Local<S> & Sys.Completion<String,String>):
-  match local result:
-    case Local{token,runs,+entity},(scope,_):finished(~S,~H,Local{token,U32.add(runs,1),entity},Access.component_modify_field(~S,~H,~Position,~String,positions)(move,scope,entity))
-def body(~S:Data,~H:Type,~caps:Ops(~S,H),scope:H,local:Local<S>) -> H & (Local<S> & Sys.Completion<String,String>):
-  counted(~S,~H,Cap.first(~Access.ComponentWrite<S,H,Position,String>,~Access.ResourceWrite<H,Counter,String>,caps),local,Access.resource_modify_field(~H,~Counter,~String,Cap.second(~Access.ComponentWrite<S,H,Position,String>,~Access.ResourceWrite<H,Counter,String>,caps))(increment,scope))
+    case (scope,Q.GeneralEdited{pack}):Task.TDone{(scope,(local,Sys.Success{pack}))}
+    case (scope,Q.GeneralUnchanged{_}):Task.TDone{(scope,(local,Sys.Success{"absent"}))}
+def counted(~S:Data,~Permit:Data,~H:Type,positions:Q.GeneralWriter<S,H,Position,String>,local:Local<S>,result:H & Store.Edit<Counter,String>) -> Task.Task<S,Permit,H & (Local<S> & Sys.Completion<String,String>)>:
+  match positions local result:
+    case Q.GeneralWriter{_,modify} Local{token,runs,+entity},(scope,Store.Edited{_}):moved(~S,~Permit,~H,Local{token,U32.add(runs,1),entity},modify(String,scope,entity,move))
+    case _ local,(scope,_):Task.TDone{(scope,(local,Sys.BodyError{"counter unavailable","local retained"}))}
+def body_caps(~S:Data,~Permit:Data,~H:Type,caps:Ops(~S,Unit,H),scope:H,local:Local<S>) -> Task.Task<S,Permit,H & (Local<S> & Sys.Completion<String,String>)>:
+  match caps:
+    case Cap.Bundle{positions,Resource.Writer{_,own,_}}:counted(~S,~Permit,~H,positions,local,own(String,scope,increment))
+    case _:Task.TDone{(scope,(local,Sys.BodyError{"counter unsupported","local retained"}))}
+def body(~S:Data,~Permit:Data,~H:Type,~caps:Ops(~S,Permit,H),scope:H,local:Local<S>) -> Task.Task<S,Permit,H & (Local<S> & Sys.Completion<String,String>)>:
+  body_caps(~S,~Permit,~H,caps,scope,local)
