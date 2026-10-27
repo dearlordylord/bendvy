@@ -66,6 +66,7 @@ def bound(value:Recipe.Bound) -> String:
     case Recipe.Without{at}:"without(" ++ route(at) ++ ")"
     case Recipe.And{left,right}:"and(" ++ bound(left) ++ "," ++ bound(right) ++ ")"
     case Recipe.Or{left,right}:"or(" ++ bound(left) ++ "," ++ bound(right) ++ ")"
+    case Recipe.Changed{at}:"changed(" ++ route(at) ++ ")"
 def kind(value:Recipe.QueryKind) -> String:
   match value:
     case Recipe.ReadRows{}:"read"

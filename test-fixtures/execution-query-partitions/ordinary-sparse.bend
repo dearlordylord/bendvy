@@ -162,8 +162,8 @@ def left_prepared(compilation:Compilation(),+ids:List<&2,U32>,right:RightOwner()
     case result:IO.pure(Pipeline,LeftPreparationRefused{result,compilation,right})
 def right_defined(leftCompilation:Compilation(),left:LeftOwner(),result:Compilation() & Sys.Defined<W.World<S.SchemaA,WC(),Unit,Unit>,RightOwner(),Local>) -> IO(Pipeline):
   match left result:
-    case left (compilation,Sys.DefinitionRefused{world,right}):IO.pure(Pipeline,RightDefinitionRefused{world,leftCompilation,left,compilation,right})
-    case Sys.Owner{ln,+lid,lt,la,lc,ll} (compilation,Sys.Defined{world,Sys.Owner{rn,+rid,rt,ra,rc,rl}}):left_prepared(compilation,[lid,rid],Sys.Owner{rn,rid,rt,ra,rc,rl},prepare_left(leftCompilation,[lid,rid],world,Sys.Owner{ln,lid,lt,la,lc,ll}))
+    case left, (compilation,Sys.DefinitionRefused{world,right}):IO.pure(Pipeline,RightDefinitionRefused{world,leftCompilation,left,compilation,right})
+    case Sys.Owner{ln,+lid,lt,la,lc,ll}, (compilation,Sys.Defined{world,Sys.Owner{rn,+rid,rt,ra,rc,rl}}):left_prepared(compilation,[lid,rid],Sys.Owner{rn,rid,rt,ra,rc,rl},prepare_left(leftCompilation,[lid,rid],world,Sys.Owner{ln,lid,lt,la,lc,ll}))
 def left_defined(right:Local,result:Compilation() & Sys.Defined<W.World<S.SchemaA,WC(),Unit,Unit>,LeftOwner(),Local>) -> IO(Pipeline):
   match result:
     case (compilation,Sys.DefinitionRefused{world,left}):IO.pure(Pipeline,LeftDefinitionRefused{world,compilation,left,right})
