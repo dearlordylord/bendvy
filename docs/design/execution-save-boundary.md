@@ -188,8 +188,19 @@ advances from 2 to 3, rather than resurrecting the source's four-event history.
 This is a subsequent genuine schedule execution, not a replay of source intent.
 The reader then consumes the retained receiver relation failure at time `0:11`.
 
-Invalid-graph refusal with a rejoined original Scheduled App and modern
-lifetime-scope restore remain separate work. The current extended Scheduled
-adapter retains Held owners plus the full low-level outcome on non-success;
-that retained result is not yet an ordinary rejoined-App refusal API.
+`parallel-persistence/extended-refusal.bend` submits a self-membership hierarchy
+using an actual saved full-generation key. Complete graph admission refuses it
+before receiver mutation or factory construction. Input, namespace, receiver,
+staging and row refusals rejoin the actual Scheduled App with both binding roles
+and all its owners; post-mutation partial outcomes explicitly retain Held plus
+the entire low-level publication outcome. The invalid-graph observation exports
+the actual refused receiver: time remains `0:5`, both generation-0 entities remain,
+the graph remains empty and the receiver remains Running/revision 101. A retry
+with the retained valid snapshot on that same App restores and runs the genuine
+subsequent transition, condition, handler and original Reader described above.
+The malformed input and refusal reason remain in the typed retry result.
+
+Modern lifetime-scope restore remains separate work. These finite ordinary runs
+do not establish exhaustive graph validation, rollback of partial publication or
+formal owner preservation.
 

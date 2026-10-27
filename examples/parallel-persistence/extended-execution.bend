@@ -19,6 +19,7 @@ import ../../src/ecs/restore-data.bend as R
 import ../../src/ecs/relation-types.bend as T
 import ../../src/ecs/execution-restore-publication.bend as Publication
 import ./restore.bend as Ordinary
+import ../../src/ecs/execution-restore-receiver.bend as Receiver
 
 type Handler<-S:Data> is Type:Handler{capture:Array<U32>,handled:U32,reader:Maybe<&1,Target.Reader(~S)>}
 def handle(~S:Data,handler:Handler<S>,_:String) -> Handler<S> & Exec.Handling:
@@ -57,10 +58,20 @@ def rejoin(~S:Data,held:Held<S>,world:Schema.World(~S)) -> Application(~S):
     case Held{owners,guard,handler,stateBindings,plan,appBindings,rules,deferred}:Schedule.Scheduled{App.State{world,owners,guard,handler,stateBindings},plan,appBindings,rules,deferred}
 type Restoration<-S:Data> is Type:
   Pending{schema:Admission.Recipes(~S),input:Extended.Snapshot<S>,app:Application(~S)}
+  InputRefused{app:Application(~S),schema:Admission.Recipes(~S),input:Extended.Snapshot<S>,reason:Admission.Reason}
+  NamespaceRefused{app:Application(~S),state:Restore.State<S>}
+  ReceiverRefused{app:Application(~S),state:Restore.State<S>,reason:Receiver.Reason}
+  StagingRefused{app:Application(~S),state:Restore.State<S>,error:R.Error<Unit>}
+  RowsRefused{app:Application(~S),state:Restore.State<S>,rows:List<Publication.Row<Schema.components(~S)>>}
   Restored{app:Application(~S),state:Restore.State<S>,removed:List<Ordinary.Receipt(~S)>,mapping:List<&2,R.Binding<S>>,publications:List<Publication.Receipt<S,Schema.components(~S)>>,previous:T.Graph<S>}
   Refused{held:Held<S>,result:Restore.Outcome<S>}
 def completed(~S:Data,held:Held<S>,result:Restore.Outcome<S>) -> Restoration<S>:
   match result:
+    case Restore.InputRefused{world,schema,input,reason}:InputRefused{rejoin(~S,held,world),schema,input,reason}
+    case Restore.NamespaceRefused{state,world}:NamespaceRefused{rejoin(~S,held,world),state}
+    case Restore.ReceiverRefused{state,Receiver.Refused{world,reason}}:ReceiverRefused{rejoin(~S,held,world),state,reason}
+    case Restore.StagingRefused{state,world,error}:StagingRefused{rejoin(~S,held,world),state,error}
+    case Restore.RowsRefused{state,world,rows}:RowsRefused{rejoin(~S,held,world),state,rows}
     case Restore.Restored{state,world,removed,mapping,publications,previous}:Restored{rejoin(~S,held,world),state,removed,mapping,publications,previous}
     case result:Refused{held,result}
 def checked(~S:Data,schema:Admission.Recipes(~S),input:Extended.Snapshot<S>,result:Application(~S) & Bool) -> Restoration<S>:
