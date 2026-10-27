@@ -44,13 +44,13 @@ def group_returned(~Actual:Type,~Error:Data,~Out:Data,syncs:List<&2,U32>,unappli
 def group_applied(~Actual:Type,~Error:Data,~Out:Data,syncs:List<&2,U32>,result:Actual & List<&2,U32>) -> Context<Actual> & List<&2,Ready.Completed<Error,Out>>:
   match result:
     case (state,unapplied):(Context{state,unapplied,syncs},[])
-def group_selected(~Actual:Type,~Error:Data,~Out:Data,~group:Actual -> List<&2,U32> -> Actual & List<&2,Ready.Completed<Error,Out>>,~apply:List<&2,U32> -> Actual -> Actual & List<&2,U32>,context:Context<Actual>,ids:List<&2,U32>,isSync:Bool) -> Context<Actual> & List<&2,Ready.Completed<Error,Out>>:
+def group_selected(~Actual:Type,~Error:Data,~Out:Data,~group:Actual -> List<&2,U32> -> IO(Actual & List<&2,Ready.Completed<Error,Out>>),~apply:List<&2,U32> -> Actual -> Actual & List<&2,U32>,context:Context<Actual>,ids:List<&2,U32>,isSync:Bool) -> IO(Context<Actual> & List<&2,Ready.Completed<Error,Out>>):
   match context isSync:
-    case Context{state,unapplied,syncs} True{}:group_applied(~Actual,~Error,~Out,syncs,apply(unapplied,state))
-    case Context{state,unapplied,syncs} False{}:group_returned(~Actual,~Error,~Out,syncs,unapplied,group(state,ids))
-def group_adapter(~Actual:Type,~Error:Data,~Out:Data,~group:Actual -> List<&2,U32> -> Actual & List<&2,Ready.Completed<Error,Out>>,~apply:List<&2,U32> -> Actual -> Actual & List<&2,U32>,context:Context<Actual>,ids:List<&2,U32>) -> Context<Actual> & List<&2,Ready.Completed<Error,Out>>:
+    case Context{state,unapplied,syncs} True{}:IO.pure(Context<Actual> & List<&2,Ready.Completed<Error,Out>>,group_applied(~Actual,~Error,~Out,syncs,apply(unapplied,state)))
+    case Context{state,unapplied,syncs} False{}:IO.bind(Actual & List<&2,Ready.Completed<Error,Out>>,Context<Actual> & List<&2,Ready.Completed<Error,Out>>,group(state,ids),result => IO.pure(Context<Actual> & List<&2,Ready.Completed<Error,Out>>,group_returned(~Actual,~Error,~Out,syncs,unapplied,result)))
+def group_adapter(~Actual:Type,~Error:Data,~Out:Data,~group:Actual -> List<&2,U32> -> IO(Actual & List<&2,Ready.Completed<Error,Out>>),~apply:List<&2,U32> -> Actual -> Actual & List<&2,U32>,context:Context<Actual>,ids:List<&2,U32>) -> IO(Context<Actual> & List<&2,Ready.Completed<Error,Out>>):
   match context ids:
-    case context, []:(context,[])
+    case context, []:IO.pure(Context<Actual> & List<&2,Ready.Completed<Error,Out>>,(context,[]))
     case Context{state,unapplied,+syncs}, +first <> +rest:group_selected(~Actual,~Error,~Out,~group,~apply,Context{state,unapplied,syncs},first <> rest,Settings.member(first,syncs))
 def handled(~Actual:Type,syncs:List<&2,U32>,unapplied:List<&2,U32>,result:Actual & Exec.Handling) -> Context<Actual> & Exec.Handling:
   match result:
@@ -77,6 +77,6 @@ def finished(~Actual:Type,~Error:Data,~Out:Data,~apply:List<&2,U32> -> Actual ->
 # local/cursor update, or visible body event is generated for their private IDs.
 def ready(nodes:List<&2,Plan.Node<String>>,edges:List<&2,Plan.Edge>) -> List<&2,Plan.Node<String>>:
   Plan.ready(~String,nodes,edges)
-def run(~BaseRules:Data,~Actual:Type,~Error:Data,~Out:Data,~condition:Actual -> U32 -> Actual & Exec.Condition<Error>,~group:Actual -> List<&2,U32> -> Actual & List<&2,Ready.Completed<Error,Out>>,~handler:Actual -> Error -> Actual & Exec.Handling,~apply:List<&2,U32> -> Actual -> Actual & List<&2,U32>,~baseCompatible:BaseRules -> U32 -> U32 -> Bool,settings:Settings.Settings,+syncs:List<&2,U32>,rules:BaseRules,plan:Plan.Build<String>,state:Actual,unapplied:List<&2,U32>) -> Outcome<Actual,Error,Out>:
+def run(~BaseRules:Data,~Actual:Type,~Error:Data,~Out:Data,~condition:Actual -> U32 -> Actual & Exec.Condition<Error>,~group:Actual -> List<&2,U32> -> IO(Actual & List<&2,Ready.Completed<Error,Out>>),~handler:Actual -> Error -> Actual & Exec.Handling,~apply:List<&2,U32> -> Actual -> Actual & List<&2,U32>,~baseCompatible:BaseRules -> U32 -> U32 -> Bool,settings:Settings.Settings,+syncs:List<&2,U32>,rules:BaseRules,plan:Plan.Build<String>,state:Actual,unapplied:List<&2,U32>) -> IO(Outcome<Actual,Error,Out>):
   match settings:
-    case Settings.Settings{_,finalApply,_,_}:finished(~Actual,~Error,~Out,~apply,finalApply,Ready.run(~Rules<BaseRules>,~Context<Actual>,~String,~Error,~Out,~condition_adapter(~Actual,~Error,~condition),~group_adapter(~Actual,~Error,~Out,~group,~apply),~handler_adapter(~Actual,~Error,~handler),~compatible(~BaseRules,~baseCompatible),~ready,Rules{rules,syncs},plan,Context{state,unapplied,syncs}))
+    case Settings.Settings{_,finalApply,_,_}:IO.bind(Exec.ExecutionResult<Context<Actual>,String,Error,Out>,Outcome<Actual,Error,Out>,Ready.run(~Rules<BaseRules>,~Context<Actual>,~String,~Error,~Out,~condition_adapter(~Actual,~Error,~condition),~group_adapter(~Actual,~Error,~Out,~group,~apply),~handler_adapter(~Actual,~Error,~handler),~compatible(~BaseRules,~baseCompatible),~ready,Rules{rules,syncs},plan,Context{state,unapplied,syncs}),result => IO.pure(Outcome<Actual,Error,Out>,finished(~Actual,~Error,~Out,~apply,finalApply,result)))
