@@ -3,6 +3,10 @@ import ./entity-allocator.bend as A
 import ./world.bend as W
 import ./execution-reservation-authority.bend as Authority
 
+type Policy is Data:
+  Parallel{}
+  Serial{}
+
 type Granted is Data:
   Granted{}
 
@@ -31,16 +35,26 @@ def reserve(-S:Data,issuer:Issuer<S>) -> Issuer<S> & W.Reservation<S>:
   match issuer:
     case Issuer{namespace,allocator,authorized}:answer(S,namespace,authorized,A.reserve(allocator))
 
-def advance(-S:Data,-Permit:Data,-R:Type,task:Task<S,Permit,R>) -> Task<S,Permit,R>:
+# Serial interpretation transfers each existing branch into the normal bind
+# continuation. It does not enter the right branch before the left returns.
+def lower_fork(-S:Data,-Permit:Data,-L:Type,-T:Type,-R:Type,left:Task<S,Permit,L>,right:Task<S,Permit,T>,join:L -> T -> Task<S,Permit,R>) -> Task<S,Permit,R>:
+  TBind{L,left,l => TBind{T,right,r => join(l,r)}}
+def advance_fork(-S:Data,-Permit:Data,-L:Type,-T:Type,-R:Type,policy:Policy,advanceLeft:Task<S,Permit,L> -> Task<S,Permit,L>,advanceRight:Task<S,Permit,T> -> Task<S,Permit,T>,left:Task<S,Permit,L>,right:Task<S,Permit,T>,join:L -> T -> Task<S,Permit,R>) -> Task<S,Permit,R>:
+  match policy:
+    case Serial{}:lower_fork(S,Permit,L,T,R,left,right,join)
+    case Parallel{}:
+      l r = advanceLeft(left) advanceRight(right)
+      TFork{L,T,l,r,join}
+def advance_mode(-S:Data,-Permit:Data,-R:Type,+policy:Policy,task:Task<S,Permit,R>) -> Task<S,Permit,R>:
   match task:
     case TRun{step}:step(Unit{})
-    case TBind{A,task,next}:TBind{A,advance(S,Permit,A,task),next}
-    case TFork{L,T,left,right,join}:
-      l r = advance(S,Permit,L,left) advance(S,Permit,T,right)
-      TFork{L,T,l,r,join}
+    case TBind{A,task,next}:TBind{A,advance_mode(S,Permit,A,policy,task),next}
+    case TFork{L,T,left,right,join}:advance_fork(S,Permit,L,T,R,policy,left => advance_mode(S,Permit,L,policy,left),right => advance_mode(S,Permit,T,policy,right),left,right,join)
     case TNeed{permit,resume}:TNeed{permit,resume}
-    case TQualify{same,context,task}:TQualify{same,context,advance(S,Granted,R,task)}
+    case TQualify{same,context,task}:TQualify{same,context,advance_mode(S,Granted,R,policy,task)}
     case TDone{value}:TDone{value}
+def advance(-S:Data,-Permit:Data,-R:Type,task:Task<S,Permit,R>) -> Task<S,Permit,R>:
+  advance_mode(S,Permit,R,Parallel{},task)
 
 def service_answer(-S:Data,-Permit:Data,-R:Type,resume:W.Reservation<S> -> Task<S,Permit,R>,result:Issuer<S> & W.Reservation<S>) -> Issuer<S> & Task<S,Permit,R>:
   match result:
@@ -80,14 +94,22 @@ def service_qualified(-S:Data,-Permit:Data,-R:Type,same:{Permit == Authority.Per
   match result:
     case (issuer,TDone{value}):(issuer,TDone{value})
     case (issuer,task):(issuer,TQualify{same,context,task})
-def service_generic(-S:Data,-Permit:Data,-R:Type,task:Task<S,Permit,R>,+access:Authorization<Permit>,issuer:Issuer<S>) -> Issuer<S> & Task<S,Permit,R>:
+# A TRun may yield a fresh fork in the same frame round. Apply the same
+# serial lowering here before either branch can issue a reservation request.
+def service_fork(-S:Data,-Permit:Data,-L:Type,-T:Type,-R:Type,policy:Policy,serviceLeft:Task<S,Permit,L> -> Issuer<S> -> Issuer<S> & Task<S,Permit,L>,serviceRight:Task<S,Permit,T> -> Issuer<S> -> Issuer<S> & Task<S,Permit,T>,left:Task<S,Permit,L>,right:Task<S,Permit,T>,join:L -> T -> Task<S,Permit,R>,issuer:Issuer<S>) -> Issuer<S> & Task<S,Permit,R>:
+  match policy:
+    case Serial{}:(issuer,lower_fork(S,Permit,L,T,R,left,right,join))
+    case Parallel{}:service_left(S,Permit,L,T,R,root => serviceRight(right,root),join,serviceLeft(left,issuer))
+def service_generic_mode(-S:Data,-Permit:Data,-R:Type,+policy:Policy,task:Task<S,Permit,R>,+access:Authorization<Permit>,issuer:Issuer<S>) -> Issuer<S> & Task<S,Permit,R>:
   match task:
     case TNeed{permit,resume}:service_request_generic(S,Permit,R,access,permit,resume,issuer)
-    case TBind{A,task,next}:service_bind(S,Permit,A,R,next,service_generic(S,Permit,A,task,access,issuer))
-    case TFork{L,T,left,right,join}:service_left(S,Permit,L,T,R,root => service_generic(S,Permit,T,right,access,root),join,service_generic(S,Permit,L,left,access,issuer))
-    case TQualify{same,+context,task}:service_qualified(S,Permit,R,same,context,service_generic(S,Granted,R,task,GrantedAccess{{==},context},issuer))
+    case TBind{A,task,next}:service_bind(S,Permit,A,R,next,service_generic_mode(S,Permit,A,policy,task,access,issuer))
+    case TFork{L,T,left,right,join}:service_fork(S,Permit,L,T,R,policy,left => root => service_generic_mode(S,Permit,L,policy,left,access,root),right => root => service_generic_mode(S,Permit,T,policy,right,access,root),left,right,join,issuer)
+    case TQualify{same,+context,task}:service_qualified(S,Permit,R,same,context,service_generic_mode(S,Granted,R,policy,task,GrantedAccess{{==},context},issuer))
     case TRun{step}:(issuer,TRun{step})
     case TDone{value}:(issuer,TDone{value})
+def service_generic(-S:Data,-Permit:Data,-R:Type,task:Task<S,Permit,R>,access:Authorization<Permit>,issuer:Issuer<S>) -> Issuer<S> & Task<S,Permit,R>:
+  service_generic_mode(S,Permit,R,Parallel{},task,access,issuer)
 # The trusted prepared leaf supplies the actual namespace, id and closed grant.
 # The persistent wrapper also covers future bind/fork/request continuations.
 def qualify(-S:Data,-R:Type,context:Authority.Context,task:Task<S,Granted,R>) -> Task<S,Authority.Permit,R>:

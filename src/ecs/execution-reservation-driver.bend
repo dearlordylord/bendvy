@@ -14,8 +14,12 @@ def drive(~S:Data,-R:Type,frame:Frame.Frame<S,Permit.Permit,R>) -> IO(Frame.Term
 def restored(~S:Data,~C:Type,~R:Type,~E:Data,-Out:Type,remainder:Administration.Remainder<S,C,R,E>,terminal:Frame.Terminal<S,Out>) -> State.Administration<S,C,R,E> & Out:
   match terminal:
     case Frame.Terminal{issuer,value}:(Administration.put(~S,~C,~R,~E,remainder,issuer),value)
-def separated(~S:Data,~C:Type,~R:Type,~E:Data,-Out:Type,authorized:List<&2,U32>,task:Task.Task<S,Permit.Permit,Out>,result:Administration.Remainder<S,C,R,E> & Task.Issuer<S>) -> IO(State.Administration<S,C,R,E> & Out):
+def separated_with_policy(~S:Data,~C:Type,~R:Type,~E:Data,-Out:Type,policy:Task.Policy,authorized:List<&2,U32>,task:Task.Task<S,Permit.Permit,Out>,result:Administration.Remainder<S,C,R,E> & Task.Issuer<S>) -> IO(State.Administration<S,C,R,E> & Out):
   match result:
-    case (remainder,Task.Issuer{namespace,allocator,_}):IO.bind(Frame.Terminal<S,Out>,State.Administration<S,C,R,E> & Out,drive(~S,Out,Frame.Frame{Task.Issuer{namespace,allocator,authorized},task}),terminal => IO.pure(State.Administration<S,C,R,E> & Out,restored(~S,~C,~R,~E,Out,remainder,terminal)))
+    case (remainder,Task.Issuer{namespace,allocator,_}):IO.bind(Frame.Terminal<S,Out>,State.Administration<S,C,R,E> & Out,drive(~S,Out,Frame.initial(S,Permit.Permit,Out,policy,Task.Issuer{namespace,allocator,authorized},task)),terminal => IO.pure(State.Administration<S,C,R,E> & Out,restored(~S,~C,~R,~E,Out,remainder,terminal)))
+def separated(~S:Data,~C:Type,~R:Type,~E:Data,-Out:Type,authorized:List<&2,U32>,task:Task.Task<S,Permit.Permit,Out>,result:Administration.Remainder<S,C,R,E> & Task.Issuer<S>) -> IO(State.Administration<S,C,R,E> & Out):
+  separated_with_policy(~S,~C,~R,~E,Out,Task.Parallel{},authorized,task,result)
+def run_with_policy(~S:Data,~C:Type,~R:Type,~E:Data,-Out:Type,policy:Task.Policy,authorized:List<&2,U32>,admin:State.Administration<S,C,R,E>,task:Task.Task<S,Permit.Permit,Out>) -> IO(State.Administration<S,C,R,E> & Out):
+  separated_with_policy(~S,~C,~R,~E,Out,policy,authorized,task,Administration.take(~S,~C,~R,~E,admin))
 def run(~S:Data,~C:Type,~R:Type,~E:Data,-Out:Type,authorized:List<&2,U32>,admin:State.Administration<S,C,R,E>,task:Task.Task<S,Permit.Permit,Out>) -> IO(State.Administration<S,C,R,E> & Out):
-  separated(~S,~C,~R,~E,Out,authorized,task,Administration.take(~S,~C,~R,~E,admin))
+  run_with_policy(~S,~C,~R,~E,Out,Task.Parallel{},authorized,admin,task)
