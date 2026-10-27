@@ -11,3 +11,11 @@ def returned(-Input:Type,-Output:Type,header:Header<Input,Output>,value:Input) -
     case Header{Held,held,resume}:resume(held,value)
 def decided(-Output:Type,header:Header<(Bool & Bool),Output>,valid:Bool,compatible:Bool) -> Output:
   returned(Bool & Bool,Output,header,(valid,compatible))
+
+# A unary resume receives both actual owners together, avoiding a curried
+# closure that captures the unpacked Held before receiving Input.
+type PairedHeader<-Input:Type,-Output:Type> is Type:
+  PairedHeader{-Held:Type,held:Held,resume:(Held & Input) -> Output}
+def paired_returned(-Input:Type,-Output:Type,header:PairedHeader<Input,Output>,value:Input) -> Output:
+  match header:
+    case PairedHeader{Held,held,resume}:resume((held,value))
