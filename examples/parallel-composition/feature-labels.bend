@@ -53,7 +53,7 @@ def changed(~S:Data,~Permit:Data,~H:Type,service:Resource.Writer<H,Service.Slot<
     case _,(scope,_):Task.TDone{(scope,(local,Sys.BodyError{"host unsupported","local retained"}))}
 def body_caps(~S:Data,~Permit:Data,~H:Type,caps:Ops(~S,Unit,H),scope:H,local:Local<S>) -> Task.Task<S,Permit,H & (Local<S> & Sys.Completion<String,String>)>:
   match caps local:
-    case Cap.Bundle{Q.GeneralWriter{_,modify,_},service} Local{token,runs,+entity}:changed(~S,~Permit,~H,service,Local{token,runs,entity},modify(String,scope,entity,change))
+    case Cap.Bundle{Q.GeneralWriter{_,modify},service} Local{token,runs,+entity}:changed(~S,~Permit,~H,service,Local{token,runs,entity},modify(String,scope,entity,change))
     case _ local:Task.TDone{(scope,(local,Sys.BodyError{"label unsupported","local retained"}))}
 def body(~S:Data,~Permit:Data,~H:Type,~caps:Ops(~S,Permit,H),scope:H,local:Local<S>) -> Task.Task<S,Permit,H & (Local<S> & Sys.Completion<String,String>)>:
   body_caps(~S,~Permit,~H,caps,scope,local)

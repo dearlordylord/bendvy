@@ -4,6 +4,7 @@ import ../../src/ecs/execution-resource-query-execution.bend as Execution
 import ../../src/ecs/execution-generalized-root-application.bend as Application
 import ../../src/ecs/dependency-application.bend as App
 import ../../src/ecs/execution-parallel-scope.bend as Scope
+import ../../src/ecs/chunk-query.bend as ChunkQuery
 import Base
 import ../../src/ecs/execution-builder.bend as Build
 import ./ordinary-sparse.bend as Run
@@ -163,7 +164,7 @@ def token(value:Run.Token) -> String:
     case Run.DeferredToken{transform}:probe(transform(S.Position{[901 : U32^1n]}))
 def local(value:Run.Local) -> String:
   match value:
-    case Run.Local{target,value,commands}:"target=" ++ handle(target) ++ ";token=" ++ token(value) ++ ";" ++ queue(commands)
+    case Run.Local{target,value,commands,enabled}:"target=" ++ handle(target) ++ ";algorithms=" ++ Bool.pick(String,enabled,"true","false") ++ ";token=" ++ token(value) ++ ";" ++ queue(commands)
 def left_owner(value:Run.LeftOwner()) -> String:
   match value:
     case Sys.Owner{namespace,id,name,access,cursor,state}:U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,value=>value,access) ++ ":" ++ Tick.cursor_show(cursor) ++ ":{" ++ local(state) ++ "}"
@@ -193,9 +194,40 @@ def single(value:Q.GeneralSingle<S.SchemaA,U32>) -> String:
     case Q.NoSelectedRow{}:"none"
     case Q.OneSelectedRow{Q.GeneralRow{entity,view}}:"one:" ++ handle(entity) ++ ":" ++ optional(view)
     case Q.MultipleSelectedRows{}:"multiple"
+def row(value:Q.GeneralRow<S.SchemaA,U32>) -> String:
+  match value:
+    case Q.GeneralRow{entity,value}:handle(entity) ++ ":" ++ optional(value)
+def rows(value:Q.GeneralReport<S.SchemaA,U32>) -> String:
+  match value:
+    case Q.SelectionRefused{}:"refused"
+    case Q.SelectedRows{values}:List.show(&2,Q.GeneralRow<S.SchemaA,U32>,row,values)
+def update(value:Run.Update) -> String:
+  match value:
+    case Run.Update{target,before,impulse,after}:handle(target) ++ ":" ++ U32.show(before) ++ "+" ++ U32.show(impulse) ++ "=" ++ U32.show(after)
+def interaction_output(value:Run.InteractionOutput) -> String:
+  match value:
+    case Run.Direct{updates}:"direct;updates=" ++ List.show(&2,Run.Update,update,updates)
+    case Run.TargetOwned{sources,updates}:"target-owned;sources=" ++ List.show(&2,Q.GeneralRow<S.SchemaA,U32>,row,sources) ++ ";updates=" ++ List.show(&2,Run.Update,update,updates)
+def traversal_error(value:ChunkQuery.Error<String>) -> String:
+  match value:
+    case ChunkQuery.Error{index,value}:U32.show(index) ++ ":" ++ value
+def traversal_report(value:Q.Report<String>) -> String:
+  match value:
+    case Q.LayoutRefused{}:"layout-refused"
+    case Q.Completed{errors}:"completed:" ++ List.show(&2,ChunkQuery.Error<String>,traversal_error,errors)
+def derived_effect(value:Run.DerivedEffect) -> String:
+  match value:
+    case Run.DerivedEffect{source,target,impulse}:handle(source) ++ "->" ++ handle(target) ++ ":" ++ U32.show(impulse)
+def serial_record(value:Run.SerialRecord) -> String:
+  match value:
+    case Run.SerialRecord{source,target,impulse,before,after,applied}:handle(source) ++ "->" ++ handle(target) ++ ":impulse=" ++ U32.show(impulse) ++ ":before=" ++ lookup(before) ++ ":after=" ++ lookup(after) ++ ":applied=" ++ Bool.pick(String,applied,"true","false")
+def algorithm_stage(value:Run.AlgorithmStage) -> String:
+  match value:
+    case Run.TraversalStage{name,output,report,observed}:name ++ ":{" ++ interaction_output(output) ++ ";report=" ++ traversal_report(report) ++ ";rows=" ++ rows(observed) ++ "}"
+    case Run.SerialStage{sources,effects,records,observed}:"serial:{sources=" ++ rows(sources) ++ ";effects=" ++ List.show(&2,Run.DerivedEffect,derived_effect,effects) ++ ";records=" ++ List.show(&2,Run.SerialRecord,serial_record,records) ++ ";rows=" ++ rows(observed) ++ "}"
 def query_result(value:Run.QueryResult) -> String:
   match value:
-    case Run.QueryResult{found,total,one}:lookup(found) ++ ";count=" ++ count(total) ++ ";single=" ++ single(one)
+    case Run.QueryResult{found,total,one,trace}:lookup(found) ++ ";count=" ++ count(total) ++ ";single=" ++ single(one) ++ ";algorithms=" ++ List.show(&2,Run.AlgorithmStage,algorithm_stage,trace)
 def invocation(value:Exec.Invocation<String,Run.QueryResult>) -> String:
   match value:
     case Exec.AdmissionRefused{}:"admission-refused"
@@ -256,9 +288,13 @@ def report(value:App.Report<String,Run.QueryResult>) -> String:
     case App.Finished{events}:"finished:" ++ List.show(&2,Exec.Observation<String,Run.QueryResult>,event,events)
     case App.Stopped{error,events}:"stopped:" ++ error ++ ":" ++ List.show(&2,Exec.Observation<String,Run.QueryResult>,event,events)
     case App.Invalid{_}:"invalid"
+def previous_report(value:Maybe<&2,App.Report<String,Run.QueryResult>>) -> String:
+  match value:
+    case None{}:"none"
+    case Some{value}:report(value)
 def result(value:Run.WorldResult) -> String:
   match value:
-    case Run.WorldReturned{Application.Present{actual,moved},Product.Owner{left,right},handler,outcome}:"world={" ++ world(actual) ++ "};displaced=" ++ List.show(&1,Schema.displacements(~S.SchemaA,S.layout_a()),displaced,moved) ++ ";left={" ++ node(~Run.LeftOwner(),~ResourceAdmission.Evidence<S.SchemaA,S.layout_a(),L.EmptyLayout{},Run.HStore(),Run.HResources(),Run.Ops,Run.left_program>,~left_owner,~evidence(~Run.left_program),left) ++ "};right={" ++ node(~Run.RightOwner(),~ResourceAdmission.Evidence<S.SchemaA,S.layout_a(),L.EmptyLayout{},Run.HStore(),Run.HResources(),Run.Ops,Run.right_program>,~right_owner,~evidence(~Run.right_program),right) ++ "};handler=" ++ U32.show(handler) ++ ";report=" ++ report(outcome)
+    case Run.WorldReturned{Application.Present{actual,moved},Product.Owner{left,right},handler,outcome,previous}:"world={" ++ world(actual) ++ "};displaced=" ++ List.show(&1,Schema.displacements(~S.SchemaA,S.layout_a()),displaced,moved) ++ ";left={" ++ node(~Run.LeftOwner(),~ResourceAdmission.Evidence<S.SchemaA,S.layout_a(),L.EmptyLayout{},Run.HStore(),Run.HResources(),Run.Ops,Run.left_program>,~left_owner,~evidence(~Run.left_program),left) ++ "};right={" ++ node(~Run.RightOwner(),~ResourceAdmission.Evidence<S.SchemaA,S.layout_a(),L.EmptyLayout{},Run.HStore(),Run.HResources(),Run.Ops,Run.right_program>,~right_owner,~evidence(~Run.right_program),right) ++ "};handler=" ++ U32.show(handler) ++ ";previous=" ++ previous_report(previous) ++ ";report=" ++ report(outcome)
     case _:"unexpected-unreassembled"
 def foreign(value:Maybe<&1,Run.World()>) -> String:
   match value:

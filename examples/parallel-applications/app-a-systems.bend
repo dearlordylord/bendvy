@@ -76,7 +76,7 @@ def query_read(~Permit:Data,~H:Type,modify:@-Out:Type -> H -> W.Handle<P.AuditWo
     case (scope,_):Task.TDone{(scope,(QueryReady{target,pack},Sys.BodyError{"scalar query missed","capture retained"}))}
 def query_caps(~Permit:Data,~H:Type,caps:QueryOps(Unit,H),scope:H,local:QueryLocal) -> Task.Task<P.AuditWorkshop,Permit,H & (QueryLocal & Sys.Completion<String,String>)>:
   match caps local:
-    case Q.GeneralWriter{Q.GeneralReader{_,get},modify,_} QueryReady{+target,pack}:query_read(~Permit,~H,modify,target,pack,get(scope,target))
+    case Q.GeneralWriter{Q.GeneralReader{_,get},modify} QueryReady{+target,pack}:query_read(~Permit,~H,modify,target,pack,get(scope,target))
     case _ local:Task.TDone{(scope,(local,Sys.BodyError{"scalar query unsupported","capture retained"}))}
 def query_body(~Permit:Data,~H:Type,~caps:QueryOps(Permit,H),scope:H,local:QueryLocal) -> Task.Task<P.AuditWorkshop,Permit,H & (QueryLocal & Sys.Completion<String,String>)>:
   query_caps(~Permit,~H,caps,scope,local)
