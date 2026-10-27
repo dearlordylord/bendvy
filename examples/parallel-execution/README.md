@@ -1,4 +1,10 @@
-> Verification policy override (2026-10-27): semantic verification uses Bend laws only. The new non-law models, reference tests, golden outputs and check scripts have been retired at the user's direction. References below to those checks describe historical work, not current acceptance. Historical receipts remain outside the source tree; the five approved Bend helper laws do not prove the whole ECS.
+> Verification policy (2026-10-27): formal proofs use approved Bend laws.
+> Temporary Python and JavaScript verification helpers are permitted if they are
+> deleted after use. Permanent non-law tests do not replace Bend laws. The retired
+> models, reference tests, golden outputs, and check scripts remain historical.
+> Their receipts stay outside the source tree. Finite observations and approved
+> helper laws do not prove the whole ECS. New laws need specific user approval
+> before proof.
 
 # Replacement execution consumer
 
@@ -26,10 +32,16 @@ retained Local token/run count, and the returned foreign World's observations.
 This distinguishes retained partial mutation from rollback and distinguishes
 refusal from another body invocation.
 
-Historically, `controls/positive.bend` checked a normal abstract getter, and the
-other controls targeted their named authority boundaries. They use the same affine payloads
-and getter/mutation operations as the consumer. Raw schema provisioning is a
-trusted boundary, as with the existing component family bindings. The explicit
+Six existing controls now use the current Program API. The compiler accepts
+`controls/metadata-preserved.bend` and `controls/layout-positive.bend`. It rejects
+`controls/forged-program.bend` for supplying a concrete Scope getter for abstract
+`H`, and `controls/discard-metadata.bend` for consuming the affine Book twice.
+It rejects `controls/same-payload-wrong-key.bend` at the layout key and origin
+equality, and `controls/invalid-layout-route.bend` at the route-validity proof.
+The other controls retain their historical scope.
+
+Raw schema provisioning is a trusted boundary, as with the existing component
+family bindings. The explicit
 `execution-projection.trusted_affine` token does not prove that an owner-returning
 projector is pure. Every current affine projector requests exclusive access;
 read-only describes the gameplay grant and does not authorize a shared runtime
@@ -49,9 +61,9 @@ the application sequences its three runs and foreign-World refusal through IO.
 Builder grant primitives return the
 updated accumulator together with their capability, so retaining a generated
 grant while discarding its recorded access requires reusing the consumed old
-accumulator. Historical controls targeted that reuse, fabricating an empty
-accumulator and injecting a getter for the concrete scope. The raw declaration constructor is
-an internal lowering shape and is rejected at the ordinary App entry.
+accumulator. The current metadata controls check that reuse and reject a getter
+for the concrete scope. The raw declaration constructor is an internal lowering
+shape and is rejected at the ordinary App entry.
 
 Component and resource grants now accept closed layout routes. Actual slot types
 include the key from that same layout. The builder requires type equality between
@@ -78,6 +90,10 @@ These commands run the ordinary application and print its observations. They
 are finite execution receipts, not semantic laws. The retired `check.sh` and
 `expected.stdout` belonged to the historical verification contract; earlier
 receipts retain that original scope.
+
+The recorded ordinary run matched an independently derived complete expectation
+on JavaScript and native CPU: two lines totaling 7,610 bytes. The temporary Python
+helpers used for the derivation and comparisons were deleted after use.
 
 The observation enumerates every physical slot and lifecycle stamp in both columns,
 allocator slots/free/order/progress, registrations, clock/scopes, queue and event
