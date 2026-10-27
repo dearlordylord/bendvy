@@ -28,7 +28,7 @@ def left_combined(~S:Data,~H:Type,~B:Type,component:A.ComponentWrite<S,H,P.Posit
     case (book,resource):(book,Cap.Bundle{component,resource})
 def left_component_granted(~S:Data,~H:Type,~B:Type,~resource_write:Build.ResourceWrite(~S,~LeftStore(~S),~LeftResource(~S),~H,~B),result:B & A.ComponentWrite<S,H,P.Position,String>) -> B & LeftOps(~S)(H):
   match result:
-    case (book,component):left_combined(~S,~H,~B,component,resource_write(left_resource_layout(),Layout.AtLeaf{},{==},{==},book))
+    case (book,component):left_combined(~S,~H,~B,component,Build.basic_resource_write(~S,~LeftStore(~S),~LeftResource(~S),~H,~B,~left_resource_layout(),~Layout.AtLeaf{},~{==},~{==},~resource_write,book))
 def left_selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~LeftStore(~S),~LeftResource(~S),~H,~B),~component_write:Build.ComponentWrite(~S,~LeftStore(~S),~LeftResource(~S),~H,~B),~resource_read:Build.ResourceRead(~S,~LeftStore(~S),~LeftResource(~S),~H,~B),~resource_write:Build.ResourceWrite(~S,~LeftStore(~S),~LeftResource(~S),~H,~B),~query:Build.Query(~S,~Store(~S),~LeftStore(~S),~LeftResource(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Store(~S),~LeftStore(~S),~LeftResource(~S),~H,~B),book:B) -> B & LeftOps(~S)(H):
   left_component_granted(~S,~H,~B,~resource_write,component_write(left_layout(),Layout.AtLeaf{},{==},{==},book))
 def left(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~LeftStore(~S),~LeftResource(~S),~H,~B),book:B) -> B & LeftOps(~S)(H):
@@ -41,7 +41,7 @@ def right_combined(~S:Data,~H:Type,~B:Type,component:A.ComponentWrite<S,H,P.Heal
     case (book,resource):(book,Cap.Bundle{component,resource})
 def right_component_granted(~S:Data,~H:Type,~B:Type,~resource_write:Build.ResourceWrite(~S,~RightStore(~S),~RightResource(~S),~H,~B),result:B & A.ComponentWrite<S,H,P.Health,String>) -> B & RightOps(~S)(H):
   match result:
-    case (book,component):right_combined(~S,~H,~B,component,resource_write(right_resource_layout(),Layout.AtLeaf{},{==},{==},book))
+    case (book,component):right_combined(~S,~H,~B,component,Build.basic_resource_write(~S,~RightStore(~S),~RightResource(~S),~H,~B,~right_resource_layout(),~Layout.AtLeaf{},~{==},~{==},~resource_write,book))
 def right_selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~RightStore(~S),~RightResource(~S),~H,~B),~component_write:Build.ComponentWrite(~S,~RightStore(~S),~RightResource(~S),~H,~B),~resource_read:Build.ResourceRead(~S,~RightStore(~S),~RightResource(~S),~H,~B),~resource_write:Build.ResourceWrite(~S,~RightStore(~S),~RightResource(~S),~H,~B),~query:Build.Query(~S,~Store(~S),~RightStore(~S),~RightResource(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Store(~S),~RightStore(~S),~RightResource(~S),~H,~B),book:B) -> B & RightOps(~S)(H):
   right_component_granted(~S,~H,~B,~resource_write,component_write(right_layout(),Layout.AtLeaf{},{==},{==},book))
 def right(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~RightStore(~S),~RightResource(~S),~H,~B),book:B) -> B & RightOps(~S)(H):

@@ -13,6 +13,6 @@ def Resources() -> Type:Layout.resources(~Nominal,actual())
 def Ops(H:Type) -> Type:Access.ResourceRead<H,U32>
 
 def selection(~H:Type,~B:Type,~component_read:Build.ComponentRead(~Nominal,~Unit,~Resources(),~H,~B),~component_write:Build.ComponentWrite(~Nominal,~Unit,~Resources(),~H,~B),~resource_read:Build.ResourceRead(~Nominal,~Unit,~Resources(),~H,~B),~resource_write:Build.ResourceWrite(~Nominal,~Unit,~Resources(),~H,~B),~query:Build.Query(~Nominal,~Unit,~Unit,~Resources(),~H,~B),~lifecycle:Build.Lifecycle(~Nominal,~Unit,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(H):
-  resource_read(claimed(),route(),{==},{==},book)
+  Build.basic_resource_read(~Nominal,~Unit,~Resources(),~H,~B,~claimed(),~route(),~{==},~{==},~resource_read,book)
 def declaration(~H:Type,~B:Type,~builder:Build.Builder(~Nominal,~Unit,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(H):
   builder(Ops,selection(~H,~B),book)

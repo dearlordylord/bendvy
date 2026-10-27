@@ -24,7 +24,7 @@ def Resources() -> Type:Layout.resources(~Nominal,resource_layout())
 def World() -> Type:W.World<Nominal,Unit,Resources(),Unit>
 def Ops(H:Type) -> Type:Access.ResourceWrite<H,Mailbox,U32>
 def selection(~H:Type,~B:Type,~cr:Build.ComponentRead(~Nominal,~Unit,~Resources(),~H,~B),~cw:Build.ComponentWrite(~Nominal,~Unit,~Resources(),~H,~B),~rr:Build.ResourceRead(~Nominal,~Unit,~Resources(),~H,~B),~rw:Build.ResourceWrite(~Nominal,~Unit,~Resources(),~H,~B),~query:Build.Query(~Nominal,~Unit,~Unit,~Resources(),~H,~B),~lifecycle:Build.Lifecycle(~Nominal,~Unit,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(H):
-  rw(resource_layout(),Layout.AtLeaf{},{==},{==},book)
+  Build.basic_resource_write(~Nominal,~Unit,~Resources(),~H,~B,~resource_layout(),~Layout.AtLeaf{},~{==},~{==},~rw,book)
 def program(~H:Type,~B:Type,~builder:Build.Builder(~Nominal,~Unit,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(H):
   builder(Ops,selection(~H,~B),book)
 def publish(incoming:Array<U32>,mailbox:Mailbox) -> Mailbox & Publication:

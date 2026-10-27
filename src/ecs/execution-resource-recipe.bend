@@ -40,7 +40,7 @@ def conflicts(+right:List<&2,Entry>,left:List<&2,Entry>) -> Bool:
     case []:False{}
     case Entry{route,_,permission} <> rest:Bool.or(conflict(permission,at(route,right)),conflicts(right,rest))
 def compatible(~full:L.Layout,+left:List<&2,Entry>,+right:List<&2,Entry>) -> Bool:
-  Bool.and(valid(~full,left),Bool.and(valid(~full,right),Bool.not(conflicts(right,left))))
+  Bool.and(L.unique(full),Bool.and(valid(~full,left),Bool.and(valid(~full,right),Bool.not(conflicts(right,left)))))
 def same(left:Permission,right:Permission) -> Bool:
   match left right:
     case Unused{} Unused{}:True{}

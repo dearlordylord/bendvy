@@ -18,7 +18,7 @@ def motion_combined(~H:Type,~B:Type,component:Access.ComponentWrite<Schema.Nomin
     case (book,resource):(book,Cap.Bundle{component,resource})
 def motion_component(~H:Type,~B:Type,~rw:Build.ResourceWrite(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B),result:B & Access.ComponentWrite<Schema.Nominal,H,Motion.Position,String>) -> B & Motion.Ops(~Schema.Nominal,H):
   match result:
-    case (book,component):motion_combined(~H,~B,component,rw(Schema.resources(),Schema.left(),{==},{==},book))
+    case (book,component):motion_combined(~H,~B,component,Build.basic_resource_write(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B,~Schema.resources(),~Schema.left(),~{==},~{==},~rw,book))
 def motion_grants(~H:Type,~B:Type,~cr:Build.ComponentRead(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B),~cw:Build.ComponentWrite(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B),~rr:Build.ResourceRead(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B),~rw:Build.ResourceWrite(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B),~query:Build.Query(~Schema.Nominal,~Schema.Store(),~Schema.Store(),~Schema.Resources(),~H,~B),~lifecycle:Build.Lifecycle(~Schema.Nominal,~Schema.Store(),~Schema.Store(),~Schema.Resources(),~H,~B),book:B) -> B & Motion.Ops(~Schema.Nominal,H):
   motion_component(~H,~B,~rw,cw(Schema.components(),Schema.left(),{==},{==},book))
 def motion_program(~H:Type,~B:Type,~builder:Build.Builder(~Schema.Nominal,~Schema.Store(),~Schema.Store(),~Schema.Resources(),~H,~B),book:B) -> B & Motion.Ops(~Schema.Nominal,H):
@@ -28,7 +28,7 @@ def labels_combined(~H:Type,~B:Type,component:Access.ComponentWrite<Schema.Nomin
     case (book,resource):(book,Cap.Bundle{component,resource})
 def labels_component(~H:Type,~B:Type,~rw:Build.ResourceWrite(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B),result:B & Access.ComponentWrite<Schema.Nominal,H,Labels.Label,String>) -> B & Labels.Ops(~Schema.Nominal,H):
   match result:
-    case (book,component):labels_combined(~H,~B,component,rw(Schema.resources(),Schema.host_route(),{==},{==},book))
+    case (book,component):labels_combined(~H,~B,component,Build.basic_resource_write(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B,~Schema.resources(),~Schema.host_route(),~{==},~{==},~rw,book))
 def labels_grants(~H:Type,~B:Type,~cr:Build.ComponentRead(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B),~cw:Build.ComponentWrite(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B),~rr:Build.ResourceRead(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B),~rw:Build.ResourceWrite(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B),~query:Build.Query(~Schema.Nominal,~Schema.Store(),~Schema.Store(),~Schema.Resources(),~H,~B),~lifecycle:Build.Lifecycle(~Schema.Nominal,~Schema.Store(),~Schema.Store(),~Schema.Resources(),~H,~B),book:B) -> B & Labels.Ops(~Schema.Nominal,H):
   labels_component(~H,~B,~rw,cw(Schema.components(),Schema.right(),{==},{==},book))
 def labels_program(~H:Type,~B:Type,~builder:Build.Builder(~Schema.Nominal,~Schema.Store(),~Schema.Store(),~Schema.Resources(),~H,~B),book:B) -> B & Labels.Ops(~Schema.Nominal,H):
@@ -40,9 +40,9 @@ def guard_combined(~H:Type,~B:Type,host:Access.ResourceRead<H,Service.Status<Str
     case (book,optional):(book,Cap.Bundle{host,optional})
 def guard_host(~H:Type,~B:Type,~rr:Build.ResourceRead(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B),result:B & Access.ResourceRead<H,Service.Status<String>>) -> B & GuardFamily(H):
   match result:
-    case (book,host):guard_combined(~H,~B,host,rr(Schema.resources(),Schema.optional_route(),{==},{==},book))
+    case (book,host):guard_combined(~H,~B,host,Build.basic_resource_read(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B,~Schema.resources(),~Schema.optional_route(),~{==},~{==},~rr,book))
 def guard_grants(~H:Type,~B:Type,~cr:Build.ComponentRead(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B),~cw:Build.ComponentWrite(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B),~rr:Build.ResourceRead(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B),~rw:Build.ResourceWrite(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B),~query:Build.Query(~Schema.Nominal,~Schema.Store(),~Schema.Store(),~Schema.Resources(),~H,~B),~lifecycle:Build.Lifecycle(~Schema.Nominal,~Schema.Store(),~Schema.Store(),~Schema.Resources(),~H,~B),book:B) -> B & GuardFamily(H):
-  guard_host(~H,~B,~rr,rr(Schema.resources(),Schema.host_route(),{==},{==},book))
+  guard_host(~H,~B,~rr,Build.basic_resource_read(~Schema.Nominal,~Schema.Store(),~Schema.Resources(),~H,~B,~Schema.resources(),~Schema.host_route(),~{==},~{==},~rr,book))
 def guard_program(~H:Type,~B:Type,~builder:Build.Builder(~Schema.Nominal,~Schema.Store(),~Schema.Store(),~Schema.Resources(),~H,~B),book:B) -> B & GuardFamily(H):
   builder(GuardFamily,guard_grants(~H,~B),book)
 def guard_returned(~H:Type,local:GuardLocal,result:H & Service.Status<String>) -> H & (GuardLocal & Sys.Completion<String,Bool>):

@@ -2,6 +2,7 @@ import Base
 import ./execution-state.bend as State
 import ./capabilities.bend as Cap
 import ./execution-query-recipe.bend as Recipe
+import ./execution-resource-recipe.bend as Resources
 
 type Mode is Data:
   Exclusive{}
@@ -63,9 +64,11 @@ def read_only(accesses:List<&2,Access>) -> Bool:
 
 # Generalized declarations retain symbolic recipes until actual admission.
 # Unsupported construction inventory cannot be converted to Declaration/grants.
+type Recipes<-S:Data,-WC:Type> is Data:
+  Recipes{queries:List<&2,Recipe.Recipe<S,WC>>,resources:List<&2,Resources.Entry>}
 type Compilation<-S:Data,-WC:Type,-C:Type,-R:Type,-Ops:Type -> Type> is Type:
-  Supported{declaration:Declaration<S,C,R,Ops>,queryRecipes:List<&2,Recipe.Recipe<S,WC>>}
-  Unsupported{caps:Ops(State.Scope<S,C,R>),access:List<&2,Access>,queryRecipes:List<&2,Recipe.Recipe<S,WC>>}
+  Supported{declaration:Declaration<S,C,R,Ops>,recipes:Recipes<S,WC>}
+  Unsupported{caps:Ops(State.Scope<S,C,R>),access:List<&2,Access>,recipes:Recipes<S,WC>}
 def compilation_supported(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Type -> Type,value:Compilation<S,WC,C,R,Ops>) -> Bool:
   match value:
     case Supported{_,_}:True{}

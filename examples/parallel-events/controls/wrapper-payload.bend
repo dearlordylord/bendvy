@@ -11,4 +11,4 @@ def granted(~H:Type,~B:Type,result:B & Access.ResourceRead<H,View.View<P.SchemaA
   match result:
     case (book,cap):(book,Ops.reader(~P.SchemaA,~H,~U32,~"events",~U32,cap))
 def selection(~H:Type,~B:Type,~rr:Build.ResourceRead(~P.SchemaA,~Unit,~D.Resources(~P.SchemaA,~Array<U32>,~P.project),~H,~B),book:B) -> B & Ops.Reader<P.SchemaA,H,U32,"events",U32>:
-  granted(~H,~B,rr(D.layout(~P.SchemaA,~Array<U32>,~P.project),Layout.AtLeaf{},{==},{==},book))
+  granted(~H,~B,Build.basic_resource_read(~P.SchemaA,~Unit,~D.Resources(~P.SchemaA,~Array<U32>,~P.project),~H,~B,~D.layout(~P.SchemaA,~Array<U32>,~P.project),~Layout.AtLeaf{},~{==},~{==},~rr,book))

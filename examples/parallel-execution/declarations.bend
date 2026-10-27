@@ -21,7 +21,7 @@ def combined(~S:Data,~H:Type,~B:Type,positions:A.ComponentWrite<S,H,P.Position,S
     case (book,counter):(book,Cap.Bundle{positions,counter})
 def position_granted(~S:Data,~H:Type,~B:Type,~resource_write:Build.ResourceWrite(~S,~Store(~S),~Resources(~S),~H,~B),result:B & A.ComponentWrite<S,H,P.Position,String>) -> B & Ops(~S)(H):
   match result:
-    case (book,positions):combined(~S,~H,~B,positions,resource_write(resource_layout(),first_route(),{==},{==},book))
+    case (book,positions):combined(~S,~H,~B,positions,Build.basic_resource_write(~S,~Store(~S),~Resources(~S),~H,~B,~resource_layout(),~first_route(),~{==},~{==},~resource_write,book))
 def selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Store(~S),~Resources(~S),~H,~B),~component_write:Build.ComponentWrite(~S,~Store(~S),~Resources(~S),~H,~B),~resource_read:Build.ResourceRead(~S,~Store(~S),~Resources(~S),~H,~B),~resource_write:Build.ResourceWrite(~S,~Store(~S),~Resources(~S),~H,~B),~query:Build.Query(~S,~Store(~S),~Store(~S),~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Store(~S),~Store(~S),~Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):
   position_granted(~S,~H,~B,~resource_write,component_write(component_layout(),first_route(),{==},{==},book))
 def declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~Store(~S),~Resources(~S),~H,~B),book:B) -> B & Ops(~S)(H):

@@ -36,7 +36,7 @@ def supported(~S:Data,~full:L.Layout,~C:Type,~R:Type,~E:Data,~WR:Type,~Ops:Type 
   match valid compilation:
     case False{} _:InspectionRefused{world}
     case True{} D.Unsupported{_,_,_}:InspectionRefused{world}
-    case True{} D.Supported{_,+recipes}:lowered(~S,~full,~C,~R,~E,~WR,~Ops,~program,world,namespace,handles,recipes,info,Admit.lower(~S,~L.columns(~S,full),~full,~{==},recipes,info,namespace,handles))
+    case True{} D.Supported{_,D.Recipes{+recipes,_}}:lowered(~S,~full,~C,~R,~E,~WR,~Ops,~program,world,namespace,handles,recipes,info,Admit.lower(~S,~L.columns(~S,full),~full,~{==},recipes,info,namespace,handles))
 def described(~S:Data,~full:L.Layout,~C:Type,~R:Type,~E:Data,~WR:Type,~Ops:Type -> Type,~program:Build.Program(~S,~L.columns(~S,full),~C,~R,~Ops),+namespace:U32,allocator:Allocator.Allocator,resource:WR,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,L.columns(~S,full),WR,E>>>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:Clock.State,lifecycle:Notice.Journal<S>,handles:List<&2,W.Handle<S>>,result:Schema.Description<S,full>) -> Inspection<W.World<S,L.columns(~S,full),WR,E>,Evidence<S,full,C,R,Ops,program>>:
   match result:
     case Schema.Description{columns,info,valid}:supported(~S,~full,~C,~R,~E,~WR,~Ops,~program,W.World{namespace,allocator,columns,resource,events,pending,registrations,nextSystemId,clock,lifecycle},namespace,handles,info,valid,Build.compile_with_general(~S,~L.columns(~S,full),~C,~R,~Interpret.provider_dictionary(~S,~L.columns(~S,full),~C,~R),~Ops,~program))
