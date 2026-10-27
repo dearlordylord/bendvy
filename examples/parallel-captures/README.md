@@ -114,9 +114,11 @@ path does not establish retained-node cache preservation.
 contains the independent three-run captured-system scenario. Its earlier
 observations cover two Counter writers and an independent Score writer. The
 2026-10-27 guarded receipt above does not qualify that separate entry. The aggregate
-`main.bend` still treats the consumers' current `IO(String)` results as Strings and
-requires caller migration before it is a runnable aggregate entry. Use the direct
-guarded commands above for the current retained-node consumer.
+`main.bend` now sequences the four existing `IO(String)` calls before printing:
+Independent A/B followed by Guarded A/B, each selecting its native Task policy.
+The aggregate at source `5ef841663` compiled and ran with the pinned 2.0.35 JS and
+native routes; all four complete output lines (2,884 bytes) matched. This includes
+the retained captured-condition path and establishes no multiple-worker claim.
 
 Golden files and `check.sh` were retired on 2026-10-27 at the user's direction.
 Historical comparisons against those files are not current acceptance steps.
