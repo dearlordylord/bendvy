@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-deferred-schedule.bend as DeferredSchedule
 import ./app-a-schema.bend as D
 import ./app-a-payloads.bend as P
 import ./app-a-commands.bend as Author
@@ -28,8 +29,22 @@ def dispatch(nodes:Captures.Nodes(),world:Systems.World(),ids:List<&2,U32>) -> I
 def publish(ids:List<&2,U32>,world:Systems.World(),nodes:Captures.Nodes()) -> Systems.World() & (Captures.Nodes() & List<&2,U32>):(world,(nodes,[]))
 def handle(handler:Unit,_:String) -> Unit & Exec.Handling:(handler,Exec.Continue{})
 def available(_:String) -> Bool:True{}
+def run_observed(on:Bool,app:Application()) -> IO(Root.ObservedScheduled<ApplicationState(),String,String>):
+  General.run_observed(~P.AuditWorkshop,~D.components(),~Author.resources(),~Unit,~Captures.Nodes(),~Condition.Owner(),~Unit,~String,~String,~dispatch,~Condition.dispatch(),~handle,~publish,on,app)
+def boundary_kind(value:DeferredSchedule.BoundaryKind) -> String:
+  match value:
+    case DeferredSchedule.Sync{ids}:"sync=" ++ List.show(&2,U32,U32.show,ids)
+    case DeferredSchedule.Final{}:"final"
+def boundary(value:DeferredSchedule.Boundary) -> String:
+  match value:
+    case DeferredSchedule.ApplyEntered{kind,requested}:boundary_kind(kind) ++ "/requested=" ++ List.show(&2,U32,U32.show,requested)
+    case DeferredSchedule.ApplyReturned{kind,remaining}:boundary_kind(kind) ++ "/remaining=" ++ List.show(&2,U32,U32.show,remaining)
+def observed(result:Root.ObservedScheduled<ApplicationState(),String,String>) -> IO(Application() & App.Report<String,String>):
+  match result:
+    case Root.ObservedScheduled{application,report,boundaries}:IO.bind(Unit,Application() & App.Report<String,String>,IO.print("AppA deferred boundaries|" ++ List.show(&2,DeferredSchedule.Boundary,boundary,boundaries)),_=>IO.pure(Application() & App.Report<String,String>,(application,report)))
+# The existing application keeps the same returned owner between all three runs.
 def run(app:Application()) -> IO(Application() & App.Report<String,String>):
-  General.run(~P.AuditWorkshop,~D.components(),~Author.resources(),~Unit,~Captures.Nodes(),~Condition.Owner(),~Unit,~String,~String,~dispatch,~Condition.dispatch(),~handle,~publish,app)
+  IO.bind(Root.ObservedScheduled<ApplicationState(),String,String>,Application() & App.Report<String,String>,run_observed(True{},app),observed)
 def facts(writer:Systems.WriterBinding(),query:Systems.QueryBinding(),reader:Systems.ReaderBinding()) -> Tree.GeneralizedFacts<Captures.Nodes()>:
   Tree.generalized_pair_facts(Systems.WriterNode(),Product.Owner<Systems.QueryNode(),Systems.ReaderNode()>,Tree.generalized_leaf_facts(~P.AuditWorkshop,~D.components(),~Author.resources(),~Unit,~String,~String,~Systems.WriterOps,~Systems.WriterLocal,~Systems.writer_kernel,~Systems.writer_body,writer),Tree.generalized_pair_facts(Systems.QueryNode(),Systems.ReaderNode(),Tree.generalized_leaf_facts(~P.AuditWorkshop,~D.components(),~Author.resources(),~Unit,~String,~String,~Systems.QueryOps,~Systems.QueryLocal,~Systems.query_kernel,~Systems.query_body,query),Tree.generalized_leaf_facts(~P.AuditWorkshop,~D.components(),~Author.resources(),~Unit,~String,~String,~Systems.ReaderOps,~Array<U32>,~Systems.reader_kernel,~Systems.reader_body,reader)))
 type Definition is Type:
