@@ -1,0 +1,57 @@
+import Base
+import ./execution-parallel-root-application.bend as Root
+import ./execution-parallel-scope-registry.bend as Tree
+import ./execution-composer-layout.bend as L
+import ./execution-resource-query-execution.bend as Execution
+import ./execution-resource-query-partition.bend as Cut
+import ./execution-query-schema.bend as Schema
+import ./execution-state.bend as State
+import ./execution-condition-registry.bend as Conditions
+import ./execution-parallel-registration.bend as Part
+import ./execution-parallel-schedule.bend as Ready
+import ./execution-deferred-settings.bend as Settings
+import ./dependency-application.bend as App
+import ./dependency-executor.bend as Exec
+import ./dependency-plan.bend as Plan
+import ./world.bend as W
+
+# A refused physical cut is still an actual affine inventory. It cannot be
+# treated as a World for later guards, publication, or lifecycle maintenance.
+type Storage<-S:Data,-components:L.Layout,-resources:L.Layout,-E:Data> is Type:
+  Present{world:W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,displaced:List<&1,Schema.displacements(~S,components)>}
+  CutRefused{administration:State.Administration<S,L.columns(~S,components),L.resources(~S,resources),E>,inventory:Cut.Partition<S,components,resources>,displaced:List<&1,Schema.displacements(~S,components)>}
+  JoinRefused{administration:State.Administration<S,L.columns(~S,components),L.resources(~S,resources),E>,inventory:Cut.Joined<S,components,resources>,displaced:List<&1,Schema.displacements(~S,components)>}
+def returned(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,-Nodes:Type,-Guards:Type,-Handler:Type,-Error:Data,-Out:Data,guards:Guards,handler:Handler,bindings:List<&2,App.Binding>,prior:List<&1,Schema.displacements(~S,components)>,result:Execution.RunResult<S,components,resources,E,Nodes,Error,Out>) -> App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & List<&2,Ready.Completed<Error,Out>>:
+  match result:
+    case Execution.Returned{world,nodes,status,displaced}:(App.State{Present{world,List.append(&1,Schema.displacements(~S,components),prior,displaced)},nodes,guards,handler,bindings},status)
+    case Execution.AdmissionRefused{world,nodes,status}:(App.State{Present{world,prior},nodes,guards,handler,bindings},status)
+    case Execution.CutInventoryRefused{admin,inventory,nodes,status,displaced}:(App.State{CutRefused{admin,inventory,List.append(&1,Schema.displacements(~S,components),prior,displaced)},nodes,guards,handler,bindings},status)
+    case Execution.JoinInventoryRefused{admin,inventory,nodes,status,displaced}:(App.State{JoinRefused{admin,inventory,List.append(&1,Schema.displacements(~S,components),prior,displaced)},nodes,guards,handler,bindings},status)
+def group(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,~Nodes:Type,~Guards:Type,~Handler:Type,~Error:Data,~Out:Data,~dispatch:Nodes -> W.World<S,L.columns(~S,components),L.resources(~S,resources),E> -> List<&2,U32> -> IO(Execution.RunResult<S,components,resources,E,Nodes,Error,Out>),state:App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler>,ids:List<&2,U32>) -> IO(App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & List<&2,Ready.Completed<Error,Out>>):
+  match state:
+    case App.State{Present{world,prior},nodes,guards,handler,bindings}:Root.mapped(Execution.RunResult<S,components,resources,E,Nodes,Error,Out>,App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & List<&2,Ready.Completed<Error,Out>>,dispatch(nodes,world,ids),result => returned(~S,~components,~resources,~E,Nodes,Guards,Handler,Error,Out,guards,handler,bindings,prior,result))
+    case state:IO.pure(App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & List<&2,Ready.Completed<Error,Out>>,(state,Execution.completed_statuses(Error,Out,[],ids)))
+def conditioned(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,-Nodes:Type,-Guards:Type,-Handler:Type,-Error:Data,displaced:List<&1,Schema.displacements(~S,components)>,result:App.State<W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,Nodes,Guards,Handler> & Exec.Condition<Error>) -> App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & Exec.Condition<Error>:
+  match result:
+    case (App.State{world,nodes,guards,handler,bindings},condition):(App.State{Present{world,displaced},nodes,guards,handler,bindings},condition)
+def condition(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,~Nodes:Type,~Guards:Type,~Handler:Type,~Error:Data,~dispatch:Guards -> W.World<S,L.columns(~S,components),L.resources(~S,resources),E> -> U32 -> IO(Guards & (W.World<S,L.columns(~S,components),L.resources(~S,resources),E> & Exec.Invocation<Error,Bool>)),state:App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler>,id:U32) -> IO(App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & Exec.Condition<Error>):
+  match state:
+    case App.State{Present{world,displaced},nodes,guards,handler,bindings}:Root.mapped(App.State<W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,Nodes,Guards,Handler> & Exec.Condition<Error>,App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & Exec.Condition<Error>,Root.condition_state(~W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,~Nodes,~Guards,~Handler,~Error,~dispatch,App.State{world,nodes,guards,handler,bindings},id),result => conditioned(~S,~components,~resources,~E,Nodes,Guards,Handler,Error,displaced,result))
+    case state:IO.pure(App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & Exec.Condition<Error>,(state,Exec.ConditionRefused{}))
+def published(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,-Nodes:Type,-Guards:Type,-Handler:Type,guards:Guards,handler:Handler,bindings:List<&2,App.Binding>,displaced:List<&1,Schema.displacements(~S,components)>,result:W.World<S,L.columns(~S,components),L.resources(~S,resources),E> & (Nodes & List<&2,U32>)) -> App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & List<&2,U32>:
+  match result:
+    case (world,(nodes,remaining)):(App.State{Present{world,displaced},nodes,guards,handler,bindings},remaining)
+def apply(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,~Nodes:Type,~Guards:Type,~Handler:Type,~publish:List<&2,U32> -> W.World<S,L.columns(~S,components),L.resources(~S,resources),E> -> Nodes -> W.World<S,L.columns(~S,components),L.resources(~S,resources),E> & (Nodes & List<&2,U32>),ids:List<&2,U32>,state:App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler>) -> App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler> & List<&2,U32>:
+  match state:
+    case App.State{Present{world,displaced},nodes,guards,handler,bindings}:published(~S,~components,~resources,~E,Nodes,Guards,Handler,guards,handler,bindings,displaced,publish(ids,world,nodes))
+    case state:(state,ids)
+def completed(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,~Nodes:Type,~Guards:Type,~Handler:Type,~Error:Data,~Out:Data,result:Exec.ExecutionResult<App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler>,String,Error,Out>) -> Exec.ExecutionResult<App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler>,String,Error,Out>:
+  match result:
+    case Exec.Finished{App.State{Present{world,displaced},nodes,guards,handler,bindings},events}:Exec.Finished{App.State{Present{W.maintain_lifecycle(~S,~L.columns(~S,components),~L.resources(~S,resources),~E,world),displaced},nodes,guards,handler,bindings},events}
+    case result:result
+def build(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,~Nodes:Type,~Guards:Type,~Handler:Type,~Error:Data,~guardDispatch:Guards -> W.World<S,L.columns(~S,components),L.resources(~S,resources),E> -> U32 -> IO(Guards & (W.World<S,L.columns(~S,components),L.resources(~S,resources),E> & Exec.Invocation<Error,Bool>)),~available:String -> Bool,world:W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,facts:Tree.GeneralizedFacts<Nodes>,guards:Conditions.Registry<W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,Guards,Error,guardDispatch>,handler:Handler,edges:List<&2,Plan.Edge>,+bindings:List<&2,App.Binding>) -> Root.Scheduled<App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler>>:
+  match facts guards:
+    case Tree.GeneralizedFacts{nodes,+planNodes,entries,deferred} Conditions.Registry{guardOwners,+guardNodes,guardInvalid}:Root.Scheduled{App.State{Present{world,[]},nodes,guardOwners,handler,bindings},App.checked_guards(App.checked_bindings(guardInvalid,Plan.build(~String,~available,guardNodes,[])),App.checked_bindings(App.valid_bindings(bindings,planNodes,guardNodes),Plan.build(~String,~available,planNodes,edges))),bindings,Part.Rules{Root.bound_entries(entries,bindings,guardNodes)},Root.Deferred{deferred,Settings.defaults(),[]}}
+def run(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,~Nodes:Type,~Guards:Type,~Handler:Type,~Error:Data,~Out:Data,~dispatch:Nodes -> W.World<S,L.columns(~S,components),L.resources(~S,resources),E> -> List<&2,U32> -> IO(Execution.RunResult<S,components,resources,E,Nodes,Error,Out>),~guardDispatch:Guards -> W.World<S,L.columns(~S,components),L.resources(~S,resources),E> -> U32 -> IO(Guards & (W.World<S,L.columns(~S,components),L.resources(~S,resources),E> & Exec.Invocation<Error,Bool>)),~handle:Handler -> Error -> Handler & Exec.Handling,~publish:List<&2,U32> -> W.World<S,L.columns(~S,components),L.resources(~S,resources),E> -> Nodes -> W.World<S,L.columns(~S,components),L.resources(~S,resources),E> & (Nodes & List<&2,U32>),scheduled:Root.Scheduled<App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler>>) -> IO(Root.Scheduled<App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler>> & App.Report<Error,Out>):
+  match scheduled:
+    case Root.Scheduled{state,+plan,+bindings,+rules,Root.Deferred{+systems,+settings,unapplied}}:Root.run_scheduled_built(~App.State<Storage<S,components,resources,E>,Nodes,Guards,Handler>,~Error,~Out,~condition(~S,~components,~resources,~E,~Nodes,~Guards,~Handler,~Error,~guardDispatch),~group(~S,~components,~resources,~E,~Nodes,~Guards,~Handler,~Error,~Out,~dispatch),~Root.handle_state(~Storage<S,components,resources,E>,~Nodes,~Guards,~Handler,~Error,~handle),~apply(~S,~components,~resources,~E,~Nodes,~Guards,~Handler,~publish),~completed(~S,~components,~resources,~E,~Nodes,~Guards,~Handler,~Error,~Out),rules,systems,settings,plan,bindings,state,unapplied,Settings.compile(settings,systems,plan))

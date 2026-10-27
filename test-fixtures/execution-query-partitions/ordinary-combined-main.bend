@@ -66,7 +66,7 @@ def rendered(~own:Bool,result:Run.CombinedPipeline<own>) -> IO(String):
     case Run.CombinedPriorInventory{_,_}:IO.pure(String,"prior-displacement-inventory-retained")
 def created(~own:Bool,result:W.Creation<S.SchemaA,Run.WC(),L.resources(~S.SchemaA,Run.combined_resources()),Unit>) -> IO(String):
   match result:
-    case W.Created{_,world}:IO.bind(Run.CombinedPipeline<own>,String,Run.combined_repeat_registered(~own,Run.combined_register(~own,live(20n,initialize(world)),Run.CombinedLocal{Run.CombinedArray{ALeaf{100}}},Run.CombinedLocal{Run.CombinedArray{ALeaf{200}}})),result => rendered(~own,result))
+    case W.Created{_,world}:IO.bind(Run.CombinedPipeline<own>,String,Run.combined_root_registered(~own,Run.combined_register(~own,live(20n,initialize(world)),Run.CombinedLocal{Run.CombinedArray{ALeaf{100}}},Run.CombinedLocal{Run.CombinedArray{ALeaf{200}}})),result => rendered(~own,result))
     case W.CreateRejected{_,_}:IO.pure(String,"creation-refused")
 def run(~own:Bool) -> IO(String):
   created(~own,W.create(~S.SchemaA,~Run.WC(),~L.resources(~S.SchemaA,Run.combined_resources()),~Unit,~columns,W.factory(),resources()))

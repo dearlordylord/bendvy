@@ -4,6 +4,13 @@ import ../../src/ecs/execution-resource-query-group.bend as GeneralGroup
 import ../../src/ecs/execution-query-schema.bend as Schema
 import ../../src/ecs/execution-parallel-scope-registry.bend as Tree
 import Base
+import ../../src/ecs/execution-generalized-root-application.bend as GeneralRoot
+import ../../src/ecs/execution-parallel-root-application.bend as RootApp
+import ../../src/ecs/execution-condition-registry.bend as Conditions
+import ../../src/ecs/dependency-application.bend as App
+import ../../src/ecs/dependency-executor.bend as Exec
+import ../../src/ecs/dependency-plan.bend as Plan
+import ../../src/ecs/change-tick.bend as Tick
 import ../../src/ecs/execution-resource-store.bend as ResourceStore
 import ../../src/ecs/execution-resource-access.bend as ResourceAccess
 import ../../src/ecs/execution-resource-policy.bend as ResourcePolicy
@@ -186,6 +193,7 @@ def combined_registered(~own:Bool,registration:CombinedRegistration<own>) -> IO(
   match registration:
     case CombinedRegistered{world,left,right}:IO.bind(Combined.RunResult<S.SchemaA,S.layout_b(),combined_resources(),Unit,Product.Owner<Sys.Owner<S.SchemaA,WC(),CombinedColumns(),CombinedResources(),Unit,CombinedLeftOps,CombinedLocal,String,Maybe<&2,U32>,combined_left_kernel,combined_left_body>,Sys.Owner<S.SchemaA,WC(),CombinedColumns(),CombinedResources(),Unit,CombinedRightOps,CombinedLocal,String,Maybe<&2,U32>,combined_right_kernel(own),combined_right_body>>,String,Maybe<&2,U32>>,CombinedPipeline<own>,Tree.run_generalized(~S.SchemaA,~S.layout_b(),~combined_resources(),~Unit,~String,~Maybe<&2,U32>,Sys.Owner<S.SchemaA,WC(),CombinedColumns(),CombinedResources(),Unit,CombinedLeftOps,CombinedLocal,String,Maybe<&2,U32>,combined_left_kernel,combined_left_body>,Sys.Owner<S.SchemaA,WC(),CombinedColumns(),CombinedResources(),Unit,CombinedRightOps,CombinedLocal,String,Maybe<&2,U32>,combined_right_kernel(own),combined_right_body>,[1,2],world,Tree.GeneralizedPair{Tree.compile_generalized_leaf(~S.SchemaA,~S.layout_b(),~combined_resources(),~Unit,~String,~Maybe<&2,U32>,~CombinedLeftOps,~CombinedLocal,~combined_left_kernel,~combined_left_body,~combined_left_compiled(),left),Tree.compile_generalized_leaf(~S.SchemaA,~S.layout_b(),~combined_resources(),~Unit,~String,~Maybe<&2,U32>,~CombinedRightOps,~CombinedLocal,~combined_right_kernel(own),~combined_right_body,~combined_right_compiled(~own),right)}),result => combined_executed(~own,result))
     case inventory:IO.pure(CombinedPipeline<own>,CombinedRegistrationRefused{inventory})
+
 def combined_serial_registered(world:CombinedWorld(),left:CombinedLocal,right:CombinedLocal) -> IO(CombinedPipeline<True{}>):
   combined_registered(~True{},combined_register(~True{},world,left,right))
 def combined_native_registered(world:CombinedWorld(),left:CombinedLocal,right:CombinedLocal) -> IO(CombinedPipeline<False{}>):
@@ -217,4 +225,72 @@ def combined_repeat_first(~own:Bool,result:Combined.RunResult<S.SchemaA,S.layout
 def combined_repeat_registered(~own:Bool,registration:CombinedRegistration<own>) -> IO(CombinedPipeline<own>):
   match registration:
     case CombinedRegistered{world,left,right}:IO.bind(Combined.RunResult<S.SchemaA,S.layout_b(),combined_resources(),Unit,Product.Owner<CombinedLeftNode(),CombinedRightNode(~own)>,String,Maybe<&2,U32>>,CombinedPipeline<own>,combined_retained_group(~own,world,GeneralLeaf.retain(~S.SchemaA,~S.layout_b(),~combined_resources(),~Unit,~String,~Maybe<&2,U32>,~CombinedLeftOps,~CombinedLocal,~combined_left_kernel,~combined_left_body,left),GeneralLeaf.retain(~S.SchemaA,~S.layout_b(),~combined_resources(),~Unit,~String,~Maybe<&2,U32>,~CombinedRightOps,~CombinedLocal,~combined_right_kernel(own),~combined_right_body,right)),result => combined_repeat_first(~own,result))
+    case inventory:IO.pure(CombinedPipeline<own>,CombinedRegistrationRefused{inventory})
+
+def RootNodes(~own:Bool) -> Type:Product.Owner<CombinedLeftNode(),CombinedRightNode(~own)>
+def RootGuardOps(Permit:Data,H:Type) -> Type:Unit
+def root_guard_kernel(~Permit:Data,~token:Permit,~H:Type,~B:Type,~builder:Build.Builder(~S.SchemaA,~WC(),~WC(),~L.resources(~S.SchemaA,combined_resources()),~Permit,~H,~B),book:B) -> B & RootGuardOps(Permit,H):(book,Unit{})
+def root_guard_result(local:U32,error:Bool) -> Sys.Completion<String,Bool>:
+  match error:
+    case True{}:Sys.BodyError{"root-guard-error",False{}}
+    case False{}:Sys.Success{Bool.not(U32.is_eq(local,1))}
+def root_guard_updated(~Permit:Data,~H:Type,scope:H,+local:U32) -> Effect.Task<S.SchemaA,Permit,H & (U32 & Sys.Completion<String,Bool>)>:
+  Effect.TDone{(scope,(U32.add(local,1),root_guard_result(local,U32.is_eq(local,4))))}
+def root_guard_body(~Permit:Data,~H:Type,~caps:RootGuardOps(Permit,H),scope:H,local:U32) -> Effect.Task<S.SchemaA,Permit,H & (U32 & Sys.Completion<String,Bool>)>:
+  root_guard_updated(~Permit,~H,scope,local)
+def RootGuard() -> Type:Sys.Owner<S.SchemaA,WC(),WC(),L.resources(~S.SchemaA,combined_resources()),Unit,RootGuardOps,U32,String,Bool,root_guard_kernel,root_guard_body>
+def RootApplication(~own:Bool) -> Type:RootApp.Scheduled<App.State<GeneralRoot.Storage<S.SchemaA,S.layout_b(),combined_resources(),Unit>,RootNodes(~own),RootGuard(),U32>>
+def root_dispatch(~own:Bool,nodes:RootNodes(~own),world:CombinedWorld(),ids:List<&2,U32>) -> IO(Combined.RunResult<S.SchemaA,S.layout_b(),combined_resources(),Unit,RootNodes(~own),String,Maybe<&2,U32>>):
+  match nodes:
+    case Product.Owner{left,right}:Tree.run_generalized(~S.SchemaA,~S.layout_b(),~combined_resources(),~Unit,~String,~Maybe<&2,U32>,CombinedLeftNode(),CombinedRightNode(~own),ids,world,Tree.GeneralizedPair{Tree.compile_retained_generalized_leaf(~S.SchemaA,~S.layout_b(),~combined_resources(),~Unit,~String,~Maybe<&2,U32>,~CombinedLeftOps,~CombinedLocal,~combined_left_kernel,~combined_left_body,~combined_left_compiled(),left),Tree.compile_retained_generalized_leaf(~S.SchemaA,~S.layout_b(),~combined_resources(),~Unit,~String,~Maybe<&2,U32>,~CombinedRightOps,~CombinedLocal,~combined_right_kernel(own),~combined_right_body,~combined_right_compiled(~own),right)})
+def root_publish(~own:Bool,ids:List<&2,U32>,world:CombinedWorld(),nodes:RootNodes(~own)) -> CombinedWorld() & (RootNodes(~own) & List<&2,U32>):(world,(nodes,[]))
+def root_handle(count:U32,error:String) -> U32 & Exec.Handling:(U32.add(count,1),Exec.Continue{})
+def root_available(_:String) -> Bool:True{}
+def root_run(~own:Bool,app:RootApplication(~own)) -> IO(RootApplication(~own) & App.Report<String,Maybe<&2,U32>>):
+  GeneralRoot.run(~S.SchemaA,~S.layout_b(),~combined_resources(),~Unit,~RootNodes(~own),~RootGuard(),~U32,~String,~Maybe<&2,U32>,~root_dispatch(~own),~Conditions.leaf_dispatch(~S.SchemaA,~WC(),~L.resources(~S.SchemaA,combined_resources()),~Unit,~RootGuardOps,~U32,~String,~root_guard_kernel,~root_guard_body),~root_handle,~root_publish(~own),app)
+def root_output(value:Maybe<&2,U32>) -> String:
+  match value:
+    case Some{value}:U32.show(value)
+    case None{}:"none"
+def root_event(value:Exec.Observation<String,Maybe<&2,U32>>) -> String:
+  match value:
+    case Exec.Ran{id,value}:"ran:" ++ U32.show(id) ++ ":" ++ root_output(value)
+    case Exec.BodyFailed{id,error,value}:"body-error:" ++ U32.show(id) ++ ":" ++ error ++ ":" ++ root_output(value)
+    case Exec.Skipped{id}:"disabled:" ++ U32.show(id)
+    case Exec.ConditionFailed{id,error}:"guard-error:" ++ U32.show(id) ++ ":" ++ error
+    case Exec.ConditionRejected{id}:"guard-refused:" ++ U32.show(id)
+    case Exec.AdmissionRejected{id}:"body-refused:" ++ U32.show(id)
+def root_report(report:App.Report<String,Maybe<&2,U32>>) -> String:
+  match report:
+    case App.Finished{events}:"finished:" ++ List.show(&2,Exec.Observation<String,Maybe<&2,U32>>,root_event,events)
+    case App.Stopped{error,_}:"stopped:" ++ error
+    case App.Invalid{_}:"invalid"
+def root_guard_text(guard:RootGuard()) -> String:
+  match guard:
+    case Sys.Owner{_,id,_,_,cursor,local}:"guard=" ++ U32.show(id) ++ "/" ++ U32.show(local) ++ "/" ++ Tick.cursor_show(cursor)
+def root_restored(~own:Bool,storage:GeneralRoot.Storage<S.SchemaA,S.layout_b(),combined_resources(),Unit>,nodes:RootNodes(~own)) -> IO(CombinedPipeline<own>):
+  match storage:
+    case GeneralRoot.Present{world,moved}:combined_restore_retained(~own,Combined.Returned{world,nodes,[],moved})
+    case GeneralRoot.CutRefused{admin,inventory,moved}:combined_restore_retained(~own,Combined.CutInventoryRefused{admin,inventory,nodes,[],moved})
+    case GeneralRoot.JoinRefused{admin,inventory,moved}:combined_restore_retained(~own,Combined.JoinInventoryRefused{admin,inventory,nodes,[],moved})
+def root_final(~own:Bool,result:RootApplication(~own) & App.Report<String,Maybe<&2,U32>>) -> IO(CombinedPipeline<own>):
+  match result:
+    case (RootApp.Scheduled{App.State{storage,nodes,guard,handler,_},_,_,_,_},report):IO.bind(Unit,CombinedPipeline<own>,IO.print("root-final=" ++ root_report(report) ++ "|" ++ root_guard_text(guard) ++ "|handler=" ++ U32.show(handler)),_ => root_restored(~own,storage,nodes))
+def root_third(~own:Bool,result:RootApplication(~own) & App.Report<String,Maybe<&2,U32>>) -> IO(CombinedPipeline<own>):
+  match result:
+    case (app,report):IO.bind(Unit,CombinedPipeline<own>,IO.print("root-second=" ++ root_report(report)),_ => IO.bind(RootApplication(~own) & App.Report<String,Maybe<&2,U32>>,CombinedPipeline<own>,root_run(~own,app),root_final(~own)))
+def root_changed(~own:Bool,app:RootApplication(~own)) -> RootApplication(~own):
+  match app:
+    case RootApp.Scheduled{App.State{GeneralRoot.Present{world,moved},nodes,guard,handler,stateBindings},plan,bindings,rules,deferred}:RootApp.Scheduled{App.State{GeneralRoot.Present{combined_extra_live(W.reserve_id(~S.SchemaA,~WC(),~L.resources(~S.SchemaA,combined_resources()),~Unit,world)),moved},nodes,guard,handler,stateBindings},plan,bindings,rules,deferred}
+    case app:app
+def root_second(~own:Bool,result:RootApplication(~own) & App.Report<String,Maybe<&2,U32>>) -> IO(CombinedPipeline<own>):
+  match result:
+    case (app,report):IO.bind(Unit,CombinedPipeline<own>,IO.print("root-first=" ++ root_report(report)),_ => IO.bind(RootApplication(~own) & App.Report<String,Maybe<&2,U32>>,CombinedPipeline<own>,root_run(~own,root_changed(~own,app)),root_third(~own)))
+def root_guard_defined(~own:Bool,left:Scope.CompiledBinding<D.Compilation<S.SchemaA,WC(),CombinedColumns(),CombinedResources(),CombinedLeftOps>,Sys.Owner<S.SchemaA,WC(),CombinedColumns(),CombinedResources(),Unit,CombinedLeftOps,CombinedLocal,String,Maybe<&2,U32>,combined_left_kernel,combined_left_body>>,right:Scope.CompiledBinding<D.Compilation<S.SchemaA,WC(),CombinedColumns(),CombinedResources(),CombinedRightOps>,Sys.Owner<S.SchemaA,WC(),CombinedColumns(),CombinedResources(),Unit,CombinedRightOps,CombinedLocal,String,Maybe<&2,U32>,combined_right_kernel(own),combined_right_body>>,result:Sys.Defined<CombinedWorld(),RootGuard(),U32>) -> IO(CombinedPipeline<own>):
+  match result:
+    case Sys.Defined{world,guard}:IO.bind(RootApplication(~own) & App.Report<String,Maybe<&2,U32>>,CombinedPipeline<own>,root_run(~own,GeneralRoot.build(~S.SchemaA,~S.layout_b(),~combined_resources(),~Unit,~RootNodes(~own),~RootGuard(),~U32,~String,~Conditions.leaf_dispatch(~S.SchemaA,~WC(),~L.resources(~S.SchemaA,combined_resources()),~Unit,~RootGuardOps,~U32,~String,~root_guard_kernel,~root_guard_body),~root_available,world,Tree.generalized_pair_facts(CombinedLeftNode(),CombinedRightNode(~own),Tree.generalized_leaf_facts(~S.SchemaA,~S.layout_b(),~combined_resources(),~Unit,~String,~Maybe<&2,U32>,~CombinedLeftOps,~CombinedLocal,~combined_left_kernel,~combined_left_body,left),Tree.generalized_leaf_facts(~S.SchemaA,~S.layout_b(),~combined_resources(),~Unit,~String,~Maybe<&2,U32>,~CombinedRightOps,~CombinedLocal,~combined_right_kernel(own),~combined_right_body,right)),Conditions.compile_leaf(~String,~S.SchemaA,~WC(),~L.resources(~S.SchemaA,combined_resources()),~Unit,~RootGuardOps,~U32,~root_guard_kernel,~root_guard_body,guard),0,[Plan.Edge{1,2}],[App.Binding{1,3},App.Binding{2,3}])),root_second(~own))
+    case Sys.DefinitionRefused{world,_}:IO.pure(CombinedPipeline<own>,CombinedRegistrationRefused{CombinedRegistered{world,left,right}})
+def combined_root_registered(~own:Bool,registration:CombinedRegistration<own>) -> IO(CombinedPipeline<own>):
+  match registration:
+    case CombinedRegistered{world,left,right}:root_guard_defined(~own,left,right,Task.define_framework(~S.SchemaA,~WC(),~WC(),~L.resources(~S.SchemaA,combined_resources()),~Unit,~RootGuardOps,~U32,~String,~Bool,~root_guard_kernel,~root_guard_body,~L.resources(~S.SchemaA,combined_resources()),world,"root-guard",0))
     case inventory:IO.pure(CombinedPipeline<own>,CombinedRegistrationRefused{inventory})
