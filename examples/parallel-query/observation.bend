@@ -12,6 +12,7 @@ import ../../src/ecs/entity-allocator.bend as Allocator
 import ../../src/ecs/entity-key.bend as Key
 import ../../src/ecs/deferred-command.bend as Deferred
 import ../../src/ecs/execution-composer-layout.bend as Layout
+import ../../src/ecs/execution-lifecycle-notices.bend as Notice
 
 def optional(value:Maybe<&2,String>) -> String:
   match value:
@@ -76,7 +77,26 @@ def resource_result(result:Array<U32> & U32) -> String:
     case (_,token): U32.show(token)
 def resource(~S:Data,value:D.Resources(~S)) -> String:
   match value:
-    case Layout.ResourceSlot{Layout.Viewed{P.Resource{token},_},_}: resource_result(Array.get(U32,token,0))
+    case Layout.ResourceSlot{Layout.Viewed{P.Resource{token},Unit{}},lifecycle}: resource_result(Array.get(U32,token,0)) ++ "@Unit@" ++ stamp(Some{lifecycle})
+def notice_selector(value:Notice.Selector) -> String:
+  match value:
+    case Notice.Removed{key}: "removed(" ++ key ++ ")"
+    case Notice.Despawned{}: "despawned"
+def notice_identity(~S:Data,value:Notice.Identity<S>) -> String:
+  match value:
+    case Notice.Identity{namespace,entity}: U32.show(namespace) ++ ":" ++ key(entity)
+def notice_row(~S:Data,value:Notice.Row<S>) -> String:
+  match value:
+    case Notice.Row{sequence,entity,at}: "sequence=" ++ Nat.show(sequence) ++ ",entity=" ++ notice_identity(~S,entity) ++ ",tick=" ++ tick(at)
+def notice_channel(~S:Data,value:Notice.Channel<S>) -> String:
+  match value:
+    case Notice.Channel{selector,next,previous,current,droppedThrough}: "selector=" ++ notice_selector(selector) ++ ",next=" ++ Nat.show(next) ++ ",previous=" ++ List.show(&2,Notice.Row<S>,notice_row(~S),previous) ++ ",current=" ++ List.show(&2,Notice.Row<S>,notice_row(~S),current) ++ ",droppedThrough=" ++ Nat.show(droppedThrough)
+def notice_active(value:Notice.Active) -> String:
+  match value:
+    case Notice.Active{id,selector}: "id=" ++ U32.show(id) ++ ",selector=" ++ notice_selector(selector)
+def journal(~S:Data,value:Notice.Journal<S>) -> String:
+  match value:
+    case Notice.Journal{namespace,channels,nextReader,active}: "namespace=" ++ U32.show(namespace) ++ ",channels=" ++ List.show(&2,Notice.Channel<S>,notice_channel(~S),channels) ++ ",nextReader=" ++ U32.show(nextReader) ++ ",active=" ++ List.show(&2,Notice.Active,notice_active,active)
 def registration(value:W.RegistrationMeta) -> String:
   match value:
     case W.RegistrationMeta{id,name,access}: U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,value=>value,access)
@@ -85,7 +105,7 @@ def clock(value:Clock.State) -> String:
     case Clock.State{now,scopes}: tick(now) ++ ":" ++ List.show(&2,Tick.Tick,tick,scopes)
 def world(~S:Data,value:W.World<S,D.Store(~S),D.Resources(~S),Unit>) -> String:
   match value:
-    case W.World{namespace,alloc,components,res,events,pending,registrations,nextSystem,worldClock,lifecycle}: "namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ allocator(alloc) ++ "};" ++ store(~S,components) ++ ";resource=" ++ resource(~S,res) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<S,D.Store(~S),D.Resources(~S),Unit>>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,registration,registrations) ++ ";nextSystem=" ++ U32.show(nextSystem) ++ ";clock=" ++ clock(worldClock)
+    case W.World{namespace,alloc,components,res,events,pending,registrations,nextSystem,worldClock,lifecycle}: "namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ allocator(alloc) ++ "};" ++ store(~S,components) ++ ";resource=" ++ resource(~S,res) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<S,D.Store(~S),D.Resources(~S),Unit>>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,registration,registrations) ++ ";nextSystem=" ++ U32.show(nextSystem) ++ ";clock=" ++ clock(worldClock) ++ ";lifecycle={" ++ journal(~S,lifecycle) ++ "}"
 def local_result(runs:U32,result:Array<U32> & U32) -> String:
   match result:
     case (_,token): U32.show(token) ++ ":" ++ U32.show(runs)

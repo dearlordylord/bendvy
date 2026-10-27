@@ -52,8 +52,14 @@ untouched, absent and nonlive rows retain their caches and stamps.
 
 The full observations include every allocated input/output slot, actual token
 projections, cached values, lifecycle stamps, allocator fields and slots,
-allocation order, resource owner, pending/event counts, registration metadata,
-World clock, system cursor and Local owner. They also include the complete
+allocation order, resource owner with its actual Unit cache and lifecycle stamp,
+pending/event counts, registration metadata, World clock, system cursor and Local
+owner. The terminal observer also consumes the full lifecycle Journal: namespace,
+next-reader id, active reader ids/selectors, and every channel's selector, next
+sequence, previous/current rows and dropped-through sequence. Each row includes
+its full entity namespace/key/generation, tick and sequence. The Journal contains
+no reader cursor field; cursors belong to separately owned Reader values. This
+observer neither reads a Reader nor advances retention. These observations also include the complete
 incoming foreign World after admission refusal. First and Second are distinct
 nominal schemas.
 
@@ -97,7 +103,10 @@ The local receipt is outside the repository at
 `/home/node/.claude/orchestrate/bendvy-gh78-94/native81-original-query-delivery.md`.
 It binds saved outputs, binary and operation trace to that source commit. Those
 local artifacts are not a portable qualification bundle and do not transfer to
-later source changes.
+later source changes. In particular, the subsequent terminal-observer correction
+adds resource cache/stamp and complete Journal fields to the printed output;
+the dd2 worker trace remains evidence for its original artifact, not a new trace
+of that correction.
 
 ## Authority controls and historical evidence
 
