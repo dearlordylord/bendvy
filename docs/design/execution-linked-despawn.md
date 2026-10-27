@@ -107,15 +107,16 @@ formal proof. It does not establish the new entry's foreign/Stop/Invalid cases o
 automatic finalApply=false behavior by execution.
 
 `examples/parallel-linked-despawn/generalized-scene.bend` runs the same scene
-through two actual retained generalized command Nodes, with an author→remover
-dependency. Declaration adapters use the canonical generalized query/resource
+through three actual retained generalized command Nodes, with an
+author→remover→survivor-updater dependency and the nested owner shape
+`Graph × (Remover × Updater)`. Declaration adapters use the canonical generalized query/resource
 storage types; the remover still requests only EntityGrant. Actual provisioning,
 allocator-issued full handles, arbitrary affine Session owners, command bodies
-and full owner/message formatters are reused. Both accepted Compilation owners
+and full owner/message formatters are reused. All three accepted Compilation owners
 travel through their actual Node artifacts; no runtime recompilation or second
 authority catalogue is substituted.
 
-Its pinned ordinary entry completed with exit0 (session25455). The full output is
+The earlier two-node entry completed with exit0 (session25455). Its full output is
 `/tmp/bendvy-gh89-general-provision.stdout`, with stderr in the sibling `.stderr`
 file. It reports full removed owners11→33, survivor22/cache22, both empty graph
 and inverse indexes, the exact cycle failure Message, State401/401, Local601,
@@ -123,6 +124,26 @@ pending0 and paused frames0. Automatic Finished retention reports parent
 sequence1/olderThrough1 and both maintenance ticks0:4, preserving nextReader1.
 This is one two-leaf finite observation, not a proof of arbitrary N-leaf shapes,
 repeated updates, foreign/Stop/Invalid or finalApply=false controls.
+
+The current three-node entry completed with exit0 at source `32bc7b260`, using
+`/tmp/bendvy21-bend2035-lifecycle-pin/bin/bend-2.0.35 examples/parallel-linked-despawn/generalized-scene.bend`.
+The full output is `/tmp/bendvy-gh89-nodes-build.stdout`; compiler stderr is the
+sibling `.stderr` file. Three successive updates use finalApply=true, false,
+then true. The first returns previous owner22 in the updater receipt and installs
+owner222/cache222. The second retains that physical owner and the actual incoming
+owner333 in the pending queue, after a handled body error. The third publishes
+owner333/cache333 and returns owner222 in a new receipt. All three call counters
+reach3; graph initialization and linked deletion are authored only once.
+
+Intermediate observers consume and return the same actual World, Nodes,
+Compilation owners, pending payloads and recursively nested receipts. Output
+labels receipt list storage order explicitly. Removed owners11 and33, full
+handles, the cycle refusal, Local601 and resource401/cache401 remain visible.
+Finished maintenance runs even with finalApply=false: the parent failure message
+is retained at tick0:6, dropped at tick0:9, and remains dropped at tick0:13;
+sequence1 and nextReader1 are preserved. This finite three-leaf observation
+does not establish native execution, foreign/Stop/Invalid controls, independent
+graph scheduling or arbitrary N-leaf behavior.
 
 This unit depends on machine90's `a7ca205ef` source plumbing: the closed
 LifetimeScope Interpreter, `Publication.scope_interpreter`, and
