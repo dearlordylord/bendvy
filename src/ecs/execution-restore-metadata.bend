@@ -49,6 +49,7 @@ def phase_slot(+index:U32,+generation:U32,phase:A.Phase,free:List<&2,U32>,order:
   match phase:
     case A.Free{}:Bool.and(contains_index(free,index),Bool.not(index_in_keys(live,index)))
     case A.Live{}:Bool.and(contains_key(order,Key.EntityKey{index,generation}),contains_key(live,Key.EntityKey{index,generation}))
+    case A.Consumed{}:Bool.and(Bool.not(contains_index(free,index)),Bool.not(index_in_keys(live,index)))
     case _:Bool.and(contains_key(order,Key.EntityKey{index,generation}),Bool.not(index_in_keys(live,index)))
 def slot_allowed(check:Bool,index:U32,generation:U32,phase:A.Phase,free:List<&2,U32>,order:List<&2,Key.Key>,live:List<&2,Key.Key>) -> Bool:
   match check:

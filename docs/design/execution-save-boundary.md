@@ -106,8 +106,19 @@ execution or cancellation. After all rows are staged, it advances the receiver's
 progress monotonically before the first clear/publication. Receiver namespace,
 existing generations, free order and Reader owners are never replaced with the
 source metadata. Floor/capacity refusal returns the same receiver and schema.
-The ordinary roundtrip exercises its equal-floor path; a distinct higher-source
-floor and capacity refusal remain additional concrete observation cases.
+The ordinary roundtrip exercises its equal-floor path. `floor-main.bend` also
+uses a genuine source advanced to floor 4 and separately created receivers.
+For both nominal schemas it exports complete restored fields after mapping source
+1:0 to receiver 4:0, then resumes an actual serial update (Config 700 becomes 701).
+A receiver independently advanced to exhausted progress 131073 refuses before
+constructors or schedule resume; its Config 700, transient resource 909, captures
+101/202/303, two registrations and Reader cursor 0 remain observable. The typed
+outcome retains the source World and all receiver recovery owners. Source metadata
+admission accepts canonical skipped Consumed slots produced by advance_floor;
+such slots need not appear in allocator order, but cannot be free or live.
+One ordinary entry invocation emitted these four observations and exited 0.
+This does not qualify maximum-size metadata export: exporting a source at the
+allocator limit reached a machine stack failure, so that path remains unresolved.
 Both unlike nominal receiver/clear consumers compile. These pieces have not
 yet been connected to complete fresh-handle publication, resource replacement,
 ordinary Scheduled restore or resumed execution.
