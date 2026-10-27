@@ -100,14 +100,14 @@ def FrameworkProgram(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Data -> Type -> Type)
 def framework_program(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Data -> Type -> Type,~ordinary:Program(~S,~WC,~C,~R,~Ops),~Permit:Data,~token:Permit,~H:Type,~B:Type,~builder:Builder(~S,~WC,~C,~R,~Permit,~H,~B),book:B) -> B & Ops(Permit,H):
   ordinary(Permit,H,B,builder,book)
 
-def accumulate(~S:Data,~C:Type,~R:Type,~Ops:Type -> Type,book:Book,value:D.Declaration<S,C,R,Ops>) -> Book & Ops(State.Scope<S,C,R>):
+def accumulate(-S:Data,-C:Type,-R:Type,-Ops:Type -> Type,book:Book,value:D.Declaration<S,C,R,Ops>) -> Book & Ops(State.Scope<S,C,R>):
   match book value:
     case Book{previous,queries,resources,supported} D.Declaration{caps,access}:(Book{List.append(&2,D.Access,previous,access),queries,resources,supported},caps)
 def component_read_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},book:Book) -> Book & A.ComponentRead<S,State.Scope<S,C,R>,Layout.view(layout,route)>:
-  accumulate(~S,~C,~R,~A.ComponentReads(~S,~Layout.view(layout,route)),book,LayoutAccess.component_read(~S,~C,~R,~layout,~route,~same,~valid))
+  accumulate(S,C,R,A.ComponentReads(~S,~Layout.view(layout,route)),book,LayoutAccess.component_read(~S,~C,~R,~layout,~route,~same,~valid))
 
 def component_write_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},book:Book) -> Book & A.ComponentWrite<S,State.Scope<S,C,R>,Layout.payload(layout,route),Layout.view(layout,route)>:
-  accumulate(~S,~C,~R,~A.ComponentWrites(~S,~Layout.payload(layout,route),~Layout.view(layout,route)),book,LayoutAccess.component_write(~S,~C,~R,~layout,~route,~same,~valid))
+  accumulate(S,C,R,A.ComponentWrites(~S,~Layout.payload(layout,route),~Layout.view(layout,route)),book,LayoutAccess.component_write(~S,~C,~R,~layout,~route,~same,~valid))
 
 def record_resource(book:Book,entry:Resources.Entry) -> Book:
   match book:
@@ -116,10 +116,10 @@ def resource_book(book:Book,entry:Resources.Entry,access:D.Access,available:Bool
   match book:
     case Book{previous,queries,resources,supported}:Book{access <> previous,queries,entry <> resources,Bool.and(supported,available)}
 def resource_read_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},book:Book) -> Book & A.ResourceRead<State.Scope<S,C,R>,Layout.view(layout,route)>:
-  accumulate(~S,~C,~R,~A.ResourceReads(~Layout.view(layout,route)),record_resource(book,Resources.Entry{route,Layout.key(layout,route),Resources.ReadOnly{}}),LayoutAccess.resource_read(~S,~C,~R,~layout,~route,~same,~valid))
+  accumulate(S,C,R,A.ResourceReads(~Layout.view(layout,route)),record_resource(book,Resources.Entry{route,Layout.key(layout,route),Resources.ReadOnly{}}),LayoutAccess.resource_read(~S,~C,~R,~layout,~route,~same,~valid))
 
 def resource_write_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},~valid:{Layout.resource_write_valid(~layout,~route) == True{} : Bool},book:Book) -> Book & A.ResourceWrite<State.Scope<S,C,R>,Layout.payload(layout,route),Layout.view(layout,route)>:
-  accumulate(~S,~C,~R,~A.ResourceWrites(~Layout.payload(layout,route),~Layout.view(layout,route)),record_resource(book,Resources.Entry{route,Layout.key(layout,route),Resources.Writable{}}),LayoutAccess.resource_write(~S,~C,~R,~layout,~route,~same,~valid))
+  accumulate(S,C,R,A.ResourceWrites(~Layout.payload(layout,route),~Layout.view(layout,route)),record_resource(book,Resources.Entry{route,Layout.key(layout,route),Resources.Writable{}}),LayoutAccess.resource_write(~S,~C,~R,~layout,~route,~same,~valid))
 
 def resource_read_unsupported(~S:Data,~C:Type,~R:Type,~full:Layout.Layout,~route:Layout.Route,~valid:{Layout.grant_valid(~full,~route) == True{} : Bool},~model:ResourceStore.Model,~local:{R == ResourceStore.owner(~S,full,model) : Type},book:Book) -> Book & ResourceAccess.Reader<State.Scope<S,C,R>,Layout.view(full,route)>:
   (resource_book(book,Resources.Entry{route,Layout.key(full,route),Resources.ReadOnly{}},D.Access{Layout.key(full,route),D.ResourceAccess{},D.SharedView{},D.ReadOnly{}},False{}),ResourceAccess.UnsupportedReader{})
@@ -130,10 +130,10 @@ def resource_write_unsupported(~S:Data,~C:Type,~R:Type,~full:Layout.Layout,~rout
 def resource_write_provision(~S:Data,~C:Type,~R:Type,~Ops:Type -> Type,~selection:ResourceWriteSelection(~S,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
   selection(resource_write_build(~S,~C,~R),resource_write_unsupported(~S,~C,~R),book)
 def query_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~Error:Data,~body:U32 -> Layout.query_view(layout,route) -> Layout.query_output(layout,route) -> Layout.query_output(layout,route) & Maybe<&2,Error>,mode:Q.Mode,book:Book) -> Book & Q.Each<S,State.Scope<S,C,R>,Error>:
-  accumulate(~S,~C,~R,~Q.Ops(~S,~Error),book,Q.layout_declaration(~S,~C,~R,~layout,~route,~same,~shape,~valid,~Error,~body,mode))
+  accumulate(S,C,R,Q.Ops(~S,~Error),book,Q.layout_declaration(~S,~C,~R,~layout,~route,~same,~shape,~valid,~Error,~body,mode))
 
 def output_query_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~O:Type,~Error:Data,~split:O -> O & O,~merge:O -> O -> O,~body:Q.OutputBody(~S,~layout,~route,~O,~Error),mode:Q.Mode,book:Book) -> Book & Q.OutputEach<S,State.Scope<S,C,R>,O,Error>:
-  accumulate(~S,~C,~R,~Q.OutputOps(~S,~O,~Error),book,Q.output_declaration(~S,~C,~R,~layout,~route,~same,~shape,~valid,~O,~Error,~split,~merge,~body,mode))
+  accumulate(S,C,R,Q.OutputOps(~S,~O,~Error),book,Q.output_declaration(~S,~C,~R,~layout,~route,~same,~shape,~valid,~O,~Error,~split,~merge,~body,mode))
 
 def unsupported_caps(~S:Data,~P:Type,~V:Data,~H:Type,kind:Recipe.QueryKind) -> Q.GeneralOps(~S,~P,~V,kind,H):
   match kind:
@@ -158,9 +158,9 @@ def general_unsupported(~S:Data,~WC:Type,~C:Type,~R:Type,~full:Layout.Layout,~ro
 def query_provision(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Type -> Type,~selection:QuerySelection(~S,~WC,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
   selection(query_build(~S,~C,~R),output_query_build(~S,~C,~R),general_unsupported(~S,~WC,~C,~R),book)
 def removed_lifecycle_build(~S:Data,~WC:Type,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{WC == Layout.columns(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},book:Book) -> Book & Life.Next<S,State.Scope<S,C,R>,Layout.origin(layout,route),Notice.Removed{Layout.key(layout,route)}>:
-  accumulate(~S,~C,~R,~Life.Ops(~S,~(Layout.origin(layout,route)),~(Notice.Removed{Layout.key(layout,route)})),book,Life.removed(~S,~WC,~C,~R,~layout,~route,~same,~valid))
+  accumulate(S,C,R,Life.Ops(~S,~(Layout.origin(layout,route)),~(Notice.Removed{Layout.key(layout,route)})),book,Life.removed(~S,~WC,~C,~R,~layout,~route,~same,~valid))
 def despawn_lifecycle_build(~S:Data,~WC:Type,~C:Type,~R:Type,book:Book) -> Book & Life.Next<S,State.Scope<S,C,R>,Layout.EmptyLayout{},Notice.Despawned{}>:
-  accumulate(~S,~C,~R,~Life.Ops(~S,~(Layout.EmptyLayout{}),~(Notice.Despawned{})),book,Life.despawned(~S,~C,~R))
+  accumulate(S,C,R,Life.Ops(~S,~(Layout.EmptyLayout{}),~(Notice.Despawned{})),book,Life.despawned(~S,~C,~R))
 def lifecycle_provision(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Type -> Type,~selection:LifecycleSelection(~S,~WC,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
   selection(removed_lifecycle_build(~S,~WC,~C,~R),despawn_lifecycle_build(~S,~WC,~C,~R),book)
 def provision(~S:Data,~WC:Type,~C:Type,~R:Type,~Permit:Data,~Ops:Data -> Type -> Type,~selection:Selection(~S,~WC,~C,~R,~Permit,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(Permit,State.Scope<S,C,R>):
