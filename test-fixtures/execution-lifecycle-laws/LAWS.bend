@@ -1,0 +1,265 @@
+import Base
+import ../../src/ecs/world.bend as W
+import ../../src/ecs/execution-app.bend as Single
+import ../../src/ecs/execution-parallel-app.bend as Pair
+import ../../src/ecs/execution-parallel-run.bend as Run
+import ../../src/ecs/execution-parallel.bend as Parallel
+import ../../src/ecs/owner-product.bend as Product
+import ../../src/ecs/execution-system.bend as Sys
+import ../../src/ecs/execution-builder.bend as Build
+import ../../src/ecs/execution-state.bend as State
+import ../../src/ecs/execution-lifecycle-notices.bend as Notice
+import ../../src/ecs/execution-lifecycle-access.bend as Access
+import ../../src/ecs/execution-lifecycle-maintenance.bend as Maintenance
+import ../../src/ecs/execution-composer-layout.bend as Layout
+import ../../src/ecs/dependency-application.bend as App
+import ../../src/ecs/dependency-executor.bend as Exec
+import ../../src/ecs/dependency-plan.bend as Plan
+import ../../src/ecs/change-tick.bend as Tick
+
+# DRAFT ONLY: these exact statements are not approved and have no proofs.
+# Erased symbolic binders describe actual affine Type owners in equations;
+# they do not authorize duplicating those owners in executable Bend.
+# No Data model substitutes for World, Scope, Local, Reader or App.State.
+# Conditional public-run laws pin continuation after the stated actual result;
+# they do not independently prove admission, the body's behavior, or host IO.
+
+# Guarantees: Single.run forwards an assumed executed result and maintains its World.
+# Why it matters: the actual returned owner/completion survive success or error.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_app/src/sub_app.rs#L145-L159
+# Bevy behavior: update runs the default schedule before clearing trackers.
+# Bend limit: this conditional equation assumes the actual Sys.run result;
+# it does not assert a body error was rolled back or prove that invocation.
+law single_run_forwards_executed_result_with_maintenance:
+  for -S:Data
+  for -C:Type
+  for -R:Type
+  for -E:Data
+  for -Ops:Type -> Type
+  for -Local:Type
+  for -Error:Data
+  for -Out:Data
+  for -declaration:Build.Program(~S,~C,~C,~R,~Ops)
+  for -body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>)
+  for -before:W.World<S,C,R,E>
+  for -after:W.World<S,C,R,E>
+  for -owner:Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>
+  for -returned:Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>
+  for -completion:Sys.Completion<Error,Out>
+  for executed:{Sys.run(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,owner,before) == Sys.Executed{after,returned,completion} : Sys.RunResult<W.World<S,C,R,E>,Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>}
+  {Single.run(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,Single.Application{before,owner}) == (Single.Application{W.maintain_lifecycle(~S,~C,~R,~E,after),returned},Single.Ran{completion}) : Single.Application<S,C,R,E,Ops,Local,Error,Out,declaration,body> & Single.Status<Error,Out>}
+
+# Guarantees: Single.run forwards an assumed exact refused World/system result.
+# Why it matters: this wrapper must not rotate history after that assumed result.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/system/function_system.rs#L400-L419
+# Bevy behavior: persistent SystemState validates its initializing WorldId.
+# Bend adaptation: explicit returned refusal replaces that Rust mismatch panic;
+# the equation assumes actual Sys.run refusal, not a synthetic namespace model.
+law single_run_forwards_refused_result:
+  for -S:Data
+  for -C:Type
+  for -R:Type
+  for -E:Data
+  for -Ops:Type -> Type
+  for -Local:Type
+  for -Error:Data
+  for -Out:Data
+  for -declaration:Build.Program(~S,~C,~C,~R,~Ops)
+  for -body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>)
+  for -world:W.World<S,C,R,E>
+  for -owner:Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>
+  for refused:{Sys.run(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,owner,world) == Sys.Refused{world,owner} : Sys.RunResult<W.World<S,C,R,E>,Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>}
+  {Single.run(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,Single.Application{world,owner}) == (Single.Application{world,owner},Single.AdmissionRefused{}) : Single.Application<S,C,R,E,Ops,Local,Error,Out,declaration,body> & Single.Status<Error,Out>}
+
+# Guarantees: returned body error retains the actual Scope payload and affine Local.
+# Why it matters: the completed owner gets the captured tick, never a prior Local.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/schedule/executor/single_threaded.rs#L137-L163
+# Bevy behavior: returned failure reaches the handler without a rollback step.
+# Bend limit: this pins actual result reassembly; it does not prove arbitrary
+# body writes, host exception cleanup, or the handler's continuation policy.
+law body_error_reassembles_actual_type_owners:
+  for -S:Data
+  for -C:Type
+  for -R:Type
+  for -E:Data
+  for -Ops:Type -> Type
+  for -Local:Type
+  for -Error:Data
+  for -Out:Data
+  for -declaration:Build.Program(~S,~C,~C,~R,~Ops)
+  for -body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>)
+  for -admin:State.Administration<S,C,R,E>
+  for -scope:State.Scope<S,C,R>
+  for -local:Local
+  for -namespace:U32
+  for -id:U32
+  for -name:String
+  for -access:List<&2,String>
+  for -tick:Tick.Tick
+  for -error:Error
+  for -out:Out
+  {Sys.returned(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,admin,namespace,id,name,access,tick,(scope,(local,Sys.BodyError{error,out}))) == Sys.Executed{W.leave_run(~S,~C,~R,~E,State.reassemble(~S,~C,~R,~E,admin,scope)),Sys.Owner{namespace,id,name,access,Some{tick},local},Sys.BodyError{error,out}} : Sys.RunResult<W.World<S,C,R,E>,Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>}
+
+# Guarantees: actual Finished App state maintains only its returned World.
+# Why it matters: affine owners, guards and handler are the returned values.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_app/src/sub_app.rs#L145-L159
+# Bevy behavior: tracker maintenance follows a completed schedule update.
+# Bend limit: callers must reach this once after final-deferred policy; this law
+# alone does not establish caller placement or the semantics of Notice.maintain.
+law finished_maintains_actual_app_state:
+  for -S:Data
+  for -C:Type
+  for -R:Type
+  for -E:Data
+  for -Owners:Type
+  for -Guards:Type
+  for -Handler:Type
+  for -Error:Data
+  for -Out:Data
+  for -world:W.World<S,C,R,E>
+  for -owners:Owners
+  for -guards:Guards
+  for -handler:Handler
+  for -bindings:List<&2,App.Binding>
+  for -events:List<&2,Exec.Observation<Error,Out>>
+  {Maintenance.completed(~S,~C,~R,~E,~Owners,~Guards,~Handler,~Error,~Out,Exec.Finished{App.State{world,owners,guards,handler,bindings},events}) == Exec.Finished{App.State{W.maintain_lifecycle(~S,~C,~R,~E,world),owners,guards,handler,bindings},events} : Exec.ExecutionResult<App.State<W.World<S,C,R,E>,Owners,Guards,Handler>,String,Error,Out>}
+
+# Guarantees: escalated Stop retains the actual affine App state without rotation.
+# Why it matters: retained writes do not falsely claim a completed App update.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_app/src/sub_app.rs#L145-L159
+# Bevy behavior: clear_trackers follows return from run_default_schedule.
+# Bend adaptation: explicit Stopped is incomplete and is not Rust panic handling.
+law stopped_preserves_actual_app_state:
+  for -S:Data
+  for -C:Type
+  for -R:Type
+  for -E:Data
+  for -Owners:Type
+  for -Guards:Type
+  for -Handler:Type
+  for -Error:Data
+  for -Out:Data
+  for -state:App.State<W.World<S,C,R,E>,Owners,Guards,Handler>
+  for -error:Error
+  for -events:List<&2,Exec.Observation<Error,Out>>
+  {Maintenance.completed(~S,~C,~R,~E,~Owners,~Guards,~Handler,~Error,~Out,Exec.Stopped{state,error,events}) == Exec.Stopped{state,error,events} : Exec.ExecutionResult<App.State<W.World<S,C,R,E>,Owners,Guards,Handler>,String,Error,Out>}
+
+# Guarantees: Invalid preserves actual App state and reason without rotation.
+# Why it matters: invalid planning cannot erase retained affine payload owners.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/schedule/schedule.rs#L1261-L1279
+# Bevy behavior: schedule construction rejects graph errors before execution.
+# Bend adaptation: exact returned state/reason is this API's contract, not a claim
+# that Bevy schedule construction never modifies its own World.
+law invalid_preserves_actual_app_state:
+  for -S:Data
+  for -C:Type
+  for -R:Type
+  for -E:Data
+  for -Owners:Type
+  for -Guards:Type
+  for -Handler:Type
+  for -Error:Data
+  for -Out:Data
+  for -state:App.State<W.World<S,C,R,E>,Owners,Guards,Handler>
+  for -reason:Plan.Invalid<String>
+  {Maintenance.completed(~S,~C,~R,~E,~Owners,~Guards,~Handler,~Error,~Out,Exec.Invalid{state,reason}) == Exec.Invalid{state,reason} : Exec.ExecutionResult<App.State<W.World<S,C,R,E>,Owners,Guards,Handler>,String,Error,Out>}
+
+# Guarantees: a foreign reader operation preserves the exact reader and Scope.
+# Why it matters: equal sequence numbers in another World cannot suppress notices.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/system/function_system.rs#L400-L419
+# Bevy behavior: persistent SystemState is bound to its initializing WorldId.
+# Bend adaptation: operation-level Reader namespace refusal returns the reader;
+# it is not a proof of host namespace uniqueness or of whole-system admission.
+law foreign_reader_preserves_actual_scope_and_reader:
+  for -S:Data
+  for -C:Type
+  for -R:Type
+  for -origin:Layout.Layout
+  for -selector:Notice.Selector
+  for -store:C
+  for -resource:R
+  for -handles:List<&2,W.Handle<S>>
+  for -tick:Tick.Tick
+  for -prior:Maybe<&2,Tick.Tick>
+  for -namespace:U32
+  for -actual:U32
+  for -channels:List<&2,Notice.Channel<S>>
+  for -active:List<&2,Notice.Active>
+  for -id:U32
+  for -cursor:Nat
+  for foreign:{U32.is_eq(namespace,actual) == False{} : Bool}
+  {Access.read(~S,~C,~R,~origin,~selector,State.Scope{store,resource,handles,tick,prior,Notice.View{namespace,channels,active}},Notice.Reader{actual,id,cursor}) == (State.Scope{store,resource,handles,tick,prior,Notice.View{namespace,channels,active}},Notice.ReadRefused{Notice.Reader{actual,id,cursor},Notice.ForeignWorld{}}) : State.Scope<S,C,R> & Notice.Reading<S,origin,selector>}
+
+# Guarantees: Pair.run_when forwards an assumed Finished result with maintenance.
+# Why it matters: a valid both-disabled update is not confused with refusal.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_app/src/sub_app.rs#L145-L159
+# Bevy behavior: an update without a selected default schedule still clears trackers.
+# Bend limit: actual kernel Finished is a premise, including its gate/admission
+# decision. This law does not independently establish that kernel classification.
+law pair_run_forwards_finished_result_with_maintenance:
+  for -S:Data
+  for -CL:Type
+  for -CR:Type
+  for -RL:Type
+  for -RR:Type
+  for -E:Data
+  for -LL:Type
+  for -LR:Type
+  for -EL:Data
+  for -ER:Data
+  for -OL:Data
+  for -OR:Data
+  for -OpsL:Type -> Type
+  for -OpsR:Type -> Type
+  for -dl:Build.Program(~S,~Product.Owner<CL,CR>,~CL,~RL,~OpsL)
+  for -dr:Build.Program(~S,~Product.Owner<CL,CR>,~CR,~RR,~OpsR)
+  for -bl:@-H:Type -> @-caps:OpsL(H) -> H -> LL -> H & (LL & Sys.Completion<EL,OL>)
+  for -br:@-H:Type -> @-caps:OpsR(H) -> H -> LR -> H & (LR & Sys.Completion<ER,OR>)
+  for -mode:Parallel.Mode
+  for -gateLeft:Bool
+  for -gateRight:Bool
+  for -app:Pair.ParallelApp<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>>
+  for -world:W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>
+  for -left:Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>
+  for -right:Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>
+  for -lc:Maybe<&2,Sys.Completion<EL,OL>>
+  for -rc:Maybe<&2,Sys.Completion<ER,OR>>
+  for finished:{Pair.kernel_when(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~OpsL,~OpsR,~dl,~dr,~bl,~br,mode,gateLeft,gateRight,app) == Run.Finished{world,left,right,lc,rc} : Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>}
+  {Pair.run_when(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~OpsL,~OpsR,~dl,~dr,~bl,~br,mode,gateLeft,gateRight,app) == Run.Finished{W.maintain_lifecycle(~S,~Product.Owner<CL,CR>,~Product.Owner<RL,RR>,~E,world),left,right,lc,rc} : Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>}
+
+# Guarantees: Pair.run_when forwards an assumed refused result without maintenance.
+# Why it matters: the wrapper must preserve the owners/completions already in it.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/system/function_system.rs#L400-L419
+# Bevy behavior: system state validates its World identity before access.
+# Bend adaptation: explicit partial pair refusal retains any executed sibling;
+# this conditional law introduces no rollback and proves no host identity allocator.
+law pair_run_forwards_refused_result:
+  for -S:Data
+  for -CL:Type
+  for -CR:Type
+  for -RL:Type
+  for -RR:Type
+  for -E:Data
+  for -LL:Type
+  for -LR:Type
+  for -EL:Data
+  for -ER:Data
+  for -OL:Data
+  for -OR:Data
+  for -OpsL:Type -> Type
+  for -OpsR:Type -> Type
+  for -dl:Build.Program(~S,~Product.Owner<CL,CR>,~CL,~RL,~OpsL)
+  for -dr:Build.Program(~S,~Product.Owner<CL,CR>,~CR,~RR,~OpsR)
+  for -bl:@-H:Type -> @-caps:OpsL(H) -> H -> LL -> H & (LL & Sys.Completion<EL,OL>)
+  for -br:@-H:Type -> @-caps:OpsR(H) -> H -> LR -> H & (LR & Sys.Completion<ER,OR>)
+  for -mode:Parallel.Mode
+  for -gateLeft:Bool
+  for -gateRight:Bool
+  for -app:Pair.ParallelApp<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>>
+  for -world:W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>
+  for -left:Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>
+  for -right:Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>
+  for -lc:Maybe<&2,Sys.Completion<EL,OL>>
+  for -rc:Maybe<&2,Sys.Completion<ER,OR>>
+  for refused:{Pair.kernel_when(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~OpsL,~OpsR,~dl,~dr,~bl,~br,mode,gateLeft,gateRight,app) == Run.AdmissionRefused{world,left,right,lc,rc} : Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>}
+  {Pair.run_when(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~OpsL,~OpsR,~dl,~dr,~bl,~br,mode,gateLeft,gateRight,app) == Run.AdmissionRefused{world,left,right,lc,rc} : Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>}
