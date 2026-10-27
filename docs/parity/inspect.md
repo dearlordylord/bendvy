@@ -404,3 +404,26 @@ The raw boundary list retains call kind and requested/remaining IDs. Source
 checking and the existing registered consumer confirm this plumbing specializes
 and preserves its prior observations; the observed Root path still needs an
 actual ordinary consumer before claiming its acceptance.
+
+`execution-inspector-commands.snapshot` returns the same actual command Buffer
+with detached pending/receipt metadata. It retains incoming components, displaced
+owners, removed bundles and refused spawn bundles in their original affine
+Entries and Receipts. Only copied handles, operation/refusal facts and payload
+presence enter the snapshot. Snapshot descriptions use authored/publication
+order while the actual storage lists remain unchanged.
+
+`execution-inspector-application.check` transports an ordinary cursor-free Check
+through the same retained Scheduled owner as passive Inspector. It keeps system,
+guard and handler owners, both bindings lists, plan, rules and deferred state
+outside the Check frame. Calling this operation does not turn it into a scheduled
+condition or change which systems the application will run.
+
+The ordinary `examples/parallel-inspection/pending-relations.bend` executes a
+registered command body with final application disabled. Five actual hierarchy
+operations and no receipts remain unchanged across a passive protected-graph
+read. A subsequent ordinary run applies those retained operations together with
+five newly authored operations. The actual receipts contain eight publications
+and two refusals. Passive Inspector then sees the published graph and inverse;
+Check returns true. The actual resource state and captured Session remain 401
+and 601. These finite observations do not cover pending affine spawn bundles,
+all generic command payloads, relation failure readers or formal preservation.
