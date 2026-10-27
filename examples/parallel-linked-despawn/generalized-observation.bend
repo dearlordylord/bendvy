@@ -57,10 +57,6 @@ def removed_receipt(+handle:W.Handle<Text.Schema>,kind:Bool,result:Removed.Remov
   match kind result:
     case True{}, (owner,text):(Buffer.Despawned{handle,owner},"despawned:" ++ Text.handle(handle) ++ "/owner=" ++ text)
     case False{}, (owner,text):(Buffer.Spawned{handle,owner},"spawned:" ++ Text.handle(handle) ++ "/previous=" ++ text)
-def receipts(owners:List<Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>>) -> List<Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>> & String:
-  match owners:
-    case []:([],"")
-    case owner <> rest:receipt_join(receipt(owner),receipts(rest))
 def receipt_join(head:Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())> & String,tail:List<Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>> & String) -> List<Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>> & String:
   match head tail:
     case (head,text), (tail,texts):(head <> tail,text ++ ";" ++ texts)
@@ -73,7 +69,7 @@ def linked_receipt(+handle:W.Handle<Text.Schema>,+status:Buffer.LinkedStatus,+fr
 def scope_receipt(+route:L.Route,+operation:ScopeCommands.Operation<Text.Schema>,+status:Buffer.ScopeStatus,+frames:List<&2,T.CleanupFrame<Text.Schema>>,result:List<Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>> & String) -> Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())> & String:
   match result:
     case (nested,text):(Buffer.ScopePublished{route,operation,status,nested,frames},"scope:" ++ ScopeText.operation(~Text.Schema,operation) ++ ":" ++ ScopeText.status(status) ++ "{" ++ text ++ "}/frames=" ++ Nat.show(List.length(&2,T.CleanupFrame<Text.Schema>,frames)))
-def receipt(owner:Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>) -> Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())> & String:
+def receipt(owner:Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>,nested:List<Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>> -> List<Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>> & String) -> Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())> & String:
   match owner:
     case Buffer.Applied{handle,previous}:component_receipt(handle,True{},maybe(previous))
     case Buffer.Refused{handle,incoming}:component_receipt(handle,False{},maybe(incoming))
@@ -83,9 +79,13 @@ def receipt(owner:Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor
     case Buffer.DespawnRefused{+handle}:(Buffer.DespawnRefused{handle},"despawn-refused:" ++ Text.handle(handle))
     case Buffer.RelationPublished{+route,+value}:(Buffer.RelationPublished{route,value},Text.receipts([Buffer.RelationPublished{route,value}]))
     case Buffer.RelationUndeclared{+route,+value}:(Buffer.RelationUndeclared{route,value},Text.receipts([Buffer.RelationUndeclared{route,value}]))
-    case Buffer.LinkedDespawn{handle,status,nested,frames}:linked_receipt(handle,status,frames,receipts(nested))
-    case Buffer.ScopePublished{route,operation,status,nested,frames}:scope_receipt(route,operation,status,frames,receipts(nested))
+    case Buffer.LinkedDespawn{handle,status,children,frames}:linked_receipt(handle,status,frames,nested(children))
+    case Buffer.ScopePublished{route,operation,status,children,frames}:scope_receipt(route,operation,status,frames,nested(children))
     case Buffer.ScopeStoreApplied{+route,+request,+result}:(Buffer.ScopeStoreApplied{route,request,result},"scope-store:" ++ ScopeText.request(~Text.Schema,request) ++ ":" ++ ScopeText.outcome(~Text.Schema,result))
+def receipts(owners:List<Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>>) -> List<Buffer.Receipt<Text.Schema,Actor.Session,Removed.Removed(Actor.components())>> & String:
+  match owners:
+    case []:([],"")
+    case owner <> rest:receipt_join(receipt(owner,receipts),receipts(rest))
 def component_entry(+handle:W.Handle<Text.Schema>,result:Maybe<&1,Actor.Session> & String) -> Buffer.Entry<Text.Schema,Actor.Session,Removed.Removed(Actor.components())> & String:
   match result:
     case (owner,text):(Buffer.Entry{handle,owner},"component:" ++ Text.handle(handle) ++ "/incoming=" ++ text)
