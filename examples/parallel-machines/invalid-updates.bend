@@ -22,7 +22,7 @@ type Schema is Data:
   Schema{}
 def Resources() -> Type:Product.Owner<D.Resources(~Schema),Unit>
 def empty(_:Unit) -> D.Store(~Schema):Layout.empty_columns(~Schema,D.component_layout(~Schema))
-def resources() -> Resources():Product.Owner{Layout.ResourceSlot{Layout.initialize(D.layout(~Schema),Layout.AtLeaf{},Machine.empty(~Schema,~D.Key,~D.Mode))},Unit{}}
+def resources() -> Resources():Product.Owner{Layout.ResourceSlot{Layout.initialize(D.layout(~Schema),Layout.AtLeaf{},Machine.empty(~Schema,~D.Key,~D.Mode)),Layout.unknown_stamp()},Unit{}}
 def machine_shape() -> {Layout.payload(Cond.layout(~Schema),Layout.InLeft{Layout.AtLeaf{}}) == Machine.Cell<Schema,D.Key,D.Mode> : Type}:{==}
 def World() -> Type:W.World<Schema,D.Store(~Schema),Resources(),Unit>
 def Application() -> Type:DepApp.Application<World(),Unit,Unit,Report.Handler,String,String,Reg.empty_dispatch(~World(),~String,~String),Reg.empty_dispatch(~World(),~String,~Bool),Report.handle>

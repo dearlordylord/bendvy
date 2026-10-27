@@ -7,16 +7,21 @@ import ./dependency-registry-program.bend as Prog
 import ./dependency-executor.bend as Exec
 import ./change-tick.bend as Tick
 import ./world.bend as W
+import ./lifecycle.bend as Life
 
 # Closed framework resource adapter. It never sees or flushes command buffers.
+# This aggregate stores State and its message generations together. Retention
+# preserves the slot stamp; gameplay writes update it through resource access.
+# Bevy maintains Messages separately from State:
+# https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/message/messages.rs#L188-L201
 def payload(~S:Data,~K:Data,~V:Data,~P:Type,~shape:{P == State.Cell<S,K,V> : Type},tick:Tick.Tick,owner:P) -> P & Unit:
   (Layout.checked_owner(State.Cell<S,K,V>,P,Equal.sym(Type,P,State.Cell<S,K,V>,shape),State.maintain(~S,~K,~V,tick,Layout.checked_owner(P,State.Cell<S,K,V>,shape,owner))),Unit{})
-def restored(~S:Data,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},rest:Layout.resource_rest(~S,layout,route),result:Layout.stored(layout,route) & Unit) -> R:
+def restored(~S:Data,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},stamp:Life.Stamp,rest:Layout.resource_rest(~S,layout,route),result:Layout.stored(layout,route) & Unit) -> R:
   match result:
-    case (stored,_):Layout.checked_owner(Layout.resources(~S,layout),R,Equal.sym(Type,R,Layout.resources(~S,layout),same),Layout.resource_put(~S,layout,route,rest,Layout.ResourceSlot{stored}))
+    case (stored,_):Layout.checked_owner(Layout.resources(~S,layout),R,Equal.sym(Type,R,Layout.resources(~S,layout),same),Layout.resource_put(~S,layout,route,rest,Layout.ResourceSlot{stored,stamp}))
 def selected(~S:Data,~K:Data,~V:Data,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},~shape:{Layout.payload(layout,route) == State.Cell<S,K,V> : Type},tick:Tick.Tick,result:Layout.resource_rest(~S,layout,route) & Layout.ResourceSlot<S,Layout.stored(layout,route),Layout.key(layout,route),Layout.origin(layout,route)>) -> R:
   match result:
-    case (rest,Layout.ResourceSlot{stored}):restored(~S,~R,~layout,~route,~same,rest,Layout.rewrite(~layout,~route,Unit,payload(~S,~K,~V,~Layout.payload(layout,route),~shape,tick),stored))
+    case (rest,Layout.ResourceSlot{stored,stamp}):restored(~S,~R,~layout,~route,~same,stamp,rest,Layout.rewrite(~layout,~route,Unit,payload(~S,~K,~V,~Layout.payload(layout,route),~shape,tick),stored))
 def resources(~S:Data,~K:Data,~V:Data,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},~shape:{Layout.payload(layout,route) == State.Cell<S,K,V> : Type},tick:Tick.Tick,owner:R) -> R:
   selected(~S,~K,~V,~R,~layout,~route,~same,~shape,tick,Layout.resource_take(~S,layout,route,Layout.checked_owner(R,Layout.resources(~S,layout),same,owner)))
 def clocked(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},~shape:{Layout.payload(layout,route) == State.Cell<S,K,V> : Type},result:W.World<S,C,R,E> & Tick.Tick) -> W.World<S,C,R,E>:

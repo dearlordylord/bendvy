@@ -38,7 +38,7 @@ def peer_tree(~S:Data,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~D.Store(~S),~D.RightS
 def Application(~S:Data) -> Type:Schedule.Scheduled<App.Application<World(~S),Product.Owner<Registry.Owners(~S),PeerOwner(~S)>,Guards.Owners(~S),Report.Handler,String,String,Root.dispatch(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.Resources(~S),~Unit,~Unit,~String,~String,~Registry.Owners(~S),~PeerOwner(~S),~Registry.handlers(~S),~peer_tree(~S)),Guards.dispatch(~S),Report.handle>>
 def empty(~S:Data,_:Unit) -> D.Store(~S):Layout.empty_columns(~S,D.component_layout(~S))
 def resources(~S:Data) -> Resources(~S):
-  Product.Owner{Layout.ResourceSlot{Layout.initialize(D.layout(~S),Layout.AtLeaf{},State.empty(~S,~D.Key,~D.Mode))},Unit{}}
+  Product.Owner{Layout.ResourceSlot{Layout.initialize(D.layout(~S),Layout.AtLeaf{},State.empty(~S,~D.Key,~D.Mode)),Layout.unknown_stamp()},Unit{}}
 def machine_shape(~S:Data) -> {Layout.payload(Cond.layout(~S),Layout.InLeft{Layout.AtLeaf{}}) == State.Cell<S,D.Key,D.Mode> : Type}:{==}
 def completed(~S:Data,result:Application(~S) & App.Report<String,String>) -> Application(~S) & App.Report<String,String>:
   Maintenance.completed(~S,~D.Key,~D.Mode,~D.Store(~S),~Resources(~S),~Unit,~Cond.layout(~S),~Layout.InLeft{Layout.AtLeaf{}},~{==},~machine_shape(~S),~Product.Owner<Registry.Owners(~S),PeerOwner(~S)>,~Guards.Owners(~S),~Report.Handler,~String,~String,~Root.dispatch(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.Resources(~S),~Unit,~Unit,~String,~String,~Registry.Owners(~S),~PeerOwner(~S),~Registry.handlers(~S),~peer_tree(~S)),~Guards.dispatch(~S),~Report.handle,result)

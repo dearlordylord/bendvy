@@ -104,7 +104,7 @@ def cell(~S:Data,value:State.Cell<S,D.Key,D.Mode>) -> String:
     case State.Cell{current,events,revision,currentStamp,nextStamp,sequence,initialPending,origin,intent}:slot(~S,current) ++ "/revision=" ++ Nat.show(revision) ++ "/stamp=" ++ Tick.cursor_show(currentStamp) ++ "/next-stamp=" ++ Tick.cursor_show(nextStamp) ++ "/sequence=" ++ Nat.show(sequence) ++ "/initial-pending=" ++ bool(initialPending) ++ "/namespace=" ++ namespace(origin) ++ "/intent=" ++ Body.intent(intent) ++ "/stream{" ++ stream(events) ++ "}"
 def resource(~S:Data,value:D.Resources(~S)) -> String:
   match value:
-    case Layout.ResourceSlot{Layout.Viewed{owner,cache}}:cell(~S,owner) ++ "/cache=" ++ Body.view(~S,cache)
+    case Layout.ResourceSlot{Layout.Viewed{owner,cache},stamp}:cell(~S,owner) ++ "/cache=" ++ Body.view(~S,cache) ++ "/resource-stamp=" ++ Common.stamp_text(Some{stamp})
 def handle(~S:Data,value:W.Handle<S>) -> String:
   match value:
     case W.Handle{namespace,key}:U32.show(namespace) ++ ":" ++ Common.key(key)

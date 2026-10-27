@@ -12,6 +12,8 @@ import ../../src/ecs/owner-product.bend as Product
 import ../../src/ecs/machine.bend as M
 import ../../src/ecs/world.bend as W
 import ../../src/ecs/change-tick.bend as Tick
+import ../../src/ecs/lifecycle.bend as Life
+import ../../test-fixtures/common/column-observation.bend as Common
 
 # Same S/K/V, distinct actual resource routes. Only the selected left callback
 # may change left Next; right is read through its separately declared callback.
@@ -43,24 +45,24 @@ def body_ops(~H:Type,caps:Ops(H),scope:H,local:Body.Local()) -> H & (Body.Local(
     case Product.Owner{left,right}:requested(~H,right,local,Machine.request_field(~Schema,~D.Key,~D.Mode,~H,left)(M.Set{D.Running{},True{}},scope))
 def body(~H:Type,~caps:Ops(H),scope:H,local:Body.Local()) -> H & (Body.Local() & Sys.Completion<String,String>):body_ops(~H,caps,scope,local)
 def empty(_:Unit) -> Unit:Unit{}
-def resources() -> Resources():Product.Owner{Layout.ResourceSlot{Layout.initialize(layout(),Layout.InLeft{Layout.AtLeaf{}},State.empty(~Schema,~D.Key,~D.Mode))},Layout.ResourceSlot{Layout.initialize(layout(),Layout.InRight{Layout.AtLeaf{}},State.empty(~Schema,~D.Key,~D.Mode))}}
+def resources() -> Resources():Product.Owner{Layout.ResourceSlot{Layout.initialize(layout(),Layout.InLeft{Layout.AtLeaf{}},State.empty(~Schema,~D.Key,~D.Mode)),Layout.unknown_stamp()},Layout.ResourceSlot{Layout.initialize(layout(),Layout.InRight{Layout.AtLeaf{}},State.empty(~Schema,~D.Key,~D.Mode)),Layout.unknown_stamp()}}
 def initial_cell(namespace:U32,tick:Tick.Tick,value:D.Mode,cell:State.Cell<Schema,D.Key,D.Mode>) -> State.Cell<Schema,D.Key,D.Mode> & Unit:
   (State.initialize(~Schema,~D.Key,~D.Mode,State.bind(~Schema,~D.Key,~D.Mode,namespace,cell),value,tick),Unit{})
-def joined_initial(left:Layout.stored(layout(),Layout.InLeft{Layout.AtLeaf{}}),result:Layout.stored(layout(),Layout.InRight{Layout.AtLeaf{}}) & Unit) -> Resources():
+def joined_initial(+tick:Tick.Tick,left:Layout.stored(layout(),Layout.InLeft{Layout.AtLeaf{}}),result:Layout.stored(layout(),Layout.InRight{Layout.AtLeaf{}}) & Unit) -> Resources():
   match result:
-    case (right,_):Product.Owner{Layout.ResourceSlot{left},Layout.ResourceSlot{right}}
-def left_initial(namespace:U32,tick:Tick.Tick,right:Layout.stored(layout(),Layout.InRight{Layout.AtLeaf{}}),result:Layout.stored(layout(),Layout.InLeft{Layout.AtLeaf{}}) & Unit) -> Resources():
+    case (right,_):Product.Owner{Layout.ResourceSlot{left,Life.Stamp{Some{tick},Some{tick}}},Layout.ResourceSlot{right,Life.Stamp{Some{tick},Some{tick}}}}
+def left_initial(namespace:U32,+tick:Tick.Tick,right:Layout.stored(layout(),Layout.InRight{Layout.AtLeaf{}}),result:Layout.stored(layout(),Layout.InLeft{Layout.AtLeaf{}}) & Unit) -> Resources():
   match result:
-    case (left,_):joined_initial(left,Layout.rewrite(~layout(),~Layout.InRight{Layout.AtLeaf{}},Unit,initial_cell(namespace,tick,D.Running{}),right))
+    case (left,_):joined_initial(tick,left,Layout.rewrite(~layout(),~Layout.InRight{Layout.AtLeaf{}},Unit,initial_cell(namespace,tick,D.Running{}),right))
 def initial_resources(+namespace:U32,+tick:Tick.Tick,resource:Resources()) -> Resources():
   match resource:
-    case Product.Owner{Layout.ResourceSlot{left},Layout.ResourceSlot{right}}:left_initial(namespace,tick,right,Layout.rewrite(~layout(),~Layout.InLeft{Layout.AtLeaf{}},Unit,initial_cell(namespace,tick,D.Waiting{}),left))
+    case Product.Owner{Layout.ResourceSlot{left,_},Layout.ResourceSlot{right,_}}:left_initial(namespace,tick,right,Layout.rewrite(~layout(),~Layout.InLeft{Layout.AtLeaf{}},Unit,initial_cell(namespace,tick,D.Waiting{}),left))
 def clocked(result:W.World<Schema,Unit,Resources(),Unit> & Tick.Tick) -> W.World<Schema,Unit,Resources(),Unit>:
   match result:
     case (W.World{+namespace,allocator,store,resource,events,pending,registrations,next,clock,lifecycle},tick):W.World{namespace,allocator,store,initial_resources(namespace,tick,resource),events,pending,registrations,next,clock,lifecycle}
 def snapshot(value:Resources()) -> String:
   match value:
-    case Product.Owner{Layout.ResourceSlot{Layout.Viewed{left,leftCache}},Layout.ResourceSlot{Layout.Viewed{right,rightCache}}}:"left{" ++ Observe.cell(~Schema,left) ++ "/cache=" ++ Body.view(~Schema,leftCache) ++ "};right{" ++ Observe.cell(~Schema,right) ++ "/cache=" ++ Body.view(~Schema,rightCache) ++ "}"
+    case Product.Owner{Layout.ResourceSlot{Layout.Viewed{left,leftCache},leftStamp},Layout.ResourceSlot{Layout.Viewed{right,rightCache},rightStamp}}:"left{" ++ Observe.cell(~Schema,left) ++ "/cache=" ++ Body.view(~Schema,leftCache) ++ "/resource-stamp=" ++ Common.stamp_text(Some{leftStamp}) ++ "};right{" ++ Observe.cell(~Schema,right) ++ "/cache=" ++ Body.view(~Schema,rightCache) ++ "/resource-stamp=" ++ Common.stamp_text(Some{rightStamp}) ++ "}"
 def completed(result:Ordinary.Application<Schema,Unit,Resources(),Unit,Ops,Body.Local(),String,String,declaration,body> & Ordinary.Status<String,String>) -> String:
   match result:
     case (Ordinary.Application{W.World{_,_,_,resource,_,_,_,_,_,_},Sys.Owner{_,_,_,_,_,local}},Ordinary.Ran{Sys.Success{out}}):out ++ "|" ++ snapshot(resource) ++ "|local=" ++ Observe.local(local)

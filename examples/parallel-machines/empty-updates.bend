@@ -30,7 +30,7 @@ def run_once(app:Application()) -> Scheduled() & DepApp.Report<String,String>:
   rotate(DepApp.run(~World(),~Unit,~Unit,~Report.Handler,~String,~String,~Reg.empty_dispatch(~World(),~String,~String),~Reg.empty_dispatch(~World(),~String,~Bool),~Report.handle,app))
 def progress_resource(owner:Main.Resources(~Schema)) -> Main.Resources(~Schema) & String:
   match owner:
-    case Product.Owner{Layout.ResourceSlot{Layout.Viewed{Machine.Cell{slot,+stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent},cache}},peer}:(Product.Owner{Layout.ResourceSlot{Layout.Viewed{Machine.Cell{slot,stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent},cache}},peer},Observe.stream(stream))
+    case Product.Owner{Layout.ResourceSlot{Layout.Viewed{Machine.Cell{slot,+stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent},cache},resourceStamp},peer}:(Product.Owner{Layout.ResourceSlot{Layout.Viewed{Machine.Cell{slot,stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent},cache},resourceStamp},peer},Observe.stream(stream))
 def final(trace:String,result:Scheduled() & DepApp.Report<String,String>) -> String:
   match result:
     case (Schedule.Scheduled{DepApp.Application{DepApp.State{world,_,_,handler,_},_,_},_,_},status):trace ++ "|" ++ Report.report(status) ++ "|" ++ Observe.world(~Schema,world) ++ "|handler=" ++ Report.handler(handler)
