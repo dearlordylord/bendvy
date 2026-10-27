@@ -44,17 +44,17 @@ def selected_write(~S:Data,~K:Data,~V:Data,~H:Type,~B:Type,~layout:Layout.Layout
   match result:
     case (book,cap):(book,write(~S,~K,~V,~H,~same,checked_write(~S,~K,~V,~H,~(Layout.payload(layout,route)),~(Layout.view(layout,route)),~payload,~view,cap)))
 def select_write(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~H:Type,~B:Type,~layout:Layout.Layout,~route:Layout.Route,~same_resource:{R == Layout.resources(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~payload:{Layout.payload(layout,route) == State.Cell<S,K,V> : Type},~view:{Layout.view(layout,route) == State.View<S,K,V> : Data},~same:V -> V -> Bool,~resource_write:Build.ResourceWrite(~S,~C,~R,~H,~B),book:B) -> B & Write<S,K,V,H>:
-  selected_write(~S,~K,~V,~H,~B,~layout,~route,~payload,~view,~same,resource_write(layout,route,same_resource,valid,book))
+  selected_write(~S,~K,~V,~H,~B,~layout,~route,~payload,~view,~same,Build.basic_resource_write(~S,~C,~R,~H,~B,~layout,~route,~same_resource,~valid,~resource_write,book))
 def selected_apply(~S:Data,~K:Data,~V:Data,~H:Type,~B:Type,~layout:Layout.Layout,~route:Layout.Route,~payload:{Layout.payload(layout,route) == State.Cell<S,K,V> : Type},~view:{Layout.view(layout,route) == State.View<S,K,V> : Data},~same:V -> V -> Bool,result:B & A.ResourceWrite<H,Layout.payload(layout,route),Layout.view(layout,route)>) -> B & Apply<S,K,V,H>:
   match result:
     case (book,cap):(book,apply(~S,~K,~V,~H,~same,checked_write(~S,~K,~V,~H,~(Layout.payload(layout,route)),~(Layout.view(layout,route)),~payload,~view,cap)))
 def select_apply(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~H:Type,~B:Type,~layout:Layout.Layout,~route:Layout.Route,~same_resource:{R == Layout.resources(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~payload:{Layout.payload(layout,route) == State.Cell<S,K,V> : Type},~view:{Layout.view(layout,route) == State.View<S,K,V> : Data},~same:V -> V -> Bool,~resource_write:Build.ResourceWrite(~S,~C,~R,~H,~B),book:B) -> B & Apply<S,K,V,H>:
-  selected_apply(~S,~K,~V,~H,~B,~layout,~route,~payload,~view,~same,resource_write(layout,route,same_resource,valid,book))
+  selected_apply(~S,~K,~V,~H,~B,~layout,~route,~payload,~view,~same,Build.basic_resource_write(~S,~C,~R,~H,~B,~layout,~route,~same_resource,~valid,~resource_write,book))
 def selected_read(~S:Data,~K:Data,~V:Data,~H:Type,~B:Type,~layout:Layout.Layout,~route:Layout.Route,~view:{Layout.view(layout,route) == State.View<S,K,V> : Data},result:B & A.ResourceRead<H,Layout.view(layout,route)>) -> B & Read<S,K,V,H>:
   match result:
     case (book,cap):(book,read(~S,~K,~V,~H,checked_read(~S,~K,~V,~H,~(Layout.view(layout,route)),~view,cap)))
 def select_read(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~H:Type,~B:Type,~layout:Layout.Layout,~route:Layout.Route,~same_resource:{R == Layout.resources(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~view:{Layout.view(layout,route) == State.View<S,K,V> : Data},~resource_read:Build.ResourceRead(~S,~C,~R,~H,~B),book:B) -> B & Read<S,K,V,H>:
-  selected_read(~S,~K,~V,~H,~B,~layout,~route,~view,resource_read(layout,route,same_resource,valid,book))
+  selected_read(~S,~K,~V,~H,~B,~layout,~route,~view,Build.basic_resource_read(~S,~C,~R,~H,~B,~layout,~route,~same_resource,~valid,~resource_read,book))
 
 def read_field(~S:Data,~K:Data,~V:Data,~H:Type,cap:Read<S,K,V,H>) -> H -> H & State.View<S,K,V>:
   match cap:

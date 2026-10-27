@@ -24,7 +24,7 @@ def selected(~S:Data,~K:Data,~V:Data,~H:Type,~B:Type,~layout:Layout.Layout,~rout
   match result:
     case (book,cap):(book,narrow(~S,~K,~V,~layout,~route,~H,Machine.checked_write(~S,~K,~V,~H,~Layout.payload(layout,route),~Layout.view(layout,route),~payload,~view,cap)))
 def select(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~H:Type,~B:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~payload:{Layout.payload(layout,route) == State.Cell<S,K,V> : Type},~view:{Layout.view(layout,route) == State.View<S,K,V> : Data},~write:Build.ResourceWrite(~S,~C,~R,~H,~B),book:B) -> B & Read<S,K,V,layout,route,H>:
-  selected(~S,~K,~V,~H,~B,~layout,~route,~payload,~view,write(layout,route,same,valid,book))
+  selected(~S,~K,~V,~H,~B,~layout,~route,~payload,~view,Build.basic_resource_write(~S,~C,~R,~H,~B,~layout,~route,~same,~valid,~write,book))
 def read_field(~S:Data,~K:Data,~V:Data,~origin:Layout.Layout,~route:Layout.Route,~H:Type,cap:Read<S,K,V,origin,route,H>) -> Stream.Reader<S,K,V,origin,route> -> H -> H & Stream.Reading<S,K,V,origin,route>:
   match cap:
     case Read{read}:read
