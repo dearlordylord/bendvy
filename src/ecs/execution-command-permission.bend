@@ -10,6 +10,7 @@ import ./relation-types.bend as Relation
 import ./execution-relation-command.bend as RelationCommands
 import ./execution-relation-operation.bend as Operation
 import ./string-equality.bend as StringEquality
+import ./execution-relation-resource-dispatch.bend as Dispatch
 
 # This closed algebra retains schema evidence supplied by the same declaration.
 # A route selects a grant; it never creates any of these type equalities.
@@ -18,6 +19,16 @@ type Relations<-S:Data,-resources:Layout.Layout> is Data:
   RelationAllowed{route:Layout.Route,valid:{Layout.grant_valid(~resources,~route) == True{} : Bool},descriptor:Relation.Descriptor<S>,payload:{Layout.payload(resources,route) == RelationStore.Store<S,descriptor> : Type},view:{Layout.view(resources,route) == RelationStore.View<S,descriptor> : Data},protected:{Layout.policy(resources,route) == Policy.ProtectedRelation{S,descriptor} : Policy.Policy},rest:Relations<S,resources>}
 type DeferredRelation<-S:Data> is Data:
   DeferredRelation{route:Layout.Route,key:String,descriptor:Relation.Descriptor<S>}
+type Selection<-S:Data,-resources:Layout.Layout> is Type:
+  Selection{program:Dispatch.Program(~S,~resources)}
+def RelationSelection(~S:Data,~resources:Layout.Layout) -> Type:Selection<S,resources>
+def selection_field(~S:Data,~resources:Layout.Layout,value:Selection<S,resources>) -> Dispatch.Program(~S,~resources):
+  match value:
+    case Selection{program}:program
+def no_selection(~S:Data,~resources:Layout.Layout) -> Selection<S,resources>:
+  Selection{Dispatch.empty(~S,~resources)}
+def extend_selection(~S:Data,~resources:Layout.Layout,~route:Layout.Route,~valid:{Layout.grant_valid(~resources,~route) == True{} : Bool},~descriptor:Relation.Descriptor<S>,~payload:{Layout.payload(resources,route) == RelationStore.Store<S,descriptor> : Type},~view:{Layout.view(resources,route) == RelationStore.View<S,descriptor> : Data},~protected:{Layout.policy(resources,route) == Policy.ProtectedRelation{S,descriptor} : Policy.Policy},selection:Selection<S,resources>) -> Selection<S,resources>:
+  Selection{Dispatch.extend(~S,~resources,~route,~valid,~descriptor,~payload,~view,~protected,selection_field(~S,~resources,selection))}
 # Deferred graph writes are descriptions of barrier effects, not immediate body
 # resource-write grants or resource extraction recipes.
 def deferred_descriptions(~S:Data,~resources:Layout.Layout,relations:Relations<S,resources>) -> List<&2,DeferredRelation<S>>:
@@ -48,7 +59,7 @@ def relations_agree(~S:Data,~resources:Layout.Layout,left:Relations<S,resources>
 # commands only by returning the book advanced by this explicit grant. Physical
 # scope access remains in the existing independent Builder book.
 type Book<-S:Data,-layout:Layout.Layout,-resources:Layout.Layout> is Type:
-  Book{permission:Permission,relations:Relations<S,resources>}
+  Book{permission:Permission,relations:Relations<S,resources>,selection:RelationSelection(~S,~resources)}
 type Permission is Data:
   FamilyOnly{}
   EntityStructural{}
@@ -56,23 +67,23 @@ type EntityCommands<-Q:Type,-S:Data,-layout:Layout.Layout,-Permit:Data> is Type:
   EntityCommands{despawn:Q -> W.Handle<S> -> Q,spawn:Q -> Removed.Removed(layout) -> Task.Task<S,Permit,Q & Buffer.SpawnAdmission<S,Removed.Removed(layout)>>}
 def Grant(~S:Data,~layout:Layout.Layout,~Permit:Data,~Q:Type,~K:Type) -> Type:
   K -> K & EntityCommands<Q,S,layout,Permit>
-def fresh(~S:Data,~layout:Layout.Layout,~resources:Layout.Layout) -> Book<S,layout,resources>:Book{FamilyOnly{},NoRelations{}}
+def fresh(~S:Data,~layout:Layout.Layout,~resources:Layout.Layout) -> Book<S,layout,resources>:Book{FamilyOnly{},NoRelations{},no_selection(~S,~resources)}
 def grant(~S:Data,~layout:Layout.Layout,~resources:Layout.Layout,~Permit:Data,~Q:Type,~despawn:Q -> W.Handle<S> -> Q,~spawn:Q -> Removed.Removed(layout) -> Task.Task<S,Permit,Q & Buffer.SpawnAdmission<S,Removed.Removed(layout)>>,book:Book<S,layout,resources>) -> Book<S,layout,resources> & EntityCommands<Q,S,layout,Permit>:
   match book:
-    case Book{_,relations}:(Book{EntityStructural{},relations},EntityCommands{despawn,spawn})
+    case Book{_,relations,selection}:(Book{EntityStructural{},relations,selection},EntityCommands{despawn,spawn})
 def RelationGrant(~S:Data,~resources:Layout.Layout,~Q:Type,~K:Type) -> Type:
   @-route:Layout.Route -> @-valid:{Layout.grant_valid(~resources,~route) == True{} : Bool} -> @-descriptor:Relation.Descriptor<S> -> @-payload:{Layout.payload(resources,route) == RelationStore.Store<S,descriptor> : Type} -> @-view:{Layout.view(resources,route) == RelationStore.View<S,descriptor> : Data} -> @-protected:{Layout.policy(resources,route) == Policy.ProtectedRelation{S,descriptor} : Policy.Policy} -> K -> K & RelationCommands.HierarchyCommands<Q,S>
 def relation_grant(~S:Data,~layout:Layout.Layout,~resources:Layout.Layout,~Q:Type,~enqueue:Q -> Layout.Route -> Operation.Operation<S> -> Q,~route:Layout.Route,~valid:{Layout.grant_valid(~resources,~route) == True{} : Bool},~descriptor:Relation.Descriptor<S>,~payload:{Layout.payload(resources,route) == RelationStore.Store<S,descriptor> : Type},~view:{Layout.view(resources,route) == RelationStore.View<S,descriptor> : Data},~protected:{Layout.policy(resources,route) == Policy.ProtectedRelation{S,descriptor} : Policy.Policy},book:Book<S,layout,resources>) -> Book<S,layout,resources> & RelationCommands.HierarchyCommands<Q,S>:
   match book:
-    case Book{permission,relations}:(Book{permission,RelationAllowed{route,valid,descriptor,payload,view,protected,relations}},RelationCommands.hierarchy(~S,~Q,~route,~enqueue))
+    case Book{permission,relations,selection}:(Book{permission,RelationAllowed{route,valid,descriptor,payload,view,protected,relations},extend_selection(~S,~resources,~route,~valid,~descriptor,~payload,~view,~protected,selection)},RelationCommands.hierarchy(~S,~Q,~route,~enqueue))
 def despawn_field(~Q:Type,~S:Data,~layout:Layout.Layout,~Permit:Data,commands:EntityCommands<Q,S,layout,Permit>) -> Q -> W.Handle<S> -> Q:
   match commands:
     case EntityCommands{despawn,_}:despawn
 type Prepared<-Ops:Type,-S:Data,-resources:Layout.Layout> is Type:
-  Prepared{permission:Permission,relations:Relations<S,resources>,ops:Ops}
+  Prepared{permission:Permission,relations:Relations<S,resources>,selection:RelationSelection(~S,~resources),ops:Ops}
 def prepared(~S:Data,~layout:Layout.Layout,~resources:Layout.Layout,-B:Type,-Ops:Type,result:B & (Book<S,layout,resources> & Ops)) -> B & Prepared<Ops,S,resources>:
   match result:
-    case (book,(Book{permission,relations},ops)):(book,Prepared{permission,relations,ops})
+    case (book,(Book{permission,relations,selection},ops)):(book,Prepared{permission,relations,selection,ops})
 def agrees(left:Permission,right:Permission) -> Bool:
   match left right:
     case FamilyOnly{} FamilyOnly{}:True{}
@@ -80,7 +91,7 @@ def agrees(left:Permission,right:Permission) -> Bool:
     case _ _:False{}
 def ops_field(-Ops:Type,-S:Data,-resources:Layout.Layout,value:Prepared<Ops,S,resources>) -> Ops:
   match value:
-    case Prepared{_,_,ops}:ops
+    case Prepared{_,_,_,ops}:ops
 
 # Only a declaration that consumed the structural grant can obtain this field.
 def spawn_field(~Q:Type,~S:Data,~layout:Layout.Layout,~Permit:Data,commands:EntityCommands<Q,S,layout,Permit>) -> Q -> Removed.Removed(layout) -> Task.Task<S,Permit,Q & Buffer.SpawnAdmission<S,Removed.Removed(layout)>>:

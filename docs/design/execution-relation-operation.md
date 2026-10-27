@@ -266,8 +266,8 @@ The context-law draft quantifies an actual affine World. Its only observations
 are the actual World namespace and its mismatch with the retained Context.
 The statement preserves that World, Binding, and operation on refusal. Its checker
 reports one TODO and no type or affinity errors. It is unapproved and unproved.
-The new helpers compile normally with Bend 2.0.35. Ordinary Root wiring and the
-scoped-scene command application remain incomplete.
+The context-law draft remains unapproved and unproved. The ordinary command
+scene described below now uses the retained Context and canonical Root runner.
 
 ### Namespace-bound schema provisioning
 
@@ -280,6 +280,50 @@ Factory and constructed resource owners; no placeholder namespace is involved.
 `examples/parallel-relations/setup.bend` consumes that helper to provision the
 protected scene hierarchy beside arbitrary affine application state. Its binding
 uses the actual full layout and route with reflexive payload, view and policy
-equalities. This is schema provisioning, not an executed command scene. The same
-ordinary Buffer relation variant and its declaration-closed typed dispatcher
-remain required; no alternate queue or unsupported-operation branch was added.
+equalities. That module supplies schema provisioning; the ordinary command
+consumer now lives in `actor.bend`, `initialize.bend`, `scheduled.bend` and
+`scene.bend` beside it.
+
+### Ordinary queue and closed resource dispatch
+
+`Buffer.Entry.Relation` carries its actual resource route and complete Operation,
+including every handle namespace and generation. It shares the existing pending
+list, split/merge behavior, barrier order and retained receipts with component,
+Spawn and Despawn commands. Published receipts retain the exact Store receipt;
+undeclared-route receipts retain the complete original operation.
+
+The same declaration's abstract permission book records typed Relations metadata
+and a closed canonical-resource dispatcher. Prepared caps retain both alongside
+the physical Builder caps. Each relation grant captures lexical route,
+descriptor, exact payload/view equalities and the actual canonical policy proof.
+The dispatcher accepts the actual allocator and `Layout.resources(S,full)` owner;
+it never accepts a gameplay callback over World or a second graph implementation.
+
+Tree derives this closed dispatcher from the same closed Compilation witness
+used to construct its actual binding. Runtime inspection returns that same
+Compilation, caps, recipes and access inventory intact. Publication also compares
+the actual typed metadata with the witness's full routes and full descriptors.
+The static forward full-resource equality transports the actual resource owner
+at the World boundary. Runtime route comparison only selects an already typed
+branch; it creates no payload, policy or descriptor evidence.
+
+The existing graph/reorder algorithms now erase their phantom schema parameter
+inside the implementation. Public schema-specialized functions delegate to those
+same algorithms. Slot payload/view casts accept typed proof arguments directly,
+so concrete reflexive proofs retain their expected type during substitution.
+
+The ordinary `scene.bend` entry completed once with Bend 2.0.35. It consumed the
+actual Factory, created three real live handles, registered the rank2 command
+body, and ran the retained-context Root application. The body queued Relate,
+Unrelate, Relate, Reorder and a self-relation request before returning BodyError;
+the application's handler continued. Output reported Finished, zero pending
+commands, four applied receipts and the refused self-relation receipt. The final
+edge was `1:0 -> 3:0`; the inverse was `3:0 <- [1:0]`; both cached lists matched.
+Failure sequence was 1. Resource/local session owners retained values 401/601.
+Every printed operation retained namespace 1 and generation 0 for its handles.
+This is an actual consumer observation, not a formal proof or whole-core result.
+
+Ordinary opaque failure-reader integration, automatic whole-App-Finished failure
+retention, modern lifetime-scope adoption/cleanup, and the full GH89 acceptance
+laws remain outstanding. The typed deferred-description helper does not by
+itself establish complete GH93 introspection coverage.
