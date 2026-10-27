@@ -36,6 +36,7 @@ next run. The ordinary consumer is `examples/parallel-composition`.
 `FeatureProvision.bind_feature` (`feature-provision.bend`) checks declared needs
 against the feature's own fragment and dependency closure; identical descriptor
 entries collapse for grants, while conflicts remain errors. Raw metadata,
-assemblies and closed declarations are trusted authoring operations. Historical
-schedule builders live explicitly in `feature-legacy.bend`; their metadata types
-are the same public Feature types, and the replacement entry does not import them.
+assemblies and closed declarations are trusted authoring operations. The former
+Feature schedule builder and its failure-prefix Schedule/System executor are
+removed from package source. Historical builders replay with their original
+library in the [historical source checkout](../../test-fixtures/HISTORICAL.md).

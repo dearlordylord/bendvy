@@ -44,7 +44,16 @@ runtime at the [qualified source revision](https://github.com/dearlordylord/bend
 Their scenario, reference, expected data, and verifier files retain their original
 contract. The old rollback checkpoints do not qualify the replacement executor.
 
-The `Feature` owned-builder migration still retains `schedule-provision`,
-`schedule`, and `system`. Their removal remains part of the current feature and
-consumer migration. The BendHub exporter includes all remaining source files
-under `src/ecs`, even when the aggregate does not import them.
+The original parallel-composition consumer now uses the retained Taskful Feature
+assembly. The obsolete `feature-legacy`, `schedule-provision`, `schedule` and
+`system` executor island is removed from package source. Public Feature metadata,
+pure `feature-provision` declared-access binding and current registration lifecycle
+operations remain available; the application-owned AppA Journal recovery is
+separate from ordinary execution. Historical fixture builders retain their
+[original source checkout](../../test-fixtures/HISTORICAL.md).
+
+The BendHub exporter includes all remaining source files under `src/ecs`, even
+when the aggregate does not import them. Remaining pure helpers have not been
+classified as obsolete merely because current applications do not import them.
+This source removal does not establish successful execution of every current
+consumer or extend the five approved helper laws to the whole ECS.
