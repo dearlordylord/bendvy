@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-reservation-task.bend as Effect
 import ../../src/ecs/execution-resource-policy.bend as Policy
 import ../../src/ecs/execution-event-family.bend as Event
 import ../../src/ecs/execution-event-view.bend as View
@@ -14,6 +15,9 @@ def Resources(~S:Data,~P:Type,~project:P -> P & U32) -> Type:Layout.resources(~S
 def Writers(~P:Type,H:Type) -> Type:Ops.Writer<H,P>
 def Readers(~S:Data,~P:Type,H:Type) -> Type:Ops.Reader<S,H,P,"events",U32>
 def Admins(~S:Data,~P:Type,H:Type) -> Type:Ops.Admin<S,H,P,"events">
+def WriterOps(~P:Type,Permit:Data,H:Type) -> Type:Writers(~P,H)
+def ReaderOps(~S:Data,~P:Type,Permit:Data,H:Type) -> Type:Readers(~S,~P,H)
+def AdminOps(~S:Data,~P:Type,Permit:Data,H:Type) -> Type:Admins(~S,~P,H)
 def writer_granted(~S:Data,~P:Type,~H:Type,~B:Type,result:B & Access.ResourceWrite<H,Event.Family<S,P,"events">,View.View<S,P,"events",U32>>) -> B & Writers(~P,H):
   match result:
     case (book,cap):(book,Ops.writer(~S,~H,~P,~"events",~View.View<S,P,"events",U32>,cap))
@@ -25,16 +29,16 @@ def admin_granted(~S:Data,~P:Type,~H:Type,~B:Type,result:B & Access.ResourceWrit
     case (book,cap):(book,Ops.admin(~S,~H,~P,~"events",~View.View<S,P,"events",U32>,cap))
 def writer_selection(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~cw:Build.ComponentWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rr:Build.ResourceRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rw:Build.ResourceWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~query:Build.Query(~S,~WC,~Unit,~Resources(~S,~P,~project),~H,~B),~lifecycle:Build.Lifecycle(~S,~WC,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Writers(~P,H):
   writer_granted(~S,~P,~H,~B,Build.basic_resource_write(~S,~Unit,~Resources(~S,~P,~project),~H,~B,~layout(~S,~P,~project),~Layout.AtLeaf{},~{==},~{==},~rw,book))
-def writer(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~builder:Build.Builder(~S,~WC,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Writers(~P,H):
-  builder(Writers(~P),writer_selection(~S,~WC,~P,~project,~H,~B),book)
+def writer_program(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~WC,~Unit,~Resources(~S,~P,~project),~Permit,~H,~B),book:B) -> B & Writers(~P,H):
+  builder(WriterOps(~P),writer_selection(~S,~WC,~P,~project,~H,~B),book)
 def reader_selection(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~cw:Build.ComponentWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rr:Build.ResourceRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rw:Build.ResourceWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~query:Build.Query(~S,~WC,~Unit,~Resources(~S,~P,~project),~H,~B),~lifecycle:Build.Lifecycle(~S,~WC,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Readers(~S,~P,H):
   reader_granted(~S,~P,~H,~B,Build.basic_resource_read(~S,~Unit,~Resources(~S,~P,~project),~H,~B,~layout(~S,~P,~project),~Layout.AtLeaf{},~{==},~{==},~rr,book))
-def reader(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~builder:Build.Builder(~S,~WC,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Readers(~S,~P,H):
-  builder(Readers(~S,~P),reader_selection(~S,~WC,~P,~project,~H,~B),book)
+def reader_program(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~WC,~Unit,~Resources(~S,~P,~project),~Permit,~H,~B),book:B) -> B & Readers(~S,~P,H):
+  builder(ReaderOps(~S,~P),reader_selection(~S,~WC,~P,~project,~H,~B),book)
 def admin_selection(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~cw:Build.ComponentWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rr:Build.ResourceRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rw:Build.ResourceWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~query:Build.Query(~S,~WC,~Unit,~Resources(~S,~P,~project),~H,~B),~lifecycle:Build.Lifecycle(~S,~WC,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Admins(~S,~P,H):
   admin_granted(~S,~P,~H,~B,Build.basic_resource_write(~S,~Unit,~Resources(~S,~P,~project),~H,~B,~layout(~S,~P,~project),~Layout.AtLeaf{},~{==},~{==},~rw,book))
-def admin(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~builder:Build.Builder(~S,~WC,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Admins(~S,~P,H):
-  builder(Admins(~S,~P),admin_selection(~S,~WC,~P,~project,~H,~B),book)
+def admin_program(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~WC,~Unit,~Resources(~S,~P,~project),~Permit,~H,~B),book:B) -> B & Admins(~S,~P,H):
+  builder(AdminOps(~S,~P),admin_selection(~S,~WC,~P,~project,~H,~B),book)
 type Sent<-P:Type> is Type:Sent{pending:List<P>,refused:List<P>,text:String}
 type WriterLocal<-P:Type> is Type:WriterLocal{pending:List<P>,refused:List<P>,runs:U32,history:List<&2,String>}
 type ReaderLocal<-S:Data,-P:Type> is Type:ReaderLocal{reader:Event.Reader<S,P,"events">,runs:U32,history:List<&2,String>}
@@ -76,7 +80,7 @@ def writer_local(~P:Type,pending:List<P>,refused:List<P>,runs:U32,history:List<&
 def writer_returned(~H:Type,~P:Type,+runs:U32,history:List<&2,String>,result:H & Sent<P>) -> H & (WriterLocal<P> & Sys.Completion<String,String>):
   match result:
     case (scope,Sent{pending,refused,+text}):(scope,(writer_local(~P,pending,refused,U32.add(runs,1),List.append(&2,String,history,[text])),completion(U32.is_eq(runs,0),text)))
-def writer_body(~P:Type,~H:Type,~cap:Writers(~P,H),scope:H,local:WriterLocal<P>) -> H & (WriterLocal<P> & Sys.Completion<String,String>):
+def writer_sync(~P:Type,~H:Type,~cap:Writers(~P,H),scope:H,local:WriterLocal<P>) -> H & (WriterLocal<P> & Sys.Completion<String,String>):
   match local:
     case WriterLocal{pending,refused,+runs,history}:writer_returned(~H,~P,runs,history,send_selected(~H,~P,~cap,runs,scope,pending,refused))
 def refusal(value:Event.Refusal) -> String:
@@ -94,7 +98,7 @@ def reader_result(~S:Data,~H:Type,~P:Type,+runs:U32,history:List<&2,String>,scop
 def reader_returned(~S:Data,~H:Type,~P:Type,runs:U32,history:List<&2,String>,result:H & Event.Reading<S,P,"events",U32>) -> H & (ReaderLocal<S,P> & Sys.Completion<String,String>):
   match result:
     case (scope,result):reader_result(~S,~H,~P,runs,history,scope,result)
-def reader_body(~S:Data,~P:Type,~H:Type,~cap:Readers(~S,~P,H),scope:H,local:ReaderLocal<S,P>) -> H & (ReaderLocal<S,P> & Sys.Completion<String,String>):
+def reader_sync(~S:Data,~P:Type,~H:Type,~cap:Readers(~S,~P,H),scope:H,local:ReaderLocal<S,P>) -> H & (ReaderLocal<S,P> & Sys.Completion<String,String>):
   match local:
     case ReaderLocal{reader,runs,history}:reader_returned(~S,~H,~P,runs,history,read_field(~S,~H,~P,cap)(reader,scope))
 type AdminDone<-S:Data,-P:Type> is Type:AdminDone{local:AdminLocal<S,P>,text:String}
@@ -123,5 +127,18 @@ def admin_selected(~S:Data,~H:Type,~P:Type,~cap:Admins(~S,~P,H),scope:H,local:Ad
 def admin_returned(~S:Data,~H:Type,~P:Type,result:H & AdminDone<S,P>) -> H & (AdminLocal<S,P> & Sys.Completion<String,String>):
   match result:
     case (scope,AdminDone{AdminLocal{removable,foreign,retired,extra,runs,history},+text}):(scope,(AdminLocal{removable,foreign,retired,extra,U32.add(runs,1),List.append(&2,String,history,[text])},Sys.Success{text}))
-def admin_body(~S:Data,~P:Type,~H:Type,~cap:Admins(~S,~P,H),scope:H,local:AdminLocal<S,P>) -> H & (AdminLocal<S,P> & Sys.Completion<String,String>):
+def admin_sync(~S:Data,~P:Type,~H:Type,~cap:Admins(~S,~P,H),scope:H,local:AdminLocal<S,P>) -> H & (AdminLocal<S,P> & Sys.Completion<String,String>):
   admin_returned(~S,~H,~P,admin_selected(~S,~H,~P,~cap,scope,local))
+
+def writer(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~Permit:Data,~token:Permit,~H:Type,~B:Type,~builder:Build.Builder(~S,~WC,~Unit,~Resources(~S,~P,~project),~Permit,~H,~B),book:B) -> B & WriterOps(~P,Permit,H):
+  Build.framework_program(~S,~WC,~Unit,~Resources(~S,~P,~project),~WriterOps(~P),~writer_program(~S,~WC,~P,~project),~Permit,~token,~H,~B,~builder,book)
+def reader(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~Permit:Data,~token:Permit,~H:Type,~B:Type,~builder:Build.Builder(~S,~WC,~Unit,~Resources(~S,~P,~project),~Permit,~H,~B),book:B) -> B & ReaderOps(~S,~P,Permit,H):
+  Build.framework_program(~S,~WC,~Unit,~Resources(~S,~P,~project),~ReaderOps(~S,~P),~reader_program(~S,~WC,~P,~project),~Permit,~token,~H,~B,~builder,book)
+def admin(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~Permit:Data,~token:Permit,~H:Type,~B:Type,~builder:Build.Builder(~S,~WC,~Unit,~Resources(~S,~P,~project),~Permit,~H,~B),book:B) -> B & AdminOps(~S,~P,Permit,H):
+  Build.framework_program(~S,~WC,~Unit,~Resources(~S,~P,~project),~AdminOps(~S,~P),~admin_program(~S,~WC,~P,~project),~Permit,~token,~H,~B,~builder,book)
+def writer_body(~S:Data,~P:Type,~Permit:Data,~H:Type,~cap:WriterOps(~P,Permit,H),scope:H,local:WriterLocal<P>) -> Effect.Task<S,Permit,H & (WriterLocal<P> & Sys.Completion<String,String>)>:
+  Effect.TRun{_ => Effect.TDone{writer_sync(~P,~H,~cap,scope,local)}}
+def reader_body(~S:Data,~P:Type,~Permit:Data,~H:Type,~cap:ReaderOps(~S,~P,Permit,H),scope:H,local:ReaderLocal<S,P>) -> Effect.Task<S,Permit,H & (ReaderLocal<S,P> & Sys.Completion<String,String>)>:
+  Effect.TRun{_ => Effect.TDone{reader_sync(~S,~P,~H,~cap,scope,local)}}
+def admin_body(~S:Data,~P:Type,~Permit:Data,~H:Type,~cap:AdminOps(~S,~P,Permit,H),scope:H,local:AdminLocal<S,P>) -> Effect.Task<S,Permit,H & (AdminLocal<S,P> & Sys.Completion<String,String>)>:
+  Effect.TRun{_ => Effect.TDone{admin_sync(~S,~P,~H,~cap,scope,local)}}
