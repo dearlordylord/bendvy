@@ -102,6 +102,16 @@ Both unlike nominal receiver/clear consumers compile. These pieces have not
 yet been connected to complete fresh-handle publication, resource replacement,
 ordinary Scheduled restore or resumed execution.
 
+Fresh row publication now reserves actual receiver IDs, marks them Pending and
+uses canonical Materializer.apply_at. Only returned receiver handles enter the
+saved-key map. Every row retains displaced owners or an explicit refused bundle
+receipt; any refusal marks the result partial. The concrete publication consumer
+moves actual staged Actor records into bundles and retains their undo records.
+Config replacement refreshes its new cache/stamp, returns the complete previous
+resource slot, and retains the same transient resource slot. Actual Alpha/Beta
+row preparation, materialization and resource replacement compile. These pieces
+still need the enclosing restore operation and Scheduled resume adapter.
+
 The four laws in `test-fixtures/execution-save-laws/LAWS.bend` and two subjects in
 `SCHEMA.bend` are unapproved, unproved drafts. They describe exact gate branching,
 Plain/Transient owner return and actual schema/World refusal branches. They do
