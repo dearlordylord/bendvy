@@ -1,5 +1,30 @@
 # Ordinary save ownership boundary
 
+Current ordinary entry coverage includes `main.bend` (restore/resume),
+`pending-main.bend` (actual authored queue refusal), `floor-main.bend` (independent
+receiver/floor/capacity), `retry-main.bend` (two independent saves, invalid codec
+refusal and successful retry), and `plain.bend` (generic World Plain eligibility).
+These consumers return actual typed owners before terminal rendering. They are
+ordinary execution observations; new laws remain unapproved and unproved.
+
+`retry-main.bend` retains both saves, the full rejected input and its actual
+declaration/factory receipt while restoring the valid second save into the same
+App and resuming serial/native execution. Only duplicable codec declarations are
+copied for retry; no affine payload, factory state or App is duplicated. One
+ordinary invocation exited 0 for Alpha/Beta serial/native: Config's invalid
+integer was refused, retry mapped generation 0 to 1, Actor energy remained 41,
+Config became 701, captures remained 101/202/303 and the original Reader consumed
+one despawn notice. `plain.bend` exited 0 for Alpha/Beta with
+PlainUnserializable(plain-config), retaining actual Config Array 777 and cache 777.
+That Plain case exercises World eligibility, separately from Scheduled gating.
+
+Remaining acceptance includes constructor-failure cleanup, source-current
+ownership/access controls, full contract reconciliation and independent review.
+Maximum-size source metadata export has a known machine stack failure. The
+resource-policy migration's pending consumer currently reaches a shared relation
+dispatcher compile-time-route error; its earlier actual queue observation applies
+to its recorded older core. No full GH91/GH92 completion is claimed.
+
 This checkpoint starts GH91 on the canonical execution core. It is not a complete
 save/restore implementation. No runtime or universal proof claim is made.
 
