@@ -1,6 +1,6 @@
 # Execution law draft inventory
 
-Source reconciliation at `9b18a2a0c9fcde3159769125a77e4361d417bb28`.
+Source reconciliation at `a417eb88778aa5efc49ba193b613a8cc435d7f05`.
 Every candidate below is **DRAFT / UNAPPROVED / UNPROVED**. This is authoring,
 not an independent review, approval request, proof run or acceptance report.
 The five previously approved statements under `test-fixtures/execution-laws`
@@ -16,7 +16,7 @@ substituted for a blocked statement.
 | --- | ---: | --- | --- |
 | [reservation service](../../test-fixtures/execution-reservation-laws/LAWS.bend) | 2 | `Task.service_generic`, actual `Issuer` allocator, `Authorized` permit and continuation | Foreign namespace `1` against issuer `0`, or empty prepared-ID list, returns issuer and a deferred refusal continuation. No successful allocation, continuation execution, arbitrary task tree, or whole-run claim. |
 | [reservation materialization](../../test-fixtures/execution-reservation/LAWS.bend) | 4 | `Materialization.apply_at`, `check_leaf`, actual World, allocator, unlike bundle and column owners | Foreign namespace; one-cell malformed value array against eight-cell canonical leaf; a specific old generation; a specific Consumed allocator slot. Does not establish successful publication, all malformed layouts, or reservation provenance. |
-| [lifecycle](../../test-fixtures/execution-lifecycle-laws/LAWS.bend) | 12 active + 1 blocked | Actual `Sys.Owner`, `Sys.Body`, `Build.FrameworkProgram`, `World`, `Scope`, administration, journal and lifecycle Reader | Four wrapper laws are conditional on exact `IO.pure` invocation/kernel terms. They do not cover arbitrary effectful IO. Other laws pin result reassembly, Finished/Stopped/Invalid maintenance branches, foreign admission/Reader refusal, and one retained-item lag shape. No whole-run scheduling, driver behavior or full retention search theorem. |
+| [lifecycle](../../test-fixtures/execution-lifecycle-laws/LAWS.bend) | 13 active | Actual `Sys.Owner`, `Sys.Body`, `Build.FrameworkProgram`, `World`, `Scope`, administration, journal, lifecycle Reader and typed command entry | Four wrapper laws are conditional on exact `IO.pure` invocation/kernel terms. They do not cover arbitrary effectful IO. Other laws pin result reassembly, Finished/Stopped/Invalid maintenance branches, foreign admission/Reader/command-entry refusal, and one retained-item lag shape. No whole-run scheduling, driver behavior or full retention search theorem. |
 | [relations](../../test-fixtures/execution-relation-laws/LAWS.bend) | 7 | Interpreter allocator/graph, protected-write policy, actual Store/slot/stamp, actual failure Reader/channel and Local | Foreign unrelate/store/publication/Reader refusals, ordinary-descriptor reorder refusal, policy helper, and body-error reassembly. No successful arbitrary graph edit, public grant completeness, registration, false-condition path or rollback theorem. |
 | [relation context](../../test-fixtures/execution-relation-context-laws/LAWS.bend) | 1 | `WorldPublication.apply`, actual World, typed Context.Binding and original operation | Assumes the exact `W.namespace` observation and namespace inequality. Preserves that World/binding on refusal; does not prove namespace allocation, ordinary Root wiring, successful publication or maintenance. |
 | [save gate/recipe](../../test-fixtures/execution-save-laws/LAWS.bend) | 4 | `Gate.checked`, actual generic application owner; `Recipe.export`, actual payload/recipe | Pending Bool branch retains application; clear branch calls exact supplied projector; Plain refuses and Transient omits while retaining owners. Does not prove pending detection, arbitrary projector preservation, serialization or schema correctness. |
@@ -28,30 +28,46 @@ The lifecycle source now uses `Ops:Data -> Type -> Type`,
 now have their actual `IO(...)` types. The conditional equations require exact
 `IO.pure` terms, not an assertion that arbitrary effects reduce to a returned
 value. This narrower IO domain is explicit and is **not** whole-run coverage.
-A single source-only `--check-only` invocation reports 12 unfinished laws and no
+A single source-only `--check-only` invocation reports 13 unfinished laws and no
 other diagnostic for that file. Its exit status is 1; it is not a proof pass.
 The other groups were reconciled by reading their current subjects/signatures;
 no successful proof or blanket source-check claim is made for them.
 
-`foreign_family_entry_retains_world_and_incoming_owner` remains blocked.
-Its original statement is retained as commented draft text in the lifecycle
-source. `Publication.entry` now requires the actual resource layout, its equality
-proof, typed `Permission.Selection` and Context, in addition to the old arguments.
-The ScopeGrant/Buffer migration owns the next concrete signature. Reauthor that
-same full-World/incoming-owner refusal statement after that API lands; do not
-replace it with a policy Boolean law or assumed final publication result.
+`foreign_family_entry_retains_world_and_incoming_owner` now has a current
+statement. Its pre-migration text remains commented as history in the lifecycle
+source, not as an additional candidate. The active equation supplies the actual
+resource layout and equality proof, typed `Permission.Selection` (including its
+scope dispatcher), `Permission.Relations` and Context to `Publication.entry`.
+It retains the full-World/incoming-owner refusal conclusion, with only valid-route
+and namespace-inequality premises. It does not assume a final publication result
+or replace actual owners with a policy Boolean. The selected `Buffer.Entry`
+family branch does not execute relation/scope dispatch or check Context admission.
+The current API requires the resource-layout equality witness. The successor
+does not quantify over an opaque `R` without that witness as the old text did.
+There are still **36 existing subjects**, now 36 active drafts and none blocked
+by the old signature. Active means an uncommented declaration, not approval,
+proof or a successful source check for every draft file.
 
-Receiver quiescence is a separate gap. `receiver_pending_keeps_actual_world`
+Receiver quiescence is a separate law gap. `receiver_pending_keeps_actual_world`
 only fixes the `Receiver.ready(...,(world,False{}))` branch. It does not prove
-that `Receiver.prepare` rejects active `Clock.scopes`. The incoming typed
-`ActiveExecution` admission change must retain actual World/App before columns,
+that `Receiver.prepare` rejects active `Clock.scopes`. The current typed
+`ActiveExecution` admission branch returns actual World before columns,
 constructors, clock-floor changes or mutation. No current draft above establishes
-that new branch. The receiver owner reports the concrete pending change:
+that branch. The current receiver implementation has this decision:
 `Receiver.ready(...,(world,True{}))` proceeds to column inspection only for
 `Clock.State{tick,[]}` and otherwise returns
-`Receiver.Refused{world,Receiver.ActiveExecution{}}`. This incoming signature
-was communicated before its coherent commit; it is not claimed as integrated
-source in the reconciliation basis above.
+`Receiver.Refused{world,Receiver.ActiveExecution{}}`. This is integrated source
+in the reconciliation basis above, not a proof or an additional law candidate.
+
+The same limit applies to other subsequently integrated APIs. No existing draft
+above establishes `Recipe.Changed` from actual column/cached stamps and the
+admitted `Scope.prior/tick`; arbitrary retained N-leaf composition and nested
+cut/join refusal; generalized Root `run_bound` preflight; or its owned completion
+callback and whole-schema relation failure maintenance. The lifecycle maintenance
+equations name `Maintenance.completed`, not those generalized Root adapters.
+The pure lifetime-scope and recoverable-component type splits do not extend any
+of these equations into cleanup, recovery or whole-run theorems. These are
+uncovered subjects to resolve separately, not hidden coverage in the 36 drafts.
 
 ## Bevy correspondence and Bend requirements
 
@@ -74,7 +90,7 @@ is not a proof of those equations or of matching ownership representations.
 | --- | --- | --- |
 | Reservation: отказ в полномочиях | При чужом namespace или неподготовленном ID настоящий allocator остаётся у владельца. | Не обещают успешного выделения сущности и не запускают продолжение. |
 | Spawn: отказ публикации | При перечисленных ошибках возвращаются настоящий World и исходный пакет компонентов. | Охвачены конкретные формы ошибок; успешный Spawn не доказан. |
-| Lifecycle | Сохраняются возвращённые владельцы; обслуживание истории зависит от результата; чужой Reader отказывается читать. | Часть утверждений условная; IO ограничен точными `IO.pure` термами; одна публикация заблокирована изменением API. |
+| Lifecycle | Сохраняются возвращённые владельцы; обслуживание истории зависит от результата; чужие Reader и команда записи отказываются работать с этим World. | Часть утверждений условная; IO ограничен точными `IO.pure` термами; закон команды записи не доказывает Root, Context admission или обработку relations/scopes. |
 | Relations и Context | Перечисленные отказы сохраняют graph, allocator, Reader, binding и входную операцию; обычная запись в защищённый ресурс запрещена. | Нет общего доказательства правильности изменения графа или выдачи полномочий. |
 | Save | При pending работа не сохраняется, а реальные владельцы возвращаются; Plain/Transient следуют своей политике. | Нет доказательства обнаружения всей pending-работы, кодеков и произвольных projectors. |
 | Restore | Отказ при pending и пустые шаги возвращают настоящий World. | Непустое восстановление, remapping, Reader и stream ещё не покрыты этими законами. |

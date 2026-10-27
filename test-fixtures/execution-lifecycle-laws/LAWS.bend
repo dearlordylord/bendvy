@@ -24,6 +24,7 @@ import ../../src/ecs/execution-command-publication.bend as Publication
 import ../../src/ecs/execution-command-buffer.bend as Buffer
 import ../../src/ecs/execution-command-removed.bend as Removed
 import ../../src/ecs/execution-command-permission.bend as Permission
+import ../../src/ecs/execution-relation-context.bend as Context
 import ../../src/ecs/chunk-column.bend as Column
 
 # DRAFT ONLY: these exact statements are not approved and have no proofs.
@@ -373,10 +374,10 @@ law reader_lag_clamp_and_yield_preserve_actual_scope:
 # Bevy behavior: structural entity operations validate the actual entity first.
 # Bend adaptation: namespace is explicit and refusal returns raw payload owners.
 # The premises validate route and foreign identity, not a final publication result.
-# BLOCKED pending the concrete ScopeGrant/Permission.Selection API migration.
-# Publication.entry now also needs resources, sameWR, selection and Context.
-# The original statement is retained as commented draft text, without replacing
-# it by a weaker helper law or claiming that its old call is current source.
+# Historical pre-migration text follows. Its entry call is not the current ABI.
+# The same full-World/incoming-owner subject is reauthored below with the actual
+# resources, equality, Selection, Relations and Context arguments. Both texts
+# remain unapproved and unproved; the old text is not a second candidate.
 # BLOCKED: law foreign_family_entry_retains_world_and_incoming_owner:
 # BLOCKED:   for -S:Data
 # BLOCKED:   for -R:Type
@@ -401,3 +402,43 @@ law reader_lag_clamp_and_yield_preserve_actual_scope:
 # BLOCKED:   for -tick:Tick.Tick
 # BLOCKED:   for foreign:{U32.is_eq(namespace,actual) == False{} : Bool}
 # BLOCKED:   {Publication.entry(~S,~R,~E,~layout,~route,permission,W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal},Buffer.Entry{W.Handle{actual,key},incoming},tick) == (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal},Buffer.Refused{W.Handle{actual,key},incoming}) : W.World<S,Layout.columns(~S,layout),R,E> & Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>}
+
+# Guarantees: a foreign family entry returns the full World and incoming owner.
+# Why it matters: a queued insert for another World cannot replace or lose them.
+# Bevy code: https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/world/mod.rs#L1599-L1612
+# Bevy behavior: structural entity access validates the entity before mutation.
+# Bend requirement: explicit namespace refusal returns these exact affine owners.
+# The valid-route and namespace premises do not assume a publication result.
+# Selection, relations and Context are the actual entry arguments, not Data
+# summaries of World. This family branch does not exercise their graph/scope
+# dispatch, verify Context admission, or prove ordinary Root/queue wiring.
+# DRAFT, UNAPPROVED, UNPROVED. No proof definition accompanies this statement.
+law foreign_family_entry_retains_world_and_incoming_owner:
+  for -S:Data
+  for -R:Type
+  for -E:Data
+  for -layout:Layout.Layout
+  for -route:Layout.Route
+  for valid:{Layout.grant_valid(~layout,~route) == True{} : Bool}
+  for -resources:Layout.Layout
+  for -sameWR:{R == Layout.resources(~S,resources) : Type}
+  for -selection:Permission.Selection<S,resources>
+  for -relations:Permission.Relations<S,resources>
+  for -context:Context.Context<S,R,resources,sameWR>
+  for -permission:Permission.Permission
+  for -namespace:U32
+  for -allocator:Allocator.Allocator
+  for -store:Layout.columns(~S,layout)
+  for -resource:R
+  for -events:List<&2,E>
+  for -pending:List<Deferred.Command<W.World<S,Layout.columns(~S,layout),R,E>>>
+  for -registrations:List<&2,W.RegistrationMeta>
+  for -nextSystemId:U32
+  for -clock:Clock.State
+  for -journal:Notice.Journal<S>
+  for -actual:U32
+  for -key:Key.Key
+  for -incoming:Maybe<&1,Layout.payload(layout,route)>
+  for -tick:Tick.Tick
+  for foreign:{U32.is_eq(namespace,actual) == False{} : Bool}
+  {Publication.entry(~S,~R,~E,~layout,~route,~resources,~sameWR,~selection,~relations,context,permission,W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal},Buffer.Entry{W.Handle{actual,key},incoming},tick) == (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,journal},Buffer.Refused{W.Handle{actual,key},incoming}) : W.World<S,Layout.columns(~S,layout),R,E> & Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>}

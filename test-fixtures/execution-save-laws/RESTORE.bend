@@ -14,8 +14,9 @@ import ../../src/ecs/change-tick.bend as Tick
 # The affine World equations below are Bend-specific ownership requirements;
 # that Bevy implementation does not establish or prove these equations.
 # Receiver.ready(...,(world,False{})) covers pending-work refusal only.
-# It does not establish Receiver.prepare quiescence or reject active Clock.scopes;
-# an ActiveExecution admission branch needs its own reconciled future subject.
+# The implementation also rejects active Clock.scopes with ActiveExecution.
+# This pending-work equation does not establish that separate admission branch;
+# no ActiveExecution law is introduced or approved by this reconciliation.
 law receiver_pending_keeps_actual_world:
   for -S:Data
   for -layout:Layout.Layout
