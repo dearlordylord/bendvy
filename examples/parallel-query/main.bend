@@ -7,4 +7,8 @@ type First is Data:
 type Second is Data:
   Second{}
 def main() -> IO(Unit):
-  IO.print("First/serial=" ++ Application.run(~First,~Query.Serial{}) ++ "\nFirst/parallel=" ++ Application.run(~First,~Query.Parallel{}) ++ "\nSecond/parallel=" ++ Application.run(~Second,~Query.Parallel{}) ++ "\nFirst/error=" ++ Application.run_error(~First,~Query.Parallel{}))
+  IO.bind(String,Unit,Application.run(~First,~Query.Serial{}),serial =>
+    IO.bind(String,Unit,Application.run(~First,~Query.Parallel{}),parallel =>
+      IO.bind(String,Unit,Application.run(~Second,~Query.Parallel{}),second =>
+        IO.bind(String,Unit,Application.run_error(~First,~Query.Parallel{}),error =>
+          IO.print("First/serial=" ++ serial ++ "\nFirst/parallel=" ++ parallel ++ "\nSecond/parallel=" ++ second ++ "\nFirst/error=" ++ error)))))

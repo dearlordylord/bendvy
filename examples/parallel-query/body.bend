@@ -2,6 +2,7 @@ import Base
 import ../../src/ecs/execution-query.bend as Q
 import ../../src/ecs/chunk-query.bend as Rows
 import ../../src/ecs/execution-system.bend as Sys
+import ../../src/ecs/execution-reservation-task.bend as Task
 
 type Local is Type:
   Local{token:Array<U32>,runs:U32}
@@ -19,6 +20,6 @@ def completed(~H:Type,token:Array<U32>,runs:U32,result:H & Q.Report<String>) -> 
 def counted(~S:Data,~H:Type,~caps:Q.Each<S,H,String>,scope:H,runs:U32,result:Array<U32> & U32) -> H & (Local & Sys.Completion<String,String>):
   match result:
     case (token,id): completed(~H,Array.set(U32,token,0,U32.add(id,1)),U32.add(runs,1),Q.each(~S,~H,~String,caps)(scope))
-def run(~S:Data,~H:Type,~caps:Q.Each<S,H,String>,scope:H,local:Local) -> H & (Local & Sys.Completion<String,String>):
+def run(~S:Data,~Permit:Data,~H:Type,~caps:Q.Each<S,H,String>,scope:H,local:Local) -> Task.Task<S,Permit,H & (Local & Sys.Completion<String,String>)>:
   match local:
-    case Local{token,runs}: counted(~S,~H,~caps,scope,runs,Array.get(U32,token,0))
+    case Local{token,runs}:Task.TRun{_ => Task.TDone{counted(~S,~H,~caps,scope,runs,Array.get(U32,token,0))}}
