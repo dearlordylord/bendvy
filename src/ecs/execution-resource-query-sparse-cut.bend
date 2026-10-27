@@ -13,6 +13,7 @@ import ./execution-resource-recipe.bend as Recipe
 import ./execution-lifecycle-notices.bend as Notice
 import ./world.bend as W
 import ./change-tick.bend as Tick
+import ./execution-owner-continuation.bend as Continuation
 
 # A sparse parent is partitioned directly. Its canonical complement stays
 # affine in the enclosing join; no sparse/full storage equality is assumed.
@@ -64,13 +65,34 @@ def metadata_valid(~S:Data,~components:L.Layout,~resources:L.Layout,metadata:Met
     case Metadata{+ns,rns,+handles,_,_,view,grants,info,recipes} Footprint.Footprint{en,eh,ei,_,eg,_,er}:Bool.and(U32.is_eq(ns,rns),Bool.and(U32.is_eq(ns,en),Bool.and(U32.is_eq(ns,Checks.view_namespace(~S,view)),Bool.and(Checks.same_handles(~S,handles,eh),Bool.and(Checks.same_info(info,ei),Bool.and(Checks.same_grants(~S,~L.columns(~S,components),grants,eg),same_recipes(recipes,er)))))))
 type Context<-S:Data,-components:L.Layout,-resources:L.Layout> is Data:
   Context{namespace:U32,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,view:Notice.View<S>,grants:List<&2,Grants.Granted<S,L.columns(~S,components)>>,info:List<&2,Schema.Info>,recipes:List<&2,Recipe.Entry>,left:Footprint.Footprint<S,components,resources>,right:Footprint.Footprint<S,components,resources>}
+type JoinedResourceHeader<-S:Data,-components:L.Layout,-resources:L.Layout> is Type:
+  JoinedResourceHeader{memo:Context<S,components,resources>,resource:Resource.Pieces<S,resources>}
+def joined_columns(~S:Data,~components:L.Layout,~resources:L.Layout,header:JoinedResourceHeader<S,components,resources>,columns:QueryStore.stores(~S,components)) -> Joined<S,components,resources>:
+  match header:
+    case JoinedResourceHeader{Context{+namespace,handles,tick,prior,view,grants,info,recipes,_,_},resource}:Joined{State.Scope{QueryStore.Storage{namespace,columns,grants,info},ResourceStore.Storage{namespace,Resource.merge(~S,resources,resource),recipes},handles,tick,prior,view}}
 def joined_checked(~S:Data,~components:L.Layout,~resources:L.Layout,leftMetadata:Metadata<S,components>,rightMetadata:Metadata<S,components>,memo:Context<S,components,resources>,query:Query.Pieces<S,components>,resource:Resource.Pieces<S,resources>,valid:Bool) -> Joined<S,components,resources>:
   match memo query resource valid:
-    case Context{+namespace,handles,tick,prior,view,grants,info,recipes,_,_} query resource True{}:Joined{State.Scope{QueryStore.Storage{namespace,Query.merge(~S,components,query),grants,info},ResourceStore.Storage{namespace,Resource.merge(~S,resources,resource),recipes},handles,tick,prior,view}}
+    case memo query resource True{}:
+      continuation:Continuation.Header<QueryStore.stores(~S,components),Joined<S,components,resources>> = Continuation.Header{JoinedResourceHeader<S,components,resources>,JoinedResourceHeader{memo,resource},header => columns => joined_columns(~S,~components,~resources,header,columns)}
+      Continuation.returned(QueryStore.stores(~S,components),Joined<S,components,resources>,continuation,Query.merge(~S,components,query))
     case Context{namespace,handles,tick,prior,view,grants,info,recipes,left,right} Query.Pieces{lc,rc,qm} Resource.Pieces{ls,rs,rm} False{}:JoinRefused{scope(~S,~components,~resources,leftMetadata,lc,ls),scope(~S,~components,~resources,rightMetadata,rc,rs),Join{qm,rm,namespace,handles,tick,prior,view,grants,info,recipes,left,right}}
 def inspected_join(~S:Data,~components:L.Layout,~resources:L.Layout,leftMetadata:Metadata<S,components>,rightMetadata:Metadata<S,components>,memo:Context<S,components,resources>,query:Query.Pieces<S,components> & Bool,resource:Resource.Pieces<S,resources> & Bool,valid:Bool) -> Joined<S,components,resources>:
   match query resource:
     case (query,qv), (resource,rv):joined_checked(~S,~components,~resources,leftMetadata,rightMetadata,memo,query,resource,Bool.and(valid,Bool.and(qv,rv)))
+type JoinInspectionHeader<-S:Data,-components:L.Layout,-resources:L.Layout> is Type:
+  JoinInspectionHeader{leftMetadata:Metadata<S,components>,rightMetadata:Metadata<S,components>,memo:Context<S,components,resources>,resource:Resource.Pieces<S,resources>}
+type ResourceInspectionHeader<-S:Data,-components:L.Layout,-resources:L.Layout> is Type:
+  ResourceInspectionHeader{leftMetadata:Metadata<S,components>,rightMetadata:Metadata<S,components>,memo:Context<S,components,resources>,query:Query.Pieces<S,components> & Bool}
+def joined_resource_inspected(~S:Data,~components:L.Layout,~resources:L.Layout,header:ResourceInspectionHeader<S,components,resources>,resource:Resource.Pieces<S,resources> & Bool) -> Joined<S,components,resources>:
+  match header:
+    case ResourceInspectionHeader{+leftMetadata,+rightMetadata,Context{namespace,handles,tick,prior,view,grants,info,recipes,+left,+right},query}:inspected_join(~S,~components,~resources,leftMetadata,rightMetadata,Context{namespace,handles,tick,prior,view,grants,info,recipes,left,right},query,resource,Bool.and(metadata_valid(~S,~components,~resources,leftMetadata,left),metadata_valid(~S,~components,~resources,rightMetadata,right)))
+def joined_query_inspected(~S:Data,~components:L.Layout,~resources:L.Layout,header:JoinInspectionHeader<S,components,resources>,query:Query.Pieces<S,components> & Bool) -> Joined<S,components,resources>:
+  match header:
+    case JoinInspectionHeader{leftMetadata,rightMetadata,memo,Resource.Pieces{ls,rs,rm}}:
+      continuation:Continuation.Header<(Resource.Pieces<S,resources> & Bool),Joined<S,components,resources>> = Continuation.Header{ResourceInspectionHeader<S,components,resources>,ResourceInspectionHeader{leftMetadata,rightMetadata,memo,query},header => resource => joined_resource_inspected(~S,~components,~resources,header,resource)}
+      Continuation.returned(Resource.Pieces<S,resources> & Bool,Joined<S,components,resources>,continuation,Resource.inspect_join(~S,resources,ls,rs,rm))
 def join(~S:Data,~components:L.Layout,~resources:L.Layout,left:State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,right:State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,memo:Join<S,components,resources>) -> Joined<S,components,resources>:
   match left right memo:
-    case State.Scope{QueryStore.Storage{+ln,lc,+lg,+li},ResourceStore.Storage{+lrn,ls,+lr},+lh,+lt,+lp,+lv} State.Scope{QueryStore.Storage{+rn,rc,+rg,+ri},ResourceStore.Storage{+rrn,rs,+rr},+rh,+rt,+rp,+rv} Join{qm,rm,namespace,handles,tick,prior,view,grants,info,recipes,+left,+right}:inspected_join(~S,~components,~resources,Metadata{ln,lrn,lh,lt,lp,lv,lg,li,lr},Metadata{rn,rrn,rh,rt,rp,rv,rg,ri,rr},Context{namespace,handles,tick,prior,view,grants,info,recipes,left,right},Query.inspect_join(~S,components,lc,rc,qm),Resource.inspect_join(~S,resources,ls,rs,rm),Bool.and(metadata_valid(~S,~components,~resources,Metadata{ln,lrn,lh,lt,lp,lv,lg,li,lr},left),metadata_valid(~S,~components,~resources,Metadata{rn,rrn,rh,rt,rp,rv,rg,ri,rr},right)))
+    case State.Scope{QueryStore.Storage{ln,lc,lg,li},ResourceStore.Storage{lrn,ls,lr},lh,lt,lp,lv} State.Scope{QueryStore.Storage{rn,rc,rg,ri},ResourceStore.Storage{rrn,rs,rr},rh,rt,rp,rv} Join{qm,rm,namespace,handles,tick,prior,view,grants,info,recipes,left,right}:
+      continuation:Continuation.Header<(Query.Pieces<S,components> & Bool),Joined<S,components,resources>> = Continuation.Header{JoinInspectionHeader<S,components,resources>,JoinInspectionHeader{Metadata{ln,lrn,lh,lt,lp,lv,lg,li,lr},Metadata{rn,rrn,rh,rt,rp,rv,rg,ri,rr},Context{namespace,handles,tick,prior,view,grants,info,recipes,left,right},Resource.Pieces{ls,rs,rm}},header => query => joined_query_inspected(~S,~components,~resources,header,query)}
+      Continuation.returned(Query.Pieces<S,components> & Bool,Joined<S,components,resources>,continuation,Query.inspect_join(~S,components,lc,rc,qm))
