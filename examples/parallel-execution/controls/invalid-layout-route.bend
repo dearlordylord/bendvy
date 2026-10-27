@@ -11,9 +11,9 @@ def actual() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutLeaf{Array<U32>,U32
 def claimed() -> Layout.Layout:actual()
 def route() -> Layout.Route:Layout.AtLeaf{}
 def Resources() -> Type:Layout.resources(~Nominal,actual())
-def Ops(H:Type) -> Type:Access.ResourceRead<H,U32>
+def Ops(Permit:Data,H:Type) -> Type:Access.ResourceRead<H,U32>
 
-def selection(~H:Type,~B:Type,~component_read:Build.ComponentRead(~Nominal,~Unit,~Resources(),~H,~B),~component_write:Build.ComponentWrite(~Nominal,~Unit,~Resources(),~H,~B),~resource_read:Build.ResourceRead(~Nominal,~Unit,~Resources(),~H,~B),~resource_write:Build.ResourceWrite(~Nominal,~Unit,~Resources(),~H,~B),~query:Build.Query(~Nominal,~Unit,~Unit,~Resources(),~H,~B),~lifecycle:Build.Lifecycle(~Nominal,~Unit,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(H):
+def selection(~Permit:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~Nominal,~Unit,~Resources(),~H,~B),~component_write:Build.ComponentWrite(~Nominal,~Unit,~Resources(),~H,~B),~resource_read:Build.ResourceRead(~Nominal,~Unit,~Resources(),~H,~B),~resource_write:Build.ResourceWrite(~Nominal,~Unit,~Resources(),~H,~B),~query:Build.Query(~Nominal,~Unit,~Unit,~Resources(),~H,~B),~lifecycle:Build.Lifecycle(~Nominal,~Unit,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(Permit,H):
   Build.basic_resource_read(~Nominal,~Unit,~Resources(),~H,~B,~claimed(),~route(),~{==},~{==},~resource_read,book)
-def declaration(~H:Type,~B:Type,~builder:Build.Builder(~Nominal,~Unit,~Unit,~Resources(),~H,~B),book:B) -> B & Ops(H):
-  builder(Ops,selection(~H,~B),book)
+def declaration(~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~Nominal,~Unit,~Unit,~Resources(),~Permit,~H,~B),book:B) -> B & Ops(Permit,H):
+  builder(Ops,selection(~Permit,~H,~B),book)
