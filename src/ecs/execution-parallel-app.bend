@@ -55,7 +55,10 @@ def run_when(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~LL:Type,~LR:Ty
 def run(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~LL:Type,~LR:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,~OpsL:Type -> Type,~OpsR:Type -> Type,~dl:Build.Program(~S,~Product.Owner<CL,CR>,~CL,~RL,~OpsL),~dr:Build.Program(~S,~Product.Owner<CL,CR>,~CR,~RR,~OpsR),~bl:@-H:Type -> @-caps:OpsL(H) -> H -> LL -> H & (LL & Sys.Completion<EL,OL>),~br:@-H:Type -> @-caps:OpsR(H) -> H -> LR -> H & (LR & Sys.Completion<ER,OR>),mode:Parallel.Mode,app:ParallelApp<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>>) -> Run.PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Sys.Owner<S,Product.Owner<CL,CR>,CL,RL,E,OpsL,LL,EL,OL,dl,bl>,Sys.Owner<S,Product.Owner<CL,CR>,CR,RR,E,OpsR,LR,ER,OR,dr,br>,EL,ER,OL,OR>:
   run_when(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~OpsL,~OpsR,~dl,~dr,~bl,~br,mode,True{},True{},app)
 
-def retained(~World:Type,~Left:Type,~Right:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,result:Run.PairResult<World,Left,Right,EL,ER,OL,OR>) -> ParallelApp<World,Left,Right> & (Maybe<&2,Sys.Completion<EL,OL>> & Maybe<&2,Sys.Completion<ER,OR>>):
+type Admission is Data:
+  Admitted{}
+  Refused{}
+def retained(~World:Type,~Left:Type,~Right:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,result:Run.PairResult<World,Left,Right,EL,ER,OL,OR>) -> ParallelApp<World,Left,Right> & (Admission & (Maybe<&2,Sys.Completion<EL,OL>> & Maybe<&2,Sys.Completion<ER,OR>>)):
   match result:
-    case Run.Finished{world,left,right,lc,rc}:(ParallelApp{world,left,right},(lc,rc))
-    case Run.AdmissionRefused{world,left,right,lc,rc}:(ParallelApp{world,left,right},(lc,rc))
+    case Run.Finished{world,left,right,lc,rc}:(ParallelApp{world,left,right},(Admitted{},(lc,rc)))
+    case Run.AdmissionRefused{world,left,right,lc,rc}:(ParallelApp{world,left,right},(Refused{},(lc,rc)))
