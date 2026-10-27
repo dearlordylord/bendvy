@@ -24,7 +24,7 @@ import ../../src/ecs/dependency-plan.bend as Plan
 import ../../src/ecs/change-tick.bend as Tick
 
 def Nodes() -> Type:Product.Owner<Spawn.Node(),Decay.Node()>
-def State() -> Type:App.State<Root.Storage<D.Schema,D.components(),D.resources(),Unit>,Nodes(),Enabled.Owner(),Unit>
+def State() -> Type:App.State<Root.Storage<D.Schema,D.components(),D.resources(),Unit>,Nodes(),Enabled.Binding(),Unit>
 def Application() -> Type:Scheduled.Scheduled<State()>
 def dispatch(nodes:Nodes(),world:D.World(),ids:List<&2,U32>) -> IO(Execution.RunResult<D.Schema,D.components(),D.resources(),Unit,Nodes(),String,Unit>):
   match nodes:
@@ -50,7 +50,7 @@ def collect(ids:List<&2,U32>,nodes:Nodes()) -> Nodes() & List<&2,U32>:
 def apply(ids:List<&2,U32>,world:D.World(),nodes:Nodes()) -> D.World() & (Nodes() & List<&2,U32>):
   Publication.apply(~D.Schema,~D.Columns(),~D.Resources(),~Unit,~Nodes(),~pending,~publish,~collect,ids,world,nodes)
 def run(app:Application()) -> IO(Application() & App.Report<String,Unit>):
-  Root.run(~D.Schema,~D.components(),~D.resources(),~Unit,~Nodes(),~Enabled.Owner(),~Unit,~String,~Unit,~dispatch,~Conditions.leaf_dispatch(~D.Schema,~D.Columns(),~D.Resources(),~Unit,~Enabled.Ops,~Unit,~String,~Enabled.kernel,~Enabled.body),~Enabled.handle,~apply,app)
+  Root.run(~D.Schema,~D.components(),~D.resources(),~Unit,~Nodes(),~Enabled.Binding(),~Unit,~String,~Unit,~dispatch,~Conditions.retained_leaf_dispatch(~D.Schema,~D.Columns(),~D.Resources(),~Unit,~Enabled.Ops,~Unit,~String,~Enabled.kernel,~Enabled.body,~Enabled.construction()),~Enabled.handle,~apply,app)
 def configure(automatic:Bool,app:Application()) -> Application():Scheduled.configure(~State(),Settings.Settings{automatic,False{},[],[]},app)
 
 def Compilation() -> Type:Decl.Compilation<D.Schema,D.Columns(),Decay.C(),Decay.R(),Cmd.ScopedOps(~D.Schema,~D.components(),~D.resources(),~Spawn.route(),~Spawn.Ops)>
@@ -59,7 +59,7 @@ def Binding() -> Type:Scope.CompiledBinding<Compilation(),Owner()>
 def Peer() -> Type:Sys.Owner<D.Schema,D.Columns(),Decay.C(),Decay.R(),Unit,Decay.Ops,Unit,String,Unit,Decay.kernel,Decay.body>
 def PeerCompilation() -> Type:Decl.Compilation<D.Schema,D.Columns(),Decay.C(),Decay.R(),Decay.Ops>
 def PeerBinding() -> Type:Scope.CompiledBinding<PeerCompilation(),Peer()>
-def build(world:D.World(),left:Binding(),right:PeerBinding(),guard:Enabled.Owner()) -> Application():
+def build(world:D.World(),left:Binding(),right:PeerBinding(),guard:Enabled.Binding()) -> Application():
   match left right guard:
-    case Scope.CompiledBinding{lc,Cmd.Owner{Sys.Owner{ln,+lid,lname,la,lt,ll}}} Scope.CompiledBinding{rc,Sys.Owner{rn,+rid,rname,ra,rt,rl}} Sys.Owner{gn,+gid,gname,ga,gt,gl}:
-      configure(False{},Root.build(~D.Schema,~D.components(),~D.resources(),~Unit,~Nodes(),~Enabled.Owner(),~Unit,~String,~Conditions.leaf_dispatch(~D.Schema,~D.Columns(),~D.Resources(),~Unit,~Enabled.Ops,~Unit,~String,~Enabled.kernel,~Enabled.body),~Enabled.available,world,Tree.generalized_pair_facts(Spawn.Node(),Decay.Node(),Author.facts(~D.Schema,~D.components(),~D.resources(),~Unit,~Spawn.route(),~Spawn.Ops,~Spawn.User,~String,~Unit,~Spawn.declaration,~Spawn.body,Scope.CompiledBinding{lc,Cmd.Owner{Sys.Owner{ln,lid,lname,la,lt,ll}}}),Tree.generalized_leaf_facts(~D.Schema,~D.components(),~D.resources(),~Unit,~String,~Unit,~Decay.Ops,~Unit,~Decay.kernel,~Decay.body,Scope.CompiledBinding{rc,Sys.Owner{rn,rid,rname,ra,rt,rl}})),Conditions.compile_leaf(~String,~D.Schema,~D.Columns(),~D.Resources(),~Unit,~Enabled.Ops,~Unit,~Enabled.kernel,~Enabled.body,Sys.Owner{gn,gid,gname,ga,gt,gl}),Unit{},[Plan.Edge{lid,rid}],[App.Binding{rid,gid}]))
+    case Scope.CompiledBinding{lc,Cmd.Owner{Sys.Owner{ln,+lid,lname,la,lt,ll}}} Scope.CompiledBinding{rc,Sys.Owner{rn,+rid,rname,ra,rt,rl}} Scope.CompiledBinding{gc,Sys.Owner{gn,+gid,gname,ga,gt,gl}}:
+      configure(False{},Root.build(~D.Schema,~D.components(),~D.resources(),~Unit,~Nodes(),~Enabled.Binding(),~Unit,~String,~Conditions.retained_leaf_dispatch(~D.Schema,~D.Columns(),~D.Resources(),~Unit,~Enabled.Ops,~Unit,~String,~Enabled.kernel,~Enabled.body,~Enabled.construction()),~Enabled.available,world,Tree.generalized_pair_facts(Spawn.Node(),Decay.Node(),Author.facts(~D.Schema,~D.components(),~D.resources(),~Unit,~Spawn.route(),~Spawn.Ops,~Spawn.User,~String,~Unit,~Spawn.declaration,~Spawn.body,Scope.CompiledBinding{lc,Cmd.Owner{Sys.Owner{ln,lid,lname,la,lt,ll}}}),Tree.generalized_leaf_facts(~D.Schema,~D.components(),~D.resources(),~Unit,~String,~Unit,~Decay.Ops,~Unit,~Decay.kernel,~Decay.body,Scope.CompiledBinding{rc,Sys.Owner{rn,rid,rname,ra,rt,rl}})),Conditions.compile_retained_leaf(~String,~D.Schema,~D.Columns(),~D.Resources(),~Unit,~Enabled.Ops,~Unit,~Enabled.kernel,~Enabled.body,~Enabled.construction(),Scope.CompiledBinding{gc,Sys.Owner{gn,gid,gname,ga,gt,gl}}),Unit{},[Plan.Edge{lid,rid}],[App.Binding{rid,gid}]))

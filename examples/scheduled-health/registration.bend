@@ -11,13 +11,13 @@ import ../../src/ecs/execution-parallel-scope.bend as Scope
 import ../../src/ecs/execution-generalized-command-leaf.bend as Author
 import ../../src/ecs/execution-command-system.bend as Cmd
 
-def guarded(left:Root.Binding(),right:Root.PeerBinding(),result:Sys.Defined<D.World(),Enabled.Owner(),Unit>) -> IO(Unit):
+def guarded(left:Root.Binding(),right:Root.PeerBinding(),result:Enabled.Compilation() & Sys.Defined<D.World(),Enabled.Owner(),Unit>) -> IO(Unit):
   match result:
-    case Sys.Defined{world,guard}:Application.start(Root.build(world,left,right,guard))
+    case (compilation,Sys.Defined{world,guard}):Application.start(Root.build(world,left,right,Scope.CompiledBinding{compilation,guard}))
     case _:IO.die(Unit,1,"enabled condition registration refused")
 def peer(left:Root.Binding(),result:Root.PeerCompilation() & Sys.Defined<D.World(),Root.Peer(),Unit>) -> IO(Unit):
   match result:
-    case (compilation,Sys.Defined{world,owner}):guarded(left,Scope.CompiledBinding{compilation,owner},System.define_framework(~D.Schema,~D.Columns(),~D.Columns(),~D.Resources(),~Unit,~Enabled.Ops,~Unit,~String,~Bool,~Enabled.kernel,~Enabled.body,~D.Resources(),world,"Health simulation enabled",Unit{}))
+    case (compilation,Sys.Defined{world,owner}):guarded(left,Scope.CompiledBinding{compilation,owner},System.define_with_compilation(~D.Schema,~D.Columns(),~D.Columns(),~D.Resources(),~Unit,~Enabled.Ops,~Unit,~String,~Bool,~Enabled.kernel,~Enabled.body,~D.Resources(),Enabled.construction(),world,"Health simulation enabled",Unit{}))
     case _:IO.die(Unit,1,"health decay registration refused")
 def author(result:Root.Compilation() & Sys.Defined<D.World(),Root.Owner(),Cmd.Captures(~D.Schema,~D.components(),~D.resources(),~Spawn.route(),~Spawn.User)>) -> IO(Unit):
   match result:
