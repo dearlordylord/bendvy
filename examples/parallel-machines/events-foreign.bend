@@ -17,12 +17,12 @@ import ../../src/ecs/lifecycle.bend as Life
 
 def Owner(~S:Data) -> Type:Sys.Owner<S,D.Store(~S),D.Store(~S),D.Resources(~S),Unit,Events.Ops(~S),Events.Local<S>,String,String,Build.framework_program(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~Events.Ops(~S),~Declaration.declaration(~S)),Events.body(~S)>
 def Application(~S:Data) -> Type:Ordinary.Application<S,D.Store(~S),D.Resources(~S),Unit,Events.Ops(~S),Events.Local<S>,String,String,Build.framework_program(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~Events.Ops(~S),~Declaration.declaration(~S)),Events.body(~S)>
-def initial_resource(~S:Data,+tick:Tick.Tick,result:Layout.stored(D.layout(~S),Layout.AtLeaf{}) & Unit) -> D.Resources(~S):
+def initial_resource(~S:Data,+tick:Tick.Tick,result:Layout.stored(D.layout(S),Layout.AtLeaf{}) & Unit) -> D.Resources(~S):
   match result:
     case (stored,_):Layout.ResourceSlot{stored,Life.Stamp{Some{tick},Some{tick}}}
 def resources(~S:Data,namespace:U32,+tick:Tick.Tick,owner:D.Resources(~S)) -> D.Resources(~S):
   match owner:
-    case Layout.ResourceSlot{stored,_}:initial_resource(~S,tick,Layout.rewrite(~D.layout(~S),~Layout.AtLeaf{},Unit,Init.initialized(~S,namespace,tick),stored))
+    case Layout.ResourceSlot{stored,_}:initial_resource(~S,tick,Layout.rewrite(~D.layout(S),~Layout.AtLeaf{},Unit,Init.initialized(~S,namespace,tick),stored))
 def clocked(~S:Data,result:Probe.World(~S) & Tick.Tick) -> Probe.World(~S):
   match result:
     case (W.World{+namespace,allocator,columns,resource,events,pending,registrations,next,clock,lifecycle},tick):W.World{namespace,allocator,columns,resources(~S,namespace,tick,resource),events,pending,registrations,next,clock,lifecycle}

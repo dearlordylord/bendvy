@@ -26,18 +26,27 @@ type NextView<S: Data,M: Data,V: Data> is Data:
   NoNext{}
   Next{value: V}
 
-def current_view(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>) -> CurrentView<S,M,V>:
+def current_view_generic(-S: Data,-M: Data,-V: Data,slot: Slot<S,M,V>) -> CurrentView<S,M,V>:
   match slot:
     case Missing{}: Unavailable{}
     case Present{current,_,_,_}: Current{current}
-def pending_view(~S: Data,~M: Data,~V: Data,pending: Pending<V>) -> NextView<S,M,V>:
+def current_view(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>) -> CurrentView<S,M,V>:
+  current_view_generic(S,M,V,slot)
+
+def pending_view_generic(-S: Data,-M: Data,-V: Data,pending: Pending<V>) -> NextView<S,M,V>:
   match pending:
     case NoPending{}: NoNext{}
     case Queued{value,_}: Next{value}
-def next_view(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>) -> NextView<S,M,V>:
+def pending_view(~S: Data,~M: Data,~V: Data,pending: Pending<V>) -> NextView<S,M,V>:
+  pending_view_generic(S,M,V,pending)
+
+def next_view_generic(-S: Data,-M: Data,-V: Data,slot: Slot<S,M,V>) -> NextView<S,M,V>:
   match slot:
     case Missing{}: NoNext{}
-    case Present{_,pending,_,_}: pending_view(~S,~M,~V,pending)
+    case Present{_,pending,_,_}: pending_view_generic(S,M,V,pending)
+
+def next_view(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>) -> NextView<S,M,V>:
+  next_view_generic(S,M,V,slot)
 
 def is_current(~S: Data,~M: Data,~V: Data,~same: V -> V -> Bool,view: CurrentView<S,M,V>,value: V) -> Bool:
   match view:

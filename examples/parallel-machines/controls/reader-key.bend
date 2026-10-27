@@ -6,4 +6,4 @@ import ../../../src/ecs/execution-composer-layout.bend as Layout
 
 type OtherKey is Data:
   OtherKey{}
-def forbidden(~S:Data,reader:Events.Reader(~S)) -> Stream.Reader<S,OtherKey,D.Mode,D.layout(~S),Layout.AtLeaf{}>:reader
+def forbidden(~S:Data,reader:Events.Reader(~S)) -> Stream.Reader<S,OtherKey,D.Mode,D.layout(S),Layout.AtLeaf{}>:reader

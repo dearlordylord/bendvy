@@ -25,7 +25,7 @@ def Application() -> Type:DepApp.Application<World(),Unit,Unit,Report.Handler,St
 def Scheduled() -> Type:Schedule.Scheduled<DepApp.State<World(),Unit,Unit,Report.Handler>>
 def rotate(result:Application() & DepApp.Report<String,String>) -> Scheduled() & DepApp.Report<String,String>:
   match result:
-    case (DepApp.Application{state,plan,bindings},status):Maintenance.completed(~Schema,~D.Key,~D.Mode,~D.Store(~Schema),~Main.Resources(~Schema),~Unit,~Cond.layout(~Schema),~Layout.InLeft{Layout.AtLeaf{}},~{==},~Main.machine_shape(~Schema),~Unit,~Unit,~Report.Handler,~String,~String,(Schedule.Scheduled{state,plan,bindings,Part.Rules{[]},Schedule.Deferred{[],Settings.Settings{False{},False{},[],[]},[]}},status))
+    case (DepApp.Application{state,plan,bindings},status):Maintenance.completed(~Schema,~D.Key,~D.Mode,~D.Store(~Schema),~Main.Resources(~Schema),~Unit,~Cond.layout(Schema),~Layout.InLeft{Layout.AtLeaf{}},~{==},~Main.machine_shape(~Schema),~Unit,~Unit,~Report.Handler,~String,~String,(Schedule.Scheduled{state,plan,bindings,Part.Rules{[]},Schedule.Deferred{[],Settings.Settings{False{},False{},[],[]},[]}},status))
 def run_once(app:Application()) -> Scheduled() & DepApp.Report<String,String>:
   rotate(DepApp.run(~World(),~Unit,~Unit,~Report.Handler,~String,~String,~Reg.empty_dispatch(~World(),~String,~String),~Reg.empty_dispatch(~World(),~String,~Bool),~Report.handle,app))
 def progress_resource(owner:Main.Resources(~Schema)) -> Main.Resources(~Schema) & String:

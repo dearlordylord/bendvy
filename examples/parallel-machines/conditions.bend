@@ -29,10 +29,10 @@ def body_sync(~S:Data,~Permit:Data,~H:Type,~caps:D.read_ops(~S)(Permit,H),scope:
     case Local{identity,phase}:observed(~S,~H,identity,phase,Machine.read_field(~S,~D.Key,~D.Mode,~H,caps)(scope))
 
 def Resources(~S:Data) -> Type:Product.Owner<D.Resources(~S),Unit>
-def layout(~S:Data) -> Layout.Layout:Layout.LayoutPair{D.layout(~S),Layout.EmptyLayout{}}
-def view_proof(~S:Data) -> {Layout.view(layout(~S),Layout.InLeft{Layout.AtLeaf{}}) == State.View<S,D.Key,D.Mode> : Data}:{==}
+def layout(-S:Data) -> Layout.Layout:Layout.LayoutPair{D.layout(S),Layout.EmptyLayout{}}
+def view_proof(~S:Data) -> {Layout.view(layout(S),Layout.InLeft{Layout.AtLeaf{}}) == State.View<S,D.Key,D.Mode> : Data}:{==}
 def selection(~S:Data,~Permit:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~D.Store(~S),~Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~D.Store(~S),~Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~D.Store(~S),~Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~D.Store(~S),~Resources(~S),~H,~B),~q:Build.Query(~S,~D.Store(~S),~D.Store(~S),~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~D.Store(~S),~D.Store(~S),~Resources(~S),~H,~B),book:B) -> B & D.read_ops(~S)(Permit,H):
-  Machine.select_read(~S,~D.Key,~D.Mode,~D.Store(~S),~Resources(~S),~H,~B,~layout(~S),~Layout.InLeft{Layout.AtLeaf{}},~{==},~{==},~view_proof(~S),~rr,book)
+  Machine.select_read(~S,~D.Key,~D.Mode,~D.Store(~S),~Resources(~S),~H,~B,~layout(S),~Layout.InLeft{Layout.AtLeaf{}},~{==},~{==},~view_proof(~S),~rr,book)
 def declaration(~S:Data,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.Store(~S),~Resources(~S),~Permit,~H,~B),book:B) -> B & D.read_ops(~S)(Permit,H):
   builder(D.read_ops(~S),selection(~S,~Permit,~H,~B),book)
 

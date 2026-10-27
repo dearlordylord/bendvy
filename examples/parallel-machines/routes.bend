@@ -20,7 +20,7 @@ import ../../test-fixtures/common/column-observation.bend as Common
 # may change left Next; right is read through its separately declared callback.
 type Schema is Data:
   Schema{}
-def layout() -> Layout.Layout:Layout.LayoutPair{Machine.leaf(~Schema,~D.Key,~D.Mode,"left-mode"),Machine.leaf(~Schema,~D.Key,~D.Mode,"right-mode")}
+def layout() -> Layout.Layout:Layout.LayoutPair{Machine.leaf(Schema,D.Key,D.Mode,"left-mode"),Machine.leaf(Schema,D.Key,D.Mode,"right-mode")}
 def Resources() -> Type:Layout.resources(~Schema,layout())
 def Ops(Permit:Data,H:Type) -> Type:Product.Owner<Machine.Write<Schema,D.Key,D.Mode,H>,Machine.Read<Schema,D.Key,D.Mode,H>>
 def left_payload() -> {Layout.payload(layout(),Layout.InLeft{Layout.AtLeaf{}}) == State.Cell<Schema,D.Key,D.Mode> : Type}:{==}

@@ -17,7 +17,7 @@ import ../../test-fixtures/common/column-observation.bend as Common
 def World(~S:Data) -> Type:W.World<S,D.Store(~S),D.Resources(~S),Unit>
 def Application(~S:Data) -> Type:Ordinary.Application<S,D.Store(~S),D.Resources(~S),Unit,Actor.Ops(~S),Actor.Local<S>,String,String,Build.framework_program(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~Actor.Ops(~S),~Probe.declaration(~S)),Actor.body(~S)>
 def empty(~S:Data,_:Unit) -> D.Store(~S):Layout.empty_columns(~S,D.component_layout(~S))
-def resources(~S:Data) -> D.Resources(~S):Layout.ResourceSlot{Layout.initialize(D.layout(~S),Layout.AtLeaf{},Machine.empty(~S,~D.Key,~D.Mode)),Layout.unknown_stamp()}
+def resources(~S:Data) -> D.Resources(~S):Layout.ResourceSlot{Layout.initialize(D.layout(S),Layout.AtLeaf{},Machine.empty(~S,~D.Key,~D.Mode)),Layout.unknown_stamp()}
 def status(value:Ordinary.Status<String,String>) -> String:
   match value:
     case Ordinary.Ran{Sys.Success{out}}:out

@@ -34,17 +34,17 @@ import ../../src/ecs/dependency-plan.bend as Plan
 def Resources(~S:Data) -> Type:Product.Owner<D.Resources(~S),Unit>
 def World(~S:Data) -> Type:W.World<S,D.Store(~S),Resources(~S),Unit>
 def PeerOwner(~S:Data) -> Type:Peer.Owner(~S)
-def peer_tree(~S:Data,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~D.Store(~S),~D.RightStore(~S),~Unit,~Unit,~D.root_layout(~S),~String,~String,~F),~command:Tree.CommandLeaf(~S,~D.Store(~S),~D.RightStore(~S),~Unit,~Unit,~D.root_layout(~S),~String,~String,~F),~join:Tree.Join(~F),owner:PeerOwner(~S)) -> F(PeerOwner(~S)):
+def peer_tree(~S:Data,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~D.Store(~S),~D.RightStore(~S),~Unit,~Unit,~D.root_layout(S),~String,~String,~F),~command:Tree.CommandLeaf(~S,~D.Store(~S),~D.RightStore(~S),~Unit,~Unit,~D.root_layout(S),~String,~String,~F),~join:Tree.Join(~F),owner:PeerOwner(~S)) -> F(PeerOwner(~S)):
   leaf(Peer.Ops(~S),Peer.Local<S>,Build.framework_program(~S,~D.Store(~S),~D.RightStore(~S),~Unit,~Peer.Ops(~S),~Peer.declaration(~S)),Peer.body(~S),owner)
 def Application(~S:Data) -> Type:Schedule.Scheduled<App.State<World(~S),Product.Owner<Registry.Owners(~S),PeerOwner(~S)>,Guards.Owners(~S),Report.Handler>>
 def empty(~S:Data,_:Unit) -> D.Store(~S):Layout.empty_columns(~S,D.component_layout(~S))
 def resources(~S:Data) -> Resources(~S):
-  Product.Owner{Layout.ResourceSlot{Layout.initialize(D.layout(~S),Layout.AtLeaf{},State.empty(~S,~D.Key,~D.Mode)),Layout.unknown_stamp()},Unit{}}
-def machine_shape(~S:Data) -> {Layout.payload(Cond.layout(~S),Layout.InLeft{Layout.AtLeaf{}}) == State.Cell<S,D.Key,D.Mode> : Type}:{==}
+  Product.Owner{Layout.ResourceSlot{Layout.initialize(D.layout(S),Layout.AtLeaf{},State.empty(~S,~D.Key,~D.Mode)),Layout.unknown_stamp()},Unit{}}
+def machine_shape(~S:Data) -> {Layout.payload(Cond.layout(S),Layout.InLeft{Layout.AtLeaf{}}) == State.Cell<S,D.Key,D.Mode> : Type}:{==}
 def completed(~S:Data,result:Application(~S) & App.Report<String,String>) -> Application(~S) & App.Report<String,String>:
-  Maintenance.completed(~S,~D.Key,~D.Mode,~D.Store(~S),~Resources(~S),~Unit,~Cond.layout(~S),~Layout.InLeft{Layout.AtLeaf{}},~{==},~machine_shape(~S),~Product.Owner<Registry.Owners(~S),PeerOwner(~S)>,~Guards.Owners(~S),~Report.Handler,~String,~String,result)
+  Maintenance.completed(~S,~D.Key,~D.Mode,~D.Store(~S),~Resources(~S),~Unit,~Cond.layout(S),~Layout.InLeft{Layout.AtLeaf{}},~{==},~machine_shape(~S),~Product.Owner<Registry.Owners(~S),PeerOwner(~S)>,~Guards.Owners(~S),~Report.Handler,~String,~String,result)
 def run_once(~S:Data,app:Application(~S)) -> IO(Application(~S) & App.Report<String,String>):
-  IO.bind(Application(~S) & App.Report<String,String>,Application(~S) & App.Report<String,String>,Schedule.run_serial(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.Resources(~S),~Unit,~Unit,~D.root_layout(~S),~{==},~String,~String,~Registry.Owners(~S),~PeerOwner(~S),~Registry.handlers(~S),~peer_tree(~S),~Guards.Owners(~S),~Report.Handler,~Guards.dispatch(~S),~Guards.selection(~S),~Report.handle,app),result => IO.pure(Application(~S) & App.Report<String,String>,completed(~S,result)))
+  IO.bind(Application(~S) & App.Report<String,String>,Application(~S) & App.Report<String,String>,Schedule.run_serial(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.Resources(~S),~Unit,~Unit,~D.root_layout(S),~{==},~String,~String,~Registry.Owners(~S),~PeerOwner(~S),~Registry.handlers(~S),~peer_tree(~S),~Guards.Owners(~S),~Report.Handler,~Guards.dispatch(~S),~Guards.selection(~S),~Report.handle,app),result => IO.pure(Application(~S) & App.Report<String,String>,completed(~S,result)))
 def finished(~S:Data,history:List<&2,String>,app:Application(~S)) -> String:
   match app:
     case Schedule.Scheduled{App.State{world,Product.Owner{left,right},guards,handler,_},_,_,_,_}:"runs=" ++ List.show(&2,String,Observe.text,history) ++ "|world{" ++ Observe.world(~S,world) ++ "}|owners{" ++ Owners.left(~S,left) ++ ";peer{" ++ Owners.peer(~S,right) ++ "}}|guards{" ++ Owners.guards(~S,guards) ++ "}|handler=" ++ Report.handler(handler)
@@ -57,7 +57,7 @@ def updates(~S:Data,fuel:Nat,history:List<&2,String>,app:Application(~S)) -> IO(
     case 1n++rest:IO.bind(Application(~S) & App.Report<String,String>,String,run_once(~S,app),result => continued(~S,history => app => updates(~S,rest,history,app),history,result))
 def guard_running_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),exit:Guards.Owner(~S),transition:Guards.Owner(~S),enter:Guards.Owner(~S),result:Sys.Defined<World(~S),Guards.Owner(~S),Cond.Local>) -> IO(String):
   match result:
-    case Sys.Defined{world,running}:updates(~S,4n,[],Schedule.build(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.Resources(~S),~Unit,~Unit,~D.root_layout(~S),~{==},~String,~String,~Registry.Owners(~S),~PeerOwner(~S),~Registry.handlers(~S),~peer_tree(~S),~Guards.Owners(~S),~Report.Handler,~Guards.dispatch(~S),~Guards.selection(~S),~Report.handle,~Report.available,world,Product.Owner{owners,peer},Guards.pack(~S,exit,transition,enter,running),Report.Handler{ALeaf{801},0},[Plan.Edge{1,3},Plan.Edge{3,4},Plan.Edge{4,5},Plan.Edge{5,6},Plan.Edge{6,7}],[App.Binding{3,8},App.Binding{4,9},App.Binding{5,10},App.Binding{6,11},App.Binding{7,11}]))
+    case Sys.Defined{world,running}:updates(~S,4n,[],Schedule.build(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.Resources(~S),~Unit,~Unit,~D.root_layout(S),~{==},~String,~String,~Registry.Owners(~S),~PeerOwner(~S),~Registry.handlers(~S),~peer_tree(~S),~Guards.Owners(~S),~Report.Handler,~Guards.dispatch(~S),~Guards.selection(~S),~Report.handle,~Report.available,world,Product.Owner{owners,peer},Guards.pack(~S,exit,transition,enter,running),Report.Handler{ALeaf{801},0},[Plan.Edge{1,3},Plan.Edge{3,4},Plan.Edge{4,5},Plan.Edge{5,6},Plan.Edge{6,7}],[App.Binding{3,8},App.Binding{4,9},App.Binding{5,10},App.Binding{6,11},App.Binding{7,11}]))
     case Sys.DefinitionRefused{_,_}:IO.pure(String,"ERROR:running-guard")
 def guard_enter_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),exit:Guards.Owner(~S),transition:Guards.Owner(~S),result:Sys.Defined<World(~S),Guards.Owner(~S),Cond.Local>) -> IO(String):
   match result:
@@ -93,7 +93,7 @@ def exit_defined(~S:Data,handle:W.Handle<S>,apply:Registry.ApplyOwner(~S),peer:P
     case Sys.DefinitionRefused{_,_}:IO.pure(String,"ERROR:exit")
 def registered(~S:Data,+handle:W.Handle<S>,result:Pair.Definition<World(~S),Registry.ApplyOwner(~S),PeerOwner(~S),Body.Local(),Peer.Local<S>>) -> IO(String):
   match result:
-    case Pair.Defined{Pair.ParallelApp{world,apply,peer}}:exit_defined(~S,handle,apply,peer,Cmd.define(~S,~D.LeftStore(~S),~D.Resources(~S),~Unit,~D.component_layout(~S),~D.root_layout(~S),~Exit.route(),~{==},~Exit.Ops(~S),~Exit.User<S>,~String,~String,~Exit.declaration(~S),~Exit.body(~S),~Resources(~S),world,"exit",Exit.User{handle,Body.local(301,302)}))
+    case Pair.Defined{Pair.ParallelApp{world,apply,peer}}:exit_defined(~S,handle,apply,peer,Cmd.define(~S,~D.LeftStore(~S),~D.Resources(~S),~Unit,~D.component_layout(~S),~D.root_layout(S),~Exit.route(),~{==},~Exit.Ops(~S),~Exit.User<S>,~String,~String,~Exit.declaration(~S),~Exit.body(~S),~Resources(~S),world,"exit",Exit.User{handle,Body.local(301,302)}))
     case Pair.LeftRefused{_,_,_}:IO.pure(String,"ERROR:apply")
     case Pair.RightRefused{_,_,_}:IO.pure(String,"ERROR:peer")
 def allocated(~S:Data,result:Alloc.Allocation<S>) -> IO(String):

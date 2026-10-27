@@ -16,8 +16,8 @@ type Apply<-S:Data,-K:Data,-V:Data,-H:Type> is Type:
 def Reads(~S:Data,~K:Data,~V:Data,Permit:Data,H:Type) -> Type:Read<S,K,V,H>
 def Writes(~S:Data,~K:Data,~V:Data,Permit:Data,H:Type) -> Type:Write<S,K,V,H>
 def Applies(~S:Data,~K:Data,~V:Data,Permit:Data,H:Type) -> Type:Apply<S,K,V,H>
-def leaf(~S:Data,~K:Data,~V:Data,key:String) -> Layout.Layout:
-  Layout.LayoutLeaf{State.Cell<S,K,V>,State.View<S,K,V>,State.projected(~S,~K,~V),key,Policy.Ordinary{}}
+def leaf(-S:Data,-K:Data,-V:Data,key:String) -> Layout.Layout:
+  Layout.LayoutLeaf{State.Cell<S,K,V>,State.View<S,K,V>,State.projected(S,K,V),key,Policy.Ordinary{}}
 def read(-S:Data,-K:Data,-V:Data,-H:Type,cap:A.ResourceRead<H,State.View<S,K,V>>) -> Read<S,K,V,H>:
   match cap:
     case A.ResourceRead{get}:Read{get}

@@ -15,9 +15,9 @@ type View<-S:Data,-K:Data,-V:Data> is Data:
   View{current:M.CurrentView<S,K,V>,next:M.NextView<S,K,V>,revision:Nat,stamp:Maybe<&2,Tick.Tick>,nextStamp:Maybe<&2,Tick.Tick>,intent:Intent<V>}
 def empty(~S:Data,~K:Data,~V:Data) -> Cell<S,K,V>:
   Cell{M.Missing{},Stream.empty(~V),0n,None{},None{},0n,False{},None{},Idle{}}
-def projected(~S:Data,~K:Data,~V:Data,cell:Cell<S,K,V>) -> Cell<S,K,V> & View<S,K,V>:
+def projected(-S:Data,-K:Data,-V:Data,cell:Cell<S,K,V>) -> Cell<S,K,V> & View<S,K,V>:
   match cell:
-    case Cell{+slot,stream,+revision,+stamp,+nextStamp,sequence,initialPending,namespace,+intent}:(Cell{slot,stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent},View{M.current_view(~S,~K,~V,slot),M.next_view(~S,~K,~V,slot),revision,stamp,nextStamp,intent})
+    case Cell{+slot,stream,+revision,+stamp,+nextStamp,sequence,initialPending,namespace,+intent}:(Cell{slot,stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent},View{M.current_view_generic(S,K,V,slot),M.next_view_generic(S,K,V,slot),revision,stamp,nextStamp,intent})
 def queue(~S:Data,~K:Data,~V:Data,~same:V -> V -> Bool,cell:Cell<S,K,V>,request:M.QueueInput<V>) -> Cell<S,K,V>:
   match cell request:
     case Cell{slot,stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent} M.Set{value,skipSame}:Cell{Queue.queue(~S,~K,~V,~same,slot,value,skipSame),stream,revision,stamp,nextStamp,sequence,initialPending,namespace,intent}
