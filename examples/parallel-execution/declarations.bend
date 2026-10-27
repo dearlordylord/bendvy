@@ -15,17 +15,17 @@ def resource_layout() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutLeaf{P.Cou
 def first_route() -> Layout.Route:Layout.InLeft{Layout.AtLeaf{}}
 def Store(~S:Data) -> Type:Layout.columns(~S,component_layout())
 def Resources(~S:Data) -> Type:Layout.resources(~S,resource_layout())
-def Ops(~S:Data,~Permit:Data) -> Type -> Type:
+def Ops(~S:Data,Permit:Data) -> Type -> Type:
   D.Combined(~A.ComponentWrites(~S,~P.Position,~String),~A.ResourceWrites(~P.Counter,~String))
-def combined(~S:Data,~Permit:Data,~H:Type,~B:Type,positions:A.ComponentWrite<S,H,P.Position,String>,result:B & A.ResourceWrite<H,P.Counter,String>) -> B & Ops(~S,~Permit)(H):
+def combined(~S:Data,~Permit:Data,~H:Type,~B:Type,positions:A.ComponentWrite<S,H,P.Position,String>,result:B & A.ResourceWrite<H,P.Counter,String>) -> B & Ops(~S,Permit)(H):
   match result:
     case (book,counter):(book,Cap.Bundle{positions,counter})
-def position_granted(~S:Data,~Permit:Data,~H:Type,~B:Type,~resource_write:Build.ResourceWrite(~S,~Store(~S),~Resources(~S),~H,~B),result:B & A.ComponentWrite<S,H,P.Position,String>) -> B & Ops(~S,~Permit)(H):
+def position_granted(~S:Data,~Permit:Data,~H:Type,~B:Type,~resource_write:Build.ResourceWrite(~S,~Store(~S),~Resources(~S),~H,~B),result:B & A.ComponentWrite<S,H,P.Position,String>) -> B & Ops(~S,Permit)(H):
   match result:
     case (book,positions):combined(~S,~Permit,~H,~B,positions,Build.basic_resource_write(~S,~Store(~S),~Resources(~S),~H,~B,~resource_layout(),~first_route(),~{==},~{==},~resource_write,book))
-def selection(~S:Data,~Permit:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Store(~S),~Resources(~S),~H,~B),~component_write:Build.ComponentWrite(~S,~Store(~S),~Resources(~S),~H,~B),~resource_read:Build.ResourceRead(~S,~Store(~S),~Resources(~S),~H,~B),~resource_write:Build.ResourceWrite(~S,~Store(~S),~Resources(~S),~H,~B),~query:Build.Query(~S,~Store(~S),~Store(~S),~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Store(~S),~Store(~S),~Resources(~S),~H,~B),book:B) -> B & Ops(~S,~Permit)(H):
+def selection(~S:Data,~Permit:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Store(~S),~Resources(~S),~H,~B),~component_write:Build.ComponentWrite(~S,~Store(~S),~Resources(~S),~H,~B),~resource_read:Build.ResourceRead(~S,~Store(~S),~Resources(~S),~H,~B),~resource_write:Build.ResourceWrite(~S,~Store(~S),~Resources(~S),~H,~B),~query:Build.Query(~S,~Store(~S),~Store(~S),~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Store(~S),~Store(~S),~Resources(~S),~H,~B),book:B) -> B & Ops(~S,Permit)(H):
   position_granted(~S,~Permit,~H,~B,~resource_write,component_write(component_layout(),first_route(),{==},{==},book))
-def declaration(~S:Data,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~Store(~S),~Resources(~S),~Permit,~H,~B),book:B) -> B & Ops(~S,~Permit)(H):
+def declaration(~S:Data,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~Store(~S),~Resources(~S),~Permit,~H,~B),book:B) -> B & Ops(~S,Permit)(H):
   builder(Ops(~S),selection(~S,~Permit,~H,~B),book)
 def inserted(~S:Data,~T:Type,result:Col.SwapOutcome<S,T>) -> Col.Column<S,T>:
   match result:
