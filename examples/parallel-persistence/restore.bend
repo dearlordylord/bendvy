@@ -18,6 +18,8 @@ import ../../src/ecs/entity-allocator.bend as A
 import ../../src/ecs/deferred-command.bend as Deferred
 import ../../src/ecs/clock-state.bend as Clock
 import ../../src/ecs/execution-lifecycle-notices.bend as Notice
+import ../../src/ecs/execution-save-metadata.bend as Metadata
+import ../../src/ecs/restore-world.bend as Progress
 
 def Receipt(~S:Data) -> Type:Buffer.Receipt<S,Ordinary.Actor<S>,Removed.Removed(Receiver.Components(~S))>
 type Outcome<-S:Data> is Type:
@@ -49,18 +51,32 @@ def cleared(~S:Data,state:Stage.State<S>,input:Saved.Snapshot<S>,rows:List<Publi
 def clocked(~S:Data,state:Stage.State<S>,input:Saved.Snapshot<S>,rows:List<Publish.Row<Receiver.Components(~S)>>,handles:List<&2,W.Handle<S>>,result:Receiver.World(~S) & Tick.Tick) -> Outcome<S>:
   match result:
     case (world,+tick):cleared(~S,state,input,rows,tick,Receiver.clear(~S,handles,world,tick))
-def rows_ready(~S:Data,schema:Plan.Schema<S,Ordinary.components(~S),Ordinary.resources(~S)>,configs:Stage.Configs(~S),input:Saved.Snapshot<S>,world:Receiver.World(~S),handles:List<&2,W.Handle<S>>,result:Publication.Rows<S>) -> Outcome<S>:
+def saved_count(~S:Data,input:Saved.Snapshot<S>) -> Nat:
+  match input:
+    case Saved.Snapshot{_,_,values,_}:List.length(&2,Saved.Entity,values)
+def progress_floor(~S:Data,input:Saved.Snapshot<S>) -> U32:
+  match input:
+    case Saved.Snapshot{_,Metadata.Metadata{_,Metadata.Allocator{next,_,_,_,_,_,_},_,_},_,_}:next
+def progressed(~S:Data,state:Stage.State<S>,input:Saved.Snapshot<S>,rows:List<Publish.Row<Receiver.Components(~S)>>,handles:List<&2,W.Handle<S>>,result:Receiver.World(~S) & Bool) -> Outcome<S>:
+  match result:
+    case (world,False{}):RowsRefused{state,input,world,rows}
+    case (world,True{}):clocked(~S,state,input,rows,handles,W.write_clock(~S,~Layout.columns(~S,Receiver.Components(~S)),~Receiver.Resources(~S),~Unit,world))
+def rows_ready(~S:Data,schema:Plan.Schema<S,Ordinary.components(~S),Ordinary.resources(~S)>,configs:Stage.Configs(~S),+input:Saved.Snapshot<S>,world:Receiver.World(~S),handles:List<&2,W.Handle<S>>,result:Publication.Rows<S>) -> Outcome<S>:
   match result:
     case Publication.Rows{actors,rows,False{}}:RowsRefused{Stage.State{schema,actors,configs},input,world,rows}
-    case Publication.Rows{actors,rows,True{}}:clocked(~S,Stage.State{schema,actors,configs},input,rows,handles,W.write_clock(~S,~Layout.columns(~S,Receiver.Components(~S)),~Receiver.Resources(~S),~Unit,world))
+    case Publication.Rows{actors,rows,True{}}:progressed(~S,Stage.State{schema,actors,configs},input,rows,handles,Progress.advance_floor(~S,~Layout.columns(~S,Receiver.Components(~S)),~Receiver.Resources(~S),~Unit,world,progress_floor(~S,input)))
 def staged(~S:Data,world:Receiver.World(~S),handles:List<&2,W.Handle<S>>,result:Stage.State<S> & (Saved.Snapshot<S> & Maybe<&2,Stage.Error>)) -> Outcome<S>:
   match result:
     case (state,(input,Some{error})):InputRefused{state,input,world,error}
     case (Stage.State{schema,actors,configs},(Saved.Snapshot{+version,+metadata,+values,+resources},None{})):rows_ready(~S,schema,configs,Saved.Snapshot{version,metadata,values,resources},world,handles,Publication.staged_rows(~S,values,actors))
-def receiver_ready(~S:Data,schema:Plan.Schema<S,Ordinary.components(~S),Ordinary.resources(~S)>,input:Saved.Snapshot<S>,result:Prepare.Prepared<S,Receiver.Components(~S),Receiver.Resources(~S),Unit>) -> Outcome<S>:
+def stage_room(~S:Data,schema:Plan.Schema<S,Ordinary.components(~S),Ordinary.resources(~S)>,input:Saved.Snapshot<S>,handles:List<&2,W.Handle<S>>,result:Receiver.World(~S) & Bool) -> Outcome<S>:
+  match result:
+    case (world,False{}):ReceiverRefused{schema,input,world,Prepare.Capacity{}}
+    case (world,True{}):staged(~S,world,handles,Stage.prepare(~S,schema,input))
+def receiver_ready(~S:Data,schema:Plan.Schema<S,Ordinary.components(~S),Ordinary.resources(~S)>,+input:Saved.Snapshot<S>,result:Prepare.Prepared<S,Receiver.Components(~S),Receiver.Resources(~S),Unit>) -> Outcome<S>:
   match result:
     case Prepare.Refused{world,reason}:ReceiverRefused{schema,input,world,reason}
-    case Prepare.Ready{world,handles}:staged(~S,world,handles,Stage.prepare(~S,schema,input))
+    case Prepare.Ready{world,handles}:stage_room(~S,schema,input,handles,Progress.room(~S,~Layout.columns(~S,Receiver.Components(~S)),~Receiver.Resources(~S),~Unit,world,progress_floor(~S,input),saved_count(~S,input)))
 def count(values:List<&2,Saved.Entity>) -> Nat:
   match values:
     case []:0n

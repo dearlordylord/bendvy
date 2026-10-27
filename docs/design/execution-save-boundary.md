@@ -98,6 +98,16 @@ all actual owner buffers before invoking this additional World-level gate.
 The new clear continuation calls canonical command despawn, retains all removed
 Type owners in receipts and emits canonical removal/despawn notices. Unexpected
 despawn refusal returns an explicit partial outcome and remaining handles.
+
+The concrete restore path also checks the actual allocator's available room
+against the saved `next` progress floor before invoking payload constructors.
+It uses the existing pure allocator adapters, without invoking legacy transaction
+execution or cancellation. After all rows are staged, it advances the receiver's
+progress monotonically before the first clear/publication. Receiver namespace,
+existing generations, free order and Reader owners are never replaced with the
+source metadata. Floor/capacity refusal returns the same receiver and schema.
+The ordinary roundtrip exercises its equal-floor path; a distinct higher-source
+floor and capacity refusal remain additional concrete observation cases.
 Both unlike nominal receiver/clear consumers compile. These pieces have not
 yet been connected to complete fresh-handle publication, resource replacement,
 ordinary Scheduled restore or resumed execution.
