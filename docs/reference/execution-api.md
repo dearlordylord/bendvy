@@ -3,7 +3,110 @@
 The ordinary execution contract is the [SPEC replacement amendment](../SPEC.md#ordinary-execution-replacement-user-amendment-2026-10-26-utc).
 The implementation and remaining acceptance work belong to
 [issues #78 through #94](https://github.com/dearlordylord/bendvy/issues/77).
-This page names the current source entries. It does not mark those issues complete.
+This page describes the current application entry and names its source modules.
+It does not mark those issues complete.
+
+## Application construction and repeated runs
+
+The ordinary host entry is `world-io.create`. It consumes the resource owner and
+returns `IO(Creation<...>)`. `Created{world}` contains the new World.
+`Refused{resource}` returns the resource owner. Namespace allocation is scoped to
+the host allocator's realm or process. Raw constructors and `with_namespace`
+remain trusted integration operations.
+
+The [machine main](../../examples/parallel-machines/main.bend) shows this entry.
+Its `created` continuation initializes the returned World, binds the
+`Scheduled.BuildResult`, and passes `BuildReady{app}` to `execute_prepared`.
+The [scheduled implementation](../../examples/parallel-machines/scheduled.bend)
+retains the returned application through four updates. Construction and execution
+can both return IO, so the caller binds each result before the next operation.
+
+For heterogeneous component and resource layouts,
+[`execution-generalized-root-application`](../../src/ecs/execution-generalized-root-application.bend)
+provides `build` and `run`. `build` takes the actual World, generalized node facts,
+the condition registry, the error handler, dependency edges, and condition
+bindings. It returns `execution-parallel-root-application.Scheduled`.
+`run` consumes that schedule and returns IO containing the updated schedule and
+a `dependency-application.Report`. Repeated runs consume the schedule returned by
+the preceding run.
+
+The [health-decay root](../../examples/health-decay/root.bend) supplies concrete
+`build`, `dispatch`, `publish`, and `run` functions. Its `Plan.Edge{lid,rid}`
+orders the spawn author before the query. `Scheduled.configure` supplies
+`execution-deferred-settings.Settings` independently of those dependency edges.
+
+## Retained system and condition compilation
+
+[`execution-parallel-system.define_with_compilation`](../../src/ecs/execution-parallel-system.bend)
+consumes a Compilation, the World, a name, and the system's Local owner.
+It returns that Compilation paired with `execution-system.Defined`.
+`Defined{world,system}` contains the registered owner.
+`DefinitionRefused{world,local}` returns the World and the unregistered Local.
+
+`execution-parallel-scope.CompiledBinding` pairs the returned Compilation with
+the registered owner. The retained generalized body adapter is
+`execution-parallel-scope-registry.compile_retained_generalized_leaf`.
+The retained condition adapters are `execution-condition-registry.RetainedSystem`
+and `compile_retained_leaf`, or `compile_retained` for a retained selection.
+The condition registry derives its access metadata from the actual Compilation
+and marks unsupported or writing conditions invalid.
+
+The [captured node definitions](../../examples/parallel-captures/guarded-nodes.bend)
+show the body registration and retained leaf adapters. The
+[guarded application](../../examples/parallel-captures/guarded.bend) shows the
+corresponding condition registration, `CompiledBinding`, and retained dispatch.
+These factories supply a closed construction witness for capability selection.
+That trusted construction boundary does not prove that arbitrary manually built
+bindings agree with a declaration. These entries describe the retained path.
+Migration of all current callers to that path remains in progress.
+
+## Task bodies and execution policy
+
+[`execution-system.Body`](../../src/ecs/execution-system.bend) receives abstract
+`Permit` and `H` types, declared capabilities, the scope owner, and Local.
+Its result is `execution-reservation-task.Task` containing the returned scope,
+Local, and `Completion`. Both `Success{output}` and `BodyError{error,output}`
+accompany the body's returned owners. A body error retains writes already performed.
+`RunResult.Refused` returns the World and the system without a body completion.
+
+[`execution-reservation-task`](../../src/ecs/execution-reservation-task.bend)
+defines `TDone` for a result, `TRun` for a deferred step, `TBind` for a
+continuation, `TFork` for branches and their join, and `TNeed` for a reservation
+request. The framework supplies declaration-bound reservation authority.
+The [event peer body](../../examples/parallel-events/scheduled.bend) uses `TRun`
+to defer its Local update until the executor enters that task.
+
+`Task.Policy` has `Parallel` and `Serial` constructors.
+[`execution-resource-query-group`](../../src/ecs/execution-resource-query-group.bend)
+exposes `run_retained_with_policy`, `run_retained`, and `run_retained_serial`.
+`run_retained` selects `Parallel`. `run_retained_serial` selects `Serial`.
+The [captured node dispatch](../../examples/parallel-captures/guarded-nodes.bend)
+shows both calls on the same retained nodes.
+
+The policy reaches `execution-reservation-driver.run_with_policy` and the common
+Task interpreter. Serial lowers each reached `TFork` to left-then-right binds,
+including forks returned by deferred steps. Parallel permits eligible branches
+to use the parallel path. Selecting Parallel alone does not establish that two
+operations execute on different native workers.
+
+## Returned inventories and registration lifecycle
+
+The generalized Root's `Storage.Present` contains the returned World and displaced
+owners. `CutRefused`, `JoinRefused`, and `NestedRefused` retain the corresponding
+administration and physical inventory. These refusal variants are not usable
+Worlds for later conditions or publication. The returned application retains
+those owners rather than constructing a substitute World.
+
+[`execution-resource-query-lifecycle`](../../src/ecs/execution-resource-query-lifecycle.bend)
+provides `retire`, `release`, `rebuild`, and `reregister` for retained body nodes.
+`Released` contains the actual Compilation, cache context, identity, and Local.
+Retirement refusal returns the World and the node. Re-registration refusal
+returns the World and `Released`. Successful re-registration restores the same
+identity and cursor, then invalidates cached admission for the next inspection.
+The [guarded application](../../examples/parallel-captures/guarded.bend) retires a
+node, attempts another run, re-registers the returned owner, and runs again.
+
+## Module catalogue
 
 | Application task | Source entries |
 | --- | --- |
