@@ -93,7 +93,22 @@ The repeated final Inspector projections agree, and all three actual array owner
 produce `[7,9]` on both diagnostic reads. These are finite interpreter observations,
 not a formal proof or native backend concurrency evidence.
 
-AppA's complete execution, its explicit recovery adapter, owned event handoff,
-and final source cleanup remain incomplete. GH94 also retains its complete
+AppA's current ordinary entry retains its original initial bundle and explicit
+flush, then runs the named explicit recovery prefix. Its modern recovery adapter
+uses full-origin Layout columns, actual World handle validation and physical
+offsets. It records actual payload owners and lifecycle stamps, refreshes cached
+views on replacement, and restores the saved stamp during undo. The existing
+Journal engine drives this explicit facility; the old ordinary System/Tx executor
+does not drive the new entry. Its chunk-column stamp restoration shares the
+existing bounded Visit traversal.
+
+The ordinary AppA prefix exits successfully and observes rollback returning the
+actual incoming `[70,90]`, followed by retry returning the displaced `[7,9]`.
+The latter owner remains in the handoff state for publication. This finite prefix
+does not establish whole-run preservation. The complete owned-event handoff,
+three captured gameplay systems, conditional schedule and paired passive
+inspections remain incomplete; the current entry labels itself a recovery prefix.
+
+Final source cleanup remains incomplete. GH94 also retains its complete
 JavaScript/native delivery, applicable authority controls, and independent review
 requirements. No new law is approved or proved by this application run.

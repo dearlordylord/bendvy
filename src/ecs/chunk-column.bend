@@ -201,6 +201,19 @@ def stamp_search(~S:Data,~C:Type,fuel:Nat,state:Visit<S,C>) -> Column<S,C> & May
 def lifecycle(~S:Data,~C:Type,column:Column<S,C>,index:U32) -> Column<S,C> & Maybe<&2,L.Stamp>:
   stamp_search(~S,~C,15n,Visit{column,index,Root{} })
 
+# Trusted recovery restores the recorded stamp without changing payload owners.
+def restore_leaf(~S:Data,~C:Type,values:Array<Maybe<&1,C>>,stamps:Array<L.Stamp>,index:U32,stamp:L.Stamp,valid:Bool) -> Column<S,C>:
+  match valid:
+    case False{}:Leaf{values,stamps}
+    case True{}:Leaf{values,Array.set(L.Stamp,stamps,index,stamp)}
+def restore_search(~S:Data,~C:Type,fuel:Nat,state:Visit<S,C>,+stamp:L.Stamp) -> Column<S,C>:
+  match fuel state:
+    case 0n Visit{column,_,path}:rebuild(~S,~C,path,column)
+    case 1n+_ Visit{Leaf{values,stamps},+index,path}:rebuild(~S,~C,path,restore_leaf(~S,~C,values,stamps,index,stamp,U32.is_lt(index,8)))
+    case 1n+rest Visit{Branch{+half,left,right},+index,path}:restore_search(~S,~C,rest,edit_route(~S,~C,left,right,half,index,path,U32.is_lt(index,half)),stamp)
+def restore_stamp(~S:Data,~C:Type,column:Column<S,C>,index:U32,stamp:L.Stamp) -> Column<S,C>:
+  restore_search(~S,~C,15n,Visit{column,index,Root{}},stamp)
+
 def modify_runtime(~S:Data,~C:Type,~V:Data,transform:C -> C & V,column:Column<S,C>,index:U32,tick:Tick.Tick) -> Column<S,C> & Maybe<&2,V>:
   edit_search(~S,~C,~V,transform,15n,Visit{column,index,Root{}},tick,True{})
 
