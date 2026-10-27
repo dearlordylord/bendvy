@@ -11,6 +11,7 @@ import ./exit.bend as Exit
 import ./events.bend as Events
 import ./registry.bend as Registry
 import ./guard-registry.bend as Guards
+import ../../src/ecs/execution-parallel-scope.bend as Scope
 import ./observation.bend as Observe
 import ../../src/ecs/world.bend as W
 import ../../src/ecs/execution-system.bend as Sys
@@ -46,7 +47,7 @@ def peer(~S:Data,value:Peer.Owner(~S)) -> String:
     case Sys.Owner{namespace,id,name,access,cursor,local}:metadata(namespace,id,name,access,cursor,Observe.peer_local(~S,local))
 def guard(~S:Data,value:Guards.Owner(~S)) -> String:
   match value:
-    case Sys.Owner{namespace,id,name,access,cursor,local}:metadata(namespace,id,name,access,cursor,Observe.condition(local))
+    case Scope.CompiledBinding{_,Sys.Owner{namespace,id,name,access,cursor,local}}:metadata(namespace,id,name,access,cursor,Observe.condition(local))
 def permission(value:Permission.Permission) -> String:
   match value:
     case Permission.FamilyOnly{}:"family"

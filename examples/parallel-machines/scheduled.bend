@@ -5,6 +5,7 @@ import ./bodies.bend as Body
 import ./registry.bend as Registry
 import ./peer.bend as Peer
 import ./guard-registry.bend as Guards
+import ../../src/ecs/execution-parallel-scope.bend as Scope
 import ./conditions.bend as Cond
 import ./actor.bend as Actor
 import ./exit.bend as Exit
@@ -47,7 +48,7 @@ def machine_shape(~S:Data) -> {Layout.payload(Cond.layout(S),Layout.InLeft{Layou
 def completed(~S:Data,result:Application(~S) & App.Report<String,String>) -> Application(~S) & App.Report<String,String>:
   Maintenance.completed(~S,~D.Key,~D.Mode,~D.Store(~S),~Resources(~S),~Unit,~Cond.layout(S),~Layout.InLeft{Layout.AtLeaf{}},~{==},~machine_shape(~S),~Product.Owner<Registry.Owners(~S),PeerOwner(~S)>,~Guards.Owners(~S),~Report.Handler,~String,~String,result)
 def run_once(~S:Data,app:Application(~S)) -> IO(Application(~S) & App.Report<String,String>):
-  IO.bind(Application(~S) & App.Report<String,String>,Application(~S) & App.Report<String,String>,Schedule.run_serial(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.Resources(~S),~Unit,~Unit,~D.root_layout(S),~{==},~String,~String,~Registry.Owners(~S),~PeerOwner(~S),~Registry.handlers(~S),~peer_tree(~S),~Guards.Owners(~S),~Report.Handler,~Guards.dispatch(~S),~Guards.selection(~S),~Report.handle,app),result => IO.pure(Application(~S) & App.Report<String,String>,completed(~S,result)))
+  IO.bind(Application(~S) & App.Report<String,String>,Application(~S) & App.Report<String,String>,Schedule.run_serial_retained(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.Resources(~S),~Unit,~Unit,~D.root_layout(S),~{==},~String,~String,~Registry.Owners(~S),~PeerOwner(~S),~Registry.handlers(~S),~peer_tree(~S),~Guards.Owners(~S),~Report.Handler,~Guards.dispatch(~S),~Report.handle,app),result => IO.pure(Application(~S) & App.Report<String,String>,completed(~S,result)))
 def finished(~S:Data,history:List<&2,String>,app:Application(~S)) -> String:
   match app:
     case Schedule.Scheduled{App.State{world,Product.Owner{left,right},guards,handler,_},_,_,_,_}:"runs=" ++ List.show(&2,String,Observe.text,history) ++ "|world{" ++ Observe.world(~S,world) ++ "}|owners{" ++ Owners.left(~S,left) ++ ";peer{" ++ Owners.peer(~S,right) ++ "}}|guards{" ++ Owners.guards(~S,guards) ++ "}|handler=" ++ Report.handler(handler)
@@ -58,25 +59,25 @@ def updates(~S:Data,fuel:Nat,history:List<&2,String>,app:Application(~S)) -> IO(
   match fuel:
     case 0n:IO.pure(String,finished(~S,history,app))
     case 1n++rest:IO.bind(Application(~S) & App.Report<String,String>,String,run_once(~S,app),result => continued(~S,history => app => updates(~S,rest,history,app),history,result))
-def guard_running_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),exit:Guards.Owner(~S),transition:Guards.Owner(~S),enter:Guards.Owner(~S),result:Sys.Defined<World(~S),Guards.Owner(~S),Cond.Local>) -> IO(BuildResult<S>):
+def guard_running_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),exit:Guards.Owner(~S),transition:Guards.Owner(~S),enter:Guards.Owner(~S),result:Guards.Compilation(~S) & Sys.Defined<World(~S),Guards.System(~S),Cond.Local>) -> IO(BuildResult<S>):
   match result:
-    case Sys.Defined{world,running}:IO.pure(BuildResult<S>,BuildReady{Schedule.build(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.Resources(~S),~Unit,~Unit,~D.root_layout(S),~{==},~String,~String,~Registry.Owners(~S),~PeerOwner(~S),~Registry.handlers(~S),~peer_tree(~S),~Guards.Owners(~S),~Report.Handler,~Guards.dispatch(~S),~Guards.selection(~S),~Report.handle,~Report.available,world,Product.Owner{owners,peer},Guards.pack(~S,exit,transition,enter,running),Report.Handler{ALeaf{801},0},[Plan.Edge{1,3},Plan.Edge{3,4},Plan.Edge{4,5},Plan.Edge{5,6},Plan.Edge{6,7}],[App.Binding{3,8},App.Binding{4,9},App.Binding{5,10},App.Binding{6,11},App.Binding{7,11}])})
-    case Sys.DefinitionRefused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:running-guard"})
-def guard_enter_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),exit:Guards.Owner(~S),transition:Guards.Owner(~S),result:Sys.Defined<World(~S),Guards.Owner(~S),Cond.Local>) -> IO(BuildResult<S>):
+    case (compilation,Sys.Defined{world,running}):IO.pure(BuildResult<S>,BuildReady{Schedule.build_retained(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.Resources(~S),~Unit,~Unit,~D.root_layout(S),~{==},~String,~String,~Registry.Owners(~S),~PeerOwner(~S),~Registry.handlers(~S),~peer_tree(~S),~Guards.Owners(~S),~Report.Handler,~Guards.dispatch(~S),~Guards.selection(~S),~Report.handle,~Report.available,world,Product.Owner{owners,peer},Guards.pack(~S,exit,transition,enter,Scope.CompiledBinding{compilation,running}),Report.Handler{ALeaf{801},0},[Plan.Edge{1,3},Plan.Edge{3,4},Plan.Edge{4,5},Plan.Edge{5,6},Plan.Edge{6,7}],[App.Binding{3,8},App.Binding{4,9},App.Binding{5,10},App.Binding{6,11},App.Binding{7,11}])})
+    case (_,Sys.DefinitionRefused{_,_}):IO.pure(BuildResult<S>,BuildRefused{"ERROR:running-guard"})
+def guard_enter_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),exit:Guards.Owner(~S),transition:Guards.Owner(~S),result:Guards.Compilation(~S) & Sys.Defined<World(~S),Guards.System(~S),Cond.Local>) -> IO(BuildResult<S>):
   match result:
-    case Sys.Defined{world,enter}:guard_running_defined(~S,owners,peer,exit,transition,enter,Sys.define(~S,~D.Store(~S),~Resources(~S),~Unit,~D.read_ops(~S),~Cond.Local,~String,~Bool,~Cond.declaration(~S),~Cond.body(~S),world,"running-guard",Cond.Local{ALeaf{902},Cond.Running{}}))
-    case Sys.DefinitionRefused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:enter-guard"})
-def guard_transition_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),exit:Guards.Owner(~S),result:Sys.Defined<World(~S),Guards.Owner(~S),Cond.Local>) -> IO(BuildResult<S>):
+    case (compilation,Sys.Defined{world,enter}):guard_running_defined(~S,owners,peer,exit,transition,Scope.CompiledBinding{compilation,enter},Guards.define(~S,world,"running-guard",Cond.Local{ALeaf{902},Cond.Running{}}))
+    case (_,Sys.DefinitionRefused{_,_}):IO.pure(BuildResult<S>,BuildRefused{"ERROR:enter-guard"})
+def guard_transition_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),exit:Guards.Owner(~S),result:Guards.Compilation(~S) & Sys.Defined<World(~S),Guards.System(~S),Cond.Local>) -> IO(BuildResult<S>):
   match result:
-    case Sys.Defined{world,transition}:guard_enter_defined(~S,owners,peer,exit,transition,Sys.define(~S,~D.Store(~S),~Resources(~S),~Unit,~D.read_ops(~S),~Cond.Local,~String,~Bool,~Cond.declaration(~S),~Cond.body(~S),world,"enter-guard",Cond.Local{ALeaf{901},Cond.Enter{}}))
-    case Sys.DefinitionRefused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:transition-guard"})
-def guard_exit_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),result:Sys.Defined<World(~S),Guards.Owner(~S),Cond.Local>) -> IO(BuildResult<S>):
+    case (compilation,Sys.Defined{world,transition}):guard_enter_defined(~S,owners,peer,exit,Scope.CompiledBinding{compilation,transition},Guards.define(~S,world,"enter-guard",Cond.Local{ALeaf{901},Cond.Enter{}}))
+    case (_,Sys.DefinitionRefused{_,_}):IO.pure(BuildResult<S>,BuildRefused{"ERROR:transition-guard"})
+def guard_exit_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),result:Guards.Compilation(~S) & Sys.Defined<World(~S),Guards.System(~S),Cond.Local>) -> IO(BuildResult<S>):
   match result:
-    case Sys.Defined{world,exit}:guard_transition_defined(~S,owners,peer,exit,Sys.define(~S,~D.Store(~S),~Resources(~S),~Unit,~D.read_ops(~S),~Cond.Local,~String,~Bool,~Cond.declaration(~S),~Cond.body(~S),world,"transition-guard",Cond.Local{ALeaf{900},Cond.Transition{}}))
-    case Sys.DefinitionRefused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:exit-guard"})
+    case (compilation,Sys.Defined{world,exit}):guard_transition_defined(~S,owners,peer,Scope.CompiledBinding{compilation,exit},Guards.define(~S,world,"transition-guard",Cond.Local{ALeaf{900},Cond.Transition{}}))
+    case (_,Sys.DefinitionRefused{_,_}):IO.pure(BuildResult<S>,BuildRefused{"ERROR:exit-guard"})
 def events_defined(~S:Data,apply:Registry.ApplyOwner(~S),exit:Registry.ExitOwner(~S),transition:Registry.ReadOwner(~S),enter:Registry.RequestOwner(~S),peer:PeerOwner(~S),read:Registry.ActorOwner(~S),result:Sys.Defined<World(~S),Events.Owner(~S),Events.Local<S>>) -> IO(BuildResult<S>):
   match result:
-    case Sys.Defined{world,events}:guard_exit_defined(~S,Registry.pack(~S,apply,exit,transition,enter,read,events),peer,Sys.define(~S,~D.Store(~S),~Resources(~S),~Unit,~D.read_ops(~S),~Cond.Local,~String,~Bool,~Cond.declaration(~S),~Cond.body(~S),world,"exit-guard",Cond.Local{ALeaf{900},Cond.Exit{}}))
+    case Sys.Defined{world,events}:guard_exit_defined(~S,Registry.pack(~S,apply,exit,transition,enter,read,events),peer,Guards.define(~S,world,"exit-guard",Cond.Local{ALeaf{900},Cond.Exit{}}))
     case Sys.DefinitionRefused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:events"})
 def read_defined(~S:Data,apply:Registry.ApplyOwner(~S),exit:Registry.ExitOwner(~S),transition:Registry.ReadOwner(~S),enter:Registry.RequestOwner(~S),peer:PeerOwner(~S),result:Sys.Defined<World(~S),Registry.ActorOwner(~S),Actor.Local<S>>) -> IO(BuildResult<S>):
   match result:
