@@ -8,11 +8,11 @@ import ../../../src/ecs/ordinary-schema.bend as Schema
 
 type Nominal is Data:
   Nominal{}
-def Ops(H:Type) -> Type:Access.ResourceWrite<H,P.Counter,String>
-def discarded(~H:Type,~B:Type,original:B,result:B & Ops(H)) -> B & Ops(H):
+def Ops(Permit:Data,H:Type) -> Type:Access.ResourceWrite<H,P.Counter,String>
+def discarded(~Permit:Data,~H:Type,~B:Type,original:B,result:B & Ops(Permit,H)) -> B & Ops(Permit,H):
   match result:
     case (_,caps):(original,caps)
-def selection(~H:Type,~B:Type,~component_read:Build.ComponentRead(~Nominal,~D.Store(~Nominal),~D.Resources(~Nominal),~H,~B),~component_write:Build.ComponentWrite(~Nominal,~D.Store(~Nominal),~D.Resources(~Nominal),~H,~B),~resource_read:Build.ResourceRead(~Nominal,~D.Store(~Nominal),~D.Resources(~Nominal),~H,~B),~resource_write:Build.ResourceWrite(~Nominal,~D.Store(~Nominal),~D.Resources(~Nominal),~H,~B),~query:Build.Query(~Nominal,~D.Store(~Nominal),~D.Store(~Nominal),~D.Resources(~Nominal),~H,~B),~lifecycle:Build.Lifecycle(~Nominal,~D.Store(~Nominal),~D.Store(~Nominal),~D.Resources(~Nominal),~H,~B),book:B) -> B & Ops(H):
-  discarded(~H,~B,book,Build.basic_resource_write(~Nominal,~D.Store(~Nominal),~D.Resources(~Nominal),~H,~B,~D.resource_layout(),~D.first_route(),~{==},~{==},~resource_write,book))
-def declaration(~H:Type,~B:Type,~builder:Build.Builder(~Nominal,~D.Store(~Nominal),~D.Store(~Nominal),~D.Resources(~Nominal),~H,~B),book:B) -> B & Ops(H):
-  builder(Ops,selection(~H,~B),book)
+def selection(~Permit:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~Nominal,~D.Store(~Nominal),~D.Resources(~Nominal),~H,~B),~component_write:Build.ComponentWrite(~Nominal,~D.Store(~Nominal),~D.Resources(~Nominal),~H,~B),~resource_read:Build.ResourceRead(~Nominal,~D.Store(~Nominal),~D.Resources(~Nominal),~H,~B),~resource_write:Build.ResourceWrite(~Nominal,~D.Store(~Nominal),~D.Resources(~Nominal),~H,~B),~query:Build.Query(~Nominal,~D.Store(~Nominal),~D.Store(~Nominal),~D.Resources(~Nominal),~H,~B),~lifecycle:Build.Lifecycle(~Nominal,~D.Store(~Nominal),~D.Store(~Nominal),~D.Resources(~Nominal),~H,~B),book:B) -> B & Ops(Permit,H):
+  discarded(~Permit,~H,~B,book,Build.basic_resource_write(~Nominal,~D.Store(~Nominal),~D.Resources(~Nominal),~H,~B,~D.resource_layout(),~D.first_route(),~{==},~{==},~resource_write,book))
+def declaration(~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~Nominal,~D.Store(~Nominal),~D.Store(~Nominal),~D.Resources(~Nominal),~Permit,~H,~B),book:B) -> B & Ops(Permit,H):
+  builder(Ops,selection(~Permit,~H,~B),book)
