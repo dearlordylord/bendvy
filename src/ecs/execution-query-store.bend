@@ -1,4 +1,5 @@
 import Base
+import ./lifecycle.bend as Life
 import ./execution-resource-policy.bend as Policy
 import ./execution-query-schema.bend as Schema
 import ./execution-query-slice.bend as Slice
@@ -108,7 +109,7 @@ def cached_lookup_here(-V:Data,view:Maybe<&2,V>,next:Lookup<V>,found:Bool) -> Lo
 def cached_lookup(-V:Data,rows:List<&2,Q.Row<V>>,+offset:U32) -> Lookup<V>:
   match rows:
     case []:OutsideDomain{}
-    case Q.Row{+index,view} <> rest:cached_lookup_here(V,view,cached_lookup(V,rest,offset),U32.is_eq(index,offset))
+    case +row <> rest:cached_lookup_here(V,Q.row_view(V,row),cached_lookup(V,rest,offset),U32.is_eq(Q.row_offset(V,row),offset))
 def read_slot_done(-S:Data,-P:Type,-V:Data,-origin:L.Layout,cache:Q.ReadCache<S,V,origin>,result:Slice.Slot<S,L.Viewed<P,V>,origin> & Maybe<&2,V>) -> Slot<S,P,V,origin> & Lookup<V>:
   match result:
     case (writes,view):(Slot{writes,cache},Known{view})
@@ -140,3 +141,18 @@ def owner(~S:Data,layout:L.Layout,model:StorageModel) -> Type:
   match model:
     case Whole{}:L.columns(~S,layout)
     case Sparse{}:Storage<S,layout>
+
+def cached_stamp(-V:Data,rows:List<&2,Q.Row<V>>,+index:U32) -> Life.Stamp:
+  match rows:
+    case []:Life.Stamp{None{},None{}}
+    case +row <> rest:Life.choose(U32.is_eq(index,Q.row_offset(V,row)),Q.row_stamp(V,row),cached_stamp(V,rest,index))
+def stamped_slot(-S:Data,-P:Type,-V:Data,-origin:L.Layout,cache:Q.ReadCache<S,V,origin>,result:Slice.Slot<S,L.Viewed<P,V>,origin> & Life.Stamp) -> Slot<S,P,V,origin> & Life.Stamp:
+  match result:
+    case (writes,stamp):(Slot{writes,cache},stamp)
+def stamp_slot_checked(-S:Data,-P:Type,-V:Data,-origin:L.Layout,slot:Slot<S,P,V,origin>,index:U32,owned:Bool) -> Slot<S,P,V,origin> & Life.Stamp:
+  match slot owned:
+    case Slot{writes,cache} True{}:stamped_slot(S,P,V,origin,cache,Slice.stamp(S,L.Viewed<P,V>,origin,writes,index))
+    case Slot{writes,Q.ReadCache{+rows}} False{}:(Slot{writes,Q.ReadCache{rows}},cached_stamp(V,rows,index))
+def stamp_slot(-S:Data,-P:Type,-V:Data,-origin:L.Layout,slot:Slot<S,P,V,origin>,+index:U32) -> Slot<S,P,V,origin> & Life.Stamp:
+  match slot:
+    case Slot{Slice.Slot{Part.Slice{+domain,cells}},Q.ReadCache{+rows}}:stamp_slot_checked(S,P,V,origin,Slot{Slice.Slot{Part.Slice{domain,cells}},Q.ReadCache{rows}},index,D.contains(domain,index))

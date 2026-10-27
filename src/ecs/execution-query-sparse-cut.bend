@@ -1,6 +1,7 @@
 import ./execution-resource-policy.bend as Policy
 import ./schema-fragments.bend as Fragment
 import Base
+import ./lifecycle.bend as Life
 import ./execution-composer-layout.bend as L
 import ./execution-query-store.bend as Store
 import ./execution-query-slice.bend as Slice
@@ -22,7 +23,7 @@ def memos(~S:Data,layout:L.Layout) -> Type:
 def row_offsets(-V:Data,rows:List<&2,Match.Row<V>>) -> List<&2,U32>:
   match rows:
     case []:[]
-    case Match.Row{offset,_} <> rest:offset <> row_offsets(V,rest)
+    case row <> rest:Match.row_offset(V,row) <> row_offsets(V,rest)
 def read_cache_valid(-S:Data,-V:Data,-origin:L.Layout,+expected:D.Domain,cache:Match.ReadCache<S,V,origin>) -> Bool:
   match cache:
     case Match.ReadCache{rows}:Part.subset(expected,D.Domain{row_offsets(V,rows)})
@@ -65,7 +66,7 @@ def filtered_row(-V:Data,row:Match.Row<V>,selected:Bool,rest:List<&2,Match.Row<V
 def filter_rows(-V:Data,+domain:D.Domain,rows:List<&2,Match.Row<V>>) -> List<&2,Match.Row<V>>:
   match rows:
     case []:[]
-    case Match.Row{+offset,view} <> rest:filtered_row(V,Match.Row{offset,view},D.contains(domain,offset),filter_rows(V,domain,rest))
+    case +row <> rest:filtered_row(V,row,D.contains(domain,Match.row_offset(V,row)),filter_rows(V,domain,rest))
 type Pieces<-S:Data,-layout:L.Layout> is Type:
   Pieces{left:Store.stores(~S,layout),right:Store.stores(~S,layout),memo:memos(~S,layout)}
 def divided_slot(-S:Data,-P:Type,-V:Data,-origin:L.Layout,+lr:D.Domain,+lw:D.Domain,+rr:D.Domain,+rw:D.Domain,parent:D.Domain,+reads:Match.ReadCache<S,V,origin>,result:List<&1,Part.Cell<L.Viewed<P,V>>> & List<&1,Part.Cell<L.Viewed<P,V>>>) -> Store.Slot<S,P,V,origin> & (Store.Slot<S,P,V,origin> & Memo<S,P,V,origin>):
@@ -101,20 +102,23 @@ def inspected_children(-S:Data,-P:Type,-V:Data,-origin:L.Layout,memo:Memo<S,P,V,
 def inspect_children(-S:Data,-P:Type,-V:Data,-origin:L.Layout,left:Store.Slot<S,P,V,origin>,right:Store.Slot<S,P,V,origin>,memo:Memo<S,P,V,origin>) -> (Store.Slot<S,P,V,origin> & (Store.Slot<S,P,V,origin> & Memo<S,P,V,origin>)) & Bool:
   match memo:
     case Memo{+ld,+rd,parent,reads}:inspected_children(S,P,V,origin,Memo{ld,rd,parent,reads},inspect_child(S,P,V,origin,ld,left),inspect_child(S,P,V,origin,rd,right))
-def cache_step(-S:Data,-P:Type,-V:Data,-origin:L.Layout,index:U32,next:Slice.Slot<S,L.Viewed<P,V>,origin> -> List<&2,Match.Row<V>> -> Slice.Slot<S,L.Viewed<P,V>,origin> & List<&2,Match.Row<V>>,rows:List<&2,Match.Row<V>>,result:Slice.Slot<S,L.Viewed<P,V>,origin> & Maybe<&2,V>) -> Slice.Slot<S,L.Viewed<P,V>,origin> & List<&2,Match.Row<V>>:
+def cache_stamped(-S:Data,-P:Type,-V:Data,-origin:L.Layout,index:U32,view:Maybe<&2,V>,next:Slice.Slot<S,L.Viewed<P,V>,origin> -> List<&2,Match.Row<V>> -> Slice.Slot<S,L.Viewed<P,V>,origin> & List<&2,Match.Row<V>>,rows:List<&2,Match.Row<V>>,result:Slice.Slot<S,L.Viewed<P,V>,origin> & Life.Stamp) -> Slice.Slot<S,L.Viewed<P,V>,origin> & List<&2,Match.Row<V>>:
   match result:
-    case (slot,view):next(slot,Match.Row{index,view} <> rows)
-def cache_selected(-S:Data,-P:Type,-V:Data,-origin:L.Layout,+index:U32,view:Maybe<&2,V>,rows:List<&2,Match.Row<V>>,slot:Slice.Slot<S,L.Viewed<P,V>,origin>,next:Slice.Slot<S,L.Viewed<P,V>,origin> -> List<&2,Match.Row<V>> -> Slice.Slot<S,L.Viewed<P,V>,origin> & List<&2,Match.Row<V>>,selected:Bool) -> Slice.Slot<S,L.Viewed<P,V>,origin> & List<&2,Match.Row<V>>:
+    case (slot,stamp):next(slot,Match.StampedRow{index,view,stamp} <> rows)
+def cache_step(-S:Data,-P:Type,-V:Data,-origin:L.Layout,+index:U32,next:Slice.Slot<S,L.Viewed<P,V>,origin> -> List<&2,Match.Row<V>> -> Slice.Slot<S,L.Viewed<P,V>,origin> & List<&2,Match.Row<V>>,rows:List<&2,Match.Row<V>>,result:Slice.Slot<S,L.Viewed<P,V>,origin> & Maybe<&2,V>) -> Slice.Slot<S,L.Viewed<P,V>,origin> & List<&2,Match.Row<V>>:
+  match result:
+    case (slot,view):cache_stamped(S,P,V,origin,index,view,next,rows,Slice.stamp(S,L.Viewed<P,V>,origin,slot,index))
+def cache_selected(-S:Data,-P:Type,-V:Data,-origin:L.Layout,+row:Match.Row<V>,rows:List<&2,Match.Row<V>>,slot:Slice.Slot<S,L.Viewed<P,V>,origin>,next:Slice.Slot<S,L.Viewed<P,V>,origin> -> List<&2,Match.Row<V>> -> Slice.Slot<S,L.Viewed<P,V>,origin> & List<&2,Match.Row<V>>,selected:Bool) -> Slice.Slot<S,L.Viewed<P,V>,origin> & List<&2,Match.Row<V>>:
   match selected:
-    case False{}:next(slot,Match.Row{index,view} <> rows)
-    case True{}:cache_step(S,P,V,origin,index,next,rows,Slice.read(S,P,V,origin,slot,index))
-def cache_choice(-S:Data,-P:Type,-V:Data,-origin:L.Layout,+index:U32,view:Maybe<&2,V>,rows:List<&2,Match.Row<V>>,slot:Slice.Slot<S,L.Viewed<P,V>,origin>,next:Slice.Slot<S,L.Viewed<P,V>,origin> -> List<&2,Match.Row<V>> -> Slice.Slot<S,L.Viewed<P,V>,origin> & List<&2,Match.Row<V>>) -> Slice.Slot<S,L.Viewed<P,V>,origin> & List<&2,Match.Row<V>>:
+    case False{}:next(slot,row <> rows)
+    case True{}:cache_step(S,P,V,origin,Match.row_offset(V,row),next,rows,Slice.read(S,P,V,origin,slot,Match.row_offset(V,row)))
+def cache_choice(-S:Data,-P:Type,-V:Data,-origin:L.Layout,+row:Match.Row<V>,rows:List<&2,Match.Row<V>>,slot:Slice.Slot<S,L.Viewed<P,V>,origin>,next:Slice.Slot<S,L.Viewed<P,V>,origin> -> List<&2,Match.Row<V>> -> Slice.Slot<S,L.Viewed<P,V>,origin> & List<&2,Match.Row<V>>) -> Slice.Slot<S,L.Viewed<P,V>,origin> & List<&2,Match.Row<V>>:
   match slot:
-    case Slice.Slot{Part.Slice{+domain,cells}}:cache_selected(S,P,V,origin,index,view,rows,Slice.Slot{Part.Slice{domain,cells}},next,D.contains(domain,index))
+    case Slice.Slot{Part.Slice{+domain,cells}}:cache_selected(S,P,V,origin,row,rows,Slice.Slot{Part.Slice{domain,cells}},next,D.contains(domain,Match.row_offset(V,row)))
 def cache_rows(-S:Data,-P:Type,-V:Data,-origin:L.Layout,remaining:List<&2,Match.Row<V>>,slot:Slice.Slot<S,L.Viewed<P,V>,origin>,rows:List<&2,Match.Row<V>>) -> Slice.Slot<S,L.Viewed<P,V>,origin> & List<&2,Match.Row<V>>:
   match remaining:
     case []:(slot,rows)
-    case Match.Row{index,view} <> rest:cache_choice(S,P,V,origin,index,view,rows,slot,(slot => rows => cache_rows(S,P,V,origin,rest,slot,rows)))
+    case row <> rest:cache_choice(S,P,V,origin,row,rows,slot,(slot => rows => cache_rows(S,P,V,origin,rest,slot,rows)))
 def cache_refreshed(-S:Data,-P:Type,-V:Data,-origin:L.Layout,result:Slice.Slot<S,L.Viewed<P,V>,origin> & List<&2,Match.Row<V>>) -> Store.Slot<S,P,V,origin>:
   match result:
     case (slot,rows):Store.Slot{slot,Match.ReadCache{List.reverse(&2,Match.Row<V>,rows)}}

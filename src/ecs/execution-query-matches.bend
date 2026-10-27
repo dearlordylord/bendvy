@@ -1,4 +1,5 @@
 import Base
+import ./lifecycle.bend as Life
 import ./execution-query-domain.bend as D
 import ./execution-query-slice.bend as Slice
 import ./chunk-partition.bend as Part
@@ -37,6 +38,21 @@ type Presence is Data:
   Without{}
 type Row<-V:Data> is Data:
   Row{offset:U32,view:Maybe<&2,V>}
+  StampedRow{offset:U32,view:Maybe<&2,V>,stamp:Life.Stamp}
+# Raw Row carries unknown lifecycle metadata; canonical caches use StampedRow.
+def row_offset(-V:Data,row:Row<V>) -> U32:
+  match row:
+    case Row{offset,_}:offset
+    case StampedRow{offset,_,_}:offset
+def row_view(-V:Data,row:Row<V>) -> Maybe<&2,V>:
+  match row:
+    case Row{_,view}:view
+    case StampedRow{_,view,_}:view
+def row_stamp(-V:Data,row:Row<V>) -> Life.Stamp:
+  match row:
+    case Row{_,_}:Life.Stamp{None{},None{}}
+    case StampedRow{_,None{},_}:Life.Stamp{None{},None{}}
+    case StampedRow{_,Some{_},stamp}:stamp
 type Single<-V:Data> is Data:
   NoMatch{}
   One{row:Row<V>}

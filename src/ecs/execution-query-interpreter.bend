@@ -1,4 +1,5 @@
 import Base
+import ./execution-query-lifecycle.bend as Lifecycle
 import ./execution-query-store.bend as Store
 import ./execution-query-admission.bend as Admission
 import ./execution-query-recipe.bend as Recipe
@@ -44,13 +45,20 @@ def sparse_allowed(~S:Data,~full:L.Layout,~route:L.Route,~R:Type,~presence:Match
   match scope allowed:
     case scope False{}:(scope,Q.NotMatched{})
     case State.Scope{Store.Storage{namespace,columns,grants,info},resource,handles,tick,prior,+view} True{}:get_taken(~S,~full,~route,~R,~presence,~predicate,namespace,grants,info,resource,handles,tick,prior,view,offset,Store.take(~S,full,route,columns))
-def sparse_granted(~S:Data,~full:L.Layout,~route:L.Route,~R:Type,~presence:Match.Presence,~predicate:Maybe<&2,L.view(full,route)> -> Bool,scope:State.Scope<S,Store.Storage<S,full>,R>,handle:W.Handle<S>,offset:U32,grant:Maybe<&2,List<&2,W.Handle<S>>>) -> State.Scope<S,Store.Storage<S,full>,R> & Q.GeneralLookup<L.view(full,route)>:
+def sparse_bound_done(~S:Data,~full:L.Layout,~route:L.Route,~R:Type,~presence:Match.Presence,~predicate:Maybe<&2,L.view(full,route)> -> Bool,namespace:U32,grants:List<&2,Admission.Granted<S,L.columns(~S,full)>>,info:List<&2,Schema.Info>,resource:R,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,view:Notice.View<S>,offset:U32,result:Store.stores(~S,full) & Bool) -> State.Scope<S,Store.Storage<S,full>,R> & Q.GeneralLookup<L.view(full,route)>:
+  match result:
+    case (columns,selected):sparse_allowed(~S,~full,~route,~R,~presence,~predicate,State.Scope{Store.Storage{namespace,columns,grants,info},resource,handles,tick,prior,view},offset,selected)
+def sparse_member(~S:Data,~full:L.Layout,~route:L.Route,~R:Type,~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,L.view(full,route)> -> Bool,scope:State.Scope<S,Store.Storage<S,full>,R>,+offset:U32,selected:Bool) -> State.Scope<S,Store.Storage<S,full>,R> & Q.GeneralLookup<L.view(full,route)>:
+  match scope selected:
+    case scope False{}:(scope,Q.NotMatched{})
+    case State.Scope{Store.Storage{namespace,columns,grants,+info},resource,handles,+tick,+prior,view} True{}:sparse_bound_done(~S,~full,~route,~R,~presence,~predicate,namespace,grants,info,resource,handles,tick,prior,view,offset,Lifecycle.sparse_bound(~S,~full,info,bound,offset,prior,tick,columns))
+def sparse_granted(~S:Data,~full:L.Layout,~route:L.Route,~R:Type,~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,L.view(full,route)> -> Bool,scope:State.Scope<S,Store.Storage<S,full>,R>,handle:W.Handle<S>,offset:U32,grant:Maybe<&2,List<&2,W.Handle<S>>>) -> State.Scope<S,Store.Storage<S,full>,R> & Q.GeneralLookup<L.view(full,route)>:
   match grant:
     case None{}:(scope,Q.LookupRefused{})
-    case Some{handles}:sparse_allowed(~S,~full,~route,~R,~presence,~predicate,scope,offset,State.member(~S,handle,handles))
+    case Some{handles}:sparse_member(~S,~full,~route,~R,~bound,~presence,~predicate,scope,offset,State.member(~S,handle,handles))
 def sparse_physical(~S:Data,~full:L.Layout,~route:L.Route,~R:Type,~kind:Recipe.QueryKind,~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,L.view(full,route)> -> Bool,scope:State.Scope<S,Store.Storage<S,full>,R>,handle:W.Handle<S>,checked:Id.Offset<S>) -> State.Scope<S,Store.Storage<S,full>,R> & Q.GeneralLookup<L.view(full,route)>:
   match scope checked:
-    case State.Scope{Store.Storage{namespace,columns,+grants,info},resource,handles,tick,prior,+view} Id.Physical{_,offset}:sparse_granted(~S,~full,~route,~R,~presence,~predicate,State.Scope{Store.Storage{namespace,columns,grants,info},resource,handles,tick,prior,view},handle,offset,Admission.grant_handles(~S,~L.columns(~S,full),Recipe.Entry{route,kind,bound,presence},grants))
+    case State.Scope{Store.Storage{namespace,columns,+grants,info},resource,handles,tick,prior,+view} Id.Physical{_,offset}:sparse_granted(~S,~full,~route,~R,~bound,~presence,~predicate,State.Scope{Store.Storage{namespace,columns,grants,info},resource,handles,tick,prior,view},handle,offset,Admission.grant_handles(~S,~L.columns(~S,full),Recipe.Entry{route,kind,bound,presence},grants))
     case scope _:(scope,Q.MissingEntity{})
 def sparse_get(~S:Data,~full:L.Layout,~route:L.Route,~R:Type,~kind:Recipe.QueryKind,~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,L.view(full,route)> -> Bool,scope:State.Scope<S,Store.Storage<S,full>,R>,+handle:W.Handle<S>) -> State.Scope<S,Store.Storage<S,full>,R> & Q.GeneralLookup<L.view(full,route)>:
   match scope:
@@ -118,9 +126,12 @@ def whole_described_allowed(~S:Data,~full:L.Layout,~route:L.Route,~R:Type,~prese
   match scope allowed:
     case scope False{}:(scope,Q.NotMatched{})
     case State.Scope{columns,resource,handles,tick,prior,+view} True{}:whole_taken(~S,~full,~route,~R,~presence,~predicate,resource,handles,tick,prior,view,offset,capacity,L.column_take(~S,full,route,columns))
-def whole_described(~S:Data,~full:L.Layout,~route:L.Route,~R:Type,~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,L.view(full,route)> -> Bool,resource:R,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,view:Notice.View<S>,+offset:U32,result:Schema.Description<S,full>) -> State.Scope<S,L.columns(~S,full),R> & Q.GeneralLookup<L.view(full,route)>:
+def whole_bound_done(~S:Data,~full:L.Layout,~route:L.Route,~R:Type,~presence:Match.Presence,~predicate:Maybe<&2,L.view(full,route)> -> Bool,resource:R,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,view:Notice.View<S>,offset:U32,capacity:U32,result:L.columns(~S,full) & Bool) -> State.Scope<S,L.columns(~S,full),R> & Q.GeneralLookup<L.view(full,route)>:
   match result:
-    case Schema.Description{columns,+info,True{}}:whole_described_allowed(~S,~full,~route,~R,~presence,~predicate,State.Scope{columns,resource,handles,tick,prior,view},offset,Admission.capacity(Admission.info_at(route,info)),Admission.bound(info,bound,offset))
+    case (columns,selected):whole_described_allowed(~S,~full,~route,~R,~presence,~predicate,State.Scope{columns,resource,handles,tick,prior,view},offset,capacity,selected)
+def whole_described(~S:Data,~full:L.Layout,~route:L.Route,~R:Type,~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,L.view(full,route)> -> Bool,resource:R,handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,+prior:Maybe<&2,Tick.Tick>,view:Notice.View<S>,+offset:U32,result:Schema.Description<S,full>) -> State.Scope<S,L.columns(~S,full),R> & Q.GeneralLookup<L.view(full,route)>:
+  match result:
+    case Schema.Description{columns,+info,True{}}:whole_bound_done(~S,~full,~route,~R,~presence,~predicate,resource,handles,tick,prior,view,offset,Admission.capacity(Admission.info_at(route,info)),Lifecycle.whole_bound(~S,~full,info,bound,offset,prior,tick,columns))
     case Schema.Description{columns,_,False{}}:(State.Scope{columns,resource,handles,tick,prior,view},Q.LookupRefused{})
 def whole_physical(~S:Data,~full:L.Layout,~route:L.Route,~R:Type,~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,L.view(full,route)> -> Bool,scope:State.Scope<S,L.columns(~S,full),R>,checked:Id.Offset<S>) -> State.Scope<S,L.columns(~S,full),R> & Q.GeneralLookup<L.view(full,route)>:
   match scope checked:

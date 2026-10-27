@@ -66,26 +66,29 @@ def inspect(~S:Data,layout:L.Layout,+route:L.Route,+left:List<&2,Entry>,+right:L
     case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy} L.ColumnSlot{column}:checked_leaf(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy},route,left,right,Part.inspect(S,L.Viewed<P,V>,column))
     case L.LayoutPair{ll,rr} Product.Owner{l,r}:checked_pair(S,ll,rr,inspect(~S,ll,append_route(route,L.InLeft{L.AtLeaf{}}),left,right,l),inspect(~S,rr,append_route(route,L.InRight{L.AtLeaf{}}),left,right,r))
 
-def cached_cell(-P:Type,-V:Data,+offset:U32,result:Array<Maybe<&1,L.Viewed<P,V>>> & Maybe<&1,L.Viewed<P,V>>) -> Array<Maybe<&1,L.Viewed<P,V>>> & Q.Row<V>:
+def cached_cell(-P:Type,-V:Data,+offset:U32,+stamp:Life.Stamp,result:Array<Maybe<&1,L.Viewed<P,V>>> & Maybe<&1,L.Viewed<P,V>>) -> Array<Maybe<&1,L.Viewed<P,V>>> & Q.Row<V>:
   match result:
-    case (values,None{}):(values,Q.Row{offset,None{}})
-    case (values,Some{L.Viewed{owner,+view}}):(Array.set(Maybe<&1,L.Viewed<P,V>>,values,U32.mod(offset,8),Some{L.Viewed{owner,view}}),Q.Row{offset,Some{view}})
+    case (values,None{}):(values,Q.StampedRow{offset,None{},stamp})
+    case (values,Some{L.Viewed{owner,+view}}):(Array.set(Maybe<&1,L.Viewed<P,V>>,values,U32.mod(offset,8),Some{L.Viewed{owner,view}}),Q.StampedRow{offset,Some{view},stamp})
 def cached_step(-P:Type,-V:Data,rows:List<&2,Q.Row<V>>,result:Array<Maybe<&1,L.Viewed<P,V>>> & Q.Row<V>) -> Array<Maybe<&1,L.Viewed<P,V>>> & List<&2,Q.Row<V>>:
   match result:
     case (values,row):(values,row <> rows)
-def cache_leaf(-P:Type,-V:Data,fuel:Nat,+base:U32,+index:U32,result:Array<Maybe<&1,L.Viewed<P,V>>> & List<&2,Q.Row<V>>) -> Array<Maybe<&1,L.Viewed<P,V>>> & List<&2,Q.Row<V>>:
+def cache_stamp(-P:Type,-V:Data,+base:U32,+index:U32,values:Array<Maybe<&1,L.Viewed<P,V>>>,rows:List<&2,Q.Row<V>>,result:Array<Life.Stamp> & Life.Stamp) -> Array<Life.Stamp> & (Array<Maybe<&1,L.Viewed<P,V>>> & List<&2,Q.Row<V>>):
+  match result:
+    case (stamps,stamp):(stamps,cached_step(P,V,rows,cached_cell(P,V,U32.add(base,index),stamp,Array.swap(Maybe<&1,L.Viewed<P,V>>,values,index,None{}))))
+def cache_leaf(-P:Type,-V:Data,fuel:Nat,+base:U32,+index:U32,result:Array<Life.Stamp> & (Array<Maybe<&1,L.Viewed<P,V>>> & List<&2,Q.Row<V>>)) -> Array<Life.Stamp> & (Array<Maybe<&1,L.Viewed<P,V>>> & List<&2,Q.Row<V>>):
   match fuel result:
     case 0n result:result
-    case 1n+rest, (values,rows):cache_leaf(P,V,rest,base,U32.add(index,1),cached_step(P,V,rows,cached_cell(P,V,U32.add(base,index),Array.swap(Maybe<&1,L.Viewed<P,V>>,values,index,None{}))))
-def cached_leaf(-S:Data,-P:Type,-V:Data,stamps:Array<Life.Stamp>,result:Array<Maybe<&1,L.Viewed<P,V>>> & List<&2,Q.Row<V>>) -> Col.Column<S,L.Viewed<P,V>> & List<&2,Q.Row<V>>:
+    case 1n+rest, (stamps,(values,rows)):cache_leaf(P,V,rest,base,U32.add(index,1),cache_stamp(P,V,base,index,values,rows,Array.get(Life.Stamp,stamps,index)))
+def cached_leaf(-S:Data,-P:Type,-V:Data,result:Array<Life.Stamp> & (Array<Maybe<&1,L.Viewed<P,V>>> & List<&2,Q.Row<V>>)) -> Col.Column<S,L.Viewed<P,V>> & List<&2,Q.Row<V>>:
   match result:
-    case (values,rows):(Col.Leaf{values,stamps},rows)
+    case (stamps,(values,rows)):(Col.Leaf{values,stamps},rows)
 def cached_pair(-S:Data,-P:Type,-V:Data,half:U32,left:Col.Column<S,L.Viewed<P,V>> & List<&2,Q.Row<V>>,right:Col.Column<S,L.Viewed<P,V>> & List<&2,Q.Row<V>>) -> Col.Column<S,L.Viewed<P,V>> & List<&2,Q.Row<V>>:
   match left right:
     case (l,lr), (r,rr):(Col.Branch{half,l,r},List.append(&2,Q.Row<V>,lr,rr))
 def cache_column(-S:Data,-P:Type,-V:Data,column:Col.Column<S,L.Viewed<P,V>>,+base:U32) -> Col.Column<S,L.Viewed<P,V>> & List<&2,Q.Row<V>>:
   match column:
-    case Col.Leaf{values,stamps}:cached_leaf(S,P,V,stamps,cache_leaf(P,V,8n,base,0,(values,[])))
+    case Col.Leaf{values,stamps}:cached_leaf(S,P,V,cache_leaf(P,V,8n,base,0,(stamps,(values,[]))))
     case Col.Branch{+half,l,r}:cached_pair(S,P,V,half,cache_column(S,P,V,l,base),cache_column(S,P,V,r,U32.add(base,half)))
 def filtered_row(-V:Data,row:Q.Row<V>,rest:List<&2,Q.Row<V>>,selected:Bool) -> List<&2,Q.Row<V>>:
   match selected:
@@ -94,7 +97,7 @@ def filtered_row(-V:Data,row:Q.Row<V>,rest:List<&2,Q.Row<V>>,selected:Bool) -> L
 def filter_rows(-V:Data,+domain:D.Domain,rows:List<&2,Q.Row<V>>) -> List<&2,Q.Row<V>>:
   match rows:
     case []:[]
-    case Q.Row{+offset,+view} <> rest:filtered_row(V,Q.Row{offset,view},filter_rows(V,domain,rest),D.contains(domain,offset))
+    case +row <> rest:filtered_row(V,row,filter_rows(V,domain,rest),D.contains(domain,Q.row_offset(V,row)))
 
 type Family<-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout> is Type:
   Family{physical:Part.Cut<S,L.Viewed<P,V>>,leftCache:Q.ReadCache<S,V,origin>,rightCache:Q.ReadCache<S,V,origin>}
@@ -203,6 +206,8 @@ def present_offsets(-V:Data,rows:List<&2,Q.Row<V>>) -> List<&2,U32>:
     case []:[]
     case Q.Row{_,None{}} <> rest:present_offsets(V,rest)
     case Q.Row{offset,Some{_}} <> rest:offset <> present_offsets(V,rest)
+    case Q.StampedRow{_,None{},_} <> rest:present_offsets(V,rest)
+    case Q.StampedRow{offset,Some{_},_} <> rest:offset <> present_offsets(V,rest)
 def described_cache(-S:Data,-P:Type,-V:Data,route:L.Route,capacity:U32,result:Col.Column<S,L.Viewed<P,V>> & List<&2,Q.Row<V>>) -> Col.Column<S,L.Viewed<P,V>> & (Info & Bool):
   match result:
     case (column,rows):(column,(Info{route,capacity,D.Domain{present_offsets(V,rows)}},True{}))

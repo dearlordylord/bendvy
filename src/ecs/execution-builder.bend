@@ -154,6 +154,7 @@ def bound_access(~full:Layout.Layout,selection:Recipe.Bound) -> List<&2,D.Access
     case Recipe.AllLive{}:[]
     case Recipe.With{route}:[D.Access{Layout.key(full,route),D.ComponentAccess{},D.SharedView{},D.ReadOnly{}}]
     case Recipe.Without{route}:[D.Access{Layout.key(full,route),D.ComponentAccess{},D.SharedView{},D.ReadOnly{}}]
+    case Recipe.Changed{route}:[D.Access{Layout.key(full,route),D.ComponentAccess{},D.SharedView{},D.ReadOnly{}}]
     case Recipe.And{left,right}:List.append(&2,D.Access,bound_access(~full,left),bound_access(~full,right))
     case Recipe.Or{left,right}:List.append(&2,D.Access,bound_access(~full,left),bound_access(~full,right))
 def general_unsupported(~S:Data,~WC:Type,~C:Type,~R:Type,~full:Layout.Layout,~route:Layout.Route,~same:{WC == Layout.columns(~S,full) : Type},~valid:{Layout.grant_valid(~full,~route) == True{} : Bool},~model:Store.StorageModel,~local:{C == Store.owner(~S,full,model) : Type},~kind:Recipe.QueryKind,~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,Layout.view(full,route)> -> Bool,book:Book) -> Book & Q.GeneralOps(~S,~Layout.payload(full,route),~Layout.view(full,route),kind,State.Scope<S,C,R>):

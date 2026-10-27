@@ -96,3 +96,22 @@ def joined(-S:Data,-C:Type,-key:String,-origin:Layout.Layout,result:Part.Joined<
 def join(-S:Data,-C:Type,-key:String,-origin:Layout.Layout,join:JoinOwner<S,C,key,origin>,remainder:Layout.ColumnSlot<S,C,key,origin>,left:Slot<S,C,origin>,right:Slot<S,C,origin>) -> Joined<S,C,key,origin>:
   match join remainder left right:
     case JoinOwner{owner} Layout.ColumnSlot{column} Slot{left} Slot{right}:joined(S,C,key,origin,Part.join(S,C,owner,column,left,right))
+
+def stamped_absent(-C:Type,offset:U32,stamp:L.Stamp,result:List<&1,Part.Cell<C>> & L.Stamp) -> List<&1,Part.Cell<C>> & L.Stamp:
+  match result:
+    case (cells,found):(Part.Cell{offset,None{},stamp} <> cells,found)
+def stamped_present(-C:Type,offset:U32,owner:C,+stamp:L.Stamp,selected:Bool,result:List<&1,Part.Cell<C>> & L.Stamp) -> List<&1,Part.Cell<C>> & L.Stamp:
+  match result:
+    case (cells,found):(Part.Cell{offset,Some{owner},stamp} <> cells,L.choose(selected,stamp,found))
+# Read Data stamps without projecting or duplicating any affine payload.
+def stamped_cells(-C:Type,+index:U32,cells:List<&1,Part.Cell<C>>) -> List<&1,Part.Cell<C>> & L.Stamp:
+  match cells:
+    case []:([],L.Stamp{None{},None{}})
+    case Part.Cell{offset,None{},stamp} <> rest:stamped_absent(C,offset,stamp,stamped_cells(C,index,rest))
+    case Part.Cell{+offset,Some{owner},+stamp} <> rest:stamped_present(C,offset,owner,stamp,U32.is_eq(index,offset),stamped_cells(C,index,rest))
+def stamped_slot(-S:Data,-C:Type,-origin:Layout.Layout,domain:D.Domain,result:List<&1,Part.Cell<C>> & L.Stamp) -> Slot<S,C,origin> & L.Stamp:
+  match result:
+    case (cells,stamp):(Slot{Part.Slice{domain,cells}},stamp)
+def stamp(-S:Data,-C:Type,-origin:Layout.Layout,slot:Slot<S,C,origin>,index:U32) -> Slot<S,C,origin> & L.Stamp:
+  match slot:
+    case Slot{Part.Slice{domain,cells}}:stamped_slot(S,C,origin,domain,stamped_cells(C,index,cells))

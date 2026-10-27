@@ -9,6 +9,10 @@ type Bound is Data:
   AllLive{}
   With{route:L.Route}
   Without{route:L.Route}
+  # Bevy Changed compares component ticks with last_run/this_run:
+  # https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/query/filter.rs
+  # Admission reserves an upper bound; each operation checks actual stamps.
+  Changed{route:L.Route}
   And{left:Bound,right:Bound}
   Or{left:Bound,right:Bound}
 # Symbolic declaration only. Physical domains do not exist until admission
@@ -26,5 +30,6 @@ def bound_valid(~full:L.Layout,bound:Bound) -> Bool:
     case AllLive{}:True{}
     case With{route}:L.valid(full,route)
     case Without{route}:L.valid(full,route)
+    case Changed{route}:L.valid(full,route)
     case And{left,right}:Bool.and(bound_valid(~full,left),bound_valid(~full,right))
     case Or{left,right}:Bool.and(bound_valid(~full,left),bound_valid(~full,right))

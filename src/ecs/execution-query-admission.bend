@@ -34,6 +34,7 @@ def present(info:Maybe<&2,Schema.Info>,offset:U32,wanted:Bool) -> Bool:
 def bound(+info:List<&2,Schema.Info>,selection:Recipe.Bound,+offset:U32) -> Bool:
   match selection:
     case Recipe.AllLive{}:True{}
+    case Recipe.Changed{_}:True{}
     case Recipe.With{route}:present(info_at(route,info),offset,True{})
     case Recipe.Without{route}:present(info_at(route,info),offset,False{})
     case Recipe.And{left,right}:Bool.and(bound(info,left,offset),bound(info,right,offset))
@@ -92,6 +93,7 @@ type LoweredEntries<-S:Data,-WC:Type> is Data:
 def bound_entries(~S:Data,+info:List<&2,Schema.Info>,+handles:List<&2,W.Handle<S>>,selection:Recipe.Bound) -> List<&2,Schema.Entry>:
   match selection:
     case Recipe.AllLive{}:[]
+    case Recipe.Changed{+route}:[Schema.Entry{route,Match.Read{D.Domain{physical(~S,capacity(info_at(route,info)),handles)}}}]
     case Recipe.With{+route}:[Schema.Entry{route,Match.Read{D.Domain{physical(~S,capacity(info_at(route,info)),handles)}}}]
     case Recipe.Without{+route}:[Schema.Entry{route,Match.Read{D.Domain{physical(~S,capacity(info_at(route,info)),handles)}}}]
     case Recipe.And{left,right}:List.append(&2,Schema.Entry,bound_entries(~S,info,handles,left),bound_entries(~S,info,handles,right))
@@ -128,6 +130,7 @@ def same_presence(left:Match.Presence,right:Match.Presence) -> Bool:
 def same_bound(left:Recipe.Bound,right:Recipe.Bound) -> Bool:
   match left right:
     case Recipe.AllLive{} Recipe.AllLive{}:True{}
+    case Recipe.Changed{l} Recipe.Changed{r}:Schema.same_route(l,r)
     case Recipe.With{l} Recipe.With{r}:Schema.same_route(l,r)
     case Recipe.Without{l} Recipe.Without{r}:Schema.same_route(l,r)
     case Recipe.And{ll,lr} Recipe.And{rl,rr}:Bool.and(same_bound(ll,rl),same_bound(lr,rr))
