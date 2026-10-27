@@ -16,32 +16,10 @@ type Registry<-World:Type,-Owners:Type,-Error:Data,-dispatch:Dispatch(~World,~Ow
   Registry{owners:Owners,nodes:List<&2,Plan.Node<String>>,invalid:Maybe<&2,Plan.Invalid<String>>}
 def System(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Bool)) -> Type:
   Sys.Owner<S,C,C,R,E,Ops,Local,Error,Bool,declaration,body>
-def leaf_returned(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Bool),result:Sys.RunResult<W.World<S,C,R,E>,System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),Error,Bool>) -> IO(System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>)):
-  match result:
-    case Sys.Refused{world,system}:IO.pure(System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>),(system,(world,Exec.AdmissionRefused{})))
-    case Sys.Executed{world,system,Sys.Success{output}}:IO.pure(System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>),(system,(world,Exec.Completed{output})))
-    case Sys.Executed{world,system,Sys.BodyError{error,output}}:IO.pure(System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>),(system,(world,Exec.BodyError{error,output})))
-# The actual System kernel owns admission and clock entry. A missing selection
-# does not enter it, and every IO result returns its actual Local and World.
-def leaf_selected(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Bool),selected:Bool,owner:System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),world:W.World<S,C,R,E>) -> IO(System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>)):
-  match selected:
-    case False{}:IO.pure(System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>),(owner,(world,Exec.AdmissionRefused{})))
-    case True{}:IO.bind(Sys.RunResult<W.World<S,C,R,E>,System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),Error,Bool>,System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>),Sys.run(~S,~C,~R,~E,~Ops,~Local,~Error,~Bool,~declaration,~body,owner,world),leaf_returned(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body))
-def leaf_dispatch_actual(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Bool),owner:System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),world:W.World<S,C,R,E>,+id:U32) -> IO(System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>)):
-  match owner:
-    case Sys.Owner{namespace,+actual,name,access,cursor,local}:leaf_selected(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body,U32.is_eq(actual,id),Sys.Owner{namespace,actual,name,access,cursor,local},world)
 def permission(allowed:Bool,id:U32) -> Maybe<&2,Plan.Invalid<String>>:
   match allowed:
     case True{}:None{}
     case False{}:Some{Plan.InvalidCondition{id}}
-def leaf_dispatch(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Bool),owner:System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),world:W.World<S,C,R,E>,id:U32) -> IO(System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>)):
-  leaf_dispatch_actual(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body,owner,world,id)
-def compile_leaf_compilation(~Error:Data,~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Bool),owner:System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),compilation:D.Compilation<S,C,C,R,Ops>) -> Registry<W.World<S,C,R,E>,System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),Error,leaf_dispatch(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body)>:
-  match owner compilation:
-    case Sys.Owner{namespace,+id,name,access,cursor,local} D.Supported{D.Declaration{_,+requirements},_}:Registry{Sys.Owner{namespace,id,name,access,cursor,local},[Plan.Node{id,D.qualified(requirements)}],permission(D.read_only(requirements),id)}
-    case Sys.Owner{namespace,+id,name,access,cursor,local} D.Unsupported{_,requirements,_}:Registry{Sys.Owner{namespace,id,name,access,cursor,local},[Plan.Node{id,D.qualified(requirements)}],Some{Plan.InvalidCondition{id}}}
-def compile_leaf(~Error:Data,~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Bool),owner:System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body)) -> Registry<W.World<S,C,R,E>,System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),Error,leaf_dispatch(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body)>:
-  compile_leaf_compilation(~Error,~S,~C,~R,~E,~Ops,~Local,~declaration,~body,owner,Build.compile_framework(~S,~C,~C,~R,~Ops,~declaration))
 def left_returned(~World:Type,~L:Type,~R:Type,~Error:Data,right:R,ids:List<&2,U32>,result:L & (World & Exec.Invocation<Error,Bool>)) -> IO(Reg.Product<L,R> & (World & Exec.Invocation<Error,Bool>)):
   match result:
     case (left,status):IO.pure(Reg.Product<L,R> & (World & Exec.Invocation<Error,Bool>),(Reg.Product{left,right,ids},status))
@@ -64,28 +42,6 @@ def empty_dispatch(~World:Type,~Error:Data,owner:Unit,world:World,_:U32) -> IO(U
   IO.pure(Unit & (World & Exec.Invocation<Error,Bool>),(owner,(world,Exec.AdmissionRefused{})))
 def compile_empty(~Error:Data,~World:Type) -> Registry<World,Unit,Error,empty_dispatch(~World,~Error)>:
   Registry{Unit{},[],None{}}
-def Family(~Error:Data) -> Type:
-  @-World:Type -> @-Owners:Type -> @-dispatch:Dispatch(~World,~Owners,~Error) -> Type
-def Leaf(~Error:Data,~F:Family(~Error)) -> Type:
-  @-S:Data -> @-C:Type -> @-R:Type -> @-E:Data -> @-Ops:(Data -> Type -> Type) -> @-Local:Type -> @-declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops) -> @-body:Sys.Body(~S,~Ops,~Local,~Error,~Bool) -> System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) -> F(W.World<S,C,R,E>,System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),leaf_dispatch(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body))
-def Join(~Error:Data,~F:Family(~Error)) -> Type:
-  @-World:Type -> @-L:Type -> @-R:Type -> @-left:Dispatch(~World,~L,~Error) -> @-right:Dispatch(~World,~R,~Error) -> F(World,L,left) -> F(World,R,right) -> F(World,Reg.Product<L,R>,paired_dispatch(~World,~L,~R,~Error,~left,~right))
-def Vacant(~Error:Data,~F:Family(~Error)) -> Type:
-  @-World:Type -> F(World,Unit,empty_dispatch(~World,~Error))
-def Selection(~World:Type,~Owners:Type,~Error:Data,~dispatch:Dispatch(~World,~Owners,~Error)) -> Type:
-  @-F:Family(~Error) -> @-leaf:Leaf(~Error,~F) -> @-pair:Join(~Error,~F) -> @-empty:Vacant(~Error,~F) -> Owners -> F(World,Owners,dispatch)
-def Checked(~Error:Data,~World:Type,~Owners:Type,~dispatch:Dispatch(~World,~Owners,~Error)) -> Type:
-  Registry<World,Owners,Error,dispatch>
-def compile(~World:Type,~Owners:Type,~Error:Data,~dispatch:Dispatch(~World,~Owners,~Error),~selection:Selection(~World,~Owners,~Error,~dispatch),owners:Owners) -> Registry<World,Owners,Error,dispatch>:
-  selection(Checked(~Error),compile_leaf(~Error),compile_join(~Error),compile_empty(~Error),owners)
-def leaf(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Bool),~F:Family(~Error),~leaf:Leaf(~Error,~F),~pair:Join(~Error,~F),~empty:Vacant(~Error,~F),owner:System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body)) -> F(W.World<S,C,R,E>,System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),leaf_dispatch(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body)):
-  leaf(S,C,R,E,Ops,Local,declaration,body,owner)
-def paired(~World:Type,~L:Type,~R:Type,~Error:Data,~left:Dispatch(~World,~L,~Error),~right:Dispatch(~World,~R,~Error),~leftSelection:Selection(~World,~L,~Error,~left),~rightSelection:Selection(~World,~R,~Error,~right),~F:Family(~Error),~leaf:Leaf(~Error,~F),~pair:Join(~Error,~F),~empty:Vacant(~Error,~F),owners:Reg.Product<L,R>) -> F(World,Reg.Product<L,R>,paired_dispatch(~World,~L,~R,~Error,~left,~right)):
-  match owners:
-    case Reg.Product{l,r,_}:pair(World,L,R,left,right,leftSelection(F,leaf,pair,empty,l),rightSelection(F,leaf,pair,empty,r))
-def empty(~World:Type,~Error:Data,~F:Family(~Error),~leaf:Leaf(~Error,~F),~pair:Join(~Error,~F),~empty:Vacant(~Error,~F),_:Unit) -> F(World,Unit,empty_dispatch(~World,~Error)):
-  empty(World)
-
 # The factory supplies the closed construction witness once. Actual inventory
 # remains affine across registry admission and every dispatch; no method table
 # or runtime reconstruction of the declaration is stored in this binding.
@@ -107,9 +63,31 @@ def compile_retained_leaf(~Error:Data,~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data 
   match node:
     case Scope.CompiledBinding{D.Supported{D.Declaration{caps,+requirements},recipes},Sys.Owner{namespace,+id,name,access,cursor,local}}:Registry{Scope.CompiledBinding{D.Supported{D.Declaration{caps,requirements},recipes},Sys.Owner{namespace,id,name,access,cursor,local}},[Plan.Node{id,D.qualified(requirements)}],permission(D.read_only(requirements),id)}
     case Scope.CompiledBinding{D.Unsupported{caps,+requirements,recipes},Sys.Owner{namespace,+id,name,access,cursor,local}}:Registry{Scope.CompiledBinding{D.Unsupported{caps,requirements,recipes},Sys.Owner{namespace,id,name,access,cursor,local}},[Plan.Node{id,D.qualified(requirements)}],Some{Plan.InvalidCondition{id}}}
-def RetainedLeaf(~Error:Data,~F:Family(~Error)) -> Type:
+def Family(~Error:Data) -> Type:
+  @-World:Type -> @-Owners:Type -> @-dispatch:Dispatch(~World,~Owners,~Error) -> Type
+def Leaf(~Error:Data,~F:Family(~Error)) -> Type:
   @-S:Data -> @-C:Type -> @-R:Type -> @-E:Data -> @-Ops:(Data -> Type -> Type) -> @-Local:Type -> @-declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops) -> @-body:Sys.Body(~S,~Ops,~Local,~Error,~Bool) -> @-construction:D.Compilation<S,C,C,R,Ops> -> RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) -> F(W.World<S,C,R,E>,RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),retained_leaf_dispatch(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body,~construction))
-def RetainedSelection(~World:Type,~Owners:Type,~Error:Data,~dispatch:Dispatch(~World,~Owners,~Error)) -> Type:
-  @-F:Family(~Error) -> @-leaf:RetainedLeaf(~Error,~F) -> @-pair:Join(~Error,~F) -> @-empty:Vacant(~Error,~F) -> Owners -> F(World,Owners,dispatch)
-def compile_retained(~World:Type,~Owners:Type,~Error:Data,~dispatch:Dispatch(~World,~Owners,~Error),~selection:RetainedSelection(~World,~Owners,~Error,~dispatch),owners:Owners) -> Registry<World,Owners,Error,dispatch>:
+def Join(~Error:Data,~F:Family(~Error)) -> Type:
+  @-World:Type -> @-L:Type -> @-R:Type -> @-left:Dispatch(~World,~L,~Error) -> @-right:Dispatch(~World,~R,~Error) -> F(World,L,left) -> F(World,R,right) -> F(World,Reg.Product<L,R>,paired_dispatch(~World,~L,~R,~Error,~left,~right))
+def Vacant(~Error:Data,~F:Family(~Error)) -> Type:
+  @-World:Type -> F(World,Unit,empty_dispatch(~World,~Error))
+def Selection(~World:Type,~Owners:Type,~Error:Data,~dispatch:Dispatch(~World,~Owners,~Error)) -> Type:
+  @-F:Family(~Error) -> @-leaf:Leaf(~Error,~F) -> @-pair:Join(~Error,~F) -> @-empty:Vacant(~Error,~F) -> Owners -> F(World,Owners,dispatch)
+def Checked(~Error:Data,~World:Type,~Owners:Type,~dispatch:Dispatch(~World,~Owners,~Error)) -> Type:
+  Registry<World,Owners,Error,dispatch>
+def compile(~World:Type,~Owners:Type,~Error:Data,~dispatch:Dispatch(~World,~Owners,~Error),~selection:Selection(~World,~Owners,~Error,~dispatch),owners:Owners) -> Registry<World,Owners,Error,dispatch>:
   selection(Checked(~Error),compile_retained_leaf(~Error),compile_join(~Error),compile_empty(~Error),owners)
+def leaf(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Bool),~construction:D.Compilation<S,C,C,R,Ops>,~F:Family(~Error),~leaf:Leaf(~Error,~F),~pair:Join(~Error,~F),~empty:Vacant(~Error,~F),node:RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body)) -> F(W.World<S,C,R,E>,RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),retained_leaf_dispatch(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body,~construction)):
+  leaf(S,C,R,E,Ops,Local,declaration,body,construction,node)
+def paired(~World:Type,~L:Type,~R:Type,~Error:Data,~left:Dispatch(~World,~L,~Error),~right:Dispatch(~World,~R,~Error),~leftSelection:Selection(~World,~L,~Error,~left),~rightSelection:Selection(~World,~R,~Error,~right),~F:Family(~Error),~leaf:Leaf(~Error,~F),~pair:Join(~Error,~F),~empty:Vacant(~Error,~F),owners:Reg.Product<L,R>) -> F(World,Reg.Product<L,R>,paired_dispatch(~World,~L,~R,~Error,~left,~right)):
+  match owners:
+    case Reg.Product{l,r,_}:pair(World,L,R,left,right,leftSelection(F,leaf,pair,empty,l),rightSelection(F,leaf,pair,empty,r))
+def empty(~World:Type,~Error:Data,~F:Family(~Error),~leaf:Leaf(~Error,~F),~pair:Join(~Error,~F),~empty:Vacant(~Error,~F),_:Unit) -> F(World,Unit,empty_dispatch(~World,~Error)):
+  empty(World)
+
+def RetainedLeaf(~Error:Data,~F:Family(~Error)) -> Type:
+  Leaf(~Error,~F)
+def RetainedSelection(~World:Type,~Owners:Type,~Error:Data,~dispatch:Dispatch(~World,~Owners,~Error)) -> Type:
+  Selection(~World,~Owners,~Error,~dispatch)
+def compile_retained(~World:Type,~Owners:Type,~Error:Data,~dispatch:Dispatch(~World,~Owners,~Error),~selection:RetainedSelection(~World,~Owners,~Error,~dispatch),owners:Owners) -> Registry<World,Owners,Error,dispatch>:
+  compile(~World,~Owners,~Error,~dispatch,~selection,owners)
