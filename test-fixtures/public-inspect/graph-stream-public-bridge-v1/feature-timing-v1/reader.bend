@@ -6,6 +6,7 @@ import ../../../../src/ecs/relation-types.bend as G
 import ../../../../src/ecs/machine.bend as M
 import ../../../../src/ecs/machine-stream.bend as St
 import ../../../../src/ecs/event-runtime.bend as Ev
+import ../../../../src/ecs/event-runtime-legacy.bend as LegacyEv
 import ../../../../src/ecs/inspector-failure-projection.bend as Failure
 import ./state.bend as State
 import ./declarations.bend as D
@@ -56,9 +57,9 @@ def updated(~S:Data,observed:Runtime(~S) & Unit) -> Runtime(~S):
   (runtime,_)=observed
   runtime
 
-def RunResult(~S:Data) -> Type: Ev.RunResult<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>,ReaderArgs,Unit,MT.Streams<S>,runner(~S)>
+def RunResult(~S:Data) -> Type: LegacyEv.RunResult<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>,ReaderArgs,Unit,MT.Streams<S>,runner(~S)>
 def invoke(~S:Data,+id:U32,runtime:Runtime(~S),reader:Ev.Reader<S>,registry:Registry(~S)) -> RunResult(~S):
-  Ev.run(~S,~A.Store<S,State.Components<S>>,~State.Resources<S>,~A.Notice<S,U32>,~ReaderArgs,~Unit,~MT.Streams<S>,~runner(~S),runtime,reader,registry,ReaderArgs{id})
+  LegacyEv.run(~S,~A.Store<S,State.Components<S>>,~State.Resources<S>,~A.Notice<S,U32>,~ReaderArgs,~Unit,~MT.Streams<S>,~runner(~S),runtime,reader,registry,ReaderArgs{id})
 def actual_reader_run(~S:Data,world:World(~S),owner:Owner<S>) -> RunResult(~S):
   match owner:
     case Owner{state,Ev.Reader{+ns,+id,+registryId},registry,_}:invoke(~S,id,updated(~S,Ev.with_world(~S,~A.Store<S,State.Components<S>>,~State.Resources<S>,~A.Notice<S,U32>,~Unit,identity_world(~S),state_runtime(~S,world,state))),Ev.Reader{ns,id,registryId},registry)
@@ -70,14 +71,14 @@ def warm_failed(~S:Data,fields:World(~S) & RuntimeState<S>) -> ReaderRegistratio
   StreamReaderRegistrationFailed{world}
 def warmed(~S:Data,result:RunResult(~S)) -> ReaderRegistration<S>:
   match result:
-    case Ev.Ran{runtime,reader,registry,Ev.Succeeded{output}}:registered_fields(~S,reader,registry,output,runtime_fields(~S,runtime))
-    case Ev.Ran{runtime,_,_,_}:warm_failed(~S,runtime_fields(~S,runtime))
-def registered(~S:Data,result:Ev.Registered<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>,ReaderArgs,Unit,MT.Streams<S>,runner(~S)>) -> ReaderRegistration<S>:
+    case LegacyEv.Ran{runtime,reader,registry,Ev.Succeeded{output}}:registered_fields(~S,reader,registry,output,runtime_fields(~S,runtime))
+    case LegacyEv.Ran{runtime,_,_,_}:warm_failed(~S,runtime_fields(~S,runtime))
+def registered(~S:Data,result:LegacyEv.Registered<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>,ReaderArgs,Unit,MT.Streams<S>,runner(~S)>) -> ReaderRegistration<S>:
   match result:
-    case Ev.Registered{runtime,Ev.Reader{+ns,+id,+registryId},registry}:warmed(~S,invoke(~S,id,runtime,Ev.Reader{ns,id,registryId},registry))
-    case Ev.RegisterFailed{runtime}:warm_failed(~S,runtime_fields(~S,runtime))
+    case LegacyEv.Registered{runtime,Ev.Reader{+ns,+id,+registryId},registry}:warmed(~S,invoke(~S,id,runtime,Ev.Reader{ns,id,registryId},registry))
+    case LegacyEv.RegisterFailed{runtime}:warm_failed(~S,runtime_fields(~S,runtime))
 def register_reader(~S:Data,world:World(~S)) -> ReaderRegistration<S>:
-  registered(~S,Ev.register(~S,~A.Store<S,State.Components<S>>,~State.Resources<S>,~A.Notice<S,U32>,~ReaderArgs,~Unit,~MT.Streams<S>,~runner(~S),Ev.start(~S,~A.Store<S,State.Components<S>>,~State.Resources<S>,~A.Notice<S,U32>,world,65536n),"Reader",["FlowStream","LevelStream","ParentFailures"]))
+  registered(~S,LegacyEv.register(~S,~A.Store<S,State.Components<S>>,~State.Resources<S>,~A.Notice<S,U32>,~ReaderArgs,~Unit,~MT.Streams<S>,~runner(~S),Ev.start(~S,~A.Store<S,State.Components<S>>,~State.Resources<S>,~A.Notice<S,U32>,world,65536n),"Reader",["FlowStream","LevelStream","ParentFailures"]))
 def identify_reader(~S:Data,owner:Owner<S>) -> Owner<S> & U32:
   match owner:
     case Owner{state,Ev.Reader{+ns,+id,+registryId},registry,warm}:(Owner{state,Ev.Reader{ns,id,registryId},registry,warm},id)

@@ -1,6 +1,5 @@
 import Base
 import ./world.bend as W
-import ./system.bend as Sy
 
 # One event domain; World owns payloads, this owner owns batch and reader metadata.
 # Ordered detached Data publications grouped at a runtime tick. This is not an
@@ -181,11 +180,6 @@ def with_world(~S: Data,~C: Type,~R: Type,~E: Data,~O: Type,effect: W.World<S,C,
   match runtime:
     case Runtime{world,+namespace,+batches,+positions,+nextReader,+tick,+frameStart,+boundary,+capacity,+dropped}: with_world_result(~S,~C,~R,~E,~O,effect(world),namespace,batches,positions,nextReader,1n+tick,frameStart,boundary,capacity,dropped)
 
-# Reader registration result. Success returns actual Runtime, Reader and registry;
-# failure returns Runtime without dropping World. No callback executes here.
-type Registered<S: Data,C: Type,R: Type,E: Data,A: Type,Error: Data,O: Type,-runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>> is Type:
-  Registered{runtime: Runtime<S,C,R,E>,reader: Reader<S>,registry: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner>}
-  RegisterFailed{runtime: Runtime<S,C,R,E>}
 # Succeeded returns actual Out; Failed carries callback Error without consumed
 # Args; Rejected returns unconsumed Args. Higher-level semantic errors encoded
 # inside Out must be inspected separately from transport success.
@@ -193,28 +187,6 @@ type Completion<Error: Data,O: Type,A: Type> is Type:
   Succeeded{output: O}
   Failed{error: Error}
   Rejected{args: A}
-# Every reader run returns actual Runtime, Reader and registry with Completion.
-# No duplicate World or runner owner is retained in detached observations.
-type RunResult<S: Data,C: Type,R: Type,E: Data,A: Type,Error: Data,O: Type,-runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>> is Type:
-  Ran{runtime: Runtime<S,C,R,E>,reader: Reader<S>,registry: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner>,completion: Completion<Error,O,A>}
-
-def registered_identity(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,world: W.World<S,C,R,E>,identity: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner> & U32,+namespace: U32,+batches: List<&2,Batch<E>>,+positions: List<&2,Position>,+nextReader: U32,+tick: Nat,+frameStart: Nat,+boundary: Nat,+capacity: Nat,+dropped: Nat) -> Registered<S,C,R,E,A,Error,O,runner>:
-  (registry,+registryId) = identity
-  Registered{Runtime{world,namespace,batches,positions,(nextReader+1 : U32),tick,frameStart,boundary,capacity,dropped},Reader{namespace,nextReader,registryId},registry}
-
-def registered_result(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,result: Sy.RegistrationResult<S,C,R,E,Input<E,A>,Error,O,runner>,+namespace: U32,+batches: List<&2,Batch<E>>,+positions: List<&2,Position>,+nextReader: U32,+tick: Nat,+frameStart: Nat,+boundary: Nat,+capacity: Nat,+dropped: Nat) -> Registered<S,C,R,E,A,Error,O,runner>:
-  match result:
-    case Sy.RegistrationFailed{world}: RegisterFailed{Runtime{world,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped}}
-    case Sy.Registered{world,registry}: registered_identity(~S,~C,~R,~E,~A,~Error,~O,~runner,world,Sy.identity(~S,~C,~R,~E,~Input<E,A>,~Error,~O,~runner,registry),namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped)
-
-# Register a runner with supplied name/access on the actual World, allocate its
-# reader token on success and return Runtime on refusal. This does not run the
-# body or activate a reader position; unused registrations do not retain backlog.
-# Name/access and runner coherence are trusted lower-level provisioning.
-def register(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,runtime: Runtime<S,C,R,E>,+name: String,+access: List<&2,String>) -> Registered<S,C,R,E,A,Error,O,runner>:
-  match runtime:
-    case Runtime{world,+namespace,+batches,+positions,+nextReader,+tick,+frameStart,+boundary,+capacity,+dropped}: registered_result(~S,~C,~R,~E,~A,~Error,~O,~runner,Sy.register(~S,~C,~R,~E,~Input<E,A>,~Error,~O,~runner,world,name,access),namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped)
-
 def activation(position: Maybe<Position>,+positions: List<&2,Position>,+id: U32,+registered: Nat) -> List<&2,Position>:
   match position:
     case None{}: Position{id,0n,registered} <> positions
@@ -222,53 +194,6 @@ def activation(position: Maybe<Position>,+positions: List<&2,Position>,+id: U32,
 
 def activate(+positions: List<&2,Position>,+id: U32,+registered: Nat) -> List<&2,Position>:
   activation(lookup(positions,id),positions,id,registered)
-
-def run_outcome(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,outcome: Sy.Outcome<W.World<S,C,R,E>,Error,O>,reader: Reader<S>,registry: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner>,+readerId: U32,+namespace: U32,+batches: List<&2,Batch<E>>,+positions: List<&2,Position>,+nextReader: U32,+tick: Nat,+frameStart: Nat,+boundary: Nat,+capacity: Nat,+dropped: Nat) -> RunResult<S,C,R,E,A,Error,O,runner>:
-  match outcome:
-    case Sy.Failed{world,error}: Ran{Runtime{world,namespace,batches,activate(positions,readerId,Nat.sub(tick,1n)),nextReader,tick,frameStart,boundary,capacity,dropped},reader,registry,Failed{error}}
-    case Sy.Succeeded{world,output}: Ran{sync_values(~S,~C,~R,~E,W.events_view(~S,~C,~R,~E,world),namespace,batches,update(activate(positions,readerId,Nat.sub(tick,1n)),readerId,tick,False{}),nextReader,tick,frameStart,boundary,capacity,dropped),reader,registry,Succeeded{output}}
-
-def reject_input(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,input: Input<E,A>,runtime: Runtime<S,C,R,E>,reader: Reader<S>,registry: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner>) -> RunResult<S,C,R,E,A,Error,O,runner>:
-  match input:
-    case Input{_,_,args}: Ran{runtime,reader,registry,Rejected{args}}
-
-def run_registered_result(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,result: Sy.RunResult<S,C,R,E,Input<E,A>,Error,O,runner>,reader: Reader<S>,+readerId: U32,+namespace: U32,+batches: List<&2,Batch<E>>,+positions: List<&2,Position>,+nextReader: U32,+tick: Nat,+frameStart: Nat,+boundary: Nat,+capacity: Nat,+dropped: Nat) -> RunResult<S,C,R,E,A,Error,O,runner>:
-  match result:
-    case Sy.RegistrationRejected{registry,world,args}: reject_input(~S,~C,~R,~E,~A,~Error,~O,~runner,args,Runtime{world,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped},reader,registry)
-    case Sy.Completed{registry,outcome}: run_outcome(~S,~C,~R,~E,~A,~Error,~O,~runner,outcome,reader,registry,readerId,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped)
-
-def run_reading(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,reading: Reading<E>,world: W.World<S,C,R,E>,reader: Reader<S>,registry: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner>,args: A,+readerId: U32,+namespace: U32,+batches: List<&2,Batch<E>>,+positions: List<&2,Position>,+nextReader: U32,+tick: Nat,+frameStart: Nat,+boundary: Nat,+capacity: Nat,+dropped: Nat) -> RunResult<S,C,R,E,A,Error,O,runner>:
-  match reading:
-    case Reading{items,lagged}: run_registered_result(~S,~C,~R,~E,~A,~Error,~O,~runner,Sy.run(~S,~C,~R,~E,~Input<E,A>,~Error,~O,~runner,registry,world,Input{items,lagged,args}),reader,readerId,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped)
-
-def run_position(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,position: Maybe<Position>,world: W.World<S,C,R,E>,reader: Reader<S>,registry: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner>,args: A,+readerId: U32,+namespace: U32,+batches: List<&2,Batch<E>>,+positions: List<&2,Position>,+nextReader: U32,+tick: Nat,+frameStart: Nat,+boundary: Nat,+capacity: Nat,+dropped: Nat) -> RunResult<S,C,R,E,A,Error,O,runner>:
-  match position:
-    case None{}: run_reading(~S,~C,~R,~E,~A,~Error,~O,~runner,reading(~E,Position{readerId,0n,tick},batches,dropped),world,reader,registry,args,readerId,namespace,batches,positions,nextReader,1n+tick,frameStart,boundary,capacity,dropped)
-    case Some{position}: run_reading(~S,~C,~R,~E,~A,~Error,~O,~runner,reading(~E,position,batches,dropped),world,reader,registry,args,readerId,namespace,batches,positions,nextReader,1n+tick,frameStart,boundary,capacity,dropped)
-
-def run_checked(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,allowed: Bool,world: W.World<S,C,R,E>,reader: Reader<S>,registry: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner>,args: A,+readerId: U32,+namespace: U32,+batches: List<&2,Batch<E>>,+positions: List<&2,Position>,+nextReader: U32,+tick: Nat,+frameStart: Nat,+boundary: Nat,+capacity: Nat,+dropped: Nat) -> RunResult<S,C,R,E,A,Error,O,runner>:
-  match allowed:
-    case False{}: Ran{Runtime{world,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped},reader,registry,Rejected{args}}
-    case True{}: run_position(~S,~C,~R,~E,~A,~Error,~O,~runner,lookup(positions,readerId),world,reader,registry,args,readerId,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped)
-
-def run_identity(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,runtime: Runtime<S,C,R,E>,reader: Reader<S>,registry: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner>,actual: U32,args: A) -> RunResult<S,C,R,E,A,Error,O,runner>:
-  match runtime reader:
-    case Runtime{world,+namespace,+batches,+positions,+nextReader,+tick,+frameStart,+boundary,+capacity,+dropped} Reader{+readerNamespace,+readerId,+expected}: run_checked(~S,~C,~R,~E,~A,~Error,~O,~runner,Bool.and(U32.is_eq(namespace,readerNamespace),U32.is_eq(expected,actual)),world,Reader{readerNamespace,readerId,expected},registry,args,readerId,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped)
-
-def run_identified(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,runtime: Runtime<S,C,R,E>,reader: Reader<S>,identified: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner> & U32,args: A) -> RunResult<S,C,R,E,A,Error,O,runner>:
-  (registry,actual) = identified
-  run_identity(~S,~C,~R,~E,~A,~Error,~O,~runner,runtime,reader,registry,actual,args)
-
-# Validate token namespace/registry identity, then invoke the actual registered
-# runner with ordered unread Data, lag flag and Args. Admission rejection returns
-# Args without body execution; registry checks remain authoritative in Sy.run.
-# Success advances reader cursor and synchronizes returned publications. Callback
-# failure preserves unread position, activating an absent reader under the failed-
-# reader rule; returned World is whatever the callback returned, not automatically
-# rolled back by this runtime. Actual transaction behavior belongs to the runner.
-# Runtime ticks and reader cursors are distinct from system lifecycle cursors.
-def run(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,runtime: Runtime<S,C,R,E>,reader: Reader<S>,registry: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner>,args: A) -> RunResult<S,C,R,E,A,Error,O,runner>:
-  run_identified(~S,~C,~R,~E,~A,~Error,~O,~runner,runtime,reader,Sy.identity(~S,~C,~R,~E,~Input<E,A>,~Error,~O,~runner,registry),args)
 
 # A condition skip discards stream backlog without invoking gameplay.
 def skip_checked(~S: Data,~C: Type,~R: Type,~E: Data,allowed: Bool,runtime: Runtime<S,C,R,E>,reader: Reader<S>,+id: U32) -> Runtime<S,C,R,E> & Reader<S>:
@@ -313,36 +238,6 @@ def inspect_values(~S: Data,~C: Type,~R: Type,~E: Data,observed: W.World<S,C,R,E
 def inspect(~S: Data,~C: Type,~R: Type,~E: Data,runtime: Runtime<S,C,R,E>) -> Runtime<S,C,R,E> & Snapshot<E>:
   match runtime:
     case Runtime{world,+namespace,+batches,+positions,+nextReader,+tick,+frameStart,+boundary,+capacity,+dropped}: inspect_values(~S,~C,~R,~E,W.events_view(~S,~C,~R,~E,world),namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped)
-
-# Success returns Runtime after registration/position removal. Rejection returns
-# Runtime plus actual Reader and registry; no payload destructor is invented.
-type Disposal<S: Data,C: Type,R: Type,E: Data,A: Type,Error: Data,O: Type,-runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>> is Type:
-  Disposed{runtime: Runtime<S,C,R,E>}
-  DisposalRejected{runtime: Runtime<S,C,R,E>,reader: Reader<S>,registry: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner>}
-
-def disposal_result(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,result: Sy.Disposal<S,C,R,E,Input<E,A>,Error,O,runner>,reader: Reader<S>,+id: U32,+namespace: U32,+batches: List<&2,Batch<E>>,+positions: List<&2,Position>,+nextReader: U32,+tick: Nat,+frameStart: Nat,+boundary: Nat,+capacity: Nat,+dropped: Nat) -> Disposal<S,C,R,E,A,Error,O,runner>:
-  match result:
-    case Sy.Disposed{world}: Disposed{Runtime{world,namespace,batches,update(positions,id,tick,True{}),nextReader,tick,frameStart,boundary,capacity,dropped}}
-    case Sy.DisposalRejected{world,registry}: DisposalRejected{Runtime{world,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped},reader,registry}
-
-def disposal_checked(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,allowed: Bool,world: W.World<S,C,R,E>,reader: Reader<S>,registry: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner>,+id: U32,+namespace: U32,+batches: List<&2,Batch<E>>,+positions: List<&2,Position>,+nextReader: U32,+tick: Nat,+frameStart: Nat,+boundary: Nat,+capacity: Nat,+dropped: Nat) -> Disposal<S,C,R,E,A,Error,O,runner>:
-  match allowed:
-    case False{}: DisposalRejected{Runtime{world,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped},reader,registry}
-    case True{}: disposal_result(~S,~C,~R,~E,~A,~Error,~O,~runner,Sy.dispose(~S,~C,~R,~E,~Input<E,A>,~Error,~O,~runner,registry,world),reader,id,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped)
-
-def disposal_identity(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,runtime: Runtime<S,C,R,E>,reader: Reader<S>,registry: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner>,actual: U32) -> Disposal<S,C,R,E,A,Error,O,runner>:
-  match runtime reader:
-    case Runtime{world,+namespace,+batches,+positions,+nextReader,+tick,+frameStart,+boundary,+capacity,+dropped} Reader{+readerNamespace,+id,+expected}: disposal_checked(~S,~C,~R,~E,~A,~Error,~O,~runner,Bool.and(U32.is_eq(namespace,readerNamespace),U32.is_eq(actual,expected)),world,Reader{readerNamespace,id,expected},registry,id,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped)
-
-def disposal_identified(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,runtime: Runtime<S,C,R,E>,reader: Reader<S>,identified: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner> & U32) -> Disposal<S,C,R,E,A,Error,O,runner>:
-  (registry,actual) = identified
-  disposal_identity(~S,~C,~R,~E,~A,~Error,~O,~runner,runtime,reader,registry,actual)
-
-# Validate token/registry identity and dispose through Sy.dispose, removing the
-# reader position only after success. Return actual owners on refusal. Does not
-# immediately trim retained batches or dispose unrelated readers/log domains.
-def dispose(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,runtime: Runtime<S,C,R,E>,reader: Reader<S>,registry: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner>) -> Disposal<S,C,R,E,A,Error,O,runner>:
-  disposal_identified(~S,~C,~R,~E,~A,~Error,~O,~runner,runtime,reader,Sy.identity(~S,~C,~R,~E,~Input<E,A>,~Error,~O,~runner,registry))
 
 # Gameplay receives only a closed capability over an abstract affine owner.
 # Closed read capability over opaque H returning detached Reading<E>. The bound

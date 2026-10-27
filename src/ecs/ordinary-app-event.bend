@@ -2,7 +2,9 @@ import Base
 import ./world.bend as W
 import ./system.bend as Sys
 import ./event-runtime.bend as Ev
+import ./event-runtime-legacy.bend as LegacyEv
 import ./ordinary-event-declaration.bend as Event
+import ./ordinary-event-declaration-legacy.bend as LegacyEvent
 import ./ordinary-app-access.bend as Access
 import ./ordinary-query-declaration.bend as Query
 # Sole retained operational Registry; debug never reads an event payload or Reader.
@@ -37,12 +39,12 @@ def run_writer(~S:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~O:Type,~runn
 
 type ReaderResult<S:Data,C:Type,R:Type,E:Data,A:Type,Error:Data,O:Type,-runner:W.World<S,C,R,E> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,O>> is Type:
   Ran{runtime:Ev.Runtime<S,C,R,E>,reader:Ev.Reader<S>,owner:Owner<S,E,Sys.Registry<S,C,R,E,Ev.Input<E,A>,Error,O,runner>>,completion:Ev.Completion<Error,O,A>}
-def reader_returned(~S:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~O:Type,~runner:W.World<S,C,R,E> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,O>,declaration:Event.Declaration<S,E>,debug:Bool,result:Ev.RunResult<S,C,R,E,A,Error,O,runner>) -> ReaderResult<S,C,R,E,A,Error,O,runner>:
+def reader_returned(~S:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~O:Type,~runner:W.World<S,C,R,E> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,O>,declaration:Event.Declaration<S,E>,debug:Bool,result:LegacyEv.RunResult<S,C,R,E,A,Error,O,runner>) -> ReaderResult<S,C,R,E,A,Error,O,runner>:
   match result:
-    case Ev.Ran{runtime,reader,registry,completion}:Ran{runtime,reader,Owner{declaration,registry,debug},completion}
+    case LegacyEv.Ran{runtime,reader,registry,completion}:Ran{runtime,reader,Owner{declaration,registry,debug},completion}
 def run_reader(~S:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~O:Type,~runner:W.World<S,C,R,E> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,O>,owner:Owner<S,E,Sys.Registry<S,C,R,E,Ev.Input<E,A>,Error,O,runner>>,runtime:Ev.Runtime<S,C,R,E>,reader:Ev.Reader<S>,args:A) -> ReaderResult<S,C,R,E,A,Error,O,runner>:
   match owner:
-    case Owner{declaration,registry,debug}:reader_returned(~S,~C,~R,~E,~A,~Error,~O,~runner,declaration,debug,Ev.run(~S,~C,~R,~E,~A,~Error,~O,~runner,runtime,reader,registry,args))
+    case Owner{declaration,registry,debug}:reader_returned(~S,~C,~R,~E,~A,~Error,~O,~runner,declaration,debug,LegacyEv.run(~S,~C,~R,~E,~A,~Error,~O,~runner,runtime,reader,registry,args))
 
 type WriterRegistered<S:Data,C:Type,R:Type,E:Data,A:Type,Error:Data,O:Type,-runner:W.World<S,C,R,E> -> A -> Sys.Outcome<W.World<S,C,R,E>,Error,O>> is Type:
   WriterRegistered{world:W.World<S,C,R,E>,owner:Owner<S,E,Sys.Registry<S,C,R,E,A,Error,O,runner>>}
@@ -52,14 +54,14 @@ def writer_registered(~S:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~O:Typ
     case Sys.RegistrationFailed{world}:WriterFailed{world}
     case Sys.Registered{world,registry}:WriterRegistered{world,Owner{declaration,registry,False{}}}
 def register_writer(~S:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~O:Type,~runner:W.World<S,C,R,E> -> A -> Sys.Outcome<W.World<S,C,R,E>,Error,O>,world:W.World<S,C,R,E>,+declaration:Event.Declaration<S,E>,name:String) -> WriterRegistered<S,C,R,E,A,Error,O,runner>:
-  writer_registered(~S,~C,~R,~E,~A,~Error,~O,~runner,declaration,Event.register_writer(~S,~C,~R,~E,~A,~Error,~O,~runner,world,declaration,name))
+  writer_registered(~S,~C,~R,~E,~A,~Error,~O,~runner,declaration,LegacyEvent.register_writer(~S,~C,~R,~E,~A,~Error,~O,~runner,world,declaration,name))
 
 type ReaderRegistered<S:Data,C:Type,R:Type,E:Data,A:Type,Error:Data,O:Type,-runner:W.World<S,C,R,E> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,O>> is Type:
   ReaderRegistered{runtime:Ev.Runtime<S,C,R,E>,reader:Ev.Reader<S>,owner:Owner<S,E,Sys.Registry<S,C,R,E,Ev.Input<E,A>,Error,O,runner>>}
   ReaderFailed{runtime:Ev.Runtime<S,C,R,E>}
-def reader_registered(~S:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~O:Type,~runner:W.World<S,C,R,E> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,O>,declaration:Event.Declaration<S,E>,result:Ev.Registered<S,C,R,E,A,Error,O,runner>) -> ReaderRegistered<S,C,R,E,A,Error,O,runner>:
+def reader_registered(~S:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~O:Type,~runner:W.World<S,C,R,E> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,O>,declaration:Event.Declaration<S,E>,result:LegacyEv.Registered<S,C,R,E,A,Error,O,runner>) -> ReaderRegistered<S,C,R,E,A,Error,O,runner>:
   match result:
-    case Ev.RegisterFailed{runtime}:ReaderFailed{runtime}
-    case Ev.Registered{runtime,reader,registry}:ReaderRegistered{runtime,reader,Owner{declaration,registry,False{}}}
+    case LegacyEv.RegisterFailed{runtime}:ReaderFailed{runtime}
+    case LegacyEv.Registered{runtime,reader,registry}:ReaderRegistered{runtime,reader,Owner{declaration,registry,False{}}}
 def register_reader(~S:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~O:Type,~runner:W.World<S,C,R,E> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,O>,runtime:Ev.Runtime<S,C,R,E>,+declaration:Event.Declaration<S,E>,name:String) -> ReaderRegistered<S,C,R,E,A,Error,O,runner>:
-  reader_registered(~S,~C,~R,~E,~A,~Error,~O,~runner,declaration,Event.register_reader(~S,~C,~R,~E,~A,~Error,~O,~runner,runtime,declaration,name))
+  reader_registered(~S,~C,~R,~E,~A,~Error,~O,~runner,declaration,LegacyEvent.register_reader(~S,~C,~R,~E,~A,~Error,~O,~runner,runtime,declaration,name))
