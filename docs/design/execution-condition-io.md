@@ -77,9 +77,33 @@ this source mapping.
 | --- | --- | --- |
 | Machine, `96112c9e75b547a02e38b9dcdec86687ec1cfa43` | `/tmp/conditions79-retained-default-receipt.md`: four updates; JS stdout `/tmp/conditions79-machines-js.stdout`, one line, 7,239 bytes. | Reaches canonical nonempty `Conditions.compile` through `Schedule.build_retained` with four actual retained guards. C emission timed out with exit 137; this receipt does not qualify native Machine execution. |
 | AppA, `b56862b257e9f76992de84a0e5b3c00ecacd4071` | `retained79-app-a-condition-delivery.md` in the GH78–94 orchestration record: JS/native full comparison passed, 22 lines, 5,867 bytes; both Off/On guards retain three calls and cursor `0:17`. | Finite retained-owner observation; no general construction-witness coherence theorem or independent full-World derivation. |
+| AppA, `240c12f0a16ee18a01e1c9ce2e0c1f88397f542c` | `/tmp/finish79-current-app-a-receipt.md`: JS emission and execution exited 0; the full 22-line, 5,867-byte stdout equals the earlier AppA stdout. Both Off/On executions retain three guard calls and cursor `0:17`. | C emission exited 137 at the existing 30-second limit. No native build or execution followed. This supplies current-source finite JS evidence only. |
 | Events, `f81afeef1be3ae57bba14107684c5822eb53d596` | `native79-retained-condition-delivery.md` in the same record: eight original modes, five passes each; JS/native full comparison passed, eight lines, 17,291 bytes, including body-error writes and foreign-reader refusal. | Recorded source only; opaque pending callbacks are not extensionally observed. |
 
-These are ordinary Bend consumer receipts. They do not supply an executed,
-focused pinned-Bevy scenario comparison for GH79, independently derive the
-complete World, or establish whole-issue completion. The source mapping above
-identifies the behavior such a comparison would need to distinguish.
+These ordinary Bend consumer receipts do not independently derive the complete
+World or establish whole-issue completion.
+
+## Historical executed Bevy observations
+
+`/tmp/gh79-reference-logs05/receipt.json` records an offline, locked Cargo build
+and two reference binary invocations, all with exit 0. The receipt binds the
+Cargo manifest, lockfile, Rust source, and raw stdout by hash to the pinned Bevy
+commit above. The source is
+`/tmp/bendvy-gh79-schedule/test-fixtures/dependency-schedules/bevy-reference/src/main.rs`.
+The two invocations each run an ordered schedule twice on the same World using
+`SingleThreadedExecutor`.
+
+| Existing raw output | Observed behavior |
+| --- | --- |
+| `/tmp/gh79-reference-logs05/skippable.stdout` | `fail` writes `value` and retained `Local` before returning an error. Both fields are 1 after run 1 and 2 after run 2. The dependent condition reads that state and permits `after-error`. Each run also reaches `after-disabled`, `after-condition-error`, and `after-refused`; neither disabled nor failed-condition nor refused body runs. The handler records `system` and `condition` once per run. The refused system requests a missing `Single`. |
+| `/tmp/gh79-reference-logs05/missing-resource.stdout` | The same writes and five call labels occur per run. Replacing the missing `Single` with a missing resource adds one `system` error per run. The refused body remains absent, and `after-refused` still runs. |
+
+These are narrow historical reference observations with recorded source and raw
+outputs. They do not retroactively admit the old Bend collector. The GH79
+round-1 launch review rejected its planned package because the launcher was null
+and Rust commands used `TARGET` placeholders; earlier collector observations
+remain provisional under that review. This receipt records concrete reference
+commands, but does not establish a current complete-World comparison with Bend.
+Current independent full-World observations on JS and native backends, current
+native AppA success, and affected normal CI remain unconfirmed. No new execution
+or comparison was performed for this documentation update.
