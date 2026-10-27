@@ -1,4 +1,5 @@
 import Game from './dist/game.mjs';
+import { runIO } from './run-io.mjs';
 
 const canvas = document.querySelector('#arena');
 const ctx = canvas.getContext('2d');
@@ -29,7 +30,7 @@ function restart() {
   keys.clear(); paused = false; accumulator = 0; previous = 0;
   positions = new Map(); trails = []; failed = false;
   document.querySelector('#error').hidden = true;
-  accept(Game.start());
+  accept(runIO(Game.start({$: 'Unit'})));
   canvas.focus();
   render();
 }
@@ -97,7 +98,9 @@ function animation(now) {
       let dx = Number(keys.has('ArrowRight') || keys.has('KeyD')) - Number(keys.has('ArrowLeft') || keys.has('KeyA'));
       let dy = Number(keys.has('ArrowDown') || keys.has('KeyS')) - Number(keys.has('ArrowUp') || keys.has('KeyW'));
       const length = Math.hypot(dx, dy) || 1;
-      accept(Game.advance(state, dx / length, dy / length));
+      const owned = state;
+      state = undefined;
+      accept(runIO(Game.advance(owned, dx / length, dy / length)));
       accumulator -= STEP;
     }
     render();

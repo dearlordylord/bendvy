@@ -2,103 +2,67 @@
 
 ![Bendvy ECS swarm gameplay](arena.gif)
 
-For declaration-derived access, registered systems and an explicit schedule,
-start with [Scheduled health](../scheduled-health/README.md). This browser example
-uses direct query orchestration for its interactive host.
+A playable browser ECS example with the ordinary declaration-driven generalized
+Root. WASD or arrows move, Space pauses, and R restarts. A keyboard is required.
 
-A playable browser ECS example: enemies, pickups, bolts, area pulses and chains.
-Movement, targeting, damage and cleanup run through the ECS.
-WASD/arrows move, Space pauses, and R restarts. Keyboard required.
+The original game contains a player, 512 initial enemies and ten pickups.
+Bolts target the nearest enemy. Area pulses damage nearby enemies. Chain
+projectiles retain visited targets and a count-dependent bounce allowance.
+Enemies move toward the player, pickups relocate on collection, and reinforcements
+arrive every other frame. Existing enemy speeds remain fixed after spawning.
 
 From the repository root:
 
 ```sh
-examples/arena/build.sh
+bash examples/arena/build.sh
 python3 -m http.server 8000 --directory examples/arena
 ```
 
-Open <http://localhost:8000>. No npm packages or external assets are needed.
-`dist/` is generated and ignored. Use the project-pinned Bend compiler; checks below are rerun against current source.
+Open `http://localhost:8000`. Generated `dist/` files are ignored. No npm packages
+or external assets are required.
 
-## Components and entities
+[gameplay.bend](gameplay.bend) preserves the original Body component and combat
+calculations. Each Body carries position, kind, seed, health, speed, target,
+visited targets and age. [schema.bend](schema.bend) gives the Body column its own
+nominal schema and canonical affine storage owner.
 
-These are excerpts from [game.bend](game.bend), with its existing imports and
-helpers. `Body` is the demo's compound component; `Store` owns its typed column.
+Two real registered systems execute each update. The [spawn author](spawn.bend)
+reserves actual handles and queues the setup, reinforcement and projectile
+payloads through its declared command capability. The [gameplay system](system.bend)
+declares a required Body write query and an entity-command capability. It updates
+the selected actual Body owners and queues despawns using their full handles.
+The query body keeps its storage scope and command queue abstract.
 
-```bend
-type Schema is Data: Schema{}
-type Body is Data: Body{x: F32,y: F32,kind: U32,seed: U32,hp: U32,speed: F32,target: U32,visited: List<&2,U32>,age: U32}
-type Token is Data: Token{}
-type Store is Type: Store{bodies: Col.Column<Schema,Body>}
-```
+[root.bend](root.bend) orders spawn completion before gameplay and applies its
+commands at that dependency. Final deferred application publishes the gameplay
+system's despawns. Both command queues use the core's compiled publication path.
+The actual registered compilations, captures, buffers and storage remain inside
+the returned application across frames. [owners.bend](owners.bend) updates the
+real captured input and reads the real completed row results while retaining
+all node, compilation, preparation and admission owners.
 
-An entity is a world-scoped `W.Handle<Schema>`. Spawn accepts a component value
-and queues a structural command; the explicit barrier makes it visible.
+The initial frame comes from a [passive inspector](observe.bend) after setup
+publication. Subsequent frames contain the actual query results after each
+successful write, excluding rows whose despawn was queued for the final boundary.
+The nearest-target search and impact reduction deliberately use the preceding
+frame's Data snapshot, preserving the original gameplay algorithm.
 
-```bend
-def spawn(world: World(),body: Body) -> World():
-  spawn_finish(Cmd.tx_spawn(~Schema,~Store,~Unit,~Unit,~Body,~populate,T.begin(~World(),~Unit,world),body))
-```
+[game.bend](game.bend) owns the frame state and supplies those inputs to the
+retained application. [browser.mjs](browser.mjs) supplies input, the fixed-step
+clock and rendering. It consumes compiled `start(Unit)` and `advance(State,dx,dy)`
+IO through [run-io.mjs](run-io.mjs). That small product bridge follows the
+compiler-emitted synchronous continuation/foreign-effect protocol and invokes
+the canonical execution driver. It does not schedule arbitrary asynchronous IO.
 
-The [populate helper](game.bend) installs `Body` on the reserved entity. Despawn
-clears its column through `clear` at the post-query barrier.
+The migrated emitted application was run for setup and 180 movement frames.
+Setup observed all 523 real bodies. At tick 180 it reported 77 kills, 525 enemies,
+14 projectile/effect rows and 550 total bodies, with all six original Body kinds
+present. The complete initial and final JSON were retained for the delivery.
+This is a finite product observation, not a formal proof or backend qualification.
+Real-browser interaction was not rerun.
 
-## System and query
-
-The system receives declared capabilities: read/write `Body` and queue despawn.
-Its callback works with abstract `H`, rather than accessing storage directly.
-
-```bend
-type Ops<-H: Type> is Type: Ops{body: Cap.Write<H,Body,Body>,despawn: Cap.Action<H>}
-def OpsType(H: Type) -> Type: Ops<H>
-def body_cap(~H: Type,ops: Ops<H>) -> Cap.Write<H,Body,Body>:
-  match ops:
-    case Ops{body,_}: body
-def despawn_cap(~H: Type,ops: Ops<H>) -> Cap.Action<H>:
-  match ops:
-    case Ops{_,despawn}: despawn
-```
-
-The required query binds those capabilities to the world and runs the callback:
-
-```bend
-def body_system(~H: Type,~ops: Ops<H>,args: Args,ctx: H) -> H & (T.Outcome<Error> & Row):
-  observed(~H,~ops,args,Cap.get(~H,~Body,~Body,~body_cap(~H,ops),ctx))
-def Frame() -> Type: Q.Frame<Schema,Store,Unit,Unit>
-def selected(frame: Frame()) -> Frame() & Bool:
-  Q.family_match(~Schema,~Store,~Unit,~Unit,~Unit,~Body,~Body,~Token,~take,~put,~project,~family(),~Q.Required{},frame)
-def plan() -> Q.Plan<Schema,Store,Unit,Unit,OpsType>:
-  Q.Plan{Ops{Q.write_family(~Schema,~Store,~Unit,~Unit,~Unit,~Body,~Body,~Token,~take,~put,~project,~family()),Q.command_despawn(~Schema,~Store,~Unit,~Unit,~clear)},selected}
-def execute(world: World(),args: Args) -> Q.Executed<World(),Q.Error<Error>,Row>:
-  Q.each(~Schema,~Store,~Unit,~Unit,~OpsType,~Args,~Error,~Row,~plan(),~body_system,args,world)
-```
-
-`observed` reads the component, calls `update`, and writes the result through
-`Cap.set`; `dispose_dead` queues removal through `Cap.action`. The gameplay
-functions remain in [game.bend](game.bend).
-
-This demo uses direct `Compose.each` orchestration. Registered systems and
-schedules are covered by other examples; this one demonstrates component
-storage, entity commands, declared query access and transactional updates.
-`browser.mjs` supplies input, the fixed-step clock and rendering.
-
-Run focused checks (also builds the finite controlled scenarios):
-
-```sh
-examples/arena/check.sh
-```
-
-These are finite gameplay/host checks, not mathematical proofs. Optional real
-browser smoke with an already installed Playwright:
-
-```sh
-node examples/arena/browser-smoke.mjs
-```
-
-Set `PLAYWRIGHT_MODULE` to its module path if installed elsewhere. Pass a
-screenshot filename as the first argument to save a preview. Current evidence
-and the Chromium environment limitation are in [CHECKS.md](CHECKS.md).
-
-Current-source checks passed on 2026-10-17 with Bend 2.0.35 and Node24.20.0:
-compiled game and fixtures, gameplay checks, and the Node host/renderer harness.
-This does not claim a new real-browser or Native run.
+The pre-existing controlled Bend scenarios in [fixtures.bend](fixtures.bend)
+now construct this same retained application and return compiled IO. Existing
+JavaScript verifier files remain untouched and retain their former synchronous
+API expectations. They are not replacement-runtime verification and are not part
+of the run command above.
