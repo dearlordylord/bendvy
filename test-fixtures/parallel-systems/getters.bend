@@ -10,10 +10,10 @@ type Local<-S:Data> is Type:
   Local{token:Array<U32>,runs:U32,position:String,counter:String,handle:W.Handle<S>}
 def position_get(~S:Data,~H:Type,cap:A.ComponentWrite<S,H,P.Position,String>) -> H -> W.Handle<S> -> H & Maybe<&2,String>:
   match cap:
-    case A.ComponentWrite{get,_}:get
+    case A.ComponentWrite{get,_,_}:get
 def counter_get(~H:Type,cap:A.ResourceWrite<H,P.Counter,String>) -> H -> H & String:
   match cap:
-    case A.ResourceWrite{get,_,_}:get
+    case A.ResourceWrite{get,_,_,_}:get
 def position_text(value:Maybe<&2,String>) -> String:
   match value:
     case None{}:"absent"
