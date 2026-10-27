@@ -5,6 +5,7 @@ import ./persistence-declaration.bend as Decl
 import ./schema-fragments.bend as Fragment
 import ./decode-data.bend as D
 import ./owner-product.bend as Product
+import ./execution-resource-policy.bend as Policy
 
 # An ordinary persistence extension determines its canonical storage layout and
 # retained declarations together. A separate route/key catalog is not accepted.
@@ -17,9 +18,9 @@ type Plan is Type:
 def layout(plan:Plan) -> Layout.Layout:
   match plan:
     case Empty{}:Layout.EmptyLayout{}
-    case Plain{P,V,refresh,key}:Layout.ClassifiedLayoutLeaf{P,V,refresh,key,Fragment.Plain{}}
-    case Transient{P,V,refresh,key}:Layout.ClassifiedLayoutLeaf{P,V,refresh,key,Fragment.Transient{}}
-    case Constructed{P,V,refresh,key,_}:Layout.ClassifiedLayoutLeaf{P,V,refresh,key,Fragment.Constructed{}}
+    case Plain{P,V,refresh,key}:Layout.ClassifiedLayoutLeaf{P,V,refresh,key,Fragment.Plain{},Policy.Ordinary{}}
+    case Transient{P,V,refresh,key}:Layout.ClassifiedLayoutLeaf{P,V,refresh,key,Fragment.Transient{},Policy.Ordinary{}}
+    case Constructed{P,V,refresh,key,_}:Layout.ClassifiedLayoutLeaf{P,V,refresh,key,Fragment.Constructed{},Policy.Ordinary{}}
     case Pair{left,right}:Layout.LayoutPair{layout(left),layout(right)}
 def identity(~S:Data,~P:Type,key:String) -> C.Declaration<S,P>:C.Declaration{key}
 def unused(~P:Type,owner:P) -> P & D.Raw:(owner,D.Missing{})

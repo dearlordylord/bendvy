@@ -32,8 +32,8 @@ def pair(-L:Type,-R:Type,left:L -> L & Bool,right:R -> R & Bool,owners:Product.O
 def inspect(~S:Data,layout:Layout.Layout) -> Layout.columns(~S,layout) -> Layout.columns(~S,layout) & Bool:
   match layout:
     case Layout.EmptyLayout{}:owner => (owner,True{})
-    case Layout.LayoutLeaf{P,V,refresh,key}:inspect_leaf(S,P,V,key,Layout.LayoutLeaf{P,V,refresh,key})
-    case Layout.ClassifiedLayoutLeaf{P,V,refresh,key,policy}:inspect_leaf(S,P,V,key,Layout.ClassifiedLayoutLeaf{P,V,refresh,key,policy})
+    case Layout.LayoutLeaf{P,V,refresh,key,access}:inspect_leaf(S,P,V,key,Layout.LayoutLeaf{P,V,refresh,key,access})
+    case Layout.ClassifiedLayoutLeaf{P,V,refresh,key,policy,access}:inspect_leaf(S,P,V,key,Layout.ClassifiedLayoutLeaf{P,V,refresh,key,policy,access})
     case Layout.LayoutPair{left,right}:owner => pair(Layout.columns(~S,left),Layout.columns(~S,right),inspect(~S,left),inspect(~S,right),owner)
 def handles(~S:Data,~layout:Layout.Layout,~R:Type,~E:Data,result:W.World<S,Layout.columns(~S,layout),R,E> & List<&2,W.Handle<S>>) -> Prepared<S,layout,R,E>:
   match result:
