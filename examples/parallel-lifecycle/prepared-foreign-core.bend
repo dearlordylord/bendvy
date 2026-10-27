@@ -43,7 +43,7 @@ def widen(~S:Data,value:ScopeOwner(~S)) -> State.Scope<S,Core.Store(~S),Core.Res
     case State.Scope{store,resource,handles,tick,prior,lifecycle}:State.Scope{Product.Owner{store,Unit{}},Product.Owner{resource,Unit{}},handles,tick,prior,lifecycle}
 def owner_token(~S:Data,+namespace:U32,+id:U32,+name:String,+access:List<&2,String>,+cursor:Maybe<&2,Tick.Tick>,+runs:U32,commands:Buffer.Buffer<S,P.Output,Removed.Removed(Core.layout(~S))>,permission:Permission.Permission,pending:Bool,result:Array<U32> & U32) -> Owner(~S) & String:
   match result:
-    case (token,value):(Cmd.Owner{Sys.Owner{namespace,id,name,access,cursor,Local.Local{Body.User{token,runs},commands,permission}}},U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,x=>x,access) ++ ":" ++ Tick.cursor_show(cursor) ++ ":" ++ U32.show(value) ++ ":" ++ U32.show(runs) ++ ":" ++ Bool.show(pending))
+    case (token,value):(Cmd.Owner{Sys.Owner{namespace,id,name,access,cursor,Local.Local{Body.User{token,runs},commands,permission}}},U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,x=>x,access) ++ ":" ++ Tick.cursor_show(cursor) ++ ":" ++ U32.show(value) ++ ":" ++ U32.show(runs) ++ ":" ++ Bool.pick(String,pending,"true","false"))
 def owner_pending(~S:Data,namespace:U32,id:U32,name:String,access:List<&2,String>,cursor:Maybe<&2,Tick.Tick>,token:Array<U32>,runs:U32,permission:Permission.Permission,result:Buffer.Buffer<S,P.Output,Removed.Removed(Core.layout(~S))> & Bool) -> Owner(~S) & String:
   match result:
     case (commands,pending):owner_token(~S,namespace,id,name,access,cursor,runs,commands,permission,pending,Array.get(U32,token,0))
