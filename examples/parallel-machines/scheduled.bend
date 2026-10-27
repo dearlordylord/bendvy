@@ -37,6 +37,9 @@ def PeerOwner(~S:Data) -> Type:Peer.Owner(~S)
 def peer_tree(~S:Data,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~D.Store(~S),~D.RightStore(~S),~Unit,~Unit,~D.root_layout(S),~String,~String,~F),~command:Tree.CommandLeaf(~S,~D.Store(~S),~D.RightStore(~S),~Unit,~Unit,~D.root_layout(S),~String,~String,~F),~join:Tree.Join(~F),owner:PeerOwner(~S)) -> F(PeerOwner(~S)):
   leaf(Peer.Ops(~S),Peer.Local<S>,Build.framework_program(~S,~D.Store(~S),~D.RightStore(~S),~Unit,~Peer.Ops(~S),~Peer.declaration(~S)),Peer.body(~S),owner)
 def Application(~S:Data) -> Type:Schedule.Scheduled<App.State<World(~S),Product.Owner<Registry.Owners(~S),PeerOwner(~S)>,Guards.Owners(~S),Report.Handler>>
+type BuildResult<-S:Data> is Type:
+  BuildReady{app:Application(~S)}
+  BuildRefused{error:String}
 def empty(~S:Data,_:Unit) -> D.Store(~S):Layout.empty_columns(~S,D.component_layout(~S))
 def resources(~S:Data) -> Resources(~S):
   Product.Owner{Layout.ResourceSlot{Layout.initialize(D.layout(S),Layout.AtLeaf{},State.empty(~S,~D.Key,~D.Mode)),Layout.unknown_stamp()},Unit{}}
@@ -55,57 +58,63 @@ def updates(~S:Data,fuel:Nat,history:List<&2,String>,app:Application(~S)) -> IO(
   match fuel:
     case 0n:IO.pure(String,finished(~S,history,app))
     case 1n++rest:IO.bind(Application(~S) & App.Report<String,String>,String,run_once(~S,app),result => continued(~S,history => app => updates(~S,rest,history,app),history,result))
-def guard_running_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),exit:Guards.Owner(~S),transition:Guards.Owner(~S),enter:Guards.Owner(~S),result:Sys.Defined<World(~S),Guards.Owner(~S),Cond.Local>) -> IO(String):
+def guard_running_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),exit:Guards.Owner(~S),transition:Guards.Owner(~S),enter:Guards.Owner(~S),result:Sys.Defined<World(~S),Guards.Owner(~S),Cond.Local>) -> IO(BuildResult<S>):
   match result:
-    case Sys.Defined{world,running}:updates(~S,4n,[],Schedule.build(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.Resources(~S),~Unit,~Unit,~D.root_layout(S),~{==},~String,~String,~Registry.Owners(~S),~PeerOwner(~S),~Registry.handlers(~S),~peer_tree(~S),~Guards.Owners(~S),~Report.Handler,~Guards.dispatch(~S),~Guards.selection(~S),~Report.handle,~Report.available,world,Product.Owner{owners,peer},Guards.pack(~S,exit,transition,enter,running),Report.Handler{ALeaf{801},0},[Plan.Edge{1,3},Plan.Edge{3,4},Plan.Edge{4,5},Plan.Edge{5,6},Plan.Edge{6,7}],[App.Binding{3,8},App.Binding{4,9},App.Binding{5,10},App.Binding{6,11},App.Binding{7,11}]))
-    case Sys.DefinitionRefused{_,_}:IO.pure(String,"ERROR:running-guard")
-def guard_enter_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),exit:Guards.Owner(~S),transition:Guards.Owner(~S),result:Sys.Defined<World(~S),Guards.Owner(~S),Cond.Local>) -> IO(String):
+    case Sys.Defined{world,running}:IO.pure(BuildResult<S>,BuildReady{Schedule.build(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.Resources(~S),~Unit,~Unit,~D.root_layout(S),~{==},~String,~String,~Registry.Owners(~S),~PeerOwner(~S),~Registry.handlers(~S),~peer_tree(~S),~Guards.Owners(~S),~Report.Handler,~Guards.dispatch(~S),~Guards.selection(~S),~Report.handle,~Report.available,world,Product.Owner{owners,peer},Guards.pack(~S,exit,transition,enter,running),Report.Handler{ALeaf{801},0},[Plan.Edge{1,3},Plan.Edge{3,4},Plan.Edge{4,5},Plan.Edge{5,6},Plan.Edge{6,7}],[App.Binding{3,8},App.Binding{4,9},App.Binding{5,10},App.Binding{6,11},App.Binding{7,11}])})
+    case Sys.DefinitionRefused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:running-guard"})
+def guard_enter_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),exit:Guards.Owner(~S),transition:Guards.Owner(~S),result:Sys.Defined<World(~S),Guards.Owner(~S),Cond.Local>) -> IO(BuildResult<S>):
   match result:
     case Sys.Defined{world,enter}:guard_running_defined(~S,owners,peer,exit,transition,enter,Sys.define(~S,~D.Store(~S),~Resources(~S),~Unit,~D.read_ops(~S),~Cond.Local,~String,~Bool,~Cond.declaration(~S),~Cond.body(~S),world,"running-guard",Cond.Local{ALeaf{902},Cond.Running{}}))
-    case Sys.DefinitionRefused{_,_}:IO.pure(String,"ERROR:enter-guard")
-def guard_transition_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),exit:Guards.Owner(~S),result:Sys.Defined<World(~S),Guards.Owner(~S),Cond.Local>) -> IO(String):
+    case Sys.DefinitionRefused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:enter-guard"})
+def guard_transition_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),exit:Guards.Owner(~S),result:Sys.Defined<World(~S),Guards.Owner(~S),Cond.Local>) -> IO(BuildResult<S>):
   match result:
     case Sys.Defined{world,transition}:guard_enter_defined(~S,owners,peer,exit,transition,Sys.define(~S,~D.Store(~S),~Resources(~S),~Unit,~D.read_ops(~S),~Cond.Local,~String,~Bool,~Cond.declaration(~S),~Cond.body(~S),world,"enter-guard",Cond.Local{ALeaf{901},Cond.Enter{}}))
-    case Sys.DefinitionRefused{_,_}:IO.pure(String,"ERROR:transition-guard")
-def guard_exit_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),result:Sys.Defined<World(~S),Guards.Owner(~S),Cond.Local>) -> IO(String):
+    case Sys.DefinitionRefused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:transition-guard"})
+def guard_exit_defined(~S:Data,owners:Registry.Owners(~S),peer:PeerOwner(~S),result:Sys.Defined<World(~S),Guards.Owner(~S),Cond.Local>) -> IO(BuildResult<S>):
   match result:
     case Sys.Defined{world,exit}:guard_transition_defined(~S,owners,peer,exit,Sys.define(~S,~D.Store(~S),~Resources(~S),~Unit,~D.read_ops(~S),~Cond.Local,~String,~Bool,~Cond.declaration(~S),~Cond.body(~S),world,"transition-guard",Cond.Local{ALeaf{900},Cond.Transition{}}))
-    case Sys.DefinitionRefused{_,_}:IO.pure(String,"ERROR:exit-guard")
-def events_defined(~S:Data,apply:Registry.ApplyOwner(~S),exit:Registry.ExitOwner(~S),transition:Registry.ReadOwner(~S),enter:Registry.RequestOwner(~S),peer:PeerOwner(~S),read:Registry.ActorOwner(~S),result:Sys.Defined<World(~S),Events.Owner(~S),Events.Local<S>>) -> IO(String):
+    case Sys.DefinitionRefused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:exit-guard"})
+def events_defined(~S:Data,apply:Registry.ApplyOwner(~S),exit:Registry.ExitOwner(~S),transition:Registry.ReadOwner(~S),enter:Registry.RequestOwner(~S),peer:PeerOwner(~S),read:Registry.ActorOwner(~S),result:Sys.Defined<World(~S),Events.Owner(~S),Events.Local<S>>) -> IO(BuildResult<S>):
   match result:
     case Sys.Defined{world,events}:guard_exit_defined(~S,Registry.pack(~S,apply,exit,transition,enter,read,events),peer,Sys.define(~S,~D.Store(~S),~Resources(~S),~Unit,~D.read_ops(~S),~Cond.Local,~String,~Bool,~Cond.declaration(~S),~Cond.body(~S),world,"exit-guard",Cond.Local{ALeaf{900},Cond.Exit{}}))
-    case Sys.DefinitionRefused{_,_}:IO.pure(String,"ERROR:events")
-def read_defined(~S:Data,apply:Registry.ApplyOwner(~S),exit:Registry.ExitOwner(~S),transition:Registry.ReadOwner(~S),enter:Registry.RequestOwner(~S),peer:PeerOwner(~S),result:Sys.Defined<World(~S),Registry.ActorOwner(~S),Actor.Local<S>>) -> IO(String):
+    case Sys.DefinitionRefused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:events"})
+def read_defined(~S:Data,apply:Registry.ApplyOwner(~S),exit:Registry.ExitOwner(~S),transition:Registry.ReadOwner(~S),enter:Registry.RequestOwner(~S),peer:PeerOwner(~S),result:Sys.Defined<World(~S),Registry.ActorOwner(~S),Actor.Local<S>>) -> IO(BuildResult<S>):
   match result:
     case Sys.Defined{world,read}:events_defined(~S,apply,exit,transition,enter,peer,read,Events.define(~S,~Resources(~S),world,"transition-events",Body.local(701,702)))
-    case Sys.DefinitionRefused{_,_}:IO.pure(String,"ERROR:read")
-def enter_defined(~S:Data,handle:W.Handle<S>,apply:Registry.ApplyOwner(~S),exit:Registry.ExitOwner(~S),transition:Registry.ReadOwner(~S),peer:PeerOwner(~S),result:Sys.Defined<World(~S),Registry.RequestOwner(~S),Body.Local()>) -> IO(String):
+    case Sys.DefinitionRefused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:read"})
+def enter_defined(~S:Data,handle:W.Handle<S>,apply:Registry.ApplyOwner(~S),exit:Registry.ExitOwner(~S),transition:Registry.ReadOwner(~S),peer:PeerOwner(~S),result:Sys.Defined<World(~S),Registry.RequestOwner(~S),Body.Local()>) -> IO(BuildResult<S>):
   match result:
     case Sys.Defined{world,enter}:read_defined(~S,apply,exit,transition,enter,peer,Task.define(~S,~D.Store(~S),~D.LeftStore(~S),~D.Resources(~S),~Unit,~Actor.Ops(~S),~Actor.Local<S>,~String,~String,~Actor.declaration(~S),~Actor.body(~S),~Resources(~S),world,"state-running",Actor.Local{handle,Body.local(601,602)}))
-    case Sys.DefinitionRefused{_,_}:IO.pure(String,"ERROR:enter")
-def transition_defined(~S:Data,handle:W.Handle<S>,apply:Registry.ApplyOwner(~S),exit:Registry.ExitOwner(~S),peer:PeerOwner(~S),result:Sys.Defined<World(~S),Registry.ReadOwner(~S),Body.Local()>) -> IO(String):
+    case Sys.DefinitionRefused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:enter"})
+def transition_defined(~S:Data,handle:W.Handle<S>,apply:Registry.ApplyOwner(~S),exit:Registry.ExitOwner(~S),peer:PeerOwner(~S),result:Sys.Defined<World(~S),Registry.ReadOwner(~S),Body.Local()>) -> IO(BuildResult<S>):
   match result:
     case Sys.Defined{world,transition}:enter_defined(~S,handle,apply,exit,transition,peer,Task.define(~S,~D.Store(~S),~D.LeftStore(~S),~D.Resources(~S),~Unit,~D.request_ops(~S),~Body.Local(),~String,~String,~D.request(~S),~Body.request(~S),~Resources(~S),world,"enter",Body.local(501,502)))
-    case Sys.DefinitionRefused{_,_}:IO.pure(String,"ERROR:transition")
-def exit_defined(~S:Data,handle:W.Handle<S>,apply:Registry.ApplyOwner(~S),peer:PeerOwner(~S),result:Sys.Defined<World(~S),Registry.ExitOwner(~S),Exit.Captures(~S)>) -> IO(String):
+    case Sys.DefinitionRefused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:transition"})
+def exit_defined(~S:Data,handle:W.Handle<S>,apply:Registry.ApplyOwner(~S),peer:PeerOwner(~S),result:Sys.Defined<World(~S),Registry.ExitOwner(~S),Exit.Captures(~S)>) -> IO(BuildResult<S>):
   match result:
     case Sys.Defined{world,exit}:transition_defined(~S,handle,apply,exit,peer,Task.define(~S,~D.Store(~S),~D.LeftStore(~S),~D.Resources(~S),~Unit,~D.read_ops(~S),~Body.Local(),~String,~String,~D.read(~S),~Body.read(~S),~Resources(~S),world,"transition",Body.local(401,402)))
-    case Sys.DefinitionRefused{_,_}:IO.pure(String,"ERROR:exit")
-def registered(~S:Data,+handle:W.Handle<S>,result:Pair.Definition<World(~S),Registry.ApplyOwner(~S),PeerOwner(~S),Body.Local(),Peer.Local<S>>) -> IO(String):
+    case Sys.DefinitionRefused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:exit"})
+def registered(~S:Data,+handle:W.Handle<S>,result:Pair.Definition<World(~S),Registry.ApplyOwner(~S),PeerOwner(~S),Body.Local(),Peer.Local<S>>) -> IO(BuildResult<S>):
   match result:
     case Pair.Defined{Pair.ParallelApp{world,apply,peer}}:exit_defined(~S,handle,apply,peer,Cmd.define(~S,~D.LeftStore(~S),~D.Resources(~S),~Unit,~D.component_layout(~S),~D.root_layout(S),~Exit.route(),~{==},~Exit.Ops(~S),~Exit.User<S>,~String,~String,~Exit.declaration(~S),~Exit.body(~S),~Resources(~S),world,"exit",Exit.User{handle,Body.local(301,302)}))
-    case Pair.LeftRefused{_,_,_}:IO.pure(String,"ERROR:apply")
-    case Pair.RightRefused{_,_,_}:IO.pure(String,"ERROR:peer")
-def allocated(~S:Data,result:Alloc.Allocation<S>) -> IO(String):
+    case Pair.LeftRefused{_,_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:apply"})
+    case Pair.RightRefused{_,_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:peer"})
+def allocated(~S:Data,result:Alloc.Allocation<S>) -> IO(BuildResult<S>):
   match result:
     case Alloc.Ready{world,+handle}:registered(~S,handle,Pair.define(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.Resources(~S),~Unit,~Unit,~Body.Local(),~Peer.Local<S>,~String,~String,~String,~String,~D.apply_ops(~S),~Peer.Ops(~S),~D.apply(~S),~Peer.declaration(~S),~Body.apply(~S),~Peer.body(~S),world,"state-marker","peer",Body.local(101,102),Peer.Local{handle,Body.local(201,202)}))
-    case Alloc.Refused{_,_}:IO.pure(String,"ERROR:allocation")
-def initialized(~S:Data,world:World(~S)) -> IO(String):allocated(~S,Alloc.allocate(~S,world))
-def created(~S:Data,result:W.Creation<S,D.Store(~S),Resources(~S),Unit>) -> IO(String):
+    case Alloc.Refused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:allocation"})
+def initialized(~S:Data,world:World(~S)) -> IO(BuildResult<S>):allocated(~S,Alloc.allocate(~S,world))
+def created(~S:Data,result:W.Creation<S,D.Store(~S),Resources(~S),Unit>) -> IO(BuildResult<S>):
   match result:
     case W.Created{_,world}:initialized(~S,Init.setup(~S,world))
-    case W.CreateRejected{_,_}:IO.pure(String,"ERROR:create")
-def run(~S:Data) -> IO(String):created(~S,W.create(~S,~D.Store(~S),~Resources(~S),~Unit,~empty(~S),W.factory(),resources(~S)))
+    case W.CreateRejected{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:create"})
+def prepare(~S:Data) -> IO(BuildResult<S>):created(~S,W.create(~S,~D.Store(~S),~Resources(~S),~Unit,~empty(~S),W.factory(),resources(~S)))
+def execute_prepared(~S:Data,result:BuildResult<S>) -> IO(String):
+  match result:
+    case BuildReady{app}:updates(~S,4n,[],app)
+    case BuildRefused{error}:IO.pure(String,error)
+def run(~S:Data) -> IO(String):
+  IO.bind(BuildResult<S>,String,prepare(~S),built => execute_prepared(~S,built))
 type Schema is Data:
   Schema{}
 def main() -> IO(Unit):IO.bind(String,Unit,run(~Schema),IO.print)
