@@ -8,6 +8,11 @@ import ../../src/ecs/change-tick.bend as Tick
 
 # DRAFT, UNAPPROVED, UNPROVED. These are exact actual-owner helper equations;
 # they do not establish complete restore, fresh-allocation or lifecycle laws.
+# Bevy context: ad678262ce53b5d142fe49ee5e08caff6f00ab60 retains authored
+# deferred buffers when execution skips their application:
+# https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/schedule/executor/single_threaded.rs
+# The affine World equations below are Bend-specific ownership requirements;
+# that Bevy implementation does not establish or prove these equations.
 law receiver_pending_keeps_actual_world:
   for -S:Data
   for -layout:Layout.Layout
