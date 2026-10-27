@@ -324,3 +324,26 @@ The original two-field `Declaration` remains available for opaque declarations.
 For unsupported forms or mixed composition, finish the recognized builder and use
 ordinary `pair`; this preserves the generic evaluator. This slice does not claim
 that every query form uses compact sessions or that performance is qualified.
+
+## Passive replacement-executor inspection
+
+`Inspector.passive` invokes an existing read-only `Inspector.Plan` and returns
+its actual World and original Inspector Instance on both success and body error.
+It does not establish a new observation boundary or advance either clock or
+cursor. The historical `Inspector.run` contract above remains unchanged.
+
+`execution-inspector.resource` and `check_resource` select the canonical modern
+resource slot through the full-layout equality and route-validity proofs. Their
+read grants return the cached Data view while retaining the actual affine payload,
+sibling owners and stamp. Their access descriptions come from that same selector.
+`execution-inspector-application.passive` carries this operation through an actual
+`Scheduled` owner, retaining system captures, guards, handler, both bindings lists,
+plan, rules and deferred-command state outside the Inspector frame.
+
+The ordinary entry `examples/parallel-inspection/passive-resource.bend` reads an
+actual Array resource through success and body-error paths. Its observed clock
+and Inspector cursor remain zero, with payload and cached view both 71. This
+finite observation does not prove passive behavior universally or complete #93.
+Registered application, component/stream/relation/machine observations, pending
+commands, trace integration, authority controls and new approved laws remain to
+be completed for that issue.
