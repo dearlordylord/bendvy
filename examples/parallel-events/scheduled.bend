@@ -1,4 +1,7 @@
 import Base
+import ../../src/ecs/execution-parallel-scope.bend as Scope
+import ../../src/ecs/deferred-command.bend as Deferred
+import ../parallel-query/observation.bend as Observe
 import ../../src/ecs/execution-reservation-task.bend as Effect
 import ../../src/ecs/execution-condition-registry.bend as Conditions
 import ./scenario.bend as D
@@ -40,10 +43,14 @@ def right(~S:Data,~P:Type,~project:P -> P & U32,~F:Tree.Family(),~leaf:Tree.Leaf
 def guard_program(~S:Data,~P:Type,~project:P -> P & U32,~Permit:Data,~token:Permit,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(),~Store(),~Resources(~S,~P,~project),~Permit,~H,~B),book:B) -> B & Unit:(book,Unit{})
 def guard_step(~H:Type,scope:H,+runs:U32) -> H & (U32 & Sys.Completion<String,Bool>):(scope,(U32.add(runs,1),Sys.Success{U32.is_le(2,runs)}))
 def guard_body(~S:Data,~Permit:Data,~H:Type,~caps:Unit,scope:H,runs:U32) -> Effect.Task<S,Permit,H & (U32 & Sys.Completion<String,Bool>)>:Effect.TDone{guard_step(~H,scope,runs)}
-def Guard(~S:Data,~P:Type,~project:P -> P & U32) -> Type:Sys.Owner<S,Store(),Store(),Resources(~S,~P,~project),Unit,NoOps,U32,String,Bool,guard_program(~S,~P,~project),guard_body(~S)>
-def guard_dispatch(~S:Data,~P:Type,~project:P -> P & U32) -> Guard(~S,~P,~project) -> World(~S,~P,~project) -> U32 -> IO(Guard(~S,~P,~project) & (World(~S,~P,~project) & Exec.Invocation<String,Bool>)):Conditions.leaf_dispatch(~S,~Store(),~Resources(~S,~P,~project),~Unit,~NoOps,~U32,~String,~guard_program(~S,~P,~project),~guard_body(~S))
-def guard_selection(~S:Data,~P:Type,~project:P -> P & U32,~F:Conditions.Family(~String),~leaf:Conditions.Leaf(~String,~F),~pair:Conditions.Join(~String,~F),~empty:Conditions.Vacant(~String,~F),owner:Guard(~S,~P,~project)) -> F(World(~S,~P,~project),Guard(~S,~P,~project),guard_dispatch(~S,~P,~project)):
-  leaf(S,Store(),Resources(~S,~P,~project),Unit,NoOps,U32,guard_program(~S,~P,~project),guard_body(~S),owner)
+def GuardOwner(~S:Data,~P:Type,~project:P -> P & U32) -> Type:Sys.Owner<S,Store(),Store(),Resources(~S,~P,~project),Unit,NoOps,U32,String,Bool,guard_program(~S,~P,~project),guard_body(~S)>
+# The closed factory registers and retains the returned actual compilation.
+# The static witness fixes this consumer; its phantom type is not a coherence proof.
+def guard_construction(~S:Data,~P:Type,~project:P -> P & U32) -> Decl.Compilation<S,Store(),Store(),Resources(~S,~P,~project),NoOps>:Build.compile_framework(~S,~Store(),~Store(),~Resources(~S,~P,~project),~NoOps,~guard_program(~S,~P,~project))
+def Guard(~S:Data,~P:Type,~project:P -> P & U32) -> Type:Scope.CompiledBinding<Decl.Compilation<S,Store(),Store(),Resources(~S,~P,~project),NoOps>,GuardOwner(~S,~P,~project)>
+def guard_dispatch(~S:Data,~P:Type,~project:P -> P & U32) -> Guard(~S,~P,~project) -> World(~S,~P,~project) -> U32 -> IO(Guard(~S,~P,~project) & (World(~S,~P,~project) & Exec.Invocation<String,Bool>)):Conditions.retained_leaf_dispatch(~S,~Store(),~Resources(~S,~P,~project),~Unit,~NoOps,~U32,~String,~guard_program(~S,~P,~project),~guard_body(~S),~guard_construction(~S,~P,~project))
+def guard_selection(~S:Data,~P:Type,~project:P -> P & U32,~F:Conditions.Family(~String),~leaf:Conditions.RetainedLeaf(~String,~F),~pair:Conditions.Join(~String,~F),~empty:Conditions.Vacant(~String,~F),owner:Guard(~S,~P,~project)) -> F(World(~S,~P,~project),Guard(~S,~P,~project),guard_dispatch(~S,~P,~project)):
+  leaf(S,Store(),Resources(~S,~P,~project),Unit,NoOps,U32,guard_program(~S,~P,~project),guard_body(~S),guard_construction(~S,~P,~project),owner)
 type Handler is Type:Handler{token:Array<U32>,errors:U32}
 def handle(owner:Handler,_:String) -> Handler & Exec.Handling:
   match owner:
@@ -121,13 +128,27 @@ def access(value:Decl.Access) -> String:
     case _ :"unexpected-access"
 def metadata(~S:Data,~P:Type,~project:P -> P & U32) -> String:
   List.show(&2,Decl.Access,access,Decl.compilation_requirements(~S,~Store(),~Unit,~D.Resources(~S,~P,~project),~D.WriterOps(~P),Build.compile_framework(~S,~Store(),~Unit,~D.Resources(~S,~P,~project),~D.WriterOps(~P),~D.writer(~S,~Store(),~P,~project)))) ++ "/" ++ List.show(&2,Decl.Access,access,Decl.compilation_requirements(~S,~Store(),~Unit,~D.Resources(~S,~P,~project),~D.ReaderOps(~S,~P),Build.compile_framework(~S,~Store(),~Unit,~D.Resources(~S,~P,~project),~D.ReaderOps(~S,~P),~D.reader(~S,~Store(),~P,~project)))) ++ "/" ++ List.show(&2,Decl.Access,access,Decl.compilation_requirements(~S,~Store(),~Unit,~D.Resources(~S,~P,~project),~D.AdminOps(~S,~P),Build.compile_framework(~S,~Store(),~Unit,~D.Resources(~S,~P,~project),~D.AdminOps(~S,~P),~D.admin(~S,~Store(),~P,~project))))
+def pending_returned(~World:Type,command:Deferred.Command<World>,tag:String,result:List<Deferred.Command<World>> & List<&2,String>) -> List<Deferred.Command<World>> & List<&2,String>:
+  match result:
+    case (rest,tags):(command <> rest,tag <> tags)
+# Projection returns the actual opaque closures without evaluating them.
+def pending(~World:Type,commands:List<Deferred.Command<World>>) -> List<Deferred.Command<World>> & List<&2,String>:
+  match commands:
+    case []:([],[])
+    case Deferred.Raw{apply} <> rest:pending_returned(~World,Deferred.Raw{apply},"Raw",pending(~World,rest))
+    case Deferred.Observed{apply} <> rest:pending_returned(~World,Deferred.Observed{apply},"Observed",pending(~World,rest))
+def pending_text(~World:Type,result:List<Deferred.Command<World>> & List<&2,String>) -> String:
+  match result:
+    case (_,tags):strings(tags)
+def system_header(namespace:U32,id:U32,name:String,access:List<&2,String>,cursor:Maybe<&2,Tick.Tick>) -> String:
+  "namespace=" ++ U32.show(namespace) ++ ";id=" ++ U32.show(id) ++ ";name=" ++ name ++ ";access=" ++ strings(access) ++ ";cursor=" ++ Observe.maybe_tick(cursor)
 def observed(~S:Data,~P:Type,~project:P -> P & U32,trace:String,application:Application(~S,~P,~project)) -> String:
   match application:
-    case Schedule.Scheduled{App.State{W.World{_,_,_,Product.Owner{Layout.ResourceSlot{Layout.Viewed{owner,cache},_},_},_,_,_,_,_,_},Product.Owner{Product.Owner{Sys.Owner{_,_,_,wa,_,wl},Product.Owner{Sys.Owner{_,_,_,fa,_,fl},Product.Owner{Sys.Owner{_,_,_,sa,_,sl},Sys.Owner{_,_,_,aa,_,al}}}},Sys.Owner{_,_,_,_,_,peer}},Sys.Owner{_,_,_,_,_,guards},Handler{handler,errors},_},_,_,_,_}:trace ++ "|family={" ++ family(~S,~P,~project,owner) ++ "}|cache={" ++ cached(~S,~P,cache) ++ "}|writer={" ++ writer_local(~P,~project,wl) ++ "}|fast={" ++ reader_local(~S,~P,fl) ++ "}|slow={" ++ reader_local(~S,~P,sl) ++ "}|admin={" ++ admin_local(~S,~P,~project,al) ++ "}|access=" ++ strings(wa) ++ "/" ++ strings(fa) ++ "/" ++ strings(sa) ++ "/" ++ strings(aa) ++ "|metadata=" ++ metadata(~S,~P,~project) ++ "|peer=" ++ U32.show(peer) ++ ";guard=" ++ U32.show(guards) ++ ";handler=" ++ token(Array.get(U32,handler,0)) ++ ":" ++ U32.show(errors)
+    case Schedule.Scheduled{App.State{W.World{namespace,allocator,Product.Owner{Unit{},Unit{}},Product.Owner{Layout.ResourceSlot{Layout.Viewed{owner,cache},stamp},Unit{}},events,commands,registrations,nextSystem,clock,journal},Product.Owner{Product.Owner{Sys.Owner{wn,wi,wm,+wa,wc,wl},Product.Owner{Sys.Owner{fn,fi,fm,+fa,fc,fl},Product.Owner{Sys.Owner{sn,si,sm,+sa,sc,sl},Sys.Owner{an,ai,am,+aa,ac,al}}}},Sys.Owner{pn,pi,pm,pa,pc,peer}},Scope.CompiledBinding{_,Sys.Owner{gn,gi,gm,ga,gc,guards}},Handler{handler,errors},_},_,_,_,_}:trace ++ "|family={" ++ family(~S,~P,~project,owner) ++ "}|cache={" ++ cached(~S,~P,cache) ++ "}|writer={" ++ writer_local(~P,~project,wl) ++ "}|fast={" ++ reader_local(~S,~P,fl) ++ "}|slow={" ++ reader_local(~S,~P,sl) ++ "}|admin={" ++ admin_local(~S,~P,~project,al) ++ "}|access=" ++ strings(wa) ++ "/" ++ strings(fa) ++ "/" ++ strings(sa) ++ "/" ++ strings(aa) ++ "|metadata=" ++ metadata(~S,~P,~project) ++ "|peer=" ++ U32.show(peer) ++ ";guard=" ++ U32.show(guards) ++ ";handler=" ++ token(Array.get(U32,handler,0)) ++ ":" ++ U32.show(errors) ++ "|world={namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ Observe.allocator(allocator) ++ "};components=Owner(Unit,Unit);resources-stamp=" ++ Observe.stamp(Some{stamp}) ++ ";events=" ++ List.show(&2,Unit,_=>"Unit",events) ++ ";pending=" ++ pending_text(~World(~S,~P,~project),pending(~World(~S,~P,~project),commands)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,Observe.registration,registrations) ++ ";nextSystem=" ++ U32.show(nextSystem) ++ ";clock=" ++ Observe.clock(clock) ++ ";journal={" ++ Observe.journal(~S,journal) ++ "}}|systems={writer=" ++ system_header(wn,wi,wm,wa,wc) ++ ";fast=" ++ system_header(fn,fi,fm,fa,fc) ++ ";slow=" ++ system_header(sn,si,sm,sa,sc) ++ ";admin=" ++ system_header(an,ai,am,aa,ac) ++ ";peer=" ++ system_header(pn,pi,pm,pa,pc) ++ ";guard=" ++ system_header(gn,gi,gm,ga,gc) ++ "}"
 def selected(~S:Data,~P:Type,~project:P -> P & U32,native:Bool,app:Application(~S,~P,~project)) -> IO(Application(~S,~P,~project) & App.Report<String,String>):
   match native:
-    case False{}:Schedule.run_serial(~S,~Unit,~Unit,~D.Resources(~S,~P,~project),~Unit,~Unit,~resources(~S,~P,~project),~{==},~String,~String,~Left(~S,~P,~project),~Peer(~S),~left(~S,~P,~project),~right(~S,~P,~project),~Guard(~S,~P,~project),~Handler,~guard_dispatch(~S,~P,~project),~guard_selection(~S,~P,~project),~handle,app)
-    case True{}:Schedule.run_native(~S,~Unit,~Unit,~D.Resources(~S,~P,~project),~Unit,~Unit,~resources(~S,~P,~project),~{==},~String,~String,~Left(~S,~P,~project),~Peer(~S),~left(~S,~P,~project),~right(~S,~P,~project),~Guard(~S,~P,~project),~Handler,~guard_dispatch(~S,~P,~project),~guard_selection(~S,~P,~project),~handle,app)
+    case False{}:Schedule.run_serial_retained(~S,~Unit,~Unit,~D.Resources(~S,~P,~project),~Unit,~Unit,~resources(~S,~P,~project),~{==},~String,~String,~Left(~S,~P,~project),~Peer(~S),~left(~S,~P,~project),~right(~S,~P,~project),~Guard(~S,~P,~project),~Handler,~guard_dispatch(~S,~P,~project),~handle,app)
+    case True{}:Schedule.run_native_retained(~S,~Unit,~Unit,~D.Resources(~S,~P,~project),~Unit,~Unit,~resources(~S,~P,~project),~{==},~String,~String,~Left(~S,~P,~project),~Peer(~S),~left(~S,~P,~project),~right(~S,~P,~project),~Guard(~S,~P,~project),~Handler,~guard_dispatch(~S,~P,~project),~handle,app)
 def repeated(~S:Data,~P:Type,~project:P -> P & U32,next:String -> Application(~S,~P,~project) -> IO(String),trace:String,result:Application(~S,~P,~project) & App.Report<String,String>) -> IO(String):
   match result:
     case (application,status):next(trace ++ report(status) ++ "|",application)
@@ -135,14 +156,14 @@ def repeat(~S:Data,~P:Type,~project:P -> P & U32,fuel:Nat,+native:Bool,trace:Str
   match fuel:
     case 0n:IO.pure(String,observed(~S,~P,~project,trace,application))
     case 1n+rest:IO.bind(Application(~S,~P,~project) & App.Report<String,String>,String,selected(~S,~P,~project,native,application),result=>repeated(~S,~P,~project,next=>app=>repeat(~S,~P,~project,rest,native,next,app),trace,result))
-def guarded(~S:Data,~P:Type,~project:P -> P & U32,native:Bool,owners:Product.Owner<Left(~S,~P,~project),Peer(~S)>,result:Sys.Defined<World(~S,~P,~project),Guard(~S,~P,~project),U32>) -> IO(String):
+def guarded(~S:Data,~P:Type,~project:P -> P & U32,native:Bool,owners:Product.Owner<Left(~S,~P,~project),Peer(~S)>,result:Decl.Compilation<S,Store(),Store(),Resources(~S,~P,~project),NoOps> & Sys.Defined<World(~S,~P,~project),GuardOwner(~S,~P,~project),U32>) -> IO(String):
   match result:
-    case Sys.DefinitionRefused{_,_}:IO.pure(String,"ERROR:guard")
-    case Sys.Defined{world,guard}:repeat(~S,~P,~project,5n,native,"",Schedule.build(~S,~Unit,~Unit,~D.Resources(~S,~P,~project),~Unit,~Unit,~resources(~S,~P,~project),~{==},~String,~String,~Left(~S,~P,~project),~Peer(~S),~left(~S,~P,~project),~right(~S,~P,~project),~Guard(~S,~P,~project),~Handler,~guard_dispatch(~S,~P,~project),~guard_selection(~S,~P,~project),~handle,~available,world,owners,guard,Handler{ALeaf{701},0},[Plan.Edge{1,2},Plan.Edge{1,3},Plan.Edge{2,4},Plan.Edge{3,4}],[App.Binding{3,6}]))
+    case (_,Sys.DefinitionRefused{_,_}):IO.pure(String,"ERROR:guard")
+    case (compilation,Sys.Defined{world,guard}):repeat(~S,~P,~project,5n,native,"",Schedule.build_retained(~S,~Unit,~Unit,~D.Resources(~S,~P,~project),~Unit,~Unit,~resources(~S,~P,~project),~{==},~String,~String,~Left(~S,~P,~project),~Peer(~S),~left(~S,~P,~project),~right(~S,~P,~project),~Guard(~S,~P,~project),~Handler,~guard_dispatch(~S,~P,~project),~guard_selection(~S,~P,~project),~handle,~available,world,owners,Scope.CompiledBinding{compilation,guard},Handler{ALeaf{701},0},[Plan.Edge{1,2},Plan.Edge{1,3},Plan.Edge{2,4},Plan.Edge{3,4}],[App.Binding{3,6}]))
 def peer_defined(~S:Data,~P:Type,~project:P -> P & U32,native:Bool,writer:Writer(~S,~P,~project),fast:Reader(~S,~P,~project),slow:Reader(~S,~P,~project),admin:Admin(~S,~P,~project),result:Sys.Defined<World(~S,~P,~project),Peer(~S),U32>) -> IO(String):
   match result:
     case Sys.DefinitionRefused{_,_}:IO.pure(String,"ERROR:peer")
-    case Sys.Defined{world,peer}:guarded(~S,~P,~project,native,Product.Owner{Product.Owner{writer,Product.Owner{fast,Product.Owner{slow,admin}}},peer},Sys.define_framework(~S,~Store(),~Resources(~S,~P,~project),~Unit,~NoOps,~U32,~String,~Bool,~guard_program(~S,~P,~project),~guard_body(~S),world,"slow-enabled",0))
+    case Sys.Defined{world,peer}:guarded(~S,~P,~project,native,Product.Owner{Product.Owner{writer,Product.Owner{fast,Product.Owner{slow,admin}}},peer},Task.define_with_compilation(~S,~Store(),~Store(),~Resources(~S,~P,~project),~Unit,~NoOps,~U32,~String,~Bool,~guard_program(~S,~P,~project),~guard_body(~S),~Resources(~S,~P,~project),guard_construction(~S,~P,~project),world,"slow-enabled",0))
 def admin_defined(~S:Data,~P:Type,~project:P -> P & U32,native:Bool,writer:Writer(~S,~P,~project),fast:Reader(~S,~P,~project),slow:Reader(~S,~P,~project),result:Sys.Defined<World(~S,~P,~project),Admin(~S,~P,~project),D.AdminLocal<S,P>>) -> IO(String):
   match result:
     case Sys.DefinitionRefused{_,_}:IO.pure(String,"ERROR:admin")

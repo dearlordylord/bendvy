@@ -1,5 +1,8 @@
 import Base
 import ./world.bend as W
+import ./execution-parallel-scope.bend as Scope
+import ./execution-reservation-task.bend as Effect
+import ./execution-state.bend as State
 import ./execution-system.bend as Sys
 import ./execution-builder.bend as Build
 import ./execution-declaration.bend as D
@@ -82,3 +85,31 @@ def paired(~World:Type,~L:Type,~R:Type,~Error:Data,~left:Dispatch(~World,~L,~Err
     case Reg.Product{l,r,_}:pair(World,L,R,left,right,leftSelection(F,leaf,pair,empty,l),rightSelection(F,leaf,pair,empty,r))
 def empty(~World:Type,~Error:Data,~F:Family(~Error),~leaf:Leaf(~Error,~F),~pair:Join(~Error,~F),~empty:Vacant(~Error,~F),_:Unit) -> F(World,Unit,empty_dispatch(~World,~Error)):
   empty(World)
+
+# The factory supplies the closed construction witness once. Actual inventory
+# remains affine across registry admission and every dispatch; no method table
+# or runtime reconstruction of the declaration is stored in this binding.
+def RetainedSystem(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Bool)) -> Type:
+  Scope.CompiledBinding<D.Compilation<S,C,C,R,Ops>,System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body)>
+def retained_leaf_returned(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Bool),result:D.Compilation<S,C,C,R,Ops> & Sys.RunResult<W.World<S,C,R,E>,System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),Error,Bool>) -> IO(RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>)):
+  match result:
+    case (compilation,Sys.Refused{world,system}):IO.pure(RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>),(Scope.CompiledBinding{compilation,system},(world,Exec.AdmissionRefused{})))
+    case (compilation,Sys.Executed{world,system,Sys.Success{output}}):IO.pure(RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>),(Scope.CompiledBinding{compilation,system},(world,Exec.Completed{output})))
+    case (compilation,Sys.Executed{world,system,Sys.BodyError{error,output}}):IO.pure(RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>),(Scope.CompiledBinding{compilation,system},(world,Exec.BodyError{error,output})))
+def retained_leaf_selected(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Bool),~caps:Ops(Effect.Granted,State.Scope<S,C,R>),selected:Bool,node:RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),world:W.World<S,C,R,E>) -> IO(RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>)):
+  match selected node:
+    case False{} node:IO.pure(RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>),(node,(world,Exec.AdmissionRefused{})))
+    case True{} Scope.CompiledBinding{compilation,owner}:IO.bind(D.Compilation<S,C,C,R,Ops> & Sys.RunResult<W.World<S,C,R,E>,System(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),Error,Bool>,RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>),Sys.run_retained_compilation(~S,~C,~R,~E,~Ops,~Local,~Error,~Bool,~declaration,~body,~caps,compilation,owner,world),retained_leaf_returned(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body))
+def retained_leaf_dispatch(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Bool),~construction:D.Compilation<S,C,C,R,Ops>,node:RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),world:W.World<S,C,R,E>,id:U32) -> IO(RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) & (W.World<S,C,R,E> & Exec.Invocation<Error,Bool>)):
+  match node:
+    case Scope.CompiledBinding{compilation,Sys.Owner{namespace,+actual,name,access,cursor,local}}:retained_leaf_selected(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body,~D.trusted_construction_caps(~S,~C,~C,~R,~Ops,construction),U32.is_eq(actual,id),Scope.CompiledBinding{compilation,Sys.Owner{namespace,actual,name,access,cursor,local}},world)
+def compile_retained_leaf(~Error:Data,~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Bool),~construction:D.Compilation<S,C,C,R,Ops>,node:RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body)) -> Registry<W.World<S,C,R,E>,RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),Error,retained_leaf_dispatch(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body,~construction)>:
+  match node:
+    case Scope.CompiledBinding{D.Supported{D.Declaration{caps,+requirements},recipes},Sys.Owner{namespace,+id,name,access,cursor,local}}:Registry{Scope.CompiledBinding{D.Supported{D.Declaration{caps,requirements},recipes},Sys.Owner{namespace,id,name,access,cursor,local}},[Plan.Node{id,D.qualified(requirements)}],permission(D.read_only(requirements),id)}
+    case Scope.CompiledBinding{D.Unsupported{caps,+requirements,recipes},Sys.Owner{namespace,+id,name,access,cursor,local}}:Registry{Scope.CompiledBinding{D.Unsupported{caps,requirements,recipes},Sys.Owner{namespace,id,name,access,cursor,local}},[Plan.Node{id,D.qualified(requirements)}],Some{Plan.InvalidCondition{id}}}
+def RetainedLeaf(~Error:Data,~F:Family(~Error)) -> Type:
+  @-S:Data -> @-C:Type -> @-R:Type -> @-E:Data -> @-Ops:(Data -> Type -> Type) -> @-Local:Type -> @-declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops) -> @-body:Sys.Body(~S,~Ops,~Local,~Error,~Bool) -> @-construction:D.Compilation<S,C,C,R,Ops> -> RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body) -> F(W.World<S,C,R,E>,RetainedSystem(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body),retained_leaf_dispatch(~S,~C,~R,~E,~Ops,~Local,~Error,~declaration,~body,~construction))
+def RetainedSelection(~World:Type,~Owners:Type,~Error:Data,~dispatch:Dispatch(~World,~Owners,~Error)) -> Type:
+  @-F:Family(~Error) -> @-leaf:RetainedLeaf(~Error,~F) -> @-pair:Join(~Error,~F) -> @-empty:Vacant(~Error,~F) -> Owners -> F(World,Owners,dispatch)
+def compile_retained(~World:Type,~Owners:Type,~Error:Data,~dispatch:Dispatch(~World,~Owners,~Error),~selection:RetainedSelection(~World,~Owners,~Error,~dispatch),owners:Owners) -> Registry<World,Owners,Error,dispatch>:
+  selection(Checked(~Error),compile_retained_leaf(~Error),compile_join(~Error),compile_empty(~Error),owners)
