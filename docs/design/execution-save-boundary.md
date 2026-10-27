@@ -73,6 +73,16 @@ actual retained Schema return on either outcome. This is detached admission;
 allocator/lifecycle metadata consistency, reversible typed construction,
 receiver mutation, fresh handle mapping and resume still require implementation.
 
+`execution-restore-stage` traverses admitted persisted fields with actual typed
+constructor state and releases staged owners through retained undo functions on
+constructor refusal. It reuses the pure constructor dispatch helpers, not the
+legacy Tx restore lifecycle. The concrete `constructors.bend` and `staging.bend`
+consumers construct Actor/Config Array payloads from their ordinary codecs and
+retain the actual declaration-derived factories, staged records, recovery input
+and Schema. Alpha and Beta instantiate this continuation and compile normally.
+The continuation requires prior admission; it is not a public restore operation
+and has not published any payload into a receiver World.
+
 The four laws in `test-fixtures/execution-save-laws/LAWS.bend` and two subjects in
 `SCHEMA.bend` are unapproved, unproved drafts. They describe exact gate branching,
 Plain/Transient owner return and actual schema/World refusal branches. They do
