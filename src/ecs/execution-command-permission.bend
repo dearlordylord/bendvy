@@ -15,6 +15,14 @@ import ./execution-relation-operation.bend as Operation
 type Relations<-S:Data,-resources:Layout.Layout> is Data:
   NoRelations{}
   RelationAllowed{route:Layout.Route,valid:{Layout.grant_valid(~resources,~route) == True{} : Bool},descriptor:Relation.Descriptor<S>,payload:{Layout.payload(resources,route) == RelationStore.Store<S,descriptor> : Type},view:{Layout.view(resources,route) == RelationStore.View<S,descriptor> : Data},protected:{Layout.policy(resources,route) == Policy.ProtectedRelation{S,descriptor} : Policy.Policy},rest:Relations<S,resources>}
+type DeferredRelation<-S:Data> is Data:
+  DeferredRelation{route:Layout.Route,key:String,descriptor:Relation.Descriptor<S>}
+# Deferred graph writes are descriptions of barrier effects, not immediate body
+# resource-write grants or resource extraction recipes.
+def deferred_descriptions(~S:Data,~resources:Layout.Layout,relations:Relations<S,resources>) -> List<&2,DeferredRelation<S>>:
+  match relations:
+    case NoRelations{}:[]
+    case RelationAllowed{+route,_,descriptor,_,_,_,rest}:DeferredRelation{route,Layout.key(resources,route),descriptor} <> deferred_descriptions(~S,~resources,rest)
 
 # Registration supplies an abstract affine K. A declaration can obtain entity
 # commands only by returning the book advanced by this explicit grant. Physical
