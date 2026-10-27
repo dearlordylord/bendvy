@@ -6,4 +6,4 @@ type SchemaA is Data:
 type SchemaB is Data:
   SchemaB{}
 def main() -> IO(Unit):
-  IO.print("A=" ++ Application.run(~SchemaA) ++ "\nB=" ++ Application.run(~SchemaB))
+  IO.bind(String,Unit,Application.run(~SchemaA),a => IO.bind(String,Unit,Application.run(~SchemaB),b => IO.print("A=" ++ a ++ "\nB=" ++ b)))
