@@ -1,91 +1,28 @@
-# Health decay: a minimal ECS example
+# Health decay
 
-For a runnable application with declaration-derived query access, a registered
-system and an explicit schedule, start with [Scheduled health](../scheduled-health/README.md).
-This lower-level example demonstrates direct query execution.
+Three entities demonstrate independent `Health` and `HealthDecay` components.
+The first two start at 10 × 0.5 and 20 × 0.25. The third has health 30 and
+no decay component, so the required-component query skips it.
 
-Inspired by the two-component system in [Bevy's contiguous-query example](https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/examples/ecs/contiguous_query.rs). This example uses Bendvy's ordinary per-entity query; it does not implement Bevy's contiguous slice iteration.
+The component relationship follows [Bevy's contiguous-query example](https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/examples/ecs/contiguous_query.rs).
+Bendvy uses ordinary per-entity access rather than contiguous slices.
 
-- Components: independent `Health` and `HealthDecay` values.
-- Entities: two with both components, one with `Health` alone.
-- Spawn: deferred commands with an application-authored `EntitySeed` payload.
-- Query: requires both components; writes `Health`, reads `HealthDecay`.
-- Execution: query before the barrier, then two system ticks after it.
+The application now uses the ordinary replacement execution path. The spawn
+system authors real deferred commands. The decay system declares a write query
+for Health filtered by HealthDecay and a read query for HealthDecay. Registration
+retains both compilations and actual system owners across ticks. The generalized
+Root derives planning and capabilities from those declarations and returns the
+actual application after execution. No application code splits the World.
 
-## Components and entity payload
-
-```bend
-type Health is Data: Health{value: F32}
-type HealthDecay is Data: HealthDecay{factor: F32}
-type EntitySeed is Data:
-  EntitySeed{health: Health,decay: Maybe<&2,HealthDecay>}
-```
-
-## System
-
-`apply_decay` runs once for each entity selected by the query. It reads
-`HealthDecay`, reads `Health` and writes the updated `Health`.
-These definitions are taken from [system.bend](system.bend); `D`, `C`, `Cap`
-and `T` are its module imports. `health_cap` and `decay_cap` select the
-operations declared in `Ops`.
-
-```bend
-type Ops<-H: Type> is Type:
-  Ops{health: Cap.Write<H,D.Health,D.Health>,decay: Cap.Read<H,D.HealthDecay>}
-
-def write_health(~H: Type,~ops: Ops<H>,factor: F32,result: H & C.Access<D.Health>) -> H & (T.Outcome<Error> & D.Health):
-  match result:
-    case (ctx,C.Found{D.Health{value}}):
-      +next : D.Health = D.Health{(value * factor : F32)}
-      (Cap.set(~H,~D.Health,~D.Health,~health_cap(~H,ops),ctx,next),(T.Success{},next))
-    case (ctx,_): (ctx,(T.Failure{MissingComponent{}},D.Health{0.0}))
-def read_decay(~H: Type,~ops: Ops<H>,result: H & C.Access<D.HealthDecay>) -> H & (T.Outcome<Error> & D.Health):
-  match result:
-    case (ctx,C.Found{D.HealthDecay{factor}}): write_health(~H,~ops,factor,Cap.get(~H,~D.Health,~D.Health,~health_cap(~H,ops),ctx))
-    case (ctx,_): (ctx,(T.Failure{MissingComponent{}},D.Health{0.0}))
-# System: read HealthDecay and update Health for each matching entity.
-def apply_decay(~H: Type,~ops: Ops<H>,_: Unit,ctx: H) -> H & (T.Outcome<Error> & D.Health):
-  read_decay(~H,~ops,Cap.read(~H,~D.HealthDecay,~decay_cap(~H,ops),ctx))
-```
-
-## Query and system execution
-
-The query plan requires both components and grants write access to `Health`
-and read access to `HealthDecay`. An entity with only `Health` is skipped.
-The [complete plan](system.bend) binds those accesses to the typed columns.
-This is the actual function that passes the system to the query executor:
-
-```bend
-def tick(world: S.World()) -> Q.Executed<S.World(),Q.Error<Error>,D.Health>:
-  Q.each(~S.Schema,~S.Store,~Unit,~Unit,~OpsType,~Unit,~Error,~D.Health,~plan(),~apply_decay,Unit{},world)
-```
-
-This example invokes `Q.each` directly. It does not register a system in a schedule.
-
-## Entity creation and execution
-
-These are excerpts from the runnable source, with imports provided in the linked files:
-
-```bend
-S.spawn(world,D.EntitySeed{D.Health{10.0},Some{D.HealthDecay{0.5}}})
-S.spawn(world,D.EntitySeed{D.Health{30.0},None{}})
-Sys.tick(S.barrier(world))
-```
-
-Each spawn returns `Spawned{world,handle}` or `SpawnRejected{world,error}`. The returned world must be threaded into the next operation. The fixture numbers are input data; no balancing rules or graphics are involved.
-
-## Source and run
-
-- [components.bend](components.bend): components and the application payload.
-- [schema.bend](schema.bend): columns, family projections and deferred spawn.
-- [system.bend](system.bend): callback, required-component selection and query plan.
-- [main.bend](main.bend): world creation, spawn result handling and execution.
+The first run suppresses dependency and final deferred application. Its query
+therefore sees no spawned rows. The next two runs enable automatic dependency
+publication, then multiply each selected Health by its own HealthDecay factor.
+A passive inspector reads the resulting components through full entity handles.
 
 From the repository root:
 
 ```sh
 bend examples/health-decay/main.bend
-bash examples/health-decay/check.sh
 ```
 
 Expected output:
@@ -96,9 +33,20 @@ tick-1=5,5
 tick-2=2.5,1.25
 ```
 
-The empty first observation shows deferred visibility. The two subsequent observations contain only the entities with both components, in entity order. The check compares the complete output; it is a finite example check, not a universal proof or performance qualification.
+- [components.bend](components.bend) defines the values and original seed payload.
+- [schema.bend](schema.bend) defines the nominal schema and independent owners.
+- [spawn.bend](spawn.bend) declares and authors the three deferred spawns.
+- [system.bend](system.bend) declares and performs the required read/write query.
+- [registration.bend](registration.bend) retains compiled system bindings.
+- [root.bend](root.bend) connects canonical execution and command publication.
+- [observe.bend](observe.bend) passively observes selected and skipped entities.
+- [application.bend](application.bend) runs the original three observations.
 
-## Optional browser demonstration
+The [browser demonstration](demo/README.md) uses the same owners, declarations
+and Root. Its initial run publishes the seeds at the final boundary before
+rendering the initial values. Each Tick then runs the decay system.
 
-[The small interactive demo](demo/README.md) lives entirely in `demo/`.
-It imports this example; the example does not depend on it.
+The CLI and browser API were emitted and run on JavaScript after migration.
+These are finite application observations, not formal proofs. Existing legacy
+smoke files remain in place; their former synchronous API expectations are not
+replacement-runtime verification.

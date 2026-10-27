@@ -1,26 +1,30 @@
 # Browser demonstration
 
-This interactive adapter uses direct query execution. For ordinary declarations,
-registered systems and a schedule, see
-[Scheduled health](../../scheduled-health/README.md).
-
-This directory contains only display/host code. The ECS example lives one level above; its sources do not import the demo.
+The interactive adapter uses the same declaration-driven generalized Root as
+[the health-decay application](../README.md). It retains the actual application
+and passive inspector between clicks. JavaScript displays component observations;
+Bend performs the health updates and deferred spawning.
 
 From the repository root:
 
 ```sh
 bash examples/health-decay/demo/build.sh
-node examples/health-decay/demo/smoke.mjs
 python3 -m http.server 8000 --directory examples/health-decay
 ```
 
-Open `http://localhost:8000/demo/`. Click **Tick** to execute the real Bend query or **Reset** to create the initial world again. The adapter reads all three entities from the world, including the unselected one. JS draws those observations; it does not compute the health updates.
+Open `http://localhost:8000/demo/`. Tick runs one decay update. Reset registers
+fresh owners and publishes three real spawn commands before rendering. The
+third entity remains visible with health 30 and no HealthDecay.
 
-Generated modules in `dist/` are ignored. No browser framework or additional package is required.
+The emitted module exports `start(Unit)` and `step(State)` as compiled IO
+computations. [run-io.mjs](run-io.mjs) executes their generated continuation and
+foreign-effect records, including the canonical execution driver. The browser
+retains only each returned affine State.
+This synchronous bridge follows the compiler-emitted `io_run` continuation
+protocol for this module's driver effect. It does not schedule asynchronous IO.
 
-An optional UI smoke check can reuse an installed Playwright via
-`PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs node examples/health-decay/demo/browser-smoke.mjs`.
-The standard build and Node check need no Playwright.
-
-Current-source compilation and Node smoke passed on 2026-10-17: initial state,
-two ticks, the skipped entity and reset. Real-browser smoke was not rerun.
+Generated modules in `dist/` are ignored. No browser framework is required.
+The emitted start and one Tick were executed after migration with their complete
+three-entity JSON observations. Real-browser interaction has not been rerun.
+The preserved smoke files describe the earlier synchronous API and are historical
+verification infrastructure, not evidence for the replacement runtime.

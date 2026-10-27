@@ -1,4 +1,5 @@
 import Demo from './dist/api.mjs';
+import { runIO } from './run-io.mjs';
 
 const entities = document.querySelector('#entities');
 const tick = document.querySelector('#tick');
@@ -46,7 +47,7 @@ function accept(packet) {
 function run(operation) {
   try {
     error.hidden = true;
-    accept(operation());
+    accept(runIO(operation()));
     step.disabled = reset.disabled = false;
   } catch (failure) {
     state = undefined;
@@ -61,5 +62,5 @@ step.addEventListener('click', () => {
   state = undefined;
   run(() => Demo.step(owned));
 });
-reset.addEventListener('click', () => run(() => Demo.start()));
-run(() => Demo.start());
+reset.addEventListener('click', () => run(() => Demo.start({$: 'Unit'})));
+run(() => Demo.start({$: 'Unit'}));
