@@ -1,5 +1,6 @@
 import Base
 import ./execution-reservation-task.bend as Effect
+import ./execution-reservation-permit.bend as Request
 import ./world.bend as W
 import ./execution-system.bend as Sys
 import ./execution-builder.bend as Build
@@ -96,3 +97,11 @@ def publish(~S:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.
 def permission_matches(~S:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Data -> Type -> Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Program(~S,~C,~R,~layout,~route,~Ops),~body:Body(~S,~layout,~route,~Ops,~User,~Error,~Out),owner:Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>) -> Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body> & Bool:
   match owner:
     case Owner{Sys.Owner{namespace,id,name,access,cursor,Local.Local{user,commands,+permission}}}:(Owner{Sys.Owner{namespace,id,name,access,cursor,Local.Local{user,commands,permission}}},checked_permission_agrees(permission,declared_permission(~S,~C,~R,~layout,~route,~Ops,~declaration)))
+
+# Read the permission from the same accepted compilation's actual caps, then
+# return those caps unchanged. This is a fixed framework adapter, not a body
+# supplied permission callback or a second declaration compilation.
+def grant_of_caps(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Data -> Type -> Type -> Type,~H:Type,caps:ScopedOps(~S,~layout,~route,~Ops,Effect.Granted,H)) -> ScopedOps(~S,~layout,~route,~Ops,Effect.Granted,H) & Request.Grant:
+  match caps:
+    case Permission.Prepared{Permission.FamilyOnly{},ops}:(Permission.Prepared{Permission.FamilyOnly{},ops},Request.NoStructural{})
+    case Permission.Prepared{Permission.EntityStructural{},ops}:(Permission.Prepared{Permission.EntityStructural{},ops},Request.Structural{})
