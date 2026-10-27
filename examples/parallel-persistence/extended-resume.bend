@@ -12,6 +12,7 @@ import ./declarations.bend as O
 import ../parallel-machines/reports.bend as Reports
 import ../../src/ecs/execution-parallel-root-application.bend as Schedule
 import ../../src/ecs/execution-system.bend as Sys
+import ../../src/ecs/execution-parallel-scope.bend as Scope
 import ../../src/ecs/dependency-application.bend as App
 import ../../src/ecs/owner-product.bend as Product
 import ../../src/ecs/execution-relation-store.bend as Store
@@ -53,7 +54,7 @@ def local(value:P.Local) -> String:
     case P.Local{values,runs}:capture(Array.get(U32,values,0)) ++ ":" ++ U32.show(runs)
 def observed(~S:Data,result:Outcome<S>) -> String:
   match result:
-    case Resumed{_,Restoration{Restore.State{schema,input,_,_,_},_,mapping,_,_},Schedule.Scheduled{App.State{world,Product.Owner{Sys.Owner{_,leftId,_,_,leftCursor,leftLocal},Sys.Owner{_,rightId,_,_,rightCursor,rightLocal}},Sys.Owner{_,guardId,_,_,guardCursor,guardLocal},Execution.Handler{handlerCapture,handled,reader},stateBindings},_,appBindings,_,_},report}:"report=" ++ Reports.report(report) ++ "/left=" ++ U32.show(leftId) ++ ":" ++ local(leftLocal) ++ "/right=" ++ U32.show(rightId) ++ ":" ++ local(rightLocal) ++ "/guard=" ++ U32.show(guardId) ++ ":" ++ local(guardLocal) ++ "/handler=" ++ capture(Array.get(U32,handlerCapture,0)) ++ ":" ++ U32.show(handled) ++ "/stateBindings=" ++ Nat.show(List.length(&2,App.Binding,stateBindings)) ++ "/appBindings=" ++ Nat.show(List.length(&2,App.Binding,appBindings)) ++ "/" ++ Observe.saved(~S,input,mapping,reader,Save.save(~S,schema,world))
+    case Resumed{_,Restoration{Restore.State{schema,input,_,_,_},_,mapping,_,_},Schedule.Scheduled{App.State{world,Product.Owner{Sys.Owner{_,leftId,_,_,leftCursor,leftLocal},Sys.Owner{_,rightId,_,_,rightCursor,rightLocal}},Scope.CompiledBinding{_,Sys.Owner{_,guardId,_,_,guardCursor,guardLocal}},Execution.Handler{handlerCapture,handled,reader},stateBindings},_,appBindings,_,_},report}:"report=" ++ Reports.report(report) ++ "/left=" ++ U32.show(leftId) ++ ":" ++ local(leftLocal) ++ "/right=" ++ U32.show(rightId) ++ ":" ++ local(rightLocal) ++ "/guard=" ++ U32.show(guardId) ++ ":" ++ local(guardLocal) ++ "/handler=" ++ capture(Array.get(U32,handlerCapture,0)) ++ ":" ++ U32.show(handled) ++ "/stateBindings=" ++ Nat.show(List.length(&2,App.Binding,stateBindings)) ++ "/appBindings=" ++ Nat.show(List.length(&2,App.Binding,appBindings)) ++ "/" ++ Observe.saved(~S,input,mapping,reader,Save.save(~S,schema,world))
     case SourceRefused{_}:"source-refused"
     case DefinitionRefused{_,_,_,_}:"definition-refused"
     case RestoreRefused{_,_}:"restore-refused"

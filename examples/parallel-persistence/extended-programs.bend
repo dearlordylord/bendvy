@@ -8,6 +8,8 @@ import ../../src/ecs/execution-machine-state.bend as Cell
 import ../../src/ecs/execution-machine-access.bend as Machine
 import ../../src/ecs/execution-relation-store.bend as Graph
 import ../../src/ecs/execution-system.bend as Sys
+import ../../src/ecs/execution-declaration.bend as Decl
+import ../../src/ecs/execution-parallel-scope.bend as Scope
 import ../../src/ecs/execution-reservation-task.bend as Task
 import ../../src/ecs/machine.bend as M
 import ../../src/ecs/change-tick.bend as Tick
@@ -48,4 +50,7 @@ def guarded(~S:Data,~H:Type,local:Local,result:H & Cell.View<S,Modes.Key,Modes.M
 def guard_body(~S:Data,~Permit:Data,~H:Type,~caps:GuardOps(~S,Permit,H),scope:H,local:Local) -> Task.Task<S,Permit,H & (Local & Sys.Completion<String,Bool>)>:Task.TDone{guarded(~S,~H,local,Machine.read_field(~S,~Modes.Key,~Modes.Mode,~H,caps)(scope))}
 def Left(~S:Data) -> Type:Sys.Owner<S,Columns(~S),LeftColumn(~S),LeftResource(~S),Unit,LeftOps(~S),Local,String,String,left_declaration(~S),left_body(~S)>
 def Right(~S:Data) -> Type:Sys.Owner<S,Columns(~S),RightColumn(~S),RightResource(~S),Unit,RightOps(~S),Local,String,String,right_declaration(~S),right_body(~S)>
-def Guard(~S:Data) -> Type:Sys.Owner<S,Columns(~S),Columns(~S),Schema.Resources(~S),Unit,GuardOps(~S),Local,String,Bool,guard_declaration(~S),guard_body(~S)>
+def GuardOwner(~S:Data) -> Type:Sys.Owner<S,Columns(~S),Columns(~S),Schema.Resources(~S),Unit,GuardOps(~S),Local,String,Bool,guard_declaration(~S),guard_body(~S)>
+def GuardCompilation(~S:Data) -> Type:Decl.Compilation<S,Columns(~S),Columns(~S),Schema.Resources(~S),GuardOps(~S)>
+def guard_construction(~S:Data) -> GuardCompilation(~S):Build.compile_framework(~S,~Columns(~S),~Columns(~S),~Schema.Resources(~S),~GuardOps(~S),~guard_declaration(~S))
+def Guard(~S:Data) -> Type:Scope.CompiledBinding<GuardCompilation(~S),GuardOwner(~S)>

@@ -11,6 +11,7 @@ import ../../src/ecs/execution-restore-extended-data.bend as Extended
 import ../../src/ecs/execution-restore-receiver.bend as Receiver
 import ../../src/ecs/execution-parallel-root-application.bend as Schedule
 import ../../src/ecs/execution-system.bend as Sys
+import ../../src/ecs/execution-parallel-scope.bend as Scope
 import ../../src/ecs/dependency-application.bend as App
 import ../../src/ecs/owner-product.bend as Product
 import ../../src/ecs/world.bend as W
@@ -43,7 +44,7 @@ def world(~S:Data,value:Schema.World(~S)) -> String:
     case W.World{namespace,allocator,columns,resources,events,pending,registrations,nextSystem,Clock.State{+tick,+scopes},lifecycle}:"scopes=" ++ List.show(&2,Tick.Tick,Tick.show,scopes) ++ "/" ++ Observe.owners(~S,W.World{namespace,allocator,columns,resources,events,pending,registrations,nextSystem,Clock.State{tick,scopes},lifecycle})
 def observed(~S:Data,result:Outcome<S>) -> String:
   match result:
-    case Observed{_,Execution.ReceiverRefused{Schedule.Scheduled{App.State{actual,Product.Owner{Sys.Owner{_,_,_,_,_,left},Sys.Owner{_,_,_,_,_,right}},Sys.Owner{_,_,_,_,_,guard},Execution.Handler{capture,handled,reader},stateBindings},_,appBindings,_,_},_,Receiver.ActiveExecution{}}}:"active-refused/left=" ++ Resume.local(left) ++ "/right=" ++ Resume.local(right) ++ "/guard=" ++ Resume.local(guard) ++ "/handler=" ++ Resume.capture(Array.get(U32,capture,0)) ++ ":" ++ U32.show(handled) ++ "/reader=" ++ Observe.reader(~S,reader) ++ "/stateBindings=" ++ Nat.show(List.length(&2,App.Binding,stateBindings)) ++ "/appBindings=" ++ Nat.show(List.length(&2,App.Binding,appBindings)) ++ "/" ++ world(~S,actual)
+    case Observed{_,Execution.ReceiverRefused{Schedule.Scheduled{App.State{actual,Product.Owner{Sys.Owner{_,_,_,_,_,left},Sys.Owner{_,_,_,_,_,right}},Scope.CompiledBinding{_,Sys.Owner{_,_,_,_,_,guard}},Execution.Handler{capture,handled,reader},stateBindings},_,appBindings,_,_},_,Receiver.ActiveExecution{}}}:"active-refused/left=" ++ Resume.local(left) ++ "/right=" ++ Resume.local(right) ++ "/guard=" ++ Resume.local(guard) ++ "/handler=" ++ Resume.capture(Array.get(U32,capture,0)) ++ ":" ++ U32.show(handled) ++ "/reader=" ++ Observe.reader(~S,reader) ++ "/stateBindings=" ++ Nat.show(List.length(&2,App.Binding,stateBindings)) ++ "/appBindings=" ++ Nat.show(List.length(&2,App.Binding,appBindings)) ++ "/" ++ world(~S,actual)
     case Observed{_,_}:"unexpected-outcome"
     case SourceRefused{_}:"source-refused"
     case DefinitionRefused{_,_,_,_}:"definition-refused"
