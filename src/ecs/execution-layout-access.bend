@@ -23,12 +23,8 @@ def column_lens(~S:Data,~C:Type,~layout:Layout.Layout,~route:Layout.Route,~same:
   Product.Lens{column_take(~S,~C,~layout,~route,~same),column_put(~S,~C,~layout,~route,~same)}
 def resource_slot(~S:Data,layout:Layout.Layout,route:Layout.Route) -> Type:
   Layout.ResourceSlot<S,Layout.stored(layout,route),Layout.key(layout,route),Layout.origin(layout,route)>
-def resource_take(~S:Data,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},owner:R) -> Layout.resource_rest(~S,layout,route) & resource_slot(~S,layout,route):
-  Layout.resource_take(~S,layout,route,Layout.checked_owner(R,Layout.resources(~S,layout),same,owner))
-def resource_put(~S:Data,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type},rest:Layout.resource_rest(~S,layout,route),slot:resource_slot(~S,layout,route)) -> R:
-  Layout.checked_owner(Layout.resources(~S,layout),R,Equal.sym(Type,R,Layout.resources(~S,layout),same),Layout.resource_put(~S,layout,route,rest,slot))
 def resource_lens(~S:Data,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{R == Layout.resources(~S,layout) : Type}) -> Product.Lens<R,resource_slot(~S,layout,route),Layout.resource_rest(~S,layout,route)>:
-  Product.Lens{resource_take(~S,~R,~layout,~route,~same),resource_put(~S,~R,~layout,~route,~same)}
+  Product.Lens{owner => Layout.resource_take(~S,layout,route,Layout.checked_owner(R,Layout.resources(~S,layout),same,owner)),rest => slot => Layout.checked_owner(Layout.resources(~S,layout),R,Equal.sym(Type,R,Layout.resources(~S,layout),same),Layout.resource_put(~S,layout,route,rest,slot))}
 def resource_view(~S:Data,~layout:Layout.Layout,~route:Layout.Route,value:resource_slot(~S,layout,route)) -> resource_slot(~S,layout,route) & Layout.view(layout,route):
   match value:
     case Layout.ResourceSlot{Layout.Viewed{owner,+view},stamp}:(Layout.ResourceSlot{Layout.Viewed{owner,view},stamp},view)
