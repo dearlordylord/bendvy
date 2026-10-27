@@ -1,5 +1,6 @@
 import Base
 import ./lifetime-scope.bend as Sc
+import ./lifetime-scope-legacy.bend as Legacy
 import ./lifetime-scope-world-spawn.bend as Spawn
 import ./world.bend as W
 import ./ordinary-schema.bend as Schema
@@ -91,7 +92,7 @@ def spawn_request(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~populate:W.World<S,A.
   match input:
     case (scope,payload):Spawn.tx_spawn_in(~S,~C,~R,~E,~P,~populate,owner,scope,payload)
 def cleanup_request(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,~declarations:List<&2,Rel.Declaration<S>>,owner:T.Tx<W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>>,scope:Sc.Scope<S>) -> T.Tx<W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>> & A.QueueStatus:
-  Sc.tx_cleanup(~S,~C,~R,~E,~clear,~record,~LC.descriptors(~S,declarations),owner,scope)
+  Legacy.tx_cleanup(~S,~C,~R,~E,~clear,~record,~LC.descriptors(~S,declarations),owner,scope)
 # Trusted system-construction adapter for the canonical transaction owner.
 # Supplies spawn/cleanup operations using the closed populate, clear, record and
 # relation declarations. populate receives the full World at deferred application;

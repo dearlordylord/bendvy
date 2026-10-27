@@ -215,10 +215,17 @@ restore: typed ActiveExecution refusal retains scope `[0:6]`, clock `0:6`, all
 Local/guard/handler run counts 0, original Reader cursor 0, both binding roles,
 receiver machine revision 101/stream 2 and scope change stamp `0:0`.
 
-Modern scope queue/controller cleanup integration remains separate work. Scope
-metadata currently imports the existing lifetime-scope Data definitions, which
-still transitively import legacy modules; pure canonical type extraction is
-coordinated separately and does not imply legacy runtime execution here.
+Modern scope queue/controller cleanup integration remains separate work.
+`lifetime-scope.bend` retains the original nominal Scope, Member, Store and
+SpawnResult types and the unchanged empty/without/select functions. Historical
+transaction operations live in `lifetime-scope-legacy.bend`; historical callers
+import those operations explicitly while retaining the original nominal type
+paths. Modern scope storage and snapshot admission/remapping keep the same pure
+import path, without the former Tx/commands/relation-commands dependency through
+scope metadata. World remains a pure dependency for the unchanged SpawnResult
+handle/error types. The historical modules and all-module `bendvy.bend` aggregate
+still explicitly import legacy execution; this split does not remove that API
+or qualify it as ordinary execution.
 These finite ordinary runs
 do not establish exhaustive graph validation, rollback of partial publication or
 formal owner preservation.

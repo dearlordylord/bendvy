@@ -14,7 +14,7 @@ def created(~S:Data,~C:Type,~R:Type,~empty:Unit -> C,~count:C -> List<&2,W.Handl
 # Created carries the new World; Refused returns the incoming resource owner.
 # Uses the checked host namespace allocator, not a caller-chosen namespace.
 # No entity is spawned, made live or assigned to a scope by World creation.
-# Use lifetime-scope.scope on the returned World to obtain a same-world token;
+# Use lifetime-scope-legacy.scope on the returned World to obtain a same-world token;
 # scoped spawn and cleanup remain deferred until an explicit command barrier.
 # This is an IO setup boundary, not a mathematical proof or an automatic affine
 # finalizer. Example: test-fixtures/public-scopes/feature-timing-v1/fixture.bend:

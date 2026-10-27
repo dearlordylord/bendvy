@@ -48,8 +48,12 @@ registered systems, actual independent worlds, affine owner disposition and
 scope/schema refusals. Its generated-JS-only mutation remains historical.
 The [matched application review](../../experiments/public-scopes/feature-timing-delivery-v1/FINAL-REVIEW.md)
 qualifies the actual TS/JS/Native reference comparison: all 52 records and 12,932
-bytes. The four production lifetime-scope modules remain byte-identical to the
-qualified delivery. Reached dependency changes and their applicability are
+bytes. At that delivery, the four production lifetime-scope modules were
+byte-identical to the qualified source. The current metadata split preserves
+nominal types and empty/without/select in `lifetime-scope.bend`, moves historical
+transaction operations to `lifetime-scope-legacy.bend`, and updates the explicit
+historical operation imports. The old backend record does not certify those new
+file bytes. Reached dependency changes and their applicability are
 reviewed separately; the open #44 label does not leave a missing scope operation.
 
 The [source-level survivor control](../../experiments/public-scopes/source-survivor-control-v1/delivery-v1/FINAL-REVIEW.md) passes stock JS and ordinary Native -O3:

@@ -93,6 +93,7 @@ import ./inspector.bend as M083
 import ./lifecycle.bend as M084
 import ./lifetime-scope-world-spawn.bend as M085
 import ./lifetime-scope.bend as M086
+import ./lifetime-scope-legacy.bend as M086Legacy
 import ./local.bend as M087
 import ./machine-conditions.bend as M088
 import ./machine-handler-bundle.bend as M089

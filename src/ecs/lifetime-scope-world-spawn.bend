@@ -3,6 +3,7 @@ import ./deferred-command.bend as Deferred
 import ./trace-facts.bend as TraceFacts
 import ./commands.bend as Cmd
 import ./lifetime-scope.bend as Sc
+import ./lifetime-scope-legacy.bend as Legacy
 import ./world.bend as W
 import ./transaction.bend as T
 import ./relation-commands.bend as A
@@ -14,7 +15,7 @@ def assigned(~S:Data,~C:Type,~R:Type,~E:Data,seen:W.World<S,A.Store<S,Sc.Store<S
     case (world,_):world
 def assign(~S:Data,~C:Type,~R:Type,~E:Data,world:W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>,handle:W.Handle<S>,name:String) -> W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>:
   match handle:
-    case W.Handle{_,id}:assigned(~S,~C,~R,~E,W.with_store(~S,~A.Store<S,Sc.Store<S,C>>,~R,~A.Notice<S,E>,~Unit,store => Sc.assigned(~S,~C,store,name,id),world))
+    case W.Handle{_,id}:assigned(~S,~C,~R,~E,W.with_store(~S,~A.Store<S,Sc.Store<S,C>>,~R,~A.Notice<S,E>,~Unit,store => Legacy.assigned(~S,~C,store,name,id),world))
 def activated(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~populate:W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>> -> W.Handle<S> -> P -> W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>,seen:W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>> & W.Status,+handle:W.Handle<S>,payload:P,name:String) -> W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>:
   match seen:
     case (world,W.Accepted{}):assign(~S,~C,~R,~E,populate(world,handle,payload),handle,name)
