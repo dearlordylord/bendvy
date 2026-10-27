@@ -62,8 +62,14 @@ def basic_resource_write(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type,~layout:Layout.
 def BasicQuery(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
   @-layout:Layout.Layout -> @-route:Layout.Route -> @-same:{C == Layout.columns(~S,layout) : Type} -> @-shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type} -> @-valid:{Layout.query_valid(~layout,~route) == True{} : Bool} -> @-Error:Data -> @-body:(U32 -> Layout.query_view(layout,route) -> Layout.query_output(layout,route) -> Layout.query_output(layout,route) & Maybe<&2,Error>) -> Q.Mode -> B -> B & Q.Each<S,H,Error>
 
-def OutputQuery(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
+def PureOutputQuery(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
   @-layout:Layout.Layout -> @-route:Layout.Route -> @-same:{C == Layout.columns(~S,layout) : Type} -> @-shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type} -> @-valid:{Layout.query_valid(~layout,~route) == True{} : Bool} -> @-O:Type -> @-Error:Data -> @-split:(O -> O & O) -> @-merge:(O -> O -> O) -> @-body:Q.OutputBody(~S,~layout,~route,~O,~Error) -> Q.Mode -> B -> B & Q.OutputEach<S,H,O,Error>
+def TaskOutputQuery(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
+  @-Permit:Data -> @-layout:Layout.Layout -> @-route:Layout.Route -> @-same:{C == Layout.columns(~S,layout) : Type} -> @-shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type} -> @-valid:{Layout.query_valid(~layout,~route) == True{} : Bool} -> @-O:Type -> @-Error:Data -> @-split:(O -> O & O) -> @-merge:(O -> O -> O) -> @-body:Q.TaskOutputBody(~S,~Permit,~layout,~route,~O,~Error) -> Q.Mode -> B -> B & Q.TaskOutputEach<S,Permit,H,O,Error>
+type OutputQueryCarrier<-S:Data,-C:Type,-R:Type,-H:Type,-B:Type> is Type:
+  OutputQueryCarrier{pure:PureOutputQuery(~S,~C,~R,~H,~B),task:TaskOutputQuery(~S,~C,~R,~H,~B)}
+def OutputQuery(~S:Data,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
+  OutputQueryCarrier<S,C,R,H,B>
 def GeneralQuery(~S:Data,~WC:Type,~C:Type,~R:Type,~H:Type,~B:Type) -> Type:
   @-full:Layout.Layout -> @-route:Layout.Route -> @-same:{WC == Layout.columns(~S,full) : Type} -> @-valid:{Layout.grant_valid(~full,~route) == True{} : Bool} -> @-model:Store.StorageModel -> @-local:{C == Store.owner(~S,full,model) : Type} -> @-kind:Recipe.QueryKind -> @-bound:Recipe.Bound -> @-presence:Match.Presence -> @-predicate:(Maybe<&2,Layout.view(full,route)> -> Bool) -> B -> B & Q.GeneralOps(~S,~Layout.payload(full,route),~Layout.view(full,route),kind,H)
 def QuerySelection(~S:Data,~WC:Type,~C:Type,~R:Type,~H:Type,~B:Type,~Ops:Type -> Type) -> Type:
@@ -76,7 +82,8 @@ def basic_query_selection(~S:Data,~WC:Type,~C:Type,~R:Type,~layout:Layout.Layout
 def basic_query(~S:Data,~WC:Type,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~Error:Data,~body:U32 -> Layout.query_view(layout,route) -> Layout.query_output(layout,route) -> Layout.query_output(layout,route) & Maybe<&2,Error>,~mode:Q.Mode,~H:Type,~B:Type,~query:Query(~S,~WC,~C,~R,~H,~B),book:B) -> B & Q.Each<S,H,Error>:
   query(Q.Ops(~S,~Error),basic_query_selection(~S,~WC,~C,~R,~layout,~route,~same,~shape,~valid,~Error,~body,~mode,~H,~B),book)
 def output_query_selection(~S:Data,~WC:Type,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~O:Type,~Error:Data,~split:O -> O & O,~merge:O -> O -> O,~body:Q.OutputBody(~S,~layout,~route,~O,~Error),~mode:Q.Mode,~H:Type,~B:Type,~basic:BasicQuery(~S,~C,~R,~H,~B),~output:OutputQuery(~S,~C,~R,~H,~B),~general:GeneralQuery(~S,~WC,~C,~R,~H,~B),book:B) -> B & Q.OutputEach<S,H,O,Error>:
-  output(layout,route,same,shape,valid,O,Error,split,merge,body,mode,book)
+  match output:
+    case OutputQueryCarrier{pure,_}:pure(layout,route,same,shape,valid,O,Error,split,merge,body,mode,book)
 def output_query(~S:Data,~WC:Type,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~O:Type,~Error:Data,~split:O -> O & O,~merge:O -> O -> O,~body:Q.OutputBody(~S,~layout,~route,~O,~Error),~mode:Q.Mode,~H:Type,~B:Type,~query:Query(~S,~WC,~C,~R,~H,~B),book:B) -> B & Q.OutputEach<S,H,O,Error>:
   query(Q.OutputOps(~S,~O,~Error),output_query_selection(~S,~WC,~C,~R,~layout,~route,~same,~shape,~valid,~O,~Error,~split,~merge,~body,~mode,~H,~B),book)
 
@@ -151,6 +158,9 @@ def query_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Rout
 def output_query_build(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~O:Type,~Error:Data,~split:O -> O & O,~merge:O -> O -> O,~body:Q.OutputBody(~S,~layout,~route,~O,~Error),mode:Q.Mode,book:Book) -> Book & Q.OutputEach<S,State.Scope<S,C,R>,O,Error>:
   accumulate(S,C,R,Q.OutputOps(~S,~O,~Error),book,Q.output_declaration(~S,~C,~R,~layout,~route,~same,~shape,~valid,~O,~Error,~split,~merge,~body,mode))
 
+def task_output_query_build(~S:Data,~C:Type,~R:Type,~Permit:Data,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~O:Type,~Error:Data,~split:O -> O & O,~merge:O -> O -> O,~body:Q.TaskOutputBody(~S,~Permit,~layout,~route,~O,~Error),mode:Q.Mode,book:Book) -> Book & Q.TaskOutputEach<S,Permit,State.Scope<S,C,R>,O,Error>:
+  accumulate(S,C,R,Q.TaskOutputOps(~S,~Permit,~O,~Error),book,Q.task_output_declaration(~S,~Permit,~C,~R,~layout,~route,~same,~shape,~valid,~O,~Error,~split,~merge,~body,mode))
+
 def unsupported_caps(~S:Data,~P:Type,~V:Data,~H:Type,kind:Recipe.QueryKind) -> Q.GeneralOps(~S,~P,~V,kind,H):
   match kind:
     case Recipe.ReadRows{}:Q.UnsupportedReader{}
@@ -173,7 +183,7 @@ def bound_access(~full:Layout.Layout,selection:Recipe.Bound) -> List<&2,D.Access
 def general_unsupported(~S:Data,~WC:Type,~C:Type,~R:Type,~full:Layout.Layout,~route:Layout.Route,~same:{WC == Layout.columns(~S,full) : Type},~valid:{Layout.grant_valid(~full,~route) == True{} : Bool},~model:Store.StorageModel,~local:{C == Store.owner(~S,full,model) : Type},~kind:Recipe.QueryKind,~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,Layout.view(full,route)> -> Bool,book:Book) -> Book & Q.GeneralOps(~S,~Layout.payload(full,route),~Layout.view(full,route),kind,State.Scope<S,C,R>):
   (general_book(book,Recipe.Entry{route,kind,bound,presence},general_access(Layout.key(full,route),kind) <> bound_access(~full,bound),False{}),unsupported_caps(~S,~Layout.payload(full,route),~Layout.view(full,route),~State.Scope<S,C,R>,kind))
 def query_provision(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Type -> Type,~selection:QuerySelection(~S,~WC,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
-  selection(query_build(~S,~C,~R),output_query_build(~S,~C,~R),general_unsupported(~S,~WC,~C,~R),book)
+  selection(query_build(~S,~C,~R),OutputQueryCarrier{output_query_build(~S,~C,~R),task_output_query_build(~S,~C,~R)},general_unsupported(~S,~WC,~C,~R),book)
 def removed_lifecycle_build(~S:Data,~WC:Type,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{WC == Layout.columns(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},book:Book) -> Book & Life.Next<S,State.Scope<S,C,R>,Layout.origin(layout,route),Notice.Removed{Layout.key(layout,route)}>:
   accumulate(S,C,R,Life.Ops(~S,~(Layout.origin(layout,route)),~(Notice.Removed{Layout.key(layout,route)})),book,Life.removed(~S,~WC,~C,~R,~layout,~route,~same,~valid))
 def despawn_lifecycle_build(~S:Data,~WC:Type,~C:Type,~R:Type,book:Book) -> Book & Life.Next<S,State.Scope<S,C,R>,Layout.EmptyLayout{},Notice.Despawned{}>:
@@ -206,7 +216,7 @@ def GeneralProvider(~S:Data,~WC:Type,~C:Type,~R:Type) -> Type:
 def general_build(~S:Data,~WC:Type,~C:Type,~R:Type,~provider:GeneralProvider(~S,~WC,~C,~R),~full:Layout.Layout,~route:Layout.Route,~same:{WC == Layout.columns(~S,full) : Type},~valid:{Layout.grant_valid(~full,~route) == True{} : Bool},~model:Store.StorageModel,~local:{C == Store.owner(~S,full,model) : Type},~kind:Recipe.QueryKind,~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,Layout.view(full,route)> -> Bool,book:Book) -> Book & Q.GeneralOps(~S,~Layout.payload(full,route),~Layout.view(full,route),kind,State.Scope<S,C,R>):
   (general_book(book,Recipe.Entry{route,kind,bound,presence},general_access(Layout.key(full,route),kind) <> bound_access(~full,bound),True{}),provider(full,route,same,valid,model,local,kind,bound,presence,predicate))
 def query_provision_with(~S:Data,~WC:Type,~C:Type,~R:Type,~provider:GeneralProvider(~S,~WC,~C,~R),~Ops:Type -> Type,~selection:QuerySelection(~S,~WC,~C,~R,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(State.Scope<S,C,R>):
-  selection(query_build(~S,~C,~R),output_query_build(~S,~C,~R),general_build(~S,~WC,~C,~R,~provider),book)
+  selection(query_build(~S,~C,~R),OutputQueryCarrier{output_query_build(~S,~C,~R),task_output_query_build(~S,~C,~R)},general_build(~S,~WC,~C,~R,~provider),book)
 def provision_with_general(~S:Data,~WC:Type,~C:Type,~R:Type,~Permit:Data,~provider:GeneralProvider(~S,~WC,~C,~R),~Ops:Data -> Type -> Type,~selection:Selection(~S,~WC,~C,~R,~Permit,~State.Scope<S,C,R>,~Book,~Ops),book:Book) -> Book & Ops(Permit,State.Scope<S,C,R>):
   selection(component_read_build(~S,~C,~R),component_write_build(~S,~C,~R),resource_read_provision(~S,~C,~R),resource_write_provision(~S,~C,~R),query_provision_with(~S,~WC,~C,~R,~provider),lifecycle_provision(~S,~WC,~C,~R),book)
 def compile_framework_with_general(~S:Data,~WC:Type,~C:Type,~R:Type,~provider:GeneralProvider(~S,~WC,~C,~R),~Ops:Data -> Type -> Type,~program:FrameworkProgram(~S,~WC,~C,~R,~Ops)) -> D.Compilation<S,WC,C,R,Ops>:
@@ -243,3 +253,9 @@ def compile_framework_with_interpreters(~S:Data,~WC:Type,~C:Type,~R:Type,~queryP
 
 def compile_with_interpreters(~S:Data,~WC:Type,~C:Type,~R:Type,~queryProvider:GeneralProvider(~S,~WC,~C,~R),~readProvider:ResourceReadProvider(~S,~C,~R),~writeProvider:ResourceWriteProvider(~S,~C,~R),~Ops:Data -> Type -> Type,~program:Program(~S,~WC,~C,~R,~Ops)) -> D.Compilation<S,WC,C,R,Ops>:
   compile_framework_with_interpreters(~S,~WC,~C,~R,~queryProvider,~readProvider,~writeProvider,~Ops,~framework_program(~S,~WC,~C,~R,~Ops,~program))
+
+def task_output_query_selection(~S:Data,~Permit:Data,~WC:Type,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~O:Type,~Error:Data,~split:O -> O & O,~merge:O -> O -> O,~body:Q.TaskOutputBody(~S,~Permit,~layout,~route,~O,~Error),~mode:Q.Mode,~H:Type,~B:Type,~basic:BasicQuery(~S,~C,~R,~H,~B),~output:OutputQuery(~S,~C,~R,~H,~B),~general:GeneralQuery(~S,~WC,~C,~R,~H,~B),book:B) -> B & Q.TaskOutputEach<S,Permit,H,O,Error>:
+  match output:
+    case OutputQueryCarrier{_,task}:task(Permit,layout,route,same,shape,valid,O,Error,split,merge,body,mode,book)
+def task_output_query(~S:Data,~Permit:Data,~WC:Type,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~O:Type,~Error:Data,~split:O -> O & O,~merge:O -> O -> O,~body:Q.TaskOutputBody(~S,~Permit,~layout,~route,~O,~Error),~mode:Q.Mode,~H:Type,~B:Type,~query:Query(~S,~WC,~C,~R,~H,~B),book:B) -> B & Q.TaskOutputEach<S,Permit,H,O,Error>:
+  query(Q.TaskOutputOps(~S,~Permit,~O,~Error),task_output_query_selection(~S,~Permit,~WC,~C,~R,~layout,~route,~same,~shape,~valid,~O,~Error,~split,~merge,~body,~mode,~H,~B),book)

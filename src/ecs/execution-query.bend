@@ -1,4 +1,5 @@
 import Base
+import ./execution-reservation-task.bend as Task
 import ./execution-query-identity.bend as Index
 import ./execution-query-domain.bend as Domain
 import ./execution-lifecycle-notices.bend as Notice
@@ -151,3 +152,30 @@ def GeneralOps(~S:Data,~P:Type,~V:Data,kind:Recipe.QueryKind,H:Type) -> Type:
   match kind:
     case Recipe.ReadRows{}:GeneralReader<S,H,V>
     case Recipe.WriteRows{}:GeneralWriter<S,H,P,V>
+
+def TaskOutputBody(~S:Data,~Permit:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data) -> Type:
+  W.Handle<S> -> Layout.query_view(layout,route) -> Layout.query_output(layout,route) -> O -> Task.Task<S,Permit,Layout.query_output(layout,route) & (O & Maybe<&2,E>)>
+type TaskOutputEach<-S:Data,-Permit:Data,-H:Type,-O:Type,-E:Data> is Type:
+  TaskOutputEach{run:H -> O -> Task.Task<S,Permit,H & (O & Report<E>)>}
+def TaskOutputOps(~S:Data,~Permit:Data,~O:Type,~E:Data,H:Type) -> Type:TaskOutputEach<S,Permit,H,O,E>
+def task_output_body_found(~S:Data,~Permit:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data,~body:TaskOutputBody(~S,~Permit,~layout,~route,~O,~E),view:Layout.query_view(layout,route),owner:Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}),output:O,found:Maybe<&2,W.Handle<S>>) -> Task.Task<S,Permit,Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}) & (O & Maybe<&2,E>)>:
+  match found owner:
+    case None{} owner:Task.TDone{(owner,(output,None{}))}
+    case Some{handle} Layout.Viewed{payload,_}:Task.TBind{Layout.query_output(layout,route) & (O & Maybe<&2,E>),body(handle,view,payload,output),result=>Task.TDone{Layout.rewritten(~Layout.subtree(layout,route),~Layout.InRight{Layout.AtLeaf{}},O & Maybe<&2,E>,result)}}
+def task_output_body(~S:Data,~Permit:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data,~body:TaskOutputBody(~S,~Permit,~layout,~route,~O,~E),handles:List<&2,W.Handle<S>>,index:U32,view:Layout.query_view(layout,route),owner:Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}),output:O) -> Task.Task<S,Permit,Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}) & (O & Maybe<&2,E>)>:
+  task_output_body_found(~S,~Permit,~layout,~route,~O,~E,~body,view,owner,output,selected_handle(~S,index,handles))
+def task_output_taken(~S:Data,~Permit:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:TaskOutputBody(~S,~Permit,~layout,~route,~O,~E),output:O,resource:R,+handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,+prior:Maybe<&2,Tick.Tick>,+mode:Mode,+selected:List<&2,U32>,result:Layout.subtree_rest(~S,layout,route) & Product.Owner<Col.Column<S,Layout.stored(Layout.subtree(layout,route),Layout.InLeft{Layout.AtLeaf{}})>,Col.Column<S,Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}})>>,+lifecycleView:Notice.View<S>) -> Task.Task<S,Permit,State.Scope<S,C,R> & (O & Report<E>)>:
+  match result:
+    case (rest,Product.Owner{read,write}):Task.TBind{Q.OutputRun<S,Layout.stored(Layout.subtree(layout,route),Layout.InLeft{Layout.AtLeaf{}}),Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}),O,E>,Q.with_task_output(~S,~Permit,~Layout.stored(Layout.subtree(layout,route),Layout.InLeft{Layout.AtLeaf{}}),~Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}),~O,~Layout.query_view(layout,route),~List<&2,W.Handle<S>>,~E,~Layout.read(~Layout.query_input(layout,route),~Layout.query_view(layout,route)),~task_output_body(~S,~Permit,~layout,~route,~O,~E,~body),~split,~merge,handles,read,write,output,0,tick,selection(mode,selected,prior),mode_parallel(mode)),result=>Task.TDone{output_returned(~S,~C,~R,~layout,~route,~same,~shape,~O,~E,rest,resource,handles,tick,prior,result,lifecycleView)}}
+def task_output_invoke_targets(~S:Data,~Permit:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:TaskOutputBody(~S,~Permit,~layout,~route,~O,~E),mode:Mode,scope:State.Scope<S,C,R>,output:O,targets:Index.TargetCheck<S>) -> Task.Task<S,Permit,State.Scope<S,C,R> & (O & Report<E>)>:
+  match scope targets:
+    case State.Scope{store,resource,handles,tick,prior,+lifecycleView} Index.Targets{_,Domain.Domain{selected}}:task_output_taken(~S,~Permit,~C,~R,~layout,~route,~same,~shape,~O,~E,~split,~merge,~body,output,resource,handles,tick,prior,mode,selected,layout_take(~S,~C,~layout,~route,~same,~shape,store),lifecycleView)
+    case scope Index.Refused{_}:Task.TDone{(scope,(output,LayoutRefused{}))}
+def task_output_invoke(~S:Data,~Permit:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:TaskOutputBody(~S,~Permit,~layout,~route,~O,~E),mode:Mode,scope:State.Scope<S,C,R>,output:O) -> Task.Task<S,Permit,State.Scope<S,C,R> & (O & Report<E>)>:
+  match scope:
+    case State.Scope{store,resource,+handles,tick,prior,+lifecycleView}:task_output_invoke_targets(~S,~Permit,~C,~R,~layout,~route,~same,~shape,~O,~E,~split,~merge,~body,mode,State.Scope{store,resource,handles,tick,prior,lifecycleView},output,Index.targets(~S,view_namespace(~S,lifecycleView),handles))
+def task_output_declaration(~S:Data,~Permit:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:TaskOutputBody(~S,~Permit,~layout,~route,~O,~E),mode:Mode) -> D.Declaration<S,C,R,TaskOutputOps(~S,~Permit,~O,~E)>:
+  D.Declaration{TaskOutputEach{task_output_invoke(~S,~Permit,~C,~R,~layout,~route,~same,~shape,~O,~E,~split,~merge,~body,mode)},[D.Access{Layout.query_read_key(layout,route),D.ComponentAccess{},D.Exclusive{},D.ReadOnly{}},D.Access{Layout.query_write_key(layout,route),D.ComponentAccess{},D.Exclusive{},D.Writable{}}]}
+def each_task_output(~S:Data,~Permit:Data,~H:Type,~O:Type,~E:Data,cap:TaskOutputEach<S,Permit,H,O,E>) -> H -> O -> Task.Task<S,Permit,H & (O & Report<E>)>:
+  match cap:
+    case TaskOutputEach{run}:run
