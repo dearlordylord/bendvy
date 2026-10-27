@@ -18,6 +18,7 @@ import ./execution-deferred-schedule.bend as DeferredSchedule
 import ./execution-command-retention.bend as Retention
 import ./execution-parallel-root-publication.bend as Publication
 import ./owner-product.bend as Product
+import ./execution-owner-continuation.bend as Continuation
 
 
 type Deferred is Data:
@@ -41,9 +42,14 @@ def condition_state(~World:Type,~Owners:Type,~Guards:Type,~Handler:Type,~Error:D
 def handled(~World:Type,~Owners:Type,~Guards:Type,~Handler:Type,world:World,owners:Owners,guards:Guards,bindings:List<&2,DepApp.Binding>,result:Handler & Exec.Handling) -> DepApp.State<World,Owners,Guards,Handler> & Exec.Handling:
   match result:
     case (handler,handling):(DepApp.State{world,owners,guards,handler,bindings},handling)
+def handled_held(~World:Type,~Owners:Type,~Guards:Type,~Handler:Type,result:(World & (Owners & (Guards & List<&2,DepApp.Binding>))) & (Handler & Exec.Handling)) -> DepApp.State<World,Owners,Guards,Handler> & Exec.Handling:
+  match result:
+    case ((world,(owners,(guards,bindings))),result):handled(~World,~Owners,~Guards,~Handler,world,owners,guards,bindings,result)
 def handle_state(~World:Type,~Owners:Type,~Guards:Type,~Handler:Type,~Error:Data,~handle:Handler -> Error -> Handler & Exec.Handling,state:DepApp.State<World,Owners,Guards,Handler>,error:Error) -> DepApp.State<World,Owners,Guards,Handler> & Exec.Handling:
   match state:
-    case DepApp.State{world,owners,guards,handler,bindings}:handled(~World,~Owners,~Guards,~Handler,world,owners,guards,bindings,handle(handler,error))
+    case DepApp.State{world,owners,guards,handler,bindings}:
+      header = Continuation.PairedHeader{World & (Owners & (Guards & List<&2,DepApp.Binding>)),(world,(owners,(guards,bindings))),handled_held(~World,~Owners,~Guards,~Handler)}
+      Continuation.paired_returned(Handler & Exec.Handling,DepApp.State<World,Owners,Guards,Handler> & Exec.Handling,header,handle(handler,error))
 def bound_entries(entries:List<&2,Part.Entry>,+bindings:List<&2,DepApp.Binding>,+guards:List<&2,Plan.Node<String>>) -> List<&2,Part.Entry>:
   match entries:
     case []:[]
