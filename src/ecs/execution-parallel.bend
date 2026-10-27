@@ -5,6 +5,7 @@ import ./execution-state.bend as State
 import ./execution-declaration.bend as D
 import ./execution-builder.bend as Build
 import ./execution-system.bend as Sys
+import ./execution-reservation-task.bend as Effect
 import ./world.bend as W
 import ./change-tick.bend as Tick
 
@@ -16,13 +17,13 @@ def completed(~Scope:Type,~Local:Type,~Error:Data,~Out:Data,result:Scope & (Loca
   match result:
     case (scope,(local,completion)):(scope,(local,Some{completion}))
 
-def trusted_invoke_compiled(~S:Data,~WC:Type,~C:Type,~R:Type,~Local:Type,~Error:Data,~Out:Data,~Ops:Type -> Type,~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),~compiledCaps:Ops(State.Scope<S,C,R>),allowed:Bool,scope:State.Scope<S,C,R>,local:Local,compilation:D.Compilation<S,WC,C,R,Ops>) -> State.Scope<S,C,R> & (Local & Maybe<&2,Sys.Completion<Error,Out>>):
+def trusted_invoke_compiled(~S:Data,~WC:Type,~C:Type,~R:Type,~Local:Type,~Error:Data,~Out:Data,~Ops:Data -> Type -> Type,~declaration:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~compiledCaps:Ops(Effect.Granted,State.Scope<S,C,R>),allowed:Bool,scope:State.Scope<S,C,R>,local:Local,compilation:D.Compilation<S,WC,C,R,Ops>) -> Effect.Task<S,Effect.Granted,State.Scope<S,C,R> & (Local & Maybe<&2,Sys.Completion<Error,Out>>)>:
   match allowed compilation:
-    case False{} _:(scope,(local,None{}))
-    case True{} D.Unsupported{_,_,_}:(scope,(local,None{}))
-    case True{} D.Supported{D.Declaration{_,_},_}:completed(~State.Scope<S,C,R>,~Local,~Error,~Out,body(State.Scope<S,C,R>,compiledCaps,scope,local))
-def trusted_invoke(~S:Data,~WC:Type,~C:Type,~R:Type,~Local:Type,~Error:Data,~Out:Data,~Ops:Type -> Type,~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),allowed:Bool,scope:State.Scope<S,C,R>,local:Local) -> State.Scope<S,C,R> & (Local & Maybe<&2,Sys.Completion<Error,Out>>):
-  trusted_invoke_compiled(~S,~WC,~C,~R,~Local,~Error,~Out,~Ops,~declaration,~body,~D.trusted_construction_caps(~S,~WC,~C,~R,~Ops,Build.compile(~S,~WC,~C,~R,~Ops,~declaration)),allowed,scope,local,Build.compile(~S,~WC,~C,~R,~Ops,~declaration))
+    case False{} _:Effect.TDone{(scope,(local,None{}))}
+    case True{} D.Unsupported{_,_,_}:Effect.TDone{(scope,(local,None{}))}
+    case True{} D.Supported{D.Declaration{_,_},_}:Sys.map(S,Effect.Granted,State.Scope<S,C,R> & (Local & Sys.Completion<Error,Out>),State.Scope<S,C,R> & (Local & Maybe<&2,Sys.Completion<Error,Out>>),body(Effect.Granted,State.Scope<S,C,R>,compiledCaps,scope,local),result => completed(~State.Scope<S,C,R>,~Local,~Error,~Out,result))
+def trusted_invoke(~S:Data,~WC:Type,~C:Type,~R:Type,~Local:Type,~Error:Data,~Out:Data,~Ops:Data -> Type -> Type,~declaration:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),allowed:Bool,scope:State.Scope<S,C,R>,local:Local) -> Effect.Task<S,Effect.Granted,State.Scope<S,C,R> & (Local & Maybe<&2,Sys.Completion<Error,Out>>)>:
+  trusted_invoke_compiled(~S,~WC,~C,~R,~Local,~Error,~Out,~Ops,~declaration,~body,~D.trusted_construction_caps(~S,~WC,~C,~R,~Ops,Build.compile_framework(~S,~WC,~C,~R,~Ops,~declaration)),allowed,scope,local,Build.compile_framework(~S,~WC,~C,~R,~Ops,~declaration))
 
 def join_right(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~LL:Type,~LR:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,lc:CL,lr:RL,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,lo:LL & Maybe<&2,Sys.Completion<EL,OL>>,right:State.Scope<S,CR,RR> & (LR & Maybe<&2,Sys.Completion<ER,OR>>)) -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & ((LL & Maybe<&2,Sys.Completion<EL,OL>>) & (LR & Maybe<&2,Sys.Completion<ER,OR>>)):
   match right:
@@ -32,16 +33,11 @@ def joined(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~LL:Type,~LR:Type,~EL:Dat
   match left:
     case (State.Scope{lc,lr,handles,tick,prior,+lifecycleView},lo):join_right(~S,~CL,~CR,~RL,~RR,~LL,~LR,~EL,~ER,~OL,~OR,lc,lr,handles,tick,prior,lo,right)
 
-def trusted_executed(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~LL:Type,~LR:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,~OpsL:Type -> Type,~OpsR:Type -> Type,~dl:Build.Program(~S,~Product.Owner<CL,CR>,~CL,~RL,~OpsL),~dr:Build.Program(~S,~Product.Owner<CL,CR>,~CR,~RR,~OpsR),~bl:@-H:Type -> @-caps:OpsL(H) -> H -> LL -> H & (LL & Sys.Completion<EL,OL>),~br:@-H:Type -> @-caps:OpsR(H) -> H -> LR -> H & (LR & Sys.Completion<ER,OR>),mode:Mode,allowLeft:Bool,allowRight:Bool,left:State.Scope<S,CL,RL>,right:State.Scope<S,CR,RR>,ll:LL,lr:LR) -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & ((LL & Maybe<&2,Sys.Completion<EL,OL>>) & (LR & Maybe<&2,Sys.Completion<ER,OR>>)):
+def trusted_executed(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~LL:Type,~LR:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,~OpsL:Data -> Type -> Type,~OpsR:Data -> Type -> Type,~dl:Build.FrameworkProgram(~S,~Product.Owner<CL,CR>,~CL,~RL,~OpsL),~dr:Build.FrameworkProgram(~S,~Product.Owner<CL,CR>,~CR,~RR,~OpsR),~bl:Sys.Body(~S,~OpsL,~LL,~EL,~OL),~br:Sys.Body(~S,~OpsR,~LR,~ER,~OR),mode:Mode,allowLeft:Bool,allowRight:Bool,left:State.Scope<S,CL,RL>,right:State.Scope<S,CR,RR>,ll:LL,lr:LR) -> Effect.Task<S,Effect.Granted,State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & ((LL & Maybe<&2,Sys.Completion<EL,OL>>) & (LR & Maybe<&2,Sys.Completion<ER,OR>>))>:
   match mode:
-    case Serial{}:
-      leftResult = trusted_invoke(~S,~Product.Owner<CL,CR>,~CL,~RL,~LL,~EL,~OL,~OpsL,~dl,~bl,allowLeft,left,ll)
-      rightResult = trusted_invoke(~S,~Product.Owner<CL,CR>,~CR,~RR,~LR,~ER,~OR,~OpsR,~dr,~br,allowRight,right,lr)
-      joined(~S,~CL,~CR,~RL,~RR,~LL,~LR,~EL,~ER,~OL,~OR,leftResult,rightResult)
-    case Native{}:
-      leftResult rightResult = trusted_invoke(~S,~Product.Owner<CL,CR>,~CL,~RL,~LL,~EL,~OL,~OpsL,~dl,~bl,allowLeft,left,ll) trusted_invoke(~S,~Product.Owner<CL,CR>,~CR,~RR,~LR,~ER,~OR,~OpsR,~dr,~br,allowRight,right,lr)
-      joined(~S,~CL,~CR,~RL,~RR,~LL,~LR,~EL,~ER,~OL,~OR,leftResult,rightResult)
+    case Serial{}:Effect.bind(S,Effect.Granted,State.Scope<S,CL,RL> & (LL & Maybe<&2,Sys.Completion<EL,OL>>),State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & ((LL & Maybe<&2,Sys.Completion<EL,OL>>) & (LR & Maybe<&2,Sys.Completion<ER,OR>>)),trusted_invoke(~S,~Product.Owner<CL,CR>,~CL,~RL,~LL,~EL,~OL,~OpsL,~dl,~bl,allowLeft,left,ll),leftResult => Sys.map(S,Effect.Granted,State.Scope<S,CR,RR> & (LR & Maybe<&2,Sys.Completion<ER,OR>>),State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & ((LL & Maybe<&2,Sys.Completion<EL,OL>>) & (LR & Maybe<&2,Sys.Completion<ER,OR>>)),trusted_invoke(~S,~Product.Owner<CL,CR>,~CR,~RR,~LR,~ER,~OR,~OpsR,~dr,~br,allowRight,right,lr),rightResult => joined(~S,~CL,~CR,~RL,~RR,~LL,~LR,~EL,~ER,~OL,~OR,leftResult,rightResult)))
+    case Native{}:Effect.TFork{State.Scope<S,CL,RL> & (LL & Maybe<&2,Sys.Completion<EL,OL>>),State.Scope<S,CR,RR> & (LR & Maybe<&2,Sys.Completion<ER,OR>>),trusted_invoke(~S,~Product.Owner<CL,CR>,~CL,~RL,~LL,~EL,~OL,~OpsL,~dl,~bl,allowLeft,left,ll),trusted_invoke(~S,~Product.Owner<CL,CR>,~CR,~RR,~LR,~ER,~OR,~OpsR,~dr,~br,allowRight,right,lr),leftResult => rightResult => Effect.TDone{joined(~S,~CL,~CR,~RL,~RR,~LL,~LR,~EL,~ER,~OL,~OR,leftResult,rightResult)}}
 
-def trusted_split(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~LL:Type,~LR:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,~OpsL:Type -> Type,~OpsR:Type -> Type,~dl:Build.Program(~S,~Product.Owner<CL,CR>,~CL,~RL,~OpsL),~dr:Build.Program(~S,~Product.Owner<CL,CR>,~CR,~RR,~OpsR),~bl:@-H:Type -> @-caps:OpsL(H) -> H -> LL -> H & (LL & Sys.Completion<EL,OL>),~br:@-H:Type -> @-caps:OpsR(H) -> H -> LR -> H & (LR & Sys.Completion<ER,OR>),mode:Mode,allowLeft:Bool,allowRight:Bool,scope:State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>>,rightTick:Tick.Tick,ll:LL,lr:LR) -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & ((LL & Maybe<&2,Sys.Completion<EL,OL>>) & (LR & Maybe<&2,Sys.Completion<ER,OR>>)):
+def trusted_split(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~LL:Type,~LR:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,~OpsL:Data -> Type -> Type,~OpsR:Data -> Type -> Type,~dl:Build.FrameworkProgram(~S,~Product.Owner<CL,CR>,~CL,~RL,~OpsL),~dr:Build.FrameworkProgram(~S,~Product.Owner<CL,CR>,~CR,~RR,~OpsR),~bl:Sys.Body(~S,~OpsL,~LL,~EL,~OL),~br:Sys.Body(~S,~OpsR,~LR,~ER,~OR),mode:Mode,allowLeft:Bool,allowRight:Bool,scope:State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>>,rightTick:Tick.Tick,ll:LL,lr:LR) -> Effect.Task<S,Effect.Granted,State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & ((LL & Maybe<&2,Sys.Completion<EL,OL>>) & (LR & Maybe<&2,Sys.Completion<ER,OR>>))>:
   match scope:
     case State.Scope{Product.Owner{lc,rc},Product.Owner{lres,rres},+handles,leftTick,+prior,+lifecycleView}:trusted_executed(~S,~CL,~CR,~RL,~RR,~LL,~LR,~EL,~ER,~OL,~OR,~OpsL,~OpsR,~dl,~dr,~bl,~br,mode,allowLeft,allowRight,State.Scope{lc,lres,handles,leftTick,prior,lifecycleView},State.Scope{rc,rres,handles,rightTick,prior,lifecycleView},ll,lr)
