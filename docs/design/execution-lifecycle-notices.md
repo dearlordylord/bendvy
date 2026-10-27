@@ -260,10 +260,12 @@ remain the documented trusted construction boundary. Bare Scope helpers that
 assume preparation must be internal adapters, with ordinary callers migrated to
 the qualified carrier in the same change.
 
-Implementation status: the indexed Builder, Owner, Task metadata, lifecycle and
-Tree compilation source entries have passed bounded source checks. The prepared
-carrier migration and all ordinary consumers are still pending; this section
-records the selected target, not evidence of completion.
+Implementation status: this integration candidate contains the indexed Builder,
+Owner, Task metadata, Prepared carrier and current caller migrations from private
+checkpoint `58866f54b`. The author retained bounded source-check results for the
+current callers. This candidate still needs integrated checks, the approved
+foreign-Scope backend run and the unchanged normal example checks. Source
+compatibility does not establish completion of GH85.
 
 The carrier also retains a Data provenance tree. Each leaf records its actual
 preparing namespace and exact permit list; each pair preserves left/right
@@ -299,12 +301,13 @@ Positive correct-World definition and exact-owner detached restoration pass;
 wrong-World definition and detached WC laundering fail at their intended WC and
 Meta-owner mismatches. Source logs remain under `/tmp/gh85-source-window`.
 
-Current caller migration remains incomplete. Historical connected-performance,
-feature-timing and public-scopes/ordinary-v1 archives remain frozen. Qualified
-ordinary Scope/command wrappers are wired through Tree and Root; the remaining
-lower-level standalone adapter audit, all current caller migrations, full notice
-reader scenarios, intended controls, backend capture and independent review gates
-remain open. Existing filter/history/scheduled and event-case oracles are intact.
+The candidate includes the current caller migrations and the lower-level adapter
+changes from the private checkpoint. Historical connected-performance,
+feature-timing and public-scopes/ordinary-v1 archives remain frozen. Ordinary
+Scope/command wrappers use the indexed Tree and Root path. Full notice-reader
+scenarios, integrated authority checks, backend captures and remaining acceptance
+gates stay open. Existing filter/history/scheduled and event-case oracles remain
+unchanged; their earlier results do not qualify the new candidate source.
 
 ### Ordinary authority callgraph and raw adapters
 
