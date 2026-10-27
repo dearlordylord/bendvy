@@ -1,6 +1,6 @@
 import Base
 import ./execution-reservation-task.bend as Effect
-import ./execution-reservation-permit.bend as RuntimePermit
+import ./execution-reservation-authority.bend as RuntimePermit
 import ./execution-reservation-driver.bend as Driver
 import ./execution-system.bend as Sys
 import ./execution-prepared.bend as Prep

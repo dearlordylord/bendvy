@@ -6,7 +6,7 @@ import ./execution-declaration.bend as D
 import ./execution-builder.bend as Build
 import ./execution-reservation-task.bend as Effect
 import ./execution-reservation-driver.bend as Driver
-import ./execution-reservation-permit.bend as RuntimePermit
+import ./execution-reservation-authority.bend as RuntimePermit
 
 type Completion<Error:Data,Out:Data> is Data:
   Success{output:Out}
@@ -50,7 +50,7 @@ def driven(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type
 def separated_compilation(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Body(~S,~Ops,~Local,~Error,~Out),~compiledCaps:Ops(Effect.Granted,State.Scope<S,C,R>),+namespace:U32,+id:U32,name:String,access:List<&2,String>,prior:Maybe<&2,Tick.Tick>,local:Local,+tick:Tick.Tick,admin:State.Administration<S,C,R,E>,scope:State.Scope<S,C,R>,compilation:D.Compilation<S,C,C,R,Ops>) -> IO(RunResult<W.World<S,C,R,E>,Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>):
   match compilation:
     case D.Unsupported{_,_,_}:IO.pure(RunResult<W.World<S,C,R,E>,Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>,Refused{State.reassemble(~S,~C,~R,~E,admin,scope),Owner{namespace,id,name,access,prior,local}})
-    case D.Supported{D.Declaration{_,_},_}:IO.bind(State.Administration<S,C,R,E> & (State.Scope<S,C,R> & (Local & Completion<Error,Out>)),RunResult<W.World<S,C,R,E>,Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>,Driver.run(~S,~C,~R,~E,(State.Scope<S,C,R> & (Local & Completion<Error,Out>)),[id],admin,Effect.map_permit(~S,~Effect.Granted,~RuntimePermit.Permit,~(State.Scope<S,C,R> & (Local & Completion<Error,Out>)),~RuntimePermit.Context,~RuntimePermit.qualify,RuntimePermit.Context{namespace,id,RuntimePermit.NoStructural{}},body(Effect.Granted,State.Scope<S,C,R>,compiledCaps,State.window(~S,~C,~R,scope,prior),local))),result => driven(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,namespace,id,name,access,tick,result))
+    case D.Supported{D.Declaration{_,_},_}:IO.bind(State.Administration<S,C,R,E> & (State.Scope<S,C,R> & (Local & Completion<Error,Out>)),RunResult<W.World<S,C,R,E>,Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>,Driver.run(~S,~C,~R,~E,(State.Scope<S,C,R> & (Local & Completion<Error,Out>)),[id],admin,Effect.qualify(S,(State.Scope<S,C,R> & (Local & Completion<Error,Out>)),RuntimePermit.Context{namespace,id,RuntimePermit.NoStructural{}},body(Effect.Granted,State.Scope<S,C,R>,compiledCaps,State.window(~S,~C,~R,scope,prior),local))),result => driven(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,namespace,id,name,access,tick,result))
 def separated(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Body(~S,~Ops,~Local,~Error,~Out),~compiledCaps:Ops(Effect.Granted,State.Scope<S,C,R>),compilation:D.Compilation<S,C,C,R,Ops>,namespace:U32,id:U32,name:String,access:List<&2,String>,prior:Maybe<&2,Tick.Tick>,local:Local,+tick:Tick.Tick,result:State.Administration<S,C,R,E> & State.Scope<S,C,R>) -> IO(RunResult<W.World<S,C,R,E>,Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>):
   match result:
     case (admin,scope):separated_compilation(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~compiledCaps,namespace,id,name,access,prior,local,tick,admin,scope,compilation)
@@ -81,8 +81,10 @@ def run_compilation(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~L
     case D.Unsupported{_,_,_}:IO.pure(RunResult<W.World<S,C,R,E>,Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>,Refused{world,system})
     case D.Supported{compiledDeclaration,recipes}:run_supported(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~compiledCaps,D.Supported{compiledDeclaration,recipes},system,world)
 
+def run_constructed(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Body(~S,~Ops,~Local,~Error,~Out),~compilation:D.Compilation<S,C,C,R,Ops>,system:Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,world:W.World<S,C,R,E>) -> IO(RunResult<W.World<S,C,R,E>,Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>):
+  run_compilation(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~D.trusted_construction_caps(~S,~C,~C,~R,~Ops,compilation),compilation,system,world)
 def run(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.FrameworkProgram(~S,~C,~C,~R,~Ops),~body:Body(~S,~Ops,~Local,~Error,~Out),system:Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,world:W.World<S,C,R,E>) -> IO(RunResult<W.World<S,C,R,E>,Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>):
-  run_compilation(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~D.trusted_construction_caps(~S,~C,~C,~R,~Ops,Build.compile_framework(~S,~C,~C,~R,~Ops,~declaration)),Build.compile_framework(~S,~C,~C,~R,~Ops,~declaration),system,world)
+  run_constructed(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~Build.compile_framework(~S,~C,~C,~R,~Ops,~declaration),system,world)
 
 def metadata(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Data -> Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),~body:Body(~S,~Ops,~Local,~Error,~Out),system:Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>) -> Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body> & W.RegistrationMeta:
   match system:
