@@ -185,3 +185,88 @@ completion adapter's actual Reader, Scope, and user owner. They do not prove all
 reader bodies or the ordinary false-condition branch. The checker reports seven
 TODOs and no type or affinity errors. No proof or ordinary GH89 completion is
 claimed.
+
+## Retained canonical resource context
+
+`execution-relation-context.from_schema` consumes the actual result of
+`Schema.create` or `Schema.trusted_create_seeded`. On SchemaCreated it retains the
+actual Factory and World and obtains its namespace through World.namespace. The
+returned Context carries the forward resource equality in its type:
+
+```text
+Context<S,WR,resources,same: WR == Layout.resources(S,resources)> {
+  namespace: U32
+}
+Bound<S,WR,resources,same,Application> {
+  context: Context<S,WR,resources,same>,
+  application: Application
+}
+```
+
+Schema and namespace refusals retain the incoming resource owner and Factory.
+The Context is framework setup metadata. It is not a gameplay grant or a
+replacement description of World ownership.
+
+A relation Binding additionally carries exact route, descriptor, payload, view,
+and protected policy proofs in its type. Its resource key and full origin follow
+from the same complete resource layout and route. The payload equality explicitly
+relates Layout.payload to Store<S,descriptor>. The view equality explicitly relates
+Layout.view to View<S,descriptor>. Neither is inferred from a key string or a
+ProtectedRelation policy tag.
+
+`execution-relation-resource-publication.apply` takes the actual allocator and
+resource owner through that forward equality. It selects the canonical slot,
+invokes the existing slot publication helper, and structurally restores the full
+resource owner. `execution-relation-world-publication.apply` preserves the actual
+World fields around that operation. A context namespace mismatch returns the
+original World, Binding, operation, and typed refusal before resource extraction.
+The operation remains complete in every receipt and published failure message,
+including foreign namespaces and all reorder children.
+
+These helpers do not install the pending AccessPolicy field on Layout. The closed
+provider must instantiate the Binding's policy from that actual leaf field and
+reject generic Basic and General writes before clock entry or owner extraction.
+Supplying a policy proof separately is not evidence that this shared boundary is
+already connected.
+
+### Proposed Root and command threading
+
+The executor owner is changing Root's scheduled state to retain the actual World,
+owners, guards, handler, plan, bindings, rules, and deferred settings. The following
+changes target that same ordinary executor and existing command queue.
+
+1. Ordinary setup wraps the scheduled application in Bound with the original
+   Context returned from SchemaCreated. Setup does not recreate this context from
+   a later World during execution.
+2. Root adds bound native and serial entry adapters. Each adapter checks the
+   original Context against the actual scheduled World before any preparation,
+   body, barrier, or clock advancement. Refusal returns the entire Bound value and
+   RunReport.ContextRefused. Success calls the existing executor and wraps its
+   report in RunReport.RunReported.
+3. The Root entry retains the static full resource layout and forward equality.
+   Thread those templates through RootPublication.pending and apply_deferred,
+   Tree.compile's publication adapter, CommandScope.publish, and Cmd.publish.
+   Pending applicability still runs before clock advancement.
+4. Cmd.publish uses the actual namespace already retained by Sys.Owner after the
+   existing Task.verify check. This supplies the per-barrier Context namespace.
+   Only static schema proofs reach erased executor callbacks. A runtime Context
+   is not captured inside an erased callback, and Cmd.Owner need not gain a new
+   unrelated World resource parameter.
+5. The same closed command declaration lowers relation grants into typed Bindings
+   and derived access metadata. A runtime resource route selects an already typed
+   binding. Route or key equality never manufactures its payload or policy proof.
+6. The existing Buffer's Relation variant invokes WorldPublication.apply with the
+   selected binding and captured barrier tick. Insert, remove, despawn, and spawn
+   retain their existing ownership and queue order. No new World callback or
+   parallel command queue is introduced.
+
+Root and Tree remain executor-owned. Buffer, command permissions, and publication
+remain command-owner work. Layout, Builder, and resource admission remain the
+resource owner's work. This checkpoint changes none of those shared files.
+
+The context-law draft quantifies an actual affine World. Its only observations
+are the actual World namespace and its mismatch with the retained Context.
+The statement preserves that World, Binding, and operation on refusal. Its checker
+reports one TODO and no type or affinity errors. It is unapproved and unproved.
+The new helpers compile normally with Bend 2.0.35. Ordinary Root wiring, protected
+policy enforcement, and the scoped-scene application remain incomplete.
