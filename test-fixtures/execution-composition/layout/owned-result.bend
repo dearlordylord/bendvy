@@ -1,4 +1,5 @@
 import Base
+import ../../../src/ecs/execution-resource-policy.bend as Policy
 import ../../../src/ecs/execution-composer-layout.bend as Layout
 import ../../../src/ecs/execution-builder.bend as Build
 import ../../../src/ecs/execution-access.bend as Access
@@ -19,7 +20,7 @@ def viewed(slot:Maybe<&1,Array<U32>>,result:Array<U32> & U32) -> Mailbox & U32:
 def view(owner:Mailbox) -> Mailbox & U32:
   match owner:
     case Mailbox{token,slot}:viewed(slot,Array.get(U32,token,0))
-def resource_layout() -> Layout.Layout:Layout.LayoutLeaf{Mailbox,U32,view,"mailbox"}
+def resource_layout() -> Layout.Layout:Layout.LayoutLeaf{Mailbox,U32,view,"mailbox",Policy.Ordinary{}}
 def Resources() -> Type:Layout.resources(~Nominal,resource_layout())
 def World() -> Type:W.World<Nominal,Unit,Resources(),Unit>
 def Ops(H:Type) -> Type:Access.ResourceWrite<H,Mailbox,U32>

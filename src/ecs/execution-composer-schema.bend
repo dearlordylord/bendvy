@@ -1,4 +1,5 @@
 import Base
+import ./execution-resource-policy.bend as Policy
 import ./clock-state.bend as Clock
 import ./ordinary-declaration.bend as Identity
 import ./ordinary-schema.bend as Resource
@@ -11,20 +12,20 @@ import ./world.bend as W
 type FragmentSchema<-S:Data,-C:Type,-R:Type> is Data:
   FragmentSchema{entries:List<&2,Fragment.Entry<S>>}
 def component(~S:Data,~P:Type,~V:Data,~refresh:P -> P & V,identity:Identity.Declaration<S,P>) -> Layout.Layout:
-  Layout.LayoutLeaf{P,V,refresh,Identity.key(~S,~P,identity)}
+  Layout.LayoutLeaf{P,V,refresh,Identity.key(~S,~P,identity),Policy.Ordinary{}}
 def resource(~S:Data,~P:Type,~V:Data,~refresh:P -> P & V,identity:Resource.Resource<S,P>) -> Layout.Layout:
-  Layout.LayoutLeaf{P,V,refresh,Resource.resource_key(~S,~P,identity)}
+  Layout.LayoutLeaf{P,V,refresh,Resource.resource_key(~S,~P,identity),Policy.Ordinary{}}
 def plain(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,~V:Data,~refresh:P -> P & V,extension:Persist.Plain<S,P,identity>) -> Layout.Layout:
-  Layout.ClassifiedLayoutLeaf{P,V,refresh,Identity.key(~S,~P,identity),Fragment.Plain{}}
+  Layout.ClassifiedLayoutLeaf{P,V,refresh,Identity.key(~S,~P,identity),Fragment.Plain{},Policy.Ordinary{}}
 def transient(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,~V:Data,~refresh:P -> P & V,extension:Persist.Transient<S,P,identity>) -> Layout.Layout:
-  Layout.ClassifiedLayoutLeaf{P,V,refresh,Identity.key(~S,~P,identity),Fragment.Transient{}}
+  Layout.ClassifiedLayoutLeaf{P,V,refresh,Identity.key(~S,~P,identity),Fragment.Transient{},Policy.Ordinary{}}
 def constructed(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & Decode.Raw,~V:Data,~refresh:P -> P & V,extension:Persist.Constructed<S,P,identity,project>) -> Layout.Layout:
-  Layout.ClassifiedLayoutLeaf{P,V,refresh,Identity.key(~S,~P,identity),Fragment.Constructed{}}
+  Layout.ClassifiedLayoutLeaf{P,V,refresh,Identity.key(~S,~P,identity),Fragment.Constructed{},Policy.Ordinary{}}
 def layout_entries(~S:Data,+kind:Fragment.RegistryKind,layout:Layout.Layout) -> List<&2,Fragment.Entry<S>>:
   match layout:
     case Layout.EmptyLayout{}:[]
-    case Layout.LayoutLeaf{_,_,_,+key}:[Fragment.Entry{kind,key,key}]
-    case Layout.ClassifiedLayoutLeaf{_,_,_,+key,persistence}:[Fragment.Classified{kind,key,key,persistence}]
+    case Layout.LayoutLeaf{_,_,_,+key,_}:[Fragment.Entry{kind,key,key}]
+    case Layout.ClassifiedLayoutLeaf{_,_,_,+key,persistence,_}:[Fragment.Classified{kind,key,key,persistence}]
     case Layout.LayoutPair{left,right}:List.append(&2,Fragment.Entry<S>,layout_entries(~S,kind,left),layout_entries(~S,kind,right))
 def inventory(~S:Data,~components:Layout.Layout,~resources:Layout.Layout) -> List<&2,Fragment.Entry<S>>:
   List.append(&2,Fragment.Entry<S>,layout_entries(~S,Fragment.Component{},components),layout_entries(~S,Fragment.Resource{},resources))

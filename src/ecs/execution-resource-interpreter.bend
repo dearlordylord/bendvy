@@ -56,5 +56,5 @@ def write_caps(~S:Data,~C:Type,~R:Type,~full:L.Layout,~route:L.Route,model:Store
 # Closed ordinary framework dictionary; callers select no independent grants.
 def read_dictionary(~S:Data,~C:Type,~R:Type,~full:L.Layout,~route:L.Route,~valid:{L.grant_valid(~full,~route) == True{} : Bool},~model:Store.Model,~local:{R == Store.owner(~S,full,model) : Type}) -> A.Reader<State.Scope<S,C,R>,L.view(full,route)>:
   read_caps(~S,~C,~R,~full,~route,model,local)
-def write_dictionary(~S:Data,~C:Type,~R:Type,~full:L.Layout,~route:L.Route,~valid:{L.grant_valid(~full,~route) == True{} : Bool},~model:Store.Model,~local:{R == Store.owner(~S,full,model) : Type}) -> A.Writer<State.Scope<S,C,R>,L.payload(full,route),L.view(full,route)>:
+def write_dictionary(~S:Data,~C:Type,~R:Type,~full:L.Layout,~route:L.Route,~valid:{L.resource_write_valid(~full,~route) == True{} : Bool},~model:Store.Model,~local:{R == Store.owner(~S,full,model) : Type}) -> A.Writer<State.Scope<S,C,R>,L.payload(full,route),L.view(full,route)>:
   write_caps(~S,~C,~R,~full,~route,model,local)

@@ -1,4 +1,5 @@
 import Base
+import ./execution-resource-policy.bend as Policy
 import ./execution-composer-layout.bend as L
 import ./execution-query-domain.bend as D
 import ./execution-query-matches.bend as Q
@@ -61,8 +62,8 @@ def append_route(prefix:L.Route,+suffix:L.Route) -> L.Route:
 def inspect(~S:Data,layout:L.Layout,+route:L.Route,+left:List<&2,Entry>,+right:List<&2,Entry>,columns:L.columns(~S,layout)) -> L.columns(~S,layout) & Bool:
   match layout columns:
     case L.EmptyLayout{} Unit{}:(Unit{},True{})
-    case L.LayoutLeaf{P,V,refresh,key} L.ColumnSlot{column}:checked_leaf(S,P,V,key,L.LayoutLeaf{P,V,refresh,key},route,left,right,Part.inspect(S,L.Viewed<P,V>,column))
-    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind} L.ColumnSlot{column}:checked_leaf(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind},route,left,right,Part.inspect(S,L.Viewed<P,V>,column))
+    case L.LayoutLeaf{P,V,refresh,key,accessPolicy} L.ColumnSlot{column}:checked_leaf(S,P,V,key,L.LayoutLeaf{P,V,refresh,key,accessPolicy},route,left,right,Part.inspect(S,L.Viewed<P,V>,column))
+    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy} L.ColumnSlot{column}:checked_leaf(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy},route,left,right,Part.inspect(S,L.Viewed<P,V>,column))
     case L.LayoutPair{ll,rr} Product.Owner{l,r}:checked_pair(S,ll,rr,inspect(~S,ll,append_route(route,L.InLeft{L.AtLeaf{}}),left,right,l),inspect(~S,rr,append_route(route,L.InRight{L.AtLeaf{}}),left,right,r))
 
 def cached_cell(-P:Type,-V:Data,+offset:U32,result:Array<Maybe<&1,L.Viewed<P,V>>> & Maybe<&1,L.Viewed<P,V>>) -> Array<Maybe<&1,L.Viewed<P,V>>> & Q.Row<V>:
@@ -100,8 +101,8 @@ type Family<-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout> is Type:
 def families(~S:Data,layout:L.Layout) -> Type:
   match layout:
     case L.EmptyLayout{}:Unit
-    case L.LayoutLeaf{P,V,refresh,key}:Family<S,P,V,key,L.LayoutLeaf{P,V,refresh,key}>
-    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}:Family<S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}>
+    case L.LayoutLeaf{P,V,refresh,key,accessPolicy}:Family<S,P,V,key,L.LayoutLeaf{P,V,refresh,key,accessPolicy}>
+    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}:Family<S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}>
     case L.LayoutPair{left,right}:Product.Owner<families(~S,left),families(~S,right)>
 def cut_cached(-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout,left:D.Access,right:D.Access,result:Col.Column<S,L.Viewed<P,V>> & List<&2,Q.Row<V>>) -> Family<S,P,V,key,origin>:
   match left right result:
@@ -109,8 +110,8 @@ def cut_cached(-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout,left:D.Acces
 def cut_tree(~S:Data,layout:L.Layout,+route:L.Route,+left:List<&2,Entry>,+right:List<&2,Entry>,columns:L.columns(~S,layout)) -> families(~S,layout):
   match layout columns:
     case L.EmptyLayout{} Unit{}:Unit{}
-    case L.LayoutLeaf{P,V,refresh,key} L.ColumnSlot{column}:cut_cached(S,P,V,key,L.LayoutLeaf{P,V,refresh,key},entry_access(route,left),entry_access(route,right),cache_column(S,P,V,column,0))
-    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind} L.ColumnSlot{column}:cut_cached(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind},entry_access(route,left),entry_access(route,right),cache_column(S,P,V,column,0))
+    case L.LayoutLeaf{P,V,refresh,key,accessPolicy} L.ColumnSlot{column}:cut_cached(S,P,V,key,L.LayoutLeaf{P,V,refresh,key,accessPolicy},entry_access(route,left),entry_access(route,right),cache_column(S,P,V,column,0))
+    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy} L.ColumnSlot{column}:cut_cached(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy},entry_access(route,left),entry_access(route,right),cache_column(S,P,V,column,0))
     case L.LayoutPair{ll,rr} Product.Owner{l,r}:Product.Owner{cut_tree(~S,ll,append_route(route,L.InLeft{L.AtLeaf{}}),left,right,l),cut_tree(~S,rr,append_route(route,L.InRight{L.AtLeaf{}}),left,right,r)}
 type Partition<-S:Data,-full:L.Layout> is Type:
   Refused{columns:L.columns(~S,full)}
@@ -132,14 +133,14 @@ type Recovery<-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout> is Type:
 def recoveries(~S:Data,layout:L.Layout) -> Type:
   match layout:
     case L.EmptyLayout{}:Unit
-    case L.LayoutLeaf{P,V,refresh,key}:Recovery<S,P,V,key,L.LayoutLeaf{P,V,refresh,key}>
-    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}:Recovery<S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}>
+    case L.LayoutLeaf{P,V,refresh,key,accessPolicy}:Recovery<S,P,V,key,L.LayoutLeaf{P,V,refresh,key,accessPolicy}>
+    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}:Recovery<S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}>
     case L.LayoutPair{left,right}:Product.Owner<recoveries(~S,left),recoveries(~S,right)>
 def displacements(~S:Data,layout:L.Layout) -> Type:
   match layout:
     case L.EmptyLayout{}:Unit
-    case L.LayoutLeaf{P,V,_,_}:List<&1,Part.Cell<L.Viewed<P,V>>>
-    case L.ClassifiedLayoutLeaf{P,V,_,_,_}:List<&1,Part.Cell<L.Viewed<P,V>>>
+    case L.LayoutLeaf{P,V,_,_,_}:List<&1,Part.Cell<L.Viewed<P,V>>>
+    case L.ClassifiedLayoutLeaf{P,V,_,_,_,_}:List<&1,Part.Cell<L.Viewed<P,V>>>
     case L.LayoutPair{left,right}:Product.Owner<displacements(~S,left),displacements(~S,right)>
 def recovered(-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout,result:Part.Joined<S,L.Viewed<P,V>>) -> Recovery<S,P,V,key,origin>:
   match result:
@@ -152,8 +153,8 @@ def restore_family(-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout,family:F
 def restore_tree(~S:Data,layout:L.Layout,tree:families(~S,layout)) -> recoveries(~S,layout):
   match layout tree:
     case L.EmptyLayout{} Unit{}:Unit{}
-    case L.LayoutLeaf{P,V,refresh,key} family:restore_family(S,P,V,key,L.LayoutLeaf{P,V,refresh,key},family)
-    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind} family:restore_family(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind},family)
+    case L.LayoutLeaf{P,V,refresh,key,accessPolicy} family:restore_family(S,P,V,key,L.LayoutLeaf{P,V,refresh,key,accessPolicy},family)
+    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy} family:restore_family(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy},family)
     case L.LayoutPair{ll,rr} Product.Owner{l,r}:Product.Owner{restore_tree(~S,ll,l),restore_tree(~S,rr,r)}
 type Assembly<-S:Data,-full:L.Layout> is Type:
   Assembled{columns:L.columns(~S,full),displaced:displacements(~S,full)}
@@ -173,10 +174,10 @@ def assembled_pair(~S:Data,-ll:L.Layout,-rr:L.Layout,left:Staged<S,ll>,right:Sta
 def assemble(~S:Data,layout:L.Layout,tree:recoveries(~S,layout)) -> Staged<S,layout>:
   match layout tree:
     case L.EmptyLayout{} Unit{}:Staged{Unit{},Unit{},(columns => displaced => Unit{})}
-    case L.LayoutLeaf{_,_,_,_} Recovered{column,displaced}:Staged{column,displaced,(column => displaced => Recovered{column,displaced})}
-    case L.LayoutLeaf{_,_,_,_} tree:StagingRefused{tree}
-    case L.ClassifiedLayoutLeaf{_,_,_,_,_} Recovered{column,displaced}:Staged{column,displaced,(column => displaced => Recovered{column,displaced})}
-    case L.ClassifiedLayoutLeaf{_,_,_,_,_} tree:StagingRefused{tree}
+    case L.LayoutLeaf{_,_,_,_,_} Recovered{column,displaced}:Staged{column,displaced,(column => displaced => Recovered{column,displaced})}
+    case L.LayoutLeaf{_,_,_,_,_} tree:StagingRefused{tree}
+    case L.ClassifiedLayoutLeaf{_,_,_,_,_,_} Recovered{column,displaced}:Staged{column,displaced,(column => displaced => Recovered{column,displaced})}
+    case L.ClassifiedLayoutLeaf{_,_,_,_,_,_} tree:StagingRefused{tree}
     case L.LayoutPair{ll,rr} Product.Owner{l,r}:assembled_pair(~S,ll,rr,assemble(~S,ll,l),assemble(~S,rr,r))
 def finish(~S:Data,-full:L.Layout,result:Staged<S,full>) -> Assembly<S,full>:
   match result:
@@ -185,8 +186,8 @@ def finish(~S:Data,-full:L.Layout,result:Staged<S,full>) -> Assembly<S,full>:
 def empty_displacements(~S:Data,layout:L.Layout) -> displacements(~S,layout):
   match layout:
     case L.EmptyLayout{}:Unit{}
-    case L.LayoutLeaf{_,_,_,_}:[]
-    case L.ClassifiedLayoutLeaf{_,_,_,_,_}:[]
+    case L.LayoutLeaf{_,_,_,_,_}:[]
+    case L.ClassifiedLayoutLeaf{_,_,_,_,_,_}:[]
     case L.LayoutPair{left,right}:Product.Owner{empty_displacements(~S,left),empty_displacements(~S,right)}
 def rejoin(~S:Data,~full:L.Layout,partition:Partition<S,full>) -> Assembly<S,full>:
   match partition:
@@ -220,6 +221,6 @@ def described_pair(~S:Data,-ll:L.Layout,-rr:L.Layout,left:Description<S,ll>,righ
 def describe(~S:Data,layout:L.Layout,+route:L.Route,columns:L.columns(~S,layout)) -> Description<S,layout>:
   match layout columns:
     case L.EmptyLayout{} Unit{}:Description{Unit{},[],True{}}
-    case L.LayoutLeaf{P,V,refresh,key} L.ColumnSlot{column}:leaf_description(S,P,V,Description<S,L.LayoutLeaf{P,V,refresh,key}>,(column => info => valid => Description{L.ColumnSlot{column},[info],valid}),describe_leaf(S,P,V,route,column))
-    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind} L.ColumnSlot{column}:leaf_description(S,P,V,Description<S,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}>,(column => info => valid => Description{L.ColumnSlot{column},[info],valid}),describe_leaf(S,P,V,route,column))
+    case L.LayoutLeaf{P,V,refresh,key,accessPolicy} L.ColumnSlot{column}:leaf_description(S,P,V,Description<S,L.LayoutLeaf{P,V,refresh,key,accessPolicy}>,(column => info => valid => Description{L.ColumnSlot{column},[info],valid}),describe_leaf(S,P,V,route,column))
+    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy} L.ColumnSlot{column}:leaf_description(S,P,V,Description<S,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}>,(column => info => valid => Description{L.ColumnSlot{column},[info],valid}),describe_leaf(S,P,V,route,column))
     case L.LayoutPair{ll,rr} Product.Owner{l,r}:described_pair(~S,ll,rr,describe(~S,ll,append_route(route,L.InLeft{L.AtLeaf{}}),l),describe(~S,rr,append_route(route,L.InRight{L.AtLeaf{}}),r))

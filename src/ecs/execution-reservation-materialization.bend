@@ -1,4 +1,5 @@
 import Base
+import ./execution-resource-policy.bend as Policy
 import ./execution-reservation-bundle.bend as Bundle
 import ./execution-composer-layout.bend as Layout
 import ./execution-command-permission.bend as Permission
@@ -59,8 +60,8 @@ def check_pair(~S:Data,-left:Layout.Layout,-right:Layout.Layout,checkLeft:U32 ->
 def check(~S:Data,layout:Layout.Layout) -> U32 -> Layout.columns(~S,layout) -> Bundle.Payload(layout) -> Layout.columns(~S,layout) & (Bundle.Payload(layout) & Maybe<&2,Bundle.Refusal>):
   match layout:
     case Layout.EmptyLayout{}:index => store => bundle => (store,(bundle,None{}))
-    case Layout.LayoutLeaf{P,V,refresh,key}:check_leaf(~S,P,V,key,Layout.LayoutLeaf{P,V,refresh,key})
-    case Layout.ClassifiedLayoutLeaf{P,V,refresh,key,policy}:check_leaf(~S,P,V,key,Layout.ClassifiedLayoutLeaf{P,V,refresh,key,policy})
+    case Layout.LayoutLeaf{P,V,refresh,key,accessPolicy}:check_leaf(~S,P,V,key,Layout.LayoutLeaf{P,V,refresh,key,accessPolicy})
+    case Layout.ClassifiedLayoutLeaf{P,V,refresh,key,policy,accessPolicy}:check_leaf(~S,P,V,key,Layout.ClassifiedLayoutLeaf{P,V,refresh,key,policy,accessPolicy})
     case Layout.LayoutPair{left,right}:index => store => bundle => check_pair(~S,left,right,check(~S,left),check(~S,right),index,store,bundle)
 
 # Internal storage primitive, called only after whole-tree preflight and ensure.
@@ -111,8 +112,8 @@ def install_pair(~S:Data,-left:Layout.Layout,-right:Layout.Layout,installLeft:U3
 def install(~S:Data,layout:Layout.Layout) -> U32 -> Tick.Tick -> Layout.columns(~S,layout) -> Bundle.Payload(layout) -> Layout.columns(~S,layout) & Bundle.Payload(layout):
   match layout:
     case Layout.EmptyLayout{}:index => tick => store => bundle => (store,Unit{})
-    case Layout.LayoutLeaf{P,V,refresh,key}:index => tick => slot => bundle => install_leaf(~S,P,V,refresh,key,Layout.LayoutLeaf{P,V,refresh,key},index,tick,slot,bundle)
-    case Layout.ClassifiedLayoutLeaf{P,V,refresh,key,policy}:index => tick => slot => bundle => install_leaf(~S,P,V,refresh,key,Layout.ClassifiedLayoutLeaf{P,V,refresh,key,policy},index,tick,slot,bundle)
+    case Layout.LayoutLeaf{P,V,refresh,key,accessPolicy}:index => tick => slot => bundle => install_leaf(~S,P,V,refresh,key,Layout.LayoutLeaf{P,V,refresh,key,accessPolicy},index,tick,slot,bundle)
+    case Layout.ClassifiedLayoutLeaf{P,V,refresh,key,policy,accessPolicy}:index => tick => slot => bundle => install_leaf(~S,P,V,refresh,key,Layout.ClassifiedLayoutLeaf{P,V,refresh,key,policy,accessPolicy},index,tick,slot,bundle)
     case Layout.LayoutPair{left,right}:index => tick => store => bundle => install_pair(~S,left,right,install(~S,left),install(~S,right),index,tick,store,bundle)
 
 def assembled(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,allocator:A.Allocator,rest:Remainder<S,Layout.columns(~S,layout),R,E>,store:Layout.columns(~S,layout)) -> W.World<S,Layout.columns(~S,layout),R,E>:

@@ -1,4 +1,5 @@
 import Base
+import ../../../src/ecs/execution-resource-policy.bend as Policy
 import ../../../src/ecs/chunk-column.bend as Column
 import ../../../test-fixtures/common/column-observation.bend as Observe
 import ../../../src/ecs/schema-fragments.bend as Fragment
@@ -16,7 +17,7 @@ def other_done(result:Array<U32> & U32) -> Other & U32:
 def refresh_other(owner:Other) -> Other & U32:
   match owner:
     case Other{owner}:other_done(Array.get(U32,owner,0))
-def layout() -> Layout.Layout:Layout.LayoutPair{Registered.layout(),Layout.ClassifiedLayoutLeaf{Other,U32,refresh_other,"other",Fragment.Plain{}}}
+def layout() -> Layout.Layout:Layout.LayoutPair{Registered.layout(),Layout.ClassifiedLayoutLeaf{Other,U32,refresh_other,"other",Fragment.Plain{},Policy.Ordinary{}}}
 
 def take(owner:Layout.columns(~Schema,layout())) -> Layout.columns(~Schema,layout()) & Product.Owner<Maybe<&1,P.Token>,Maybe<&1,Other>>:
   Removed.take(~Schema,layout())(1,owner)

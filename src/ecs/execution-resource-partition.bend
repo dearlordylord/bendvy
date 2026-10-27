@@ -1,4 +1,5 @@
 import Base
+import ./execution-resource-policy.bend as Policy
 import ./execution-composer-layout.bend as L
 import ./execution-resource-recipe.bend as Recipe
 import ./execution-resource-store.bend as Store
@@ -14,8 +15,8 @@ type Family<-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout> is Type:
 def families(~S:Data,layout:L.Layout) -> Type:
   match layout:
     case L.EmptyLayout{}:Unit
-    case L.LayoutLeaf{P,V,refresh,key}:Family<S,P,V,key,L.LayoutLeaf{P,V,refresh,key}>
-    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}:Family<S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}>
+    case L.LayoutLeaf{P,V,refresh,key,accessPolicy}:Family<S,P,V,key,L.LayoutLeaf{P,V,refresh,key,accessPolicy}>
+    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}:Family<S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}>
     case L.LayoutPair{left,right}:Product.Owner<families(~S,left),families(~S,right)>
 type JoinOwner<-S:Data,-full:L.Layout> is Type:
   JoinOwner{namespace:U32,left:List<&2,Recipe.Entry>,right:List<&2,Recipe.Entry>}
@@ -34,8 +35,8 @@ def split_family(-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout,owner:P,+v
 def scatter(~S:Data,layout:L.Layout,+route:L.Route,+left:List<&2,Recipe.Entry>,+right:List<&2,Recipe.Entry>,resources:L.resources(~S,layout)) -> families(~S,layout):
   match layout resources:
     case L.EmptyLayout{} Unit{}:Unit{}
-    case L.LayoutLeaf{P,V,refresh,key} L.ResourceSlot{L.Viewed{owner,view},stamp}:split_family(S,P,V,key,L.LayoutLeaf{P,V,refresh,key},owner,view,stamp,Recipe.at(route,left),Recipe.at(route,right))
-    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind} L.ResourceSlot{L.Viewed{owner,view},stamp}:split_family(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind},owner,view,stamp,Recipe.at(route,left),Recipe.at(route,right))
+    case L.LayoutLeaf{P,V,refresh,key,accessPolicy} L.ResourceSlot{L.Viewed{owner,view},stamp}:split_family(S,P,V,key,L.LayoutLeaf{P,V,refresh,key,accessPolicy},owner,view,stamp,Recipe.at(route,left),Recipe.at(route,right))
+    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy} L.ResourceSlot{L.Viewed{owner,view},stamp}:split_family(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy},owner,view,stamp,Recipe.at(route,left),Recipe.at(route,right))
     case L.LayoutPair{ll,rr} Product.Owner{l,r}:Product.Owner{scatter(~S,ll,Routes.append_route(route,L.InLeft{L.AtLeaf{}}),left,right,l),scatter(~S,rr,Routes.append_route(route,L.InRight{L.AtLeaf{}}),left,right,r)}
 def cut_checked(~S:Data,~full:L.Layout,+namespace:U32,+left:List<&2,Recipe.Entry>,+right:List<&2,Recipe.Entry>,resources:L.resources(~S,full),valid:Bool) -> Cut<S,full>:
   match valid:
@@ -74,8 +75,8 @@ def checked_pair(~S:Data,-ll:L.Layout,-rr:L.Layout,left:families(~S,ll) & Bool,r
 def inspect(~S:Data,layout:L.Layout,+route:L.Route,+left:List<&2,Recipe.Entry>,+right:List<&2,Recipe.Entry>,tree:families(~S,layout)) -> families(~S,layout) & Bool:
   match layout tree:
     case L.EmptyLayout{} Unit{}:(Unit{},True{})
-    case L.LayoutLeaf{P,V,refresh,key} family:check_family(S,P,V,key,L.LayoutLeaf{P,V,refresh,key},Recipe.at(route,left),Recipe.at(route,right),family)
-    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind} family:check_family(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind},Recipe.at(route,left),Recipe.at(route,right),family)
+    case L.LayoutLeaf{P,V,refresh,key,accessPolicy} family:check_family(S,P,V,key,L.LayoutLeaf{P,V,refresh,key,accessPolicy},Recipe.at(route,left),Recipe.at(route,right),family)
+    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy} family:check_family(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy},Recipe.at(route,left),Recipe.at(route,right),family)
     case L.LayoutPair{ll,rr} Product.Owner{l,r}:checked_pair(~S,ll,rr,inspect(~S,ll,Routes.append_route(route,L.InLeft{L.AtLeaf{}}),left,right,l),inspect(~S,rr,Routes.append_route(route,L.InRight{L.AtLeaf{}}),left,right,r))
 
 type Recovery<-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout> is Type:
@@ -84,8 +85,8 @@ type Recovery<-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout> is Type:
 def recoveries(~S:Data,layout:L.Layout) -> Type:
   match layout:
     case L.EmptyLayout{}:Unit
-    case L.LayoutLeaf{P,V,refresh,key}:Recovery<S,P,V,key,L.LayoutLeaf{P,V,refresh,key}>
-    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}:Recovery<S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}>
+    case L.LayoutLeaf{P,V,refresh,key,accessPolicy}:Recovery<S,P,V,key,L.LayoutLeaf{P,V,refresh,key,accessPolicy}>
+    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}:Recovery<S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}>
     case L.LayoutPair{left,right}:Product.Owner<recoveries(~S,left),recoveries(~S,right)>
 def recovered_rest(-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout,resource:L.ResourceSlot<S,L.Viewed<P,V>,key,origin>) -> Recovery<S,P,V,key,origin>:
   match resource:
@@ -99,8 +100,8 @@ def recover_family(-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout,family:F
 def recover(~S:Data,layout:L.Layout,tree:families(~S,layout)) -> recoveries(~S,layout):
   match layout tree:
     case L.EmptyLayout{} Unit{}:Unit{}
-    case L.LayoutLeaf{P,V,refresh,key} family:recover_family(S,P,V,key,L.LayoutLeaf{P,V,refresh,key},family)
-    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind} family:recover_family(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind},family)
+    case L.LayoutLeaf{P,V,refresh,key,accessPolicy} family:recover_family(S,P,V,key,L.LayoutLeaf{P,V,refresh,key,accessPolicy},family)
+    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy} family:recover_family(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy},family)
     case L.LayoutPair{ll,rr} Product.Owner{left,right}:Product.Owner{recover(~S,ll,left),recover(~S,rr,right)}
 type Stage<-S:Data,-full:L.Layout> is Type:
   Ready{resources:L.resources(~S,full),stamps:List<&2,StampEntry>,restore:L.resources(~S,full) -> recoveries(~S,full)}
@@ -114,19 +115,19 @@ def staged_pair(~S:Data,-ll:L.Layout,-rr:L.Layout,left:Stage<S,ll>,right:Stage<S
     case Ready{left,_,restore} Unready{right}:Unready{Product.Owner{restore(left),right}}
     case Unready{left} Ready{right,_,restore}:Unready{Product.Owner{left,restore(right)}}
     case Unready{left} Unready{right}:Unready{Product.Owner{left,right}}
-def stage_plain(-S:Data,-P:Type,-V:Data,-refresh:P -> P & V,-key:String,route:L.Route,recovery:Recovery<S,P,V,key,L.LayoutLeaf{P,V,refresh,key}>) -> Stage<S,L.LayoutLeaf{P,V,refresh,key}>:
+def stage_plain(-S:Data,-P:Type,-V:Data,-refresh:P -> P & V,-key:String,-accessPolicy:Policy.Policy,route:L.Route,recovery:Recovery<S,P,V,key,L.LayoutLeaf{P,V,refresh,key,accessPolicy}>) -> Stage<S,L.LayoutLeaf{P,V,refresh,key,accessPolicy}>:
   match recovery:
     case Recovered{resource,+stamp}:Ready{resource,[StampEntry{route,stamp}],(resource => Recovered{resource,stamp})}
     case recovery:Unready{recovery}
-def stage_classified(-S:Data,-P:Type,-V:Data,-refresh:P -> P & V,-key:String,-kind:Fragment.PersistenceKind,route:L.Route,recovery:Recovery<S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}>) -> Stage<S,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}>:
+def stage_classified(-S:Data,-P:Type,-V:Data,-refresh:P -> P & V,-key:String,-kind:Fragment.PersistenceKind,-accessPolicy:Policy.Policy,route:L.Route,recovery:Recovery<S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}>) -> Stage<S,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}>:
   match recovery:
     case Recovered{resource,+stamp}:Ready{resource,[StampEntry{route,stamp}],(resource => Recovered{resource,stamp})}
     case recovery:Unready{recovery}
 def stage(~S:Data,layout:L.Layout,+route:L.Route,inventory:recoveries(~S,layout)) -> Stage<S,layout>:
   match layout inventory:
     case L.EmptyLayout{} Unit{}:Ready{Unit{},[],(owner => Unit{})}
-    case L.LayoutLeaf{P,V,refresh,key} recovery:stage_plain(S,P,V,refresh,key,route,recovery)
-    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind} recovery:stage_classified(S,P,V,refresh,key,kind,route,recovery)
+    case L.LayoutLeaf{P,V,refresh,key,accessPolicy} recovery:stage_plain(S,P,V,refresh,key,accessPolicy,route,recovery)
+    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy} recovery:stage_classified(S,P,V,refresh,key,kind,accessPolicy,route,recovery)
     case L.LayoutPair{ll,rr} Product.Owner{left,right}:staged_pair(~S,ll,rr,stage(~S,ll,Routes.append_route(route,L.InLeft{L.AtLeaf{}}),left),stage(~S,rr,Routes.append_route(route,L.InRight{L.AtLeaf{}}),right))
 type Joined<-S:Data,-full:L.Layout> is Type:
   Joined{resources:L.resources(~S,full),stamps:List<&2,StampEntry>}

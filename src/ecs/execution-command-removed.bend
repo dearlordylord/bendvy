@@ -1,4 +1,5 @@
 import Base
+import ./execution-resource-policy.bend as Policy
 import ./execution-lifecycle-notices.bend as Notice
 import ./change-tick.bend as Tick
 import ./execution-composer-layout.bend as Layout
@@ -10,8 +11,8 @@ import ./owner-product.bend as Product
 def Removed(layout:Layout.Layout) -> Type:
   match layout:
     case Layout.EmptyLayout{}:Unit
-    case Layout.LayoutLeaf{P,_,_,_}:Maybe<&1,P>
-    case Layout.ClassifiedLayoutLeaf{P,_,_,_,_}:Maybe<&1,P>
+    case Layout.LayoutLeaf{P,_,_,_,_}:Maybe<&1,P>
+    case Layout.ClassifiedLayoutLeaf{P,_,_,_,_,_}:Maybe<&1,P>
     case Layout.LayoutPair{left,right}:Product.Owner<Removed(left),Removed(right)>
 def raw(-P:Type,-V:Data,value:Maybe<&1,Layout.Viewed<P,V>>) -> Maybe<&1,P>:
   match value:
@@ -35,8 +36,8 @@ def pair(~S:Data,-left:Layout.Layout,-right:Layout.Layout,takeLeft:U32 -> Layout
 def take(~S:Data,layout:Layout.Layout) -> U32 -> Layout.columns(~S,layout) -> Layout.columns(~S,layout) & Removed(layout):
   match layout:
     case Layout.EmptyLayout{}:index => owner => (owner,Unit{})
-    case Layout.LayoutLeaf{P,V,refresh,key}:leaf(~S,P,V,key,Layout.LayoutLeaf{P,V,refresh,key})
-    case Layout.ClassifiedLayoutLeaf{P,V,refresh,key,policy}:leaf(~S,P,V,key,Layout.ClassifiedLayoutLeaf{P,V,refresh,key,policy})
+    case Layout.LayoutLeaf{P,V,refresh,key,accessPolicy}:leaf(~S,P,V,key,Layout.LayoutLeaf{P,V,refresh,key,accessPolicy})
+    case Layout.ClassifiedLayoutLeaf{P,V,refresh,key,policy,accessPolicy}:leaf(~S,P,V,key,Layout.ClassifiedLayoutLeaf{P,V,refresh,key,policy,accessPolicy})
     case Layout.LayoutPair{left,right}:index => owner => pair(~S,left,right,take(~S,left),take(~S,right),index,owner)
 
 # Inspect actual displaced owners once and return those same owners. No cached
@@ -57,6 +58,6 @@ def noticed_pair(~S:Data,-left:Layout.Layout,-right:Layout.Layout,noticeLeft:Not
 def notices(~S:Data,layout:Layout.Layout) -> Notice.Identity<S> -> Tick.Tick -> Notice.Journal<S> -> Removed(layout) -> Notice.Journal<S> & Removed(layout):
   match layout:
     case Layout.EmptyLayout{}:entity => tick => journal => removed => (journal,removed)
-    case Layout.LayoutLeaf{P,_,_,key}:noticed_leaf(~S,P,key)
-    case Layout.ClassifiedLayoutLeaf{P,_,_,key,_}:noticed_leaf(~S,P,key)
+    case Layout.LayoutLeaf{P,_,_,key,_}:noticed_leaf(~S,P,key)
+    case Layout.ClassifiedLayoutLeaf{P,_,_,key,_,_}:noticed_leaf(~S,P,key)
     case Layout.LayoutPair{left,right}:entity => tick => journal => removed => noticed_pair(~S,left,right,notices(~S,left),notices(~S,right),entity,tick,journal,removed)

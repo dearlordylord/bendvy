@@ -1,4 +1,5 @@
 import Base
+import ./execution-resource-policy.bend as Policy
 import ./execution-query-schema.bend as Schema
 import ./execution-query-slice.bend as Slice
 import ./execution-query-matches.bend as Q
@@ -18,14 +19,14 @@ type Rest<-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout> is Type:
 def stores(~S:Data,layout:L.Layout) -> Type:
   match layout:
     case L.EmptyLayout{}:Unit
-    case L.LayoutLeaf{P,V,refresh,key}:Slot<S,P,V,L.LayoutLeaf{P,V,refresh,key}>
-    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}:Slot<S,P,V,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}>
+    case L.LayoutLeaf{P,V,refresh,key,accessPolicy}:Slot<S,P,V,L.LayoutLeaf{P,V,refresh,key,accessPolicy}>
+    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}:Slot<S,P,V,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}>
     case L.LayoutPair{left,right}:Product.Owner<stores(~S,left),stores(~S,right)>
 def retained(~S:Data,layout:L.Layout) -> Type:
   match layout:
     case L.EmptyLayout{}:Unit
-    case L.LayoutLeaf{P,V,refresh,key}:Rest<S,P,V,key,L.LayoutLeaf{P,V,refresh,key}>
-    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}:Rest<S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}>
+    case L.LayoutLeaf{P,V,refresh,key,accessPolicy}:Rest<S,P,V,key,L.LayoutLeaf{P,V,refresh,key,accessPolicy}>
+    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}:Rest<S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}>
     case L.LayoutPair{left,right}:Product.Owner<retained(~S,left),retained(~S,right)>
 type Separation<-S:Data,-full:L.Layout> is Type:
   Separated{left:stores(~S,full),right:stores(~S,full),rest:retained(~S,full),repack:stores(~S,full) -> stores(~S,full) -> retained(~S,full) -> Schema.families(~S,full)}
@@ -33,13 +34,13 @@ type Separation<-S:Data,-full:L.Layout> is Type:
 def family_repack(-S:Data,-P:Type,-V:Data,-key:String,-origin:L.Layout,left:Slot<S,P,V,origin>,right:Slot<S,P,V,origin>,rest:Rest<S,P,V,key,origin>) -> Schema.Family<S,P,V,key,origin>:
   match left right rest:
     case Slot{Slice.Slot{left},lc} Slot{Slice.Slot{right},rc} Rest{column,join}:Schema.Family{Part.Split{column,left,right,join},lc,rc}
-def separate_plain(-S:Data,-P:Type,-V:Data,-refresh:P -> P & V,-key:String,family:Schema.Family<S,P,V,key,L.LayoutLeaf{P,V,refresh,key}>) -> Separation<S,L.LayoutLeaf{P,V,refresh,key}>:
+def separate_plain(-S:Data,-P:Type,-V:Data,-refresh:P -> P & V,-key:String,-accessPolicy:Policy.Policy,family:Schema.Family<S,P,V,key,L.LayoutLeaf{P,V,refresh,key,accessPolicy}>) -> Separation<S,L.LayoutLeaf{P,V,refresh,key,accessPolicy}>:
   match family:
-    case Schema.Family{Part.Split{column,left,right,join},lc,rc}:Separated{Slot{Slice.Slot{left},lc},Slot{Slice.Slot{right},rc},Rest{column,join},(left => right => rest => family_repack(S,P,V,key,L.LayoutLeaf{P,V,refresh,key},left,right,rest))}
+    case Schema.Family{Part.Split{column,left,right,join},lc,rc}:Separated{Slot{Slice.Slot{left},lc},Slot{Slice.Slot{right},rc},Rest{column,join},(left => right => rest => family_repack(S,P,V,key,L.LayoutLeaf{P,V,refresh,key,accessPolicy},left,right,rest))}
     case family:SeparationRefused{family}
-def separate_classified(-S:Data,-P:Type,-V:Data,-refresh:P -> P & V,-key:String,-kind:Fragment.PersistenceKind,family:Schema.Family<S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}>) -> Separation<S,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind}>:
+def separate_classified(-S:Data,-P:Type,-V:Data,-refresh:P -> P & V,-key:String,-kind:Fragment.PersistenceKind,-accessPolicy:Policy.Policy,family:Schema.Family<S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}>) -> Separation<S,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}>:
   match family:
-    case Schema.Family{Part.Split{column,left,right,join},lc,rc}:Separated{Slot{Slice.Slot{left},lc},Slot{Slice.Slot{right},rc},Rest{column,join},(left => right => rest => family_repack(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind},left,right,rest))}
+    case Schema.Family{Part.Split{column,left,right,join},lc,rc}:Separated{Slot{Slice.Slot{left},lc},Slot{Slice.Slot{right},rc},Rest{column,join},(left => right => rest => family_repack(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy},left,right,rest))}
     case family:SeparationRefused{family}
 
 def pair_repack(~S:Data,-ll:L.Layout,-rr:L.Layout,lp:stores(~S,ll) -> stores(~S,ll) -> retained(~S,ll) -> Schema.families(~S,ll),rp:stores(~S,rr) -> stores(~S,rr) -> retained(~S,rr) -> Schema.families(~S,rr),left:stores(~S,L.LayoutPair{ll,rr}),right:stores(~S,L.LayoutPair{ll,rr}),rest:retained(~S,L.LayoutPair{ll,rr})) -> Schema.families(~S,L.LayoutPair{ll,rr}):
@@ -54,16 +55,16 @@ def separated_pair(~S:Data,-leftLayout:L.Layout,-rightLayout:L.Layout,left:Separ
 def separate(~S:Data,layout:L.Layout,tree:Schema.families(~S,layout)) -> Separation<S,layout>:
   match layout tree:
     case L.EmptyLayout{} Unit{}:Separated{Unit{},Unit{},Unit{},(left => right => rest => Unit{})}
-    case L.LayoutLeaf{P,V,refresh,key} family:separate_plain(S,P,V,refresh,key,family)
-    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind} family:separate_classified(S,P,V,refresh,key,kind,family)
+    case L.LayoutLeaf{P,V,refresh,key,accessPolicy} family:separate_plain(S,P,V,refresh,key,accessPolicy,family)
+    case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy} family:separate_classified(S,P,V,refresh,key,kind,accessPolicy,family)
     case L.LayoutPair{ll,rr} Product.Owner{l,r}:separated_pair(~S,ll,rr,separate(~S,ll,l),separate(~S,rr,r))
 def reunite(~S:Data,~full:L.Layout,left:stores(~S,full),right:stores(~S,full),rest:retained(~S,full),repack:stores(~S,full) -> stores(~S,full) -> retained(~S,full) -> Schema.families(~S,full)) -> Schema.Assembly<S,full>:
   Schema.rejoin(~S,~full,Schema.PartitionedInventory{repack(left,right,rest)})
 
 def route_rest(~S:Data,layout:L.Layout,route:L.Route) -> Type:
   match layout route:
-    case L.LayoutLeaf{_,_,_,_} L.AtLeaf{}:Unit
-    case L.ClassifiedLayoutLeaf{_,_,_,_,_} L.AtLeaf{}:Unit
+    case L.LayoutLeaf{_,_,_,_,_} L.AtLeaf{}:Unit
+    case L.ClassifiedLayoutLeaf{_,_,_,_,_,_} L.AtLeaf{}:Unit
     case L.LayoutPair{left,right} L.InLeft{rest}:stores(~S,right) & route_rest(~S,left,rest)
     case L.LayoutPair{left,right} L.InRight{rest}:stores(~S,left) & route_rest(~S,right,rest)
     case layout _:stores(~S,layout)
@@ -75,24 +76,24 @@ def empty_slot(-S:Data,-P:Type,-V:Data,-origin:L.Layout) -> Slot<S,P,V,origin>:
 def take(~S:Data,layout:L.Layout,route:L.Route,owner:stores(~S,layout)) -> route_rest(~S,layout,route) & Slot<S,L.payload(layout,route),L.view(layout,route),L.origin(layout,route)>:
   match layout route owner:
     case L.EmptyLayout{} _ owner:(owner,empty_slot(S,Unit,Unit,L.EmptyLayout{}))
-    case L.LayoutLeaf{_,_,_,_} L.AtLeaf{} owner:(Unit{},owner)
-    case L.ClassifiedLayoutLeaf{_,_,_,_,_} L.AtLeaf{} owner:(Unit{},owner)
-    case L.LayoutLeaf{_,_,_,_} L.InLeft{_} owner:(owner,empty_slot(S,Unit,Unit,L.EmptyLayout{}))
-    case L.LayoutLeaf{_,_,_,_} L.InRight{_} owner:(owner,empty_slot(S,Unit,Unit,L.EmptyLayout{}))
-    case L.ClassifiedLayoutLeaf{_,_,_,_,_} L.InLeft{_} owner:(owner,empty_slot(S,Unit,Unit,L.EmptyLayout{}))
-    case L.ClassifiedLayoutLeaf{_,_,_,_,_} L.InRight{_} owner:(owner,empty_slot(S,Unit,Unit,L.EmptyLayout{}))
+    case L.LayoutLeaf{_,_,_,_,_} L.AtLeaf{} owner:(Unit{},owner)
+    case L.ClassifiedLayoutLeaf{_,_,_,_,_,_} L.AtLeaf{} owner:(Unit{},owner)
+    case L.LayoutLeaf{_,_,_,_,_} L.InLeft{_} owner:(owner,empty_slot(S,Unit,Unit,L.EmptyLayout{}))
+    case L.LayoutLeaf{_,_,_,_,_} L.InRight{_} owner:(owner,empty_slot(S,Unit,Unit,L.EmptyLayout{}))
+    case L.ClassifiedLayoutLeaf{_,_,_,_,_,_} L.InLeft{_} owner:(owner,empty_slot(S,Unit,Unit,L.EmptyLayout{}))
+    case L.ClassifiedLayoutLeaf{_,_,_,_,_,_} L.InRight{_} owner:(owner,empty_slot(S,Unit,Unit,L.EmptyLayout{}))
     case L.LayoutPair{_,_} L.AtLeaf{} owner:(owner,empty_slot(S,Unit,Unit,L.EmptyLayout{}))
     case L.LayoutPair{left,right} L.InLeft{rest} Product.Owner{l,r}:route_joined(stores(~S,right),route_rest(~S,left,rest),Slot<S,L.payload(left,rest),L.view(left,rest),L.origin(left,rest)>,r,take(~S,left,rest,l))
     case L.LayoutPair{left,right} L.InRight{rest} Product.Owner{l,r}:route_joined(stores(~S,left),route_rest(~S,right,rest),Slot<S,L.payload(right,rest),L.view(right,rest),L.origin(right,rest)>,l,take(~S,right,rest,r))
 def put(~S:Data,layout:L.Layout,route:L.Route,rest:route_rest(~S,layout,route),slot:Slot<S,L.payload(layout,route),L.view(layout,route),L.origin(layout,route)>) -> stores(~S,layout):
   match layout route rest:
     case L.EmptyLayout{} _ rest:rest
-    case L.LayoutLeaf{_,_,_,_} L.AtLeaf{} _:slot
-    case L.ClassifiedLayoutLeaf{_,_,_,_,_} L.AtLeaf{} _:slot
-    case L.LayoutLeaf{_,_,_,_} L.InLeft{_} rest:rest
-    case L.LayoutLeaf{_,_,_,_} L.InRight{_} rest:rest
-    case L.ClassifiedLayoutLeaf{_,_,_,_,_} L.InLeft{_} rest:rest
-    case L.ClassifiedLayoutLeaf{_,_,_,_,_} L.InRight{_} rest:rest
+    case L.LayoutLeaf{_,_,_,_,_} L.AtLeaf{} _:slot
+    case L.ClassifiedLayoutLeaf{_,_,_,_,_,_} L.AtLeaf{} _:slot
+    case L.LayoutLeaf{_,_,_,_,_} L.InLeft{_} rest:rest
+    case L.LayoutLeaf{_,_,_,_,_} L.InRight{_} rest:rest
+    case L.ClassifiedLayoutLeaf{_,_,_,_,_,_} L.InLeft{_} rest:rest
+    case L.ClassifiedLayoutLeaf{_,_,_,_,_,_} L.InRight{_} rest:rest
     case L.LayoutPair{_,_} L.AtLeaf{} rest:rest
     case L.LayoutPair{left,right} L.InLeft{path}, (outer,inner):Product.Owner{put(~S,left,path,inner,slot),outer}
     case L.LayoutPair{left,right} L.InRight{path}, (outer,inner):Product.Owner{outer,put(~S,right,path,inner,slot)}

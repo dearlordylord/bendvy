@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-resource-policy.bend as Policy
 import ../../src/ecs/execution-event-family.bend as Event
 import ../../src/ecs/execution-event-view.bend as View
 import ../../src/ecs/execution-event-ops.bend as Ops
@@ -8,7 +9,7 @@ import ../../src/ecs/execution-composer-layout.bend as Layout
 import ../../src/ecs/execution-system.bend as Sys
 import ../../src/ecs/owned-event-log.bend as Log
 
-def layout(~S:Data,~P:Type,~project:P -> P & U32) -> Layout.Layout:Layout.LayoutLeaf{Event.Family<S,P,"events">,View.View<S,P,"events",U32>,View.refresh(~S,~P,~"events",~U32,~project),"events"}
+def layout(~S:Data,~P:Type,~project:P -> P & U32) -> Layout.Layout:Layout.LayoutLeaf{Event.Family<S,P,"events">,View.View<S,P,"events",U32>,View.refresh(~S,~P,~"events",~U32,~project),"events",Policy.Ordinary{}}
 def Resources(~S:Data,~P:Type,~project:P -> P & U32) -> Type:Layout.resources(~S,layout(~S,~P,~project))
 def Writers(~P:Type,H:Type) -> Type:Ops.Writer<H,P>
 def Readers(~S:Data,~P:Type,H:Type) -> Type:Ops.Reader<S,H,P,"events",U32>

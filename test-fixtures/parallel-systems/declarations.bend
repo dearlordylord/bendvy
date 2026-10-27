@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-resource-policy.bend as Policy
 import ../../src/ecs/execution-composer-layout.bend as Layout
 import ./payloads.bend as P
 import ../../src/ecs/chunk-column.bend as Col
@@ -11,13 +12,13 @@ def inserted(~S:Data,~T:Type,result:Col.SwapOutcome<S,T>) -> Col.Column<S,T>:
   match result:
     case Col.Accepted{column,_}:column
     case Col.Rejected{column,_}:column
-def left_layout() -> Layout.Layout:Layout.LayoutLeaf{P.Position,String,P.position,"position"}
-def left_resource_layout() -> Layout.Layout:Layout.LayoutLeaf{P.Counter,String,P.counter,"counter"}
+def left_layout() -> Layout.Layout:Layout.LayoutLeaf{P.Position,String,P.position,"position",Policy.Ordinary{}}
+def left_resource_layout() -> Layout.Layout:Layout.LayoutLeaf{P.Counter,String,P.counter,"counter",Policy.Ordinary{}}
 def LeftStore(~S:Data) -> Type:Layout.columns(~S,left_layout())
 def LeftResource(~S:Data) -> Type:Layout.resources(~S,left_resource_layout())
 def LeftOps(~S:Data) -> Type -> Type:D.Combined(~A.ComponentWrites(~S,~P.Position,~String),~A.ResourceWrites(~P.Counter,~String))
-def right_layout() -> Layout.Layout:Layout.LayoutLeaf{P.Health,String,P.health,"health"}
-def right_resource_layout() -> Layout.Layout:Layout.LayoutLeaf{P.Score,String,P.score,"score"}
+def right_layout() -> Layout.Layout:Layout.LayoutLeaf{P.Health,String,P.health,"health",Policy.Ordinary{}}
+def right_resource_layout() -> Layout.Layout:Layout.LayoutLeaf{P.Score,String,P.score,"score",Policy.Ordinary{}}
 def RightStore(~S:Data) -> Type:Layout.columns(~S,right_layout())
 def RightResource(~S:Data) -> Type:Layout.resources(~S,right_resource_layout())
 def RightOps(~S:Data) -> Type -> Type:D.Combined(~A.ComponentWrites(~S,~P.Health,~String),~A.ResourceWrites(~P.Score,~String))

@@ -1,4 +1,5 @@
 import Base
+import ./execution-resource-policy.bend as Policy
 import ./execution-composer-layout.bend as L
 import ./execution-query-schema.bend as Routes
 import ./owner-product.bend as Product
@@ -15,6 +16,6 @@ def described_pair(~S:Data,-ll:L.Layout,-rr:L.Layout,left:Description<S,ll>,righ
 def describe(~S:Data,layout:L.Layout,+route:L.Route,resources:L.resources(~S,layout)) -> Description<S,layout>:
   match layout resources:
     case L.EmptyLayout{} Unit{}:Description{Unit{},[]}
-    case L.LayoutLeaf{P,V,refresh,+key} L.ResourceSlot{owner,+stamp}:Description{L.ResourceSlot{owner,stamp},[Info{route,key,stamp}]}
-    case L.ClassifiedLayoutLeaf{P,V,refresh,+key,kind} L.ResourceSlot{owner,+stamp}:Description{L.ResourceSlot{owner,stamp},[Info{route,key,stamp}]}
+    case L.LayoutLeaf{P,V,refresh,+key,_} L.ResourceSlot{owner,+stamp}:Description{L.ResourceSlot{owner,stamp},[Info{route,key,stamp}]}
+    case L.ClassifiedLayoutLeaf{P,V,refresh,+key,kind,_} L.ResourceSlot{owner,+stamp}:Description{L.ResourceSlot{owner,stamp},[Info{route,key,stamp}]}
     case L.LayoutPair{ll,rr} Product.Owner{left,right}:described_pair(~S,ll,rr,describe(~S,ll,Routes.append_route(route,L.InLeft{L.AtLeaf{}}),left),describe(~S,rr,Routes.append_route(route,L.InRight{L.AtLeaf{}}),right))

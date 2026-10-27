@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-resource-policy.bend as Policy
 import ./payloads.bend as P
 import ../../src/ecs/execution-machine-access.bend as Machine
 import ../../src/ecs/execution-machine-state.bend as State
@@ -20,8 +21,8 @@ def layout(~S:Data) -> Layout.Layout:Machine.leaf(~S,~Key,~Mode,"mode")
 def payload_proof(~S:Data) -> {Layout.payload(layout(~S),Layout.AtLeaf{}) == State.Cell<S,Key,Mode> : Type}:{==}
 def view_proof(~S:Data) -> {Layout.view(layout(~S),Layout.AtLeaf{}) == State.View<S,Key,Mode> : Data}:{==}
 def Resources(~S:Data) -> Type:Layout.resources(~S,layout(~S))
-def actor_layout(~S:Data) -> Layout.Layout:Layout.LayoutLeaf{P.Actor<S,Mode>,Mode,P.actor(~S,~Mode),"actor-state"}
-def peer_layout(~S:Data) -> Layout.Layout:Layout.LayoutLeaf{P.PeerActor<S,Mode>,Mode,P.peer(~S,~Mode),"peer-state"}
+def actor_layout(~S:Data) -> Layout.Layout:Layout.LayoutLeaf{P.Actor<S,Mode>,Mode,P.actor(~S,~Mode),"actor-state",Policy.Ordinary{}}
+def peer_layout(~S:Data) -> Layout.Layout:Layout.LayoutLeaf{P.PeerActor<S,Mode>,Mode,P.peer(~S,~Mode),"peer-state",Policy.Ordinary{}}
 def component_layout(~S:Data) -> Layout.Layout:Layout.LayoutPair{actor_layout(~S),peer_layout(~S)}
 def LeftStore(~S:Data) -> Type:Layout.columns(~S,actor_layout(~S))
 def RightStore(~S:Data) -> Type:Layout.columns(~S,peer_layout(~S))

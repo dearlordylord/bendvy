@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-resource-policy.bend as Policy
 import ./payloads.bend as P
 import ../../src/ecs/chunk-column.bend as Col
 import ../../src/ecs/owner-product.bend as Product
@@ -9,8 +10,8 @@ import ../../src/ecs/execution-builder.bend as Build
 import ../../src/ecs/capabilities.bend as Cap
 import ../../src/ecs/execution-composer-layout.bend as Layout
 
-def component_layout() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutLeaf{P.Position,String,P.position,"position"},Layout.LayoutLeaf{P.Label,String,P.label,"label"}}
-def resource_layout() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutLeaf{P.Counter,String,P.counter,"counter"},Layout.LayoutLeaf{P.Secret,String,P.secret,"secret"}}
+def component_layout() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutLeaf{P.Position,String,P.position,"position",Policy.Ordinary{}},Layout.LayoutLeaf{P.Label,String,P.label,"label",Policy.Ordinary{}}}
+def resource_layout() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutLeaf{P.Counter,String,P.counter,"counter",Policy.Ordinary{}},Layout.LayoutLeaf{P.Secret,String,P.secret,"secret",Policy.Ordinary{}}}
 def first_route() -> Layout.Route:Layout.InLeft{Layout.AtLeaf{}}
 def Store(~S:Data) -> Type:Layout.columns(~S,component_layout())
 def Resources(~S:Data) -> Type:Layout.resources(~S,resource_layout())

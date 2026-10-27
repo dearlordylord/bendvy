@@ -1,4 +1,5 @@
 import Base
+import ../../../src/ecs/execution-resource-policy.bend as Policy
 import ../../../src/ecs/chunk-column.bend as Col
 import ../../../src/ecs/lifecycle.bend as L
 import ../../../src/ecs/change-tick.bend as Tick
@@ -6,7 +7,7 @@ import ../../../src/ecs/change-tick.bend as Tick
 import ../../../src/ecs/execution-composer-layout.bend as Layout
 
 def project(owner:Array<U32>) -> Array<U32> & U32:Array.get(U32,owner,0)
-def schema() -> Layout.Layout:Layout.LayoutLeaf{Array<U32>,U32,project,"value"}
+def schema() -> Layout.Layout:Layout.LayoutLeaf{Array<U32>,U32,project,"value",Policy.Ordinary{}}
 def finish(view:U32,changed:Maybe<&2,Tick.Tick>,result:Array<U32> & U32) -> String:
   match changed result:
     case Some{Tick.Tick{_,tick}},(_,value):U32.show(view) ++ "," ++ U32.show(value) ++ "," ++ U32.show(tick)

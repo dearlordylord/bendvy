@@ -1,4 +1,5 @@
 import Base
+import ../../../src/ecs/execution-resource-policy.bend as Policy
 import ../../parallel-query/payloads.bend as P
 import ../../../src/ecs/execution-composer-layout.bend as Layout
 import ../../../src/ecs/schema-fragments.bend as Fragment
@@ -10,6 +11,6 @@ import ../../../src/ecs/execution-lifecycle-notices.bend as Notice
 
 type Schema is Data:Schema{}
 def alternate(owner:P.Output) -> P.Output & U32:P.output_view(owner)
-def different() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutPair{Layout.LayoutPair{Layout.LayoutLeaf{P.Input,U32,P.read,"input"},Layout.LayoutLeaf{P.Output,U32,alternate,"output"}},Layout.EmptyLayout{}},Layout.EmptyLayout{}}
+def different() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutPair{Layout.LayoutPair{Layout.LayoutLeaf{P.Input,U32,P.read,"input",Policy.Ordinary{}},Layout.LayoutLeaf{P.Output,U32,alternate,"output",Policy.Ordinary{}}},Layout.EmptyLayout{}},Layout.EmptyLayout{}}
 def declaration() -> D.Declaration<Schema,Unit,Unit,Life.Ops(~Schema,~(Layout.origin(different(),Readers.output_route())),~(Notice.Removed{"output"}))>:
   Life.removed(~Schema,~Core.Store(~Schema),~Unit,~Unit,~different(),~Readers.output_route(),~{==},~{==})

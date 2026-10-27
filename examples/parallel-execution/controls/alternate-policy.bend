@@ -1,4 +1,5 @@
 import Base
+import ../../../src/ecs/execution-resource-policy.bend as Policy
 import ../../../src/ecs/schema-fragments.bend as Fragment
 import ../../../src/ecs/execution-builder.bend as Build
 import ../../../src/ecs/execution-composer-layout.bend as Layout
@@ -7,9 +8,9 @@ import ../../../src/ecs/execution-access.bend as Access
 
 type Nominal is Data:Nominal{}
 def project(owner:Array<U32>) -> Array<U32> & U32:Array.get(U32,owner,0)
-def actual() -> Layout.Layout:Layout.LayoutPair{Layout.ClassifiedLayoutLeaf{Array<U32>,U32,project,"public",Fragment.Plain{}},Layout.ClassifiedLayoutLeaf{Array<U32>,U32,project,"secret",Fragment.Plain{}}}
+def actual() -> Layout.Layout:Layout.LayoutPair{Layout.ClassifiedLayoutLeaf{Array<U32>,U32,project,"public",Fragment.Plain{},Policy.Ordinary{}},Layout.ClassifiedLayoutLeaf{Array<U32>,U32,project,"secret",Fragment.Plain{},Policy.Ordinary{}}}
 def alternate(owner:Array<U32>) -> Array<U32> & U32:(owner,999)
-def claimed() -> Layout.Layout:Layout.LayoutPair{Layout.ClassifiedLayoutLeaf{Array<U32>,U32,project,"public",Fragment.Transient{}},Layout.ClassifiedLayoutLeaf{Array<U32>,U32,project,"secret",Fragment.Transient{}}}
+def claimed() -> Layout.Layout:Layout.LayoutPair{Layout.ClassifiedLayoutLeaf{Array<U32>,U32,project,"public",Fragment.Transient{},Policy.Ordinary{}},Layout.ClassifiedLayoutLeaf{Array<U32>,U32,project,"secret",Fragment.Transient{},Policy.Ordinary{}}}
 def route() -> Layout.Route:Layout.InRight{Layout.AtLeaf{}}
 def Resources() -> Type:Layout.resources(~Nominal,actual())
 def Ops(H:Type) -> Type:Access.ResourceWrite<H,Array<U32>,U32>

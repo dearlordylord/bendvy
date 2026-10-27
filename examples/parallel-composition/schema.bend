@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-resource-policy.bend as Policy
 import ./feature-motion.bend as Motion
 import ./feature-labels.bend as Labels
 import ../../src/ecs/execution-composer-layout.bend as Layout
@@ -27,7 +28,7 @@ def optional(value:Maybe<&1,Array<String>>) -> Maybe<&1,Array<String>> & String:
 def components() -> Layout.Layout:
   Layout.LayoutPair{Schema.plain(~Nominal,~Motion.Position,~position_id(),~String,~Motion.position,Persist.plain(~Nominal,~Motion.Position,~position_id())),Schema.constructed(~Nominal,~Labels.Label,~label_id(),~Labels.raw_label,~String,~Labels.label,label_form())}
 def resources() -> Layout.Layout:
-  Layout.LayoutPair{Layout.LayoutLeaf{Motion.Counter,String,Motion.counter,"counter"},Layout.LayoutPair{Schema.transient(~Nominal,~Service.Slot<Labels.Host>,~host_id(),~Service.Status<String>,~Labels.ready,Persist.transient(~Nominal,~Service.Slot<Labels.Host>,~host_id())),Layout.LayoutLeaf{Maybe<&1,Array<String>>,String,optional,"optional"}}}
+  Layout.LayoutPair{Layout.LayoutLeaf{Motion.Counter,String,Motion.counter,"counter",Policy.Ordinary{}},Layout.LayoutPair{Schema.transient(~Nominal,~Service.Slot<Labels.Host>,~host_id(),~Service.Status<String>,~Labels.ready,Persist.transient(~Nominal,~Service.Slot<Labels.Host>,~host_id())),Layout.LayoutLeaf{Maybe<&1,Array<String>>,String,optional,"optional",Policy.Ordinary{}}}}
 def left() -> Layout.Route:Layout.InLeft{Layout.AtLeaf{}}
 def right() -> Layout.Route:Layout.InRight{Layout.AtLeaf{}}
 def host_route() -> Layout.Route:Layout.InRight{Layout.InLeft{Layout.AtLeaf{}}}

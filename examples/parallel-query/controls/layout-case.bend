@@ -1,4 +1,5 @@
 import Base
+import ../../../src/ecs/execution-resource-policy.bend as Policy
 import ../payloads.bend as Payload
 import ../../../src/ecs/execution-query.bend as Query
 import ../../../src/ecs/execution-builder.bend as Build
@@ -8,9 +9,9 @@ import ../../../src/ecs/execution-composer-layout.bend as Layout
 type Schema is Data:
   Schema{}
 def actual() -> Layout.Layout:
-  Layout.LayoutPair{Layout.LayoutLeaf{Payload.Output,U32,Payload.output_view,"public"},Layout.LayoutLeaf{Payload.Output,U32,Payload.output_view,"secret"}}
+  Layout.LayoutPair{Layout.LayoutLeaf{Payload.Output,U32,Payload.output_view,"public",Policy.Ordinary{}},Layout.LayoutLeaf{Payload.Output,U32,Payload.output_view,"secret",Policy.Ordinary{}}}
 def wrong_keys() -> Layout.Layout:
-  Layout.LayoutPair{Layout.LayoutLeaf{Payload.Output,U32,Payload.output_view,"secret"},Layout.LayoutLeaf{Payload.Output,U32,Payload.output_view,"public"}}
+  Layout.LayoutPair{Layout.LayoutLeaf{Payload.Output,U32,Payload.output_view,"secret",Policy.Ordinary{}},Layout.LayoutLeaf{Payload.Output,U32,Payload.output_view,"public",Policy.Ordinary{}}}
 def Store() -> Type: Layout.columns(~Schema,actual())
 def body(index:U32,read:U32,write:Payload.Output) -> Payload.Output & Maybe<&2,String>:
   (write,None{})

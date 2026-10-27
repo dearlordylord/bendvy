@@ -1,10 +1,11 @@
 import Base
+import ../../src/ecs/execution-resource-policy.bend as Policy
 import ./payloads.bend as P
 import ../../src/ecs/execution-composer-layout.bend as Layout
 import ../../src/ecs/execution-builder.bend as Build
 import ../../src/ecs/execution-access.bend as A
 import ../../src/ecs/owner-product.bend as Product
-def left_layout() -> Layout.Layout:Layout.LayoutLeaf{P.Counter,String,P.counter,"counter"}
+def left_layout() -> Layout.Layout:Layout.LayoutLeaf{P.Counter,String,P.counter,"counter",Policy.Ordinary{}}
 def LeftStore(~S:Data) -> Type:Unit
 def LeftResource(~S:Data) -> Type:Layout.resources(~S,left_layout())
 def LeftOps(~S:Data) -> Type -> Type:A.ResourceWrites(~P.Counter,~String)
@@ -12,7 +13,7 @@ def left_selection(~S:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Lef
   Build.basic_resource_write(~S,~Unit,~LeftResource(~S),~H,~B,~left_layout(),~Layout.AtLeaf{},~{==},~{==},~rw,book)
 def left(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Product.Owner<Unit,Unit>,~Unit,~LeftResource(~S),~H,~B),book:B) -> B & LeftOps(~S)(H):
   builder(LeftOps(~S),left_selection(~S,~H,~B),book)
-def right_layout() -> Layout.Layout:Layout.LayoutLeaf{P.Score,String,P.score,"score"}
+def right_layout() -> Layout.Layout:Layout.LayoutLeaf{P.Score,String,P.score,"score",Policy.Ordinary{}}
 def RightStore(~S:Data) -> Type:Unit
 def RightResource(~S:Data) -> Type:Layout.resources(~S,right_layout())
 def RightOps(~S:Data) -> Type -> Type:A.ResourceWrites(~P.Score,~String)

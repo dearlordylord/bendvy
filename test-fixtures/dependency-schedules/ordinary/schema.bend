@@ -1,4 +1,5 @@
 import Base
+import ../../../src/ecs/execution-resource-policy.bend as Policy
 import ../../../src/ecs/world.bend as W
 import ../../../src/ecs/owner-product.bend as Product
 import ../../../src/ecs/ordinary-schema.bend as Schema
@@ -22,7 +23,7 @@ def increment(owner:Counter) -> Counter & U32:
 def sentinel_view(owner:Sentinel) -> Sentinel & String:
   match owner:
     case Sentinel{token,+text}:(Sentinel{token,text},text)
-def resource_layout() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutLeaf{Counter,U32,view,"counter"},Layout.LayoutLeaf{Sentinel,String,sentinel_view,"sentinel"}}
+def resource_layout() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutLeaf{Counter,U32,view,"counter",Policy.Ordinary{}},Layout.LayoutLeaf{Sentinel,String,sentinel_view,"sentinel",Policy.Ordinary{}}}
 def first_route() -> Layout.Route:Layout.InLeft{Layout.AtLeaf{}}
 def Resources(~S:Data) -> Type:Layout.resources(~S,resource_layout())
 def World(~S:Data) -> Type:W.World<S,Unit,Resources(~S),Unit>

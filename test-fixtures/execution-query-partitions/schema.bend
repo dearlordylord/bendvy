@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-resource-policy.bend as Policy
 import ../../src/ecs/chunk-column.bend as Col
 import ../../src/ecs/execution-composer-layout.bend as Layout
 import ../../src/ecs/lifecycle.bend as L
@@ -26,9 +27,9 @@ def shield_cached(label:String,result:Array<U32> & U32) -> Shield & U32:
 def shield_view(owner:Shield) -> Shield & U32:
   match owner:
     case Shield{label,values}:shield_cached(label,Array.get(U32,values,0))
-def positions() -> Layout.Layout:Layout.LayoutLeaf{Position,U32,position_view,"Position"}
-def shields() -> Layout.Layout:Layout.ClassifiedLayoutLeaf{Shield,U32,shield_view,"Shield",Fragment.Plain{}}
-def changed_origin() -> Layout.Layout:Layout.LayoutLeaf{Position,U32,position_view,"OtherPosition"}
+def positions() -> Layout.Layout:Layout.LayoutLeaf{Position,U32,position_view,"Position",Policy.Ordinary{}}
+def shields() -> Layout.Layout:Layout.ClassifiedLayoutLeaf{Shield,U32,shield_view,"Shield",Fragment.Plain{},Policy.Ordinary{}}
+def changed_origin() -> Layout.Layout:Layout.LayoutLeaf{Position,U32,position_view,"OtherPosition",Policy.Ordinary{}}
 def position(+n:U32) -> Layout.Viewed<Position,U32>:Layout.Viewed{Position{[n : U32^1n]},n}
 def shield(+n:U32) -> Layout.Viewed<Shield,U32>:Layout.Viewed{Shield{"shield",[n : U32^2n]},n}
 def position_leaf(~S:Data,+n:U32) -> Col.Column<S,Layout.Viewed<Position,U32>>:

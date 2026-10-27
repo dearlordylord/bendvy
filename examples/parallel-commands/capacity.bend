@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-resource-policy.bend as Policy
 import ../../src/ecs/execution-lifecycle-notices.bend as Notice
 import ../../src/ecs/execution-command-removed.bend as Removed
 import ../../src/ecs/execution-command-permission.bend as Permission
@@ -22,7 +23,7 @@ def bumped(result:Array<U32> & U32) -> P.Token & U32:
 def refresh(owner:P.Token) -> P.Token & U32:
   match owner:
     case P.Token{owner}:bumped(Array.get(U32,owner,0))
-def layout() -> Layout.Layout:Layout.LayoutLeaf{P.Token,U32,refresh,"token"}
+def layout() -> Layout.Layout:Layout.LayoutLeaf{P.Token,U32,refresh,"token",Policy.Ordinary{}}
 def Store() -> Type:Layout.columns(~Schema,layout())
 def value(result:Array<U32> & U32) -> String:
   match result:

@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-resource-policy.bend as Policy
 import ./schema.bend as Schema
 import ./feature-motion.bend as Motion
 import ./feature-labels.bend as Labels
@@ -28,7 +29,7 @@ def receipt(value:Decode.Receipt<Labels.Label>) -> String:
 def validation() -> String:
   "valid=" ++ receipt(Persist.validate(~Schema.Nominal,~Labels.Label,~Schema.label_id(),~Labels.raw_label,Schema.label_form(),Labels.Label{ALeaf{"VALID-906"},"seed"})) ++ ";invalid=" ++ receipt(Persist.validate(~Schema.Nominal,~Labels.Label,~Schema.label_id(),~Labels.raw_label,Schema.label_form(),Labels.Label{ALeaf{"REJECT-907"},"bad"})) ++ ";optional-none=" ++ Common.projected(~Maybe<&1,Array<String>>,Schema.optional(None{})) ++ ";optional-some=" ++ Common.projected(~Maybe<&1,Array<String>>,Schema.optional(Some{ALeaf{"OPTIONAL-905"}}))
 def view(owner:Array<U32>) -> Array<U32> & U32:Array.get(U32,owner,0)
-def collision() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutLeaf{Array<U32>,U32,view,"duplicate"},Layout.LayoutLeaf{Array<U32>,U32,view,"duplicate"}}
+def collision() -> Layout.Layout:Layout.LayoutPair{Layout.LayoutLeaf{Array<U32>,U32,view,"duplicate",Policy.Ordinary{}},Layout.LayoutLeaf{Array<U32>,U32,view,"duplicate",Policy.Ordinary{}}}
 def raw_resources() -> Schema.Resources():
   Product.Owner{Layout.ResourceSlot{Layout.Viewed{Motion.Counter{ALeaf{301},0,Some{ALeaf{302}}},"STALE"},Layout.unknown_stamp()},Product.Owner{Layout.ResourceSlot{Layout.Viewed{Service.Provided{Labels.Host{ALeaf{"REFUSAL-HOST-904"},9}},Service.Status{Some{"STALE"}}},Layout.unknown_stamp()},Layout.ResourceSlot{Layout.Viewed{Some{ALeaf{"OPTIONAL-303"}},"STALE"},Layout.unknown_stamp()}}}
 def refused(~components:Layout.Layout,result:Init.Initialized<Schema.Nominal,components,Schema.resources(),Unit>) -> String:

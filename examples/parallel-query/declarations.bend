@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-resource-policy.bend as Policy
 import ./payloads.bend as P
 import ../../src/ecs/chunk-column.bend as Col
 import ../../src/ecs/owner-product.bend as Product
@@ -7,8 +8,8 @@ import ../../src/ecs/execution-builder.bend as Build
 import ../../src/ecs/execution-composer-layout.bend as Layout
 
 def layout() -> Layout.Layout:
-  Layout.LayoutPair{Layout.LayoutPair{Layout.LayoutLeaf{P.Input,U32,P.read,"input"},Layout.LayoutLeaf{P.Output,U32,P.output_view,"output"}},Layout.EmptyLayout{}}
-def resource_layout() -> Layout.Layout: Layout.LayoutLeaf{P.Resource,Unit,P.resource_view,"resource"}
+  Layout.LayoutPair{Layout.LayoutPair{Layout.LayoutLeaf{P.Input,U32,P.read,"input",Policy.Ordinary{}},Layout.LayoutLeaf{P.Output,U32,P.output_view,"output",Policy.Ordinary{}}},Layout.EmptyLayout{}}
+def resource_layout() -> Layout.Layout: Layout.LayoutLeaf{P.Resource,Unit,P.resource_view,"resource",Policy.Ordinary{}}
 def Store(~S:Data) -> Type: Layout.columns(~S,layout())
 def Resources(~S:Data) -> Type: Layout.resources(~S,resource_layout())
 def selection(~S:Data,~mode:Q.Mode,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Store(~S),~Resources(~S),~H,~B),~component_write:Build.ComponentWrite(~S,~Store(~S),~Resources(~S),~H,~B),~resource_read:Build.ResourceRead(~S,~Store(~S),~Resources(~S),~H,~B),~resource_write:Build.ResourceWrite(~S,~Store(~S),~Resources(~S),~H,~B),~query:Build.Query(~S,~Store(~S),~Store(~S),~Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~Store(~S),~Store(~S),~Resources(~S),~H,~B),book:B) -> B & Q.Each<S,H,String>:
