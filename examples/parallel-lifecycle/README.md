@@ -2,6 +2,19 @@
 
 # Query lifecycle filters
 
+`main.bend` runs the existing filter scenarios, then `notice-scenario.bend`.
+The notice application uses the current TaskIO bodies and IO schedule API. Its
+four updates retain the fast and dormant removal readers, input/despawn readers,
+first-reader body error and actual foreign-World reader transfer. The same
+existing observations are printed after each application's IO completes. This
+caller migration does not establish the remaining GH85 cases or a lifecycle
+proof. The migrated original main emitted and ran on JavaScript and native
+(two threads, GPU off); their complete six-line, 18,871-byte outputs matched.
+Both runtime stderr streams were empty. Independent review remains pending.
+The one source-check attempt reported the old buffer-entry arity, repaired before
+these runs; no successful full source check is claimed. Historical backend
+receipts below do not qualify this migrated source.
+
 `filters.bend` runs the ordinary QueryApp with Added and Changed filters on its
 written family. Two nominal schemas use genuinely affine Array payloads. Four
 cases run three times, using query serial and parallel entries, then attempt the

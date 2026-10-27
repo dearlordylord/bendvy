@@ -8,4 +8,4 @@ type First is Data:
 type Second is Data:
   Second{}
 def main() -> IO(Unit):
-  IO.print("First/added/serial=" ++ Application.run(~First,~Query.SerialWhere{Life.Added{}}) ++ "\nFirst/added/parallel=" ++ Application.run(~First,~Query.ParallelWhere{Life.Added{}}) ++ "\nSecond/changed/serial=" ++ Application.run(~Second,~Query.SerialWhere{Life.Changed{}}) ++ "\nSecond/changed/parallel=" ++ Application.run(~Second,~Query.ParallelWhere{Life.Changed{}}))
+  IO.bind(String,Unit,Application.run(~First,~Query.SerialWhere{Life.Added{}}),firstSerial => IO.bind(String,Unit,Application.run(~First,~Query.ParallelWhere{Life.Added{}}),firstParallel => IO.bind(String,Unit,Application.run(~Second,~Query.SerialWhere{Life.Changed{}}),secondSerial => IO.bind(String,Unit,Application.run(~Second,~Query.ParallelWhere{Life.Changed{}}),secondParallel => IO.print("First/added/serial=" ++ firstSerial ++ "\nFirst/added/parallel=" ++ firstParallel ++ "\nSecond/changed/serial=" ++ secondSerial ++ "\nSecond/changed/parallel=" ++ secondParallel)))))
