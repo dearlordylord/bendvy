@@ -134,7 +134,23 @@ energy 41 survives restoration, generation 0 maps to fresh generation 1, Config
 one despawn notice. The pending-owner adapter returns the actual Scheduled state,
 including both binding roles and real reader/handler/system owners. These are
 ordinary execution observations, not mathematical proofs or full runtime snapshot
-qualification. A concrete authored-command pending refusal remains to be added.
+qualification.
+
+The ordinary `pending-main.bend` consumer adds a registered command owner and
+disables automatic/final deferred application. Its actual body queues an Actor
+with an affine Array containing 515. One normal Bend invocation of this entry
+exited 0 for Alpha/Beta serial/native: save returned RefusedPending and restore
+returned Pending, the queued Actor remained 515 with zero publication receipts,
+captures remained 101/404/202/303, and the actual Reader remained at cursor 0.
+The retained original system had run count 0; the author and reader had run count
+1. Settings remained automatic=False/finalApply=False and the real unapplied
+system IDs remained [2,3]. Both binding lists in this consumer are empty. A
+terminal observation, performed after the refusals, exports the actual returned
+World: Actor energy remains 41 and Config remains 700, with the source generation
+0 and allocator order retained. The typed refusal outcome retains the actual App,
+source snapshot, declarations and factories before this terminal renderer consumes
+them. This is an ordinary ownership observation, not proof of generic identity or
+full runtime snapshot qualification.
 
 The four laws in `test-fixtures/execution-save-laws/LAWS.bend` and two subjects in
 `SCHEMA.bend` are unapproved, unproved drafts. They describe exact gate branching,
