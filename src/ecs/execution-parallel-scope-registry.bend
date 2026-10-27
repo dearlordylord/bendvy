@@ -19,7 +19,7 @@ import ./execution-composer-layout.bend as Layout
 import ./change-tick.bend as Tick
 
 type Runtime<S:Data,-World:Type,P:Data,-Scope:Type,-Owners:Type,Error:Data,Out:Data> is Type:
-  Runtime{-Held:Type,-restore:Held -> Owners,held:Held,nodes:List<&2,Plan.Node<String>>,entries:List<&2,Part.Entry>,invalid:Maybe<&2,Plan.Invalid<String>>,deferred:List<&2,U32>,pending:List<&2,U32> -> World -> Held -> World & (Held & Bool),publish:List<&2,U32> -> Tick.Tick -> World -> Held -> World & Held,prepare:List<&2,U32> -> World -> Held -> Prep.Preparation<World,Held,P>,invoke:Scope -> Prep.Prepared<World,Held,P> -> Effect.Task<S,RuntimePermit.Permit,Prep.Invocation<Scope,World,Held,P,List<&2,Ready.Completed<Error,Out>>>>}
+  Runtime{-Held:Type,restore:Held -> Owners,held:Held,nodes:List<&2,Plan.Node<String>>,entries:List<&2,Part.Entry>,invalid:Maybe<&2,Plan.Invalid<String>>,deferred:List<&2,U32>,pending:List<&2,U32> -> World -> Held -> World & (Held & Bool),publish:List<&2,U32> -> Tick.Tick -> World -> Held -> World & Held,prepare:List<&2,U32> -> World -> Held -> Prep.Preparation<World,Held,P>,invoke:Scope -> Prep.Prepared<World,Held,P> -> Effect.Task<S,RuntimePermit.Permit,Prep.Invocation<Scope,World,Held,P,List<&2,Ready.Completed<Error,Out>>>>}
 def Family() -> Type:(@-Owners:Type -> Type)
 def Leaf(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Data,~F:Family()) -> Type:
   @-Ops:(Data -> Type -> Type) -> @-Local:Type -> @-declaration:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops) -> @-body:(Sys.Body(~S,~Ops,~Local,~Error,~Out)) -> Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body> -> F(Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>)
@@ -87,65 +87,65 @@ def accessed(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Data -> Type -> Type,~Owner:T
     case D.Unsupported{caps,+access,recipes}:next(owner,D.Unsupported{caps,access,recipes},access,False{})
 def compile_leaf(~S:Data,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Data,~WC:Type,~WR:Type,~Ops:Data -> Type -> Type,~Local:Type,~declaration:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),owner:Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>) -> Runtime<S,W.World<S,WC,WR,E>,Prep.Permit<S,WC>,State.Scope<S,C,R>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out>:
   compiled_leaf(~S,~C,~R,~E,~Error,~Out,~WC,~WR,~Ops,~Local,~declaration,~body,owner,Build.compile_framework(~S,~WC,~C,~R,~Ops,~declaration))
-def trusted_preparation_joined(~World:Type,~L:Type,~R:Type,~P:Data,world:World,joined:Prep.Joining<World,L,R,P>) -> Prep.Preparation<World,Product.Owner<L,R>,P>:
+def trusted_preparation_joined(-World:Type,-L:Type,-R:Type,-P:Data,world:World,joined:Prep.Joining<World,L,R,P>) -> Prep.Preparation<World,Product.Owner<L,R>,P>:
   match joined:
     case Prep.Joined{prepared}:Prep.PreparationReady{world,prepared}
     case Prep.JoinRefused{Prep.Prepared{_,left,_,lt},Prep.Prepared{_,right,_,rt}}:Prep.PreparationRefused{world,Prep.Inventory{Product.Owner{left,right},Prep.Pair{lt,rt}}}
-def trusted_prepared_right(~World:Type,~L:Type,~R:Type,~P:Data,left:Prep.Prepared<World,L,P>,result:Prep.Preparation<World,R,P>) -> Prep.Preparation<World,Product.Owner<L,R>,P>:
+def trusted_prepared_right(-World:Type,-L:Type,-R:Type,-P:Data,left:Prep.Prepared<World,L,P>,result:Prep.Preparation<World,R,P>) -> Prep.Preparation<World,Product.Owner<L,R>,P>:
   match left result:
-    case left Prep.PreparationReady{world,right}:trusted_preparation_joined(~World,~L,~R,~P,world,Prep.join(~World,~L,~R,~P,left,right))
+    case left Prep.PreparationReady{world,right}:trusted_preparation_joined(World,L,R,P,world,Prep.join(World,L,R,P,left,right))
     case Prep.Prepared{_,left,_,lt} Prep.PreparationRefused{world,Prep.Inventory{right,rt}}:Prep.PreparationRefused{world,Prep.Inventory{Product.Owner{left,right},Prep.Pair{lt,rt}}}
-def trusted_prepared_left(~World:Type,~L:Type,~R:Type,~P:Data,rightPrepare:List<&2,U32> -> World -> R -> Prep.Preparation<World,R,P>,ids:List<&2,U32>,right:R,result:Prep.Preparation<World,L,P>) -> Prep.Preparation<World,Product.Owner<L,R>,P>:
+def trusted_prepared_left(-World:Type,-L:Type,-R:Type,-P:Data,rightPrepare:List<&2,U32> -> World -> R -> Prep.Preparation<World,R,P>,ids:List<&2,U32>,right:R,result:Prep.Preparation<World,L,P>) -> Prep.Preparation<World,Product.Owner<L,R>,P>:
   match result:
-    case Prep.PreparationReady{world,left}:trusted_prepared_right(~World,~L,~R,~P,left,rightPrepare(ids,world,right))
+    case Prep.PreparationReady{world,left}:trusted_prepared_right(World,L,R,P,left,rightPrepare(ids,world,right))
     case Prep.PreparationRefused{world,Prep.Inventory{left,lt}}:Prep.PreparationRefused{world,Prep.Inventory{Product.Owner{left,right},Prep.Pair{lt,Prep.Unprepared{}}}}
-def trusted_prepare_pair(~World:Type,~L:Type,~R:Type,~P:Data,leftPrepare:List<&2,U32> -> World -> L -> Prep.Preparation<World,L,P>,rightPrepare:List<&2,U32> -> World -> R -> Prep.Preparation<World,R,P>,+ids:List<&2,U32>,world:World,owners:Product.Owner<L,R>) -> Prep.Preparation<World,Product.Owner<L,R>,P>:
+def trusted_prepare_pair(-World:Type,-L:Type,-R:Type,-P:Data,leftPrepare:List<&2,U32> -> World -> L -> Prep.Preparation<World,L,P>,rightPrepare:List<&2,U32> -> World -> R -> Prep.Preparation<World,R,P>,+ids:List<&2,U32>,world:World,owners:Product.Owner<L,R>) -> Prep.Preparation<World,Product.Owner<L,R>,P>:
   match owners:
-    case Product.Owner{left,right}:trusted_prepared_left(~World,~L,~R,~P,rightPrepare,ids,right,leftPrepare(ids,world,left))
-def trusted_invocation_joined(~World:Type,~H:Type,~L:Type,~R:Type,~P:Data,~Error:Data,~Out:Data,refused:Bool,scope:H,status:List<&2,Ready.Completed<Error,Out>>,joined:Prep.Joining<World,L,R,P>) -> Prep.Invocation<H,World,Product.Owner<L,R>,P,List<&2,Ready.Completed<Error,Out>>>:
+    case Product.Owner{left,right}:trusted_prepared_left(World,L,R,P,rightPrepare,ids,right,leftPrepare(ids,world,left))
+def trusted_invocation_joined(-World:Type,-H:Type,-L:Type,-R:Type,-P:Data,-Error:Data,-Out:Data,refused:Bool,scope:H,status:List<&2,Ready.Completed<Error,Out>>,joined:Prep.Joining<World,L,R,P>) -> Prep.Invocation<H,World,Product.Owner<L,R>,P,List<&2,Ready.Completed<Error,Out>>>:
   match refused joined:
     case _ Prep.JoinRefused{Prep.Prepared{_,left,_,lt},Prep.Prepared{_,right,_,rt}}:Prep.InvocationInventoryRefused{scope,Prep.Inventory{Product.Owner{left,right},Prep.Pair{lt,rt}},status}
     case False{} Prep.Joined{prepared}:Prep.Invoked{scope,prepared,status}
     case True{} Prep.Joined{prepared}:Prep.InvocationRefused{scope,prepared,status}
-def trusted_invoked_right(~World:Type,~H:Type,~L:Type,~R:Type,~P:Data,~Error:Data,~Out:Data,left:Prep.Prepared<World,L,P>,leftOut:List<&2,Ready.Completed<Error,Out>>,result:Prep.Invocation<H,World,R,P,List<&2,Ready.Completed<Error,Out>>>) -> Prep.Invocation<H,World,Product.Owner<L,R>,P,List<&2,Ready.Completed<Error,Out>>>:
+def trusted_invoked_right(-World:Type,-H:Type,-L:Type,-R:Type,-P:Data,-Error:Data,-Out:Data,left:Prep.Prepared<World,L,P>,leftOut:List<&2,Ready.Completed<Error,Out>>,result:Prep.Invocation<H,World,R,P,List<&2,Ready.Completed<Error,Out>>>) -> Prep.Invocation<H,World,Product.Owner<L,R>,P,List<&2,Ready.Completed<Error,Out>>>:
   match left result:
-    case left Prep.Invoked{scope,right,out}:trusted_invocation_joined(~World,~H,~L,~R,~P,~Error,~Out,False{},scope,List.append(&2,Ready.Completed<Error,Out>,leftOut,out),Prep.join(~World,~L,~R,~P,left,right))
-    case left Prep.InvocationRefused{scope,right,out}:trusted_invocation_joined(~World,~H,~L,~R,~P,~Error,~Out,True{},scope,List.append(&2,Ready.Completed<Error,Out>,leftOut,out),Prep.join(~World,~L,~R,~P,left,right))
+    case left Prep.Invoked{scope,right,out}:trusted_invocation_joined(World,H,L,R,P,Error,Out,False{},scope,List.append(&2,Ready.Completed<Error,Out>,leftOut,out),Prep.join(World,L,R,P,left,right))
+    case left Prep.InvocationRefused{scope,right,out}:trusted_invocation_joined(World,H,L,R,P,Error,Out,True{},scope,List.append(&2,Ready.Completed<Error,Out>,leftOut,out),Prep.join(World,L,R,P,left,right))
     case Prep.Prepared{_,left,_,lt} Prep.InvocationInventoryRefused{scope,Prep.Inventory{right,rt},out}:Prep.InvocationInventoryRefused{scope,Prep.Inventory{Product.Owner{left,right},Prep.Pair{lt,rt}},List.append(&2,Ready.Completed<Error,Out>,leftOut,out)}
-def trusted_invoked_left(~S:Data,~World:Type,~H:Type,~L:Type,~R:Type,~P:Data,~Error:Data,~Out:Data,rightInvoke:H -> Prep.Prepared<World,R,P> -> Effect.Task<S,RuntimePermit.Permit,Prep.Invocation<H,World,R,P,List<&2,Ready.Completed<Error,Out>>>>,right:Prep.Prepared<World,R,P>,result:Prep.Invocation<H,World,L,P,List<&2,Ready.Completed<Error,Out>>>) -> Effect.Task<S,RuntimePermit.Permit,Prep.Invocation<H,World,Product.Owner<L,R>,P,List<&2,Ready.Completed<Error,Out>>>>:
+def trusted_invoked_left(-S:Data,-World:Type,-H:Type,-L:Type,-R:Type,-P:Data,-Error:Data,-Out:Data,rightInvoke:H -> Prep.Prepared<World,R,P> -> Effect.Task<S,RuntimePermit.Permit,Prep.Invocation<H,World,R,P,List<&2,Ready.Completed<Error,Out>>>>,right:Prep.Prepared<World,R,P>,result:Prep.Invocation<H,World,L,P,List<&2,Ready.Completed<Error,Out>>>) -> Effect.Task<S,RuntimePermit.Permit,Prep.Invocation<H,World,Product.Owner<L,R>,P,List<&2,Ready.Completed<Error,Out>>>>:
   match right result:
-    case right Prep.Invoked{scope,left,out}:Sys.map(S,RuntimePermit.Permit,Prep.Invocation<H,World,R,P,List<&2,Ready.Completed<Error,Out>>>,Prep.Invocation<H,World,Product.Owner<L,R>,P,List<&2,Ready.Completed<Error,Out>>>,rightInvoke(scope,right),result => trusted_invoked_right(~World,~H,~L,~R,~P,~Error,~Out,left,out,result))
-    case right Prep.InvocationRefused{scope,left,out}:Effect.TDone{trusted_invocation_joined(~World,~H,~L,~R,~P,~Error,~Out,True{},scope,out,Prep.join(~World,~L,~R,~P,left,right))}
+    case right Prep.Invoked{scope,left,out}:Sys.map(S,RuntimePermit.Permit,Prep.Invocation<H,World,R,P,List<&2,Ready.Completed<Error,Out>>>,Prep.Invocation<H,World,Product.Owner<L,R>,P,List<&2,Ready.Completed<Error,Out>>>,rightInvoke(scope,right),result => trusted_invoked_right(World,H,L,R,P,Error,Out,left,out,result))
+    case right Prep.InvocationRefused{scope,left,out}:Effect.TDone{trusted_invocation_joined(World,H,L,R,P,Error,Out,True{},scope,out,Prep.join(World,L,R,P,left,right))}
     case Prep.Prepared{_,right,_,rt} Prep.InvocationInventoryRefused{scope,Prep.Inventory{left,lt},out}:Effect.TDone{Prep.InvocationInventoryRefused{scope,Prep.Inventory{Product.Owner{left,right},Prep.Pair{lt,rt}},out}}
-def trusted_invoke_pair(~S:Data,~World:Type,~H:Type,~L:Type,~R:Type,~P:Data,~Error:Data,~Out:Data,leftInvoke:H -> Prep.Prepared<World,L,P> -> Effect.Task<S,RuntimePermit.Permit,Prep.Invocation<H,World,L,P,List<&2,Ready.Completed<Error,Out>>>>,rightInvoke:H -> Prep.Prepared<World,R,P> -> Effect.Task<S,RuntimePermit.Permit,Prep.Invocation<H,World,R,P,List<&2,Ready.Completed<Error,Out>>>>,scope:H,prepared:Prep.Prepared<World,Product.Owner<L,R>,P>) -> Effect.Task<S,RuntimePermit.Permit,Prep.Invocation<H,World,Product.Owner<L,R>,P,List<&2,Ready.Completed<Error,Out>>>>:
+def trusted_invoke_pair(-S:Data,-World:Type,-H:Type,-L:Type,-R:Type,-P:Data,-Error:Data,-Out:Data,leftInvoke:H -> Prep.Prepared<World,L,P> -> Effect.Task<S,RuntimePermit.Permit,Prep.Invocation<H,World,L,P,List<&2,Ready.Completed<Error,Out>>>>,rightInvoke:H -> Prep.Prepared<World,R,P> -> Effect.Task<S,RuntimePermit.Permit,Prep.Invocation<H,World,R,P,List<&2,Ready.Completed<Error,Out>>>>,scope:H,prepared:Prep.Prepared<World,Product.Owner<L,R>,P>) -> Effect.Task<S,RuntimePermit.Permit,Prep.Invocation<H,World,Product.Owner<L,R>,P,List<&2,Ready.Completed<Error,Out>>>>:
   match prepared:
-    case Prep.Prepared{+namespace,Product.Owner{left,right},permits,Prep.Pair{+lt,+rt}}:Effect.bind(S,RuntimePermit.Permit,Prep.Invocation<H,World,L,P,List<&2,Ready.Completed<Error,Out>>>,Prep.Invocation<H,World,Product.Owner<L,R>,P,List<&2,Ready.Completed<Error,Out>>>,leftInvoke(scope,Prep.Prepared{namespace,left,Prep.permits(~P,lt),lt}),result => trusted_invoked_left(~S,~World,~H,~L,~R,~P,~Error,~Out,rightInvoke,Prep.Prepared{namespace,right,Prep.permits(~P,rt),rt},result))
+    case Prep.Prepared{+namespace,Product.Owner{left,right},permits,Prep.Pair{+lt,+rt}}:Effect.bind(S,RuntimePermit.Permit,Prep.Invocation<H,World,L,P,List<&2,Ready.Completed<Error,Out>>>,Prep.Invocation<H,World,Product.Owner<L,R>,P,List<&2,Ready.Completed<Error,Out>>>,leftInvoke(scope,Prep.Prepared{namespace,left,Prep.permits(P,lt),lt}),result => trusted_invoked_left(S,World,H,L,R,P,Error,Out,rightInvoke,Prep.Prepared{namespace,right,Prep.permits(P,rt),rt},result))
     case Prep.Prepared{namespace,owner,permits,Prep.Leaf{n,ps}}:Effect.TDone{Prep.InvocationRefused{scope,Prep.Prepared{namespace,owner,permits,Prep.Leaf{n,ps}},[]}}
     case Prep.Prepared{namespace,owner,permits,Prep.Unprepared{}}:Effect.TDone{Prep.InvocationRefused{scope,Prep.Prepared{namespace,owner,permits,Prep.Unprepared{}},[]}}
-def pending_right(~World:Type,~L:Type,~R:Type,left:L,a:Bool,result:World & (R & Bool)) -> World & (Product.Owner<L,R> & Bool):
+def pending_right(-World:Type,-L:Type,-R:Type,left:L,a:Bool,result:World & (R & Bool)) -> World & (Product.Owner<L,R> & Bool):
   match result:
     case (world,(right,b)):(world,(Product.Owner{left,right},Bool.or(a,b)))
-def pending_left(~World:Type,~L:Type,~R:Type,rightPending:List<&2,U32> -> World -> R -> World & (R & Bool),ids:List<&2,U32>,right:R,result:World & (L & Bool)) -> World & (Product.Owner<L,R> & Bool):
+def pending_left(-World:Type,-L:Type,-R:Type,rightPending:List<&2,U32> -> World -> R -> World & (R & Bool),ids:List<&2,U32>,right:R,result:World & (L & Bool)) -> World & (Product.Owner<L,R> & Bool):
   match result:
-    case (world,(left,a)):pending_right(~World,~L,~R,left,a,rightPending(ids,world,right))
-def pending_pair(~World:Type,~L:Type,~R:Type,leftPending:List<&2,U32> -> World -> L -> World & (L & Bool),rightPending:List<&2,U32> -> World -> R -> World & (R & Bool),+ids:List<&2,U32>,world:World,owners:Product.Owner<L,R>) -> World & (Product.Owner<L,R> & Bool):
+    case (world,(left,a)):pending_right(World,L,R,left,a,rightPending(ids,world,right))
+def pending_pair(-World:Type,-L:Type,-R:Type,leftPending:List<&2,U32> -> World -> L -> World & (L & Bool),rightPending:List<&2,U32> -> World -> R -> World & (R & Bool),+ids:List<&2,U32>,world:World,owners:Product.Owner<L,R>) -> World & (Product.Owner<L,R> & Bool):
   match owners:
-    case Product.Owner{left,right}:pending_left(~World,~L,~R,rightPending,ids,right,leftPending(ids,world,left))
-def published_right(~World:Type,~L:Type,~R:Type,left:L,result:World & R) -> World & Product.Owner<L,R>:
+    case Product.Owner{left,right}:pending_left(World,L,R,rightPending,ids,right,leftPending(ids,world,left))
+def published_right(-World:Type,-L:Type,-R:Type,left:L,result:World & R) -> World & Product.Owner<L,R>:
   match result:
     case (world,right):(world,Product.Owner{left,right})
-def published_left(~World:Type,~L:Type,~R:Type,rightPublish:List<&2,U32> -> Tick.Tick -> World -> R -> World & R,ids:List<&2,U32>,tick:Tick.Tick,right:R,result:World & L) -> World & Product.Owner<L,R>:
+def published_left(-World:Type,-L:Type,-R:Type,rightPublish:List<&2,U32> -> Tick.Tick -> World -> R -> World & R,ids:List<&2,U32>,tick:Tick.Tick,right:R,result:World & L) -> World & Product.Owner<L,R>:
   match result:
-    case (world,left):published_right(~World,~L,~R,left,rightPublish(ids,tick,world,right))
-def publish_pair(~World:Type,~L:Type,~R:Type,leftPublish:List<&2,U32> -> Tick.Tick -> World -> L -> World & L,rightPublish:List<&2,U32> -> Tick.Tick -> World -> R -> World & R,+ids:List<&2,U32>,+tick:Tick.Tick,world:World,owners:Product.Owner<L,R>) -> World & Product.Owner<L,R>:
+    case (world,left):published_right(World,L,R,left,rightPublish(ids,tick,world,right))
+def publish_pair(-World:Type,-L:Type,-R:Type,leftPublish:List<&2,U32> -> Tick.Tick -> World -> L -> World & L,rightPublish:List<&2,U32> -> Tick.Tick -> World -> R -> World & R,+ids:List<&2,U32>,+tick:Tick.Tick,world:World,owners:Product.Owner<L,R>) -> World & Product.Owner<L,R>:
   match owners:
-    case Product.Owner{left,right}:published_left(~World,~L,~R,rightPublish,ids,tick,right,leftPublish(ids,tick,world,left))
-def restore_pair(~L:Type,~R:Type,~HL:Type,~HR:Type,~left:HL -> L,~right:HR -> R,held:Product.Owner<HL,HR>) -> Product.Owner<L,R>:
+    case Product.Owner{left,right}:published_left(World,L,R,rightPublish,ids,tick,right,leftPublish(ids,tick,world,left))
+def restore_pair(-L:Type,-R:Type,-HL:Type,-HR:Type,left:HL -> L,right:HR -> R,held:Product.Owner<HL,HR>) -> Product.Owner<L,R>:
   match held:
     case Product.Owner{l,r}:Product.Owner{left(l),right(r)}
 def compile_join(~S:Data,~World:Type,~P:Data,~H:Type,~Error:Data,~Out:Data,~L:Type,~R:Type,left:Runtime<S,World,P,H,L,Error,Out>,right:Runtime<S,World,P,H,R,Error,Out>) -> Runtime<S,World,P,H,Product.Owner<L,R>,Error,Out>:
   match left right:
-    case Runtime{HL,restoreLeft,l,ln,le,li,ld,lq,ls,lp,lv} Runtime{HR,restoreRight,r,rn,re,ri,rd,rq,rs,rp,rv}:Runtime{Product.Owner<HL,HR>,restore_pair(~L,~R,~HL,~HR,~restoreLeft,~restoreRight),Product.Owner{l,r},List.append(&2,Plan.Node<String>,ln,rn),List.append(&2,Part.Entry,le,re),Plan.first_error(~String,li,ri),List.append(&2,U32,ld,rd),(ids => world => owners => pending_pair(~World,~HL,~HR,lq,rq,ids,world,owners)),(ids => tick => world => owners => publish_pair(~World,~HL,~HR,ls,rs,ids,tick,world,owners)),(ids => world => owners => trusted_prepare_pair(~World,~HL,~HR,~P,lp,rp,ids,world,owners)),(scope => prepared => trusted_invoke_pair(~S,~World,~H,~HL,~HR,~P,~Error,~Out,lv,rv,scope,prepared))}
+    case Runtime{HL,restoreLeft,l,ln,le,li,ld,lq,ls,lp,lv} Runtime{HR,restoreRight,r,rn,re,ri,rd,rq,rs,rp,rv}:Runtime{Product.Owner<HL,HR>,held => restore_pair(L,R,HL,HR,restoreLeft,restoreRight,held),Product.Owner{l,r},List.append(&2,Plan.Node<String>,ln,rn),List.append(&2,Part.Entry,le,re),Plan.first_error(~String,li,ri),List.append(&2,U32,ld,rd),(ids => world => owners => pending_pair(World,HL,HR,lq,rq,ids,world,owners)),(ids => tick => world => owners => publish_pair(World,HL,HR,ls,rs,ids,tick,world,owners)),(ids => world => owners => trusted_prepare_pair(World,HL,HR,P,lp,rp,ids,world,owners)),(scope => prepared => trusted_invoke_pair(S,World,H,HL,HR,P,Error,Out,lv,rv,scope,prepared))}
 def command_compilation_access(~S:Data,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Data,~WR:Type,~layout:Layout.Layout,~route:Layout.Route,~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~Ops:Data -> Type -> Type -> Type,~User:Type,~declaration:Cmd.Program(~S,~C,~R,~layout,~route,~Ops),~body:Cmd.Body(~S,~layout,~route,~Ops,~User,~Error,~Out),owner:Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>,compilation:D.Compilation<S,Layout.columns(~S,layout),C,R,Cmd.ScopedOps(~S,~layout,~route,~Ops)>,requirements:List<&2,D.Access>,supported:Bool) -> Runtime<S,W.World<S,Layout.columns(~S,layout),WR,E>,Prep.Permit<S,Layout.columns(~S,layout)>,State.Scope<S,C,R>,Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>,Error,Out>:
   match owner:
     case Cmd.Owner{Sys.Owner{namespace,+id,name,access,cursor,local}}:leaf_runtime(~S,~W.World<S,Layout.columns(~S,layout),WR,E>,~Prep.Permit<S,Layout.columns(~S,layout)>,~State.Scope<S,C,R>,~Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>,~Error,~Out,~D.Compilation<S,Layout.columns(~S,layout),C,R,Cmd.ScopedOps(~S,~layout,~route,~Ops)>,~CommandScope.pending(~S,~Layout.columns(~S,layout),~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR),~CommandScope.publish(~S,~Layout.columns(~S,layout),~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR,~{==},~valid),~CommandScope.prepare_with_compilation(~S,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR),~CommandScope.invoke_with_compilation(~S,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR,~D.trusted_construction_caps(~S,~Layout.columns(~S,layout),~C,~R,~Cmd.ScopedOps(~S,~layout,~route,~Ops),Build.compile_framework(~S,~Layout.columns(~S,layout),~C,~R,~Cmd.ScopedOps(~S,~layout,~route,~Ops),~Cmd.program_for_buffer(~S,~C,~R,~layout,~route,~Ops,~declaration)))),Cmd.Owner{Sys.Owner{namespace,id,name,access,cursor,local}},compilation,id,requirements,supported,[id],False{})
