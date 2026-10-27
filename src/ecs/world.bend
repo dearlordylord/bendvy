@@ -26,6 +26,7 @@ type RegistrationMeta is Data:
 # Explicit low-level refusal reasons for entity, capacity, namespace or system-id
 # admission. Callers must inspect their operation result rather than infer success.
 type WorldError is Data:
+  ReservationUnauthorized{}
   MissingEntity{}
   CapacityExceeded{}
   NamespaceExhausted{}
