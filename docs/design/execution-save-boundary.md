@@ -105,13 +105,27 @@ output oracle or host test harness.
 - `plain.bend`: generic World eligibility refusal for both nominal schemas,
   retaining actual Config Array 777 and cache 777. This is separate from Scheduled
   command-owner gating.
+- `pooled-main.bend`: a caller-owned preallocated Array pool supplies actual Actor
+  construction through the public fallible factory. Two codec-valid Actors and
+  one buffer stage the first Actor and refuse the second with NoBuffer. The real
+  staging release invokes its retained undo: records become empty and recovery
+  returns the parent Raw plus its original buffer contents 5151, and the child's
+  Raw plus no buffer. No receiver publication occurred. The returned actual App
+  still owns generation-0 entities and Running revision 101. Its ordinary
+  allocating restore policy then retries the retained valid input and resumes
+  serial Alpha/native Beta with the original captures, condition, handler and
+  Reader. The complete pool/factory/recovery state remains in the returned result
+  through that retry. This does not claim a completed pooled publication API.
 
 Each unblocked entry above completed an ordinary invocation with exit 0 within
 its recorded source scope. Finite observations do not establish generic ownership
 identity. Maximum-size source metadata export reached a machine stack failure;
 that production limitation remains unresolved, with no increased limit or retry
-campaign. Constructor-failure cleanup observations, source-current access/ownership
-controls, independent Spec/Standards review and formal laws remain incomplete.
+campaign. Source-current access/ownership controls, independent Spec/Standards
+review and formal laws remain incomplete. Basic `main.bend` already resumes both
+serial and canonical Schedule.run_native updates for Alpha and Beta: the full
+Config field changes from saved 701 to resumed 702. Native here names that actual
+execution path; it does not add an independently qualified host ABI comparison.
 
 ## Graph and machine extension
 
