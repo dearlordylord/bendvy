@@ -10,34 +10,68 @@ type SwapOutcome<-S:Data,-C:Type> is Type:
   Accepted{column:Column<S,C>,previous:Maybe<&1,C>}
   Rejected{column:Column<S,C>,incoming:Maybe<&1,C>}
 
-def absent(~C:Type,depth:Nat) -> Array<Maybe<&1,C>>:
+def absent_generic(-C:Type,depth:Nat) -> Array<Maybe<&1,C>>:
   match depth:
-    case 0n: ALeaf{None{}}
-    case 1n++rest: ANode{absent(~C,rest),absent(~C,rest)}
-def empty(~S:Data,~C:Type) -> Column<S,C>:
-  Leaf{absent(~C,3n),[L.Stamp{None{},None{}} : L.Stamp^3n]}
-def capacity(~S:Data,~C:Type,column:Column<S,C>) -> Column<S,C> & U32:
+    case 0n:ALeaf{None{}}
+    case 1n++rest:ANode{absent_generic(C,rest),absent_generic(C,rest)}
+def empty_generic(-S:Data,-C:Type) -> Column<S,C>:
+  Leaf{absent_generic(C,3n),[L.Stamp{None{},None{}} : L.Stamp^3n]}
+def capacity_generic(-S:Data,-C:Type,column:Column<S,C>) -> Column<S,C> & U32:
   match column:
-    case Leaf{values,stamps}: (Leaf{values,stamps},8)
-    case Branch{+half,left,right}: (Branch{half,left,right},U32.add(half,half))
-def vacant(~S:Data,~C:Type,depth:Nat) -> Column<S,C>:
+    case Leaf{values,stamps}:(Leaf{values,stamps},8)
+    case Branch{+half,left,right}:(Branch{half,left,right},U32.add(half,half))
+def vacant_generic(-S:Data,-C:Type,depth:Nat) -> Column<S,C>:
   match depth:
-    case 0n: empty(~S,~C)
+    case 0n:empty_generic(S,C)
     case 1n++rest:
       +half = U32.shln(8,rest)
-      Branch{half,vacant(~S,~C,rest),vacant(~S,~C,rest)}
-def grown(~S:Data,~C:Type,fuel:Nat,column:Column<S,C>,+size:U32,+depth:Nat,+target:U32,enough:Bool) -> Column<S,C>:
+      Branch{half,vacant_generic(S,C,rest),vacant_generic(S,C,rest)}
+def grown_generic(-S:Data,-C:Type,fuel:Nat,column:Column<S,C>,+size:U32,+depth:Nat,+target:U32,enough:Bool) -> Column<S,C>:
   match fuel enough:
-    case _ True{}: column
-    case 0n False{}: column
-    case 1n+rest False{}:
-      grown(~S,~C,rest,Branch{size,column,vacant(~S,~C,depth)},U32.add(size,size),1n+depth,target,U32.is_le(target,U32.add(size,size)))
-def ensure_sized(~S:Data,~C:Type,+target:U32,result:Column<S,C> & U32) -> Column<S,C>:
+    case _ True{}:column
+    case 0n False{}:column
+    case 1n+rest False{}:grown_generic(S,C,rest,Branch{size,column,vacant_generic(S,C,depth)},U32.add(size,size),1n+depth,target,U32.is_le(target,U32.add(size,size)))
+def ensure_sized_generic(-S:Data,-C:Type,+target:U32,result:Column<S,C> & U32) -> Column<S,C>:
   match result:
-    case (column,+size): grown(~S,~C,14n,column,size,Nat.sub(U32.log2(size),3n),target,U32.is_le(target,size))
+    case (column,+size):grown_generic(S,C,14n,column,size,Nat.sub(U32.log2(size),3n),target,U32.is_le(target,size))
 def maximum_capacity() -> U32:131072
-def ensure(~S:Data,~C:Type,column:Column<S,C>,target:U32) -> Column<S,C>:
-  ensure_sized(~S,~C,U32.min(target,maximum_capacity()),capacity(~S,~C,column))
+def ensure_generic(-S:Data,-C:Type,column:Column<S,C>,target:U32) -> Column<S,C>:
+  ensure_sized_generic(S,C,U32.min(target,maximum_capacity()),capacity_generic(S,C,column))
+def absent(~C:Type,depth:Nat) -> Array<Maybe<&1,C>>:absent_generic(C,depth)
+def empty(~S:Data,~C:Type) -> Column<S,C>:empty_generic(S,C)
+def capacity(~S:Data,~C:Type,column:Column<S,C>) -> Column<S,C> & U32:capacity_generic(S,C,column)
+def vacant(~S:Data,~C:Type,depth:Nat) -> Column<S,C>:vacant_generic(S,C,depth)
+def grown(~S:Data,~C:Type,fuel:Nat,column:Column<S,C>,size:U32,depth:Nat,target:U32,enough:Bool) -> Column<S,C>:grown_generic(S,C,fuel,column,size,depth,target,enough)
+def ensure_sized(~S:Data,~C:Type,target:U32,result:Column<S,C> & U32) -> Column<S,C>:ensure_sized_generic(S,C,target,result)
+def ensure(~S:Data,~C:Type,column:Column<S,C>,target:U32) -> Column<S,C>:ensure_generic(S,C,column,target)
+
+# Actual presence only; None distinguishes unavailable/malformed leaf storage.
+# Bounds use actual array lengths before any affine cell is temporarily moved.
+def vacancy_restored(-S:Data,-C:Type,stamps:Array<L.Stamp>,index:U32,result:Array<Maybe<&1,C>> & Maybe<&1,C>) -> Column<S,C> & Maybe<&2,Bool>:
+  match result:
+    case (values,None{}):(Leaf{values,stamps},Some{True{}})
+    case (values,Some{owner}):(Leaf{Array.set(Maybe<&1,C>,values,index,Some{owner}),stamps},Some{False{}})
+def vacancy_bounded(-S:Data,-C:Type,values:Array<Maybe<&1,C>>,stamps:Array<L.Stamp>,+index:U32,valid:Bool) -> Column<S,C> & Maybe<&2,Bool>:
+  match valid:
+    case False{}:(Leaf{values,stamps},None{})
+    case True{}:vacancy_restored(S,C,stamps,index,Array.swap(Maybe<&1,C>,values,index,None{}))
+def vacancy_stamps(-S:Data,-C:Type,values:Array<Maybe<&1,C>>,valueSize:U32,+index:U32,result:Array<L.Stamp> & U32) -> Column<S,C> & Maybe<&2,Bool>:
+  match result:
+    case (stamps,stampSize):vacancy_bounded(S,C,values,stamps,index,Bool.and(U32.is_eq(valueSize,8),Bool.and(U32.is_eq(stampSize,8),U32.is_lt(index,8))))
+def vacancy_values(-S:Data,-C:Type,stamps:Array<L.Stamp>,index:U32,result:Array<Maybe<&1,C>> & U32) -> Column<S,C> & Maybe<&2,Bool>:
+  match result:
+    case (values,size):vacancy_stamps(S,C,values,size,index,Array.size(L.Stamp,stamps))
+def vacancy_join(-S:Data,-C:Type,half:U32,leftResult:Column<S,C> & Maybe<&2,Bool>,rightResult:Column<S,C> & Maybe<&2,Bool>) -> Column<S,C> & Maybe<&2,Bool>:
+  match leftResult rightResult:
+    case (left,Some{result}), (right,_):(Branch{half,left,right},Some{result})
+    case (left,None{}), (right,result):(Branch{half,left,right},result)
+def vacancy_selected(-S:Data,-C:Type,column:Column<S,C>,+index:U32,selected:Bool) -> Column<S,C> & Maybe<&2,Bool>:
+  match column selected:
+    case column False{}:(column,None{})
+    case Leaf{values,stamps} True{}:vacancy_values(S,C,stamps,index,Array.size(Maybe<&1,C>,values))
+    case Branch{+half,left,right} True{}:vacancy_join(S,C,half,vacancy_selected(S,C,left,index,U32.is_lt(index,half)),vacancy_selected(S,C,right,U32.sub(index,half),Bool.not(U32.is_lt(index,half))))
+def vacancy_generic(-S:Data,-C:Type,column:Column<S,C>,index:U32) -> Column<S,C> & Maybe<&2,Bool>:
+  vacancy_selected(S,C,column,index,True{})
 
 def present(~C:Type,value:Maybe<&1,C>) -> Maybe<&1,C> & Bool:
   match value:
@@ -137,7 +171,7 @@ def modify(~S:Data,~C:Type,~V:Data,~transform:C -> C & V,column:Column<S,C>,inde
 def stamp_got(~S:Data,~C:Type,values:Array<Maybe<&1,C>>,result:Array<L.Stamp> & L.Stamp) -> Column<S,C> & Maybe<&2,L.Stamp>:
   match result:
     case (stamps,stamp): (Leaf{values,stamps},Some{stamp})
-def stamp_leaf(~S:Data,~C:Type,values:Array<Maybe<&1,C>>,stamps:Array<L.Stamp>,index:U32,valid:Bool) -> Column<S,C> & Maybe<&2,L.Stamp>:
+def stamp_leaf(~S:Data,~C:Type,values:Array<Maybe<&1,C>>,stamps:Array<L.Stamp>,+index:U32,valid:Bool) -> Column<S,C> & Maybe<&2,L.Stamp>:
   match valid:
     case False{}: (Leaf{values,stamps},None{})
     case True{}: stamp_got(~S,~C,values,Array.get(L.Stamp,stamps,index))

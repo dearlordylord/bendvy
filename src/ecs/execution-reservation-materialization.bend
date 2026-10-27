@@ -18,13 +18,8 @@ import ./entity-allocator.bend as A
 type Remainder<-S:Data,-C:Type,-R:Type,-E:Data> is Type:
   Remainder{namespace:U32,resource:R,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:Clock.State,lifecycle:Notice.Journal<S>}
 
-# Preflight uses an identity projection, not the schema refresher. No incoming
-# payload is initialized or installed until the full tree has been checked.
-def identity(-P:Type,value:P) -> P & Unit:(value,Unit{})
-def vacant(result:Maybe<&2,Unit>) -> Bool:
-  match result:
-    case None{}:True{}
-    case Some{_}:False{}
+# Preflight inspects actual presence without a callback or schema refresher.
+# No incoming payload is initialized until the full tree has been checked.
 def reason(ok:Bool,key:String) -> Maybe<&2,Bundle.Refusal>:
   match ok:
     case True{}:None{}
@@ -33,16 +28,21 @@ def first(left:Maybe<&2,Bundle.Refusal>,right:Maybe<&2,Bundle.Refusal>) -> Maybe
   match left:
     case None{}:right
     case Some{error}:Some{error}
-def leaf_checked(~S:Data,-P:Type,-V:Data,+key:String,-origin:Layout.Layout,bundle:Maybe<&1,P>,result:Column.Column<S,Layout.Viewed<P,V>> & Maybe<&2,Unit>) -> Layout.ColumnSlot<S,Layout.Viewed<P,V>,key,origin> & (Maybe<&1,P> & Maybe<&2,Bundle.Refusal>):
+def leaf_checked(~S:Data,-P:Type,-V:Data,+key:String,-origin:Layout.Layout,bundle:Maybe<&1,P>,result:Column.Column<S,Layout.Viewed<P,V>> & Maybe<&2,Bool>) -> Layout.ColumnSlot<S,Layout.Viewed<P,V>,key,origin> & (Maybe<&1,P> & Maybe<&2,Bundle.Refusal>):
   match result:
-    case (column,present):(Layout.ColumnSlot{column},(bundle,reason(vacant(present),key)))
-def shape_allowed(~S:Data,-P:Type,-V:Data,+key:String,-origin:Layout.Layout,index:U32,bundle:Maybe<&1,P>,column:Column.Column<S,Layout.Viewed<P,V>>,valid:Bool) -> Layout.ColumnSlot<S,Layout.Viewed<P,V>,key,origin> & (Maybe<&1,P> & Maybe<&2,Bundle.Refusal>):
+    case (column,None{}):(Layout.ColumnSlot{column},(bundle,Some{Bundle.MalformedColumn{key}}))
+    case (column,Some{vacant}):(Layout.ColumnSlot{column},(bundle,reason(vacant,key)))
+def vacancy_within(~S:Data,-P:Type,-V:Data,+key:String,-origin:Layout.Layout,index:U32,bundle:Maybe<&1,P>,column:Column.Column<S,Layout.Viewed<P,V>>,within:Bool) -> Layout.ColumnSlot<S,Layout.Viewed<P,V>,key,origin> & (Maybe<&1,P> & Maybe<&2,Bundle.Refusal>):
+  match within:
+    case False{}:(Layout.ColumnSlot{column},(bundle,None{}))
+    case True{}:leaf_checked(~S,P,V,key,origin,bundle,Column.vacancy_generic(S,Layout.Viewed<P,V>,column,index))
+def shape_allowed(~S:Data,-P:Type,-V:Data,+key:String,-origin:Layout.Layout,+index:U32,capacity:U32,bundle:Maybe<&1,P>,column:Column.Column<S,Layout.Viewed<P,V>>,valid:Bool) -> Layout.ColumnSlot<S,Layout.Viewed<P,V>,key,origin> & (Maybe<&1,P> & Maybe<&2,Bundle.Refusal>):
   match valid:
     case False{}:(Layout.ColumnSlot{column},(bundle,Some{Bundle.MalformedColumn{key}}))
-    case True{}:leaf_checked(~S,P,V,key,origin,bundle,Column.view(~S,~(Layout.Viewed<P,V>),~Unit,~identity(Layout.Viewed<P,V>),column,index))
+    case True{}:vacancy_within(~S,P,V,key,origin,index,bundle,column,U32.is_lt(index,capacity))
 def shape_checked(~S:Data,-P:Type,-V:Data,+key:String,-origin:Layout.Layout,index:U32,bundle:Maybe<&1,P>,result:Column.Column<S,Layout.Viewed<P,V>> & Part.Inspection) -> Layout.ColumnSlot<S,Layout.Viewed<P,V>,key,origin> & (Maybe<&1,P> & Maybe<&2,Bundle.Refusal>):
   match result:
-    case (column,Part.Inspection{_,capacity,valid}):shape_allowed(~S,P,V,key,origin,index,bundle,column,Bool.and(valid,U32.is_le(capacity,Column.maximum_capacity())))
+    case (column,Part.Inspection{_,+capacity,valid}):shape_allowed(~S,P,V,key,origin,index,capacity,bundle,column,Bool.and(valid,U32.is_le(capacity,Column.maximum_capacity())))
 def check_leaf(~S:Data,-P:Type,-V:Data,+key:String,-origin:Layout.Layout,index:U32,slot:Layout.ColumnSlot<S,Layout.Viewed<P,V>,key,origin>,bundle:Maybe<&1,P>) -> Layout.ColumnSlot<S,Layout.Viewed<P,V>,key,origin> & (Maybe<&1,P> & Maybe<&2,Bundle.Refusal>):
   match slot bundle:
     case slot None{}:(slot,(None{},None{}))
@@ -98,7 +98,7 @@ def installed_leaf(~S:Data,-P:Type,-V:Data,-key:String,-origin:Layout.Layout,res
 def install_leaf(~S:Data,-P:Type,-V:Data,refresh:P -> P & V,-key:String,-origin:Layout.Layout,+index:U32,tick:Tick.Tick,slot:Layout.ColumnSlot<S,Layout.Viewed<P,V>,key,origin>,bundle:Maybe<&1,P>) -> Layout.ColumnSlot<S,Layout.Viewed<P,V>,key,origin> & Maybe<&1,P>:
   match slot bundle:
     case slot None{}:(slot,None{})
-    case Layout.ColumnSlot{column} Some{incoming}:installed_leaf(~S,P,V,key,origin,write_column(~S,Layout.Viewed<P,V>,Column.ensure(~S,~(Layout.Viewed<P,V>),column,U32.add(index,1)),index,tick,Some{Layout.initialized(P,V,refresh(incoming))}))
+    case Layout.ColumnSlot{column} Some{incoming}:installed_leaf(~S,P,V,key,origin,write_column(~S,Layout.Viewed<P,V>,Column.ensure_generic(S,Layout.Viewed<P,V>,column,U32.add(index,1)),index,tick,Some{Layout.initialized(P,V,refresh(incoming))}))
 def installed_right(~S:Data,-left:Layout.Layout,-right:Layout.Layout,leftOwner:Layout.columns(~S,left),leftPrevious:Bundle.Payload(left),result:Layout.columns(~S,right) & Bundle.Payload(right)) -> Layout.columns(~S,Layout.LayoutPair{left,right}) & Bundle.Payload(Layout.LayoutPair{left,right}):
   match result:
     case (rightOwner,rightPrevious):(Product.Owner{leftOwner,rightOwner},Product.Owner{leftPrevious,rightPrevious})
