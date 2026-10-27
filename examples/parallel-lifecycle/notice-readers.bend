@@ -48,7 +48,8 @@ def output_declared(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Core.Stor
   match result:
     case (book,output):input_declared(~S,~H,~B,~builder,output,builder(InputOps(~S),input_selection(~S,~H,~B),book))
 def declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Core.Store(~S),~Unit,~Unit,~H,~B),book:B) -> B & Ops(~S,H):
-  output_declared(~S,~H,~B,~builder,builder(OutputOps(~S),output_selection(~S,~H,~B),book))def reason(value:Notice.Refusal) -> String:
+  output_declared(~S,~H,~B,~builder,builder(OutputOps(~S),output_selection(~S,~H,~B),book))
+def reason(value:Notice.Refusal) -> String:
   match value:
     case Notice.ForeignWorld{}:"foreign-world"
     case Notice.Inactive{}:"inactive"
