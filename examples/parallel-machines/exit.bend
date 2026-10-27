@@ -16,7 +16,7 @@ def Ops(~S:Data,Permit:Data,H:Type,Q:Type) -> Type:D.request_ops(~S)(Permit,H)
 def declared(~S:Data,~Permit:Data,~H:Type,~Q:Type,~B:Type,~K:Type,permission:K,result:B & Ops(~S,Permit,H,Q)) -> B & (K & Ops(~S,Permit,H,Q)):
   match result:
     case (book,ops):(book,(permission,ops))
-def declaration(~S:Data,~Permit:Data,~H:Type,~Q:Type,~commands:Commands.Commands<Q,S,P.Actor<S,D.Mode>>,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.LeftStore(~S),~D.Resources(~S),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~D.component_layout(~S),~Permit,~Q,~K),~relations:Permission.RelationGrant(~S,~D.root_layout(S),~Q,~K),book:B,permission:K) -> B & (K & Ops(~S,Permit,H,Q)):
+def declaration(~S:Data,~Permit:Data,~H:Type,~Q:Type,~commands:Commands.Commands<Q,S,P.Actor<S,D.Mode>>,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.LeftStore(~S),~D.Resources(~S),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~D.component_layout(~S),~Permit,~Q,~K),~relations:Permission.RelationGrant(~S,~D.root_layout(S),~Q,~K),~scopes:Permission.ScopeGrant(~S,~D.root_layout(S),~Q,~K),book:B,permission:K) -> B & (K & Ops(~S,Permit,H,Q)):
   declared(~S,~Permit,~H,~Q,~B,~K,permission,D.request(~S,~Permit,~H,~B,~builder,book))
 type User<-S:Data> is Type:
   User{handle:W.Handle<S>,retained:Body.Local()}

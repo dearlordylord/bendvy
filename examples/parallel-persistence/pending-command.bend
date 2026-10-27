@@ -21,7 +21,7 @@ type Capture<-S:Data> is Type:Capture{handle:W.Handle<S>,retained:E.Left(~S),cap
 # captures through persistence refusal is a Bend-specific ownership requirement.
 def route() -> Layout.Route:Layout.InLeft{Layout.AtLeaf{}}
 def Ops(Permit:Data,H:Type,Q:Type) -> Type:Unit
-def declaration(~S:Data,~Permit:Data,~H:Type,~Q:Type,~commands:Local.Commands<Q,S,O.Actor<S>>,~B:Type,~builder:Build.Builder(~S,~Layout.columns(~S,R.Components(~S)),~P.LeftColumn(~S),~P.LeftResource(~S),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~R.Components(~S),~Permit,~Q,~K),~relations:Permission.RelationGrant(~S,~Plan.layout(O.resources(~S)),~Q,~K),book:B,permission:K) -> B & (K & Unit):(book,(permission,Unit{}))
+def declaration(~S:Data,~Permit:Data,~H:Type,~Q:Type,~commands:Local.Commands<Q,S,O.Actor<S>>,~B:Type,~builder:Build.Builder(~S,~Layout.columns(~S,R.Components(~S)),~P.LeftColumn(~S),~P.LeftResource(~S),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~R.Components(~S),~Permit,~Q,~K),~relations:Permission.RelationGrant(~S,~Plan.layout(O.resources(~S)),~Q,~K),~scopes:Permission.ScopeGrant(~S,~Plan.layout(O.resources(~S)),~Q,~K),book:B,permission:K) -> B & (K & Unit):(book,(permission,Unit{}))
 def body(~S:Data,~Permit:Data,~H:Type,~Q:Type,~caps:Unit,~commands:Local.Commands<Q,S,O.Actor<S>>,scope:H,queue:Q,local:Capture<S>) -> Task.Task<S,Permit,H & (Q & (Capture<S> & Sys.Completion<String,String>))>:
   match local:
     case Capture{+handle,retained,capture,runs}:Task.TDone{(scope,(Local.insert_field(~Q,~S,~O.Actor<S>,commands)(queue,handle,O.Actor{"queued",ALeaf{515}}),(Capture{handle,retained,capture,U32.add(runs,1)},Sys.Success{"authored"}))) }

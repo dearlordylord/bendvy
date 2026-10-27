@@ -17,6 +17,7 @@ import ../../src/ecs/execution-relation-context.bend as Context
 import ../../src/ecs/execution-relation-operation.bend as Operation
 import ../../src/ecs/execution-relation-store.bend as Store
 import ../../src/ecs/relation-types.bend as T
+import ../../src/ecs/execution-lifetime-scope-description.bend as ScopeText
 
 type Schema is Data:
   Scene{}
@@ -42,6 +43,8 @@ def receipt(value:Buffer.Receipt<Schema,Unit,Removed.Removed(Actor.components())
     case Buffer.DespawnRefused{_}:"despawn-refused"
     case Buffer.Spawned{_,_}:"spawned"
     case Buffer.SpawnRefused{_,_,_}:"spawn-refused"
+    case Buffer.ScopePublished{_,value,status,receipts,frames}:"scope:" ++ ScopeText.operation(~Schema,value) ++ ":" ++ ScopeText.status(status) ++ ":" ++ Nat.show(List.length(&1,Buffer.Receipt<Schema,Unit,Removed.Removed(Actor.components())>,receipts)) ++ ":frames=" ++ Nat.show(List.length(&2,T.CleanupFrame<Schema>,frames))
+    case Buffer.ScopeStoreApplied{_,request,result}:"scope-store:" ++ ScopeText.request(~Schema,request) ++ ":" ++ ScopeText.outcome(~Schema,result)
 def edge(value:T.Edge<Schema>) -> String:
   match value:
     case T.Edge{_,source,target}:key(source) ++ "->" ++ key(target)

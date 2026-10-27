@@ -1,4 +1,6 @@
 import Base
+import ../../src/ecs/execution-lifetime-scope-description.bend as ScopeText
+import ../../src/ecs/relation-types.bend as RelationTypes
 import ./declarations.bend as D
 import ./payloads.bend as P
 import ./bodies.bend as Body
@@ -73,6 +75,7 @@ def pending_entry(~S:Data,value:Buffer.Entry<S,P.Actor<S,D.Mode>,Removed.Removed
     case Buffer.Despawn{handle}:"despawn:" ++ Observe.handle(~S,handle)
     case Buffer.Spawn{handle,bundle}:"spawn:" ++ Observe.handle(~S,handle) ++ ":" ++ removed(~S,bundle)
     case Buffer.Relation{_,_}:"relation"
+    case Buffer.LifetimeScope{_,operation}:"scope:" ++ ScopeText.operation(~S,operation)
 def receipt(~S:Data,value:Buffer.Receipt<S,P.Actor<S,D.Mode>,Removed.Removed(D.component_layout(~S))>) -> String:
   match value:
     case Buffer.Applied{handle,previous}:"applied:" ++ Observe.handle(~S,handle) ++ ":" ++ Observe.maybe_actor(~S,previous)
@@ -83,9 +86,11 @@ def receipt(~S:Data,value:Buffer.Receipt<S,P.Actor<S,D.Mode>,Removed.Removed(D.c
     case Buffer.SpawnRefused{handle,bundle,reason}:"spawn-refused:" ++ Observe.handle(~S,handle) ++ ":" ++ removed(~S,bundle) ++ ":" ++ spawn_refusal(reason)
     case Buffer.RelationPublished{_,_}:"relation-published"
     case Buffer.RelationUndeclared{_,_}:"relation-undeclared"
+    case Buffer.ScopePublished{_,operation,status,receipts,frames}:"scope:" ++ ScopeText.operation(~S,operation) ++ ":" ++ ScopeText.status(status) ++ ":" ++ Nat.show(List.length(&1,Buffer.Receipt<S,P.Actor<S,D.Mode>,Removed.Removed(D.component_layout(~S))>,receipts)) ++ ":frames=" ++ Nat.show(List.length(&2,RelationTypes.CleanupFrame<S>,frames))
+    case Buffer.ScopeStoreApplied{_,request,result}:"scope-store:" ++ ScopeText.request(~S,request) ++ ":" ++ ScopeText.outcome(~S,result)
 def buffer(~S:Data,value:Buffer.Buffer<S,P.Actor<S,D.Mode>,Removed.Removed(D.component_layout(~S))>) -> String:
   match value:
-    case Buffer.Buffer{pending,receipts}:"pending=" ++ List.show(&1,Buffer.Entry<S,P.Actor<S,D.Mode>,Removed.Removed(D.component_layout(~S))>,pending_entry(~S),pending) ++ "/receipts=" ++ List.show(&1,Buffer.Receipt<S,P.Actor<S,D.Mode>,Removed.Removed(D.component_layout(~S))>,receipt(~S),receipts)
+    case Buffer.Buffer{pending,receipts}:"pending=" ++ List.show(&1,Buffer.Entry<S,P.Actor<S,D.Mode>,Removed.Removed(D.component_layout(~S))>,pending_entry(~S),pending) ++ "/receipts=" ++ Nat.show(List.length(&1,Buffer.Receipt<S,P.Actor<S,D.Mode>,Removed.Removed(D.component_layout(~S))>,receipts))
 def captures(~S:Data,value:Exit.Captures(~S)) -> String:
   match value:
     case Commands.Local{owner,commands,grant}:user(~S,owner) ++ "/permission=" ++ permission(grant) ++ "/" ++ buffer(~S,commands)

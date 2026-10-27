@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/execution-lifetime-scope-description.bend as ScopeText
 import ../../src/ecs/execution-reservation-task.bend as Effect
 import ../../src/ecs/execution-command-permission.bend as Permission
 import ../../src/ecs/execution-command-removed.bend as Removed
@@ -46,7 +47,7 @@ def PeerOps(~S:Data,Permit:Data,H:Type) -> Type:Unit
 def author_declared(~S:Data,~Permit:Data,~H:Type,~O:Type,~B:Type,~K:Type,permission:K,result:B & Ops(~S,Permit,H,O)) -> B & (K & Ops(~S,Permit,H,O)):
   match result:
     case (book,ops):(book,(permission,ops))
-def author_declaration(~S:Data,~mode:Query.Mode,~Permit:Data,~H:Type,~O:Type,~commands:Local.Commands<O,S,P.Output>,~B:Type,~builder:Build.Builder(~S,~Store(~S),~Left(~S),~D.Resources(~S),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~layout(~S),~Permit,~O,~K),~relations:Permission.RelationGrant(~S,~resources(),~O,~K),book:B,permission:K) -> B & (K & Ops(~S,Permit,H,O)):
+def author_declaration(~S:Data,~mode:Query.Mode,~Permit:Data,~H:Type,~O:Type,~commands:Local.Commands<O,S,P.Output>,~B:Type,~builder:Build.Builder(~S,~Store(~S),~Left(~S),~D.Resources(~S),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~layout(~S),~Permit,~O,~K),~relations:Permission.RelationGrant(~S,~resources(),~O,~K),~scopes:Permission.ScopeGrant(~S,~resources(),~O,~K),book:B,permission:K) -> B & (K & Ops(~S,Permit,H,O)):
   author_declared(~S,~Permit,~H,~O,~B,~K,permission,Decl.declaration(~S,~Store(~S),~mode,~Permit,~H,~O,~commands,~B,~builder,book))
 def peer_declaration(~S:Data,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~Unit,~Unit,~Permit,~H,~B),book:B) -> B & Unit:
   (book,Unit{})
@@ -74,6 +75,9 @@ def handle_text(~S:Data,value:W.Handle<S>) -> String:
     case W.Handle{namespace,key}:U32.show(namespace) ++ ":" ++ Observe.key(key)
 type Record is Data:
   Record{index:U32,token:U32,text:String}
+def record_text(~S:Data,value:Record) -> String:
+  match value:
+    case Record{_,_,text}:text
 def record_token(~S:Data,label:String,+handle:W.Handle<S>,value:U32,result:Array<U32> & U32) -> Record:
   match result:
     case (_, +token):Record{W.handle_index(~S,handle),token,label ++ handle_text(~S,handle) ++ ":" ++ U32.show(token) ++ ":" ++ U32.show(value)}
@@ -135,6 +139,7 @@ def entry(~S:Data,value:Buffer.Entry<S,P.Output,Removed.Removed(layout(~S))>) ->
     case Buffer.Despawn{handle}:payload_record(~S,"despawn:",handle,None{})
     case Buffer.Spawn{+handle,bundle}:Record{W.handle_index(~S,handle),0,"spawn:" ++ handle_text(~S,handle) ++ ":" ++ bundle_text(~S,bundle)}
     case Buffer.Relation{route,operation}:Record{0,0,"relation:" ++ route_text(route) ++ ":" ++ operation_text(~S,operation)}
+    case Buffer.LifetimeScope{route,operation}:Record{0,0,"scope:" ++ route_text(route) ++ ":" ++ ScopeText.operation(~S,operation)}
 def receipt(~S:Data,value:Buffer.Receipt<S,P.Output,Removed.Removed(layout(~S))>) -> Record:
   match value:
     case Buffer.Applied{handle,previous}:payload_record(~S,"applied:",handle,previous)
@@ -145,6 +150,8 @@ def receipt(~S:Data,value:Buffer.Receipt<S,P.Output,Removed.Removed(layout(~S))>
     case Buffer.SpawnRefused{+handle,bundle,reason}:Record{W.handle_index(~S,handle),0,"spawn-refused:" ++ handle_text(~S,handle) ++ ":" ++ bundle_text(~S,bundle) ++ ":" ++ spawn_reason(reason)}
     case Buffer.RelationPublished{route,result}:Record{0,0,"relation:" ++ route_text(route) ++ ":" ++ relation_receipt(~S,result)}
     case Buffer.RelationUndeclared{route,operation}:Record{0,0,"relation-undeclared:" ++ route_text(route) ++ ":" ++ operation_text(~S,operation)}
+    case Buffer.ScopePublished{route,operation,status,receipts,frames}:Record{0,0,"scope:" ++ route_text(route) ++ ":" ++ ScopeText.operation(~S,operation) ++ ":" ++ ScopeText.status(status) ++ ":" ++ Nat.show(List.length(&1,Buffer.Receipt<S,P.Output,Removed.Removed(layout(~S))>,receipts)) ++ ":frames=" ++ Nat.show(List.length(&2,RelationTypes.CleanupFrame<S>,frames))}
+    case Buffer.ScopeStoreApplied{route,request,result}:Record{0,0,"scope-store:" ++ route_text(route) ++ ":" ++ ScopeText.request(~S,request) ++ ":" ++ ScopeText.outcome(~S,result)}
 def record_before(~S:Data,left:Record,right:Record) -> Bool:
   match left right:
     case Record{+li,lt,_} Record{+ri,rt,_}:U32.is_lt(li,ri) || (U32.is_eq(li,ri) && U32.is_le(lt,rt))
@@ -164,9 +171,6 @@ def receipt_records(~S:Data,values:List<Buffer.Receipt<S,P.Output,Removed.Remove
   match values:
     case []:[]
     case value <> rest:record_insert(~S,receipt(~S,value),receipt_records(~S,rest))
-def record_text(~S:Data,value:Record) -> String:
-  match value:
-    case Record{_,_,text}:text
 def world(~S:Data,world:W.World<S,Store(~S),Resources(~S),Unit>) -> String:
   match world:
     case W.World{namespace,allocator,Product.Owner{store,_},Product.Owner{resource,_},events,pending,registrations,next,clock,lifecycle}:"namespace=" ++ U32.show(namespace) ++ ";allocator={" ++ Observe.allocator(allocator) ++ "};" ++ QueryObserve.store(~S,store) ++ ";resource=" ++ QueryObserve.resource(~S,resource) ++ ";events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";legacy-pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<S,Store(~S),Resources(~S),Unit>>,pending)) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,Observe.registration,registrations) ++ ";next=" ++ U32.show(next) ++ ";clock=" ++ Observe.clock(clock)

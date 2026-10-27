@@ -6,6 +6,7 @@ import relation-graph.bend as C
 import relation-commands.bend as A
 import world.bend as W
 import ./relation-cleanup-control.bend as Control
+import ./relation-cleanup-engine.bend as Engine
 
 # Explicit experiment continuation. Exhaustion retains every affine owner/frame.
 type CleanupResult<S: Data,C: Type,R: Type,E: Data> is Type:
@@ -50,49 +51,18 @@ def interpreted(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & L
     case Control.Continue{frames}:(world,frames)
 def step(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,frame:G.CleanupFrame<S>,world:W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,+namespace:U32,descriptors:List<&2,G.Descriptor<S>>,frames:List<&2,G.CleanupFrame<S>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.CleanupFrame<S>>:
   interpreted(~S,~C,~R,~E,~clear,~record,Control.next(S,frame,descriptors,frames),world,namespace)
-def resumed(~S:Data,~C:Type,~R:Type,~E:Data,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.CleanupFrame<S>>,next:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> List<&2,G.CleanupFrame<S>> -> CleanupResult<S,C,R,E>) -> CleanupResult<S,C,R,E>:
-  (world,frames) = observed
-  next(world,frames)
-def drive(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record: W.Handle<S> -> A.Notice<S,E>,fuel: Nat,frames: List<&2,G.CleanupFrame<S>>,world: W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,+namespace: U32,+descriptors: List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
-  match fuel frames:
-    case _ Nil{}: Complete{world}
-    case 0n frames: Incomplete{world,frames}
-    case 1n+rest Con{frame,frames}: resumed(~S,~C,~R,~E,step(~S,~C,~R,~E,~clear,~record,frame,world,namespace,descriptors,frames),world => frames => drive(~S,~C,~R,~E,~clear,~record,rest,frames,world,namespace,descriptors))
-
-
-# Structural product budget. No scalar Nat aggregate/product is computed.
-# Small units retain one affine World+continuation and short-circuit Complete.
-def units(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,fuel:Nat,result:CleanupResult<S,C,R,E>,namespace:U32,descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
+def engine_result(~S:Data,~C:Type,~R:Type,~E:Data,result:Engine.Progress<S,W.World<S,A.Store<S,C>,R,A.Notice<S,E>>>) -> CleanupResult<S,C,R,E>:
   match result:
-    case Complete{world}: Complete{world}
-    case Incomplete{world,frames}: drive(~S,~C,~R,~E,~clear,~record,fuel,frames,world,namespace,descriptors)
-def edge_units(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,remaining:List<&2,G.Edge<S>>,result:CleanupResult<S,C,R,E>,+namespace:U32,+descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
-  match remaining result:
-    case Nil{} result: result
-    case Con{_,rest} Complete{world}: Complete{world}
-    case Con{_,rest} result: edge_units(~S,~C,~R,~E,~clear,~record,rest,units(~S,~C,~R,~E,~clear,~record,2n,result,namespace,descriptors),namespace,descriptors)
-def descriptor_units(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,remaining:List<&2,G.Descriptor<S>>,result:CleanupResult<S,C,R,E>,edges:List<&2,G.Edge<S>>,+namespace:U32,+descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
-  match remaining result:
-    case Nil{} result: edge_units(~S,~C,~R,~E,~clear,~record,edges,result,namespace,descriptors)
-    case Con{_,rest} Complete{world}: Complete{world}
-    case Con{_,rest} result: descriptor_units(~S,~C,~R,~E,~clear,~record,rest,units(~S,~C,~R,~E,~clear,~record,2n,result,namespace,descriptors),edges,namespace,descriptors)
-def block(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,result:CleanupResult<S,C,R,E>,edges:List<&2,G.Edge<S>>,+namespace:U32,+descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
-  descriptor_units(~S,~C,~R,~E,~clear,~record,descriptors,units(~S,~C,~R,~E,~clear,~record,3n,result,namespace,descriptors),edges,namespace,descriptors)
-def node_blocks(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,remaining:Nat,result:CleanupResult<S,C,R,E>,+edges:List<&2,G.Edge<S>>,+namespace:U32,+descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
-  match remaining result:
-    case _ Complete{world}: Complete{world}
-    case 0n result: block(~S,~C,~R,~E,~clear,~record,result,edges,namespace,descriptors)
-    case 1n+rest result: node_blocks(~S,~C,~R,~E,~clear,~record,rest,block(~S,~C,~R,~E,~clear,~record,result,edges,namespace,descriptors),edges,namespace,descriptors)
-def phase_blocks(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,remaining:List<&2,G.Edge<S>>,result:CleanupResult<S,C,R,E>,nodes:Nat,+edges:List<&2,G.Edge<S>>,+namespace:U32,+descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
-  match remaining result:
-    case _ Complete{world}: Complete{world}
-    case Nil{} result: node_blocks(~S,~C,~R,~E,~clear,~record,nodes,result,edges,namespace,descriptors)
-    case Con{_,rest} result: phase_blocks(~S,~C,~R,~E,~clear,~record,rest,block(~S,~C,~R,~E,~clear,~record,result,edges,namespace,descriptors),nodes,edges,namespace,descriptors)
+    case Engine.Complete{world}:Complete{world}
+    case Engine.Incomplete{world,frames}:Incomplete{world,frames}
+def engine_input(~S:Data,~C:Type,~R:Type,~E:Data,result:CleanupResult<S,C,R,E>) -> Engine.Progress<S,W.World<S,A.Store<S,C>,R,A.Notice<S,E>>>:
+  match result:
+    case Complete{world}:Engine.Complete{world}
+    case Incomplete{world,frames}:Engine.Incomplete{world,frames}
+def drive(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,fuel:Nat,frames:List<&2,G.CleanupFrame<S>>,world:W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,+namespace:U32,+descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
+  engine_result(~S,~C,~R,~E,Engine.drive(~S,~W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,~step(~S,~C,~R,~E,~clear,~record),fuel,frames,world,namespace,descriptors))
 def owner_blocks(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,remaining:Nat,result:CleanupResult<S,C,R,E>,+nodes:Nat,+edges:List<&2,G.Edge<S>>,+namespace:U32,+descriptors:List<&2,G.Descriptor<S>>) -> CleanupResult<S,C,R,E>:
-  match remaining result:
-    case _ Complete{world}: Complete{world}
-    case 0n result: result
-    case 1n+rest result: owner_blocks(~S,~C,~R,~E,~clear,~record,rest,phase_blocks(~S,~C,~R,~E,~clear,~record,edges,result,nodes,edges,namespace,descriptors),nodes,edges,namespace,descriptors)
+  engine_result(~S,~C,~R,~E,Engine.owner_blocks(~S,~W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,~step(~S,~C,~R,~E,~clear,~record),remaining,engine_input(~S,~C,~R,~E,result),nodes,edges,namespace,descriptors))
 def original_edges(~S:Data,~C:Type,store:A.Store<S,C>) -> A.Store<S,C> & List<&2,G.Edge<S>>:
   match store:
     case A.Store{components,G.Graph{+edges,inverses}}: (A.Store{components,G.Graph{edges,inverses}},edges)

@@ -11,30 +11,47 @@ import ./execution-relation-command.bend as RelationCommands
 import ./execution-relation-operation.bend as Operation
 import ./string-equality.bend as StringEquality
 import ./execution-relation-resource-dispatch.bend as Dispatch
+import ./execution-relation-resource-snapshot.bend as Snapshot
+import ./execution-lifetime-scope-resource-dispatch.bend as ScopeDispatch
+import ./execution-lifetime-scope-store.bend as ScopeStore
+import ./execution-lifetime-scope-command.bend as ScopeCommands
 
 # This closed algebra retains schema evidence supplied by the same declaration.
 # A route selects a grant; it never creates any of these type equalities.
 type Relations<-S:Data,-resources:Layout.Layout> is Data:
   NoRelations{}
   RelationAllowed{route:Layout.Route,valid:{Layout.grant_valid(~resources,~route) == True{} : Bool},descriptor:Relation.Descriptor<S>,payload:{Layout.payload(resources,route) == RelationStore.Store<S,descriptor> : Type},view:{Layout.view(resources,route) == RelationStore.View<S,descriptor> : Data},protected:{Layout.policy(resources,route) == Policy.ProtectedRelation{S,descriptor} : Policy.Policy},rest:Relations<S,resources>}
+  ScopeAllowed{route:Layout.Route,valid:{Layout.grant_valid(~resources,~route) == True{} : Bool},payload:{Layout.payload(resources,route) == ScopeStore.Store<S> : Type},view:{Layout.view(resources,route) == ScopeStore.View<S> : Data},protected:{Layout.policy(resources,route) == Policy.ProtectedLifetimeScope{S} : Policy.Policy},rest:Relations<S,resources>}
 type DeferredRelation<-S:Data> is Data:
   DeferredRelation{route:Layout.Route,key:String,descriptor:Relation.Descriptor<S>}
+  DeferredScope{route:Layout.Route,key:String}
 type Selection<-S:Data,-resources:Layout.Layout> is Type:
-  Selection{program:Dispatch.Program(~S,~resources)}
+  Selection{program:Dispatch.Program(~S,~resources),snapshot:Snapshot.Program(~S,~resources),scopes:ScopeDispatch.Program(~S,~resources)}
 def RelationSelection(~S:Data,~resources:Layout.Layout) -> Type:Selection<S,resources>
 def selection_field(~S:Data,~resources:Layout.Layout,value:Selection<S,resources>) -> Dispatch.Program(~S,~resources):
   match value:
-    case Selection{program}:program
+    case Selection{program,_,_}:program
+def snapshot_field(~S:Data,~resources:Layout.Layout,value:Selection<S,resources>) -> Snapshot.Program(~S,~resources):
+  match value:
+    case Selection{_,snapshot,_}:snapshot
+def scopes_field(~S:Data,~resources:Layout.Layout,value:Selection<S,resources>) -> ScopeDispatch.Program(~S,~resources):
+  match value:
+    case Selection{_,_,scopes}:scopes
 def no_selection(~S:Data,~resources:Layout.Layout) -> Selection<S,resources>:
-  Selection{Dispatch.empty(~S,~resources)}
+  Selection{Dispatch.empty(~S,~resources),Snapshot.empty(~S,~resources),ScopeDispatch.empty(~S,~resources)}
 def extend_selection(~S:Data,~resources:Layout.Layout,~route:Layout.Route,~valid:{Layout.grant_valid(~resources,~route) == True{} : Bool},~descriptor:Relation.Descriptor<S>,~payload:{Layout.payload(resources,route) == RelationStore.Store<S,descriptor> : Type},~view:{Layout.view(resources,route) == RelationStore.View<S,descriptor> : Data},~protected:{Layout.policy(resources,route) == Policy.ProtectedRelation{S,descriptor} : Policy.Policy},selection:Selection<S,resources>) -> Selection<S,resources>:
-  Selection{Dispatch.extend(~S,~resources,~route,~valid,~descriptor,~payload,~view,~protected,selection_field(~S,~resources,selection))}
+  match selection:
+    case Selection{program,snapshot,scopes}:Selection{Dispatch.extend(~S,~resources,~route,~valid,~descriptor,~payload,~view,~protected,program),Snapshot.extend(~S,~resources,~route,~descriptor,~payload,~view,~protected,snapshot),scopes}
+def extend_scope_selection(~S:Data,~resources:Layout.Layout,~route:Layout.Route,~valid:{Layout.grant_valid(~resources,~route) == True{} : Bool},~payload:{Layout.payload(resources,route) == ScopeStore.Store<S> : Type},~view:{Layout.view(resources,route) == ScopeStore.View<S> : Data},~protected:{Layout.policy(resources,route) == Policy.ProtectedLifetimeScope{S} : Policy.Policy},selection:Selection<S,resources>) -> Selection<S,resources>:
+  match selection:
+    case Selection{program,snapshot,scopes}:Selection{program,snapshot,ScopeDispatch.extend(~S,~resources,~route,~valid,~payload,~view,~protected,scopes)}
 # Deferred graph writes are descriptions of barrier effects, not immediate body
 # resource-write grants or resource extraction recipes.
 def deferred_descriptions(~S:Data,~resources:Layout.Layout,relations:Relations<S,resources>) -> List<&2,DeferredRelation<S>>:
   match relations:
     case NoRelations{}:[]
     case RelationAllowed{+route,_,descriptor,_,_,_,rest}:DeferredRelation{route,Layout.key(resources,route),descriptor} <> deferred_descriptions(~S,~resources,rest)
+    case ScopeAllowed{+route,_,_,_,_,rest}:DeferredScope{route,Layout.key(resources,route)} <> deferred_descriptions(~S,~resources,rest)
 def same_route(left:Layout.Route,right:Layout.Route) -> Bool:
   match left right:
     case Layout.AtLeaf{} Layout.AtLeaf{}:True{}
@@ -46,13 +63,14 @@ def same_kind(left:Relation.RelationKind,right:Relation.RelationKind) -> Bool:
     case Relation.Ordinary{} Relation.Ordinary{}:True{}
     case Relation.Hierarchy{} Relation.Hierarchy{}:True{}
     case _ _:False{}
-def same_descriptor(~S:Data,left:Relation.Descriptor<S>,right:Relation.Descriptor<S>) -> Bool:
+def same_descriptor(-S:Data,left:Relation.Descriptor<S>,right:Relation.Descriptor<S>) -> Bool:
   match left right:
     case Relation.Descriptor{lk,ln,li,lt} Relation.Descriptor{rk,rn,ri,rt}:Bool.and(U32.is_eq(lk,rk),Bool.and(StringEquality.equal(ln,rn),Bool.and(StringEquality.equal(li,ri),same_kind(lt,rt))))
 def relations_agree(~S:Data,~resources:Layout.Layout,left:Relations<S,resources>,right:Relations<S,resources>) -> Bool:
   match left right:
     case NoRelations{} NoRelations{}:True{}
-    case RelationAllowed{lr,_,ld,_,_,_,left} RelationAllowed{rr,_,rd,_,_,_,right}:Bool.and(same_route(lr,rr),Bool.and(same_descriptor(~S,ld,rd),relations_agree(~S,~resources,left,right)))
+    case RelationAllowed{lr,_,ld,_,_,_,left} RelationAllowed{rr,_,rd,_,_,_,right}:Bool.and(same_route(lr,rr),Bool.and(same_descriptor(S,ld,rd),relations_agree(~S,~resources,left,right)))
+    case ScopeAllowed{lr,_,_,_,_,left} ScopeAllowed{rr,_,_,_,_,right}:Bool.and(same_route(lr,rr),relations_agree(~S,~resources,left,right))
     case _ _:False{}
 
 # Registration supplies an abstract affine K. A declaration can obtain entity
@@ -76,6 +94,11 @@ def RelationGrant(~S:Data,~resources:Layout.Layout,~Q:Type,~K:Type) -> Type:
 def relation_grant(~S:Data,~layout:Layout.Layout,~resources:Layout.Layout,~Q:Type,~enqueue:Q -> Layout.Route -> Operation.Operation<S> -> Q,~route:Layout.Route,~valid:{Layout.grant_valid(~resources,~route) == True{} : Bool},~descriptor:Relation.Descriptor<S>,~payload:{Layout.payload(resources,route) == RelationStore.Store<S,descriptor> : Type},~view:{Layout.view(resources,route) == RelationStore.View<S,descriptor> : Data},~protected:{Layout.policy(resources,route) == Policy.ProtectedRelation{S,descriptor} : Policy.Policy},book:Book<S,layout,resources>) -> Book<S,layout,resources> & RelationCommands.HierarchyCommands<Q,S>:
   match book:
     case Book{permission,relations,selection}:(Book{permission,RelationAllowed{route,valid,descriptor,payload,view,protected,relations},extend_selection(~S,~resources,~route,~valid,~descriptor,~payload,~view,~protected,selection)},RelationCommands.hierarchy(~S,~Q,~route,~enqueue))
+def ScopeGrant(~S:Data,~resources:Layout.Layout,~Q:Type,~K:Type) -> Type:
+  @-route:Layout.Route -> @-valid:{Layout.grant_valid(~resources,~route) == True{} : Bool} -> @-payload:{Layout.payload(resources,route) == ScopeStore.Store<S> : Type} -> @-view:{Layout.view(resources,route) == ScopeStore.View<S> : Data} -> @-protected:{Layout.policy(resources,route) == Policy.ProtectedLifetimeScope{S} : Policy.Policy} -> K -> K & ScopeCommands.Commands<Q,S>
+def scope_grant(~S:Data,~layout:Layout.Layout,~resources:Layout.Layout,~Q:Type,~enqueue:Q -> Layout.Route -> ScopeCommands.Operation<S> -> Q,~route:Layout.Route,~valid:{Layout.grant_valid(~resources,~route) == True{} : Bool},~payload:{Layout.payload(resources,route) == ScopeStore.Store<S> : Type},~view:{Layout.view(resources,route) == ScopeStore.View<S> : Data},~protected:{Layout.policy(resources,route) == Policy.ProtectedLifetimeScope{S} : Policy.Policy},book:Book<S,layout,resources>) -> Book<S,layout,resources> & ScopeCommands.Commands<Q,S>:
+  match book:
+    case Book{_,relations,selection}:(Book{EntityStructural{},ScopeAllowed{route,valid,payload,view,protected,relations},extend_scope_selection(~S,~resources,~route,~valid,~payload,~view,~protected,selection)},ScopeCommands.provide(~S,~Q,~route,~enqueue))
 def despawn_field(~Q:Type,~S:Data,~layout:Layout.Layout,~Permit:Data,commands:EntityCommands<Q,S,layout,Permit>) -> Q -> W.Handle<S> -> Q:
   match commands:
     case EntityCommands{despawn,_}:despawn

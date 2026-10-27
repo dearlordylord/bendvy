@@ -5,6 +5,10 @@ import ./execution-reservation-bundle.bend as Bundle
 import ./execution-composer-layout.bend as Layout
 import ./execution-relation-operation.bend as Operation
 import ./execution-relation-store.bend as RelationStore
+import ./execution-lifetime-scope-command.bend as ScopeCommands
+import ./execution-lifetime-scope-store.bend as ScopeStore
+import ./execution-lifetime-scope-resource-dispatch.bend as ScopeDispatch
+import ./relation-types.bend as Relation
 
 # Framework storage for one declared component family. Payloads remain affine
 # until a whole-World barrier applies them or returns them in a refusal receipt.
@@ -13,6 +17,15 @@ type Entry<-S:Data,-P:Type,-D:Type> is Type:
   Despawn{handle:W.Handle<S>}
   Spawn{handle:W.Handle<S>,bundle:D}
   Relation{route:Layout.Route,operation:Operation.Operation<S>}
+  LifetimeScope{route:Layout.Route,operation:ScopeCommands.Operation<S>}
+type ScopeDenial is Data:
+  MissingAuthority{}
+  ForeignNamespace{}
+  ScopeStoreRefused{}
+type ScopeStatus is Data:
+  ScopeComplete{}
+  ScopePaused{}
+  ScopeDenied{reason:ScopeDenial}
 type Receipt<-S:Data,-P:Type,-D:Type> is Type:
   Applied{handle:W.Handle<S>,previous:Maybe<&1,P>}
   Refused{handle:W.Handle<S>,incoming:Maybe<&1,P>}
@@ -22,6 +35,8 @@ type Receipt<-S:Data,-P:Type,-D:Type> is Type:
   SpawnRefused{handle:W.Handle<S>,bundle:D,reason:Bundle.Refusal}
   RelationPublished{route:Layout.Route,receipt:RelationStore.Receipt<S>}
   RelationUndeclared{route:Layout.Route,operation:Operation.Operation<S>}
+  ScopePublished{route:Layout.Route,operation:ScopeCommands.Operation<S>,status:ScopeStatus,receipts:List<Receipt<S,P,D>>,frames:List<&2,Relation.CleanupFrame<S>>}
+  ScopeStoreApplied{route:Layout.Route,request:ScopeStore.Request<S>,result:ScopeDispatch.Outcome<S>}
 type Buffer<-S:Data,-P:Type,-D:Type> is Type:
   Buffer{pending:List<Entry<S,P,D>>,receipts:List<Receipt<S,P,D>>}
 # Bevy ad678262, schedule/executor/single_threaded.rs: run_without_applying_deferred
@@ -31,6 +46,9 @@ def empty(~S:Data,~P:Type,~D:Type) -> Buffer<S,P,D>:Buffer{[],[]}
 def relation(~S:Data,~P:Type,~D:Type,buffer:Buffer<S,P,D>,route:Layout.Route,operation:Operation.Operation<S>) -> Buffer<S,P,D>:
   match buffer:
     case Buffer{pending,receipts}:Buffer{Relation{route,operation} <> pending,receipts}
+def lifetime_scope(~S:Data,~P:Type,~D:Type,buffer:Buffer<S,P,D>,route:Layout.Route,operation:ScopeCommands.Operation<S>) -> Buffer<S,P,D>:
+  match buffer:
+    case Buffer{pending,receipts}:Buffer{LifetimeScope{route,operation} <> pending,receipts}
 def insert(~S:Data,~P:Type,~D:Type,buffer:Buffer<S,P,D>,handle:W.Handle<S>,incoming:P) -> Buffer<S,P,D>:
   match buffer:
     case Buffer{pending,receipts}:Buffer{Entry{handle,Some{incoming}} <> pending,receipts}

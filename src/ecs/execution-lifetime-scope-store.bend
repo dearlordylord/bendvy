@@ -47,3 +47,31 @@ def snapshot(~S:Data,+actual:U32,store:Store<S>,scope:Scope.Scope<S>) -> Store<S
 def removed(~S:Data,store:Store<S>,key:Key.Key) -> Store<S>:
   match store:
     case Store{namespace,members}:Store{namespace,Scope.without(members,key)}
+
+type Request<-S:Data> is Data:
+  Assign{scope:Scope.Scope<S>,handle:W.Handle<S>}
+  Select{scope:Scope.Scope<S>}
+  Forget{handle:W.Handle<S>}
+type Outcome<-S:Data> is Data:
+  Assignment{result:Assignment<S>}
+  Selection{result:Snapshot<S>}
+  Forgotten{handle:W.Handle<S>}
+  Refused{request:Request<S>}
+def assignment_returned(~S:Data,result:Allocator.Allocator & (Store<S> & Assignment<S>)) -> Allocator.Allocator & (Store<S> & Outcome<S>):
+  match result:
+    case (allocator,(store,result)):(allocator,(store,Assignment{result}))
+def selection_returned(~S:Data,allocator:Allocator.Allocator,result:Store<S> & Snapshot<S>) -> Allocator.Allocator & (Store<S> & Outcome<S>):
+  match result:
+    case (store,result):(allocator,(store,Selection{result}))
+def forgotten(~S:Data,allowed:Bool,allocator:Allocator.Allocator,store:Store<S>,+handle:W.Handle<S>) -> Allocator.Allocator & (Store<S> & Outcome<S>):
+  match allowed:
+    case False{}:(allocator,(store,Refused{Forget{handle}}))
+    case True{}:(allocator,(removed(~S,store,W.handle_key(~S,handle)),Forgotten{handle}))
+def forget_namespace(~S:Data,+actual:U32,allocator:Allocator.Allocator,store:Store<S>,handle:W.Handle<S>,namespace:U32) -> Allocator.Allocator & (Store<S> & Outcome<S>):
+  match store:
+    case Store{+stored,members}:forgotten(~S,Bool.and(U32.is_eq(actual,stored),U32.is_eq(actual,namespace)),allocator,Store{stored,members},handle)
+def apply(~S:Data,+actual:U32,allocator:Allocator.Allocator,store:Store<S>,request:Request<S>) -> Allocator.Allocator & (Store<S> & Outcome<S>):
+  match request:
+    case Assign{scope,handle}:assignment_returned(~S,assign(~S,actual,allocator,store,scope,handle))
+    case Select{scope}:selection_returned(~S,allocator,snapshot(~S,actual,store,scope))
+    case Forget{W.Handle{+namespace,+key}}:forget_namespace(~S,actual,allocator,store,W.Handle{namespace,key},namespace)

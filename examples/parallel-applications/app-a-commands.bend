@@ -26,7 +26,7 @@ type User is Type:
   Refused{bundle:Removed.Removed(D.components()),error:W.WorldError}
 def declared(~Permit:Data,~H:Type,~Q:Type,-B:Type,-K:Type,book:B,result:K & Ops(Permit,H,Q)) -> B & (K & Ops(Permit,H,Q)):
   (book,result)
-def declaration(~Permit:Data,~H:Type,~Q:Type,~commands:Local.Commands<Q,P.AuditWorkshop,Array<U32>>,~B:Type,~builder:Build.Builder(~P.AuditWorkshop,~Columns(),~C(),~R(),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~P.AuditWorkshop,~D.components(),~Permit,~Q,~K),~relations:Permission.RelationGrant(~P.AuditWorkshop,~resources(),~Q,~K),book:B,permissions:K) -> B & (K & Ops(Permit,H,Q)):
+def declaration(~Permit:Data,~H:Type,~Q:Type,~commands:Local.Commands<Q,P.AuditWorkshop,Array<U32>>,~B:Type,~builder:Build.Builder(~P.AuditWorkshop,~Columns(),~C(),~R(),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~P.AuditWorkshop,~D.components(),~Permit,~Q,~K),~relations:Permission.RelationGrant(~P.AuditWorkshop,~resources(),~Q,~K),~scopes:Permission.ScopeGrant(~P.AuditWorkshop,~resources(),~Q,~K),book:B,permissions:K) -> B & (K & Ops(Permit,H,Q)):
   declared(~Permit,~H,~Q,B,K,book,entity(permissions))
 def bundle() -> Removed.Removed(D.components()):Product.Owner{Some{ANode{ALeaf{7},ALeaf{9}}},Some{11}}
 def seeded(~Permit:Data,~H:Type,~Q:Type,scope:H,result:Q & Buffer.SpawnAdmission<P.AuditWorkshop,Removed.Removed(D.components())>) -> Task.Task<P.AuditWorkshop,Permit,H & (Q & (User & Sys.Completion<String,String>))>:

@@ -26,7 +26,7 @@ def R(~S:Data) -> Type:Layout.resources(~S,Scene.graph_layout(~S))
 def Ops(~S:Data,Permit:Data,H:Type,Q:Type) -> Type:Relation.HierarchyCommands<Q,S>
 type User<-S:Data> is Type:
   User{child:W.Handle<S>,parent:W.Handle<S>,replacement:W.Handle<S>,session:Session}
-def declaration(~S:Data,~Permit:Data,~H:Type,~Q:Type,~commands:Local.Commands<Q,S,Unit>,~B:Type,~builder:Build.Builder(~S,~Layout.columns(~S,components()),~C(~S),~R(~S),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~components(),~Permit,~Q,~K),~relations:Permission.RelationGrant(~S,~resources(~S),~Q,~K),book:B,permissions:K) -> B & (K & Ops(~S,Permit,H,Q)):
+def declaration(~S:Data,~Permit:Data,~H:Type,~Q:Type,~commands:Local.Commands<Q,S,Unit>,~B:Type,~builder:Build.Builder(~S,~Layout.columns(~S,components()),~C(~S),~R(~S),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~components(),~Permit,~Q,~K),~relations:Permission.RelationGrant(~S,~resources(~S),~Q,~K),~scopes:Permission.ScopeGrant(~S,~resources(~S),~Q,~K),book:B,permissions:K) -> B & (K & Ops(~S,Permit,H,Q)):
   (book,relations(route(),{==},Scene.hierarchy(~S),{==},{==},{==},permissions))
 def authored(~S:Data,~Permit:Data,~H:Type,~Q:Type,~relate:Q -> W.Handle<S> -> W.Handle<S> -> Q,~unrelate:Q -> W.Handle<S> -> Q,~reorder:Q -> W.Handle<S> -> List<&2,W.Handle<S>> -> Q,scope:H,queue:Q,user:User<S>) -> Task.Task<S,Permit,H & (Q & (User<S> & Sys.Completion<String,String>))>:
   match user:
