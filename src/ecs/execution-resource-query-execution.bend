@@ -67,6 +67,7 @@ type RunResult<-S:Data,-components:L.Layout,-resources:L.Layout,-E:Data,-Owners:
   AdmissionRefused{world:W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,owners:Owners,status:List<&2,Ready.Completed<Error,Out>>}
   CutInventoryRefused{administration:State.Administration<S,L.columns(~S,components),L.resources(~S,resources),E>,inventory:Cut.Partition<S,components,resources>,owners:Owners,status:List<&2,Ready.Completed<Error,Out>>,displaced:List<&1,Schema.displacements(~S,components)>}
   JoinInventoryRefused{administration:State.Administration<S,L.columns(~S,components),L.resources(~S,resources),E>,inventory:Cut.Joined<S,components,resources>,owners:Owners,status:List<&2,Ready.Completed<Error,Out>>,displaced:List<&1,Schema.displacements(~S,components)>}
+  NestedInventoryRefused{-Inventory:Type,admin:State.Administration<S,L.columns(~S,components),L.resources(~S,resources),E>,inventory:Inventory,owners:Owners,status:List<&2,Ready.Completed<Error,Out>>,displaced:List<&1,Schema.displacements(~S,components)>}
 def leave_allowed(allowed:Bool,clock:Clock.State) -> Clock.State:
   match allowed:
     case False{}:clock

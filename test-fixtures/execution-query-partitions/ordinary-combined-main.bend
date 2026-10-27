@@ -62,6 +62,7 @@ def rendered(~own:Bool,result:Run.CombinedPipeline<own>) -> IO(String):
     case Run.CombinedExecuted{Combined.AdmissionRefused{_,_,_}}:IO.pure(String,"admission-refused")
     case Run.CombinedExecuted{Combined.CutInventoryRefused{_,_,_,_,_}}:IO.pure(String,"cut-inventory-retained")
     case Run.CombinedExecuted{Combined.JoinInventoryRefused{_,_,_,_,_}}:IO.pure(String,"join-inventory-retained")
+    case Run.CombinedExecuted{Combined.NestedInventoryRefused{_,_,_,_,_,_}}:IO.pure(String,"nested-inventory-retained")
     case Run.CombinedRegistrationRefused{_}:IO.pure(String,"registration-refused")
     case Run.CombinedPriorInventory{_,_}:IO.pure(String,"prior-displacement-inventory-retained")
 def created(~own:Bool,result:W.Creation<S.SchemaA,Run.WC(),L.resources(~S.SchemaA,Run.combined_resources()),Unit>) -> IO(String):
