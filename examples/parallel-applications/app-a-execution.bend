@@ -54,11 +54,11 @@ def facts(writer:Systems.WriterBinding(),query:Systems.QueryBinding(),reader:Sys
 type Definition is Type:
   Ready{application:Application()}
   RegistrationRefused{inventory:Systems.Registration}
-  GuardRefused{world:Systems.World(),writer:Systems.WriterBinding(),query:Systems.QueryBinding(),reader:Systems.ReaderBinding(),local:U32}
-def guard_defined(writer:Systems.WriterBinding(),query:Systems.QueryBinding(),reader:Systems.ReaderBinding(),writerId:U32,queryId:U32,readerId:U32,result:Sys.Defined<Systems.World(),Condition.Owner(),U32>) -> Definition:
+  GuardRefused{world:Systems.World(),writer:Systems.WriterBinding(),query:Systems.QueryBinding(),reader:Systems.ReaderBinding(),local:Condition.Compilation() & U32}
+def guard_defined(writer:Systems.WriterBinding(),query:Systems.QueryBinding(),reader:Systems.ReaderBinding(),writerId:U32,queryId:U32,readerId:U32,result:Condition.Compilation() & Sys.Defined<Systems.World(),Condition.RawOwner(),U32>) -> Definition:
   match result:
-    case Sys.Defined{world,Sys.Owner{namespace,+id,name,access,cursor,local}}:Ready{General.build(~P.AuditWorkshop,~D.components(),~Author.resources(),~Unit,~Captures.Nodes(),~Condition.Owner(),~Unit,~String,~Condition.dispatch(),~available,world,facts(writer,query,reader),Condition.registry(Sys.Owner{namespace,id,name,access,cursor,local}),Unit{},[Plan.Edge{writerId,readerId}],[App.Binding{queryId,id}])}
-    case Sys.DefinitionRefused{world,local}:GuardRefused{world,writer,query,reader,local}
+    case (compilation,Sys.Defined{world,Sys.Owner{namespace,+id,name,access,cursor,local}}):Ready{General.build(~P.AuditWorkshop,~D.components(),~Author.resources(),~Unit,~Captures.Nodes(),~Condition.Owner(),~Unit,~String,~Condition.dispatch(),~available,world,facts(writer,query,reader),Condition.registry(Scope.CompiledBinding{compilation,Sys.Owner{namespace,id,name,access,cursor,local}}),Unit{},[Plan.Edge{writerId,readerId}],[App.Binding{queryId,id}])}
+    case (compilation,Sys.DefinitionRefused{world,local}):GuardRefused{world,writer,query,reader,(compilation,local)}
 def writer_id(binding:Systems.WriterBinding()) -> Systems.WriterBinding() & U32:
   match binding:
     case Scope.CompiledBinding{compilation,Sys.Owner{namespace,+id,name,access,cursor,local}}:(Scope.CompiledBinding{compilation,Sys.Owner{namespace,id,name,access,cursor,local}},id)
@@ -75,7 +75,7 @@ def registered(result:Systems.Registration) -> Definition:
 def define(world:Systems.World(),target:W.Handle<P.AuditWorkshop>) -> Definition:registered(Systems.define(world,target))
 def guard_observed(owner:Condition.Owner()) -> Condition.Owner() & String:
   match owner:
-    case Sys.Owner{+namespace,+id,name,access,+cursor,+local}:(Sys.Owner{namespace,id,name,access,cursor,local},"condition-ns=" ++ U32.show(namespace) ++ ";id=" ++ U32.show(id) ++ ";calls=" ++ U32.show(local) ++ ";cursor=" ++ Tick.cursor_show(cursor))
+    case Scope.CompiledBinding{compilation,Sys.Owner{+namespace,+id,name,access,+cursor,+local}}:(Scope.CompiledBinding{compilation,Sys.Owner{namespace,id,name,access,cursor,local}},"condition-ns=" ++ U32.show(namespace) ++ ";id=" ++ U32.show(id) ++ ";calls=" ++ U32.show(local) ++ ";cursor=" ++ Tick.cursor_show(cursor))
 def clock_observed(result:Systems.World() & Tick.Tick) -> Systems.World() & String:
   match result:
     case (world,tick):(world,"clock=" ++ Tick.show(tick))
