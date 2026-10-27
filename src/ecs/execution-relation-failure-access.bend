@@ -14,6 +14,7 @@ import ./world.bend as W
 
 type Read<-S:Data,-descriptor:T.Descriptor<S>,-full:Layout.Layout,-route:Layout.Route,-H:Type> is Type:
   Read{read:Reader.Reader<S,descriptor,full,route> -> H -> H & Reader.Reading<S,descriptor,full,route>}
+def Ops(~S:Data,~descriptor:T.Descriptor<S>,~full:Layout.Layout,~route:Layout.Route,H:Type) -> Type:Read<S,descriptor,full,route,H>
 def returned_store(~S:Data,~descriptor:T.Descriptor<S>,~full:Layout.Layout,~route:Layout.Route,namespace:U32,graph:T.Graph<S>,sequence:Nat,nextReader:U32,result:Channel.Store<Failure.Message<S,descriptor>> & Reader.Reading<S,descriptor,full,route>) -> Store.Store<S,descriptor> & Reader.Reading<S,descriptor,full,route>:
   match result:
     case (failures,reading):(Store.Store{namespace,graph,failures,sequence,nextReader},reading)

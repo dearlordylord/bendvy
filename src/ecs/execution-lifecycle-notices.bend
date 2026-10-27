@@ -43,53 +43,53 @@ def same(left:Selector,right:Selector) -> Bool:
     case Removed{left} Removed{right}:String.eq(left,right)
     case Despawned{} Despawned{}:True{}
     case _ _:False{}
-def empty(~S:Data,namespace:U32) -> Journal<S>:
+def empty_generic(-S:Data,namespace:U32) -> Journal<S>:
   Journal{namespace,[],1,[]}
-def vacant(~S:Data,selector:Selector) -> Channel<S>:
+def vacant_generic(-S:Data,selector:Selector) -> Channel<S>:
   Channel{selector,1n,[],[],0n}
-def choose_channel(~S:Data,found:Bool,channel:Channel<S>,other:Channel<S>) -> Channel<S>:
+def choose_channel_generic(-S:Data,found:Bool,channel:Channel<S>,other:Channel<S>) -> Channel<S>:
   match found:
     case True{}:channel
     case False{}:other
-def channel_selector(~S:Data,channel:Channel<S>) -> Selector:
+def channel_selector_generic(-S:Data,channel:Channel<S>) -> Selector:
   match channel:
     case Channel{selector,_,_,_,_}:selector
-def channel(~S:Data,+selector:Selector,channels:List<&2,Channel<S>>) -> Channel<S>:
+def channel_generic(-S:Data,+selector:Selector,channels:List<&2,Channel<S>>) -> Channel<S>:
   match channels:
-    case []:vacant(~S,selector)
-    case +current <> rest:choose_channel(~S,same(selector,channel_selector(~S,current)),current,channel(~S,selector,rest))
-def replace_channel(~S:Data,found:Bool,value:Channel<S>,current:Channel<S>,rest:List<&2,Channel<S>>,replaced:List<&2,Channel<S>>) -> List<&2,Channel<S>>:
+    case []:vacant_generic(S,selector)
+    case +current <> rest:choose_channel_generic(S,same(selector,channel_selector_generic(S,current)),current,channel_generic(S,selector,rest))
+def replace_channel_generic(-S:Data,found:Bool,value:Channel<S>,current:Channel<S>,rest:List<&2,Channel<S>>,replaced:List<&2,Channel<S>>) -> List<&2,Channel<S>>:
   match found:
     case True{}:value <> rest
     case False{}:current <> replaced
-def put(~S:Data,+value:Channel<S>,channels:List<&2,Channel<S>>) -> List<&2,Channel<S>>:
+def put_generic(-S:Data,+value:Channel<S>,channels:List<&2,Channel<S>>) -> List<&2,Channel<S>>:
   match channels:
     case []:[value]
-    case +current <> +rest:replace_channel(~S,same(channel_selector(~S,value),channel_selector(~S,current)),value,current,rest,put(~S,value,rest))
-def appended(~S:Data,entity:Identity<S>,tick:Tick.Tick,channel:Channel<S>) -> Channel<S>:
+    case +current <> +rest:replace_channel_generic(S,same(channel_selector_generic(S,value),channel_selector_generic(S,current)),value,current,rest,put_generic(S,value,rest))
+def appended_generic(-S:Data,entity:Identity<S>,tick:Tick.Tick,channel:Channel<S>) -> Channel<S>:
   match channel:
     case Channel{selector,+next,previous,current,floor}:Channel{selector,1n+next,previous,List.append(&2,Row<S>,current,[Row{next,entity,tick}]),floor}
-def append(~S:Data,+selector:Selector,entity:Identity<S>,tick:Tick.Tick,journal:Journal<S>) -> Journal<S>:
+def append_generic(-S:Data,+selector:Selector,entity:Identity<S>,tick:Tick.Tick,journal:Journal<S>) -> Journal<S>:
   match journal:
-    case Journal{namespace,+channels,nextReader,active}:Journal{namespace,put(~S,appended(~S,entity,tick,channel(~S,selector,channels)),channels),nextReader,active}
-def floor_after(~S:Data,rows:List<&2,Row<S>>,floor:Nat) -> Nat:
+    case Journal{namespace,+channels,nextReader,active}:Journal{namespace,put_generic(S,appended_generic(S,entity,tick,channel_generic(S,selector,channels)),channels),nextReader,active}
+def floor_after_generic(-S:Data,rows:List<&2,Row<S>>,floor:Nat) -> Nat:
   match rows:
     case []:floor
-    case Row{sequence,_,_} <> rest:floor_after(~S,rest,sequence)
-def rotated(~S:Data,channel:Channel<S>) -> Channel<S>:
+    case Row{sequence,_,_} <> rest:floor_after_generic(S,rest,sequence)
+def rotated_generic(-S:Data,channel:Channel<S>) -> Channel<S>:
   match channel:
-    case Channel{selector,next,previous,current,floor}:Channel{selector,next,current,[],floor_after(~S,previous,floor)}
-def rotate_channels(~S:Data,channels:List<&2,Channel<S>>) -> List<&2,Channel<S>>:
+    case Channel{selector,next,previous,current,floor}:Channel{selector,next,current,[],floor_after_generic(S,previous,floor)}
+def rotate_channels_generic(-S:Data,channels:List<&2,Channel<S>>) -> List<&2,Channel<S>>:
   match channels:
     case []:[]
-    case current <> rest:rotated(~S,current) <> rotate_channels(~S,rest)
+    case current <> rest:rotated_generic(S,current) <> rotate_channels_generic(S,rest)
 # Bevy ad678262: sub_app.rs update clears trackers after the schedule;
 # world/mod.rs clear_trackers updates removed-component messages. Only the
 # completed public App boundary calls this rotation; reads never rotate it.
-def maintain(~S:Data,journal:Journal<S>) -> Journal<S>:
+def maintain_generic(-S:Data,journal:Journal<S>) -> Journal<S>:
   match journal:
-    case Journal{namespace,channels,nextReader,active}:Journal{namespace,rotate_channels(~S,channels),nextReader,active}
-def snapshot(~S:Data,journal:Journal<S>) -> Journal<S> & View<S>:
+    case Journal{namespace,channels,nextReader,active}:Journal{namespace,rotate_channels_generic(S,channels),nextReader,active}
+def snapshot_generic(-S:Data,journal:Journal<S>) -> Journal<S> & View<S>:
   match journal:
     case Journal{+namespace,+channels,nextReader,+active}:(Journal{namespace,channels,nextReader,active},View{namespace,channels,active})
 def active_selected(found:Bool,next:Bool) -> Bool:
@@ -107,16 +107,16 @@ def admitted(same:Bool,active:Bool) -> Maybe<&2,Refusal>:
     case True{} True{}:None{}
 def admission(namespace:U32,actual:U32,id:U32,selector:Selector,entries:List<&2,Active>) -> Maybe<&2,Refusal>:
   admitted(U32.is_eq(namespace,actual),active(id,selector,entries))
-def starting(~S:Data,start:Start,channel:Channel<S>) -> Nat:
+def starting_generic(-S:Data,start:Start,channel:Channel<S>) -> Nat:
   match start channel:
     case Retained{} Channel{_,_,_,_,floor}:floor
     case Future{} Channel{_,next,_,_,_}:Nat.sub(next,1n)
 def registered(~S:Data,~origin:Layout.Layout,~selector:Selector,+namespace:U32,+channels:List<&2,Channel<S>>,+id:U32,active:List<&2,Active>,start:Start,+channel:Channel<S>) -> Journal<S> & Registration<S,origin,selector>:
-  (Journal{namespace,put(~S,channel,channels),U32.add(id,1),List.append(&2,Active,active,[Active{id,selector}])},Registered{Reader{namespace,id,starting(~S,start,channel)}})
+  (Journal{namespace,put_generic(S,channel,channels),U32.add(id,1),List.append(&2,Active,active,[Active{id,selector}])},Registered{Reader{namespace,id,starting_generic(S,start,channel)}})
 def register_allowed(~S:Data,~origin:Layout.Layout,~selector:Selector,allowed:Bool,start:Start,journal:Journal<S>) -> Journal<S> & Registration<S,origin,selector>:
   match allowed journal:
     case False{} journal:(journal,RegistrationRefused{ReaderLimit{}})
-    case True{} Journal{namespace,+channels,id,active}:registered(~S,~origin,~selector,namespace,channels,id,active,start,channel(~S,selector,channels))
+    case True{} Journal{namespace,+channels,id,active}:registered(~S,~origin,~selector,namespace,channels,id,active,start,channel_generic(S,selector,channels))
 def register(~S:Data,~origin:Layout.Layout,~selector:Selector,start:Start,journal:Journal<S>) -> Journal<S> & Registration<S,origin,selector>:
   match journal:
     case Journal{namespace,channels,+id,active}:register_allowed(~S,~origin,~selector,U32.is_lt(id,4294967295),start,Journal{namespace,channels,id,active})
@@ -138,28 +138,84 @@ def retired(~S:Data,~origin:Layout.Layout,~selector:Selector,reason:Maybe<&2,Ref
 def retire(~S:Data,~origin:Layout.Layout,~selector:Selector,journal:Journal<S>,reader:Reader<S,origin,selector>) -> Journal<S> & Retirement<S,origin,selector>:
   match journal reader:
     case Journal{+namespace,channels,nextReader,+active} Reader{+actual,+id,cursor}:retired(~S,~origin,~selector,admission(namespace,actual,id,selector,active),Journal{namespace,channels,nextReader,active},Reader{actual,id,cursor})
-def first_selected(~S:Data,found:Bool,row:Row<S>,other:Maybe<&2,Row<S>>) -> Maybe<&2,Row<S>>:
+def first_selected_generic(-S:Data,found:Bool,row:Row<S>,other:Maybe<&2,Row<S>>) -> Maybe<&2,Row<S>>:
   match found:
     case True{}:Some{row}
     case False{}:other
-def row_sequence(~S:Data,row:Row<S>) -> Nat:
+def row_sequence_generic(-S:Data,row:Row<S>) -> Nat:
   match row:
     case Row{sequence,_,_}:sequence
-def first_after(~S:Data,+cursor:Nat,rows:List<&2,Row<S>>) -> Maybe<&2,Row<S>>:
+def first_after_generic(-S:Data,+cursor:Nat,rows:List<&2,Row<S>>) -> Maybe<&2,Row<S>>:
   match rows:
     case []:None{}
-    case +row <> rest:first_selected(~S,Nat.is_lt(cursor,row_sequence(~S,row)),row,first_after(~S,cursor,rest))
+    case +row <> rest:first_selected_generic(S,Nat.is_lt(cursor,row_sequence_generic(S,row)),row,first_after_generic(S,cursor,rest))
 def yielded(~S:Data,~origin:Layout.Layout,~selector:Selector,namespace:U32,id:U32,cursor:Nat,missed:Nat,row:Maybe<&2,Row<S>>) -> Reading<S,origin,selector>:
   match row:
     case None{}:Empty{Reader{namespace,id,cursor},missed}
-    case Some{+row}:Item{Reader{namespace,id,row_sequence(~S,row)},row,missed}
+    case Some{+row}:Item{Reader{namespace,id,row_sequence_generic(S,row)},row,missed}
 def read_channel(~S:Data,~origin:Layout.Layout,~selector:Selector,namespace:U32,id:U32,+cursor:Nat,channel:Channel<S>) -> Reading<S,origin,selector>:
   match channel:
-    case Channel{_,_,previous,current,+floor}:yielded(~S,~origin,~selector,namespace,id,Nat.max(cursor,floor),Nat.sub(floor,cursor),first_after(~S,Nat.max(cursor,floor),List.append(&2,Row<S>,previous,current)))
+    case Channel{_,_,previous,current,+floor}:yielded(~S,~origin,~selector,namespace,id,Nat.max(cursor,floor),Nat.sub(floor,cursor),first_after_generic(S,Nat.max(cursor,floor),List.append(&2,Row<S>,previous,current)))
 def read_admitted(~S:Data,~origin:Layout.Layout,~selector:Selector,reason:Maybe<&2,Refusal>,view:View<S>,reader:Reader<S,origin,selector>) -> Reading<S,origin,selector>:
   match reason view reader:
     case Some{reason} _ reader:ReadRefused{reader,reason}
-    case None{} View{_,channels,_} Reader{namespace,id,cursor}:read_channel(~S,~origin,~selector,namespace,id,cursor,channel(~S,selector,channels))
+    case None{} View{_,channels,_} Reader{namespace,id,cursor}:read_channel(~S,~origin,~selector,namespace,id,cursor,channel_generic(S,selector,channels))
 def read(~S:Data,~origin:Layout.Layout,~selector:Selector,view:View<S>,reader:Reader<S,origin,selector>) -> Reading<S,origin,selector>:
   match view reader:
     case View{+namespace,channels,+active} Reader{+actual,+id,cursor}:read_admitted(~S,~origin,~selector,admission(namespace,actual,id,selector,active),View{namespace,channels,active},Reader{actual,id,cursor})
+
+# Keep the public template API; phantom schema indices do not specialize the
+# pure journal traversals below nested command/reader execution.
+def empty(~S:Data,namespace:U32) -> Journal<S>:
+  empty_generic(S,namespace)
+
+def vacant(~S:Data,selector:Selector) -> Channel<S>:
+  vacant_generic(S,selector)
+
+def choose_channel(~S:Data,found:Bool,channel:Channel<S>,other:Channel<S>) -> Channel<S>:
+  choose_channel_generic(S,found,channel,other)
+
+def channel_selector(~S:Data,channel:Channel<S>) -> Selector:
+  channel_selector_generic(S,channel)
+
+def channel(~S:Data,+selector:Selector,channels:List<&2,Channel<S>>) -> Channel<S>:
+  channel_generic(S,selector,channels)
+
+def replace_channel(~S:Data,found:Bool,value:Channel<S>,current:Channel<S>,rest:List<&2,Channel<S>>,replaced:List<&2,Channel<S>>) -> List<&2,Channel<S>>:
+  replace_channel_generic(S,found,value,current,rest,replaced)
+
+def put(~S:Data,+value:Channel<S>,channels:List<&2,Channel<S>>) -> List<&2,Channel<S>>:
+  put_generic(S,value,channels)
+
+def appended(~S:Data,entity:Identity<S>,tick:Tick.Tick,channel:Channel<S>) -> Channel<S>:
+  appended_generic(S,entity,tick,channel)
+
+def append(~S:Data,+selector:Selector,entity:Identity<S>,tick:Tick.Tick,journal:Journal<S>) -> Journal<S>:
+  append_generic(S,selector,entity,tick,journal)
+
+def floor_after(~S:Data,rows:List<&2,Row<S>>,floor:Nat) -> Nat:
+  floor_after_generic(S,rows,floor)
+
+def rotated(~S:Data,channel:Channel<S>) -> Channel<S>:
+  rotated_generic(S,channel)
+
+def rotate_channels(~S:Data,channels:List<&2,Channel<S>>) -> List<&2,Channel<S>>:
+  rotate_channels_generic(S,channels)
+
+def maintain(~S:Data,journal:Journal<S>) -> Journal<S>:
+  maintain_generic(S,journal)
+
+def snapshot(~S:Data,journal:Journal<S>) -> Journal<S> & View<S>:
+  snapshot_generic(S,journal)
+
+def starting(~S:Data,start:Start,channel:Channel<S>) -> Nat:
+  starting_generic(S,start,channel)
+
+def first_selected(~S:Data,found:Bool,row:Row<S>,other:Maybe<&2,Row<S>>) -> Maybe<&2,Row<S>>:
+  first_selected_generic(S,found,row,other)
+
+def row_sequence(~S:Data,row:Row<S>) -> Nat:
+  row_sequence_generic(S,row)
+
+def first_after(~S:Data,+cursor:Nat,rows:List<&2,Row<S>>) -> Maybe<&2,Row<S>>:
+  first_after_generic(S,cursor,rows)
