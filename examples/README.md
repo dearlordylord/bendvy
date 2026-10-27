@@ -8,9 +8,9 @@ condition, automatic barriers and passive observations through the replacement R
 | --- | --- | --- |
 | [Scheduled health](scheduled-health/README.md) | Application starting point | Replacement Root, retained declarations, deferred commands and passive Inspector |
 | [Captured query](captured-query/README.md) | Affine capture, Changed query and error/retry sequence | Replacement Root, retained declarations and ordinary partial writes |
-| [Health decay](health-decay/README.md) | Small query mechanics example | Direct query execution |
-| [Health browser demo](health-decay/demo/README.md) | Interactive view of health decay | Browser host, direct query execution |
-| [Arena](arena/README.md) | Playable browser simulation | Browser host, direct query orchestration |
+| [Health decay](health-decay/README.md) | Required-component query and deferred visibility | Replacement Root, retained spawn and query declarations, passive Inspector |
+| [Health browser demo](health-decay/demo/README.md) | Interactive view of health decay | Browser host, actual retained application and compiled IO |
+| [Arena](arena/README.md) | Playable browser simulation | Replacement Root, real spawn and despawn commands, required Body query |
 | [Survivors](https://github.com/dearlordylord/bendvy-ecs-examples/tree/main/examples/survivors) | Vampire Survivors clone; combat queries and entity lifecycles | [Browser demo](https://nightfall-survivors-bendvy.leafyyew32.chatgpt.site) |
 | [User simulation](user-simulation/README.md) | Transaction/event/retry regression story | Explicit provider and runner integration |
 | [Workshop](query-composition/README.md) | Query composition and rollback regression story | Explicit query/provider and runner integration |
