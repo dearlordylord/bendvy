@@ -79,3 +79,7 @@ jobs:
           example_node "$RUNNER_TEMP/parallel-query.js"
           example_emit examples/parallel-events/main.bend "$RUNNER_TEMP/parallel-events.js"
           example_node "$RUNNER_TEMP/parallel-events.js"
+          example_emit examples/parallel-applications/app-a.bend "$RUNNER_TEMP/app-a.js"
+          example_node "$RUNNER_TEMP/app-a.js"
+          example_emit examples/parallel-applications/app-b.bend "$RUNNER_TEMP/app-b.js"
+          example_node "$RUNNER_TEMP/app-b.js"
