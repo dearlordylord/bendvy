@@ -305,3 +305,45 @@ ordinary Scope/command wrappers are wired through Tree and Root; the remaining
 lower-level standalone adapter audit, all current caller migrations, full notice
 reader scenarios, intended controls, backend capture and independent review gates
 remain open. Existing filter/history/scheduled and event-case oracles are intact.
+
+### Ordinary authority callgraph and raw adapters
+
+The current ordinary single-system Execute entry owns the actual whole World;
+its WC equals C. The current ordinary ParallelApp.run/run_when entry owns the
+actual whole `World<S,Product.Owner<CL,CR>,...>` and both exact Sys.Owner values
+indexed by that same global WC. It detaches Meta indexed by each complete owner,
+checks each registration against the actual World namespace, admits each allowed
+owner once, captures its tick and prior cursor, then separates that actual World.
+The ParallelApp entry remains an ordinary qualified API. It is not exempted from
+full-WC or namespace admission.
+
+Its lower-level execution-parallel-run callback adapter and
+execution-parallel invoke/executed/split helpers have only framework-internal
+callers. These helpers are now named trusted_: they accept prepared admission
+facts or already-separated scopes and are not replacement ordinary entry points.
+The current parallel-systems fixture imports the Run result type; execution goes
+through the qualified ParallelApp entry. Historical frozen fixtures are not
+migrated or used as evidence for this boundary.
+
+The current Root path is closed Tree.Selection -> compile_leaf/compile_command
+-> Scope.prepare/command Scope.prepare -> actual W.namespace and registration
+admission -> exact Prepared -> checked namespace join -> actual World snapshot
+-> qualified Scope.invoke/command Scope.invoke. The latter compares the actual
+immutable snapshot namespace with the preparing namespace before any body,
+cursor or scope mutation. Namespace refusal returns the intact carrier and
+actual supplied Scope. Successful invocation retains the returned owner and
+original preparation provenance, including body-error writes. Condition
+registries retain their own exact owners and dispatch through their qualified
+whole-World single-system entry; their cursor is not the body's cursor.
+
+Only the downstream raw Scope record/construction/result adapters, raw legacy
+execution callbacks and closed Tree composition adapters receive trusted_ names.
+RawPermit is explicitly an internal record; public preparation returns
+Permit<S,WC> inside Prepared. Helpers accepting caller-provided namespace or
+allowed facts are not ordinary qualification APIs. Task.detached/restored remain
+ordinary operations indexed by the exact owner, with no unindexed restoration.
+There is no failure Inventory-to-Prepared promotion.
+
+This audit does not establish arbitrary raw-constructor confinement or a theorem
+for all affine Types. Ordinary concrete positive/negative source checks and the
+new genuine-World foreign refusal/retry consumer remain the executable evidence.
