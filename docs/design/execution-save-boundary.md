@@ -125,3 +125,13 @@ grants no protected resource access. Actual protected binding/publication must
 preserve receiver failure channels, namespace and Reader IDs. Modern machine Cell
 publication and subsequent state-driven execution still require implementation;
 the old Init.State installer cannot substitute for the new Cell ownership shape.
+
+`execution-relation-restore` supplies the trusted protected-slot continuation:
+Refused returns the same slot and affine source, while Ready installs an already
+validated and remapped graph, returns the previous graph, refreshes the actual
+cache and updates the slot stamp at the supplied publication tick. Its origin
+must carry the exact ProtectedRelation policy. Store namespace, failure channel,
+sequence and nextReader remain receiver-owned. Source validation and fresh-handle
+mapping must precede calling this internal helper; its Ready constructor is not
+a proof or a gameplay grant. Source well-formedness alone does not establish the
+combined ordinary graph restore or its runtime behavior.
