@@ -104,10 +104,14 @@ existing bounded Visit traversal.
 
 The ordinary AppA prefix exits successfully and observes rollback returning the
 actual incoming `[70,90]`, followed by retry returning the displaced `[7,9]`.
-The latter owner remains in the handoff state for publication. This finite prefix
-does not establish whole-run preservation. The complete owned-event handoff,
-three captured gameplay systems, conditional schedule and paired passive
-inspections remain incomplete; the current entry labels itself a recovery prefix.
+The latter owner passes from the handoff state into the canonical Family writer.
+The publisher and reader are separate registered leaves of the new Root schedule.
+The genuine Family reader observes sum `16`; its scalar update sees prior value
+`11`, and its retained scratch becomes `[17,18]`. The actual Family stores the
+published affine payload, while the reader retains its own token and cursor.
+These finite observations do not establish whole-run preservation. The three
+captured gameplay systems, conditional schedule and paired passive inspections
+remain incomplete.
 
 Final source cleanup remains incomplete. GH94 also retains its complete
 JavaScript/native delivery, applicable authority controls, and independent review
