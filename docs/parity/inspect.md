@@ -378,3 +378,12 @@ runs a Check query. Both Inspector reads report the same added/changed flags;
 Check returns true, the World clock remains zero, and the final actual payload
 owner contains 7. This finite observation does not cover foreign/stale handles,
 registered component-query captures or prove universal owner preservation.
+
+The ordinary `examples/parallel-inspection/events.bend` uses a canonical owned
+event Family with an Array payload and an actually registered opaque Reader.
+Passive Inspector success and body-error paths and a Check read the cached event
+view without receiving that Reader. The returned Family retains its actual
+payload, active reader registration and next-reader counter. The original Reader
+still has cursor zero afterwards; a subsequent normal read yields its first
+item and advances to one with no missed events. This is an ordinary finite
+observation, not a proof or a registered event-schedule acceptance claim.
