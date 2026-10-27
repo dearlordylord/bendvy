@@ -18,6 +18,21 @@ import ./execution-command-permission.bend as Permission
 import ./execution-command-scope.bend as CommandScope
 import ./execution-composer-layout.bend as Layout
 import ./change-tick.bend as Tick
+import ./execution-query-store.bend as QueryStore
+import ./execution-resource-store.bend as ResourceStore
+import ./execution-resource-query-leaf.bend as GeneralLeaf
+import ./execution-resource-query-group.bend as GeneralGroup
+import ./execution-resource-query-execution.bend as GeneralExecution
+
+# Generalized leaves fix their callbacks while the closed declaration indices
+# are available. The actual registered compilation remains inside the leaf.
+type GeneralizedSelection<-S:Data,-components:Layout.Layout,-resources:Layout.Layout,-E:Data,-Left:Type,-Right:Type,-Error:Data,-Out:Data> is Type:
+  GeneralizedPair{left:GeneralLeaf.Leaf<S,components,resources,E,Left,Error,Out>,right:GeneralLeaf.Leaf<S,components,resources,E,Right,Error,Out>}
+def compile_generalized_leaf(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~E:Data,~Error:Data,~Out:Data,~Ops:Data -> Type -> Type,~Local:Type,~declaration:Build.FrameworkProgram(~S,~Layout.columns(~S,components),~QueryStore.Storage<S,components>,~ResourceStore.Storage<S,resources>,~Ops),~body:Sys.Body(~S,~Ops,~Local,~Error,~Out),~compilation:D.Compilation<S,Layout.columns(~S,components),QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>,Ops>,binding:Scope.CompiledBinding<D.Compilation<S,Layout.columns(~S,components),QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>,Ops>,Sys.Owner<S,Layout.columns(~S,components),QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>,E,Ops,Local,Error,Out,declaration,body>>) -> GeneralLeaf.Leaf<S,components,resources,E,Sys.Owner<S,Layout.columns(~S,components),QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>,E,Ops,Local,Error,Out,declaration,body>,Error,Out>:
+  GeneralLeaf.from_compiled(~S,~components,~resources,~E,~Error,~Out,~Ops,~Local,~declaration,~body,~compilation,binding)
+def run_generalized(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,~E:Data,~Error:Data,~Out:Data,-Left:Type,-Right:Type,ids:List<&2,U32>,world:W.World<S,Layout.columns(~S,components),Layout.resources(~S,resources),E>,selection:GeneralizedSelection<S,components,resources,E,Left,Right,Error,Out>) -> IO(GeneralExecution.RunResult<S,components,resources,E,Product.Owner<Left,Right>,Error,Out>):
+  match selection:
+    case GeneralizedPair{left,right}:GeneralGroup.run(~S,~components,~resources,~E,~Error,~Out,Left,Right,ids,world,left,right)
 
 type Runtime<S:Data,-World:Type,P:Data,-Scope:Type,-Owners:Type,Error:Data,Out:Data> is Type:
   Runtime{-Held:Type,restore:Held -> Owners,held:Held,nodes:List<&2,Plan.Node<String>>,entries:List<&2,Part.Entry>,invalid:Maybe<&2,Plan.Invalid<String>>,deferred:List<&2,U32>,pending:List<&2,U32> -> World -> Held -> World & (Held & Bool),publish:List<&2,U32> -> Tick.Tick -> World -> Held -> World & Held,prepare:List<&2,U32> -> World -> Held -> Prep.Preparation<World,Held,P>,invoke:Scope -> Prep.Prepared<World,Held,P> -> Effect.Task<S,RuntimePermit.Permit,Prep.Invocation<Scope,World,Held,P,List<&2,Ready.Completed<Error,Out>>>>}
