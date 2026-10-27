@@ -9,6 +9,7 @@ import ./execution-resource-query-task.bend as Phase
 import ./execution-reservation-task.bend as Task
 import ./execution-reservation-authority.bend as Authority
 import ./owner-product.bend as Product
+import ./execution-owner-continuation.bend as Continuation
 
 # Recursive composites return the same actual sparse parent or an actual typed
 # owner inventory. The only Driver remains the enclosing ordinary Group.
@@ -16,9 +17,21 @@ def joined(~S:Data,~components:L.Layout,~resources:L.Layout,-Left:Type,-Right:Ty
   match result:
     case Cut.Joined{scope}:Phase.LeafResult{scope,Product.Owner{left,right},status}
     case inventory:Phase.LeafInventoryRefused{Cut.Joined<S,components,resources>,inventory,Product.Owner{left,right},status}
+def joined_header(~S:Data,~components:L.Layout,~resources:L.Layout,-Left:Type,-Right:Type,-Status:Data,header:Phase.ReturnedHeader<Left,Right,Status>,result:Cut.Joined<S,components,resources>) -> Phase.LeafResult<State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Product.Owner<Left,Right>,Status>:
+  match header:
+    case Phase.ReturnedHeader{left,right,status}:joined(~S,~components,~resources,Left,Right,Status,left,right,status,result)
+type ParallelHeader<-S:Data,-components:L.Layout,-resources:L.Layout,-Left:Type,-Right:Type> is Type:
+  ParallelHeader{leftScope:State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,rightScope:State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,join:Cut.Join<S,components,resources>,left:Left,right:Right}
+def parallel_combined(~S:Data,~components:L.Layout,~resources:L.Layout,-Left:Type,-Right:Type,-Status:Data,header:ParallelHeader<S,components,resources,Left,Right>,status:Status) -> Phase.LeafResult<State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Product.Owner<Left,Right>,Status>:
+  match header:
+    case ParallelHeader{ls,rs,join,left,right}:
+      continuation:Continuation.Header<Cut.Joined<S,components,resources>,Phase.LeafResult<State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Product.Owner<Left,Right>,Status>> = Continuation.Header{Phase.ReturnedHeader<Left,Right,Status>,Phase.ReturnedHeader{left,right,status},header => result => joined_header(~S,~components,~resources,Left,Right,Status,header,result)}
+      Continuation.returned(Cut.Joined<S,components,resources>,Phase.LeafResult<State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Product.Owner<Left,Right>,Status>,continuation,Cut.join(~S,~components,~resources,ls,rs,join))
 def parallel_returned(~S:Data,~components:L.Layout,~resources:L.Layout,-Left:Type,-Right:Type,-Status:Data,combine:Status -> Status -> Status,join:Cut.Join<S,components,resources>,left:Phase.LeafResult<State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Left,Status>,right:Phase.LeafResult<State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Right,Status>) -> Phase.LeafResult<State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Product.Owner<Left,Right>,Status>:
   match left right:
-    case Phase.LeafResult{ls,left,lc} Phase.LeafResult{rs,right,rc}:joined(~S,~components,~resources,Left,Right,Status,left,right,combine(lc,rc),Cut.join(~S,~components,~resources,ls,rs,join))
+    case Phase.LeafResult{ls,left,lc} Phase.LeafResult{rs,right,rc}:
+      continuation:Continuation.Header<Status,Phase.LeafResult<State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Product.Owner<Left,Right>,Status>> = Continuation.Header{ParallelHeader<S,components,resources,Left,Right>,ParallelHeader{ls,rs,join,left,right},header => status => parallel_combined(~S,~components,~resources,Left,Right,Status,header,status)}
+      Continuation.returned(Status,Phase.LeafResult<State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Product.Owner<Left,Right>,Status>,continuation,combine(lc,rc))
     case Phase.LeafInventoryRefused{LI,inventory,left,lc} Phase.LeafResult{rs,right,rc}:Phase.LeafInventoryRefused{LI & (State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>> & Cut.Join<S,components,resources>),(inventory,(rs,join)),Product.Owner{left,right},combine(lc,rc)}
     case Phase.LeafResult{ls,left,lc} Phase.LeafInventoryRefused{RI,inventory,right,rc}:Phase.LeafInventoryRefused{State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>> & (RI & Cut.Join<S,components,resources>),(ls,(inventory,join)),Product.Owner{left,right},combine(lc,rc)}
     case Phase.LeafInventoryRefused{LI,li,left,lc} Phase.LeafInventoryRefused{RI,ri,right,rc}:Phase.LeafInventoryRefused{LI & (RI & Cut.Join<S,components,resources>),(li,(ri,join)),Product.Owner{left,right},combine(lc,rc)}
@@ -28,7 +41,9 @@ def parallel(~S:Data,~components:L.Layout,~resources:L.Layout,-Left:Type,-Right:
     case inventory:Task.TDone{Phase.LeafInventoryRefused{Cut.Partition<S,components,resources>,inventory,Product.Owner{left,right},empty}}
 def second_invoked(~S:Data,~components:L.Layout,~resources:L.Layout,-Left:Type,-Right:Type,-Status:Data,combine:Status -> Status -> Status,left:Left,leftStatus:Status,unused:State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,join:Cut.Join<S,components,resources>,result:Phase.LeafResult<State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Right,Status>) -> Phase.LeafResult<State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Product.Owner<Left,Right>,Status>:
   match result:
-    case Phase.LeafResult{scope,right,rc}:joined(~S,~components,~resources,Left,Right,Status,left,right,combine(leftStatus,rc),Cut.join(~S,~components,~resources,scope,unused,join))
+    case Phase.LeafResult{scope,right,rc}:
+      continuation:Continuation.Header<Status,Phase.LeafResult<State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Product.Owner<Left,Right>,Status>> = Continuation.Header{ParallelHeader<S,components,resources,Left,Right>,ParallelHeader{scope,unused,join,left,right},header => status => parallel_combined(~S,~components,~resources,Left,Right,Status,header,status)}
+      Continuation.returned(Status,Phase.LeafResult<State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Product.Owner<Left,Right>,Status>,continuation,combine(leftStatus,rc))
     case Phase.LeafInventoryRefused{I,inventory,right,rc}:Phase.LeafInventoryRefused{I & (State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>> & Cut.Join<S,components,resources>),(inventory,(unused,join)),Product.Owner{left,right},combine(leftStatus,rc)}
 def second_cut(~S:Data,~components:L.Layout,~resources:L.Layout,-Left:Type,-Right:Type,-Status:Data,combine:Status -> Status -> Status,rightInvoke:State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>> -> Right -> Task.Task<S,Authority.Permit,Phase.LeafResult<State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Right,Status>>,left:Left,right:Right,leftStatus:Status,result:Cut.Partition<S,components,resources>) -> Task.Task<S,Authority.Permit,Phase.LeafResult<State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Product.Owner<Left,Right>,Status>>:
   match result:

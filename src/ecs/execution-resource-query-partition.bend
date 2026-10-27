@@ -15,6 +15,7 @@ import ./execution-resource-partition.bend as Resource
 import ./execution-resource-split.bend as Split
 import ./execution-resource-recipe.bend as Recipe
 import ./execution-query-preparation.bend as Checks
+import ./execution-owner-continuation.bend as Continuation
 
 # This physical framework carrier contains both actual complements. Neither
 # sparse local owner is equated with the canonical full World product.
@@ -33,9 +34,16 @@ def resource_cut(~S:Data,~components:L.Layout,~fullResources:L.Layout,left:State
   match result:
     case Resource.Refused{resources}:ResourceRefused{left,right,query,resources}
     case Resource.Partitioned{families,resource}:separated(~S,~components,~fullResources,left,right,query,namespace,leftRecipes,rightRecipes,resource,Split.separate(~S,fullResources,families))
+type ResourceCutHeader<-S:Data,-components:L.Layout> is Type:
+  ResourceCutHeader{left:State.Scope<S,QueryStore.Storage<S,components>,Unit>,right:State.Scope<S,QueryStore.Storage<S,components>,Unit>,query:Query.Join<S,components>,namespace:U32,leftRecipes:List<&2,Recipe.Entry>,rightRecipes:List<&2,Recipe.Entry>}
+def resource_cut_header(~S:Data,~components:L.Layout,~resources:L.Layout,header:ResourceCutHeader<S,components>,result:Resource.Cut<S,resources>) -> Partition<S,components,resources>:
+  match header:
+    case ResourceCutHeader{lc,rc,query,namespace,left,right}:resource_cut(~S,~components,~resources,lc,rc,query,namespace,left,right,result)
 def components_cut(~S:Data,~components:L.Layout,~fullResources:L.Layout,+namespace:U32,+left:List<&2,Recipe.Entry>,+right:List<&2,Recipe.Entry>,resources:L.resources(~S,fullResources),result:Query.Split<S,components>) -> Partition<S,components,fullResources>:
   match result:
-    case Query.Split{lc,rc,query}:resource_cut(~S,~components,~fullResources,lc,rc,query,namespace,left,right,Resource.cut(~S,~fullResources,namespace,Recipe.Book{left},Recipe.Book{right},resources))
+    case Query.Split{lc,rc,query}:
+      continuation:Continuation.Header<Resource.Cut<S,fullResources>,Partition<S,components,fullResources>> = Continuation.Header{ResourceCutHeader<S,components>,ResourceCutHeader{lc,rc,query,namespace,left,right},header => result => resource_cut_header(~S,~components,~fullResources,header,result)}
+      Continuation.returned(Resource.Cut<S,fullResources>,Partition<S,components,fullResources>,continuation,Resource.cut(~S,~fullResources,namespace,Recipe.Book{left},Recipe.Book{right},resources))
     case result:ComponentRefused{result,resources}
 # Both complete resource recipe sets are validated before any owner extraction.
 # A genuine conflict retains the canonical owner for ordinary serial threading.
@@ -44,8 +52,14 @@ def split_checked(~S:Data,~components:L.Layout,~fullResources:L.Layout,scope:Sta
     case scope False{} _:Refused{scope}
     case scope True{} False{}:Serial{scope}
     case State.Scope{columns,resources,handles,tick,prior,view} True{} True{}:components_cut(~S,~components,~fullResources,namespace,left,right,resources,Query.split_checked(~S,~components,State.Scope{columns,Unit{},handles,tick,prior,view},namespace,leftGrants,rightGrants,info,leftQuery,rightQuery,True{}))
+type SplitHeader<-S:Data,-components:L.Layout,-resources:L.Layout> is Type:
+  SplitHeader{scope:State.Scope<S,L.columns(~S,components),L.resources(~S,resources)>,namespace:U32,leftGrants:List<&2,Grants.Granted<S,L.columns(~S,components)>>,rightGrants:List<&2,Grants.Granted<S,L.columns(~S,components)>>,info:List<&2,Schema.Info>,leftQuery:Schema.Book<S,components>,rightQuery:Schema.Book<S,components>,left:List<&2,Recipe.Entry>,right:List<&2,Recipe.Entry>}
+def split_decided(~S:Data,~components:L.Layout,~resources:L.Layout,header:SplitHeader<S,components,resources>,flags:Bool & Bool) -> Partition<S,components,resources>:
+  match header flags:
+    case SplitHeader{scope,namespace,leftGrants,rightGrants,info,leftQuery,rightQuery,left,right}, (valid,compatible):split_checked(~S,~components,~resources,scope,namespace,leftGrants,rightGrants,info,leftQuery,rightQuery,left,right,valid,compatible)
 def split(~S:Data,~components:L.Layout,~fullResources:L.Layout,scope:State.Scope<S,L.columns(~S,components),L.resources(~S,fullResources)>,namespace:U32,leftGrants:List<&2,Grants.Granted<S,L.columns(~S,components)>>,rightGrants:List<&2,Grants.Granted<S,L.columns(~S,components)>>,info:List<&2,Schema.Info>,leftQuery:Schema.Book<S,components>,rightQuery:Schema.Book<S,components>,+left:List<&2,Recipe.Entry>,+right:List<&2,Recipe.Entry>,valid:Bool) -> Partition<S,components,fullResources>:
-  split_checked(~S,~components,~fullResources,scope,namespace,leftGrants,rightGrants,info,leftQuery,rightQuery,left,right,Bool.and(valid,Bool.and(L.unique(fullResources),Bool.and(Recipe.valid(~fullResources,left),Recipe.valid(~fullResources,right)))),Recipe.compatible(~fullResources,left,right))
+  continuation:Continuation.Header<(Bool & Bool),Partition<S,components,fullResources>> = Continuation.Header{SplitHeader<S,components,fullResources>,SplitHeader{scope,namespace,leftGrants,rightGrants,info,leftQuery,rightQuery,left,right},header => flags => split_decided(~S,~components,~fullResources,header,flags)}
+  Continuation.decided(Partition<S,components,fullResources>,continuation,Bool.and(valid,Bool.and(L.unique(fullResources),Bool.and(Recipe.valid(~fullResources,left),Recipe.valid(~fullResources,right)))),Recipe.compatible(~fullResources,left,right))
 type Joined<-S:Data,-components:L.Layout,-fullResources:L.Layout> is Type:
   Joined{scope:State.Scope<S,L.columns(~S,components),L.resources(~S,fullResources)>,displaced:Schema.displacements(~S,components)}
   ScopeRefused{left:State.Scope<S,QueryStore.Storage<S,components>,Store.Storage<S,fullResources>>,right:State.Scope<S,QueryStore.Storage<S,components>,Store.Storage<S,fullResources>>,join:Join<S,components,fullResources>}
@@ -54,13 +68,31 @@ def joined(~S:Data,~components:L.Layout,~fullResources:L.Layout,query:Query.Join
   match query resource:
     case Query.Joined{State.Scope{columns,Unit{},handles,tick,prior,view},displaced} Resource.Joined{resources,_}:Joined{State.Scope{columns,resources,handles,tick,prior,view},displaced}
     case query resource:InventoryRefused{query,resource}
+def query_joined_header(~S:Data,~components:L.Layout,~resources:L.Layout,query:Query.Joined<S,components>,resource:Resource.Joined<S,resources>) -> Joined<S,components,resources>:
+  joined(~S,~components,~resources,query,resource)
+type ResourceJoinHeader<-S:Data,-resources:L.Layout> is Type:
+  ResourceJoinHeader{left:Store.slots(~S,resources),right:Store.slots(~S,resources),rest:Split.remainder(~S,resources),repack:Store.slots(~S,resources) -> Store.slots(~S,resources) -> Split.remainder(~S,resources) -> Resource.families(~S,resources),resource:Resource.JoinOwner<S,resources>}
+def resource_join_header(~S:Data,~components:L.Layout,~resources:L.Layout,header:ResourceJoinHeader<S,resources>,query:Query.Joined<S,components>) -> Joined<S,components,resources>:
+  match header:
+    case ResourceJoinHeader{left,right,rest,repack,resource}:
+      continuation:Continuation.Header<Resource.Joined<S,resources>,Joined<S,components,resources>> = Continuation.Header{Query.Joined<S,components>,query,header => result => query_joined_header(~S,~components,~resources,header,result)}
+      Continuation.returned(Resource.Joined<S,resources>,Joined<S,components,resources>,continuation,Split.reunite(~S,~resources,left,right,rest,repack,resource))
 def join_checked(~S:Data,~components:L.Layout,~fullResources:L.Layout,left:State.Scope<S,QueryStore.Storage<S,components>,Store.Storage<S,fullResources>>,right:State.Scope<S,QueryStore.Storage<S,components>,Store.Storage<S,fullResources>>,join:Join<S,components,fullResources>,valid:Bool) -> Joined<S,components,fullResources>:
   match left right join valid:
     case left right join False{}:ScopeRefused{left,right,join}
-    case State.Scope{lc,Store.Storage{_,lr,_},lh,lt,lp,lv} State.Scope{rc,Store.Storage{_,rr,_},rh,rt,rp,rv} Join{query,rest,repack,resource} True{}:joined(~S,~components,~fullResources,Query.join(~S,~components,State.Scope{lc,Unit{},lh,lt,lp,lv},State.Scope{rc,Unit{},rh,rt,rp,rv},query),Split.reunite(~S,~fullResources,lr,rr,rest,repack,resource))
+    case State.Scope{lc,Store.Storage{_,lr,_},lh,lt,lp,lv} State.Scope{rc,Store.Storage{_,rr,_},rh,rt,rp,rv} Join{query,rest,repack,resource} True{}:
+      continuation:Continuation.Header<Query.Joined<S,components>,Joined<S,components,fullResources>> = Continuation.Header{ResourceJoinHeader<S,fullResources>,ResourceJoinHeader{lr,rr,rest,repack,resource},header => result => resource_join_header(~S,~components,~fullResources,header,result)}
+      Continuation.returned(Query.Joined<S,components>,Joined<S,components,fullResources>,continuation,Query.join(~S,~components,State.Scope{lc,Unit{},lh,lt,lp,lv},State.Scope{rc,Unit{},rh,rt,rp,rv},query))
+type JoinHeader<-S:Data,-components:L.Layout,-resources:L.Layout> is Type:
+  JoinHeader{left:State.Scope<S,QueryStore.Storage<S,components>,Store.Storage<S,resources>>,right:State.Scope<S,QueryStore.Storage<S,components>,Store.Storage<S,resources>>,join:Join<S,components,resources>}
+def join_decided(~S:Data,~components:L.Layout,~resources:L.Layout,header:JoinHeader<S,components,resources>,valid:Bool) -> Joined<S,components,resources>:
+  match header:
+    case JoinHeader{left,right,join}:join_checked(~S,~components,~resources,left,right,join,valid)
 def join(~S:Data,~components:L.Layout,~fullResources:L.Layout,left:State.Scope<S,QueryStore.Storage<S,components>,Store.Storage<S,fullResources>>,right:State.Scope<S,QueryStore.Storage<S,components>,Store.Storage<S,fullResources>>,join:Join<S,components,fullResources>) -> Joined<S,components,fullResources>:
   match left right join:
-    case State.Scope{lc,Store.Storage{+ln,lr,le},lh,lt,lp,+lv} State.Scope{rc,Store.Storage{+rn,rr,re},rh,rt,rp,+rv} Join{query,rest,repack,Resource.JoinOwner{+namespace,lq,rq}}:join_checked(~S,~components,~fullResources,State.Scope{lc,Store.Storage{ln,lr,le},lh,lt,lp,lv},State.Scope{rc,Store.Storage{rn,rr,re},rh,rt,rp,rv},Join{query,rest,repack,Resource.JoinOwner{namespace,lq,rq}},Bool.and(U32.is_eq(ln,namespace),Bool.and(U32.is_eq(rn,namespace),Bool.and(U32.is_eq(Checks.view_namespace(~S,lv),namespace),U32.is_eq(Checks.view_namespace(~S,rv),namespace)))))
+    case State.Scope{lc,Store.Storage{+ln,lr,le},lh,lt,lp,+lv} State.Scope{rc,Store.Storage{+rn,rr,re},rh,rt,rp,+rv} Join{query,rest,repack,Resource.JoinOwner{+namespace,lq,rq}}:
+      continuation:Continuation.Header<Bool,Joined<S,components,fullResources>> = Continuation.Header{JoinHeader<S,components,fullResources>,JoinHeader{State.Scope{lc,Store.Storage{ln,lr,le},lh,lt,lp,lv},State.Scope{rc,Store.Storage{rn,rr,re},rh,rt,rp,rv},Join{query,rest,repack,Resource.JoinOwner{namespace,lq,rq}}},header => valid => join_decided(~S,~components,~fullResources,header,valid)}
+      Continuation.returned(Bool,Joined<S,components,fullResources>,continuation,Bool.and(U32.is_eq(ln,namespace),Bool.and(U32.is_eq(rn,namespace),Bool.and(U32.is_eq(Checks.view_namespace(~S,lv),namespace),U32.is_eq(Checks.view_namespace(~S,rv),namespace)))))
 # Ordinary lowering supplies both complete domains from its two actual admitted
 # closed compilations. Live storage and captured handles are checked again before cut.
 def described_admitted(~S:Data,~components:L.Layout,~fullResources:L.Layout,~LeftOps:Data -> Type -> Type,~RightOps:Data -> Type -> Type,~leftProgram:Build.FrameworkProgram(~S,~L.columns(~S,components),~QueryStore.Storage<S,components>,~Store.Storage<S,fullResources>,~LeftOps),~rightProgram:Build.FrameworkProgram(~S,~L.columns(~S,components),~QueryStore.Storage<S,components>,~Store.Storage<S,fullResources>,~RightOps),resources:L.resources(~S,fullResources),+handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,+view:Notice.View<S>,left:Admission.Evidence<S,components,fullResources,QueryStore.Storage<S,components>,Store.Storage<S,fullResources>,LeftOps,leftProgram>,right:Admission.Evidence<S,components,fullResources,QueryStore.Storage<S,components>,Store.Storage<S,fullResources>,RightOps,rightProgram>,description:Schema.Description<S,components>) -> Partition<S,components,fullResources>:
