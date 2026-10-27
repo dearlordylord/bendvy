@@ -41,8 +41,10 @@ def sibling_layout() -> Layout.Layout:
 def receipt_view(-Receipts:Type,receipts:Receipts) -> Receipts & Unit:(receipts,Unit{})
 def receipts_layout(~Receipts:Type) -> Layout.Layout:
   Layout.LayoutLeaf{Receipts,Unit,receipt_view(Receipts),"BundleReceipts",Policy.Ordinary{}}
+def tail_resources(~Receipts:Type) -> Layout.Layout:
+  Layout.LayoutPair{link_layout(),Layout.LayoutPair{phase_layout(),Layout.LayoutPair{sibling_layout(),receipts_layout(~Receipts)}}}
 def resources(~Receipts:Type) -> Layout.Layout:
-  Layout.LayoutPair{parent_layout(),Layout.LayoutPair{link_layout(),Layout.LayoutPair{phase_layout(),Layout.LayoutPair{sibling_layout(),receipts_layout(~Receipts)}}}}
+  Layout.LayoutPair{parent_layout(),tail_resources(~Receipts)}
 def phase(namespace:U32) -> State.Cell<Scene,PhaseToken,U32>:
   State.Cell{M.Present{1,M.Queued{2,False{}},None{},False{}},Stream.empty(~U32),0n,None{},None{},0n,False{},Some{namespace},State.Idle{}}
 def owners(~Receipts:Type,namespace:U32,receipts:Receipts) -> Layout.resources(~Scene,resources(~Receipts)):

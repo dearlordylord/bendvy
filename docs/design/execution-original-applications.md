@@ -66,9 +66,34 @@ Sibling, and an arbitrary affine receipt owner. Schema creation uses the actual
 Factory namespace for both graph stores and the Phase Cell. The receipt owner is
 supplied by the application and returned on schema refusal.
 
-These modules are initial migration code. They do not yet execute either complete
-application. Both full command sequences, the AppA explicit recovery adapter,
-event handoff, complete observations, actual trace integration, and final source
-cleanup remain incomplete. GH94 also retains its JavaScript/native delivery and
-independent review requirements. Compilation of these modules is not proof of
-those requirements or of any new law.
+`app-b.bend` executes the original AppB operation sequence through the replacement
+ordinary App. Its command author obtains one structural grant and two relation
+grants from the same declaration book. Three real reservation requests enqueue
+the original bundles. Explicit flushes use the schedule's actual unapplied IDs
+and canonical publication; they preserve the remaining IDs and retained state.
+The registered command author and empty boundary peer replace the old direct
+transaction enqueue transport. They do not add a machine transition or a gameplay
+system to AppB's domain behavior.
+
+`app-b-inspection.bend` uses the current passive Inspector adapters for component
+queries and cached graph/machine resource views. `app-b-owners.bend` reports every
+pending command and receipt while returning each affine owner. Its diagnostic
+raw-column read validates each captured handle against the actual World namespace
+and live handles before converting to a physical offset. It reads each array
+owner twice, returns it to the same column, and preserves the existing cached view
+and lifecycle stamps. This diagnostic is separate from the public passive
+Inspector capability.
+
+The ordinary Bend entry executes successfully with three `[7,9]` array owners and
+three scalar values `11`. Before each explicit flush, its authored operations
+remain pending. The first relation flush produces Parent `3:0 -> 1:0` and Link
+`3:0 -> 2:0`; reparenting replaces Parent with `3:0 -> 2:0` and updates its inverse.
+Every printed Phase view remains current `1`, next `2`, revision `0`.
+The repeated final Inspector projections agree, and all three actual array owners
+produce `[7,9]` on both diagnostic reads. These are finite interpreter observations,
+not a formal proof or native backend concurrency evidence.
+
+AppA's complete execution, its explicit recovery adapter, owned event handoff,
+and final source cleanup remain incomplete. GH94 also retains its complete
+JavaScript/native delivery, applicable authority controls, and independent review
+requirements. No new law is approved or proved by this application run.
