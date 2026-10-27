@@ -9,6 +9,7 @@ import ./execution-relation-store.bend as RelationStore
 import ./relation-types.bend as Relation
 import ./execution-relation-command.bend as RelationCommands
 import ./execution-relation-operation.bend as Operation
+import ./string-equality.bend as StringEquality
 
 # This closed algebra retains schema evidence supplied by the same declaration.
 # A route selects a grant; it never creates any of these type equalities.
@@ -23,6 +24,25 @@ def deferred_descriptions(~S:Data,~resources:Layout.Layout,relations:Relations<S
   match relations:
     case NoRelations{}:[]
     case RelationAllowed{+route,_,descriptor,_,_,_,rest}:DeferredRelation{route,Layout.key(resources,route),descriptor} <> deferred_descriptions(~S,~resources,rest)
+def same_route(left:Layout.Route,right:Layout.Route) -> Bool:
+  match left right:
+    case Layout.AtLeaf{} Layout.AtLeaf{}:True{}
+    case Layout.InLeft{left} Layout.InLeft{right}:same_route(left,right)
+    case Layout.InRight{left} Layout.InRight{right}:same_route(left,right)
+    case _ _:False{}
+def same_kind(left:Relation.RelationKind,right:Relation.RelationKind) -> Bool:
+  match left right:
+    case Relation.Ordinary{} Relation.Ordinary{}:True{}
+    case Relation.Hierarchy{} Relation.Hierarchy{}:True{}
+    case _ _:False{}
+def same_descriptor(~S:Data,left:Relation.Descriptor<S>,right:Relation.Descriptor<S>) -> Bool:
+  match left right:
+    case Relation.Descriptor{lk,ln,li,lt} Relation.Descriptor{rk,rn,ri,rt}:Bool.and(U32.is_eq(lk,rk),Bool.and(StringEquality.equal(ln,rn),Bool.and(StringEquality.equal(li,ri),same_kind(lt,rt))))
+def relations_agree(~S:Data,~resources:Layout.Layout,left:Relations<S,resources>,right:Relations<S,resources>) -> Bool:
+  match left right:
+    case NoRelations{} NoRelations{}:True{}
+    case RelationAllowed{lr,_,ld,_,_,_,left} RelationAllowed{rr,_,rd,_,_,_,right}:Bool.and(same_route(lr,rr),Bool.and(same_descriptor(~S,ld,rd),relations_agree(~S,~resources,left,right)))
+    case _ _:False{}
 
 # Registration supplies an abstract affine K. A declaration can obtain entity
 # commands only by returning the book advanced by this explicit grant. Physical
