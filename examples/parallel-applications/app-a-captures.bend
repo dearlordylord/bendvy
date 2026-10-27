@@ -1,6 +1,11 @@
 import Base
 import ./app-a-payloads.bend as P
 import ./app-a-systems.bend as Systems
+import ./app-a-schema.bend as D
+import ./app-a-commands.bend as Author
+import ../../src/ecs/execution-declaration.bend as Decl
+import ../../src/ecs/execution-resource-admission.bend as Admission
+import ../../src/ecs/owner-product.bend as Product
 import ../../src/ecs/execution-system.bend as Sys
 import ../../src/ecs/execution-parallel-scope.bend as Scope
 import ../../src/ecs/execution-resource-query-leaf.bend as Leaf
@@ -52,3 +57,16 @@ def node(~Compilation:Type,~World:Type,~Owner:Type,~Evidence:Data,~Permit:Data,o
     case Leaf.Inspected{Scope.CompiledBinding{compilation,owner},evidence,id,valid}:rebuilt(~Owner,~Leaf.Node<Compilation,World,Owner,Evidence,Permit>,owner=>Leaf.Inspected{Scope.CompiledBinding{compilation,owner},evidence,id,valid},observe(owner))
     case Leaf.Prepared{Execution.HeldReady{Binding.Binding{compilation,Prep.Prepared{namespace,owner,permits,provenance},evidence}}}:rebuilt(~Owner,~Leaf.Node<Compilation,World,Owner,Evidence,Permit>,owner=>Leaf.Prepared{Execution.HeldReady{Binding.Binding{compilation,Prep.Prepared{namespace,owner,permits,provenance},evidence}}},observe(owner))
     case Leaf.Prepared{Execution.HeldInventory{compilation,Prep.Inventory{owner,provenance},evidence}}:rebuilt(~Owner,~Leaf.Node<Compilation,World,Owner,Evidence,Permit>,owner=>Leaf.Prepared{Execution.HeldInventory{compilation,Prep.Inventory{owner,provenance},evidence}},observe(owner))
+def writer_node(held:Systems.WriterNode()) -> Systems.WriterNode() & String:
+  node(~Decl.Compilation<P.AuditWorkshop,Systems.Columns(),Systems.C(),Systems.R(),Systems.WriterOps>,~Systems.World(),~Systems.Writer(),~Admission.Evidence<P.AuditWorkshop,D.components(),Author.resources(),Systems.C(),Systems.R(),Systems.WriterOps,Systems.writer_kernel>,~Prep.Permit<P.AuditWorkshop,Systems.Columns()>,writer,held)
+def query_node(held:Systems.QueryNode()) -> Systems.QueryNode() & String:
+  node(~Decl.Compilation<P.AuditWorkshop,Systems.Columns(),Systems.C(),Systems.R(),Systems.QueryOps>,~Systems.World(),~Systems.Query(),~Admission.Evidence<P.AuditWorkshop,D.components(),Author.resources(),Systems.C(),Systems.R(),Systems.QueryOps,Systems.query_kernel>,~Prep.Permit<P.AuditWorkshop,Systems.Columns()>,query,held)
+def reader_node(held:Systems.ReaderNode()) -> Systems.ReaderNode() & String:
+  node(~Decl.Compilation<P.AuditWorkshop,Systems.Columns(),Systems.C(),Systems.R(),Systems.ReaderOps>,~Systems.World(),~Systems.Reader(),~Admission.Evidence<P.AuditWorkshop,D.components(),Author.resources(),Systems.C(),Systems.R(),Systems.ReaderOps,Systems.reader_kernel>,~Prep.Permit<P.AuditWorkshop,Systems.Columns()>,reader,held)
+def Nodes() -> Type:Product.Owner<Systems.WriterNode(),Product.Owner<Systems.QueryNode(),Systems.ReaderNode()>>
+def nodes_observed(writer:Systems.WriterNode() & String,query:Systems.QueryNode() & String,reader:Systems.ReaderNode() & String) -> Nodes() & String:
+  match writer query reader:
+    case (writer,a), (query,b), (reader,c):(Product.Owner{writer,Product.Owner{query,reader}},a ++ ";" ++ b ++ ";" ++ c)
+def nodes(owners:Nodes()) -> Nodes() & String:
+  match owners:
+    case Product.Owner{writer,Product.Owner{query,reader}}:nodes_observed(writer_node(writer),query_node(query),reader_node(reader))

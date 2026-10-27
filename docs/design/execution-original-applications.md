@@ -124,6 +124,12 @@ the query-only registered condition whose first three results are true, false,
 true. `app-a-captures.bend` preserves the same Compilation, evidence and prepared
 inventory while projecting local owners. These definitions have no current
 three-system execution claim: wiring awaits the canonical N-leaf group carrier.
+The corresponding `app-a-inspection.bend` declares the original passive array,
+scalar and Counter lookups and returns two consecutive projections with the
+actual World. Its observation helper does not advance the Inspector instance.
+Captured-node diagnostics preserve all Uninspected, Inspected, Prepared and
+refused inventory fields, including the actual retained Compilation. The paired
+projections and three-node diagnostic remain unexecuted until plan wiring.
 
 Final source cleanup remains incomplete. GH94 also retains its complete
 JavaScript/native delivery, applicable authority controls, and independent review
