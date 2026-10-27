@@ -39,6 +39,12 @@ detached Raw/codec types does not establish an equality of those owner types.
 `execution-save-plan` now binds the complete static persistence extension to
 canonical Layout and nominal declarations. Constructed leaves retain their actual
 ordinary declaration/codec; the projection code is fixed in the same plan.
+Every Plain, Transient and Constructed leaf also retains its explicit access
+policy, orthogonal to persistence eligibility. Layout construction preserves this
+policy in the complete nominal origin; constructed traversal carries the same
+policy through payload projection. Ordinary examples choose Ordinary explicitly.
+This permits a protected resource origin to be represented without a cast or
+relabelling it as ordinary; it does not itself grant protected restore writes.
 `execution-save-world` checks the whole schema for Plain leaves and duplicate
 kind-local keys before metadata or payload projections. It traverses actual live
 handles in allocator order and exports full keys, field presence, Raw values and

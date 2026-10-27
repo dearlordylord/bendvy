@@ -1,5 +1,6 @@
 import Base
 import ../../src/ecs/execution-save-plan.bend as Plan
+import ../../src/ecs/execution-resource-policy.bend as Policy
 import ../../src/ecs/execution-composer-layout.bend as Layout
 import ../../src/ecs/persistence-declaration.bend as Decl
 import ../../src/ecs/decode-data.bend as D
@@ -41,9 +42,9 @@ def config_raw(~S:Data,result:Config<S> & ConfigView) -> Config<S> & D.Raw:
 def config_project(~S:Data,owner:Config<S>) -> Config<S> & D.Raw:config_raw(~S,config_view(~S,owner))
 def scratch_view(~S:Data,owner:Scratch<S>) -> Scratch<S> & Unit:(owner,Unit{})
 def components(~S:Data) -> Plan.Plan:
-  Plan.Pair{Plan.Constructed{Actor<S>,ActorView,actor_view(~S),"actor",actor_project(~S)},Plan.Transient{Scratch<S>,Unit,scratch_view(~S),"scratch"}}
+  Plan.Pair{Plan.Constructed{Actor<S>,ActorView,actor_view(~S),"actor",actor_project(~S),Policy.Ordinary{}},Plan.Transient{Scratch<S>,Unit,scratch_view(~S),"scratch",Policy.Ordinary{}}}
 def resources(~S:Data) -> Plan.Plan:
-  Plan.Pair{Plan.Constructed{Config<S>,ConfigView,config_view(~S),"config",config_project(~S)},Plan.Transient{Scratch<S>,Unit,scratch_view(~S),"temporary"}}
+  Plan.Pair{Plan.Constructed{Config<S>,ConfigView,config_view(~S),"config",config_project(~S),Policy.Ordinary{}},Plan.Transient{Scratch<S>,Unit,scratch_view(~S),"temporary",Policy.Ordinary{}}}
 def schema(~S:Data) -> Plan.Schema<S,components(~S),resources(~S)>:
   Plan.Schema{Product.Owner{Decl.Constructed{D.Struct{[D.NamedCodec{"name",D.StringValue{}},D.NamedCodec{"energy",D.Integer{}}]}},Decl.Transient{}},Product.Owner{Decl.Constructed{D.Struct{[D.NamedCodec{"enabled",D.BoolValue{}},D.NamedCodec{"limit",D.Integer{}}]}},Decl.Transient{}}}
 def initial_resources(~S:Data) -> Layout.resources(~S,Plan.layout(resources(~S))):

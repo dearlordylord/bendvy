@@ -43,9 +43,9 @@ def constructed_descriptor(~S:Data,-P:Type,+key:String,project:P -> P & D.Raw,de
 def descriptors(~S:Data,plan:Plan.Plan) -> Plan.Recipes(~S,plan) -> Plan.Recipes(~S,plan) & List<&2,Descriptor>:
   match plan:
     case Plan.Empty{}:recipe => (recipe,[])
-    case Plan.Plain{_,_,_,key}:recipe => retained(Plan.Recipes(~S,plan),recipe,key,Plain{})
-    case Plan.Transient{_,_,_,key}:recipe => retained(Plan.Recipes(~S,plan),recipe,key,Transient{})
-    case Plan.Constructed{P,_,_,key,project}:recipe => constructed_descriptor(~S,P,key,project,recipe)
+    case Plan.Plain{_,_,_,key,_}:recipe => retained(Plan.Recipes(~S,plan),recipe,key,Plain{})
+    case Plan.Transient{_,_,_,key,_}:recipe => retained(Plan.Recipes(~S,plan),recipe,key,Transient{})
+    case Plan.Constructed{P,_,_,key,project,_}:recipe => constructed_descriptor(~S,P,key,project,recipe)
     case Plan.Pair{left,right}:recipe => pair(Plan.Recipes(~S,left),Plan.Recipes(~S,right),descriptors(~S,left),descriptors(~S,right),recipe)
 def checked(key:String,result:D.Checked) -> Admission:
   match result:
