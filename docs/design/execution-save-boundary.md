@@ -7,13 +7,13 @@ save/restore implementation. No runtime or universal proof claim is made.
 pending fold and its projection. A positive pending result returns that same
 application with `RefusedPending` before calling projection. The callback form is
 an internal adapter boundary, not authority for gameplay to supply its own
-inventory. `examples/parallel-persistence/save-boundary.bend` binds it to the
-actual ordinary machine application's `Schedule.pending` owner fold. It retains
+inventory. `examples/parallel-persistence/scheduled.bend` binds full ordinary
+persistence to the actual `Schedule.pending` owner fold. It retains
 World, command owners, guards, handler, both binding inventories, plan, rules,
 settings and unapplied history when reconstructing the application.
 
-The concrete consumer currently captures metadata only. Its result is explicitly
-not a restorable snapshot. `execution-save-metadata` reads all actual allocator
+The initial metadata-only adapter was replaced by that full-field adapter.
+`execution-save-metadata` reads all actual allocator
 slots with generation and phase, allocator progress/capacity/depth/free/order,
 namespace, clock and lifecycle journal metadata. It returns the same live arrays
 and owners. Detached journal registration metadata is not a serialized Reader
@@ -124,6 +124,17 @@ ordinary Scheduled pending-owner gate or resumed serial/native execution.
 `RESTORE.bend` contains three additional unapproved, unproved actual-owner law
 drafts for pending receiver refusal and empty clear/publication. Its normal source
 check reports exactly three TODOs. These drafts are not behavioral proof evidence.
+
+The ordinary `main.bend` consumer now creates genuine WorldIO namespaces and runs
+Alpha/Beta with both serial/native schedule continuations. One normal Bend entry
+invocation exited 0 and emitted four actual before/map/after observations: Actor
+energy 41 survives restoration, generation 0 maps to fresh generation 1, Config
+701 becomes 702 after resume, transient component omission is explicit, captures
+101/202/303 survive, both local run counts reach 2, and the retained Reader reads
+one despawn notice. The pending-owner adapter returns the actual Scheduled state,
+including both binding roles and real reader/handler/system owners. These are
+ordinary execution observations, not mathematical proofs or full runtime snapshot
+qualification. A concrete authored-command pending refusal remains to be added.
 
 The four laws in `test-fixtures/execution-save-laws/LAWS.bend` and two subjects in
 `SCHEMA.bend` are unapproved, unproved drafts. They describe exact gate branching,
