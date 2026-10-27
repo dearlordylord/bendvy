@@ -154,11 +154,11 @@ def clocked(lp:LeftBinding(),rp:RightBinding(),result:W.World<S.SchemaA,WC(),Uni
     case (world,tick):separated(lp,rp,State.separate(~S.SchemaA,~WC(),~Unit,~Unit,world,tick))
 def right_prepared(lp:LeftBinding(),result:RightPreparation()) -> IO(Pipeline):
   match result:
-    case Binding.Ready{world,rp}:clocked(lp,rp,W.execution_clock(~S.SchemaA,~WC(),~Unit,~Unit,world))
+    case Binding.CompiledPreparationReady{world,rp}:clocked(lp,rp,W.execution_clock(~S.SchemaA,~WC(),~Unit,~Unit,world))
     case result:IO.pure(Pipeline,RightPreparationRefused{lp,result})
 def left_prepared(compilation:Compilation(),+ids:List<&2,U32>,right:RightOwner(),result:LeftPreparation()) -> IO(Pipeline):
   match result:
-    case Binding.Ready{world,lp}:right_prepared(lp,prepare_right(compilation,ids,world,right))
+    case Binding.CompiledPreparationReady{world,lp}:right_prepared(lp,prepare_right(compilation,ids,world,right))
     case result:IO.pure(Pipeline,LeftPreparationRefused{result,compilation,right})
 def right_defined(leftCompilation:Compilation(),left:LeftOwner(),result:Compilation() & Sys.Defined<W.World<S.SchemaA,WC(),Unit,Unit>,RightOwner(),Local>) -> IO(Pipeline):
   match left result:

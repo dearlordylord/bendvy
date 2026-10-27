@@ -45,12 +45,12 @@ def flush(bound:Bound()) -> Bound():
   match bound:
     case Context.Bound{context,App.Scheduled{state,plan,bindings,rules,App.Deferred{systems,settings,unapplied}}}:flushed(context,plan,bindings,rules,systems,settings,App.apply_state(~P.AuditWorkshop,~Author.C(),~CR(),~Author.R(),~RR(),~Unit,~Author.resources(),~{==},~String,~String,~Author.Owner(),~Peer(),~left,~right,~Unit,~Unit,~Conditions.empty_dispatch(~World(),~String),~Conditions.empty(~World(),~String),~handle,unapplied,state))
 type Definition is Type:
-  Ready{application:Bound()}
+  DefinitionReady{application:Bound()}
   AuthorRefused{context:Context.Context<P.AuditWorkshop,Resources(),Author.resources(),{==}>,world:World(),local:Cmd.Captures(~P.AuditWorkshop,~D.components(),~Author.resources(),~Author.route(),~Author.User),reader:Events.Reader()}
   PeerRefused{context:Context.Context<P.AuditWorkshop,Resources(),Author.resources(),{==}>,author:Author.Owner(),result:Events.Definition}
 def peer_defined(context:Context.Context<P.AuditWorkshop,Resources(),Author.resources(),{==}>,author:Author.Owner(),result:Events.Definition) -> Definition:
   match result:
-    case Events.Ready{world,peer}:Ready{build(context,world,author,peer)}
+    case Events.DefinitionReady{world,peer}:DefinitionReady{build(context,world,author,peer)}
     case result:PeerRefused{context,author,result}
 def author_defined(context:Context.Context<P.AuditWorkshop,Resources(),Author.resources(),{==}>,reader:Events.Reader(),result:Sys.Defined<World(),Author.Owner(),Cmd.Captures(~P.AuditWorkshop,~D.components(),~Author.resources(),~Author.route(),~Author.User)>) -> Definition:
   match result:

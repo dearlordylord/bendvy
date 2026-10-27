@@ -104,28 +104,28 @@ def recover(~S:Data,layout:L.Layout,tree:families(~S,layout)) -> recoveries(~S,l
     case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy} family:recover_family(S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy},family)
     case L.LayoutPair{ll,rr} Product.Owner{left,right}:Product.Owner{recover(~S,ll,left),recover(~S,rr,right)}
 type Stage<-S:Data,-full:L.Layout> is Type:
-  Ready{resources:L.resources(~S,full),stamps:List<&2,StampEntry>,restore:L.resources(~S,full) -> recoveries(~S,full)}
+  StageReady{resources:L.resources(~S,full),stamps:List<&2,StampEntry>,restore:L.resources(~S,full) -> recoveries(~S,full)}
   Unready{inventory:recoveries(~S,full)}
 def restore_pair(~S:Data,-ll:L.Layout,-rr:L.Layout,left:L.resources(~S,ll) -> recoveries(~S,ll),right:L.resources(~S,rr) -> recoveries(~S,rr),resources:L.resources(~S,L.LayoutPair{ll,rr})) -> recoveries(~S,L.LayoutPair{ll,rr}):
   match resources:
     case Product.Owner{l,r}:Product.Owner{left(l),right(r)}
 def staged_pair(~S:Data,-ll:L.Layout,-rr:L.Layout,left:Stage<S,ll>,right:Stage<S,rr>) -> Stage<S,L.LayoutPair{ll,rr}>:
   match left right:
-    case Ready{left,ls,leftRestore} Ready{right,rs,rightRestore}:Ready{Product.Owner{left,right},List.append(&2,StampEntry,ls,rs),(resources => restore_pair(~S,ll,rr,leftRestore,rightRestore,resources))}
-    case Ready{left,_,restore} Unready{right}:Unready{Product.Owner{restore(left),right}}
-    case Unready{left} Ready{right,_,restore}:Unready{Product.Owner{left,restore(right)}}
+    case StageReady{left,ls,leftRestore} StageReady{right,rs,rightRestore}:StageReady{Product.Owner{left,right},List.append(&2,StampEntry,ls,rs),(resources => restore_pair(~S,ll,rr,leftRestore,rightRestore,resources))}
+    case StageReady{left,_,restore} Unready{right}:Unready{Product.Owner{restore(left),right}}
+    case Unready{left} StageReady{right,_,restore}:Unready{Product.Owner{left,restore(right)}}
     case Unready{left} Unready{right}:Unready{Product.Owner{left,right}}
 def stage_plain(-S:Data,-P:Type,-V:Data,-refresh:P -> P & V,-key:String,-accessPolicy:Policy.Policy,route:L.Route,recovery:Recovery<S,P,V,key,L.LayoutLeaf{P,V,refresh,key,accessPolicy}>) -> Stage<S,L.LayoutLeaf{P,V,refresh,key,accessPolicy}>:
   match recovery:
-    case Recovered{resource,+stamp}:Ready{resource,[StampEntry{route,stamp}],(resource => Recovered{resource,stamp})}
+    case Recovered{resource,+stamp}:StageReady{resource,[StampEntry{route,stamp}],(resource => Recovered{resource,stamp})}
     case recovery:Unready{recovery}
 def stage_classified(-S:Data,-P:Type,-V:Data,-refresh:P -> P & V,-key:String,-kind:Fragment.PersistenceKind,-accessPolicy:Policy.Policy,route:L.Route,recovery:Recovery<S,P,V,key,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}>) -> Stage<S,L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy}>:
   match recovery:
-    case Recovered{resource,+stamp}:Ready{resource,[StampEntry{route,stamp}],(resource => Recovered{resource,stamp})}
+    case Recovered{resource,+stamp}:StageReady{resource,[StampEntry{route,stamp}],(resource => Recovered{resource,stamp})}
     case recovery:Unready{recovery}
 def stage(~S:Data,layout:L.Layout,+route:L.Route,inventory:recoveries(~S,layout)) -> Stage<S,layout>:
   match layout inventory:
-    case L.EmptyLayout{} Unit{}:Ready{Unit{},[],(owner => Unit{})}
+    case L.EmptyLayout{} Unit{}:StageReady{Unit{},[],(owner => Unit{})}
     case L.LayoutLeaf{P,V,refresh,key,accessPolicy} recovery:stage_plain(S,P,V,refresh,key,accessPolicy,route,recovery)
     case L.ClassifiedLayoutLeaf{P,V,refresh,key,kind,accessPolicy} recovery:stage_classified(S,P,V,refresh,key,kind,accessPolicy,route,recovery)
     case L.LayoutPair{ll,rr} Product.Owner{left,right}:staged_pair(~S,ll,rr,stage(~S,ll,Routes.append_route(route,L.InLeft{L.AtLeaf{}}),left),stage(~S,rr,Routes.append_route(route,L.InRight{L.AtLeaf{}}),right))
@@ -135,7 +135,7 @@ type Joined<-S:Data,-full:L.Layout> is Type:
   JoinInventoryRefused{inventory:recoveries(~S,full),join:JoinOwner<S,full>}
 def staged(~S:Data,~full:L.Layout,join:JoinOwner<S,full>,result:Stage<S,full>) -> Joined<S,full>:
   match result:
-    case Ready{resources,stamps,_}:Joined{resources,stamps}
+    case StageReady{resources,stamps,_}:Joined{resources,stamps}
     case Unready{inventory}:JoinInventoryRefused{inventory,join}
 def join_checked(~S:Data,~full:L.Layout,join:JoinOwner<S,full>,result:families(~S,full) & Bool) -> Joined<S,full>:
   match result:

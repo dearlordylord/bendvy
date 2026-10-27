@@ -13,11 +13,11 @@ def Resources(~S:Data) -> Type:Product.Owner<D.Resources(~S),Unit>
 def World(~S:Data) -> Type:W.World<S,D.Store(~S),Resources(~S),Unit>
 def SeedReceipt(~S:Data) -> Type:Buffer.Receipt<S,P.PeerActor<S,D.Mode>,Removed.Removed(D.component_layout(~S))>
 type Allocation<-S:Data> is Type:
-  Ready{world:World(~S),handle:W.Handle<S>}
+  AllocationReady{world:World(~S),handle:W.Handle<S>}
   Refused{world:World(~S),receipt:Maybe<&1,SeedReceipt(~S)>}
 def seeded(~S:Data,+handle:W.Handle<S>,result:World(~S) & SeedReceipt(~S)) -> Allocation<S>:
   match result:
-    case (world,Buffer.Applied{_,None{}}):Ready{world,handle}
+    case (world,Buffer.Applied{_,None{}}):AllocationReady{world,handle}
     case (world,receipt):Refused{world,Some{receipt}}
 def seed_clocked(~S:Data,+handle:W.Handle<S>,result:World(~S) & Tick.Tick) -> Allocation<S>:
   match result:

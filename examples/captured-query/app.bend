@@ -37,12 +37,12 @@ def run(app:Application()) -> IO(Application() & App.Report<B.Error,String>):Gen
 def AuditBinding() -> Type:Scope.CompiledBinding<Decl.Compilation<S.Workshop,S.Store(~S.Workshop),B.C(),B.R(),Audit.Ops>,Audit.Owner()>
 def QueryBinding() -> Type:Scope.CompiledBinding<Decl.Compilation<S.Workshop,S.Store(~S.Workshop),B.C(),B.R(),B.Ops>,B.Owner()>
 type Definition is Type:
-  Ready{app:Application()}
+  DefinitionReady{app:Application()}
   AuditRefused{world:S.World(~S.Workshop),compilation:Decl.Compilation<S.Workshop,S.Store(~S.Workshop),B.C(),B.R(),Audit.Ops>,local:Unit}
   QueryRefused{world:S.World(~S.Workshop),audit:AuditBinding(),compilation:Decl.Compilation<S.Workshop,S.Store(~S.Workshop),B.C(),B.R(),B.Ops>,local:B.Local}
 def built(world:S.World(~S.Workshop),left:AuditBinding(),right:QueryBinding()) -> Definition:
   match left right:
-    case Scope.CompiledBinding{ac,Sys.Owner{an,+aid,at,aa,ar,al}} Scope.CompiledBinding{bc,Sys.Owner{bn,+bid,bt,ba,br,bl}}:Ready{General.build(~S.Workshop,~S.components(),~S.resources(),~Unit,~Nodes(),~Unit,~Unit,~B.Error,~Conditions.empty_dispatch(~S.World(~S.Workshop),~B.Error),~available,world,Tree.generalized_pair_facts(Audit.Node(),B.Node(),Tree.generalized_leaf_facts(~S.Workshop,~S.components(),~S.resources(),~Unit,~B.Error,~String,~Audit.Ops,~Unit,~Audit.kernel,~Audit.body,Scope.CompiledBinding{ac,Sys.Owner{an,aid,at,aa,ar,al}}),Tree.generalized_leaf_facts(~S.Workshop,~S.components(),~S.resources(),~Unit,~B.Error,~String,~B.Ops,~B.Local,~B.kernel,~B.body,Scope.CompiledBinding{bc,Sys.Owner{bn,bid,bt,ba,br,bl}})),Conditions.compile_empty(~B.Error,~S.World(~S.Workshop)),Unit{},[Plan.Edge{aid,bid}],[])}
+    case Scope.CompiledBinding{ac,Sys.Owner{an,+aid,at,aa,ar,al}} Scope.CompiledBinding{bc,Sys.Owner{bn,+bid,bt,ba,br,bl}}:DefinitionReady{General.build(~S.Workshop,~S.components(),~S.resources(),~Unit,~Nodes(),~Unit,~Unit,~B.Error,~Conditions.empty_dispatch(~S.World(~S.Workshop),~B.Error),~available,world,Tree.generalized_pair_facts(Audit.Node(),B.Node(),Tree.generalized_leaf_facts(~S.Workshop,~S.components(),~S.resources(),~Unit,~B.Error,~String,~Audit.Ops,~Unit,~Audit.kernel,~Audit.body,Scope.CompiledBinding{ac,Sys.Owner{an,aid,at,aa,ar,al}}),Tree.generalized_leaf_facts(~S.Workshop,~S.components(),~S.resources(),~Unit,~B.Error,~String,~B.Ops,~B.Local,~B.kernel,~B.body,Scope.CompiledBinding{bc,Sys.Owner{bn,bid,bt,ba,br,bl}})),Conditions.compile_empty(~B.Error,~S.World(~S.Workshop)),Unit{},[Plan.Edge{aid,bid}],[])}
 def query_defined(audit:AuditBinding(),result:Decl.Compilation<S.Workshop,S.Store(~S.Workshop),B.C(),B.R(),B.Ops> & Sys.Defined<S.World(~S.Workshop),B.Owner(),B.Local>) -> Definition:
   match result:
     case (compilation,Sys.Defined{world,owner}):built(world,audit,Scope.CompiledBinding{compilation,owner})

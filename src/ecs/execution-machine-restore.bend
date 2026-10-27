@@ -8,7 +8,7 @@ import ./change-tick.bend as Tick
 type Commit<-V:Data> is Data:
   Commit{current:Maybe<&2,V>,revision:Nat,stamp:Maybe<&2,Tick.Tick>}
 type Admission<-V:Data,-Source:Type> is Type:
-  Ready{commit:Commit<V>,source:Source}
+  MachineRestoreReady{commit:Commit<V>,source:Source}
   Refused{source:Source}
 type Publication<-S:Data,-K:Data,-V:Data,-Source:Type> is Type:
   Installed{cell:State.Cell<S,K,V>,source:Source}
@@ -31,4 +31,4 @@ def install(-S:Data,-K:Data,-V:Data,cell:State.Cell<S,K,V>,commit:Commit<V>) -> 
 def publish(-S:Data,-K:Data,-V:Data,-Source:Type,cell:State.Cell<S,K,V>,admission:Admission<V,Source>) -> Publication<S,K,V,Source>:
   match admission:
     case Refused{source}:Rejected{cell,source}
-    case Ready{commit,source}:Installed{install(S,K,V,cell,commit),source}
+    case MachineRestoreReady{commit,source}:Installed{install(S,K,V,cell,commit),source}

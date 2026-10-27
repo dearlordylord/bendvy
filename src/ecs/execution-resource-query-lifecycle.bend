@@ -25,7 +25,7 @@ import ./execution-lifecycle-notices.bend as Notice
 type Cache<-Evidence:Data,-P:Data> is Data:
   Uninspected{}
   Inspected{evidence:Maybe<&2,Evidence>,id:U32,valid:Bool}
-  Ready{namespace:U32,permits:List<&2,P>,provenance:Prep.Provenance<P>,evidence:Maybe<&2,Evidence>}
+  CacheReady{namespace:U32,permits:List<&2,P>,provenance:Prep.Provenance<P>,evidence:Maybe<&2,Evidence>}
   Inventory{provenance:Prep.Provenance<P>,evidence:Maybe<&2,Evidence>}
 type Released<-Compilation:Type,-World:Type,-Local:Type,-Evidence:Data,-P:Data> is Type:
   Released{compilation:Compilation,cache:Cache<Evidence,P>,identity:Life.Identity,local:Local}
@@ -40,13 +40,13 @@ def returned(-S:Data,-WC:Type,-C:Type,-R:Type,-E:Data,-Ops:Data -> Type -> Type,
   match node:
     case Leaf.Uninspected{Scope.CompiledBinding{compilation,owner}}:local_returned(S,WC,C,R,E,Ops,Local,Error,Out,program,body,Compilation,World,Evidence,P,compilation,Uninspected{},owner)
     case Leaf.Inspected{Scope.CompiledBinding{compilation,owner},evidence,id,valid}:local_returned(S,WC,C,R,E,Ops,Local,Error,Out,program,body,Compilation,World,Evidence,P,compilation,Inspected{evidence,id,valid},owner)
-    case Leaf.Prepared{Execution.HeldReady{Binding.Binding{compilation,Prep.Prepared{namespace,owner,permits,provenance},evidence}}}:local_returned(S,WC,C,R,E,Ops,Local,Error,Out,program,body,Compilation,World,Evidence,P,compilation,Ready{namespace,permits,provenance,evidence},owner)
+    case Leaf.Prepared{Execution.HeldReady{Binding.Binding{compilation,Prep.Prepared{namespace,owner,permits,provenance},evidence}}}:local_returned(S,WC,C,R,E,Ops,Local,Error,Out,program,body,Compilation,World,Evidence,P,compilation,CacheReady{namespace,permits,provenance,evidence},owner)
     case Leaf.Prepared{Execution.HeldInventory{compilation,Prep.Inventory{owner,provenance},evidence}}:local_returned(S,WC,C,R,E,Ops,Local,Error,Out,program,body,Compilation,World,Evidence,P,compilation,Inventory{provenance,evidence},owner)
 def restored_node(-S:Data,-WC:Type,-C:Type,-R:Type,-E:Data,-Ops:Data -> Type -> Type,-Local:Type,-Error:Data,-Out:Data,-program:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),-body:Sys.Body(~S,~Ops,~Local,~Error,~Out),-Compilation:Type,-World:Type,-Evidence:Data,-P:Data,compilation:Compilation,cache:Cache<Evidence,P>,owner:Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,program,body>) -> Leaf.Node<Compilation,World,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,program,body>,Evidence,P>:
   match cache:
     case Uninspected{}:Leaf.Uninspected{Scope.CompiledBinding{compilation,owner}}
     case Inspected{evidence,id,valid}:Leaf.Inspected{Scope.CompiledBinding{compilation,owner},evidence,id,valid}
-    case Ready{namespace,permits,provenance,evidence}:Leaf.Prepared{Execution.HeldReady{Binding.Binding{compilation,Prep.Prepared{namespace,owner,permits,provenance},evidence}}}
+    case CacheReady{namespace,permits,provenance,evidence}:Leaf.Prepared{Execution.HeldReady{Binding.Binding{compilation,Prep.Prepared{namespace,owner,permits,provenance},evidence}}}
     case Inventory{provenance,evidence}:Leaf.Prepared{Execution.HeldInventory{compilation,Prep.Inventory{owner,provenance},evidence}}
 def rebuild(-S:Data,-WC:Type,-C:Type,-R:Type,-E:Data,-Ops:Data -> Type -> Type,-Local:Type,-Error:Data,-Out:Data,-program:Build.FrameworkProgram(~S,~WC,~C,~R,~Ops),-body:Sys.Body(~S,~Ops,~Local,~Error,~Out),-Compilation:Type,-World:Type,-Evidence:Data,-P:Data,returned:Released<Compilation,World,Local,Evidence,P>) -> Leaf.Node<Compilation,World,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,program,body>,Evidence,P>:
   match returned:

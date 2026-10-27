@@ -95,7 +95,7 @@ def first(result:Application.Run) -> IO(Unit):
     case Application.Returned{app,status}:IO.bind(Application.Run,Unit,Application.run(app),result => finish("first/" ++ report(status),result))
 def defined(value:Application.Definition) -> IO(Unit):
   match value:
-    case Application.Ready{app}:IO.bind(Application.Run,Unit,Application.run(app),first)
+    case Application.DefinitionReady{app}:IO.bind(Application.Run,Unit,Application.run(app),first)
     case _:IO.print("system-definition-refused")
 def registered(frame:Publication.Frame<Reader.Schema,Reader.WC(),Application.Resources(),Unit>,allocator:Allocator.Allocator,result:Registration.Registration<Reader.Schema,Actor.resources(~Reader.Schema),Actor.route(),Scene.hierarchy(~Reader.Schema)>) -> Application.World() & Maybe<&1,Cursor.Reader<Reader.Schema,Scene.hierarchy(~Reader.Schema),Actor.resources(~Reader.Schema),Actor.route()>>:
   match frame result:

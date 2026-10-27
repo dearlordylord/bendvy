@@ -90,11 +90,11 @@ def scope_installed(~S:Data,graph:GraphSlot(~S),cell:MachineSlot(~S),previous:T.
     case ScopeRestore.Rejected{scope,_}:(Product.Owner{graph,Product.Owner{cell,scope}},None{})
 def graph_installed(~S:Data,members:List<&2,Scope.Member>,commit:MachineRestore.Commit<Modes.Mode>,+tick:Tick.Tick,cell:MachineSlot(~S),scope:ScopeSlot(~S),result:GraphRestore.Publication<S,Schema.hierarchy(~S),"restore-hierarchy",Layout.origin(Schema.resource_layout(~S),Layout.InLeft{Layout.AtLeaf{}}),Unit>) -> Schema.Resources(~S) & Maybe<&2,Previous<S>>:
   match result:
-    case GraphRestore.Installed{slot,_,previous}:scope_installed(~S,slot,cell_installed(~S,commit,tick,cell),previous,ScopeRestore.publish(~S,~"restore-scopes",~Layout.origin(Schema.resource_layout(~S),Layout.InRight{Layout.InRight{Layout.AtLeaf{}}}),~{==},~Unit,scope,tick,ScopeRestore.Ready{members,Unit{}}))
+    case GraphRestore.Installed{slot,_,previous}:scope_installed(~S,slot,cell_installed(~S,commit,tick,cell),previous,ScopeRestore.publish(~S,~"restore-scopes",~Layout.origin(Schema.resource_layout(~S),Layout.InRight{Layout.InRight{Layout.AtLeaf{}}}),~{==},~Unit,scope,tick,ScopeRestore.LifetimeScopeReady{members,Unit{}}))
     case GraphRestore.Rejected{slot,_}:(Product.Owner{slot,Product.Owner{cell,scope}},None{})
 def install_resources(~S:Data,graph:T.Graph<S>,members:List<&2,Scope.Member>,commit:MachineRestore.Commit<Modes.Mode>,+tick:Tick.Tick,resources:Schema.Resources(~S)) -> Schema.Resources(~S) & Maybe<&2,Previous<S>>:
   match resources:
-    case Product.Owner{slot,Product.Owner{cell,scope}}:graph_installed(~S,members,commit,tick,cell,scope,GraphRestore.publish(~S,~Schema.hierarchy(~S),~"restore-hierarchy",~Layout.origin(Schema.resource_layout(~S),Layout.InLeft{Layout.AtLeaf{}}),~{==},~Unit,slot,tick,GraphRestore.Ready{graph,Unit{}}))
+    case Product.Owner{slot,Product.Owner{cell,scope}}:graph_installed(~S,members,commit,tick,cell,scope,GraphRestore.publish(~S,~Schema.hierarchy(~S),~"restore-hierarchy",~Layout.origin(Schema.resource_layout(~S),Layout.InLeft{Layout.AtLeaf{}}),~{==},~Unit,slot,tick,GraphRestore.RelationRestoreReady{graph,Unit{}}))
 def install(~S:Data,graph:T.Graph<S>,members:List<&2,Scope.Member>,commit:MachineRestore.Commit<Modes.Mode>,tick:Tick.Tick,world:Schema.World(~S)) -> Schema.World(~S) & Maybe<&2,Previous<S>>:
   match world:
     case W.World{namespace,allocator,columns,resources,events,pending,registrations,nextSystem,clock,lifecycle}:W.observe_resource_finish(~S,~Layout.columns(~S,Schema.components(~S)),~Schema.Resources(~S),~Unit,~Maybe<&2,Previous<S>>,install_resources(~S,graph,members,commit,tick,resources),namespace,allocator,columns,events,pending,registrations,nextSystem,clock,lifecycle)
@@ -155,7 +155,7 @@ def room_state(~S:Data,state:State<S>,world:Schema.World(~S),handles:List<&2,W.H
 def receiver(~S:Data,state:State<S>,result:Receiver.Prepared<S,Schema.components(~S),Schema.Resources(~S),Unit>) -> Outcome<S>:
   match result:
     case Receiver.Refused{world,reason}:ReceiverRefused{state,Receiver.Refused{world,reason}}
-    case Receiver.Ready{world,handles}:room_state(~S,state,world,handles)
+    case Receiver.ReceiverReady{world,handles}:room_state(~S,state,world,handles)
 def namespaces_checked(~S:Data,state:State<S>,result:Schema.World(~S) & Bool) -> Outcome<S>:
   match state result:
     case state, (world,False{}):NamespaceRefused{state,world}

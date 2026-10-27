@@ -102,7 +102,7 @@ def registered(~S:Data,+handle:W.Handle<S>,result:Pair.Definition<World(~S),Regi
     case Pair.RightRefused{_,_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:peer"})
 def allocated(~S:Data,result:Alloc.Allocation<S>) -> IO(BuildResult<S>):
   match result:
-    case Alloc.Ready{world,+handle}:registered(~S,handle,Pair.define(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.Resources(~S),~Unit,~Unit,~Body.Local(),~Peer.Local<S>,~String,~String,~String,~String,~D.apply_ops(~S),~Peer.Ops(~S),~D.apply(~S),~Peer.declaration(~S),~Body.apply(~S),~Peer.body(~S),world,"state-marker","peer",Body.local(101,102),Peer.Local{handle,Body.local(201,202)}))
+    case Alloc.AllocationReady{world,+handle}:registered(~S,handle,Pair.define(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.Resources(~S),~Unit,~Unit,~Body.Local(),~Peer.Local<S>,~String,~String,~String,~String,~D.apply_ops(~S),~Peer.Ops(~S),~D.apply(~S),~Peer.declaration(~S),~Body.apply(~S),~Peer.body(~S),world,"state-marker","peer",Body.local(101,102),Peer.Local{handle,Body.local(201,202)}))
     case Alloc.Refused{_,_}:IO.pure(BuildResult<S>,BuildRefused{"ERROR:allocation"})
 def initialized(~S:Data,world:World(~S)) -> IO(BuildResult<S>):allocated(~S,Alloc.allocate(~S,world))
 def created(~S:Data,result:W.Creation<S,D.Store(~S),Resources(~S),Unit>) -> IO(BuildResult<S>):

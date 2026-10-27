@@ -95,7 +95,7 @@ def request_defined(stop:Bool,finalApply:Bool,handle:W.Handle<Schema>,result:Sys
     case Sys.DefinitionRefused{_,_}:IO.pure(String,"ERROR:request")
 def allocated(stop:Bool,finalApply:Bool,result:Allocation.Allocation<Schema>) -> IO(String):
   match result:
-    case Allocation.Ready{world,handle}:request_defined(stop,finalApply,handle,Task.define(~Schema,~D.Store(~Schema),~D.LeftStore(~Schema),~D.Resources(~Schema),~Unit,~D.request_ops(~Schema),~Body.Local(),~String,~String,~D.request(~Schema),~Body.request(~Schema),~Main.Resources(~Schema),world,"request",Body.local(401,402)))
+    case Allocation.AllocationReady{world,handle}:request_defined(stop,finalApply,handle,Task.define(~Schema,~D.Store(~Schema),~D.LeftStore(~Schema),~D.Resources(~Schema),~Unit,~D.request_ops(~Schema),~Body.Local(),~String,~String,~D.request(~Schema),~Body.request(~Schema),~Main.Resources(~Schema),world,"request",Body.local(401,402)))
     case Allocation.Refused{_,_}:IO.pure(String,"ERROR:allocation")
 def created(stop:Bool,finalApply:Bool,result:W.Creation<Schema,D.Store(~Schema),Main.Resources(~Schema),Unit>) -> IO(String):
   match result:

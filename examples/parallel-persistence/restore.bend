@@ -76,7 +76,7 @@ def stage_room(~S:Data,schema:Plan.Schema<S,Ordinary.components(~S),Ordinary.res
 def receiver_ready(~S:Data,schema:Plan.Schema<S,Ordinary.components(~S),Ordinary.resources(~S)>,+input:Saved.Snapshot<S>,result:Prepare.Prepared<S,Receiver.Components(~S),Receiver.Resources(~S),Unit>) -> Outcome<S>:
   match result:
     case Prepare.Refused{world,reason}:ReceiverRefused{schema,input,world,reason}
-    case Prepare.Ready{world,handles}:stage_room(~S,schema,input,handles,Progress.room(~S,~Layout.columns(~S,Receiver.Components(~S)),~Receiver.Resources(~S),~Unit,world,progress_floor(~S,input),saved_count(~S,input)))
+    case Prepare.ReceiverReady{world,handles}:stage_room(~S,schema,input,handles,Progress.room(~S,~Layout.columns(~S,Receiver.Components(~S)),~Receiver.Resources(~S),~Unit,world,progress_floor(~S,input),saved_count(~S,input)))
 def count(values:List<&2,Saved.Entity>) -> Nat:
   match values:
     case []:0n

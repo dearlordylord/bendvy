@@ -45,7 +45,7 @@ def bundles_ran(result:App.Bound() & Context.RunReport<State.Report<String,Strin
 def bundles(bound:App.Bound()) -> IO(Unit):IO.bind(App.Bound() & Context.RunReport<State.Report<String,String>>,Unit,App.invoke(bound),bundles_ran)
 def defined(result:App.Definition) -> IO(Unit):
   match result:
-    case App.Ready{bound}:snapshot("created",bundles,bound)
+    case App.DefinitionReady{bound}:snapshot("created",bundles,bound)
     case App.AuthorRefused{_,_,_}:IO.print("author-registration-refused")
     case App.PeerRefused{_,_,_,_}:IO.print("boundary-registration-refused")
 def created(result:Context.Initialization<D.Scene,D.components(),Author.resources(),Unit>) -> IO(Unit):

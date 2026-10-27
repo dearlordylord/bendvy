@@ -68,7 +68,7 @@ def first(result:Scheduled.Run<Schema>) -> IO(Unit):
     case Scheduled.Returned{bound,status}:first_snapshot("first/" ++ report(status),snapshot(bound))
 def attached(value:Attach.Definition<Schema>) -> IO(Unit):
   match value:
-    case Attach.Ready{bound}:IO.bind(Scheduled.Run<Schema>,Unit,Scheduled.run(~Schema,configure(False{},bound)),first)
+    case Attach.DefinitionReady{bound}:IO.bind(Scheduled.Run<Schema>,Unit,Scheduled.run(~Schema,configure(False{},bound)),first)
     case _:IO.print("reader-setup-refused")
 def existing_ready(value:Existing.Definition<Schema>) -> IO(Unit):
   match value:

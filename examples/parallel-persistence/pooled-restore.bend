@@ -41,7 +41,7 @@ def room(~S:Data,schema:Admission.Recipes(~S),input:Extended.Snapshot<S>,held:Ex
     case (world,False{}):CapacityRefused{schema,input,Execution.rejoin(~S,held,world),buffers}
 def receiver(~S:Data,schema:Admission.Recipes(~S),+input:Extended.Snapshot<S>,held:Execution.Held<S>,buffers:List<Array<U32>>,result:Receiver.Prepared<S,Schema.components(~S),Schema.Resources(~S),Unit>) -> Outcome<S>:
   match result:
-    case Receiver.Ready{world,_}:room(~S,schema,input,held,buffers,Progress.room(~S,~PoolColumns(~S),~Schema.Resources(~S),~Unit,world,Restore.floor(~S,input),Restore.count(~S,input)))
+    case Receiver.ReceiverReady{world,_}:room(~S,schema,input,held,buffers,Progress.room(~S,~PoolColumns(~S),~Schema.Resources(~S),~Unit,world,Restore.floor(~S,input),Restore.count(~S,input)))
     case Receiver.Refused{world,reason}:ReceiverRefused{schema,input,Execution.rejoin(~S,held,world),buffers,reason}
 def namespaces(~S:Data,schema:Admission.Recipes(~S),+input:Extended.Snapshot<S>,held:Execution.Held<S>,buffers:List<Array<U32>>,result:Schema.World(~S) & Bool) -> Outcome<S>:
   match result:

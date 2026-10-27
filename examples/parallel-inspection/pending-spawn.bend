@@ -101,7 +101,7 @@ def invoked(result:App.Bound() & Context.RunReport<State.Report<String,String>>)
     case (_,_):IO.print("application-run-refused")
 def defined(result:App.Definition) -> IO(Unit):
   match result:
-    case App.Ready{bound}:IO.bind(App.Bound() & Context.RunReport<State.Report<String,String>>,Unit,App.invoke(bound),invoked)
+    case App.DefinitionReady{bound}:IO.bind(App.Bound() & Context.RunReport<State.Report<String,String>>,Unit,App.invoke(bound),invoked)
     case _:IO.print("registration-refused")
 def created(result:Context.Initialization<D.Scene,D.components(),Author.resources(),Unit>) -> IO(Unit):
   match result:

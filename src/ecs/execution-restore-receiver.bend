@@ -12,7 +12,7 @@ import ./snapshot-data.bend as LegacyPending
 
 type Reason is Data:PendingWork{} ActiveExecution{} MalformedColumns{} Capacity{}
 type Prepared<-S:Data,-layout:Layout.Layout,-R:Type,-E:Data> is Type:
-  Ready{world:W.World<S,Layout.columns(~S,layout),R,E>,handles:List<&2,W.Handle<S>>}
+  ReceiverReady{world:W.World<S,Layout.columns(~S,layout),R,E>,handles:List<&2,W.Handle<S>>}
   Refused{world:W.World<S,Layout.columns(~S,layout),R,E>,reason:Reason}
 def inspected(-S:Data,-P:Type,-V:Data,-key:String,-origin:Layout.Layout,result:Column.Column<S,Layout.Viewed<P,V>> & Part.Inspection) -> Layout.ColumnSlot<S,Layout.Viewed<P,V>,key,origin> & Bool:
   match result:
@@ -37,7 +37,7 @@ def inspect(~S:Data,layout:Layout.Layout) -> Layout.columns(~S,layout) -> Layout
     case Layout.LayoutPair{left,right}:owner => pair(Layout.columns(~S,left),Layout.columns(~S,right),inspect(~S,left),inspect(~S,right),owner)
 def handles(~S:Data,~layout:Layout.Layout,~R:Type,~E:Data,result:W.World<S,Layout.columns(~S,layout),R,E> & List<&2,W.Handle<S>>) -> Prepared<S,layout,R,E>:
   match result:
-    case (world,handles):Ready{world,handles}
+    case (world,handles):ReceiverReady{world,handles}
 def capacity(~S:Data,~layout:Layout.Layout,~R:Type,~E:Data,world:W.World<S,Layout.columns(~S,layout),R,E>,valid:Bool) -> Prepared<S,layout,R,E>:
   match valid:
     case False{}:Refused{world,Capacity{}}

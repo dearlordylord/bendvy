@@ -18,12 +18,12 @@ import ../../src/ecs/owner-product.bend as Product
 import ../../src/ecs/world.bend as W
 
 type Definition<-S:Data> is Type:
-  Ready{bound:Scheduled.Bound(~S)}
+  DefinitionReady{bound:Scheduled.Bound(~S)}
   RegistrationRefused{context:Context.Context<S,Existing.Resources(~S),Actor.resources(~S),{==}>,world:Existing.World(~S),actor:Actor.Owner(~S),peer:Existing.Peer(~S),user:Reader.User<S>}
   DefinitionRefused{context:Context.Context<S,Existing.Resources(~S),Actor.resources(~S),{==}>,world:Existing.World(~S),actor:Actor.Owner(~S),peer:Existing.Peer(~S),local:Reader.State(~S)}
 def defined(~S:Data,context:Context.Context<S,Existing.Resources(~S),Actor.resources(~S),{==}>,actor:Actor.Owner(~S),peer:Existing.Peer(~S),result:Sys.Defined<Existing.World(~S),Reader.Owner(~S),Reader.State(~S)>) -> Definition<S>:
   match result:
-    case Sys.Defined{world,reader}:Ready{Scheduled.build(~S,context,world,actor,reader,peer)}
+    case Sys.Defined{world,reader}:DefinitionReady{Scheduled.build(~S,context,world,actor,reader,peer)}
     case Sys.DefinitionRefused{world,local}:DefinitionRefused{context,world,actor,peer,local}
 def registered(~S:Data,context:Context.Context<S,Existing.Resources(~S),Actor.resources(~S),{==}>,actor:Actor.Owner(~S),peer:Existing.Peer(~S),user:Reader.User<S>,frame:Publication.Frame<S,Existing.Columns(~S),Existing.Resources(~S),Unit>,allocator:Allocator.Allocator,result:Registration.Registration<S,Actor.resources(~S),Actor.route(),Scene.hierarchy(~S)>) -> Definition<S>:
   match frame result:

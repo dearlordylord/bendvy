@@ -15,7 +15,7 @@ def replace(-S:Data,-descriptor:T.Descriptor<S>,store:Store.Store<S,descriptor>,
   match store:
     case Store.Store{namespace,previous,failures,sequence,nextReader}:(Store.Store{namespace,graph,failures,sequence,nextReader},previous)
 type Admission<-S:Data,-Source:Type> is Type:
-  Ready{graph:T.Graph<S>,source:Source}
+  RelationRestoreReady{graph:T.Graph<S>,source:Source}
   Refused{source:Source}
 type Publication<-S:Data,-descriptor:T.Descriptor<S>,-key:String,-origin:Layout.Layout,-Source:Type> is Type:
   Installed{slot:Layout.ResourceSlot<S,Layout.Viewed<Store.Store<S,descriptor>,Store.View<S,descriptor>>,key,origin>,source:Source,previous:T.Graph<S>}
@@ -31,4 +31,4 @@ def replaced(-S:Data,-descriptor:T.Descriptor<S>,-key:String,-origin:Layout.Layo
 def publish(~S:Data,~descriptor:T.Descriptor<S>,~key:String,~origin:Layout.Layout,~protected:{Layout.policy(origin,Layout.AtLeaf{}) == Policy.ProtectedRelation{S,descriptor} : Policy.Policy},~Source:Type,slot:Layout.ResourceSlot<S,Layout.Viewed<Store.Store<S,descriptor>,Store.View<S,descriptor>>,key,origin>,tick:Tick.Tick,admission:Admission<S,Source>) -> Publication<S,descriptor,key,origin,Source>:
   match slot admission:
     case slot Refused{source}:Rejected{slot,source}
-    case Layout.ResourceSlot{Layout.Viewed{store,_},stamp} Ready{graph,source}:replaced(S,descriptor,key,origin,Source,source,Life.after_write(True{},True{},stamp,tick),replace(S,descriptor,store,graph))
+    case Layout.ResourceSlot{Layout.Viewed{store,_},stamp} RelationRestoreReady{graph,source}:replaced(S,descriptor,key,origin,Source,source,Life.after_write(True{},True{},stamp,tick),replace(S,descriptor,store,graph))

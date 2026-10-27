@@ -45,5 +45,5 @@ def start(result:A.Application() & String) -> IO(Unit):
     case (app,text):IO.bind(Unit,Unit,IO.print("initial|" ++ text ++ "\n"),_ => IO.bind(A.Application() & App.Report<B.Error,String>,Unit,A.run(app),first))
 def defined(result:A.Definition) -> IO(Unit):
   match result:
-    case A.Ready{app}:start(O.snapshot(app))
+    case A.DefinitionReady{app}:start(O.snapshot(app))
     case _:IO.die(Unit,1,"registration refused")

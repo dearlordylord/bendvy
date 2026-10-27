@@ -87,12 +87,12 @@ def tree(~F:Tree.Family(),~leaf:Tree.Leaf(~P.AuditWorkshop,~Author.Columns(),~C(
     case Product.Owner{writer,reader}:join(Writer(),Receiver(),leaf(WriterOps,WriterLocal,Build.framework_program(~P.AuditWorkshop,~Author.Columns(),~C(),~R(),~WriterOps,~writer_declaration),writer_body,writer),leaf(ReaderOps,ReaderLocal,Build.framework_program(~P.AuditWorkshop,~Author.Columns(),~C(),~R(),~ReaderOps,~reader_declaration),reader_body,reader))
 
 type Definition is Type:
-  Ready{world:World(),owners:Owners()}
+  DefinitionReady{world:World(),owners:Owners()}
   WriterRefused{world:World(),local:WriterLocal,reader:Reader()}
   ReaderRefused{world:World(),writer:Writer(),local:ReaderLocal}
 def reader_defined(writer:Writer(),result:Sys.Defined<World(),Receiver(),ReaderLocal>) -> Definition:
   match result:
-    case Sys.Defined{world,reader}:Ready{world,Product.Owner{writer,reader}}
+    case Sys.Defined{world,reader}:DefinitionReady{world,Product.Owner{writer,reader}}
     case Sys.DefinitionRefused{world,local}:ReaderRefused{world,writer,local}
 def writer_defined(reader:Reader(),result:Sys.Defined<World(),Writer(),WriterLocal>) -> Definition:
   match result:

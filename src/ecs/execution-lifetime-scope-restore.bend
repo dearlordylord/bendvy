@@ -14,7 +14,7 @@ def replace(-S:Data,store:Store.Store<S>,members:List<&2,Scope.Member>) -> Store
   match store:
     case Store.Store{namespace,previous}:(Store.Store{namespace,members},previous)
 type Admission<-Source:Type> is Type:
-  Ready{members:List<&2,Scope.Member>,source:Source}
+  LifetimeScopeReady{members:List<&2,Scope.Member>,source:Source}
   Refused{source:Source}
 type Publication<-S:Data,-key:String,-origin:Layout.Layout,-Source:Type> is Type:
   Installed{slot:Layout.ResourceSlot<S,Layout.Viewed<Store.Store<S>,Store.View<S>>,key,origin>,source:Source,previous:List<&2,Scope.Member>}
@@ -31,4 +31,4 @@ def replaced(-S:Data,-key:String,-origin:Layout.Layout,-Source:Type,source:Sourc
 def publish(~S:Data,~key:String,~origin:Layout.Layout,~protected:{Layout.policy(origin,Layout.AtLeaf{}) == Policy.ProtectedLifetimeScope{S} : Policy.Policy},~Source:Type,slot:Layout.ResourceSlot<S,Layout.Viewed<Store.Store<S>,Store.View<S>>,key,origin>,tick:Tick.Tick,admission:Admission<Source>) -> Publication<S,key,origin,Source>:
   match slot admission:
     case slot Refused{source}:Rejected{slot,source}
-    case Layout.ResourceSlot{Layout.Viewed{store,_},stamp} Ready{members,source}:replaced(S,key,origin,Source,source,Life.after_write(True{},True{},stamp,tick),replace(S,store,members))
+    case Layout.ResourceSlot{Layout.Viewed{store,_},stamp} LifetimeScopeReady{members,source}:replaced(S,key,origin,Source,source,Life.after_write(True{},True{},stamp,tick),replace(S,store,members))

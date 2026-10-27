@@ -52,12 +52,12 @@ def run(app:Application()) -> IO(Application() & App.Report<String,String>):
 def facts(writer:Systems.WriterBinding(),query:Systems.QueryBinding(),reader:Systems.ReaderBinding()) -> Tree.GeneralizedFacts<Captures.Nodes()>:
   Tree.generalized_pair_facts(Systems.WriterNode(),Product.Owner<Systems.QueryNode(),Systems.ReaderNode()>,Tree.generalized_leaf_facts(~P.AuditWorkshop,~D.components(),~Author.resources(),~Unit,~String,~String,~Systems.WriterOps,~Systems.WriterLocal,~Systems.writer_kernel,~Systems.writer_body,writer),Tree.generalized_pair_facts(Systems.QueryNode(),Systems.ReaderNode(),Tree.generalized_leaf_facts(~P.AuditWorkshop,~D.components(),~Author.resources(),~Unit,~String,~String,~Systems.QueryOps,~Systems.QueryLocal,~Systems.query_kernel,~Systems.query_body,query),Tree.generalized_leaf_facts(~P.AuditWorkshop,~D.components(),~Author.resources(),~Unit,~String,~String,~Systems.ReaderOps,~Array<U32>,~Systems.reader_kernel,~Systems.reader_body,reader)))
 type Definition is Type:
-  Ready{application:Application()}
+  DefinitionReady{application:Application()}
   RegistrationRefused{inventory:Systems.Registration}
   GuardRefused{world:Systems.World(),writer:Systems.WriterBinding(),query:Systems.QueryBinding(),reader:Systems.ReaderBinding(),local:Condition.Compilation() & U32}
 def guard_defined(writer:Systems.WriterBinding(),query:Systems.QueryBinding(),reader:Systems.ReaderBinding(),writerId:U32,queryId:U32,readerId:U32,result:Condition.Compilation() & Sys.Defined<Systems.World(),Condition.RawOwner(),U32>) -> Definition:
   match result:
-    case (compilation,Sys.Defined{world,Sys.Owner{namespace,+id,name,access,cursor,local}}):Ready{General.build(~P.AuditWorkshop,~D.components(),~Author.resources(),~Unit,~Captures.Nodes(),~Condition.Owner(),~Unit,~String,~Condition.dispatch(),~available,world,facts(writer,query,reader),Condition.registry(Scope.CompiledBinding{compilation,Sys.Owner{namespace,id,name,access,cursor,local}}),Unit{},[Plan.Edge{writerId,readerId}],[App.Binding{queryId,id}])}
+    case (compilation,Sys.Defined{world,Sys.Owner{namespace,+id,name,access,cursor,local}}):DefinitionReady{General.build(~P.AuditWorkshop,~D.components(),~Author.resources(),~Unit,~Captures.Nodes(),~Condition.Owner(),~Unit,~String,~Condition.dispatch(),~available,world,facts(writer,query,reader),Condition.registry(Scope.CompiledBinding{compilation,Sys.Owner{namespace,id,name,access,cursor,local}}),Unit{},[Plan.Edge{writerId,readerId}],[App.Binding{queryId,id}])}
     case (compilation,Sys.DefinitionRefused{world,local}):GuardRefused{world,writer,query,reader,(compilation,local)}
 def writer_id(binding:Systems.WriterBinding()) -> Systems.WriterBinding() & U32:
   match binding:

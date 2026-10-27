@@ -109,7 +109,7 @@ def first(result:Application.Bound(~Observe.Schema) & Context.RunReport<App.Repo
     case (bound,report):Snapshot.with_pair(Application.Bound(~Observe.Schema),IO(Unit),application(bound),bound => text => IO.bind(Unit,Unit,IO.print("generalized/first-final/" ++ Observe.report(report) ++ "|" ++ text),first_printed(bound)))
 def initialized(value:Initialize.Initialization<Observe.Schema>) -> IO(Unit):
   match value:
-    case Initialize.Ready{_,bound}:IO.bind(Application.Bound(~Observe.Schema) & Context.RunReport<App.Report<String,String>>,Unit,Application.run(~Observe.Schema,bound),first)
+    case Initialize.InitializationReady{_,bound}:IO.bind(Application.Bound(~Observe.Schema) & Context.RunReport<App.Report<String,String>>,Unit,Application.run(~Observe.Schema,bound),first)
     case _:IO.print("retained-initialization-refusal")
 def main() -> IO(Unit):
   initialized(Initialize.create(~Observe.Schema,W.factory(),Actor.Session{401},Actor.Session{601}))

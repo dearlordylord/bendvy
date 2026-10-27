@@ -46,7 +46,7 @@ def third(control:Control,running:Running) -> IO(SessionResult):update("run3",fi
 def second(control:Control,running:Running) -> IO(SessionResult):update("run2",third,control,running)
 def gameplay_defined(control:Control,bootstrap:Bootstrap.Retained,handoff:Handoff.State,target:W.Handle<P.AuditWorkshop>,result:Gameplay.Definition) -> IO(SessionResult):
   match result:
-    case Gameplay.Ready{application}:update("run1",second,control,Running{application,bootstrap,handoff,target})
+    case Gameplay.DefinitionReady{application}:update("run1",second,control,Running{application,bootstrap,handoff,target})
     case Gameplay.RegistrationRefused{inventory}:refused(Control & (Bootstrap.Retained & (Handoff.State & Gameplay.Definition)),(control,(bootstrap,(handoff,Gameplay.RegistrationRefused{inventory}))),"gameplay-registration-refused")
     case Gameplay.GuardRefused{world,writer,query,reader,local}:refused(Control & (Bootstrap.Retained & (Handoff.State & Gameplay.Definition)),(control,(bootstrap,(handoff,Gameplay.GuardRefused{world,writer,query,reader,local}))),"gameplay-condition-registration-refused")
 def gameplay_detached(control:Control,handoff:Handoff.State,+target:W.Handle<P.AuditWorkshop>,result:Systems.World() & Bootstrap.Retained) -> IO(SessionResult):
@@ -76,7 +76,7 @@ def queued(control:Control,result:Bootstrap.Bound() & Context.RunReport<State.Re
     case Control{+on,factory}, (bound,report):IO.bind(Unit,SessionResult,IO.print("AppA " ++ mode(on) ++ " bundle committed pending explicit flush"),_=>flushed(Control{on,factory},bound))
 def defined(control:Control,result:Bootstrap.Definition) -> IO(SessionResult):
   match result:
-    case Bootstrap.Ready{bound}:IO.bind(Bootstrap.Bound() & Context.RunReport<State.Report<String,String>>,SessionResult,Bootstrap.invoke(bound),result=>queued(control,result))
+    case Bootstrap.DefinitionReady{bound}:IO.bind(Bootstrap.Bound() & Context.RunReport<State.Report<String,String>>,SessionResult,Bootstrap.invoke(bound),result=>queued(control,result))
     case Bootstrap.AuthorRefused{context,world,local,reader}:refused(Control & Bootstrap.Definition,(control,Bootstrap.AuthorRefused{context,world,local,reader}),"author-registration-refused")
     case Bootstrap.PeerRefused{context,author,result}:refused(Control & Bootstrap.Definition,(control,Bootstrap.PeerRefused{context,author,result}),"boundary-registration-refused")
 def created(on:Bool,reader:Events.Reader(),result:Context.Initialization<P.AuditWorkshop,D.components(),Author.resources(),Unit>) -> IO(SessionResult):
