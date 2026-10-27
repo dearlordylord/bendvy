@@ -10,7 +10,7 @@ type Second is Data:
   Second{}
 def created(~S:Data,result:WorldIO.Creation<S,D.Store(~S),Scheduled.Resources(~S),Unit>) -> IO(String):
   match result:
-    case WorldIO.Created{world}:Scheduled.initialized(~S,Init.setup(~S,world))
+    case WorldIO.Created{world}:IO.bind(Scheduled.BuildResult<S>,String,Scheduled.initialized(~S,Init.setup(~S,world)),built => Scheduled.execute_prepared(~S,built))
     case WorldIO.Refused{_}:IO.pure(String,"ERROR:namespace-allocation")
 def run(~S:Data) -> IO(String):
   IO.bind(WorldIO.Creation<S,D.Store(~S),Scheduled.Resources(~S),Unit>,String,WorldIO.create(~S,~D.Store(~S),~Scheduled.Resources(~S),~Unit,~Scheduled.empty(~S),Scheduled.resources(~S)),created(~S))
