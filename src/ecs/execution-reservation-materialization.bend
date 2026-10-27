@@ -9,6 +9,7 @@ import ./chunk-column.bend as Column
 import ./change-tick.bend as Tick
 import ./world.bend as W
 import ./lifecycle.bend as L
+import ./chunk-partition.bend as Part
 import ./execution-lifecycle-notices.bend as Notice
 import ./clock-state.bend as Clock
 import ./deferred-command.bend as Deferred
@@ -35,10 +36,17 @@ def first(left:Maybe<&2,Bundle.Refusal>,right:Maybe<&2,Bundle.Refusal>) -> Maybe
 def leaf_checked(~S:Data,-P:Type,-V:Data,+key:String,-origin:Layout.Layout,bundle:Maybe<&1,P>,result:Column.Column<S,Layout.Viewed<P,V>> & Maybe<&2,Unit>) -> Layout.ColumnSlot<S,Layout.Viewed<P,V>,key,origin> & (Maybe<&1,P> & Maybe<&2,Bundle.Refusal>):
   match result:
     case (column,present):(Layout.ColumnSlot{column},(bundle,reason(vacant(present),key)))
+def shape_allowed(~S:Data,-P:Type,-V:Data,+key:String,-origin:Layout.Layout,index:U32,bundle:Maybe<&1,P>,column:Column.Column<S,Layout.Viewed<P,V>>,valid:Bool) -> Layout.ColumnSlot<S,Layout.Viewed<P,V>,key,origin> & (Maybe<&1,P> & Maybe<&2,Bundle.Refusal>):
+  match valid:
+    case False{}:(Layout.ColumnSlot{column},(bundle,Some{Bundle.MalformedColumn{key}}))
+    case True{}:leaf_checked(~S,P,V,key,origin,bundle,Column.view(~S,~(Layout.Viewed<P,V>),~Unit,~identity(Layout.Viewed<P,V>),column,index))
+def shape_checked(~S:Data,-P:Type,-V:Data,+key:String,-origin:Layout.Layout,index:U32,bundle:Maybe<&1,P>,result:Column.Column<S,Layout.Viewed<P,V>> & Part.Inspection) -> Layout.ColumnSlot<S,Layout.Viewed<P,V>,key,origin> & (Maybe<&1,P> & Maybe<&2,Bundle.Refusal>):
+  match result:
+    case (column,Part.Inspection{_,capacity,valid}):shape_allowed(~S,P,V,key,origin,index,bundle,column,Bool.and(valid,U32.is_le(capacity,Column.maximum_capacity())))
 def check_leaf(~S:Data,-P:Type,-V:Data,+key:String,-origin:Layout.Layout,index:U32,slot:Layout.ColumnSlot<S,Layout.Viewed<P,V>,key,origin>,bundle:Maybe<&1,P>) -> Layout.ColumnSlot<S,Layout.Viewed<P,V>,key,origin> & (Maybe<&1,P> & Maybe<&2,Bundle.Refusal>):
   match slot bundle:
     case slot None{}:(slot,(None{},None{}))
-    case Layout.ColumnSlot{column} Some{owner}:leaf_checked(~S,P,V,key,origin,Some{owner},Column.view(~S,~(Layout.Viewed<P,V>),~Unit,~identity(Layout.Viewed<P,V>),column,index))
+    case Layout.ColumnSlot{column} Some{owner}:shape_checked(~S,P,V,key,origin,index,Some{owner},Part.inspect(S,Layout.Viewed<P,V>,column))
 def check_right(~S:Data,-left:Layout.Layout,-right:Layout.Layout,leftOwner:Layout.columns(~S,left),leftBundle:Bundle.Payload(left),leftReason:Maybe<&2,Bundle.Refusal>,result:Layout.columns(~S,right) & (Bundle.Payload(right) & Maybe<&2,Bundle.Refusal>)) -> Layout.columns(~S,Layout.LayoutPair{left,right}) & (Bundle.Payload(Layout.LayoutPair{left,right}) & Maybe<&2,Bundle.Refusal>):
   match result:
     case (rightOwner,(rightBundle,rightReason)):(Product.Owner{leftOwner,rightOwner},(Product.Owner{leftBundle,rightBundle},first(leftReason,rightReason)))
