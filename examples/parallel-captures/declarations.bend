@@ -14,6 +14,7 @@ def left_selection(~S:Data,~Permit:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(
 def left(~S:Data,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Product.Owner<Unit,Unit>,~Unit,~LeftResource(~S),~Permit,~H,~B),book:B) -> B & LeftOps(~S,Permit,H):
   builder(LeftOps(~S),left_selection(~S,~Permit,~H,~B),book)
 def right_layout() -> Layout.Layout:Layout.LayoutLeaf{P.Score,String,P.score,"score",Policy.Ordinary{}}
+def resources_layout() -> Layout.Layout:Layout.LayoutPair{left_layout(),right_layout()}
 def RightStore(~S:Data) -> Type:Unit
 def RightResource(~S:Data) -> Type:Layout.resources(~S,right_layout())
 def RightOps(~S:Data,Permit:Data,H:Type) -> Type:A.ResourceWrites(~P.Score,~String)(H)
