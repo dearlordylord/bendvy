@@ -183,12 +183,25 @@ def lookup(value:Q.GeneralLookup<U32>) -> String:
     case Q.NotMatched{}:"excluded"
     case Q.LookupRefused{}:"refused"
     case Q.Matched{value}:"matched:" ++ optional(value)
-def invocation(value:Exec.Invocation<String,Q.GeneralLookup<U32>>) -> String:
+def count(value:Q.GeneralCount) -> String:
+  match value:
+    case Q.CountSelectionRefused{}:"refused"
+    case Q.SelectedCount{n}:U32.show(n)
+def single(value:Q.GeneralSingle<S.SchemaA,U32>) -> String:
+  match value:
+    case Q.SingleSelectionRefused{}:"refused"
+    case Q.NoSelectedRow{}:"none"
+    case Q.OneSelectedRow{Q.GeneralRow{entity,view}}:"one:" ++ handle(entity) ++ ":" ++ optional(view)
+    case Q.MultipleSelectedRows{}:"multiple"
+def query_result(value:Run.QueryResult) -> String:
+  match value:
+    case Run.QueryResult{found,total,one}:lookup(found) ++ ";count=" ++ count(total) ++ ";single=" ++ single(one)
+def invocation(value:Exec.Invocation<String,Run.QueryResult>) -> String:
   match value:
     case Exec.AdmissionRefused{}:"admission-refused"
-    case Exec.Completed{value}:"success:" ++ lookup(value)
-    case Exec.BodyError{error,value}:"error:" ++ error ++ ":" ++ lookup(value)
-def status(value:Ready.Completed<String,Q.GeneralLookup<U32>>) -> String:
+    case Exec.Completed{value}:"success:" ++ query_result(value)
+    case Exec.BodyError{error,value}:"error:" ++ error ++ ":" ++ query_result(value)
+def status(value:Ready.Completed<String,Run.QueryResult>) -> String:
   match value:
     case Ready.Completed{id,value}:U32.show(id) ++ ":" ++ invocation(value)
 def notice_identity(value:Notice.Identity<S.SchemaA>) -> String:
@@ -230,26 +243,30 @@ def node(~Owner:Type,~Evidence:Data,~owner:Owner -> String,~observed:Maybe<&2,Ev
     case Leaf.Inspected{Scope.CompiledBinding{_,state},value,id,valid}:"inspected=" ++ U32.show(id) ++ ":" ++ Bool.pick(String,valid,"true","false") ++ ";owner={" ++ owner(state) ++ "};evidence={" ++ observed(value) ++ "}"
     case Leaf.Prepared{Execution.HeldReady{value}}:binding(~Owner,~Maybe<&2,Evidence>,~owner,~observed,value)
     case Leaf.Prepared{Execution.HeldInventory{_,_,value}}:"preparation-inventory;evidence={" ++ observed(value) ++ "}"
-def event(value:Exec.Observation<String,Q.GeneralLookup<U32>>) -> String:
+def event(value:Exec.Observation<String,Run.QueryResult>) -> String:
   match value:
-    case Exec.Ran{id,value}:U32.show(id) ++ ":success:" ++ lookup(value)
-    case Exec.BodyFailed{id,error,value}:U32.show(id) ++ ":error:" ++ error ++ ":" ++ lookup(value)
+    case Exec.Ran{id,value}:U32.show(id) ++ ":success:" ++ query_result(value)
+    case Exec.BodyFailed{id,error,value}:U32.show(id) ++ ":error:" ++ error ++ ":" ++ query_result(value)
     case Exec.Skipped{id}:U32.show(id) ++ ":disabled"
     case Exec.ConditionFailed{id,error}:U32.show(id) ++ ":condition-error:" ++ error
     case Exec.ConditionRejected{id}:U32.show(id) ++ ":condition-refused"
     case Exec.AdmissionRejected{id}:U32.show(id) ++ ":admission-refused"
-def report(value:App.Report<String,Q.GeneralLookup<U32>>) -> String:
+def report(value:App.Report<String,Run.QueryResult>) -> String:
   match value:
-    case App.Finished{events}:"finished:" ++ List.show(&2,Exec.Observation<String,Q.GeneralLookup<U32>>,event,events)
-    case App.Stopped{error,events}:"stopped:" ++ error ++ ":" ++ List.show(&2,Exec.Observation<String,Q.GeneralLookup<U32>>,event,events)
+    case App.Finished{events}:"finished:" ++ List.show(&2,Exec.Observation<String,Run.QueryResult>,event,events)
+    case App.Stopped{error,events}:"stopped:" ++ error ++ ":" ++ List.show(&2,Exec.Observation<String,Run.QueryResult>,event,events)
     case App.Invalid{_}:"invalid"
 def result(value:Run.WorldResult) -> String:
   match value:
     case Run.WorldReturned{Application.Present{actual,moved},Product.Owner{left,right},handler,outcome}:"world={" ++ world(actual) ++ "};displaced=" ++ List.show(&1,Schema.displacements(~S.SchemaA,S.layout_a()),displaced,moved) ++ ";left={" ++ node(~Run.LeftOwner(),~ResourceAdmission.Evidence<S.SchemaA,S.layout_a(),L.EmptyLayout{},Run.HStore(),Run.HResources(),Run.Ops,Run.left_program>,~left_owner,~evidence(~Run.left_program),left) ++ "};right={" ++ node(~Run.RightOwner(),~ResourceAdmission.Evidence<S.SchemaA,S.layout_a(),L.EmptyLayout{},Run.HStore(),Run.HResources(),Run.Ops,Run.right_program>,~right_owner,~evidence(~Run.right_program),right) ++ "};handler=" ++ U32.show(handler) ++ ";report=" ++ report(outcome)
     case _:"unexpected-unreassembled"
+def foreign(value:Maybe<&1,Run.World()>) -> String:
+  match value:
+    case None{}:"none"
+    case Some{value}:"{" ++ world(value) ++ "}"
 def seeded(value:Run.SeedRun) -> String:
   match value:
-    case Run.SeedRun{W.Factory{next},value}:"factory=" ++ U32.show(next) ++ ";" ++ result(value)
+    case Run.SeedRun{W.Factory{next},other,value}:"factory=" ++ U32.show(next) ++ ";foreign=" ++ foreign(other) ++ ";" ++ result(value)
     case Run.SeedRunRefused{W.Factory{next},Unit{}}:"seed-refused:" ++ U32.show(next)
 def printed(+label:String,result:Run.SeedRun) -> IO(Unit):IO.print(label ++ seeded(result))
 def mode(+label:String,target:Run.TargetMode) -> IO(Unit):IO.bind(Run.SeedRun,Unit,Run.run_mode(W.factory(),target),result => printed(label,result))
