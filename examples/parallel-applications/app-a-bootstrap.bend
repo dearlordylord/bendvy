@@ -72,3 +72,19 @@ def events_returned(~Out:Type,context:Context.Context<P.AuditWorkshop,Resources(
 def with_events(~Out:Type,operation:Peer() -> Peer() & Out,bound:Bound()) -> Bound() & Out:
   match bound:
     case Context.Bound{context,App.Scheduled{State.State{world,Product.Owner{author,events},guards,handler,stateBindings},plan,bindings,rules,deferred}}:events_returned(~Out,context,world,author,guards,handler,stateBindings,plan,bindings,rules,deferred,operation(events))
+
+# The gameplay Root receives the actual World; bootstrap registrations stay held.
+type Retained is Type:
+  Retained{context:Context.Context<P.AuditWorkshop,Resources(),Author.resources(),{==}>,owners:Owners(),guards:Unit,handler:Unit,stateBindings:List<&2,State.Binding>,plan:Plan.Build<String>,bindings:List<&2,State.Binding>,rules:Registration.Rules,deferred:App.Deferred}
+def detach(bound:Bound()) -> World() & Retained:
+  match bound:
+    case Context.Bound{context,App.Scheduled{State.State{world,owners,guards,handler,stateBindings},plan,bindings,rules,deferred}}:(world,Retained{context,owners,guards,handler,stateBindings,plan,bindings,rules,deferred})
+def attach(world:World(),retained:Retained) -> Bound():
+  match retained:
+    case Retained{context,owners,guards,handler,stateBindings,plan,bindings,rules,deferred}:Context.Bound{context,App.Scheduled{State.State{world,owners,guards,handler,stateBindings},plan,bindings,rules,deferred}}
+def retained_events(context:Context.Context<P.AuditWorkshop,Resources(),Author.resources(),{==}>,author:Author.Owner(),guards:Unit,handler:Unit,stateBindings:List<&2,State.Binding>,plan:Plan.Build<String>,bindings:List<&2,State.Binding>,rules:Registration.Rules,deferred:App.Deferred,result:Peer() & String) -> Retained & String:
+  match result:
+    case (events,text):(Retained{context,Product.Owner{author,events},guards,handler,stateBindings,plan,bindings,rules,deferred},text)
+def retained_observed(retained:Retained) -> Retained & String:
+  match retained:
+    case Retained{context,Product.Owner{author,events},guards,handler,stateBindings,plan,bindings,rules,deferred}:retained_events(context,author,guards,handler,stateBindings,plan,bindings,rules,deferred,Events.observed(events))

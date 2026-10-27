@@ -116,9 +116,7 @@ The publisher and reader are separate registered leaves of the new Root schedule
 The genuine Family reader observes sum `16`; its scalar update sees prior value
 `11`, and its retained scratch becomes `[17,18]`. The actual Family stores the
 published affine payload, while the reader retains its own token and cursor.
-These finite observations do not establish whole-run preservation. The three
-captured gameplay systems, conditional schedule and paired passive inspections
-remain incomplete.
+These finite observations do not establish whole-run preservation.
 
 The original three gameplay leaves now have separate current declarations,
 affine locals and retained Compilation registration in `app-a-systems.bend`.
@@ -129,14 +127,32 @@ refusal retains that capture in the returned operation. Resource replacement
 retains displaced owners in the writer local. `app-a-condition.bend` declares
 the query-only registered condition whose first three results are true, false,
 true. `app-a-captures.bend` preserves the same Compilation, evidence and prepared
-inventory while projecting local owners. These definitions have no current
-three-system execution claim: wiring awaits the canonical N-leaf group carrier.
+inventory while projecting local owners. `app-a-execution.bend` builds their
+actual Tree facts and registered condition into the canonical generalized Root.
+Its group callback uses the canonical composite factory in `app-a-group.bend`;
+it does not interpret the schedule itself. An explicit dependency from the
+actual Counter writer id to the actual Counter reader id preserves the original
+resource ordering. The independent scalar query can share the reached writer
+group. Bootstrap owners, context, command queues, both bindings lists and event
+reader remain retained outside the gameplay World.
 The corresponding `app-a-inspection.bend` declares the original passive array,
 scalar and Counter lookups and returns two consecutive projections with the
 actual World. Its observation helper does not advance the Inspector instance.
 Captured-node diagnostics preserve all Uninspected, Inspected, Prepared and
-refused inventory fields, including the actual retained Compilation. The paired
-projections and three-node diagnostic remain unexecuted until plan wiring.
+refused inventory fields, including the actual retained Compilation.
+
+The full ordinary AppA entry exits successfully through all three Root updates.
+The query runs, skips, then runs; its calls are `[1]`, `[1]`, `[2]`, and its values
+are `[57,67]`, `[57,67]`, `[88,98]`. Paired passive projections agree after every
+update, observing scalar `31`, `31`, `35` and Counter `[21,22]`. The independent
+resource capture becomes `[144,244]`, `[188,288]`, `[232,332]`. The writer retains
+all three displaced Counter owners: `[10,11]`, `[21,22]`, `[21,22]`. The query's
+cursor remains unchanged during its skipped update. The final retained event
+reader still reports sum `16`, prior scalar `11` and scratch `[17,18]`.
+The passive Inspector intentionally preserves its cursor and the World clock;
+this is the current contract, replacing the old advancing Inspector behavior.
+These are finite interpreter observations, without a universal preservation,
+formal proof or native concurrency claim.
 
 Final source cleanup remains incomplete. GH94 also retains its complete
 JavaScript/native delivery, applicable authority controls, and independent review

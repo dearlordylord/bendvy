@@ -5,15 +5,48 @@ import ./app-a-commands.bend as Author
 import ./app-a-bootstrap.bend as Bootstrap
 import ./app-a-handoff.bend as Handoff
 import ./app-a-events.bend as Events
+import ./app-a-execution.bend as Gameplay
+import ./app-a-systems.bend as Systems
 import ../../src/ecs/world.bend as W
 import ../../src/ecs/execution-relation-context.bend as Context
 import ../../src/ecs/dependency-application.bend as State
 import ../../src/ecs/execution-event-family.bend as Event
 import ../../src/ecs/execution-event-io.bend as EventIO
 
+type Running is Type:
+  Running{application:Gameplay.Application(),bootstrap:Bootstrap.Retained,handoff:Handoff.State,target:W.Handle<P.AuditWorkshop>}
+def finished(application:Gameplay.Application(),handoff:Handoff.State,target:W.Handle<P.AuditWorkshop>,result:Bootstrap.Retained & String) -> IO(Unit):
+  match result:
+    case (bootstrap,text):IO.print("AppA original three runs finished|retained-event-reader|" ++ text)
+def finish(running:Running) -> IO(Unit):
+  match running:
+    case Running{application,bootstrap,handoff,target}:finished(application,handoff,target,Bootstrap.retained_observed(bootstrap))
+def inspected(label:String,next:Running -> IO(Unit),bootstrap:Bootstrap.Retained,handoff:Handoff.State,target:W.Handle<P.AuditWorkshop>,result:Gameplay.Application() & String) -> IO(Unit):
+  match result:
+    case (application,text):IO.bind(Unit,Unit,IO.print(label ++ "|" ++ text),_=>next(Running{application,bootstrap,handoff,target}))
+def ran(label:String,next:Running -> IO(Unit),bootstrap:Bootstrap.Retained,handoff:Handoff.State,+target:W.Handle<P.AuditWorkshop>,result:Gameplay.Application() & State.Report<String,String>) -> IO(Unit):
+  match result:
+    case (application,report):inspected(label ++ "/" ++ Gameplay.report(report),next,bootstrap,handoff,target,Gameplay.snapshot(target,application))
+def update(label:String,next:Running -> IO(Unit),running:Running) -> IO(Unit):
+  match running:
+    case Running{application,bootstrap,handoff,target}:IO.bind(Gameplay.Application() & State.Report<String,String>,Unit,Gameplay.run(application),result=>ran(label,next,bootstrap,handoff,target,result))
+def third(running:Running) -> IO(Unit):update("AppA run3",finish,running)
+def second(running:Running) -> IO(Unit):update("AppA run2",third,running)
+def gameplay_defined(bootstrap:Bootstrap.Retained,handoff:Handoff.State,target:W.Handle<P.AuditWorkshop>,result:Gameplay.Definition) -> IO(Unit):
+  match result:
+    case Gameplay.Ready{application}:update("AppA run1",second,Running{application,bootstrap,handoff,target})
+    case Gameplay.RegistrationRefused{_}:IO.print("gameplay-registration-refused")
+    case Gameplay.GuardRefused{_,_,_,_,_}:IO.print("gameplay-condition-registration-refused")
+def gameplay_detached(handoff:Handoff.State,+target:W.Handle<P.AuditWorkshop>,result:Systems.World() & Bootstrap.Retained) -> IO(Unit):
+  match result:
+    case (world,bootstrap):gameplay_defined(bootstrap,handoff,target,Gameplay.define(world,target))
+def begin_gameplay(handoff:Handoff.State,bound:Bootstrap.Bound()) -> IO(Unit):
+  match handoff:
+    case Handoff.State{Some{+target},records,output,loose,history,text}:gameplay_detached(Handoff.State{Some{target},records,output,loose,history,text},target,Bootstrap.detach(bound))
+    case handoff:IO.print("gameplay-missing-target")
 def handoff_observed(handoff:Handoff.State,result:Bootstrap.Bound() & String) -> IO(Unit):
   match result:
-    case (bound,text):IO.print("AppA owned handoff|" ++ text)
+    case (bound,text):IO.bind(Unit,Unit,IO.print("AppA owned handoff|" ++ text),_=>begin_gameplay(handoff,bound))
 def handoff_ran(handoff:Handoff.State,result:Bootstrap.Bound() & Context.RunReport<State.Report<String,String>>) -> IO(Unit):
   match result:
     case (bound,report):handoff_observed(handoff,Bootstrap.with_events(~String,Events.observed,bound))
