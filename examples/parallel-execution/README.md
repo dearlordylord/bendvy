@@ -49,8 +49,8 @@ alias. Component projections conservatively stamp the selected row because an
 affine projector can replace its owner. A genuine shared detached Data view and
 final lifecycle semantics remain separate replacement-executor work.
 
-This example does not establish native concurrency, universal owner preservation,
-shared-read purity or completed issue #78 acceptance.
+This example does not establish native concurrency, universal owner preservation
+or shared-read purity.
 
 Ordinary registration now accepts `execution-builder.Program` instead of a raw
 capability/catalog pair. The declaration is polymorphic over both its hidden
