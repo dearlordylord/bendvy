@@ -72,6 +72,7 @@ def entry(~S:Data,value:Buffer.Entry<S,O.Actor<S>,Removed.Removed(R.Components(~
     case Buffer.Despawn{_}:"despawn"
     case Buffer.Spawn{_,_}:"spawn"
     case Buffer.Relation{_,_}:"relation"
+    case Buffer.LifetimeScope{_,_}:"lifetime-scope"
 def pending_status(status:Receipt.Status) -> String:
   match status:
     case Receipt.Pending{}:"pending"
