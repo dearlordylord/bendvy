@@ -60,9 +60,18 @@ refusal consumers using these full fields, fresh receiver handle mapping and
 lifecycle reconstruction, restore without legacy Tx, both resumed execution
 forms, and intended ownership controls. The ongoing taskful executor migration
 also changes the concrete Scheduled adapter shape. Trusted initial population
-uses the canonical Pending materializer and currently exposes an upstream
-materializer template mismatch being repaired by its owner; it is not counted
-as a working population path yet.
+uses the canonical Pending materializer. Its erased-Type column growth repair
+now allows the actual Alpha/Beta population and full-save entries in
+`examples/parallel-persistence/save-fields.bend` to compile normally. No runtime
+execution result is claimed from that source check.
+
+`execution-restore-admission` observes descriptors from actual retained nominal
+declarations and admits version 2 input against exact ordered field shape,
+presence/value policy and full codec validation. Duplicate saved full entity
+keys are refused. Both concrete nominal admission consumers compile. Input and
+actual retained Schema return on either outcome. This is detached admission;
+allocator/lifecycle metadata consistency, reversible typed construction,
+receiver mutation, fresh handle mapping and resume still require implementation.
 
 The four laws in `test-fixtures/execution-save-laws/LAWS.bend` and two subjects in
 `SCHEMA.bend` are unapproved, unproved drafts. They describe exact gate branching,
