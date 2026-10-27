@@ -60,9 +60,12 @@ def boundary(result:Observe.Walk<Schema,Layout.Viewed<P.Token,U32>>) -> String:
 def first(result:Observe.Walk<Schema,Layout.Viewed<P.Token,U32>>) -> String:
   match result:
     case Observe.Walk{column,_,text}:boundary(at(U32.sub(Column.maximum_capacity(),1),text,column))
+def before_last(result:Observe.Walk<Schema,Layout.Viewed<P.Token,U32>>) -> String:
+  match result:
+    case Observe.Walk{column,_,text}:first(at(U32.sub(Column.maximum_capacity(),2),text,column))
 def column(result:Column.Column<Schema,Layout.Viewed<P.Token,U32>> & U32) -> String:
   match result:
-    case (column,capacity):"capacity=" ++ U32.show(capacity) ++ "[" ++ first(at(1,"",column)) ++ "]"
+    case (column,capacity):"capacity=" ++ U32.show(capacity) ++ "[" ++ before_last(at(0,"",column)) ++ "]"
 def observed(prefix:String,result:W.World<Schema,Store(),Unit,Unit> & Buffer.Buffer<Schema,P.Token,Removed.Removed(layout())>) -> String:
   match result:
     case (W.World{namespace,Allocator.Allocator{next,high,_,capacity,depth,free,order},Layout.ColumnSlot{store},_,events,pending,registrations,nextSystem,clock,lifecycle},Buffer.Buffer{queue,receipts}):prefix ++ "|namespace=" ++ U32.show(namespace) ++ ";allocator=" ++ U32.show(next) ++ ":" ++ U32.show(high) ++ ":" ++ U32.show(capacity) ++ ":" ++ Nat.show(depth) ++ ";free=" ++ List.show(&2,U32,U32.show,free) ++ ";order=" ++ List.show(&2,Key.Key,Observe.key,order) ++ "|" ++ column(Column.capacity(~Schema,~(Layout.Viewed<P.Token,U32>),store)) ++ "|events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";legacy-pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<Schema,Store(),Unit,Unit>>,pending)) ++ ";registrations=" ++ Nat.show(List.length(&2,W.RegistrationMeta,registrations)) ++ ";next=" ++ U32.show(nextSystem) ++ ";clock=" ++ Observe.clock(clock) ++ "|queued=" ++ Nat.show(List.length(&1,Buffer.Entry<Schema,P.Token>,queue)) ++ "|receipts=" ++ List.show(&1,Buffer.Receipt<Schema,P.Token,Removed.Removed(layout())>,receipt,receipts)
@@ -74,7 +77,7 @@ def initial_done(result:Column.SwapOutcome<Schema,Layout.Viewed<P.Token,U32>>) -
     case Column.Accepted{column,_}:column
     case Column.Rejected{column,_}:column
 def initial() -> Column.Column<Schema,Layout.Viewed<P.Token,U32>>:
-  initial_done(Column.swap(~Schema,~(Layout.Viewed<P.Token,U32>),Column.empty(~Schema,~(Layout.Viewed<P.Token,U32>)),1,Some{Layout.Viewed{P.Token{ALeaf{1}},1}}))
+  initial_done(Column.swap(~Schema,~(Layout.Viewed<P.Token,U32>),Column.empty(~Schema,~(Layout.Viewed<P.Token,U32>)),0,Some{Layout.Viewed{P.Token{ALeaf{1}},1}}))
 def ready(allocator:Allocator.Allocator,low:Bool,high:Bool) -> String:
   +a:W.Handle<Schema> = W.Handle{1,Key.EntityKey{U32.sub(Column.maximum_capacity(),1),0}}
   +b:W.Handle<Schema> = W.Handle{1,Key.EntityKey{Column.maximum_capacity(),0}}

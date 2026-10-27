@@ -1,4 +1,5 @@
 import Base
+import ./execution-query-identity.bend as Index
 import ./execution-lifecycle-notices.bend as Notice
 import ./execution-projection.bend as Projection
 import ./execution-state.bend as State
@@ -30,13 +31,17 @@ def component_returned(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:
 def component_taken(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,resource:R,handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,index:U32,result:Rest & Col.Column<S,P>,+lifecycleView:Notice.View<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
   match result:
     case (rest,column):component_returned(~S,~C,~R,~P,~Rest,~V,~lens,resource,handles,tick,prior,rest,Col.view(~S,~P,~V,~project,column,index),lifecycleView)
+def component_read_physical(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,scope:State.Scope<S,C,R>,offset:Maybe<&2,U32>) -> State.Scope<S,C,R> & Maybe<&2,V>:
+  match scope offset:
+    case scope None{}:(scope,None{})
+    case State.Scope{store,resource,handles,tick,prior,+lifecycleView} Some{offset}:component_taken(~S,~C,~R,~P,~Rest,~V,~lens,~project,resource,handles,tick,prior,offset,Product.get_field(~C,~Col.Column<S,P>,~Rest,lens)(store),lifecycleView)
 def component_read_checked(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,allowed:Bool,scope:State.Scope<S,C,R>,handle:W.Handle<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
-  match allowed scope:
-    case False{} scope:(scope,None{})
-    case True{} State.Scope{store,resource,handles,tick,prior,+lifecycleView}:component_taken(~S,~C,~R,~P,~Rest,~V,~lens,~project,resource,handles,tick,prior,W.handle_index(~S,handle),Product.get_field(~C,~Col.Column<S,P>,~Rest,lens)(store),lifecycleView)
+  match allowed:
+    case False{}:(scope,None{})
+    case True{}:component_read_physical(~S,~C,~R,~P,~Rest,~V,~lens,~project,scope,Index.physical_index(W.handle_index(~S,handle)))
 def component_get(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,scope:State.Scope<S,C,R>,+handle:W.Handle<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
   match scope:
-    case State.Scope{store,resource,+handles,tick,prior,+lifecycleView}:component_read_checked(~S,~C,~R,~P,~Rest,~V,~lens,~project,State.member(~S,handle,handles),State.Scope{store,resource,handles,tick,prior,lifecycleView},handle)
+    case State.Scope{store,resource,+handles,tick,prior,+lifecycleView}:component_read_checked(~S,~C,~R,~P,~Rest,~V,~lens,~project,Index.captured_live(~S,handles,handle),State.Scope{store,resource,handles,tick,prior,lifecycleView},handle)
 def component_access_returned(~S:Data,~C:Type,~R:Type,~V:Data,result:State.Scope<S,C,R> & Maybe<&2,V>) -> State.Scope<S,C,R> & Component.Access<V>:
   match result:
     case (scope,None{}):(scope,Component.ComponentAbsent{})
@@ -47,17 +52,21 @@ def component_access_checked(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,
     case True{}:component_access_returned(~S,~C,~R,~V,component_read_checked(~S,~C,~R,~P,~Rest,~V,~lens,~project,True{},scope,handle))
 def component_checked_get(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,scope:State.Scope<S,C,R>,+handle:W.Handle<S>) -> State.Scope<S,C,R> & Component.Access<V>:
   match scope:
-    case State.Scope{store,resource,+handles,tick,prior,+lifecycleView}:component_access_checked(~S,~C,~R,~P,~Rest,~V,~lens,~project,State.member(~S,handle,handles),State.Scope{store,resource,handles,tick,prior,lifecycleView},handle)
+    case State.Scope{store,resource,+handles,tick,prior,+lifecycleView}:component_access_checked(~S,~C,~R,~P,~Rest,~V,~lens,~project,Index.captured_live(~S,handles,handle),State.Scope{store,resource,handles,tick,prior,lifecycleView},handle)
 def component_modified(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,transform:P -> P & V,resource:R,handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,index:U32,result:Rest & Col.Column<S,P>,+lifecycleView:Notice.View<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
   match result:
     case (rest,column):component_returned(~S,~C,~R,~P,~Rest,~V,~lens,resource,handles,tick,prior,rest,Col.modify_runtime(~S,~P,~V,transform,column,index,tick),lifecycleView)
+def component_modify_physical(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,transform:P -> P & V,scope:State.Scope<S,C,R>,offset:Maybe<&2,U32>) -> State.Scope<S,C,R> & Maybe<&2,V>:
+  match scope offset:
+    case scope None{}:(scope,None{})
+    case State.Scope{store,resource,handles,tick,prior,+lifecycleView} Some{offset}:component_modified(~S,~C,~R,~P,~Rest,~V,~lens,transform,resource,handles,tick,prior,offset,Product.get_field(~C,~Col.Column<S,P>,~Rest,lens)(store),lifecycleView)
 def component_modify_checked(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,transform:P -> P & V,allowed:Bool,scope:State.Scope<S,C,R>,handle:W.Handle<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
-  match allowed scope:
-    case False{} scope:(scope,None{})
-    case True{} State.Scope{store,resource,handles,tick,prior,+lifecycleView}:component_modified(~S,~C,~R,~P,~Rest,~V,~lens,transform,resource,handles,tick,prior,W.handle_index(~S,handle),Product.get_field(~C,~Col.Column<S,P>,~Rest,lens)(store),lifecycleView)
+  match allowed:
+    case False{}:(scope,None{})
+    case True{}:component_modify_physical(~S,~C,~R,~P,~Rest,~V,~lens,transform,scope,Index.physical_index(W.handle_index(~S,handle)))
 def component_modify(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,transform:P -> P & V,scope:State.Scope<S,C,R>,+handle:W.Handle<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
   match scope:
-    case State.Scope{store,resource,+handles,tick,prior,+lifecycleView}:component_modify_checked(~S,~C,~R,~P,~Rest,~V,~lens,transform,State.member(~S,handle,handles),State.Scope{store,resource,handles,tick,prior,lifecycleView},handle)
+    case State.Scope{store,resource,+handles,tick,prior,+lifecycleView}:component_modify_checked(~S,~C,~R,~P,~Rest,~V,~lens,transform,Index.captured_live(~S,handles,handle),State.Scope{store,resource,handles,tick,prior,lifecycleView},handle)
 def component_modify_once(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,transform:P -> P & V,scope:State.Scope<S,C,R>,handle:W.Handle<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
   component_modify(~S,~C,~R,~P,~Rest,~V,~lens,transform,scope,handle)
 def component_read(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,projection:Projection.Affine<P,V,project>,identity:Identity.Declaration<S,P>) -> D.Declaration<S,C,R,ComponentReads(~S,~V)>:

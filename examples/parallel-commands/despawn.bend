@@ -166,7 +166,7 @@ def other_column(result:Column.SwapOutcome<Schema,Layout.Viewed<Fixture.Other,U3
     case Column.Accepted{column,_}:column
     case Column.Rejected{column,_}:column
 def empty(_:Unit) -> Store():
-  Product.Owner{Product.Owner{Layout.ColumnSlot{token_column(Column.swap(~Schema,~(Layout.Viewed<P.Token,U32>),Column.empty(~Schema,~(Layout.Viewed<P.Token,U32>)),1,Some{Layout.initialize(Fixture.layout(),Layout.InLeft{Layout.AtLeaf{}},P.Token{ALeaf{71}})}))},Layout.ColumnSlot{other_column(Column.swap(~Schema,~(Layout.Viewed<Fixture.Other,U32>),Column.empty(~Schema,~(Layout.Viewed<Fixture.Other,U32>)),1,Some{Layout.initialize(Fixture.layout(),Layout.InRight{Layout.AtLeaf{}},Fixture.Other{ALeaf{80}})}))}},Unit{}}
+  Product.Owner{Product.Owner{Layout.ColumnSlot{token_column(Column.swap(~Schema,~(Layout.Viewed<P.Token,U32>),Column.empty(~Schema,~(Layout.Viewed<P.Token,U32>)),0,Some{Layout.initialize(Fixture.layout(),Layout.InLeft{Layout.AtLeaf{}},P.Token{ALeaf{71}})}))},Layout.ColumnSlot{other_column(Column.swap(~Schema,~(Layout.Viewed<Fixture.Other,U32>),Column.empty(~Schema,~(Layout.Viewed<Fixture.Other,U32>)),0,Some{Layout.initialize(Fixture.layout(),Layout.InRight{Layout.AtLeaf{}},Fixture.Other{ALeaf{80}})}))}},Unit{}}
 def created(settings:Settings.Settings,enabled:Bool,native:Bool,result:W.Creation<Schema,Store(),Resources(),Unit>) -> Setup:
   match result:
     case W.Created{_,world}:reserved(settings,enabled,native,W.reserve_id(~Schema,~Store(),~Resources(),~Unit,world))

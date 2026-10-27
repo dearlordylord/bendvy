@@ -27,7 +27,7 @@ def leaf_dispatch(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,
 # Detached nodes are scheduling facts and cannot construct gameplay authority.
 def leaf(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),owner:Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>) -> Registry<W.World<S,C,R,E>,Sys.Owner<S,C,C,R,E,Ops,Local,Error,Out,declaration,body>,Error,Out,leaf_dispatch(~S,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body)>:
   match owner:
-    case Sys.Owner{namespace,+id,name,+access,cursor,local}:Registry{Sys.Owner{namespace,id,name,access,cursor,local},[Plan.Node{id,D.requirement_keys(~S,~C,~R,~Ops,Build.compile(~S,~C,~C,~R,~Ops,~declaration))}]}
+    case Sys.Owner{namespace,+id,name,+access,cursor,local}:Registry{Sys.Owner{namespace,id,name,access,cursor,local},[Plan.Node{id,D.compilation_requirement_keys(~S,~C,~C,~R,~Ops,Build.compile(~S,~C,~C,~R,~Ops,~declaration))}]}
 
 type Product<L:Type,R:Type> is Type:
   Product{left:L,right:R,leftIds:List<&2,U32>}
@@ -72,7 +72,7 @@ def condition_permission(allowed:Bool,id:U32) -> Maybe<&2,Plan.Invalid<String>>:
     case False{}:Some{Plan.InvalidCondition{id}}
 def condition_leaf(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~declaration:Build.Program(~S,~C,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Bool>),owner:Sys.Owner<S,C,C,R,E,Ops,Local,Error,Bool,declaration,body>) -> ConditionRegistry<W.World<S,C,R,E>,Sys.Owner<S,C,C,R,E,Ops,Local,Error,Bool,declaration,body>,Error,leaf_dispatch(~S,~C,~R,~E,~Ops,~Local,~Error,~Bool,~declaration,~body)>:
   match owner:
-    case Sys.Owner{namespace,+id,name,access,cursor,local}:ConditionRegistry{leaf(~S,~C,~R,~E,~Ops,~Local,~Error,~Bool,~declaration,~body,Sys.Owner{namespace,id,name,access,cursor,local}),condition_permission(D.read_only(D.requirements(~S,~C,~R,~Ops,Build.compile(~S,~C,~C,~R,~Ops,~declaration))),id)}
+    case Sys.Owner{namespace,+id,name,access,cursor,local}:ConditionRegistry{leaf(~S,~C,~R,~E,~Ops,~Local,~Error,~Bool,~declaration,~body,Sys.Owner{namespace,id,name,access,cursor,local}),condition_permission(D.compilation_read_only(~S,~C,~C,~R,~Ops,Build.compile(~S,~C,~C,~R,~Ops,~declaration)),id)}
 def empty_conditions(~World:Type,~Error:Data) -> ConditionRegistry<World,Unit,Error,empty_dispatch(~World,~Error,~Bool)>:
   ConditionRegistry{empty(~World,~Error,~Bool),None{}}
 def paired_conditions(~World:Type,~L:Type,~R:Type,~Error:Data,~leftDispatch:L -> World -> U32 -> L & (World & Exec.Invocation<Error,Bool>),~rightDispatch:R -> World -> U32 -> R & (World & Exec.Invocation<Error,Bool>),left:ConditionRegistry<World,L,Error,leftDispatch>,right:ConditionRegistry<World,R,Error,rightDispatch>) -> ConditionRegistry<World,Product<L,R>,Error,paired_dispatch(~World,~L,~R,~Error,~Bool,~leftDispatch,~rightDispatch)>:

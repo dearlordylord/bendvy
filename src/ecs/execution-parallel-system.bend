@@ -21,9 +21,16 @@ def registered(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local
   match result:
     case (world,W.RegistrationRejected{_}):Sys.DefinitionRefused{world,local}
     case (world,W.Registered{id}):Sys.Defined{world,Sys.Owner{namespace,id,name,access,None{},local}}
+def named_compilation(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),~WR:Type,+name:String,local:Local,world:W.World<S,WC,WR,E>,namespace:U32,compilation:D.Compilation<S,WC,C,R,Ops>) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
+  match compilation:
+    case D.Unsupported{_,_,_}:Sys.DefinitionRefused{world,local}
+    case D.Supported{D.Declaration{_,access},_}:
+      +keys = D.keys(access)
+      registered(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WR,namespace,name,keys,local,W.register(~S,~WC,~WR,~E,world,name,keys))
 def named(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),~WR:Type,+name:String,local:Local,result:W.World<S,WC,WR,E> & U32) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
   match result:
-    case (world,namespace):registered(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WR,namespace,name,D.access(~S,~C,~R,~Ops,Build.compile(~S,~WC,~C,~R,~Ops,~declaration)),local,W.register(~S,~WC,~WR,~E,world,name,D.access(~S,~C,~R,~Ops,Build.compile(~S,~WC,~C,~R,~Ops,~declaration))))
+    case (world,namespace):named_compilation(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WR,name,local,world,namespace,Build.compile(~S,~WC,~C,~R,~Ops,~declaration))
+
 def define(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),~WR:Type,world:W.World<S,WC,WR,E>,name:String,local:Local) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
   named(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WR,name,local,W.namespace(~S,~WC,~WR,~E,world))
 def registration_verified(~S:Data,~C:Type,~R:Type,~E:Data,same:Bool,result:W.World<S,C,R,E> & Bool) -> W.World<S,C,R,E> & Bool:
@@ -45,3 +52,10 @@ def leave(~S:Data,~C:Type,~R:Type,~E:Data,allowed:Bool,world:W.World<S,C,R,E>) -
   match allowed:
     case False{}:world
     case True{}:W.leave_run(~S,~C,~R,~E,world)
+
+def named_with_general(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~provider:Build.GeneralProvider(~S,~WC,~C,~R),~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),~WR:Type,+name:String,local:Local,result:W.World<S,WC,WR,E> & U32) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
+  match result:
+    case (world,namespace):named_compilation(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~declaration,~body,~WR,name,local,world,namespace,Build.compile_with_general(~S,~WC,~C,~R,~provider,~Ops,~declaration))
+
+def define_with_general(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Local:Type,~Error:Data,~Out:Data,~provider:Build.GeneralProvider(~S,~WC,~C,~R),~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),~WR:Type,world:W.World<S,WC,WR,E>,name:String,local:Local) -> Sys.Defined<W.World<S,WC,WR,E>,Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>,Local>:
+  named_with_general(~S,~WC,~C,~R,~E,~Ops,~Local,~Error,~Out,~provider,~declaration,~body,~WR,name,local,W.namespace(~S,~WC,~WR,~E,world))

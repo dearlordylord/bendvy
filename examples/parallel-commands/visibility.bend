@@ -54,11 +54,11 @@ def author_body(~H:Type,~Q:Type,~caps:Unit,~commands:Local.Commands<Q,Schema,P.T
 def Author() -> Type:Cmd.Owner<Schema,Left(),Unit,Unit,layout(),path(),CmdOps,AuthorLocal,String,Unit,author_declaration,author_body>
 def Peer() -> Type:Sys.Owner<Schema,Store(),Unit,Unit,Unit,Ops,Array<U32>,String,Unit,peer_declaration,peer_body>
 def ReadOps(H:Type) -> Type:A.ComponentRead<Schema,H,U32>
-def reader_selection(~H:Type,~B:Type,~read:Build.ComponentRead(~Schema,~Left(),~Unit,~H,~B),~write:Build.ComponentWrite(~Schema,~Left(),~Unit,~H,~B),~rread:Build.ResourceRead(~Schema,~Left(),~Unit,~H,~B),~rwrite:Build.ResourceWrite(~Schema,~Left(),~Unit,~H,~B),~query:Build.Query(~Schema,~Left(),~Unit,~H,~B),~lifecycle:Build.Lifecycle(~Schema,~Store(),~Left(),~Unit,~H,~B),book:B) -> B & ReadOps(H):
+def reader_selection(~H:Type,~B:Type,~read:Build.ComponentRead(~Schema,~Left(),~Unit,~H,~B),~write:Build.ComponentWrite(~Schema,~Left(),~Unit,~H,~B),~rread:Build.ResourceRead(~Schema,~Left(),~Unit,~H,~B),~rwrite:Build.ResourceWrite(~Schema,~Left(),~Unit,~H,~B),~query:Build.Query(~Schema,~Store(),~Left(),~Unit,~H,~B),~lifecycle:Build.Lifecycle(~Schema,~Store(),~Left(),~Unit,~H,~B),book:B) -> B & ReadOps(H):
   read(Registered.layout(),Layout.AtLeaf{},{==},{==},book)
 def reader_declaration(~H:Type,~B:Type,~builder:Build.Builder(~Schema,~Store(),~Left(),~Unit,~H,~B),book:B) -> B & ReadOps(H):
   builder(ReadOps,reader_selection(~H,~B),book)
-def guard_selection(~H:Type,~B:Type,~read:Build.ComponentRead(~Schema,~Store(),~Resources(),~H,~B),~write:Build.ComponentWrite(~Schema,~Store(),~Resources(),~H,~B),~rread:Build.ResourceRead(~Schema,~Store(),~Resources(),~H,~B),~rwrite:Build.ResourceWrite(~Schema,~Store(),~Resources(),~H,~B),~query:Build.Query(~Schema,~Store(),~Resources(),~H,~B),~lifecycle:Build.Lifecycle(~Schema,~Store(),~Store(),~Resources(),~H,~B),book:B) -> B & ReadOps(H):
+def guard_selection(~H:Type,~B:Type,~read:Build.ComponentRead(~Schema,~Store(),~Resources(),~H,~B),~write:Build.ComponentWrite(~Schema,~Store(),~Resources(),~H,~B),~rread:Build.ResourceRead(~Schema,~Store(),~Resources(),~H,~B),~rwrite:Build.ResourceWrite(~Schema,~Store(),~Resources(),~H,~B),~query:Build.Query(~Schema,~Store(),~Store(),~Resources(),~H,~B),~lifecycle:Build.Lifecycle(~Schema,~Store(),~Store(),~Resources(),~H,~B),book:B) -> B & ReadOps(H):
   read(layout(),path(),{==},{==},book)
 def guard_declaration(~H:Type,~B:Type,~builder:Build.Builder(~Schema,~Store(),~Store(),~Resources(),~H,~B),book:B) -> B & ReadOps(H):
   builder(ReadOps,guard_selection(~H,~B),book)
@@ -198,7 +198,7 @@ def column(result:Column.SwapOutcome<Schema,Layout.Viewed<P.Token,U32>>) -> Colu
     case Column.Accepted{column,_}:column
     case Column.Rejected{column,_}:column
 def empty(_:Unit) -> Store():
-  Product.Owner{Layout.ColumnSlot{column(Column.swap(~Schema,~Layout.Viewed<P.Token,U32>,Column.empty(~Schema,~Layout.Viewed<P.Token,U32>),1,Some{Layout.Viewed{P.Token{ALeaf{1}},1}}))},Unit{}}
+  Product.Owner{Layout.ColumnSlot{column(Column.swap(~Schema,~Layout.Viewed<P.Token,U32>,Column.empty(~Schema,~Layout.Viewed<P.Token,U32>),0,Some{Layout.Viewed{P.Token{ALeaf{1}},1}}))},Unit{}}
 def created(settings:Settings.Settings,enabled:Bool,native:Bool,result:W.Creation<Schema,Store(),Resources(),Unit>) -> Setup:
   match result:
     case W.Created{_,world}:reserved(settings,enabled,native,W.reserve_id(~Schema,~Store(),~Resources(),~Unit,world))

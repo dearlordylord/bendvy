@@ -28,8 +28,20 @@ def Captures(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~User:Type) -> Ty
 def prepared_permission(-Ops:Type,value:Permission.Prepared<Ops>) -> Permission.Permission:
   match value:
     case Permission.Prepared{permission,_}:permission
-def declared_permission(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type -> Type,~declaration:Program(~S,~C,~R,~layout,~route,~Ops)) -> Permission.Permission:
-  prepared_permission(Ops(State.Scope<S,C,R>,Buffer.Buffer<S,Layout.payload(layout,route),Removed.Removed(layout)>),D.grants(~S,~C,~R,~ScopedOps(~S,~layout,~route,~Ops),Build.compile(~S,~(Layout.columns(~S,layout)),~C,~R,~ScopedOps(~S,~layout,~route,~Ops),~program_for_buffer(~S,~C,~R,~layout,~route,~Ops,~declaration))))
+type CheckedPermission is Data:
+  ReadyPermission{permission:Permission.Permission}
+  UnsupportedPermission{permission:Permission.Permission}
+def compiled_permission(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type -> Type,value:D.Compilation<S,Layout.columns(~S,layout),C,R,ScopedOps(~S,~layout,~route,~Ops)>) -> CheckedPermission:
+  match value:
+    case D.Supported{D.Declaration{Permission.Prepared{permission,_},_},_}:ReadyPermission{permission}
+    case D.Unsupported{Permission.Prepared{permission,_},_,_}:UnsupportedPermission{permission}
+def declared_permission(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type -> Type,~declaration:Program(~S,~C,~R,~layout,~route,~Ops)) -> CheckedPermission:
+  compiled_permission(~S,~C,~R,~layout,~route,~Ops,Build.compile(~S,~(Layout.columns(~S,layout)),~C,~R,~ScopedOps(~S,~layout,~route,~Ops),~program_for_buffer(~S,~C,~R,~layout,~route,~Ops,~declaration)))
+def checked_permission_agrees(permission:Permission.Permission,checked:CheckedPermission) -> Bool:
+  match checked:
+    case ReadyPermission{expected}:Permission.agrees(permission,expected)
+    case UnsupportedPermission{_}:False{}
+
 def runner(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type -> Type,~User:Type,~Error:Data,~Out:Data,~body:Body(~S,~layout,~route,~Ops,~User,~Error,~Out),~H:Type,~caps:ScopedOps(~S,~layout,~route,~Ops,H),scope:H,local:Captures(~S,~layout,~route,~User)) -> H & (Captures(~S,~layout,~route,~User) & Sys.Completion<Error,Out>):
   Local.invoke(~S,~(Layout.payload(layout,route)),~(Removed.Removed(layout)),~User,~Error,~Out,~Ops,~body,~H,~(Permission.ops_field(Ops(H,Buffer.Buffer<S,Layout.payload(layout,route),Removed.Removed(layout)>),caps)),scope,local)
 def System(~S:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Program(~S,~C,~R,~layout,~route,~Ops),~body:Body(~S,~layout,~route,~Ops,~User,~Error,~Out)) -> Type:
@@ -44,8 +56,12 @@ def wrapped(~S:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.
 # The full command schema fixes the inserted payload type and destination.
 # C/R describe the physical gameplay scope, which may be one root-cut branch;
 # registration always uses the actual complete World and its single allocator.
+def define_checked(~S:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~Ops:Type -> Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Program(~S,~C,~R,~layout,~route,~Ops),~body:Body(~S,~layout,~route,~Ops,~User,~Error,~Out),~WR:Type,world:W.World<S,Layout.columns(~S,layout),WR,E>,name:String,user:User,checked:CheckedPermission) -> Sys.Defined<W.World<S,Layout.columns(~S,layout),WR,E>,Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>,Captures(~S,~layout,~route,~User)>:
+  match checked:
+    case UnsupportedPermission{permission}:Sys.DefinitionRefused{world,Local.fresh(~S,~(Layout.payload(layout,route)),~(Removed.Removed(layout)),~User,user,permission)}
+    case ReadyPermission{permission}:wrapped(~S,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR,Task.define(~S,~(Layout.columns(~S,layout)),~C,~R,~E,~ScopedOps(~S,~layout,~route,~Ops),~Captures(~S,~layout,~route,~User),~Error,~Out,~program_for_buffer(~S,~C,~R,~layout,~route,~Ops,~declaration),~runner(~S,~layout,~route,~Ops,~User,~Error,~Out,~body),~WR,world,name,Local.fresh(~S,~(Layout.payload(layout,route)),~(Removed.Removed(layout)),~User,user,permission)))
 def define(~S:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~Ops:Type -> Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Program(~S,~C,~R,~layout,~route,~Ops),~body:Body(~S,~layout,~route,~Ops,~User,~Error,~Out),~WR:Type,world:W.World<S,Layout.columns(~S,layout),WR,E>,name:String,user:User) -> Sys.Defined<W.World<S,Layout.columns(~S,layout),WR,E>,Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>,Captures(~S,~layout,~route,~User)>:
-  wrapped(~S,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR,Task.define(~S,~(Layout.columns(~S,layout)),~C,~R,~E,~ScopedOps(~S,~layout,~route,~Ops),~Captures(~S,~layout,~route,~User),~Error,~Out,~program_for_buffer(~S,~C,~R,~layout,~route,~Ops,~declaration),~runner(~S,~layout,~route,~Ops,~User,~Error,~Out,~body),~WR,world,name,Local.fresh(~S,~(Layout.payload(layout,route)),~(Removed.Removed(layout)),~User,user,declared_permission(~S,~C,~R,~layout,~route,~Ops,~declaration))))
+  define_checked(~S,~C,~R,~E,~layout,~route,~valid,~Ops,~User,~Error,~Out,~declaration,~body,~WR,world,name,user,declared_permission(~S,~C,~R,~layout,~route,~Ops,~declaration))
 
 type Metadata is Data:
   Metadata{id:U32,component:String,permission:Permission.Permission}
@@ -71,11 +87,11 @@ def publication_allowed(~S:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~r
     case (world,True{}):published(~S,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR,meta,user,permission,Publication.apply_at(~S,~WR,~E,~layout,~route,~valid,permission,world,commands,tick))
 def publish(~S:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~Ops:Type -> Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Program(~S,~C,~R,~layout,~route,~Ops),~body:Body(~S,~layout,~route,~Ops,~User,~Error,~Out),~WR:Type,tick:Tick.Tick,world:W.World<S,Layout.columns(~S,layout),WR,E>,owner:Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>) -> W.World<S,Layout.columns(~S,layout),WR,E> & Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>:
   match owner:
-    case Owner{Sys.Owner{+namespace,+id,+name,+access,+cursor,Local.Local{user,commands,+permission}}}:publication_allowed(~S,~C,~R,~E,~layout,~route,~valid,~Ops,~User,~Error,~Out,~declaration,~body,~WR,Task.Meta{namespace,id,name,access,cursor},user,permission,commands,tick,publication_verified(~S,~WR,~E,~layout,Permission.agrees(permission,declared_permission(~S,~C,~R,~layout,~route,~Ops,~declaration)),Task.verify(~S,~(Layout.columns(~S,layout)),~WR,~E,~System(~S,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body),Task.Meta{namespace,id,name,access,cursor},world)))
+    case Owner{Sys.Owner{+namespace,+id,+name,+access,+cursor,Local.Local{user,commands,+permission}}}:publication_allowed(~S,~C,~R,~E,~layout,~route,~valid,~Ops,~User,~Error,~Out,~declaration,~body,~WR,Task.Meta{namespace,id,name,access,cursor},user,permission,commands,tick,publication_verified(~S,~WR,~E,~layout,checked_permission_agrees(permission,declared_permission(~S,~C,~R,~layout,~route,~Ops,~declaration)),Task.verify(~S,~(Layout.columns(~S,layout)),~WR,~E,~System(~S,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body),Task.Meta{namespace,id,name,access,cursor},world)))
 
 # Raw constructors are trusted administrative provisioning. Canonical admission
 # validates the persisted cache against this owner's same closed declaration;
 # no World payload is projected and no separately supplied catalog is consulted.
 def permission_matches(~S:Data,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Program(~S,~C,~R,~layout,~route,~Ops),~body:Body(~S,~layout,~route,~Ops,~User,~Error,~Out),owner:Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>) -> Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body> & Bool:
   match owner:
-    case Owner{Sys.Owner{namespace,id,name,access,cursor,Local.Local{user,commands,+permission}}}:(Owner{Sys.Owner{namespace,id,name,access,cursor,Local.Local{user,commands,permission}}},Permission.agrees(permission,declared_permission(~S,~C,~R,~layout,~route,~Ops,~declaration)))
+    case Owner{Sys.Owner{namespace,id,name,access,cursor,Local.Local{user,commands,+permission}}}:(Owner{Sys.Owner{namespace,id,name,access,cursor,Local.Local{user,commands,permission}}},checked_permission_agrees(permission,declared_permission(~S,~C,~R,~layout,~route,~Ops,~declaration)))

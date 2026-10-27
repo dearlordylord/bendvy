@@ -13,7 +13,7 @@ def Ops(H:Type) -> Type:Unit
 def Local() -> Type:Capture.Local<Array<U32>,Context.Count()>
 def World() -> Type:W.World<S,Unit,Unit,Unit>
 def Owner() -> Type:Sys.Owner<S,Unit,Unit,Unit,Unit,Ops,Local(),String,U32,declaration,body>
-def selection(~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Unit,~H,~B),~cw:Build.ComponentWrite(~S,~Unit,~Unit,~H,~B),~rr:Build.ResourceRead(~S,~Unit,~Unit,~H,~B),~rw:Build.ResourceWrite(~S,~Unit,~Unit,~H,~B),~q:Build.Query(~S,~Unit,~Unit,~H,~B),~lifecycle:Build.Lifecycle(~S,~Unit,~Unit,~Unit,~H,~B),book:B) -> B & Unit:(book,Unit{})
+def selection(~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Unit,~H,~B),~cw:Build.ComponentWrite(~S,~Unit,~Unit,~H,~B),~rr:Build.ResourceRead(~S,~Unit,~Unit,~H,~B),~rw:Build.ResourceWrite(~S,~Unit,~Unit,~H,~B),~q:Build.Query(~S,~Unit,~Unit,~Unit,~H,~B),~lifecycle:Build.Lifecycle(~S,~Unit,~Unit,~Unit,~H,~B),book:B) -> B & Unit:(book,Unit{})
 def declaration(~H:Type,~B:Type,~builder:Build.Builder(~S,~Unit,~Unit,~Unit,~H,~B),book:B) -> B & Unit:
   builder(Ops,selection(~H,~B),book)
 def completed(count:U32,failed:Bool) -> Sys.Completion<String,U32>:

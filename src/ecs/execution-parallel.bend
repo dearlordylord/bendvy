@@ -16,10 +16,13 @@ def completed(~Scope:Type,~Local:Type,~Error:Data,~Out:Data,result:Scope & (Loca
   match result:
     case (scope,(local,completion)):(scope,(local,Some{completion}))
 
+def trusted_invoke_compiled(~S:Data,~WC:Type,~C:Type,~R:Type,~Local:Type,~Error:Data,~Out:Data,~Ops:Type -> Type,~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),~compiledCaps:Ops(State.Scope<S,C,R>),allowed:Bool,scope:State.Scope<S,C,R>,local:Local,compilation:D.Compilation<S,WC,C,R,Ops>) -> State.Scope<S,C,R> & (Local & Maybe<&2,Sys.Completion<Error,Out>>):
+  match allowed compilation:
+    case False{} _:(scope,(local,None{}))
+    case True{} D.Unsupported{_,_,_}:(scope,(local,None{}))
+    case True{} D.Supported{D.Declaration{_,_},_}:completed(~State.Scope<S,C,R>,~Local,~Error,~Out,body(State.Scope<S,C,R>,compiledCaps,scope,local))
 def trusted_invoke(~S:Data,~WC:Type,~C:Type,~R:Type,~Local:Type,~Error:Data,~Out:Data,~Ops:Type -> Type,~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),allowed:Bool,scope:State.Scope<S,C,R>,local:Local) -> State.Scope<S,C,R> & (Local & Maybe<&2,Sys.Completion<Error,Out>>):
-  match allowed:
-    case False{}:(scope,(local,None{}))
-    case True{}:completed(~State.Scope<S,C,R>,~Local,~Error,~Out,body(State.Scope<S,C,R>,D.grants(~S,~C,~R,~Ops,Build.compile(~S,~WC,~C,~R,~Ops,~declaration)),scope,local))
+  trusted_invoke_compiled(~S,~WC,~C,~R,~Local,~Error,~Out,~Ops,~declaration,~body,~D.trusted_construction_caps(~S,~WC,~C,~R,~Ops,Build.compile(~S,~WC,~C,~R,~Ops,~declaration)),allowed,scope,local,Build.compile(~S,~WC,~C,~R,~Ops,~declaration))
 
 def join_right(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~LL:Type,~LR:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,lc:CL,lr:RL,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,lo:LL & Maybe<&2,Sys.Completion<EL,OL>>,right:State.Scope<S,CR,RR> & (LR & Maybe<&2,Sys.Completion<ER,OR>>)) -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & ((LL & Maybe<&2,Sys.Completion<EL,OL>>) & (LR & Maybe<&2,Sys.Completion<ER,OR>>)):
   match right:

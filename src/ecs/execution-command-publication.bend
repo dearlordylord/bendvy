@@ -1,4 +1,5 @@
 import Base
+import ./execution-query-identity.bend as Index
 import ./execution-lifecycle-notices.bend as Notice
 import ./world.bend as W
 import ./entity-allocator.bend as A
@@ -40,21 +41,29 @@ def swapped(~S:Data,~layout:Layout.Layout,~route:Layout.Route,allocator:A.Alloca
   match result:
     case Column.Accepted{column,previous}:swapped_previous(~S,~layout,~route,allocator,column,handle,removing,unwrap(~(Layout.payload(layout,route)),~(Layout.view(layout,route)),previous))
     case Column.Rejected{column,incoming}:Applied{allocator,column,Buffer.Refused{handle,unwrap(~(Layout.payload(layout,route)),~(Layout.view(layout,route)),incoming)},False{}}
+def insert_offset(~S:Data,~layout:Layout.Layout,~route:Layout.Route,allocator:A.Allocator,column:Column.Column<S,Layout.stored(layout,route)>,+handle:W.Handle<S>,incoming:Layout.payload(layout,route),tick:Tick.Tick,offset:Maybe<&2,U32>) -> Applied<S,layout,route>:
+  match offset:
+    case None{}:Applied{allocator,column,Buffer.Refused{handle,Some{incoming}},False{}}
+    case Some{+offset}:swapped(~S,~layout,~route,allocator,handle,Column.swap_at(~S,~(Layout.stored(layout,route)),Column.ensure(~S,~(Layout.stored(layout,route)),column,U32.add(offset,1)),offset,Some{Layout.initialize(layout,route,incoming)},tick),False{})
 def insert_bounded(~S:Data,~layout:Layout.Layout,~route:Layout.Route,allocator:A.Allocator,column:Column.Column<S,Layout.stored(layout,route)>,+handle:W.Handle<S>,incoming:Layout.payload(layout,route),tick:Tick.Tick,allowed:Bool) -> Applied<S,layout,route>:
   match handle allowed:
     case handle False{}:Applied{allocator,column,Buffer.Refused{handle,Some{incoming}},False{}}
-    case W.Handle{namespace,+key} True{}:swapped(~S,~layout,~route,allocator,W.Handle{namespace,key},Column.swap_at(~S,~(Layout.stored(layout,route)),Column.ensure(~S,~(Layout.stored(layout,route)),column,U32.add(Key.index(key),1)),Key.index(key),Some{Layout.initialize(layout,route,incoming)},tick),False{})
+    case +handle True{}:insert_offset(~S,~layout,~route,allocator,column,handle,incoming,tick,Index.physical_index(W.handle_index(~S,handle)))
+def remove_offset(~S:Data,~layout:Layout.Layout,~route:Layout.Route,allocator:A.Allocator,column:Column.Column<S,Layout.stored(layout,route)>,+handle:W.Handle<S>,tick:Tick.Tick,offset:Maybe<&2,U32>) -> Applied<S,layout,route>:
+  match offset:
+    case None{}:Applied{allocator,column,Buffer.Refused{handle,None{}},False{}}
+    case Some{offset}:swapped(~S,~layout,~route,allocator,handle,Column.swap_at(~S,~(Layout.stored(layout,route)),column,offset,None{},tick),True{})
 def remove_present(~S:Data,~layout:Layout.Layout,~route:Layout.Route,allocator:A.Allocator,column:Column.Column<S,Layout.stored(layout,route)>,+handle:W.Handle<S>,tick:Tick.Tick,present:Bool) -> Applied<S,layout,route>:
   match handle present:
     case handle False{}:Applied{allocator,column,Buffer.Applied{handle,None{}},False{}}
-    case W.Handle{namespace,+key} True{}:swapped(~S,~layout,~route,allocator,W.Handle{namespace,key},Column.swap_at(~S,~(Layout.stored(layout,route)),column,Key.index(key),None{},tick),True{})
+    case +handle True{}:remove_offset(~S,~layout,~route,allocator,column,handle,tick,Index.physical_index(W.handle_index(~S,handle)))
 def remove_bounded(~S:Data,~layout:Layout.Layout,~route:Layout.Route,allocator:A.Allocator,+handle:W.Handle<S>,tick:Tick.Tick,result:Column.Column<S,Layout.stored(layout,route)> & U32) -> Applied<S,layout,route>:
   match handle result:
-    case W.Handle{+namespace,+key}, (column,capacity):remove_present(~S,~layout,~route,allocator,column,W.Handle{namespace,key},tick,U32.is_lt(Key.index(key),capacity))
+    case W.Handle{+namespace,+key}, (column,capacity):remove_present(~S,~layout,~route,allocator,column,W.Handle{namespace,key},tick,U32.is_le(Key.index(key),capacity))
 def prepared(~S:Data,~layout:Layout.Layout,~route:Layout.Route,allocator:A.Allocator,column:Column.Column<S,Layout.stored(layout,route)>,+handle:W.Handle<S>,incoming:Maybe<&1,Layout.payload(layout,route)>,tick:Tick.Tick) -> Applied<S,layout,route>:
   match handle incoming:
     case handle None{}:remove_bounded(~S,~layout,~route,allocator,handle,tick,Column.capacity(~S,~(Layout.stored(layout,route)),column))
-    case W.Handle{+namespace,+key} Some{owner}:insert_bounded(~S,~layout,~route,allocator,column,W.Handle{namespace,key},owner,tick,U32.is_lt(Key.index(key),Column.maximum_capacity()))
+    case W.Handle{+namespace,+key} Some{owner}:insert_bounded(~S,~layout,~route,allocator,column,W.Handle{namespace,key},owner,tick,U32.is_le(Key.index(key),Column.maximum_capacity()))
 def admitted(~S:Data,~layout:Layout.Layout,~route:Layout.Route,column:Column.Column<S,Layout.stored(layout,route)>,handle:W.Handle<S>,incoming:Maybe<&1,Layout.payload(layout,route)>,tick:Tick.Tick,result:A.Allocator & Bool) -> Applied<S,layout,route>:
   match result:
     case (allocator,False{}):Applied{allocator,column,Buffer.Refused{handle,incoming},False{}}
@@ -82,10 +91,14 @@ def despawn_noticed(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.
 def despawn_removed(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,allocator:A.Allocator,remainder:Remainder<S,Layout.columns(~S,layout),R,E>,+handle:W.Handle<S>,result:Layout.columns(~S,layout) & Removed.Removed(layout),+tick:Tick.Tick) -> W.World<S,Layout.columns(~S,layout),R,E> & Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>:
   match remainder result:
     case Remainder{namespace,resource,events,pending,registrations,nextSystemId,clock,lifecycle}, (store,removed):despawn_noticed(~S,~R,~E,~layout,~route,namespace,resource,events,pending,registrations,nextSystemId,clock,allocator,store,handle,tick,Removed.notices(~S,layout)(identity(~S,handle),tick,lifecycle,removed))
+def despawn_offset(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,store:Layout.columns(~S,layout),remainder:Remainder<S,Layout.columns(~S,layout),R,E>,+handle:W.Handle<S>,allocator:A.Allocator,+tick:Tick.Tick,offset:Maybe<&2,U32>) -> W.World<S,Layout.columns(~S,layout),R,E> & Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>:
+  match remainder offset:
+    case Remainder{namespace,resource,events,pending,registrations,nextSystemId,clock,lifecycle} None{}:(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,lifecycle},Buffer.DespawnRefused{handle})
+    case remainder Some{offset}:despawn_removed(~S,~R,~E,~layout,~route,allocator,remainder,handle,Removed.take(~S,layout)(offset,store),tick)
 def despawn_live(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,store:Layout.columns(~S,layout),remainder:Remainder<S,Layout.columns(~S,layout),R,E>,+handle:W.Handle<S>,result:A.Allocator & Bool,+tick:Tick.Tick) -> W.World<S,Layout.columns(~S,layout),R,E> & Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>:
   match remainder result:
     case Remainder{namespace,resource,events,pending,registrations,nextSystemId,clock,lifecycle}, (allocator,False{}):(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,lifecycle},Buffer.DespawnRefused{handle})
-    case remainder, (allocator,True{}):despawn_removed(~S,~R,~E,~layout,~route,allocator,remainder,handle,Removed.take(~S,layout)(W.handle_index(~S,handle),store),tick)
+    case remainder, (allocator,True{}):despawn_offset(~S,~R,~E,~layout,~route,store,remainder,handle,allocator,tick,Index.physical_index(W.handle_index(~S,handle)))
 def despawn_allowed(~S:Data,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,world:W.World<S,Layout.columns(~S,layout),R,E>,+handle:W.Handle<S>,allowed:Bool,+tick:Tick.Tick) -> W.World<S,Layout.columns(~S,layout),R,E> & Buffer.Receipt<S,Layout.payload(layout,route),Removed.Removed(layout)>:
   match world allowed:
     case world False{}:(world,Buffer.DespawnRefused{handle})
