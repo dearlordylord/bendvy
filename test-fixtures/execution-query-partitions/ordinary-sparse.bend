@@ -32,9 +32,12 @@ def HResources() -> Type:ResourceStore.Storage<S.SchemaA,L.EmptyLayout{}>
 def World() -> Type:W.World<S.SchemaA,WC(),Unit,Unit>
 def Caps(H:Type) -> Type:Q.GeneralWriter<S.SchemaA,H,S.Position,U32>
 def Ops(Permit:Data,H:Type) -> Type:Caps(H)
-def any(value:Maybe<&2,U32>) -> Bool:True{}
+def eligible_position(value:Maybe<&2,U32>) -> Bool:
+  match value:
+    case None{}:False{}
+    case Some{+value}:Bool.or(U32.is_eq(U32.mod(value,10),0),U32.is_ge(value,19))
 def selection(~bound:Recipe.Bound,~Permit:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S.SchemaA,~HStore(),~HResources(),~H,~B),~cw:Build.ComponentWrite(~S.SchemaA,~HStore(),~HResources(),~H,~B),~rr:Build.ResourceRead(~S.SchemaA,~HStore(),~HResources(),~H,~B),~rw:Build.ResourceWrite(~S.SchemaA,~HStore(),~HResources(),~H,~B),~query:Build.Query(~S.SchemaA,~WC(),~HStore(),~HResources(),~H,~B),~life:Build.Lifecycle(~S.SchemaA,~WC(),~HStore(),~HResources(),~H,~B),book:B) -> B & Ops(Permit,H):
-  Build.general_query(~S.SchemaA,~WC(),~HStore(),~HResources(),~S.layout_a(),~L.InLeft{L.AtLeaf{}},~{==},~{==},~Store.Sparse{},~{==},~Recipe.WriteRows{},~bound,~Match.Optional{},~any,~H,~B,~query,book)
+  Build.general_query(~S.SchemaA,~WC(),~HStore(),~HResources(),~S.layout_a(),~L.InLeft{L.AtLeaf{}},~{==},~{==},~Store.Sparse{},~{==},~Recipe.WriteRows{},~bound,~Match.Optional{},~eligible_position,~H,~B,~query,book)
 def program(~bound:Recipe.Bound,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S.SchemaA,~WC(),~HStore(),~HResources(),~Permit,~H,~B),book:B) -> B & Ops(Permit,H):
   builder(Ops,selection(~bound,~Permit,~H,~B),book)
 def left_program(~Permit:Data,~token:Permit,~H:Type,~B:Type,~builder:Build.Builder(~S.SchemaA,~WC(),~HStore(),~HResources(),~Permit,~H,~B),book:B) -> B & Ops(Permit,H):
