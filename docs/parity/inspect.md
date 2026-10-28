@@ -344,17 +344,33 @@ The ordinary entry `examples/parallel-inspection/passive-resource.bend` reads an
 actual Array resource through success and body-error paths. Its observed clock
 and Inspector cursor remain zero, with payload and cached view both 71. This
 finite observation does not prove passive behavior universally or complete #93.
-Registered application, component/stream/relation/machine observations, pending
-commands, trace integration, authority controls and new approved laws remain to
-be completed for that issue.
+The registered application and other existing domain consumers below extend that
+finite scope. Their evidence remains source-bound; this does not approve new
+laws or establish universal inspection purity.
 
-`examples/parallel-inspection/scheduled.bend` now carries passive resource reads
-through the registered replacement App before two actual runs. Its enabled and
-disabled paths retain the same complete simulation observations in the ordinary
-Bend execution, including handled body errors, actual affine captures and Local,
-registered cursors, allocator, clock and handler. The two nominal schemas use
-serial and native executor modes respectively. These mode observations do not
-establish native-backend concurrency or general observer purity.
+`examples/parallel-inspection/scheduled.bend` carries passive resource reads
+through the registered replacement App before two actual runs on each returned
+application. The original four cases use two nominal schemas, serial and native
+executor modes, and observation disabled or enabled. Its retaining observer prints
+the complete actual App initially and after each update, both raw Reports and the
+second Report's detached Trace Batch. Enabled boundaries print the actual
+Inspector Instance, result and App before and after the passive call. Plan nodes,
+requirements, bindings, Rules and compatible ID pairs come from actual retained
+metadata rather than a separate description catalog.
+
+At source `31688e21d`, the full four-case JavaScript and native observations each
+match the independently derived 26,278-byte expectation. They include handled
+body errors, actual affine Local/captures, owner headers/cursors, allocator,
+store, payloads/caches/stamps, resources, clock, handler and deferred settings. Enabled
+passive calls preserve their complete App and Instance observations; corresponding
+Off/On cases preserve simulation observations while passive/trace diagnostics
+differ. Raw report order is retained, and compatibility does not assert temporal
+overlap. Callback/proof values remain opaque. On that same qualified native binary, a
+bounded symbol/thread observation reaches the first native invocation's actual
+left and right resource bodies on two OS workers within one returned App; its
+complete product output still matches the same expectation. This establishes
+finite path/worker participation, not temporal overlap, speedup, general observer
+purity or universal ownership preservation.
 
 `execution-trace-report.read` projects the actual returned Report and actual plan
 constraints into the existing detached Trace Batch. It returns the complete
@@ -400,10 +416,29 @@ The existing `run` signature and Outcome are unchanged and use disabled boundary
 collection. `execution-trace-report.boundary_batch` maps the reached calls to the
 existing boundary facts. It remains a separate ordered projection from system
 outcomes because these two inputs do not establish their complete interleaving.
-The raw boundary list retains call kind and requested/remaining IDs. Source
-checking and the existing registered consumer confirm this plumbing specializes
-and preserves its prior observations; the observed Root path still needs an
-actual ordinary consumer before claiming its acceptance.
+The raw boundary list retains call kind and requested/remaining IDs. Existing
+ordinary AppA/AppB execution adapters call the observed generalized Root path and
+retain its actual boundary results; this is implemented consumer plumbing, not a
+missing adapter. Its command-boundary qualification remains distinct from the
+scheduled resource consumer above, whose detached Report trace does not invent
+publication receipts or a complete cross-input interleaving.
+
+At source `c153b2747`, the existing component, passive-resource, events,
+pending-relations, pending-spawn and original AppA entries each match their
+independently derived complete JavaScript and native expectations (68, 71, 133,
+873, 1,141 and 6,222 bytes respectively). Passive reads preserve actual payloads,
+caches, stamps and opaque Reader ownership; pending-buffer observations retain
+their actual affine entries until the existing publication step. AppA preserves
+its original separate Off/On owners and three updates, while its enabled trace
+now includes a nonempty dependency Batch derived from the actual returned Report
+and retained plan alongside actual command-boundary facts. Trace order is kept;
+no timestamp, worker chronology or cross-input interleaving is invented.
+
+These are finite reached consumers, not universal read-only confinement or a
+complete hidden-state proof. The source-identical GH92 failure-reader JavaScript
+qualification is reused only at its existing graph/machine/Reader scope. The
+changed AppA ordinary execution also supplies its affected workflow emit/Node
+pair; unrelated normal entries retain their unchanged source-bound evidence.
 
 `execution-inspector-commands.snapshot` returns the same actual command Buffer
 with detached pending/receipt metadata. It retains incoming components, displaced
