@@ -1,5 +1,8 @@
 import Base
 import ../../src/ecs/execution-deferred-schedule.bend as DeferredSchedule
+import ../../src/ecs/execution-trace-report.bend as TraceReport
+import ../../src/ecs/execution-trace.bend as Trace
+import ../parallel-inspection/scheduled-observation.bend as Observe
 import ./app-a-schema.bend as D
 import ./app-a-payloads.bend as P
 import ./app-a-commands.bend as Author
@@ -41,12 +44,15 @@ def boundary(value:DeferredSchedule.Boundary) -> String:
   match value:
     case DeferredSchedule.ApplyEntered{kind,requested}:boundary_kind(kind) ++ "/requested=" ++ List.show(&2,U32,U32.show,requested)
     case DeferredSchedule.ApplyReturned{kind,remaining}:boundary_kind(kind) ++ "/remaining=" ++ List.show(&2,U32,U32.show,remaining)
-def observed(result:Root.ObservedScheduled<ApplicationState(),String,String>) -> IO(Application() & App.Report<String,String>):
+def trace_observed(application:Application(),boundaries:List<&2,DeferredSchedule.Boundary>,result:App.Report<String,String> & Trace.Batch<String>) -> IO(Application() & App.Report<String,String>):
   match result:
-    case Root.ObservedScheduled{application,report,boundaries}:IO.bind(Unit,Application() & App.Report<String,String>,IO.print("AppA deferred boundaries|" ++ List.show(&2,DeferredSchedule.Boundary,boundary,boundaries)),_=>IO.pure(Application() & App.Report<String,String>,(application,report)))
+    case (report,batch):IO.bind(Unit,Application() & App.Report<String,String>,IO.print("AppA report trace|" ++ Observe.batch(batch)),_=>IO.bind(Unit,Application() & App.Report<String,String>,IO.print("AppA deferred boundaries|" ++ List.show(&2,DeferredSchedule.Boundary,boundary,boundaries)),_=>IO.pure(Application() & App.Report<String,String>,(application,report))))
+def observed(on:Bool,result:Root.ObservedScheduled<ApplicationState(),String,String>) -> IO(Application() & App.Report<String,String>):
+  match result:
+    case Root.ObservedScheduled{Root.Scheduled{state,+plan,bindings,rules,deferred},report,boundaries}:trace_observed(Root.Scheduled{state,plan,bindings,rules,deferred},boundaries,TraceReport.read(~String,~String,on,plan,report))
 # The existing application keeps the same returned owner between all three runs.
-def run_mode(on:Bool,app:Application()) -> IO(Application() & App.Report<String,String>):
-  IO.bind(Root.ObservedScheduled<ApplicationState(),String,String>,Application() & App.Report<String,String>,run_observed(on,app),observed)
+def run_mode(+on:Bool,app:Application()) -> IO(Application() & App.Report<String,String>):
+  IO.bind(Root.ObservedScheduled<ApplicationState(),String,String>,Application() & App.Report<String,String>,run_observed(on,app),result=>observed(on,result))
 def run(app:Application()) -> IO(Application() & App.Report<String,String>):
   run_mode(True{},app)
 def facts(writer:Systems.WriterBinding(),query:Systems.QueryBinding(),reader:Systems.ReaderBinding()) -> Tree.GeneralizedFacts<Captures.Nodes()>:
