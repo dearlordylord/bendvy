@@ -50,6 +50,7 @@ import ../../src/ecs/execution-lifetime-scope-store.bend as ScopeStore
 import ../../src/ecs/execution-lifetime-scope-description.bend as ScopeText
 import ../../src/ecs/lifetime-scope.bend as Scope
 import ../../src/ecs/change-tick.bend as Tick
+import ../../src/ecs/execution-owner-continuation.bend as Continuation
 
 def with_pair(-A:Type,-R:Type,result:A & String,next:A -> String -> R) -> R:
   match result:
@@ -286,27 +287,37 @@ def removal_node(~S:Data,value:Actors.RemovalNode(~S)) -> Actors.RemovalNode(~S)
 def updater_node(~S:Data,value:Actors.UpdaterNode(~S)) -> Actors.UpdaterNode(~S) & String:command_node(~S,~Actors.UpdaterOps(~S),~Actors.UpdaterUser<S>,~Actors.updater_declaration(~S),~Actors.updater_body(~S),~updater_user(~S),value)
 def failure_node(~S:Data,value:Readers.FailureNode(~S)) -> Readers.FailureNode(~S) & String:ordinary_node(~S,~Readers.FailureOps(~S),~Readers.FailureState(~S),~Readers.failure_kernel(~S),~Readers.failure_body(~S),~failure_local(~S),value)
 def lifecycle_node(~S:Data,value:Readers.LifecycleNode(~S)) -> Readers.LifecycleNode(~S) & String:ordinary_node(~S,~Readers.LifecycleOps(~S),~Readers.LifecycleUser<S>,~Readers.lifecycle_kernel(~S),~Readers.lifecycle_body(~S),~lifecycle_user(~S),value)
-def pair_observed(~Left:Type,~Right:Type,left:Left & String,right:Right & String) -> Product.Owner<Left,Right> & String:
+def owner_text(-Owner:Type,pair:Owner & String) -> Owner & String:pair
+def pair_observed(-Left:Type,-Right:Type,left:Left & String,right:Right & String) -> Product.Owner<Left,Right> & String:
   match left right:
-    case (left,a), (right,b):(Product.Owner{left,right},"[" ++ a ++ "," ++ b ++ "]")
+    case (left,a), (right,b):
+      continuation:Continuation.PairedHeader<String,(Product.Owner<Left,Right> & String)> = Continuation.PairedHeader{Product.Owner<Left,Right>,Product.Owner{left,right},owner_text(Product.Owner<Left,Right>)}
+      Continuation.paired_returned(String,Product.Owner<Left,Right> & String,continuation,"[" ++ a ++ "," ++ b ++ "]")
+def pair_results(-Left:Type,-Right:Type,pair:(Left & String) & (Right & String)) -> Product.Owner<Left,Right> & String:
+  match pair:
+    case (left,right):pair_observed(Left,Right,left,right)
+def pair_left(-Left:Type,-Right:Type,pair:((Right -> Right & String) & Right) & (Left & String)) -> Product.Owner<Left,Right> & String:
+  match pair:
+    case ((inspect,right),left):
+      continuation:Continuation.PairedHeader<(Right & String),(Product.Owner<Left,Right> & String)> = Continuation.PairedHeader{Left & String,left,pair_results(Left,Right)}
+      Continuation.paired_returned(Right & String,Product.Owner<Left,Right> & String,continuation,inspect(right))
+def observe_pair(-Left:Type,-Right:Type,inspectLeft:Left -> Left & String,inspectRight:Right -> Right & String,value:Product.Owner<Left,Right>) -> Product.Owner<Left,Right> & String:
+  match value:
+    case Product.Owner{left,right}:
+      continuation:Continuation.PairedHeader<(Left & String),(Product.Owner<Left,Right> & String)> = Continuation.PairedHeader{(Right -> Right & String) & Right,(inspectRight,right),pair_left(Left,Right)}
+      Continuation.paired_returned(Left & String,Product.Owner<Left,Right> & String,continuation,inspectLeft(left))
 def tail(~S:Data,value:Application.Tail(~S)) -> Application.Tail(~S) & String:
-  match value:
-    case Product.Owner{left,right}:pair_observed(~Readers.LifecycleNode(~S),~Actors.UpdaterNode(~S),lifecycle_node(~S,left),updater_node(~S,right))
+  observe_pair(Readers.LifecycleNode(~S),Actors.UpdaterNode(~S),lifecycle_node(~S),updater_node(~S),value)
 def removal_tail(~S:Data,value:Application.RemovalTail(~S)) -> Application.RemovalTail(~S) & String:
-  match value:
-    case Product.Owner{left,right}:pair_observed(~Actors.RemovalNode(~S),~Application.Tail(~S),removal_node(~S,left),tail(~S,right))
+  observe_pair(Actors.RemovalNode(~S),Application.Tail(~S),removal_node(~S),tail(~S),value)
 def editor_readers(~S:Data,value:Application.EditorReaders(~S)) -> Application.EditorReaders(~S) & String:
-  match value:
-    case Product.Owner{left,right}:pair_observed(~Actors.EditorNode(~S),~Readers.FailureNode(~S),editor_node(~S,left),failure_node(~S,right))
+  observe_pair(Actors.EditorNode(~S),Readers.FailureNode(~S),editor_node(~S),failure_node(~S),value)
 def authors(~S:Data,value:Application.Authors(~S)) -> Application.Authors(~S) & String:
-  match value:
-    case Product.Owner{left,right}:pair_observed(~Actors.GraphNode(~S),~Actors.LinkNode(~S),graph_node(~S,left),link_node(~S,right))
+  observe_pair(Actors.GraphNode(~S),Actors.LinkNode(~S),graph_node(~S),link_node(~S),value)
 def first_four(~S:Data,value:Application.FirstFour(~S)) -> Application.FirstFour(~S) & String:
-  match value:
-    case Product.Owner{left,right}:pair_observed(~Application.Authors(~S),~Application.EditorReaders(~S),authors(~S,left),editor_readers(~S,right))
+  observe_pair(Application.Authors(~S),Application.EditorReaders(~S),authors(~S),editor_readers(~S),value)
 def nodes(~S:Data,value:Application.Nodes(~S)) -> Application.Nodes(~S) & String:
-  match value:
-    case Product.Owner{left,right}:pair_observed(~Application.FirstFour(~S),~Application.RemovalTail(~S),first_four(~S,left),removal_tail(~S,right))
+  observe_pair(Application.FirstFour(~S),Application.RemovalTail(~S),first_four(~S),removal_tail(~S),value)
 def world_command(~S:Data,value:Deferred.Command<Application.World(~S)>) -> Deferred.Command<Application.World(~S)> & String:
   match value:
     case Deferred.Raw{apply}:(Deferred.Raw{apply},"raw{opaque=Deferred.Command.Raw.apply}")

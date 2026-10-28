@@ -24,6 +24,7 @@ import ../../src/ecs/execution-relation-context.bend as Context
 import ../../src/ecs/execution-resource-query-leaf.bend as Leaf
 import ../../src/ecs/execution-resource-query-composite.bend as Composite
 import ../../src/ecs/execution-resource-query-group.bend as Group
+import ../../src/ecs/execution-owner-continuation.bend as Continuation
 
 import ./generalized-readers.bend as Readers
 def World(~S:Data) -> Type:W.World<S,L.columns(~S,Actor.components()),L.resources(~S,Actor.resources(~S)),Unit>
@@ -108,6 +109,19 @@ def facts_updater(~S:Data,binding:Actors.UpdaterBinding(~S)) -> Tree.Generalized
 def collected(-Left:Type,-Right:Type,left:Left & List<&2,U32>,right:Right & List<&2,U32>) -> Product.Owner<Left,Right> & List<&2,U32>:
   match left right:
     case (left,leftIds), (right,rightIds):(Product.Owner{left,right},List.append(&2,U32,leftIds,rightIds))
+def collected_results(-Left:Type,-Right:Type,pair:(Left & List<&2,U32>) & (Right & List<&2,U32>)) -> Product.Owner<Left,Right> & List<&2,U32>:
+  match pair:
+    case (left,right):collected(Left,Right,left,right)
+def collected_left(-Left:Type,-Right:Type,pair:((Right -> Right & List<&2,U32>) & Right) & (Left & List<&2,U32>)) -> Product.Owner<Left,Right> & List<&2,U32>:
+  match pair:
+    case ((collect,right),left):
+      continuation:Continuation.PairedHeader<(Right & List<&2,U32>),(Product.Owner<Left,Right> & List<&2,U32>)> = Continuation.PairedHeader{Left & List<&2,U32>,left,collected_results(Left,Right)}
+      Continuation.paired_returned(Right & List<&2,U32>,Product.Owner<Left,Right> & List<&2,U32>,continuation,collect(right))
+def collect_pair(-Left:Type,-Right:Type,collectLeft:Left -> Left & List<&2,U32>,collectRight:Right -> Right & List<&2,U32>,nodes:Product.Owner<Left,Right>) -> Product.Owner<Left,Right> & List<&2,U32>:
+  match nodes:
+    case Product.Owner{left,right}:
+      continuation:Continuation.PairedHeader<(Left & List<&2,U32>),(Product.Owner<Left,Right> & List<&2,U32>)> = Continuation.PairedHeader{(Right -> Right & List<&2,U32>) & Right,(collectRight,right),collected_left(Left,Right)}
+      Continuation.paired_returned(Left & List<&2,U32>,Product.Owner<Left,Right> & List<&2,U32>,continuation,collectLeft(left))
 def authors_leaf(~S:Data,nodes:Authors(~S)) -> Leaf.Leaf<S,Actor.components(),Actor.resources(~S),Unit,Authors(~S),String,String>:
   Composite.from_nodes(~S,~Actor.components(),~Actor.resources(~S),~Unit,~String,~String,~Actors.GraphNode(~S),~Actors.LinkNode(~S),~graph_leaf(~S),~link_leaf(~S),nodes)
 def pending_authors(~S:Data,ids:List<&2,U32>,world:World(~S),nodes:Authors(~S)) -> World(~S) & (Authors(~S) & Bool):
@@ -158,8 +172,8 @@ def pending_nodes(~S:Data,ids:List<&2,U32>,world:World(~S),nodes:Nodes(~S)) -> W
 def publish_nodes(~S:Data,~blueprint:Provision.Blueprint<S,Actor.resources(~S),Setup.Seed(~Actor.Session)>,ids:List<&2,U32>,tick:Tick.Tick,world:World(~S),nodes:Nodes(~S)) -> World(~S) & Nodes(~S):
   Tree.publish_pair(World(~S),FirstFour(~S),RemovalTail(~S),publish_firstfour(~S,~blueprint),publish_removaltail(~S,~blueprint),ids,tick,world,nodes)
 def collect_nodes(~S:Data,ids:List<&2,U32>,nodes:Nodes(~S)) -> Nodes(~S) & List<&2,U32>:
-  match ids nodes:
-    case +ids Product.Owner{left,right}:collected(FirstFour(~S),RemovalTail(~S),collect_firstfour(~S,ids,left),collect_removaltail(~S,ids,right))
+  match ids:
+    case +ids:collect_pair(FirstFour(~S),RemovalTail(~S),collect_firstfour(~S,ids),collect_removaltail(~S,ids),nodes)
 def dispatch(~S:Data,nodes:Nodes(~S),world:World(~S),ids:List<&2,U32>) -> IO(Execution.RunResult<S,Actor.components(),Actor.resources(~S),Unit,Nodes(~S),String,String>):
   match nodes:
     case Product.Owner{first,rest}:Group.run_retained(~S,~Actor.components(),~Actor.resources(~S),~Unit,~String,~String,FirstFour(~S),RemovalTail(~S),ids,world,firstfour_leaf(~S,first),removaltail_leaf(~S,rest))
@@ -167,8 +181,20 @@ def apply(~S:Data,~blueprint:Provision.Blueprint<S,Actor.resources(~S),Setup.See
   Publication.apply(~S,~L.columns(~S,Actor.components()),~L.resources(~S,Actor.resources(~S)),~Unit,~Nodes(~S),~pending_nodes(~S),~publish_nodes(~S,~blueprint),~collect_nodes(~S),ids,world,nodes)
 def handle(handler:Unit,_:String) -> Unit & Exec.Handling:(handler,Exec.Continue{})
 def available(_:String) -> Bool:True{}
-def build(~S:Data,context:Context.Context<S,L.resources(~S,Actor.resources(~S)),Actor.resources(~S),{==}>,world:World(~S),graph:Actors.GraphBinding(~S),link:Actors.LinkBinding(~S),editor:Actors.EditorBinding(~S),failure:Readers.FailureBinding(~S),removal:Actors.RemovalBinding(~S),lifecycle:Readers.LifecycleBinding(~S),updater:Actors.UpdaterBinding(~S)) -> Bound(~S):
-  Provision.Bound{Context.Bound{context,General.build(~S,~Actor.components(),~Actor.resources(~S),~Unit,~Nodes(~S),~Unit,~Unit,~String,~Conditions.empty_dispatch(~World(~S),~String),~available,world,Tree.generalized_pair_facts(FirstFour(~S),RemovalTail(~S),Tree.generalized_pair_facts(Authors(~S),EditorReaders(~S),Tree.generalized_pair_facts(Actors.GraphNode(~S),Actors.LinkNode(~S),facts_graph(~S,graph),facts_link(~S,link)),Tree.generalized_pair_facts(Actors.EditorNode(~S),Readers.FailureNode(~S),facts_editor(~S,editor),facts_failure(~S,failure))),Tree.generalized_pair_facts(Actors.RemovalNode(~S),Tail(~S),facts_removal(~S,removal),Tree.generalized_pair_facts(Readers.LifecycleNode(~S),Actors.UpdaterNode(~S),facts_lifecycle(~S,lifecycle),facts_updater(~S,updater)))),Conditions.Registry{Unit{},[],None{}},Unit{},[Plan.Edge{1,3},Plan.Edge{2,3},Plan.Edge{3,4},Plan.Edge{4,5},Plan.Edge{5,6},Plan.Edge{6,7}],[])}}
+def Captured(~S:Data) -> Data:Context.Context<S,L.resources(~S,Actor.resources(~S)),Actor.resources(~S),{==}>
+def BuildGraphHeld(~S:Data) -> Type:Captured(~S) & World(~S) & Actors.LinkBinding(~S) & Actors.EditorBinding(~S) & Readers.FailureBinding(~S) & Actors.RemovalBinding(~S) & Readers.LifecycleBinding(~S) & Actors.UpdaterBinding(~S)
+def BuildLinkHeld(~S:Data) -> Type:Captured(~S) & World(~S) & Actors.EditorBinding(~S) & Readers.FailureBinding(~S) & Actors.RemovalBinding(~S) & Readers.LifecycleBinding(~S) & Actors.UpdaterBinding(~S) & Tree.GeneralizedFacts<Actors.GraphNode(~S)>
+def build_link(~S:Data,pair:BuildLinkHeld(~S) & Tree.GeneralizedFacts<Actors.LinkNode(~S)>) -> Bound(~S):
+  match pair:
+    case ((context,world,editor,failure,removal,lifecycle,updater,graph),link):Provision.Bound{Context.Bound{context,General.build(~S,~Actor.components(),~Actor.resources(~S),~Unit,~Nodes(~S),~Unit,~Unit,~String,~Conditions.empty_dispatch(~World(~S),~String),~available,world,Tree.generalized_pair_facts(FirstFour(~S),RemovalTail(~S),Tree.generalized_pair_facts(Authors(~S),EditorReaders(~S),Tree.generalized_pair_facts(Actors.GraphNode(~S),Actors.LinkNode(~S),graph,link),Tree.generalized_pair_facts(Actors.EditorNode(~S),Readers.FailureNode(~S),facts_editor(~S,editor),facts_failure(~S,failure))),Tree.generalized_pair_facts(Actors.RemovalNode(~S),Tail(~S),facts_removal(~S,removal),Tree.generalized_pair_facts(Readers.LifecycleNode(~S),Actors.UpdaterNode(~S),facts_lifecycle(~S,lifecycle),facts_updater(~S,updater)))),Conditions.Registry{Unit{},[],None{}},Unit{},[Plan.Edge{1,3},Plan.Edge{2,3},Plan.Edge{3,4},Plan.Edge{4,5},Plan.Edge{5,6},Plan.Edge{6,7}],[])}}
+def build_graph(~S:Data,pair:BuildGraphHeld(~S) & Tree.GeneralizedFacts<Actors.GraphNode(~S)>) -> Bound(~S):
+  match pair:
+    case ((context,world,link,editor,failure,removal,lifecycle,updater),graph):
+      continuation:Continuation.PairedHeader<Tree.GeneralizedFacts<Actors.LinkNode(~S)>,Bound(~S)> = Continuation.PairedHeader{BuildLinkHeld(~S),(context,world,editor,failure,removal,lifecycle,updater,graph),build_link(~S)}
+      Continuation.paired_returned(Tree.GeneralizedFacts<Actors.LinkNode(~S)>,Bound(~S),continuation,facts_link(~S,link))
+def build(~S:Data,context:Captured(~S),world:World(~S),graph:Actors.GraphBinding(~S),link:Actors.LinkBinding(~S),editor:Actors.EditorBinding(~S),failure:Readers.FailureBinding(~S),removal:Actors.RemovalBinding(~S),lifecycle:Readers.LifecycleBinding(~S),updater:Actors.UpdaterBinding(~S)) -> Bound(~S):
+  continuation:Continuation.PairedHeader<Tree.GeneralizedFacts<Actors.GraphNode(~S)>,Bound(~S)> = Continuation.PairedHeader{BuildGraphHeld(~S),(context,world,link,editor,failure,removal,lifecycle,updater),build_graph(~S)}
+  Continuation.paired_returned(Tree.GeneralizedFacts<Actors.GraphNode(~S)>,Bound(~S),continuation,facts_graph(~S,graph))
 def configure_scheduled(~S:Data,+final:Bool,app:Scheduled(~S)) -> Scheduled(~S):
   match app:
     case Root.Scheduled{state,plan,bindings,rules,Root.Deferred{systems,Settings.Settings{automatic,_,ignored,explicit},unapplied}}:Root.Scheduled{state,plan,bindings,rules,Root.Deferred{systems,Settings.Settings{automatic,final,ignored,explicit},unapplied}}
