@@ -46,6 +46,22 @@ def prepared(~S:Data,native:Bool,result:Flow.Outcome<S>) -> IO(Outcome<S>):
     case Flow.Prepared{source,previous,reader,receipt,schema,input,target}:defined(~S,native,Source{source,previous,receipt},schema,input,Execution.setup(~S,target,reader))
     case result:IO.pure(Outcome<S>,SourceRefused{result})
 def run(~S:Data,native:Bool) -> IO(Outcome<S>):IO.bind(Flow.Outcome<S>,Outcome<S>,Flow.prepare(~S),result => prepared(~S,native,result))
+type Repetition<-S:Data> is Type:Repetition{source:Source<S>,restoration:Restoration<S>,first:App.Report<String,String>}
+type Repeated<-S:Data> is Type:
+  FirstRefused{result:Outcome<S>}
+  Repeated{first:App.Report<String,String>,second:Outcome<S>}
+def second_finished(~S:Data,held:Repetition<S>,result:Execution.Application(~S) & App.Report<String,String>) -> Repeated<S>:
+  match held:
+    case Repetition{source,restoration,first}:Repeated{first,finished(~S,source,restoration,result)}
+def second_run(~S:Data,native:Bool,held:Repetition<S>,app:Execution.Application(~S)) -> IO(Repeated<S>):
+  match native:
+    case False{}:IO.bind(Execution.Application(~S) & App.Report<String,String>,Repeated<S>,Execution.run_serial(~S,app),result => IO.pure(Repeated<S>,second_finished(~S,held,result)))
+    case True{}:IO.bind(Execution.Application(~S) & App.Report<String,String>,Repeated<S>,Execution.run_native(~S,app),result => IO.pure(Repeated<S>,second_finished(~S,held,result)))
+def repeated(~S:Data,native:Bool,result:Outcome<S>) -> IO(Repeated<S>):
+  match result:
+    case Resumed{source,restoration,app,report}:second_run(~S,native,Repetition{source,restoration,report},app)
+    case result:IO.pure(Repeated<S>,FirstRefused{result})
+def run_repeated(~S:Data,+native:Bool) -> IO(Repeated<S>):IO.bind(Outcome<S>,Repeated<S>,run(~S,native),result => repeated(~S,native,result))
 def capture(result:Array<U32> & U32) -> String:
   match result:
     case (_,value):U32.show(value)
@@ -58,4 +74,8 @@ def observed(~S:Data,result:Outcome<S>) -> String:
     case SourceRefused{_}:"source-refused"
     case DefinitionRefused{_,_,_,_}:"definition-refused"
     case RestoreRefused{_,_}:"restore-refused"
-def main() -> IO(Unit):IO.bind(Outcome<O.Alpha>,Unit,run(~O.Alpha,False{}),a => IO.bind(Unit,Unit,IO.print("alpha-serial " ++ observed(~O.Alpha,a)),u => IO.bind(Outcome<O.Beta>,Unit,run(~O.Beta,True{}),b => IO.print("beta-native " ++ observed(~O.Beta,b)))))
+def repeated_observed(~S:Data,result:Repeated<S>) -> String:
+  match result:
+    case FirstRefused{result}:"first-refused/" ++ observed(~S,result)
+    case Repeated{first,second}:"first=" ++ Reports.report(first) ++ "/second=" ++ observed(~S,second)
+def main() -> IO(Unit):IO.bind(Repeated<O.Alpha>,Unit,run_repeated(~O.Alpha,False{}),a => IO.bind(Unit,Unit,IO.print("alpha-serial " ++ repeated_observed(~O.Alpha,a)),u => IO.bind(Repeated<O.Beta>,Unit,run_repeated(~O.Beta,True{}),b => IO.print("beta-native " ++ repeated_observed(~O.Beta,b)))))
