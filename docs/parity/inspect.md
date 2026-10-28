@@ -449,7 +449,7 @@ failure Reader remains in the actual affine handler, together with its capture,
 while passive Inspector and Check read the protected cached graph. Before and
 after these reads, the Reader is `2/1/0`, the actual channel size/dropped/batches/
 older-through tuple is `1:0:1:0`, its sequence is `1`, next Reader identity is `2`
-and World clock is `0:11`. The existing restoration observer then performs the
+and World clock is `0:12`. The existing restoration observer then performs the
 genuine normal read: one message, zero missed, original Reader cursor `1`, same
 clock. Its complete existing application observation retains the three system
 captures, handler capture, bindings, actual restored rows, graph and machine

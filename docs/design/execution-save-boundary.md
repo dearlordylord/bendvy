@@ -217,11 +217,15 @@ App before restore. Its actual pending fold precedes World admission. The adapte
 retains system Local arrays 603/703, state-condition Local array 903, handler array
 803 and its original registered failure Reader, both binding roles, rules and
 deferred settings. The serial Alpha and native Beta ordinary runs observe restored
-Waiting, execute a new Running transition at revision 8/time `0:12`, handle a real
-body error and return all those owners. Receiver machine stream sequence/size
-advances from 2 to 3, rather than resurrecting the source's four-event history.
-This is a subsequent genuine schedule execution, not a replay of source intent.
-The reader then consumes the retained receiver relation failure at time `0:12`.
+Waiting and execute a new Running transition at revision 8/time `0:12`, handling
+one real body error. The ordinary resume entry then runs that same returned App
+again: its Waiting condition is false, the right transition body skips, and the
+left body and captured handler run again at terminal time `0:14`. Receiver machine
+stream sequence/size advances from 2 to 3, rather than resurrecting the source's
+four-event history. The final actual Reader consumes the retained receiver
+relation failure at time `0:14`. Existing single-update restore/retry APIs retain
+their time `0:12` contract. These are subsequent genuine schedule executions,
+not a replay of source intent.
 
 `parallel-persistence/extended-refusal.bend` submits a self-membership hierarchy
 using an actual saved full-generation key. Complete graph admission refuses it
@@ -251,7 +255,10 @@ restore: typed ActiveExecution refusal retains scope `[0:6]`, clock `0:6`, all
 Local/guard/handler run counts 0, original Reader cursor 0, both binding roles,
 receiver machine revision 101/stream 2 and scope change stamp `0:0`.
 
-Modern scope queue/controller cleanup integration remains separate work.
+Modern generalized scope cleanup is delivered by the ordinary relation/scope
+application described in [the relations contract](../parity/relations.md). Extended
+restore retains the explicit scope-membership remapping boundary above; it does
+not serialize or resurrect consumed scope command/controller owners.
 `lifetime-scope.bend` retains the original nominal Scope, Member, Store and
 SpawnResult types and the unchanged empty/without/select functions. Historical
 transaction operations live in `lifetime-scope-legacy.bend`; historical callers

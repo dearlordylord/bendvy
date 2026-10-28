@@ -1,3 +1,54 @@
+## Current #77 graph and machine execution boundary
+
+The historical #60 Runtime delivery below retains its original scope. Ordinary
+`examples/parallel-persistence/extended-*` consumers use the replacement executor
+and the explicit receiver-retention contract described in
+[execution save boundary](../design/execution-save-boundary.md).
+
+An extended save contains declared component/resource values, ordered relation
+sources, committed machine values and revisions, and detached lifetime-scope
+membership. Saved full entity keys are remapping tokens. Restore allocates fresh
+receiver handles and rebuilds relation inverses, hierarchy observations and scope
+membership through the existing graph algorithms. It retains the receiver's
+namespace and actual owner inventory. Invalid graph or scope preparation refuses
+before live cleanup or payload construction; the returned actual application can
+be retried with valid input.
+
+The ordinary application is defined on the receiver before restoration. Its
+registered systems, Local arrays, captures, state-condition compilation, handler,
+Reader identities/positions, dependency bindings and deferred configuration remain
+receiver-local. They are not deserialized from the snapshot. Pending structural
+work refuses before projection and is never implicitly flushed. Consumed affine
+command owners are not part of the saved data and cannot be restored.
+
+The modern relation store retains receiver failure-channel history, sequence and
+Reader registration. The machine store replaces the committed value, revision and
+stamp while retaining receiver stream history, namespace, sequence and next-stamp
+state. It clears the source pending transition intent. This differs from the
+historical #60 Runtime stream-clearing contract below. Restore returns actual cleanup
+and publication receipts, remapping and previous receiver graph/scope values;
+partial publication is an explicit retained result rather than whole-restore
+rollback.
+
+The ordinary resume entry runs the same returned application twice. Its first
+update handles a real body error and transitions the restored Waiting machine to
+Running. Its second update tests the changed state and skips the condition-bound
+transition system. Existing single-update restore and retry APIs retain their
+contracts. Ordering follows declared dependencies, while compatible native tasks
+use the existing parallel executor.
+
+Example-local observers traverse actual owners, cached views, queues, allocator,
+lifecycle, captures and returned receipts. Invalid-input retry retains a complete
+observation of the actual refused application before continuing with that same
+application. A saved projection alone is not treated as full receiver state.
+The existing terminal relation-failure read remains an actual operation, with its
+returned Reader, messages and World observed explicitly. Function closures and
+proof witnesses remain opaque. These finite observations do not establish a
+universal ownership theorem or full runtime recovery.
+
+
+## Historical #60 Runtime delivery
+
 ## Parent
 
 #1 — full Bend-native bevy-ts core parity.
