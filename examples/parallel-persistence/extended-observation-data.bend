@@ -36,19 +36,19 @@ def data_retained(-V:Data,show:V -> String,+value:V) -> V & String:(value,show(v
 def consumed(-V:Type,result:V & String) -> String:
   match result:
     case (_,text):text
-def array_leaf(-V:Type,result:V & String) -> Array<V> & String:
+def array_leaf(~V:Type,result:V & String) -> Array<V> & String:
   match result:
     case (value,text):(ALeaf{value},"[" ++ text ++ "]")
-def array_right(-V:Type,left:Array<V>,text:String,result:Array<V> & String) -> Array<V> & String:
+def array_right(~V:Type,left:Array<V>,text:String,result:Array<V> & String) -> Array<V> & String:
   match result:
     case (right,other):(ANode{left,right},"[" ++ text ++ "," ++ other ++ "]")
-def array_pair(-V:Type,left:Array<V> & String,right:Array<V> & String) -> Array<V> & String:
+def array_pair(~V:Type,left:Array<V> & String,right:Array<V> & String) -> Array<V> & String:
   match left:
-    case (left,text):array_right(V,left,text,right)
+    case (left,text):array_right(~V,left,text,right)
 def array_retained(~V:Type,~show:V -> V & String,value:Array<V>) -> Array<V> & String:
   match value:
-    case ALeaf{value}:array_leaf(V,show(value))
-    case ANode{left,right}:array_pair(V,array_retained(~V,~show,left),array_retained(~V,~show,right))
+    case ALeaf{value}:array_leaf(~V,show(value))
+    case ANode{left,right}:array_pair(~V,array_retained(~V,~show,left),array_retained(~V,~show,right))
 def u32_array(value:Array<U32>) -> Array<U32> & String:array_retained(~U32,~(value => data_retained(U32,U32.show,value)),value)
 def maybe_some(-V:Type,result:V & String) -> Maybe<&1,V> & String:
   match result:
