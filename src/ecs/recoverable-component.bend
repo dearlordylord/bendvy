@@ -2,7 +2,6 @@ import Base
 import ./world.bend as W
 import ./lifecycle.bend as Life
 
-# Shared nominal owners for explicit recovery and its legacy column adapter.
 type Tag is Data:Tag{}
 type Record<S:Data,P:Type> is Type:
   Record{handle:W.Handle<S>,stamp:Life.Stamp,payload:Maybe<P>}
