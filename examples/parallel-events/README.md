@@ -96,14 +96,39 @@ worker count or a schedule entry named native does not establish actual worker
 participation; that requires source-bound observation of reached operations.
 Historical control receipts require their own current-source reuse assessment.
 
-At source `dd0652c354f2b24f288dc98141a0823b7f9c743b`, the unchanged pinned
-compiler emitted this complete original entry for JS and native. Each build and
-each ordinary execution exited zero. Native execution with two workers and GPU
-off produced the same complete eight-line, 11,275-byte output as JS; the standalone
-comparison exited zero. Refused payload 104 and retired/shutdown payloads
-90/101/102/103 were each projected twice from their actual returned owners.
-Reader cursors, retained-publication errors, skipped reads and resumed passes are
-present in the complete output. No new scenario or independent semantic oracle
-was added. This finite execution does not establish universal preservation,
-actual worker placement, GPU behavior or speedup. Local source-bound logs remain
-outside the repository; they are not a portable qualification bundle.
+At current runtime source `4621bdab81d46a0c4a5450f17fa37c8c4c847fd1`, the
+original eight-mode entry emitted C with official Bend 2.0.37, compiled with
+project clang 19.1.7 C11/O3/pthread/libm and ran with two workers and GPU off.
+Every stage exited zero and runtime stderr was empty. Its complete eight-line,
+17,291-byte output matched the independently source-derived expected output,
+frozen before reading the actual output. The current JavaScript artifact also
+matched that full expectation; later control and documentation changes did not
+alter its imported runtime code. Expected/output SHA256 is
+`97b760755584e75f8af190ec6ac296d136b999792f60f70a8deb02f0362207e3`.
+The retained C, binary, individual exits and comparison are recorded in
+`/tmp/gh84-current-native/receipt.md`.
+
+A single symbol/thread observation of that same binary recorded actual typed
+publication on OS worker 3746868 and the deferred peer callback on OS worker
+3746870 within the first A-affine-native schedule invocation of one World.
+The first selected-call boundary opened recording and the second closed it.
+Event-family users still serialize; this does not claim concurrent log ownership.
+GDB all-stop perturbs scheduling. Its diagnostic records interrupted buffered
+stdout, so the initial label-only extraction failed; removing only those records
+and joining the retained actual continuation fragments recovered all eight lines,
+which matched the complete independent expected output. The raw trace, initial
+capture failure and successful full comparison remain in
+`/tmp/gh84-current-native/operation-receipt.md`. There is no register/heap/ALC
+inspection, forced scheduling, temporal-overlap, speedup, GPU or universal
+owner-preservation claim.
+The earlier `dd0652c354` 2.0.35 eight-line, 11,275-byte receipt remains historical,
+including its returned-payload projections; it is not relabelled as the current
+17,291-byte independent observation. Historical control receipts retain their
+own narrow source-bound reuse requirements.
+
+At runtime source `4621bdab8`, eleven existing intended authority refusals have
+narrow current-source reuse evidence, including the separately checked abstract
+scope escape. The binding audit compares the unchanged control and endpoint
+definitions; it does not promote historical whole import closures or changed
+wrapper-selection adapters into current proof-check passes. See
+`/tmp/gh84-authority-reuse-audit.md` for the exact scope.
