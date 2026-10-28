@@ -147,10 +147,18 @@ path does not establish retained-node cache preservation.
 
 [main.bend](main.bend) imports the scheduled consumer as `Independent`. The
 aggregate sequences Independent A/B followed by Guarded A/B before printing,
-each selecting its native Task policy. At historical source `5ef841663`, the
-aggregate compiled and ran with the pinned 2.0.35 JS and native routes. Its four
-complete output lines matched at 2,884 bytes. That historical receipt includes
-the retained captured-condition path and establishes no multiple-worker claim.
+each selecting its native Task policy. At current runtime source `386365b49`,
+the original aggregate emitted C with official 2.0.37, compiled with project
+clang 19.1.7 O3 and ran with `--threads 2 --gpu off`. Its complete four-line,
+2,884-byte output matched the independently source-derived expected output.
+The existing current JavaScript artifact also matched that complete expectation;
+controls and documentation changes did not alter its imported runtime code.
+Individual build/run exits were zero and runtime stderr was empty. The source,
+binary and comparison receipt are retained in `/tmp/gh83-current-aggregate-native/`.
+This is finite aggregate execution evidence, not a measured multiple-worker
+operation trace for this binary. Earlier worker observations retain their own
+artifact and source scope. The historical `5ef841663` 2.0.35 receipt remains
+historical and is not relabelled as this current execution.
 
 Golden files and `check.sh` were retired on 2026-10-27 at the user's direction.
 Historical comparisons against those files are not current acceptance steps.
