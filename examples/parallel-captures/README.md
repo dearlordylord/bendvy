@@ -160,9 +160,21 @@ retained-node lifecycle or Task policy behavior.
 
 ## Existing authority controls
 
-The files in [controls](controls) contain intended affinity and authority refusals.
-`duplicate-capture.bend` and `duplicate-local.bend` use the actual affine context
-and Local types. Other controls still refer to the earlier scheduled-owner,
-concrete-scope, or `execution-access` capability API. They require migration to the
-current retained-node and resource-access boundary before their diagnostics can
-qualify that boundary. No current diagnostic result is claimed for those controls.
+The four existing controls migrated at `8327e966c` now exercise the current
+resource-access, abstract-scope and retained-node boundaries. Qualified 2.0.35
+source checks returned the intended diagnostics: `undeclared-resource.bend`
+rejects a Score transform where the Counter writer requires Counter;
+`write-through-read.bend` rejects matching a Writer constructor against a Reader;
+`escape-scope.bend` rejects returning abstract `H` as resource Storage; and
+`cross-schema.bend` rejects returning an actual SchemaA retained Node as SchemaB.
+The `guarded-nodes.bend` counterpart reported only its existing 48 unsafe/foreign
+dependencies, not parser, type or affinity errors; this is not a proof pass.
+The initial cross-schema missing-import result is preserved as NONPASS and is not
+used as an authority diagnostic. Exact logs and source binding are retained in
+`/tmp/gh83-controls-receipt/`.
+
+`duplicate-capture.bend` and `duplicate-local.bend` retain their unchanged actual
+affine context and Local types. Their earlier intended diagnostics are reused only
+for those unchanged boundaries, not as validation of every imported module or of
+the current runtime. These controls establish no universal confinement or complete
+GH83 acceptance claim.
