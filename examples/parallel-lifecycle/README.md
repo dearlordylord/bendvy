@@ -1,4 +1,4 @@
-> Verification policy override (2026-10-27): semantic verification uses Bend laws only. The new non-law models, reference tests, golden outputs and check scripts have been retired at the user's direction. References below to those checks describe historical work, not current acceptance. Historical receipts remain outside the source tree; the five approved Bend helper laws do not prove the whole ECS.
+> Verification policy: retired golden/model/check artifacts below remain historical and are not current acceptance commands. The user later authorized temporary host helpers for independent source-derived observations, provided those helpers are deleted after use. Such comparisons are finite execution evidence, not Bend proofs; the five approved helper laws retain their stated scope.
 
 # Query lifecycle filters
 
@@ -32,14 +32,21 @@ set `BEND`, `NODE`, and `CLANG` to the corresponding installed tools.
 The notice application uses the current TaskIO bodies and IO schedule API. Its
 four updates retain the fast and dormant removal readers, input/despawn readers,
 first-reader body error and actual foreign-World reader transfer. The same
-existing observations are printed after each application's IO completes. This
-caller migration does not establish the remaining GH85 cases or a lifecycle
-proof. The migrated original main emitted and ran on JavaScript and native
-(two threads, GPU off); their complete six-line, 18,871-byte outputs matched.
-Both runtime stderr streams were empty. Independent review remains pending.
-The one source-check attempt reported the old buffer-entry arity, repaired before
-these runs; no successful full source check is claimed. Historical backend
-receipts below do not qualify this migrated source.
+existing observations are printed after each application's IO completes.
+
+The current original main emitted C with official Bend 2.0.37 at runtime source
+`ee885651da7e1083358adef0293fa9e253121edf`, compiled with project clang 19.1.7
+C11/O3/pthread/libm and ran with two workers and GPU off. Every stage exited zero;
+stdout was six lines and 18,871 bytes and runtime stderr was empty. The retained
+C, binary, individual exits and source binding are in
+`/tmp/gh85-current-native/receipt.md`. The complete current JavaScript and native
+outputs each matched an independently source-derived expectation frozen before
+reading the actual outputs. That finite comparison is not a universal proof or
+actual worker-operation observation.
+The existing current JavaScript artifact remains reusable because its imported
+runtime code is unchanged by subsequent control and documentation edits.
+The old buffer-entry source diagnostic was repaired before the earlier migration
+runs; no successful full proof-only check is inferred from backend execution.
 
 [`history.bend`](history.bend) retains six QueryApp cases for an existing zero
 cursor, low-word wrap, dormant old and recent stamps, and serial and parallel
@@ -70,10 +77,57 @@ receipt is `/tmp/lifecycle85-history-io-receipt.md`. The two read-only GH85 roun
 reviews found no concrete defect in this two-entry migration and seed repair.
 Those reviews do not review the separate main/notice migration described above.
 
-These source-bound observations do not establish full GH85 acceptance, native
-worker participation, compile-time access controls, or a universal execution
-proof. Historical setup does not expose cursor or clock mutation to gameplay.
-The five approved helper laws retain their existing scope.
+The fixed history receipt is reused narrowly for its selected basic-query behavior:
+history, payloads, tick/filter operations, pure row traversal and returned-owner
+execution semantics remain unchanged. Later generalized/taskful additions are not
+selected by history. Widened Builder selector plumbing is exercised by current
+ordinary consumers, not retroactively by the old native binary. The source map is
+`/tmp/gh85-current-source-map.md`; this is not whole-import-closure identity or a
+claim that every old artifact was rebuilt. A separately source-derived corrected-history expectation also matched the
+complete fixed-history JavaScript and native outputs at six lines and 14,882 bytes.
+This supports the narrowly unchanged selected history path, not a current rebuild
+of the old binary or a whole-import-closure pass.
+
+## Returned errors, refusal and fatal failures
+
+As specified in [SPEC](../../docs/SPEC.md), ordinary execution is
+nontransactional. Writes and yielded-reader progress before a returned `BodyError`
+remain in the returned owners. An executed body error advances that system's
+last-run cursor; an admission refusal does not invoke the body or advance its
+cursor. A false condition skips its target body and is distinct from a returned
+body error. Ordering dependencies require completion and visibility, not predecessor
+success; handler-directed continuation does not undo independent work.
+A fatal foreign/runtime abort is a different boundary: it is not a returned
+`BodyError`, does not promise recoverable owner return, and introduces no rollback
+or artificial crash-control API. These finite consumers do not establish universal
+behavior for every fatal runtime failure. Historical setup exposes no gameplay
+cursor/clock mutation; the five approved helper laws keep their limited scope.
+
+## Current authority and worker evidence scope
+
+Five existing World-authority control files were migrated at `7cd09d1b0` to the
+current Permit/Task/FrameworkProgram signatures. The correct-World and detached
+positive counterparts reported only their existing 18 unsafe/foreign-dependent
+definitions, not parser, type or affinity errors; these are not proof passes.
+The wrong-World definition rejected `World<...,Array<U32>,...>` where Unit storage
+was required, and detached laundering rejected metadata carrying the wrong actual
+owner family. Exact source bindings and intended diagnostics remain in
+`/tmp/gh85-controls-receipt/receipt.md`; no new authority case was introduced.
+Existing notice controls also retain narrow source-current reader schema, stream,
+origin, affinity, route, classification and refresh-boundary reuse evidence in
+`/tmp/gh85-notice-authority-reuse.md`. That binding does not promote historical
+whole import closures or dependency-limited source checks into proof passes.
+
+Accepted GH81 actual row-operation evidence is reused narrowly for the unchanged
+component-and-metadata traversal: two OS workers executed actual Output-owner row
+operations within one query invocation, and the complete independent observations
+included values, cache, stamps and cursors. The shared physical column split/join
+and basic query path retain their definitions; each leaf carries its lifecycle
+stamps with the affine component arrays. This establishes finite reached
+component/metadata worker evidence, not worker placement for populated lifecycle
+journal publication, foreign-reader transfer or every filtered branch. The exact
+source comparison and limits are in `/tmp/gh85-current-source-map.md`. No new
+worker probe or multiple-worker journal ownership claim follows.
 
 ## Historical source-bound receipts
 
