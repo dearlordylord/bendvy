@@ -45,7 +45,7 @@ type User is Type:
 def granted(~Permit:Data,~H:Type,~Q:Type,~B:Type,~K:Type,book:B,result:K & Permission.EntityCommands<Q,S.SchemaA,S.layout_b(),Permit>) -> B & (K & Ops(Permit,H,Q)):
   (book,result)
 def declaration(~Permit:Data,~H:Type,~Q:Type,~commands:Local.Commands<Q,S.SchemaA,L.payload(S.layout_b(),L.InLeft{L.AtLeaf{}})>,~B:Type,~builder:Build.Builder(~S.SchemaA,~Run.WC(),~Run.CombinedColumns(),~Run.CombinedResources(),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S.SchemaA,~S.layout_b(),~Permit,~Q,~K),~relations:Permission.RelationGrant(~S.SchemaA,~Run.combined_resources(),~Q,~K),~scopes:Permission.ScopeGrant(~S.SchemaA,~Run.combined_resources(),~Q,~K),book:B,permission:K) -> B & (K & Ops(Permit,H,Q)):
-  granted(~Permit,~H,~Q,~B,~K,book,entity(permission))
+  granted(~Permit,~H,~Q,~B,~K,book,Permission.entity(~S.SchemaA,~S.layout_b(),~Permit,~Q,~K,~entity,permission))
 def spawned(~Permit:Data,~H:Type,~Q:Type,scope:H,+calls:U32,result:Q & Buffer.SpawnAdmission<S.SchemaA,Removed.Removed(S.layout_b())>) -> Task.Task<S.SchemaA,Permit,H & (Q & (User & Sys.Completion<String,Maybe<&2,U32>>))>:
   match result:
     case (queue,Buffer.SpawnQueued{_}):Task.TDone{(scope,(queue,(User{None{},calls},Sys.BodyError{"author-after-spawn",Some{calls}})))}

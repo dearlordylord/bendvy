@@ -41,7 +41,7 @@ def author_granted(~Permit:Data,~H:Type,~Q:Type,~B:Type,~K:Type,book:B,result:K 
   match result:
     case (permission,ops):(book,(permission,ops))
 def author_declaration(~Permit:Data,~H:Type,~Q:Type,~commands:Local.Commands<Q,Schema,P.Token>,~B:Type,~builder:Build.Builder(~Schema,~Store(),~Left(),~Unit,~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~Schema,~layout(),~Permit,~Q,~K),~relations:Permission.RelationGrant(~Schema,~resources(),~Q,~K),~scopes:Permission.ScopeGrant(~Schema,~resources(),~Q,~K),book:B,permission:K) -> B & (K & CmdOps(Permit,H,Q)):
-  author_granted(~Permit,~H,~Q,~B,~K,book,entity(permission))
+  author_granted(~Permit,~H,~Q,~B,~K,book,Permission.entity(~Schema,~layout(),~Permit,~Q,~K,~entity,permission))
 def peer_declaration(~Permit:Data,~token:Permit,~H:Type,~B:Type,~builder:Build.Builder(~Schema,~Store(),~Unit,~Unit,~Permit,~H,~B),book:B) -> B & Unit:
   (book,Unit{})
 def peer_body(~Permit:Data,~H:Type,~caps:Unit,scope:H,token:Array<U32>) -> Effect.Task<Schema,Permit,H & (Array<U32> & Sys.Completion<String,Unit>)>:

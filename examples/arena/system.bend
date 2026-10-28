@@ -35,7 +35,7 @@ def granted(~Permit:Data,~H:Type,~Queue:Type,~B:Type,~builder:Build.Builder(~D.S
   match result:
     case (permission,commands):selected(~Permit,~H,~Queue,B,K,commands,permission,builder(Permit => H => Q.GeneralWriter<D.Schema,H,G.Body,G.Body>,query(~Permit,~H,~B),book))
 def declaration(~Permit:Data,~H:Type,~Queue:Type,~commands:Local.Commands<Queue,D.Schema,G.Body>,~B:Type,~builder:Build.Builder(~D.Schema,~D.Columns(),~C(),~R(),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~D.Schema,~D.components(),~Permit,~Queue,~K),~relations:Permission.RelationGrant(~D.Schema,~D.resources(),~Queue,~K),~scopes:Permission.ScopeGrant(~D.Schema,~D.resources(),~Queue,~K),book:B,permission:K) -> B & (K & Ops(Permit,H,Queue)):
-  granted(~Permit,~H,~Queue,~B,~builder,K,book,entity(permission))
+  granted(~Permit,~H,~Queue,~B,~builder,K,book,Permission.entity(~D.Schema,~D.components(),~Permit,~Queue,~K,~entity,permission))
 def rows(~H:Type,~Queue:Type,~Permit:Data,caps:Caps<Permit,H,Queue>) -> H -> H & Q.GeneralReport<D.Schema,G.Body>:
   match caps:
     case Caps{Q.GeneralWriter{Q.GeneralReader{read,_},_},_}:read

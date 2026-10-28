@@ -41,7 +41,7 @@ def declared_entities(~Permit:Data,~H:Type,~Q:Type,~B:Type,~K:Type,~relations:Pe
   match result:
     case (permissions,entities):declared_parent(~Permit,~H,~Q,~B,~K,~relations,book,entities,relations(L.InLeft{L.AtLeaf{}},{==},D.parent(),{==},{==},{==},permissions))
 def declaration(~Permit:Data,~H:Type,~Q:Type,~commands:Local.Commands<Q,D.Scene,Array<U32>>,~B:Type,~builder:Build.Builder(~D.Scene,~Columns(),~C(),~R(),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~D.Scene,~D.components(),~Permit,~Q,~K),~relations:Permission.RelationGrant(~D.Scene,~resources(),~Q,~K),~scopes:Permission.ScopeGrant(~D.Scene,~resources(),~Q,~K),book:B,permissions:K) -> B & (K & Ops(Permit,H,Q)):
-  declared_entities(~Permit,~H,~Q,~B,~K,~relations,book,entity(permissions))
+  declared_entities(~Permit,~H,~Q,~B,~K,~relations,book,Permission.entity(~D.Scene,~D.components(),~Permit,~Q,~K,~entity,permissions))
 def entities(~Permit:Data,~Q:Type,caps:Caps<Permit,Q>) -> Permission.EntityCommands<Q,D.Scene,D.components(),Permit>:
   match caps:
     case Caps{entities,_,_}:entities

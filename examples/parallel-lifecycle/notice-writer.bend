@@ -42,7 +42,7 @@ def granted(~S:Data,~Permit:Data,~H:Type,~O:Type,~B:Type,~K:Type,query:QueryOps(
     case (permission,entity):(book,(permission,Caps{entity,query}))
 def declared(~S:Data,~Permit:Data,~H:Type,~O:Type,~B:Type,~K:Type,~entity:Permission.Grant(~S,~Core.layout(~S),~Permit,~O,~K),permission:K,result:B & QueryOps(~S,H,O)) -> B & (K & Ops(~S,Permit,H,O)):
   match result:
-    case (book,query):granted(~S,~Permit,~H,~O,~B,~K,query,book,entity(permission))
+    case (book,query):granted(~S,~Permit,~H,~O,~B,~K,query,book,Permission.entity(~S,~Core.layout(~S),~Permit,~O,~K,~entity,permission))
 def author_declaration(~S:Data,~mode:Q.Mode,~Permit:Data,~H:Type,~O:Type,~commands:Local.Commands<O,S,P.Output>,~B:Type,~builder:Build.Builder(~S,~Core.Store(~S),~Core.Left(~S),~D.Resources(~S),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~Core.layout(~S),~Permit,~O,~K),~relations:Permission.RelationGrant(~S,~Core.resources(),~O,~K),~scopes:Permission.ScopeGrant(~S,~Core.resources(),~O,~K),book:B,permission:K) -> B & (K & Ops(~S,Permit,H,O)):
   declared(~S,~Permit,~H,~O,~B,~K,~entity,permission,declaration(~S,~Core.Store(~S),~mode,~Permit,~H,~O,~commands,~B,~builder,book))
 type User<-S:Data> is Type:

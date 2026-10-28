@@ -25,7 +25,7 @@ def initial() -> User:
   User{[Product.Owner{Some{V.Health{10.0}},Some{V.HealthDecay{0.5}}},Product.Owner{Some{V.Health{20.0}},Some{V.HealthDecay{0.25}}},Product.Owner{Some{V.Health{30.0}},None{}}],[],[]}
 def granted(~Permit:Data,~H:Type,~Q:Type,-B:Type,-K:Type,book:B,result:K & Ops(Permit,H,Q)) -> B & (K & Ops(Permit,H,Q)):(book,result)
 def declaration(~Permit:Data,~H:Type,~Q:Type,~commands:Local.Commands<Q,D.Schema,V.Health>,~B:Type,~builder:Build.Builder(~D.Schema,~D.Columns(),~Decay.C(),~Decay.R(),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~D.Schema,~D.components(),~Permit,~Q,~K),~relations:Permission.RelationGrant(~D.Schema,~D.resources(),~Q,~K),~scopes:Permission.ScopeGrant(~D.Schema,~D.resources(),~Q,~K),book:B,permission:K) -> B & (K & Ops(Permit,H,Q)):
-  granted(~Permit,~H,~Q,B,K,book,entity(permission))
+  granted(~Permit,~H,~Q,B,K,book,Permission.entity(~D.Schema,~D.components(),~Permit,~Q,~K,~entity,permission))
 def admitted(~Permit:Data,~H:Type,~Q:Type,next:List<Removed.Removed(D.components())> -> H -> Q -> List<&2,W.Handle<D.Schema>> -> Task.Task<D.Schema,Permit,H & (Q & (User & Sys.Completion<String,Unit>))>,scope:H,remaining:List<Removed.Removed(D.components())>,handles:List<&2,W.Handle<D.Schema>>,result:Q & Buffer.SpawnAdmission<D.Schema,Removed.Removed(D.components())>) -> Task.Task<D.Schema,Permit,H & (Q & (User & Sys.Completion<String,Unit>))>:
   match result:
     case (queue,Buffer.SpawnQueued{handle}):next(remaining,scope,queue,List.append(&2,W.Handle<D.Schema>,handles,[handle]))

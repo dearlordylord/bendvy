@@ -39,7 +39,7 @@ def entity_selected(~S:Data,~Permit:Data,~Q:Type,~B:Type,~K:Type,~relations:Perm
   match result:
     case (permissions,entity):parent_selected(~S,~Permit,~Q,~B,~K,~relations,~scopes,book,entity,relations(parent_route(),{==},Scene.hierarchy(~S),{==},{==},{==},permissions))
 def declaration(~S:Data,~Permit:Data,~H:Type,~Q:Type,~commands:Local.Commands<Q,S,Session>,~B:Type,~builder:Build.Builder(~S,~Layout.columns(~S,components()),~C(~S),~R(~S),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~components(),~Permit,~Q,~K),~relations:Permission.RelationGrant(~S,~resources(~S),~Q,~K),~scopes:Permission.ScopeGrant(~S,~resources(~S),~Q,~K),book:B,permissions:K) -> B & (K & Ops(~S,Permit,H,Q)):
-  entity_selected(~S,~Permit,~Q,~B,~K,~relations,~scopes,book,entity(permissions))
+  entity_selected(~S,~Permit,~Q,~B,~K,~relations,~scopes,book,Permission.entity(~S,~components(),~Permit,~Q,~K,~entity,permissions))
 def entity_caps(~S:Data,~Q:Type,~Permit:Data,caps:Caps<S,Q,Permit>) -> Permission.EntityCommands<Q,S,components(),Permit>:
   match caps:
     case Caps{entity,_,_}:entity

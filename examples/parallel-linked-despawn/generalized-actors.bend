@@ -41,9 +41,9 @@ def UpdaterOps(~S:Data,Permit:Data,H:Type,Q:Type) -> Type:Unit
 def C(~S:Data) -> Type:Query.Storage<S,Actor.components()>
 def R(~S:Data) -> Type:Resource.Storage<S,Actor.resources(~S)>
 def graph_declaration(~S:Data,~Permit:Data,~H:Type,~Q:Type,~commands:Local.Commands<Q,S,Actor.Session>,~B:Type,~builder:Build.Builder(~S,~L.columns(~S,Actor.components()),~C(~S),~R(~S),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~Actor.components(),~Permit,~Q,~K),~relations:Permission.RelationGrant(~S,~Actor.resources(~S),~Q,~K),~scopes:Permission.ScopeGrant(~S,~Actor.resources(~S),~Q,~K),book:B,permissions:K) -> B & (K & Actor.Ops(~S,Permit,H,Q)):
-  Actor.entity_selected(~S,~Permit,~Q,~B,~K,~relations,~scopes,book,entity(permissions))
+  Actor.entity_selected(~S,~Permit,~Q,~B,~K,~relations,~scopes,book,Permission.entity(~S,~Actor.components(),~Permit,~Q,~K,~entity,permissions))
 def removal_declaration(~S:Data,~Permit:Data,~H:Type,~Q:Type,~commands:Local.Commands<Q,S,Actor.Session>,~B:Type,~builder:Build.Builder(~S,~L.columns(~S,Actor.components()),~C(~S),~R(~S),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~Actor.components(),~Permit,~Q,~K),~relations:Permission.RelationGrant(~S,~Actor.resources(~S),~Q,~K),~scopes:Permission.ScopeGrant(~S,~Actor.resources(~S),~Q,~K),book:B,permissions:K) -> B & (K & Remover.Ops(~S,Permit,H,Q)):
-  (book,entity(permissions))
+  (book,Permission.entity(~S,~Actor.components(),~Permit,~Q,~K,~entity,permissions))
 def GraphCompilation(~S:Data) -> Type:D.Compilation<S,L.columns(~S,Actor.components()),C(~S),R(~S),Cmd.ScopedOps(~S,~Actor.components(),~Actor.resources(~S),~Actor.route(),~Actor.Ops(~S))>
 def RemovalCompilation(~S:Data) -> Type:D.Compilation<S,L.columns(~S,Actor.components()),C(~S),R(~S),Cmd.ScopedOps(~S,~Actor.components(),~Actor.resources(~S),~Actor.route(),~Remover.Ops(~S))>
 def graph_compilation(~S:Data) -> GraphCompilation(~S):
