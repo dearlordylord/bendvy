@@ -1,11 +1,14 @@
 """Linux command ownership, raw capture and reusable evidence checks."""
 import ctypes
+import fcntl
 import hashlib
+import json
 import math
 import multiprocessing
 import os
 from pathlib import Path
 import signal
+import shutil
 import subprocess
 import time
 
@@ -155,8 +158,8 @@ def execute_result(command, timeout, env=None, cwd=None, capture='merged-stdout'
     The deadline limits the command, separately from worker setup and bounded
     cleanup. Linux /proc, pidfds and fork are required; no unsafe fallback.
     """
-    if isinstance(timeout, bool) or not isinstance(timeout, (int, float)) or not math.isfinite(timeout) or timeout <= 0:
-        raise ValueError('positive finite command timeout required')
+    if timeout is not None and (isinstance(timeout, bool) or not isinstance(timeout, (int, float)) or not math.isfinite(timeout) or timeout <= 0):
+        raise ValueError('command timeout must be None or positive and finite')
     if capture not in ('split', 'merged-stdout'):
         raise ValueError('unknown capture mode')
     command = list(map(os.fspath, command))
@@ -168,12 +171,12 @@ def execute_result(command, timeout, env=None, cwd=None, capture='merged-stdout'
     owner = context.Process(target=_worker, args=(sender, command, timeout, env, cwd, capture))
     owner.start()
     sender.close()
-    end = time.monotonic() + timeout + 5
+    end = None if timeout is None else time.monotonic() + timeout + 5
     result, primary_error = None, None
     try:
         # Polling avoids an indefinite wait after an unexpected worker death.
         while not receiver.poll(.05):
-            if time.monotonic() >= end:
+            if end is not None and time.monotonic() >= end:
                 raise TimeoutError('command owner exceeded command and cleanup budget')
             if not owner.is_alive():
                 # A result may arrive between the earlier poll and owner exit.
@@ -329,6 +332,92 @@ class Runner:
             error.result = result
             raise
         return result
+
+
+class StageCache:
+    """Resume commands from matching inputs and intact successful artifacts.
+
+    Callers declare each stage's full source/tool/input closure. Attempts and
+    failures remain immutable; changing an oracle invalidates its comparison,
+    not an otherwise unchanged build. This records execution, not acceptance.
+    """
+    def __init__(self, directory, *, cwd=None, env=None):
+        self.directory = Path(directory).resolve()
+        self.directory.mkdir(parents=True, exist_ok=True)
+        self.cwd = Path(cwd or Path.cwd()).resolve()
+        self.env = dict(os.environ if env is None else env)
+
+    def _files(self, names):
+        paths = [Path(name) for name in names]
+        paths = [p if p.is_absolute() else self.cwd / p for p in paths]
+        return {str(p.absolute()): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
+
+    def run(self, label, command, *, files=(), outputs=(), timeout=None, expected=0):
+        if not label or label in ('.', '..') or Path(label).name != label:
+            raise ValueError('stage label must be a filename')
+        command = list(map(os.fspath, command))
+        if not command:
+            raise ValueError('empty command')
+        search_path = os.pathsep.join(str((self.cwd / p).resolve())
+                                     for p in self.env.get('PATH', os.defpath).split(os.pathsep))
+        executable = (str(self.cwd / command[0]) if os.sep in command[0]
+                      else shutil.which(command[0], path=search_path))
+        if executable is None:
+            raise FileNotFoundError(command[0])
+        if not Path(executable).is_absolute():
+            executable = str(self.cwd / executable)
+        environment_hash = hashlib.sha256(json.dumps(self.env, sort_keys=True).encode()).hexdigest()
+        binding = dict(command=command, cwd=str(self.cwd), environmentSHA256=environment_hash, timeout=timeout,
+                       expected=expected, inputs=self._files([*files, executable]),
+                       outputs=[str((self.cwd / p).resolve()) for p in map(Path, outputs)],
+                       runnerSHA256=IMPLEMENTATION_SHA256)
+        key = hashlib.sha256(json.dumps(binding, sort_keys=True).encode()).hexdigest()
+        stage = self.directory / label
+        stage.mkdir(exist_ok=True)
+        with (stage / 'lock').open('a') as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX)
+            _implementation_guard()
+            if self._files(binding['inputs']) != binding['inputs']:
+                raise RuntimeError('stage input changed while waiting for ownership')
+            for prior in sorted(stage.glob('attempt-*/receipt.json'), reverse=True):
+                try:
+                    saved = json.loads(prior.read_text())
+                except json.JSONDecodeError:
+                    continue
+                if saved['key'] != key or saved['status'] != 'PASS':
+                    continue
+                try:
+                    intact = self._files(saved['artifacts']) == saved['artifacts']
+                except FileNotFoundError:
+                    intact = False
+                if intact:
+                    return dict(saved, reused=True, receipt=str(prior))
+            attempt = stage / ('attempt-' + str(len(list(stage.glob('attempt-*'))) + 1).zfill(6))
+            attempt.mkdir()
+            receipt = dict(key=key, binding=binding, status='INCOMPLETE')
+            started = time.monotonic()
+            try:
+                result = execute_result(command, timeout, self.env, self.cwd, 'split')
+                receipt.update(exit=result['exit'], failure=result['failure'],
+                               elapsedSeconds=time.monotonic() - started)
+                (attempt / 'stdout').write_bytes(result['stdout'])
+                (attempt / 'stderr').write_bytes(result['stderr'])
+                if self._files(binding['inputs']) != binding['inputs']:
+                    raise RuntimeError('stage input changed during execution')
+                _raise_failure(result)
+                if result['exit'] != expected:
+                    raise RuntimeError('unexpected command exit: ' + str(result['exit']))
+                receipt['artifacts'] = self._files([attempt / 'stdout', attempt / 'stderr', *outputs])
+                receipt['status'] = 'PASS'
+            except BaseException as error:
+                receipt['error'] = type(error).__name__ + ': ' + str(error)
+                raise
+            finally:
+                destination = attempt / 'receipt.json'
+                temporary = attempt / 'receipt.tmp'
+                temporary.write_text(json.dumps(receipt, indent=2, sort_keys=True) + '\n')
+                temporary.replace(destination)
+            return dict(receipt, reused=False, receipt=str(destination))
 
 
 def run(command, *, timeout, capture_output=False, text=False, env=None,

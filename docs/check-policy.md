@@ -2,6 +2,13 @@
 
 ## Development before acceptance
 
+The current temporary-helper, deadline and single-checkpoint rules are in
+[agent workflow](agent-workflow.md#delivery). Run authorized sequences without
+per-stage coordinator admissions. Use the shared runner's
+[resumable stages](../scripts/task-runner.md#resuming-a-sequence) rather than new
+task-specific process supervisors. Preserve a failed attempt when a successor
+corrects an independently diagnosed expectation.
+
 Use [execution limits](limits.md) for new plans. Record budget increases there;
 preserve historical plans and apply shared comparison limits to all backends.
 
