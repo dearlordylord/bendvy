@@ -4,8 +4,12 @@ GH91 now has an executable ordinary save/restore/resume path on canonical cached
 Layout owners. GH92 has an executable ordinary graph, machine and lifetime-scope
 restore path with retained receiver owners and subsequent scheduling. Ordinary entry
 observations are not mathematical proofs or full runtime snapshot qualification.
-All new persistence laws are unapproved and unproved; the five approved execution
-helper laws retain their original scope.
+The specifically approved `pending_returns_actual_application` law is kernel-proved
+against the unchanged production `Gate.checked`: a supplied `True` pending flag
+returns the same actual application and `RefusedPending` without projection. This
+does not prove the pending detector, whole-World identity, restore or refinement.
+Other persistence draft laws remain unapproved; prior helper proofs retain their
+original scope.
 
 ## Schema, ownership and save
 
@@ -89,18 +93,12 @@ output oracle or host test harness.
   refuse, the actual queue remains 515 with zero receipts, captures remain
   101/404/202/303, Reader cursor stays 0, both binding lists remain empty and
   unapplied IDs remain [2,3]. Actor 41/Config 700/generation 0 remain in the returned
-  World. The earlier relation dispatcher compile-time-route failure predates the
-  closed-declaration dispatch repair in `fc7e4d2b1`. The current
-  `execution-relation-buffer` receives the declaration-derived dispatch program
-  and passes the route as a runtime argument. After the existing formatter repair
-  in `aa2a4593b37b6e3ede4a406888215b40ad1938ac`, original Alpha/Beta serial/native
-  cases produce matching JavaScript and native output, four lines and 2,586 bytes.
-  JavaScript emission, Node execution, C emission, and Clang compilation each
-  returned zero. The native exit status was not separately captured from the
-  successful shell group containing output comparison. The local receipt is
-  `/tmp/pending91-original-entry-receipt.md`. These observations do not establish
-  complete World identity or full GH91/GH92 acceptance. `extended-resume.bend` and
-  `extended-active.bend` retain their separate observation scopes.
+  World. The historical 2,586-byte receipt at
+  `/tmp/pending91-original-entry-receipt.md` lacked a separately retained native
+  exit; it remains historical evidence, not the current qualification. The current
+  observer renders the actual returned application, full queued key/generation
+  and payload, and pending restore receipt directly, without using save as a World
+  projection.
 - `floor-main.bend`: real source floor 4, separately created receiver namespace,
   actual mapping 1:0 to receiver 4:0, and resumed Config 700 to 701 for both schemas.
   An independently exhausted receiver at next 131073 refuses before constructors
@@ -126,15 +124,30 @@ output oracle or host test harness.
   Reader. The complete pool/factory/recovery state remains in the returned result
   through that retry. This does not claim a completed pooled publication API.
 
-Each unblocked entry above completed an ordinary invocation with exit 0 within
-its recorded source scope. Finite observations do not establish generic ownership
-identity. Maximum-size source metadata export reached a machine stack failure;
-that production limitation remains unresolved, with no increased limit or retry
-campaign. Source-current access/ownership controls, independent Spec/Standards
-review and formal laws remain incomplete. Basic `main.bend` already resumes both
-serial and canonical Schedule.run_native updates for Alpha and Beta: the full
-Config field changes from saved 701 to resumed 702. Native here names that actual
-execution path; it does not add an independently qualified host ABI comparison.
+The basic, pending, floor and retry terminal observers render actual component and
+resource payloads, caches and lifecycle stamps; allocator slots and topology;
+clock, registrations and lifecycle journal; retained system headers, cursors,
+Local arrays and Reader; and reached restore staging, removed owners, mappings,
+publication receipts and previous resources. Basic and retry preserve the existing
+final save and label the returned application as post-save. Pending and receiver
+refusals inspect their actual returned owners directly. Capacity refusal includes
+all 262,144 allocator slots rather than a checksum. The plain policy consumer keeps
+its narrower actual/cache observation.
+
+Current basic, pending, floor, retry and plain complete source-derived observations
+match JavaScript and native execution, with separately retained successful stage
+exits and full-output comparisons for each original entry.
+The basic oracle's blind first version used the wrong access ordering; its
+source-justified post-read correction and initial mismatch are retained explicitly.
+These are finite rendered observations. Callback, undo and proof values remain
+labelled opaque; a saved World does not serialize live callbacks, Reader cursors or
+the complete runtime. No universal ownership identity, physical worker placement,
+GPU or speedup claim follows. Maximum-size source metadata export previously
+reached a machine stack failure;
+that production limitation remains unresolved. Directly rendering the floor
+allocator does not qualify maximum-size `Save.export`. Historical timeout failures
+remain nonpasses; no limit increase is implied. The separate graph, machine,
+scope and pooled recovery scopes below are unchanged.
 
 ## Graph and machine extension
 
