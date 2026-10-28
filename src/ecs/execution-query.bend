@@ -216,3 +216,6 @@ def task_output_declaration(~S:Data,~Permit:Data,~C:Type,~R:Type,~layout:Layout.
 def each_task_output(~S:Data,~Permit:Data,~H:Type,~O:Type,~E:Data,cap:TaskOutputEach<S,Permit,H,O,E>) -> H -> O -> Task.Task<S,Permit,H & (O & Report<E>)>:
   match cap:
     case TaskOutputEach{run}:run
+
+def TaskGeneralBody(~S:Data,~Permit:Data,~P:Type,~V:Data,~O:Type,~E:Data) -> Type:
+  W.Handle<S> -> V -> P -> O -> Task.Task<S,Permit,P & (O & Maybe<&2,E>)>

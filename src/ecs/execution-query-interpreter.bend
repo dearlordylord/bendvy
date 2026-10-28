@@ -1,4 +1,5 @@
 import Base
+import ./execution-reservation-task.bend as Task
 import ./chunk-query.bend as Row
 import ./execution-query-lifecycle.bend as Lifecycle
 import ./execution-query-store.bend as Store
@@ -250,5 +251,52 @@ def output_model_caps(~S:Data,~WC:Type,~C:Type,~R:Type,~full:L.Layout,~route:L.R
     case Store.Sparse{}:sparse_output_caps(~S,~full,~route,~R,~bound,~presence,~predicate,~O,~E,~split,~merge,~body,~C,local)
 def output_provider(~S:Data,~WC:Type,~C:Type,~R:Type,~full:L.Layout,~route:L.Route,~same:{WC == L.columns(~S,full) : Type},~valid:{L.grant_valid(~full,~route) == True{} : Bool},~model:Store.StorageModel,~local:{C == Store.owner(~S,full,model) : Type},~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,L.view(full,route)> -> Bool,~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:W.Handle<S> -> L.view(full,route) -> L.payload(full,route) -> O -> L.payload(full,route) & (O & Maybe<&2,E>)) -> Q.GeneralOutputWriter<S,State.Scope<S,C,R>,L.payload(full,route),L.view(full,route),O,E>:
   output_model_caps(~S,~WC,~C,~R,~full,~route,~same,~valid,~bound,~presence,~predicate,~O,~E,~split,~merge,~body,model,local)
+
+def task_selected_handles(~S:Data,~V:Data,rows:List<&2,Q.GeneralRow<S,V>>) -> List<&2,W.Handle<S>>:
+  match rows:
+    case []:[]
+    case Q.GeneralRow{handle,Some{_}} <> rest:handle <> task_selected_handles(~S,~V,rest)
+    case Q.GeneralRow{_,None{}} <> rest:task_selected_handles(~S,~V,rest)
+
+def task_selected_offsets(~S:Data,handles:List<&2,W.Handle<S>>) -> List<&2,U32>:
+  match handles:
+    case []:[]
+    case handle <> rest:U32.sub(W.handle_index(~S,handle),1) <> task_selected_offsets(~S,rest)
+
+def task_sparse_returned(~S:Data,~full:L.Layout,~route:L.Route,~R:Type,~O:Type,~E:Data,frame:Frame<S,full,route,R>,result:Store.Slot<S,L.payload(full,route),L.view(full,route),L.origin(full,route)> & (O & (List<&2,Row.Error<E>> & Bool))) -> State.Scope<S,Store.Storage<S,full>,R> & (O & Q.Report<E>):
+  match result:
+    case (slot,(output,(errors,True{}))):(frame_scope(~S,~full,~route,~R,frame,slot),(output,Q.Completed{errors}))
+    case (slot,(output,(_,False{}))):(frame_scope(~S,~full,~route,~R,frame,slot),(output,Q.LayoutRefused{}))
+
+def task_sparse_taken(~S:Data,~Permit:Data,~full:L.Layout,~route:L.Route,~R:Type,~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:Q.TaskGeneralBody(~S,~Permit,~L.payload(full,route),~L.view(full,route),~O,~E),namespace:U32,grants:List<&2,Admission.Granted<S,L.columns(~S,full)>>,info:List<&2,Schema.Info>,resource:R,handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,+prior:Maybe<&2,Tick.Tick>,view:Notice.View<S>,+selected:List<&2,W.Handle<S>>,+mode:Q.Mode,output:O,result:Store.route_rest(~S,full,route) & Store.Slot<S,L.payload(full,route),L.view(full,route),L.origin(full,route)>) -> Task.Task<S,Permit,State.Scope<S,Store.Storage<S,full>,R> & (O & Q.Report<E>)>:
+  match result:
+    case (rest,slot):Task.TBind{Store.Slot<S,L.payload(full,route),L.view(full,route),L.origin(full,route)> & (O & (List<&2,Row.Error<E>> & Bool)),Store.task_output_slot(~S,~Permit,~full,~route,~O,~E,~body,~split,~merge,selected,tick,Q.mode_parallel(mode),Q.selection(mode,task_selected_offsets(~S,selected),prior),slot,output),result=>Task.TDone{task_sparse_returned(~S,~full,~route,~R,~O,~E,Frame{namespace,rest,grants,info,resource,handles,tick,prior,view},result)}}
+
+def task_sparse_selected(~S:Data,~Permit:Data,~full:L.Layout,~route:L.Route,~R:Type,~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:Q.TaskGeneralBody(~S,~Permit,~L.payload(full,route),~L.view(full,route),~O,~E),mode:Q.Mode,output:O,result:State.Scope<S,Store.Storage<S,full>,R> & Q.GeneralReport<S,L.view(full,route)>) -> Task.Task<S,Permit,State.Scope<S,Store.Storage<S,full>,R> & (O & Q.Report<E>)>:
+  match result:
+    case (scope,Q.SelectionRefused{}):Task.TDone{(scope,(output,Q.LayoutRefused{}))}
+    case (State.Scope{Store.Storage{namespace,columns,grants,info},resource,handles,tick,prior,+view},Q.SelectedRows{rows}):task_sparse_taken(~S,~Permit,~full,~route,~R,~O,~E,~split,~merge,~body,namespace,grants,info,resource,handles,tick,prior,view,task_selected_handles(~S,~L.view(full,route),rows),mode,output,Store.take(~S,full,route,columns))
+
+def task_sparse_targets(~S:Data,~Permit:Data,~full:L.Layout,~route:L.Route,~R:Type,~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,L.view(full,route)> -> Bool,~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:Q.TaskGeneralBody(~S,~Permit,~L.payload(full,route),~L.view(full,route),~O,~E),mode:Q.Mode,scope:State.Scope<S,Store.Storage<S,full>,R>,output:O,checked:Id.TargetCheck<S>) -> Task.Task<S,Permit,State.Scope<S,Store.Storage<S,full>,R> & (O & Q.Report<E>)>:
+  match checked:
+    case Id.Refused{_}:Task.TDone{(scope,(output,Q.LayoutRefused{}))}
+    case Id.Targets{_,_}:task_sparse_selected(~S,~Permit,~full,~route,~R,~O,~E,~split,~merge,~body,mode,output,sparse_query(~S,~full,~route,~R,~Recipe.WriteRows{},~bound,~presence,~predicate,scope))
+
+def task_sparse_invoke(~S:Data,~Permit:Data,~full:L.Layout,~route:L.Route,~R:Type,~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,L.view(full,route)> -> Bool,~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:Q.TaskGeneralBody(~S,~Permit,~L.payload(full,route),~L.view(full,route),~O,~E),mode:Q.Mode,scope:State.Scope<S,Store.Storage<S,full>,R>,output:O) -> Task.Task<S,Permit,State.Scope<S,Store.Storage<S,full>,R> & (O & Q.Report<E>)>:
+  match scope:
+    case State.Scope{Store.Storage{+namespace,columns,grants,info},resource,+handles,tick,prior,+view}:task_sparse_targets(~S,~Permit,~full,~route,~R,~bound,~presence,~predicate,~O,~E,~split,~merge,~body,mode,State.Scope{Store.Storage{namespace,columns,grants,info},resource,handles,tick,prior,view},output,Id.targets(~S,namespace,handles))
+
+def task_sparse_caps(~S:Data,~Permit:Data,~full:L.Layout,~route:L.Route,~C:Type,~R:Type,~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,L.view(full,route)> -> Bool,~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:Q.TaskGeneralBody(~S,~Permit,~L.payload(full,route),~L.view(full,route),~O,~E),mode:Q.Mode,same:{C == Store.Storage<S,full> : Type}) -> Q.TaskOutputEach<S,Permit,State.Scope<S,C,R>,O,E>:
+  %Equal.sym(Type,C,Store.Storage<S,full>,same) : Q.TaskOutputEach<S,Permit,State.Scope<S,_,R>,O,E>
+  Q.TaskOutputEach{task_sparse_invoke(~S,~Permit,~full,~route,~R,~bound,~presence,~predicate,~O,~E,~split,~merge,~body,mode)}
+
+def task_model_caps(~S:Data,~Permit:Data,~WC:Type,~C:Type,~R:Type,~full:L.Layout,~route:L.Route,~same:{WC == L.columns(~S,full) : Type},~valid:{L.grant_valid(~full,~route) == True{} : Bool},~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,L.view(full,route)> -> Bool,~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:Q.TaskGeneralBody(~S,~Permit,~L.payload(full,route),~L.view(full,route),~O,~E),mode:Q.Mode,model:Store.StorageModel,local:{C == Store.owner(~S,full,model) : Type}) -> Q.TaskOutputEach<S,Permit,State.Scope<S,C,R>,O,E>:
+  match model:
+    case Store.Whole{}:Q.TaskOutputEach{scope=>output=>Task.TDone{(scope,(output,Q.LayoutRefused{}))}}
+    case Store.Sparse{}:task_sparse_caps(~S,~Permit,~full,~route,~C,~R,~bound,~presence,~predicate,~O,~E,~split,~merge,~body,mode,local)
+
+def task_provider_dictionary(~S:Data,~WC:Type,~C:Type,~R:Type,~Permit:Data,~full:L.Layout,~route:L.Route,~same:{WC == L.columns(~S,full) : Type},~valid:{L.grant_valid(~full,~route) == True{} : Bool},~model:Store.StorageModel,~local:{C == Store.owner(~S,full,model) : Type},~bound:Recipe.Bound,~presence:Match.Presence,~predicate:Maybe<&2,L.view(full,route)> -> Bool,~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:Q.TaskGeneralBody(~S,~Permit,~L.payload(full,route),~L.view(full,route),~O,~E),mode:Q.Mode) -> Q.TaskOutputEach<S,Permit,State.Scope<S,C,R>,O,E>:
+  task_model_caps(~S,~Permit,~WC,~C,~R,~full,~route,~same,~valid,~bound,~presence,~predicate,~O,~E,~split,~merge,~body,mode,model,local)
+
 def provider_dictionary(~S:Data,~WC:Type,~C:Type,~R:Type,~Ops:Type,~selection:Build.GeneralProviderSelection(~S,~WC,~C,~R,~Ops)) -> Ops:
-  selection(ordinary_provider(~S,~WC,~C,~R),output_provider(~S,~WC,~C,~R))
+  selection(ordinary_provider(~S,~WC,~C,~R),output_provider(~S,~WC,~C,~R),task_provider_dictionary(~S,~WC,~C,~R))

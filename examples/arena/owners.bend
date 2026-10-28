@@ -31,7 +31,7 @@ def SpawnOwner() -> Type:Cmd.System(~D.Schema,~Step.C(),~Step.R(),~Unit,~D.compo
 def StepOwner() -> Type:Cmd.System(~D.Schema,~Step.C(),~Step.R(),~Unit,~D.components(),~D.resources(),~Step.route(),~Step.Ops,~Step.User,~String,~Unit,~Step.declaration,~Step.body)
 def seeded(seeds:List<&2,G.Body>,owner:SpawnOwner()) -> SpawnOwner() & Unit:
   match owner:
-    case Sys.Owner{namespace,id,name,access,cursor,Local.Local{Spawn.User{prior,handles,returned},commands,permission}}:(Sys.Owner{namespace,id,name,access,cursor,Local.Local{Spawn.User{List.append(&2,G.Body,prior,seeds),handles,returned},commands,permission}},Unit{})
+    case Sys.Owner{namespace,id,name,access,cursor,Local.Local{Spawn.User{prior,handles,returned,player},commands,permission}}:(Sys.Owner{namespace,id,name,access,cursor,Local.Local{Spawn.User{List.append(&2,G.Body,prior,seeds),handles,returned,player},commands,permission}},Unit{})
 def configured(args:G.Args,owner:StepOwner()) -> StepOwner() & Unit:
   match owner:
     case Sys.Owner{namespace,id,name,access,cursor,Local.Local{_,commands,permission}}:(Sys.Owner{namespace,id,name,access,cursor,Local.Local{Step.User{True{},args,[]},commands,permission}},Unit{})

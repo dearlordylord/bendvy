@@ -19,4 +19,4 @@ def author(result:Root.Compilation() & Sys.Defined<D.World(),Root.Owner(),Cmd.Ca
     case (compilation,Sys.Defined{world,owner}):peer(Scope.CompiledBinding{compilation,owner},Author.define_with_compilation(~D.Schema,~D.components(),~D.resources(),~Unit,~Decay.route(),~Decay.Ops,~Decay.User,~String,~Unit,~Decay.declaration,~Decay.body,~{==},Decay.compilation(),world,"Arena body update",Decay.User{False{},G.Args{400.0,250.0,5,0,False{},[]},[]}))
     case _:None{}
 def attach(world:D.World(),seeds:List<&2,G.Body>) -> Maybe<Root.Application()>:
-  author(Author.define_with_compilation(~D.Schema,~D.components(),~D.resources(),~Unit,~Spawn.route(),~Spawn.Ops,~Spawn.User,~String,~Unit,~Spawn.declaration,~Spawn.body,~{==},Spawn.compilation(),world,"Arena spawns",Spawn.User{seeds,[],[]}))
+  author(Author.define_with_compilation(~D.Schema,~D.components(),~D.resources(),~Unit,~Spawn.route(),~Spawn.Ops,~Spawn.User,~String,~Unit,~Spawn.declaration,~Spawn.body,~{==},Spawn.compilation(),world,"Arena spawns",Spawn.User{seeds,[],[],None{}}))

@@ -1,4 +1,5 @@
 import Base
+import ./execution-reservation-task.bend as Task
 import ./world.bend as W
 import ./chunk-query.bend as Row
 import ./chunk-partition.bend as Part
@@ -173,3 +174,51 @@ def traverse_targets_present(~S:Data,handles:List<&2,W.Handle<S>>,+offsets:List<
   match handles:
     case []:True{}
     case handle <> rest:Bool.and(D.contains_list(U32.sub(W.handle_index(~S,handle),1),offsets),traverse_targets_present(~S,rest,offsets))
+
+def task_handle_checked(~S:Data,handle:W.Handle<S>,next:Maybe<&2,W.Handle<S>>,found:Bool) -> Maybe<&2,W.Handle<S>>:
+  match found:
+    case True{}:Some{handle}
+    case False{}:next
+
+def task_handle(~S:Data,+index:U32,handles:List<&2,W.Handle<S>>) -> Maybe<&2,W.Handle<S>>:
+  match handles:
+    case []:None{}
+    case +handle <> rest:task_handle_checked(~S,handle,task_handle(~S,index,rest),U32.is_eq(U32.sub(W.handle_index(~S,handle),1),index))
+
+def task_handle_allowed(~S:Data,index:U32,handles:List<&2,W.Handle<S>>,allowed:Bool) -> Maybe<&2,W.Handle<S>>:
+  match allowed:
+    case False{}:None{}
+    case True{}:task_handle(~S,index,handles)
+
+def task_errors(~E:Data,index:U32,error:Maybe<&2,E>) -> List<&2,Row.Error<E>>:
+  match error:
+    case None{}:[]
+    case Some{value}:[Row.Error{index,value}]
+
+def task_cell_rebuilt(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data,offset:U32,stamp:L.Stamp,index:U32,result:Layout.stored(layout,route) & (O & Maybe<&2,E>)) -> Part.Cell<Layout.stored(layout,route)> & (O & List<&2,Row.Error<E>>):
+  match result:
+    case (owner,(output,error)):(Part.Cell{offset,Some{owner},stamp},(output,task_errors(~E,index,error)))
+
+def task_cell_selected(~S:Data,~Permit:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data,~body:W.Handle<S> -> Layout.view(layout,route) -> Layout.payload(layout,route) -> O -> Task.Task<S,Permit,Layout.payload(layout,route) & (O & Maybe<&2,E>)>,offset:U32,owner:Layout.stored(layout,route),stamp:L.Stamp,tick:Tick.Tick,output:O,found:Maybe<&2,W.Handle<S>>) -> Task.Task<S,Permit,Part.Cell<Layout.stored(layout,route)> & (O & List<&2,Row.Error<E>>)>:
+  match owner found:
+    case owner None{}:Task.TDone{(Part.Cell{offset,Some{owner},stamp},(output,[]))}
+    case Layout.Viewed{payload,view} Some{+handle}:Task.TBind{Layout.payload(layout,route) & (O & Maybe<&2,E>),body(handle,view,payload,output),result=>Task.TDone{task_cell_rebuilt(~S,~layout,~route,~O,~E,offset,L.written(True{},stamp,tick),W.handle_index(~S,handle),Layout.rewritten(~layout,~route,O & Maybe<&2,E>,result))}}
+
+def task_cell(~S:Data,~Permit:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data,~body:W.Handle<S> -> Layout.view(layout,route) -> Layout.payload(layout,route) -> O -> Task.Task<S,Permit,Layout.payload(layout,route) & (O & Maybe<&2,E>)>,handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,selection:Row.Selection,cell:Part.Cell<Layout.stored(layout,route)>,output:O) -> Task.Task<S,Permit,Part.Cell<Layout.stored(layout,route)> & (O & List<&2,Row.Error<E>>)>:
+  match cell:
+    case Part.Cell{offset,None{},stamp}:Task.TDone{(Part.Cell{offset,None{},stamp},(output,[]))}
+    case Part.Cell{+offset,Some{owner},+stamp}:task_cell_selected(~S,~Permit,~layout,~route,~O,~E,~body,offset,owner,stamp,tick,output,task_handle_allowed(~S,offset,handles,Row.eligible(offset,stamp,tick,selection)))
+
+def task_cells_join(~C:Type,~O:Type,~E:Data,~merge:O -> O -> O,left:Part.Cell<C> & (O & List<&2,Row.Error<E>>),right:List<&1,Part.Cell<C>> & (O & List<&2,Row.Error<E>>)) -> List<&1,Part.Cell<C>> & (O & List<&2,Row.Error<E>>):
+  match left right:
+    case (cell,(lo,le)), (rest,(ro,re)):(cell <> rest,(merge(lo,ro),List.append(&2,Row.Error<E>,le,re)))
+
+def task_cells_pair(~S:Data,~Permit:Data,~C:Type,~O:Type,~E:Data,~merge:O -> O -> O,parallel:Bool,outputs:O & O,left:O -> Task.Task<S,Permit,Part.Cell<C> & (O & List<&2,Row.Error<E>>)>,right:O -> Task.Task<S,Permit,List<&1,Part.Cell<C>> & (O & List<&2,Row.Error<E>>)>) -> Task.Task<S,Permit,List<&1,Part.Cell<C>> & (O & List<&2,Row.Error<E>>)>:
+  match parallel outputs:
+    case False{} Tuple{lo,ro}:Task.TBind{Part.Cell<C> & (O & List<&2,Row.Error<E>>),Task.TRun{_=>left(lo)},l=>Task.TBind{List<&1,Part.Cell<C>> & (O & List<&2,Row.Error<E>>),Task.TRun{_=>right(ro)},r=>Task.TDone{task_cells_join(~C,~O,~E,~merge,l,r)}}}
+    case True{} Tuple{lo,ro}:Task.TFork{Part.Cell<C> & (O & List<&2,Row.Error<E>>),List<&1,Part.Cell<C>> & (O & List<&2,Row.Error<E>>),Task.TRun{_=>left(lo)},Task.TRun{_=>right(ro)},l=>r=>Task.TDone{task_cells_join(~C,~O,~E,~merge,l,r)}}
+
+def task_cells(~S:Data,~Permit:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data,~body:W.Handle<S> -> Layout.view(layout,route) -> Layout.payload(layout,route) -> O -> Task.Task<S,Permit,Layout.payload(layout,route) & (O & Maybe<&2,E>)>,~split:O -> O & O,~merge:O -> O -> O,+handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,+parallel:Bool,+selection:Row.Selection,cells:List<&1,Part.Cell<Layout.stored(layout,route)>>,output:O) -> Task.Task<S,Permit,List<&1,Part.Cell<Layout.stored(layout,route)>> & (O & List<&2,Row.Error<E>>)>:
+  match cells:
+    case []:Task.TDone{([],(output,[]))}
+    case cell <> rest:task_cells_pair(~S,~Permit,~Layout.stored(layout,route),~O,~E,~merge,parallel,split(output),lo=>task_cell(~S,~Permit,~layout,~route,~O,~E,~body,handles,tick,selection,cell,lo),ro=>task_cells(~S,~Permit,~layout,~route,~O,~E,~body,~split,~merge,handles,tick,parallel,selection,rest,ro))
