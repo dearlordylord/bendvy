@@ -20,3 +20,35 @@ measurements do not grant execution budgets or qualify the current source.
 [law drafts](laws/), and [local ticket copies](tickets/) retain their distinct
 roles. A draft law is not an approved law. A ticket copy is not live issue status;
 see the [issue tracker](agents/issue-tracker.md).
+
+## Search by question
+
+Run these commands from the repository root. Start with the source or contract
+that owns the question, then widen the search when needed.
+
+```sh
+# Implementation and runnable examples.
+rg -n 'PATTERN' src examples
+
+# Decisions, public contracts and capability requirements.
+rg -n 'PATTERN' docs/SPEC.md docs/reference docs/parity docs/design
+
+# Law statements, proofs and subject bindings in this checkout.
+rg -n 'PATTERN' src test-fixtures docs/laws -g '*.bend' -g 'SUBJECTS.*'
+
+# Compiler findings and earlier design investigations.
+rg -n 'PATTERN' docs/research
+
+# Historical plans, local ticket copies and delivery reports.
+rg -n 'PATTERN' docs/archive docs/tickets docs/reports
+```
+
+Replace `PATTERN` with a symbol or phrase. Add `-F` for a literal symbol and `-i`
+for case-insensitive prose search. Use `rg --files src test-fixtures` to find a
+filename before searching its contents. A law filename or match does not establish
+approval or proof completion; read its subject binding and governing approval.
+
+For work routing, read [task navigation](next-core-checkpoint.md). For API lookup,
+start with the [core map](reference/core-map.md) and follow its source links.
+For prior investigation findings, use the [research index](research/README.md).
+Search all `docs` only when the narrower sources do not answer the question.

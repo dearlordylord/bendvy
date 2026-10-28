@@ -28,7 +28,6 @@ Preserve CPU/heavy ownership locks. Decide how to handle a slow check from its
 effect on development and users, with sub-agent consultation when available.
 Time spent alone is neither a failure nor a reason to add more gates.
 
-
 1. Read the current consumer and evidence; identify the exact missing acceptance
    gate. Check affected-file history before repeating a performance candidate. Before freezing backend plans, trace each operation to its changed state,
    complete observation and independently derived oracle, including IO effects.

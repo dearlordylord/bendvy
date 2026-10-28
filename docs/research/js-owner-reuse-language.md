@@ -28,6 +28,62 @@ The native emitter does have allocation-block reuse: `node_fields` retains a con
 
 These directions retain `Raw: Type`, affine arrays, and opaque callback owners. They do not require a Data-only component restriction, a general borrowed raw-owner API, or a new package. The smallest first candidate is the validation/field-continuation fusion; session/snapshot changes need stale-cache and negative-control evidence before adoption.
 
+## Historical static-provider findings
+
+The retired static-provider prototype recorded these bounded observations under
+Bend 2.0.35; they require fresh checking before transfer to another compiler or
+API:
+
+- Closed template specialization retained an arbitrary affine `Owner: Type`.
+  It did not make runtime closures reusable. Capturing a local affine owner in a
+  template and duplicating that owner were rejected in the tested definitions.
+- The corrected callback type used erased provider binders such as `@-get` and
+  `@-set`, with ordinary calls in the body. Its two-callback and registration
+  examples supplied finite source evidence, not a generic confinement theorem.
+- The tested abstract-owner boundaries rejected concrete destructuring,
+  cross-schema setters, writes through read providers and wrong ledger authority.
+  These observations do not qualify the current execution API's controls.
+
+The full measurement entry failed its historical checking deadline; the
+prototype did not establish a complete gate pass, performance acceptance or a
+production API. No old attempt counter or execution window applies to new work.
+The original sources and receipts remain in local Git at
+`82faab6ce5f266175847475dc63a2c2be3d91a5a:docs/research/static-provider-dispatch/`. Inspect the original entry
+with:
+
+```sh
+git show 82faab6ce5f266175847475dc63a2c2be3d91a5a:docs/research/static-provider-dispatch/README.md
+```
+
+## Lessons from retired optimization drafts
+
+The retired drafts were proposals and bounded experiments, not approved APIs or
+performance results. Their reusable cautions are:
+
+- Projection may return a changed affine owner. Preserve that returned owner;
+  replacing a projecting presence check with pure membership can change behavior.
+  A cached Data view must travel with its raw payload and be refreshed before a
+  read after mutation or replacement. Fallbacks must return the actual complete
+  context rather than reattach stale owners.
+- Inspect the emitted ABI before choosing boxing or concrete owner carriers.
+  Allocation classes, extra boxes, transport and drop work can offset fewer
+  source fields. Reusing a Data token does not authorize copying an affine owner,
+  and constructor counts alone do not establish runtime improvement.
+- Live entity membership differs from component presence and from temporary
+  extraction. Include membership validation and preflight work in measurements;
+  moving field forcing outside one backend's timed region changes the comparison.
+- The historical mark-transport source probe under Bend 2.0.35 at `a950fd6`
+  failed checking on computed match scrutinees and unfilled helper cycles.
+  It supplied no compiling candidate or speed result. Inspect the current
+  compiler before retrying rather than treating those failures as timeless.
+
+These cautions do not import the retired transaction rollback contract into the
+current execution API. The original proposals remain recoverable, for example:
+
+```sh
+git show 82faab6ce5f266175847475dc63a2c2be3d91a5a:docs/design/persistent-owned-cache-plan.md
+```
+
 ## Separate compiler work and limits
 
 Recognizing unchanged destruct/rebuild constructors and returning the original JavaScript object, or reusing an exclusively owned object while updating fields, would require a compiler change outside source-level adapter work. It needs separate task authorization, careful affine/Data alias reasoning, and regression tests; editing the read-only Bend2 reference is not authorized. JavaScript runtime escape analysis may remove some literal allocations, but was not inspected or measured here.
