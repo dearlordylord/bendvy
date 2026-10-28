@@ -5,7 +5,6 @@ import ./execution.bend as E
 import ./setup.bend as Setup
 import ./observation.bend as Observe
 import ./restore-receipt.bend as Receipt
-import ./staging.bend as Stage
 import ../../src/ecs/execution-save-plan.bend as Plan
 import ../../src/ecs/execution-save-data.bend as Saved
 import ../../src/ecs/execution-save-gate.bend as Gate
@@ -13,7 +12,6 @@ import ../../src/ecs/execution-save-recipe.bend as Recipe
 import ../../src/ecs/persistence-declaration.bend as Decl
 import ../../src/ecs/owner-product.bend as Product
 import ../../src/ecs/decode-data.bend as D
-import ../../src/ecs/execution-restore-admission.bend as Admission
 
 def Schema(~S:Data) -> Type:Plan.Schema<S,O.components(~S),O.resources(~S)>
 # Only duplicable codec declarations are copied; no payload or factory owner is.
@@ -51,13 +49,11 @@ def defined(~S:Data,native:Bool,result:Setup.Defined<S>) -> IO(Outcome<S>):
     case Setup.Defined{app}:first_saved(~S,native,E.save(~S,O.schema(~S),app))
     case other:IO.pure(Outcome<S>,SetupRefused{other})
 def run(~S:Data,native:Bool,world:R.World(~S)) -> IO(Outcome<S>):defined(~S,native,Setup.setup(~S,world))
-def failure_status(status:Receipt.Status) -> String:
-  match status:
-    case Receipt.InputRefused{Stage.AdmissionRefused{Admission.InvalidCodec{key,_}}}:"invalid-codec/" ++ key
-    case _:"other"
+def failure_rendered(~S:Data,result:Schema(~S) & String) -> String:
+  match result:
+    case (schema,details):details ++ "/schema=" ++ Observe.schema(~S,schema)
 def failure(~S:Data,receipt:Receipt.Receipt<S>) -> String:
-  match receipt:
-    case Receipt.Receipt{state,input,removed,rows,mapping,publications,previous,remaining,status}:failure_status(status) ++ "/input=" ++ Observe.snapshot(~S,input)
+  failure_rendered(~S,Observe.receipt_for_save(~S,receipt))
 def observed(~S:Data,result:Outcome<S>) -> String:
   match result:
     case Retried{first,second,rejected,result}:"first=" ++ Observe.snapshot(~S,first) ++ "/second=" ++ Observe.snapshot(~S,second) ++ "/refusal=" ++ failure(~S,rejected) ++ "/retry=" ++ Observe.resumed(~S,result)
