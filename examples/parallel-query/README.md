@@ -136,20 +136,49 @@ laws still need specific user approval before proof.
 
 ## Affine query outputs and commands
 
-The adjacent `output-declaration.bend` selects the physical layout through the
-canonical Builder. Its command Program receives the hidden output type and
-canonical command operations at registration. It specializes row body, split and
-merge before runtime capabilities are stored. `OutputEach` takes the actual scope
-and output owner without a polymorphic runtime callback or raw storage adapter
-in gameplay.
+[commands.bend](commands.bend) runs six registered command-system scenarios over
+two nominal schemas. Each schema runs two updates with final deferred
+application, with final application suppressed, and through the serial driver.
+The query requests `Parallel` mode in all three cases. The serial driver evaluates
+its forked work serially.
 
-`commands.bend` describes six registered command-system scenarios over two nominal
-schemas: parallel query with final deferred application, parallel query with final
-application suppressed, and serial query with final application. Callbacks update
-owned rows and author inserts using genuine selected handles; row 1 returns a
-handled error after enqueueing. Observations include columns, caches, stamps,
-allocator/resource state, queues, displaced-owner receipts and returned owners.
-The raw `test-fixtures/chunk-column/output.bend` consumer also covers an
-Array-owning output prefix. These adjacent consumers are outside the original
-`main.bend` execution and worker evidence reported above. Historical oracle or
-wrapper receipts are not source-current execution claims for them.
+`output-declaration.bend` selects the physical layout through the canonical
+Builder. The command Program receives an abstract output type `O` and canonical
+command operations at registration. `Permission.Grant` takes a closed
+`EntitySelection` and records structural entity access before providing
+`EntityCommands`. The selected declaration specializes the row callback with
+its despawn operation. Existing command declarations use `Permission.entity`
+when they need the unchanged command capability itself. The identity selection
+preserves the canonical spawn and despawn handlers.
+
+`Build.task_output_query` specializes the row callback, split, and merge before
+storing runtime capabilities. `TaskOutputEach` takes the actual scope and output
+owner. Each physical query branch receives its own buffer. The callback cannot
+extract World storage from the abstract scope or duplicate its affine output.
+
+The callbacks update their actual component owners and enqueue these operations
+using the selected entity handles:
+
+- Handle `1` removes its output component, then inserts `Output` with Array token
+  `1001` and value `601`. The row reports `after-enqueue`; the application handles
+  that error and retains both commands for the selected boundary.
+- Handle `17` inserts token `1017` and value `617`, despawns the entity, then
+  inserts token `2017` and value `717` using the same handle. Application preserves
+  the earlier effects and returns the last incoming owner in a refusal receipt.
+- Other selected rows enqueue their original insert operation.
+
+The observer reads columns, caches, stamps, allocator and resource state, queues,
+displaced owners, complete despawned owners, and refused incoming payloads. Final
+application consumes the queues. Suppressed final application retains them in
+the returned systems. The current six-line, 10,143-byte output matches a frozen,
+independently derived expectation on JavaScript and native execution with two
+workers. A separate symbol-and-thread observation of that same native binary
+reached the actual remove and despawn enqueue operations on two OS workers within
+the first query invocation on one World. The debugger run also preserved the
+complete expected output. This establishes worker participation for that
+invocation, not simultaneous execution, speedup, or a placement guarantee.
+
+These command runs are separate from the `main.bend` query evidence above.
+The raw `test-fixtures/chunk-column/output.bend` consumer separately covers an
+Array-owning output prefix. Neither consumer extends the scope of the five
+approved helper laws.
