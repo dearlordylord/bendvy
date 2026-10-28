@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/world.bend as W
 import ./payloads.bend as P
 import ./command-row.bend as Row
 import ../../src/ecs/execution-command-local.bend as Local
@@ -10,7 +11,7 @@ import ../../src/ecs/execution-composer-layout.bend as Layout
 def route() -> Layout.Route:Layout.InLeft{Layout.AtLeaf{}}
 def Ops(~S:Data,Permit:Data,H:Type,O:Type) -> Type:Q.TaskOutputEach<S,Permit,H,O,String>
 def BuilderOps(~S:Data,~O:Type,Permit:Data,H:Type) -> Type:Ops(~S,Permit,H,O)
-def selection(~S:Data,~WC:Type,~mode:Q.Mode,~Permit:Data,~H:Type,~O:Type,~commands:Local.Commands<O,S,P.Output>,~B:Type,~component_read:Build.ComponentRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~component_write:Build.ComponentWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~resource_read:Build.ResourceRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~resource_write:Build.ResourceWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~query:Build.Query(~S,~WC,~D.Store(~S),~D.Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~WC,~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S,Permit,H,O):
-  Build.task_output_query(~S,~Permit,~WC,~D.Store(~S),~D.Resources(~S),~D.layout(),~route(),~{==},~{==},~{==},~O,~String,~Local.split_field(~O,~S,~P.Output,commands),~Local.merge_field(~O,~S,~P.Output,commands),~Row.row(~S,~Permit,~O,~commands),~mode,~H,~B,~query,book)
-def declaration(~S:Data,~WC:Type,~mode:Q.Mode,~Permit:Data,~H:Type,~O:Type,~commands:Local.Commands<O,S,P.Output>,~B:Type,~builder:Build.Builder(~S,~WC,~D.Store(~S),~D.Resources(~S),~Permit,~H,~B),book:B) -> B & Ops(~S,Permit,H,O):
-  builder(BuilderOps(~S,~O),selection(~S,~WC,~mode,~Permit,~H,~O,~commands,~B),book)
+def selection(~S:Data,~WC:Type,~mode:Q.Mode,~Permit:Data,~H:Type,~O:Type,~commands:Local.Commands<O,S,P.Output>,~despawn:O -> W.Handle<S> -> O,~B:Type,~component_read:Build.ComponentRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~component_write:Build.ComponentWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~resource_read:Build.ResourceRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~resource_write:Build.ResourceWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~query:Build.Query(~S,~WC,~D.Store(~S),~D.Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~WC,~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S,Permit,H,O):
+  Build.task_output_query(~S,~Permit,~WC,~D.Store(~S),~D.Resources(~S),~D.layout(),~route(),~{==},~{==},~{==},~O,~String,~Local.split_field(~O,~S,~P.Output,commands),~Local.merge_field(~O,~S,~P.Output,commands),~Row.row(~S,~Permit,~O,~Local.insert_field(~O,~S,~P.Output,commands),~Local.remove_field(~O,~S,~P.Output,commands),~despawn),~mode,~H,~B,~query,book)
+def declaration(~S:Data,~WC:Type,~mode:Q.Mode,~Permit:Data,~H:Type,~O:Type,~commands:Local.Commands<O,S,P.Output>,~despawn:O -> W.Handle<S> -> O,~B:Type,~builder:Build.Builder(~S,~WC,~D.Store(~S),~D.Resources(~S),~Permit,~H,~B),book:B) -> B & Ops(~S,Permit,H,O):
+  builder(BuilderOps(~S,~O),selection(~S,~WC,~mode,~Permit,~H,~O,~commands,~despawn,~B),book)

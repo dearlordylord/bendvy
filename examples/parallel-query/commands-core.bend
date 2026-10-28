@@ -48,8 +48,13 @@ def PeerOps(~S:Data,Permit:Data,H:Type) -> Type:Unit
 def author_declared(~S:Data,~Permit:Data,~H:Type,~O:Type,~B:Type,~K:Type,permission:K,result:B & Ops(~S,Permit,H,O)) -> B & (K & Ops(~S,Permit,H,O)):
   match result:
     case (book,ops):(book,(permission,ops))
+def entity_query(~S:Data,~mode:Query.Mode,~Permit:Data,~H:Type,~O:Type,~commands:Local.Commands<O,S,P.Output>,~B:Type,~builder:Build.Builder(~S,~Store(~S),~Left(~S),~D.Resources(~S),~Permit,~H,~B),~entity:Permission.EntityCommands<O,S,layout(~S),Permit>) -> B -> B & Ops(~S,Permit,H,O):
+  builder(Decl.BuilderOps(~S,~O),Decl.selection(~S,~Store(~S),~mode,~Permit,~H,~O,~commands,~(Permission.despawn_field(~O,~S,~layout(~S),~Permit,entity)),~B))
+def entity_declared(~S:Data,~Permit:Data,~H:Type,~O:Type,~B:Type,~K:Type,book:B,result:K & (B -> B & Ops(~S,Permit,H,O))) -> B & (K & Ops(~S,Permit,H,O)):
+  match result:
+    case (permission,declare):author_declared(~S,~Permit,~H,~O,~B,~K,permission,declare(book))
 def author_declaration(~S:Data,~mode:Query.Mode,~Permit:Data,~H:Type,~O:Type,~commands:Local.Commands<O,S,P.Output>,~B:Type,~builder:Build.Builder(~S,~Store(~S),~Left(~S),~D.Resources(~S),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~layout(~S),~Permit,~O,~K),~relations:Permission.RelationGrant(~S,~resources(),~O,~K),~scopes:Permission.ScopeGrant(~S,~resources(),~O,~K),book:B,permission:K) -> B & (K & Ops(~S,Permit,H,O)):
-  author_declared(~S,~Permit,~H,~O,~B,~K,permission,Decl.declaration(~S,~Store(~S),~mode,~Permit,~H,~O,~commands,~B,~builder,book))
+  entity_declared(~S,~Permit,~H,~O,~B,~K,book,entity(B -> B & Ops(~S,Permit,H,O),entity_query(~S,~mode,~Permit,~H,~O,~commands,~B,~builder),permission))
 def peer_declaration(~S:Data,~Permit:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~Unit,~Unit,~Permit,~H,~B),book:B) -> B & Unit:
   (book,Unit{})
 def peer_body(~S:Data,~Permit:Data,~H:Type,~caps:Unit,scope:H,token:Array<U32>) -> Effect.Task<S,Permit,H & (Array<U32> & Sys.Completion<String,String>)>:
