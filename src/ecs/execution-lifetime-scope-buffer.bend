@@ -46,11 +46,17 @@ def assigned(-S:Data,-C:Type,-R:Type,-E:Data,-P:Type,-D:Type,+route:Layout.Route
   match result:
     case (world,Dispatch.Completed{Store.Assignment{Store.Assigned{actualScope,actualHandle}}}):(world,Buffer.ScopePublished{route,Commands.Assign{scope,handle},Buffer.ScopeComplete{},[Buffer.ScopeStoreApplied{route,Store.Assign{scope,handle},Dispatch.Completed{Store.Assignment{Store.Assigned{actualScope,actualHandle}}}}],[]})
     case (world,result):(world,Buffer.ScopePublished{route,Commands.Assign{scope,handle},Buffer.ScopeDenied{Buffer.ScopeStoreRefused{}},[Buffer.ScopeStoreApplied{route,Store.Assign{scope,handle},result}],[]})
+# Unprovisioned callers retain the original graph-catalogue requirement.
+# Provisioned cleanup interprets the schema catalogue without gameplay grants.
+def cleanup_coverage(~S:Data,~resources:Layout.Layout,relations:Permission.Relations<S,resources>,routes:Maybe<&2,Permission.CleanupRoutes>) -> Bool:
+  match routes:
+    case None{}:Coverage.layout(~S,~resources,resources,Layout.AtLeaf{},relations)
+    case Some{routes}:Coverage.cleanup_complete(~S,~resources,relations,Some{routes})
 def apply_checked(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~D:Type,~resources:Layout.Layout,~same:{R == Layout.resources(~S,resources) : Type},~selection:Permission.Selection<S,resources>,~relations:Permission.Relations<S,resources>,~dispose:Cleanup.Dispose(~S,~C,~R,~E,~P,~D),+context:Context.Context<S,R,resources,same>,+route:Layout.Route,operation:Commands.Operation<S>,tick:Tick.Tick,result:W.World<S,C,R,E> & Bool) -> W.World<S,C,R,E> & Buffer.Receipt<S,P,D>:
   match operation result:
     case operation, (world,False{}):denied(S,C,R,E,P,D,route,operation,Buffer.ForeignNamespace{},world)
     case Commands.Assign{+scope,+handle}, (world,True{}):assigned(S,C,R,E,P,D,route,scope,handle,Access.apply(~S,~C,~R,~E,~resources,~same,~selection,context,route,Store.Assign{scope,handle},world,tick))
-    case Commands.Cleanup{scope}, (world,True{}):cleanup_allowed(~S,~C,~R,~E,~P,~D,~resources,~same,~selection,~dispose,Coverage.layout(~S,~resources,resources,Layout.AtLeaf{},relations),context,route,scope,world,tick)
+    case Commands.Cleanup{scope}, (world,True{}):cleanup_allowed(~S,~C,~R,~E,~P,~D,~resources,~same,~Permission.cleanup_selection(S,resources,selection),~dispose,cleanup_coverage(~S,~resources,relations,Permission.cleanup_routes(S,resources,selection)),context,route,scope,world,tick)
 def apply(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~D:Type,~resources:Layout.Layout,~same:{R == Layout.resources(~S,resources) : Type},~selection:Permission.Selection<S,resources>,~relations:Permission.Relations<S,resources>,~dispose:Cleanup.Dispose(~S,~C,~R,~E,~P,~D),+context:Context.Context<S,R,resources,same>,route:Layout.Route,operation:Commands.Operation<S>,world:W.World<S,C,R,E>,tick:Tick.Tick) -> W.World<S,C,R,E> & Buffer.Receipt<S,P,D>:
   apply_checked(~S,~C,~R,~E,~P,~D,~resources,~same,~selection,~relations,~dispose,context,route,operation,tick,Context.matches(~S,~C,~R,~E,~resources,~same,context,world))
 
