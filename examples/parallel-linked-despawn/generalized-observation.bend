@@ -295,18 +295,18 @@ def tail(~S:Data,value:Application.Tail(~S)) -> Application.Tail(~S) & String:
 def removal_tail(~S:Data,value:Application.RemovalTail(~S)) -> Application.RemovalTail(~S) & String:
   match value:
     case Product.Owner{left,right}:pair_observed(~Actors.RemovalNode(~S),~Application.Tail(~S),removal_node(~S,left),tail(~S,right))
-def failure_tail(~S:Data,value:Application.FailureTail(~S)) -> Application.FailureTail(~S) & String:
+def editor_readers(~S:Data,value:Application.EditorReaders(~S)) -> Application.EditorReaders(~S) & String:
   match value:
-    case Product.Owner{left,right}:pair_observed(~Readers.FailureNode(~S),~Application.RemovalTail(~S),failure_node(~S,left),removal_tail(~S,right))
-def after_authors(~S:Data,value:Application.AfterAuthors(~S)) -> Application.AfterAuthors(~S) & String:
-  match value:
-    case Product.Owner{left,right}:pair_observed(~Actors.EditorNode(~S),~Application.FailureTail(~S),editor_node(~S,left),failure_tail(~S,right))
+    case Product.Owner{left,right}:pair_observed(~Actors.EditorNode(~S),~Readers.FailureNode(~S),editor_node(~S,left),failure_node(~S,right))
 def authors(~S:Data,value:Application.Authors(~S)) -> Application.Authors(~S) & String:
   match value:
     case Product.Owner{left,right}:pair_observed(~Actors.GraphNode(~S),~Actors.LinkNode(~S),graph_node(~S,left),link_node(~S,right))
+def first_four(~S:Data,value:Application.FirstFour(~S)) -> Application.FirstFour(~S) & String:
+  match value:
+    case Product.Owner{left,right}:pair_observed(~Application.Authors(~S),~Application.EditorReaders(~S),authors(~S,left),editor_readers(~S,right))
 def nodes(~S:Data,value:Application.Nodes(~S)) -> Application.Nodes(~S) & String:
   match value:
-    case Product.Owner{left,right}:pair_observed(~Application.Authors(~S),~Application.AfterAuthors(~S),authors(~S,left),after_authors(~S,right))
+    case Product.Owner{left,right}:pair_observed(~Application.FirstFour(~S),~Application.RemovalTail(~S),first_four(~S,left),removal_tail(~S,right))
 def world_command(~S:Data,value:Deferred.Command<Application.World(~S)>) -> Deferred.Command<Application.World(~S)> & String:
   match value:
     case Deferred.Raw{apply}:(Deferred.Raw{apply},"raw{opaque=Deferred.Command.Raw.apply}")

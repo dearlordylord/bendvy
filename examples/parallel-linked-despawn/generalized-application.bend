@@ -28,11 +28,11 @@ import ../../src/ecs/execution-resource-query-group.bend as Group
 import ./generalized-readers.bend as Readers
 def World(~S:Data) -> Type:W.World<S,L.columns(~S,Actor.components()),L.resources(~S,Actor.resources(~S)),Unit>
 def Authors(~S:Data) -> Type:Product.Owner<Actors.GraphNode(~S),Actors.LinkNode(~S)>
+def EditorReaders(~S:Data) -> Type:Product.Owner<Actors.EditorNode(~S),Readers.FailureNode(~S)>
+def FirstFour(~S:Data) -> Type:Product.Owner<Authors(~S),EditorReaders(~S)>
 def Tail(~S:Data) -> Type:Product.Owner<Readers.LifecycleNode(~S),Actors.UpdaterNode(~S)>
 def RemovalTail(~S:Data) -> Type:Product.Owner<Actors.RemovalNode(~S),Tail(~S)>
-def FailureTail(~S:Data) -> Type:Product.Owner<Readers.FailureNode(~S),RemovalTail(~S)>
-def AfterAuthors(~S:Data) -> Type:Product.Owner<Actors.EditorNode(~S),FailureTail(~S)>
-def Nodes(~S:Data) -> Type:Product.Owner<Authors(~S),AfterAuthors(~S)>
+def Nodes(~S:Data) -> Type:Product.Owner<FirstFour(~S),RemovalTail(~S)>
 def Scheduled(~S:Data) -> Type:Root.Scheduled<App.State<General.Storage<S,Actor.components(),Actor.resources(~S),Unit>,Nodes(~S),Unit,Unit>>
 def Bound(~S:Data) -> Type:Provision.Bound<S,L.resources(~S,Actor.resources(~S)),Actor.resources(~S),{==},Setup.Seed(~Actor.Session),Setup.blueprint(~S,~Actor.Session,~U32,~Actor.project),Scheduled(~S)>
 def graph_leaf(~S:Data,node:Actors.GraphNode(~S)) -> Leaf.Leaf<S,Actor.components(),Actor.resources(~S),Unit,Actors.GraphNode(~S),String,String>:
@@ -117,6 +117,24 @@ def publish_authors(~S:Data,~blueprint:Provision.Blueprint<S,Actor.resources(~S)
 def collect_authors(~S:Data,ids:List<&2,U32>,nodes:Authors(~S)) -> Authors(~S) & List<&2,U32>:
   match ids nodes:
     case +ids Product.Owner{left,right}:collected(Actors.GraphNode(~S),Actors.LinkNode(~S),collect_graph(~S,ids,left),collect_link(~S,ids,right))
+def editorreaders_leaf(~S:Data,nodes:EditorReaders(~S)) -> Leaf.Leaf<S,Actor.components(),Actor.resources(~S),Unit,EditorReaders(~S),String,String>:
+  Composite.from_nodes(~S,~Actor.components(),~Actor.resources(~S),~Unit,~String,~String,~Actors.EditorNode(~S),~Readers.FailureNode(~S),~editor_leaf(~S),~failure_leaf(~S),nodes)
+def pending_editorreaders(~S:Data,ids:List<&2,U32>,world:World(~S),nodes:EditorReaders(~S)) -> World(~S) & (EditorReaders(~S) & Bool):
+  Tree.pending_pair(World(~S),Actors.EditorNode(~S),Readers.FailureNode(~S),pending_editor(~S),pending_failure(~S),ids,world,nodes)
+def publish_editorreaders(~S:Data,~blueprint:Provision.Blueprint<S,Actor.resources(~S),Setup.Seed(~Actor.Session)>,ids:List<&2,U32>,tick:Tick.Tick,world:World(~S),nodes:EditorReaders(~S)) -> World(~S) & EditorReaders(~S):
+  Tree.publish_pair(World(~S),Actors.EditorNode(~S),Readers.FailureNode(~S),publish_editor(~S,~blueprint),publish_failure(~S,~blueprint),ids,tick,world,nodes)
+def collect_editorreaders(~S:Data,ids:List<&2,U32>,nodes:EditorReaders(~S)) -> EditorReaders(~S) & List<&2,U32>:
+  match ids nodes:
+    case +ids Product.Owner{left,right}:collected(Actors.EditorNode(~S),Readers.FailureNode(~S),collect_editor(~S,ids,left),collect_failure(~S,ids,right))
+def firstfour_leaf(~S:Data,nodes:FirstFour(~S)) -> Leaf.Leaf<S,Actor.components(),Actor.resources(~S),Unit,FirstFour(~S),String,String>:
+  Composite.from_nodes(~S,~Actor.components(),~Actor.resources(~S),~Unit,~String,~String,~Authors(~S),~EditorReaders(~S),~authors_leaf(~S),~editorreaders_leaf(~S),nodes)
+def pending_firstfour(~S:Data,ids:List<&2,U32>,world:World(~S),nodes:FirstFour(~S)) -> World(~S) & (FirstFour(~S) & Bool):
+  Tree.pending_pair(World(~S),Authors(~S),EditorReaders(~S),pending_authors(~S),pending_editorreaders(~S),ids,world,nodes)
+def publish_firstfour(~S:Data,~blueprint:Provision.Blueprint<S,Actor.resources(~S),Setup.Seed(~Actor.Session)>,ids:List<&2,U32>,tick:Tick.Tick,world:World(~S),nodes:FirstFour(~S)) -> World(~S) & FirstFour(~S):
+  Tree.publish_pair(World(~S),Authors(~S),EditorReaders(~S),publish_authors(~S,~blueprint),publish_editorreaders(~S,~blueprint),ids,tick,world,nodes)
+def collect_firstfour(~S:Data,ids:List<&2,U32>,nodes:FirstFour(~S)) -> FirstFour(~S) & List<&2,U32>:
+  match ids nodes:
+    case +ids Product.Owner{left,right}:collected(Authors(~S),EditorReaders(~S),collect_authors(~S,ids,left),collect_editorreaders(~S,ids,right))
 def tail_leaf(~S:Data,nodes:Tail(~S)) -> Leaf.Leaf<S,Actor.components(),Actor.resources(~S),Unit,Tail(~S),String,String>:
   Composite.from_nodes(~S,~Actor.components(),~Actor.resources(~S),~Unit,~String,~String,~Readers.LifecycleNode(~S),~Actors.UpdaterNode(~S),~lifecycle_leaf(~S),~updater_leaf(~S),nodes)
 def pending_tail(~S:Data,ids:List<&2,U32>,world:World(~S),nodes:Tail(~S)) -> World(~S) & (Tail(~S) & Bool):
@@ -135,40 +153,22 @@ def publish_removaltail(~S:Data,~blueprint:Provision.Blueprint<S,Actor.resources
 def collect_removaltail(~S:Data,ids:List<&2,U32>,nodes:RemovalTail(~S)) -> RemovalTail(~S) & List<&2,U32>:
   match ids nodes:
     case +ids Product.Owner{left,right}:collected(Actors.RemovalNode(~S),Tail(~S),collect_removal(~S,ids,left),collect_tail(~S,ids,right))
-def failuretail_leaf(~S:Data,nodes:FailureTail(~S)) -> Leaf.Leaf<S,Actor.components(),Actor.resources(~S),Unit,FailureTail(~S),String,String>:
-  Composite.from_nodes(~S,~Actor.components(),~Actor.resources(~S),~Unit,~String,~String,~Readers.FailureNode(~S),~RemovalTail(~S),~failure_leaf(~S),~removaltail_leaf(~S),nodes)
-def pending_failuretail(~S:Data,ids:List<&2,U32>,world:World(~S),nodes:FailureTail(~S)) -> World(~S) & (FailureTail(~S) & Bool):
-  Tree.pending_pair(World(~S),Readers.FailureNode(~S),RemovalTail(~S),pending_failure(~S),pending_removaltail(~S),ids,world,nodes)
-def publish_failuretail(~S:Data,~blueprint:Provision.Blueprint<S,Actor.resources(~S),Setup.Seed(~Actor.Session)>,ids:List<&2,U32>,tick:Tick.Tick,world:World(~S),nodes:FailureTail(~S)) -> World(~S) & FailureTail(~S):
-  Tree.publish_pair(World(~S),Readers.FailureNode(~S),RemovalTail(~S),publish_failure(~S,~blueprint),publish_removaltail(~S,~blueprint),ids,tick,world,nodes)
-def collect_failuretail(~S:Data,ids:List<&2,U32>,nodes:FailureTail(~S)) -> FailureTail(~S) & List<&2,U32>:
-  match ids nodes:
-    case +ids Product.Owner{left,right}:collected(Readers.FailureNode(~S),RemovalTail(~S),collect_failure(~S,ids,left),collect_removaltail(~S,ids,right))
-def afterauthors_leaf(~S:Data,nodes:AfterAuthors(~S)) -> Leaf.Leaf<S,Actor.components(),Actor.resources(~S),Unit,AfterAuthors(~S),String,String>:
-  Composite.from_nodes(~S,~Actor.components(),~Actor.resources(~S),~Unit,~String,~String,~Actors.EditorNode(~S),~FailureTail(~S),~editor_leaf(~S),~failuretail_leaf(~S),nodes)
-def pending_afterauthors(~S:Data,ids:List<&2,U32>,world:World(~S),nodes:AfterAuthors(~S)) -> World(~S) & (AfterAuthors(~S) & Bool):
-  Tree.pending_pair(World(~S),Actors.EditorNode(~S),FailureTail(~S),pending_editor(~S),pending_failuretail(~S),ids,world,nodes)
-def publish_afterauthors(~S:Data,~blueprint:Provision.Blueprint<S,Actor.resources(~S),Setup.Seed(~Actor.Session)>,ids:List<&2,U32>,tick:Tick.Tick,world:World(~S),nodes:AfterAuthors(~S)) -> World(~S) & AfterAuthors(~S):
-  Tree.publish_pair(World(~S),Actors.EditorNode(~S),FailureTail(~S),publish_editor(~S,~blueprint),publish_failuretail(~S,~blueprint),ids,tick,world,nodes)
-def collect_afterauthors(~S:Data,ids:List<&2,U32>,nodes:AfterAuthors(~S)) -> AfterAuthors(~S) & List<&2,U32>:
-  match ids nodes:
-    case +ids Product.Owner{left,right}:collected(Actors.EditorNode(~S),FailureTail(~S),collect_editor(~S,ids,left),collect_failuretail(~S,ids,right))
 def pending_nodes(~S:Data,ids:List<&2,U32>,world:World(~S),nodes:Nodes(~S)) -> World(~S) & (Nodes(~S) & Bool):
-  Tree.pending_pair(World(~S),Authors(~S),AfterAuthors(~S),pending_authors(~S),pending_afterauthors(~S),ids,world,nodes)
+  Tree.pending_pair(World(~S),FirstFour(~S),RemovalTail(~S),pending_firstfour(~S),pending_removaltail(~S),ids,world,nodes)
 def publish_nodes(~S:Data,~blueprint:Provision.Blueprint<S,Actor.resources(~S),Setup.Seed(~Actor.Session)>,ids:List<&2,U32>,tick:Tick.Tick,world:World(~S),nodes:Nodes(~S)) -> World(~S) & Nodes(~S):
-  Tree.publish_pair(World(~S),Authors(~S),AfterAuthors(~S),publish_authors(~S,~blueprint),publish_afterauthors(~S,~blueprint),ids,tick,world,nodes)
+  Tree.publish_pair(World(~S),FirstFour(~S),RemovalTail(~S),publish_firstfour(~S,~blueprint),publish_removaltail(~S,~blueprint),ids,tick,world,nodes)
 def collect_nodes(~S:Data,ids:List<&2,U32>,nodes:Nodes(~S)) -> Nodes(~S) & List<&2,U32>:
   match ids nodes:
-    case +ids Product.Owner{left,right}:collected(Authors(~S),AfterAuthors(~S),collect_authors(~S,ids,left),collect_afterauthors(~S,ids,right))
+    case +ids Product.Owner{left,right}:collected(FirstFour(~S),RemovalTail(~S),collect_firstfour(~S,ids,left),collect_removaltail(~S,ids,right))
 def dispatch(~S:Data,nodes:Nodes(~S),world:World(~S),ids:List<&2,U32>) -> IO(Execution.RunResult<S,Actor.components(),Actor.resources(~S),Unit,Nodes(~S),String,String>):
   match nodes:
-    case Product.Owner{authors,after}:Group.run_retained(~S,~Actor.components(),~Actor.resources(~S),~Unit,~String,~String,Authors(~S),AfterAuthors(~S),ids,world,authors_leaf(~S,authors),afterauthors_leaf(~S,after))
+    case Product.Owner{first,rest}:Group.run_retained(~S,~Actor.components(),~Actor.resources(~S),~Unit,~String,~String,FirstFour(~S),RemovalTail(~S),ids,world,firstfour_leaf(~S,first),removaltail_leaf(~S,rest))
 def apply(~S:Data,~blueprint:Provision.Blueprint<S,Actor.resources(~S),Setup.Seed(~Actor.Session)>,ids:List<&2,U32>,world:World(~S),nodes:Nodes(~S)) -> World(~S) & (Nodes(~S) & List<&2,U32>):
   Publication.apply(~S,~L.columns(~S,Actor.components()),~L.resources(~S,Actor.resources(~S)),~Unit,~Nodes(~S),~pending_nodes(~S),~publish_nodes(~S,~blueprint),~collect_nodes(~S),ids,world,nodes)
 def handle(handler:Unit,_:String) -> Unit & Exec.Handling:(handler,Exec.Continue{})
 def available(_:String) -> Bool:True{}
 def build(~S:Data,context:Context.Context<S,L.resources(~S,Actor.resources(~S)),Actor.resources(~S),{==}>,world:World(~S),graph:Actors.GraphBinding(~S),link:Actors.LinkBinding(~S),editor:Actors.EditorBinding(~S),failure:Readers.FailureBinding(~S),removal:Actors.RemovalBinding(~S),lifecycle:Readers.LifecycleBinding(~S),updater:Actors.UpdaterBinding(~S)) -> Bound(~S):
-  Provision.Bound{Context.Bound{context,General.build(~S,~Actor.components(),~Actor.resources(~S),~Unit,~Nodes(~S),~Unit,~Unit,~String,~Conditions.empty_dispatch(~World(~S),~String),~available,world,Tree.generalized_pair_facts(Authors(~S),AfterAuthors(~S),Tree.generalized_pair_facts(Actors.GraphNode(~S),Actors.LinkNode(~S),facts_graph(~S,graph),facts_link(~S,link)),Tree.generalized_pair_facts(Actors.EditorNode(~S),FailureTail(~S),facts_editor(~S,editor),Tree.generalized_pair_facts(Readers.FailureNode(~S),RemovalTail(~S),facts_failure(~S,failure),Tree.generalized_pair_facts(Actors.RemovalNode(~S),Tail(~S),facts_removal(~S,removal),Tree.generalized_pair_facts(Readers.LifecycleNode(~S),Actors.UpdaterNode(~S),facts_lifecycle(~S,lifecycle),facts_updater(~S,updater)))))),Conditions.Registry{Unit{},[],None{}},Unit{},[Plan.Edge{1,3},Plan.Edge{2,3},Plan.Edge{3,4},Plan.Edge{4,5},Plan.Edge{5,6},Plan.Edge{6,7}],[])}}
+  Provision.Bound{Context.Bound{context,General.build(~S,~Actor.components(),~Actor.resources(~S),~Unit,~Nodes(~S),~Unit,~Unit,~String,~Conditions.empty_dispatch(~World(~S),~String),~available,world,Tree.generalized_pair_facts(FirstFour(~S),RemovalTail(~S),Tree.generalized_pair_facts(Authors(~S),EditorReaders(~S),Tree.generalized_pair_facts(Actors.GraphNode(~S),Actors.LinkNode(~S),facts_graph(~S,graph),facts_link(~S,link)),Tree.generalized_pair_facts(Actors.EditorNode(~S),Readers.FailureNode(~S),facts_editor(~S,editor),facts_failure(~S,failure))),Tree.generalized_pair_facts(Actors.RemovalNode(~S),Tail(~S),facts_removal(~S,removal),Tree.generalized_pair_facts(Readers.LifecycleNode(~S),Actors.UpdaterNode(~S),facts_lifecycle(~S,lifecycle),facts_updater(~S,updater)))),Conditions.Registry{Unit{},[],None{}},Unit{},[Plan.Edge{1,3},Plan.Edge{2,3},Plan.Edge{3,4},Plan.Edge{4,5},Plan.Edge{5,6},Plan.Edge{6,7}],[])}}
 def configure_scheduled(~S:Data,+final:Bool,app:Scheduled(~S)) -> Scheduled(~S):
   match app:
     case Root.Scheduled{state,plan,bindings,rules,Root.Deferred{systems,Settings.Settings{automatic,_,ignored,explicit},unapplied}}:Root.Scheduled{state,plan,bindings,rules,Root.Deferred{systems,Settings.Settings{automatic,final,ignored,explicit},unapplied}}
