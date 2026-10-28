@@ -24,3 +24,21 @@ def live_count(packet:G.Packet) -> U32:
   match packet:
     case G.Packet{state,_}:live_state(state)
     case _:0
+
+def snapshot_done(rebuild:Root.Application() -> G.State,+frame:String,result:Root.Application() & String) -> G.Packet & String:
+  match result:
+    case (app,text):(G.Packet{rebuild(app),frame},"frame=" ++ frame ++ ";" ++ text)
+def snapshot_state(frame:String,state:G.State) -> G.Packet & String:
+  match state:
+    case G.State{app,px,py,hp,score,kills,tick,cooldown,charge,pulseClock,chainClock,nextEnemy,nextProjectile,count,projectiles,bodies}:snapshot_done(app=>G.State{app,px,py,hp,score,kills,tick,cooldown,charge,pulseClock,chainClock,nextEnemy,nextProjectile,count,projectiles,bodies},frame,Observe.full(app))
+def snapshot(packet:G.Packet) -> G.Packet & String:
+  match packet:
+    case G.Packet{state,frame}:snapshot_state(frame,state)
+    case G.Failed{+error}:(G.Failed{error},"failed=" ++ error)
+def after(before:String,result:G.Packet & String) -> IO(Unit):
+  match result:
+    case (_,text):IO.print("before=" ++ before ++ "\nafter=" ++ text)
+def started(result:G.Packet & String) -> IO(Unit):
+  match result:
+    case (packet,before):IO.bind(G.Packet,Unit,advance(packet),packet=>after(before,snapshot(packet)))
+def main() -> IO(Unit):IO.bind(G.Packet,Unit,G.start(Unit{}),packet=>started(snapshot(packet)))
