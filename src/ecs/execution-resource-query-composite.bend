@@ -11,6 +11,7 @@ import ./execution-prepared.bend as Prep
 import ./execution-parallel-schedule.bend as Ready
 import ./execution-reservation-task.bend as Task
 import ./execution-reservation-authority.bend as Authority
+import ./execution-owner-continuation.bend as Continuation
 import ./owner-product.bend as Product
 import ./world.bend as W
 
@@ -21,14 +22,14 @@ type Child<-S:Data,-World:Type,-H:Type,-Owner:Type,-P:Data,-Status:Data,-FP:Data
   Inspected{-Held:Type,restore:Held -> Owner,prepare:List<&2,U32> -> World -> Held -> World & Held,invoke:H -> Held -> Task.Task<S,Authority.Permit,Phase.LeafResult<H,Held,Status>>,permits:Held -> Held & List<&2,P>,held:Held}
   Prepared{-Held:Type,restore:Held -> Owner,invoke:H -> Held -> Task.Task<S,Authority.Permit,Phase.LeafResult<H,Held,Status>>,permits:Held -> Held & List<&2,P>,held:Held}
   Invokable{-Held:Type,restore:Held -> Owner,invoke:H -> Held -> Task.Task<S,Authority.Permit,Phase.LeafResult<H,Held,Status>>,held:Held}
-  Finished{owner:Owner}
+  Finished{-Held:Type,restore:Held -> Owner,held:Held}
 def restore_child(-S:Data,-World:Type,-H:Type,-Owner:Type,-P:Data,-Status:Data,-FP:Data,child:Child<S,World,H,Owner,P,Status,FP>) -> Owner:
   match child:
     case Fresh{Held,restore,_,_,_,_,held}:restore(held)
     case Inspected{Held,restore,_,_,_,held}:restore(held)
     case Prepared{Held,restore,_,_,held}:restore(held)
     case Invokable{Held,restore,_,held}:restore(held)
-    case Finished{owner}:owner
+    case Finished{Held,restore,held}:restore(held)
 def inspected_one(-S:Data,-World:Type,-H:Type,-Owner:Type,-P:Data,-Status:Data,-FP:Data,-Held:Type,restore:Held -> Owner,prepare:List<&2,U32> -> World -> Held -> World & Held,invoke:H -> Held -> Task.Task<S,Authority.Permit,Phase.LeafResult<H,Held,Status>>,permits:Held -> Held & List<&2,P>,result:World & (Held & Maybe<&2,FP>)) -> World & (Child<S,World,H,Owner,P,Status,FP> & Maybe<&2,FP>):
   match result:
     case (world,(held,footprint)):(world,(Inspected{Held,restore,prepare,invoke,permits,held},footprint))
@@ -52,8 +53,8 @@ def permits_one(-S:Data,-World:Type,-H:Type,-Owner:Type,-P:Data,-Status:Data,-FP
     case child:(child,[])
 def invoked_one(-S:Data,-World:Type,-H:Type,-Owner:Type,-P:Data,-Status:Data,-FP:Data,-Held:Type,restore:Held -> Owner,result:Phase.LeafResult<H,Held,Status>) -> Phase.LeafResult<H,Child<S,World,H,Owner,P,Status,FP>,Status>:
   match result:
-    case Phase.LeafResult{scope,held,status}:Phase.LeafResult{scope,Finished{restore(held)},status}
-    case Phase.LeafInventoryRefused{Inventory,inventory,held,status}:Phase.LeafInventoryRefused{Inventory,inventory,Finished{restore(held)},status}
+    case Phase.LeafResult{scope,held,status}:Phase.LeafResult{scope,Finished{Held,restore,held},status}
+    case Phase.LeafInventoryRefused{Inventory,inventory,held,status}:Phase.LeafInventoryRefused{Inventory,inventory,Finished{Held,restore,held},status}
 def invoke_one(-S:Data,-World:Type,-H:Type,-Owner:Type,-P:Data,-Status:Data,-FP:Data,empty:Status,scope:H,child:Child<S,World,H,Owner,P,Status,FP>) -> Task.Task<S,Authority.Permit,Phase.LeafResult<H,Child<S,World,H,Owner,P,Status,FP>,Status>>:
   match child:
     case Invokable{Held,restore,invoke,held}:Task.bind(S,Authority.Permit,Phase.LeafResult<H,Held,Status>,Phase.LeafResult<H,Child<S,World,H,Owner,P,Status,FP>,Status>,invoke(scope,held),result => Task.TDone{invoked_one(S,World,H,Owner,P,Status,FP,Held,restore,result)})
@@ -110,6 +111,16 @@ def invoke(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,~Error:Data,
 def child(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,~Error:Data,~Out:Data,-Owner:Type,leaf:Leaf.Leaf<S,components,resources,E,Owner,Error,Out>) -> Child<S,W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Owner,Prep.Permit<S,L.columns(~S,components)>,List<&2,Ready.Completed<Error,Out>>,Footprint.Footprint<S,components,resources>>:
   match leaf:
     case Leaf.Leaf{Held,restore,inspect,prepare,invoke,permits,held}:Fresh{Held,restore,inspect,prepare,invoke,permits,held}
+def from_children(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,~Error:Data,~Out:Data,-Left:Type,-Right:Type,pair:Leaf.Leaf<S,components,resources,E,Left,Error,Out> & Leaf.Leaf<S,components,resources,E,Right,Error,Out>) -> Leaf.Leaf<S,components,resources,E,Product.Owner<Left,Right>,Error,Out>:
+  match pair:
+    case (left,right):Leaf.Leaf{Node<S,W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Left,Right,Prep.Permit<S,L.columns(~S,components)>,List<&2,Ready.Completed<Error,Out>>,Footprint.Footprint<S,components,resources>>,restore_node(S,W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Left,Right,Prep.Permit<S,L.columns(~S,components)>,List<&2,Ready.Completed<Error,Out>>,Footprint.Footprint<S,components,resources>),inspect(S,W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Left,Right,Prep.Permit<S,L.columns(~S,components)>,List<&2,Ready.Completed<Error,Out>>,Footprint.Footprint<S,components,resources>,Footprint.combine(~S,~components,~resources),compatible(~S,~components,~resources)),prepare(S,W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Left,Right,Prep.Permit<S,L.columns(~S,components)>,List<&2,Ready.Completed<Error,Out>>,Footprint.Footprint<S,components,resources>),invoke(~S,~components,~resources,~E,~Error,~Out,Left,Right),permits(S,W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Left,Right,Prep.Permit<S,L.columns(~S,components)>,List<&2,Ready.Completed<Error,Out>>,Footprint.Footprint<S,components,resources>),Node{child(~S,~components,~resources,~E,~Error,~Out,Left,left),child(~S,~components,~resources,~E,~Error,~Out,Right,right),None{},None{},False{}}}
+def left_made(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,~Error:Data,~Out:Data,~Left:Type,~Right:Type,~makeRight:Right -> Leaf.Leaf<S,components,resources,E,Right,Error,Out>,pair:Right & Leaf.Leaf<S,components,resources,E,Left,Error,Out>) -> Leaf.Leaf<S,components,resources,E,Product.Owner<Left,Right>,Error,Out>:
+  match pair:
+    case (right,left):
+      continuation:Continuation.PairedHeader<Leaf.Leaf<S,components,resources,E,Right,Error,Out>,Leaf.Leaf<S,components,resources,E,Product.Owner<Left,Right>,Error,Out>> = Continuation.PairedHeader{Leaf.Leaf<S,components,resources,E,Left,Error,Out>,left,from_children(~S,~components,~resources,~E,~Error,~Out,Left,Right)}
+      Continuation.paired_returned(Leaf.Leaf<S,components,resources,E,Right,Error,Out>,Leaf.Leaf<S,components,resources,E,Product.Owner<Left,Right>,Error,Out>,continuation,makeRight(right))
 def from_nodes(~S:Data,~components:L.Layout,~resources:L.Layout,~E:Data,~Error:Data,~Out:Data,~Left:Type,~Right:Type,~makeLeft:Left -> Leaf.Leaf<S,components,resources,E,Left,Error,Out>,~makeRight:Right -> Leaf.Leaf<S,components,resources,E,Right,Error,Out>,nodes:Product.Owner<Left,Right>) -> Leaf.Leaf<S,components,resources,E,Product.Owner<Left,Right>,Error,Out>:
   match nodes:
-    case Product.Owner{left,right}:Leaf.Leaf{Node<S,W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Left,Right,Prep.Permit<S,L.columns(~S,components)>,List<&2,Ready.Completed<Error,Out>>,Footprint.Footprint<S,components,resources>>,restore_node(S,W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Left,Right,Prep.Permit<S,L.columns(~S,components)>,List<&2,Ready.Completed<Error,Out>>,Footprint.Footprint<S,components,resources>),inspect(S,W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Left,Right,Prep.Permit<S,L.columns(~S,components)>,List<&2,Ready.Completed<Error,Out>>,Footprint.Footprint<S,components,resources>,Footprint.combine(~S,~components,~resources),compatible(~S,~components,~resources)),prepare(S,W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Left,Right,Prep.Permit<S,L.columns(~S,components)>,List<&2,Ready.Completed<Error,Out>>,Footprint.Footprint<S,components,resources>),invoke(~S,~components,~resources,~E,~Error,~Out,Left,Right),permits(S,W.World<S,L.columns(~S,components),L.resources(~S,resources),E>,State.Scope<S,QueryStore.Storage<S,components>,ResourceStore.Storage<S,resources>>,Left,Right,Prep.Permit<S,L.columns(~S,components)>,List<&2,Ready.Completed<Error,Out>>,Footprint.Footprint<S,components,resources>),Node{child(~S,~components,~resources,~E,~Error,~Out,Left,makeLeft(left)),child(~S,~components,~resources,~E,~Error,~Out,Right,makeRight(right)),None{},None{},False{}}}
+    case Product.Owner{left,right}:
+      continuation:Continuation.PairedHeader<Leaf.Leaf<S,components,resources,E,Left,Error,Out>,Leaf.Leaf<S,components,resources,E,Product.Owner<Left,Right>,Error,Out>> = Continuation.PairedHeader{Right,right,left_made(~S,~components,~resources,~E,~Error,~Out,~Left,~Right,~makeRight)}
+      Continuation.paired_returned(Leaf.Leaf<S,components,resources,E,Left,Error,Out>,Leaf.Leaf<S,components,resources,E,Product.Owner<Left,Right>,Error,Out>,continuation,makeLeft(left))
