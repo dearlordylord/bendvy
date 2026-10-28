@@ -7,7 +7,9 @@ import ./extended-admission.bend as Admission
 import ./extended-restore.bend as Restore
 import ./extended-population.bend as Population
 import ./extended-save.bend as Save
-import ./extended-main.bend as Observe
+import ./extended-observation.bend as Observe
+import ./extended-observation-data.bend as Data
+import ./observation.bend as BasicObserve
 import ./declarations.bend as O
 import ../parallel-machines/reports.bend as Reports
 import ../../src/ecs/execution-parallel-root-application.bend as Schedule
@@ -68,14 +70,17 @@ def capture(result:Array<U32> & U32) -> String:
 def local(value:P.Local) -> String:
   match value:
     case P.Local{values,runs}:capture(Array.get(U32,values,0)) ++ ":" ++ U32.show(runs)
+def source_observed(~S:Data,value:Source<S>) -> String:
+  match value:
+    case Source{world,previous,receipt}:Observe.source(~S,Observe.Source{world,previous,receipt})
 def observed(~S:Data,result:Outcome<S>) -> String:
   match result:
-    case Resumed{_,Restoration{Restore.State{schema,input,_,_,_},_,mapping,_,_},Schedule.Scheduled{App.State{world,Product.Owner{Sys.Owner{_,leftId,_,_,leftCursor,leftLocal},Sys.Owner{_,rightId,_,_,rightCursor,rightLocal}},Scope.CompiledBinding{_,Sys.Owner{_,guardId,_,_,guardCursor,guardLocal}},Execution.Handler{handlerCapture,handled,reader},stateBindings},_,appBindings,_,_},report}:"report=" ++ Reports.report(report) ++ "/left=" ++ U32.show(leftId) ++ ":" ++ local(leftLocal) ++ "/right=" ++ U32.show(rightId) ++ ":" ++ local(rightLocal) ++ "/guard=" ++ U32.show(guardId) ++ ":" ++ local(guardLocal) ++ "/handler=" ++ capture(Array.get(U32,handlerCapture,0)) ++ ":" ++ U32.show(handled) ++ "/stateBindings=" ++ Nat.show(List.length(&2,App.Binding,stateBindings)) ++ "/appBindings=" ++ Nat.show(List.length(&2,App.Binding,appBindings)) ++ "/" ++ Observe.saved(~S,input,mapping,reader,Save.save(~S,schema,world))
-    case SourceRefused{_}:"source-refused"
-    case DefinitionRefused{_,_,_,_}:"definition-refused"
-    case RestoreRefused{_,_}:"restore-refused"
+    case Resumed{Source{world,old,receipt},Restoration{state,removed,mapping,publications,previous},app,report}:Observe.resumed(~S,Observe.Source{world,old,receipt},Observe.Restoration{state,removed,mapping,publications,previous},app,report)
+    case SourceRefused{result}:"source-refused/" ++ Observe.flow(~S,result)
+    case DefinitionRefused{source,schema,input,result}:"definition-refused/source={" ++ source_observed(~S,source) ++ "}/schema=" ++ Data.schema(~S,schema) ++ "/input=" ++ Data.snapshot(~S,input) ++ "/result=" ++ Observe.definition(~S,result)
+    case RestoreRefused{source,result}:"restore-refused/source={" ++ source_observed(~S,source) ++ "}/result=" ++ Observe.execution_restoration(~S,result)
 def repeated_observed(~S:Data,result:Repeated<S>) -> String:
   match result:
     case FirstRefused{result}:"first-refused/" ++ observed(~S,result)
-    case Repeated{first,second}:"first=" ++ Reports.report(first) ++ "/second=" ++ observed(~S,second)
+    case Repeated{first,second}:"first=" ++ BasicObserve.report(first) ++ "/second=" ++ observed(~S,second)
 def main() -> IO(Unit):IO.bind(Repeated<O.Alpha>,Unit,run_repeated(~O.Alpha,False{}),a => IO.bind(Unit,Unit,IO.print("alpha-serial " ++ repeated_observed(~O.Alpha,a)),u => IO.bind(Repeated<O.Beta>,Unit,run_repeated(~O.Beta,True{}),b => IO.print("beta-native " ++ repeated_observed(~O.Beta,b)))))

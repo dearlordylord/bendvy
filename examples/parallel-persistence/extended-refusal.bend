@@ -5,7 +5,8 @@ import ./extended-resume.bend as Resume
 import ./extended-declarations.bend as Schema
 import ./extended-admission.bend as Admission
 import ./extended-save.bend as Save
-import ./extended-main.bend as Observe
+import ./extended-observation.bend as Observe
+import ./extended-observation-data.bend as Data
 import ./declarations.bend as O
 import ../../src/ecs/execution-restore-extended-data.bend as Extended
 import ../../src/ecs/execution-save-data.bend as Basic
@@ -28,8 +29,8 @@ type Outcome<-S:Data> is Type:
   SourceRefused{result:Flow.Outcome<S>}
   DefinitionRefused{source:Resume.Source<S>,schema:Admission.Recipes(~S),valid:Extended.Snapshot<S>,result:Execution.Defined<S>}
   Unexpected{source:Resume.Source<S>,valid:Extended.Snapshot<S>,result:Execution.Restoration<S>}
-  SaveRefused{source:Resume.Source<S>,valid:Extended.Snapshot<S>,invalid:Extended.Snapshot<S>,reason:Admission.Reason,schema:Admission.Recipes(~S),app:Execution.Application(~S),result:Gate.Outcome<Extended.Snapshot<S>,Recipe.Refusal>}
-  Retried{invalid:Extended.Snapshot<S>,reason:Admission.Reason,refused:Extended.Snapshot<S>,result:Resume.Outcome<S>}
+  SaveRefused{source:Resume.Source<S>,valid:Extended.Snapshot<S>,invalid:Extended.Snapshot<S>,reason:Admission.Reason,actual:String,schema:Admission.Recipes(~S),app:Execution.Application(~S),result:Gate.Outcome<Extended.Snapshot<S>,Recipe.Refusal>}
+  Retried{invalid:Extended.Snapshot<S>,reason:Admission.Reason,refused:Extended.Snapshot<S>,actual:String,result:Resume.Outcome<S>}
 # Corrupt detached source data using one of its actual saved full-generation keys.
 # The ordinary hierarchy validator must reject self-membership before mutation.
 def malformed(~S:Data,input:Extended.Snapshot<S>) -> Extended.Snapshot<S>:
@@ -49,14 +50,17 @@ def corrupt(~S:Data,kind:Corruption,input:Extended.Snapshot<S>) -> Extended.Snap
     case GraphSelf{} input:malformed(~S,input)
     case DuplicateScope{} Extended.Snapshot{basic,relations,machines,members}:Extended.Snapshot{basic,relations,machines,duplicate(members)}
     case StaleScope{} Extended.Snapshot{basic,relations,machines,members}:Extended.Snapshot{basic,relations,machines,stale(members)}
-def resumed(~S:Data,invalid:Extended.Snapshot<S>,reason:Admission.Reason,refused:Extended.Snapshot<S>,result:Resume.Outcome<S>) -> Outcome<S>:Retried{invalid,reason,refused,result}
-def saved(~S:Data,native:Bool,source:Resume.Source<S>,valid:Extended.Snapshot<S>,invalid:Extended.Snapshot<S>,reason:Admission.Reason,held:Execution.Held<S>,result:Admission.Recipes(~S) & (Schema.World(~S) & Gate.Outcome<Extended.Snapshot<S>,Recipe.Refusal>)) -> IO(Outcome<S>):
+def resumed(~S:Data,invalid:Extended.Snapshot<S>,reason:Admission.Reason,refused:Extended.Snapshot<S>,actual:String,result:Resume.Outcome<S>) -> Outcome<S>:Retried{invalid,reason,refused,actual,result}
+def saved(~S:Data,native:Bool,source:Resume.Source<S>,valid:Extended.Snapshot<S>,invalid:Extended.Snapshot<S>,reason:Admission.Reason,actual:String,held:Execution.Held<S>,result:Admission.Recipes(~S) & (Schema.World(~S) & Gate.Outcome<Extended.Snapshot<S>,Recipe.Refusal>)) -> IO(Outcome<S>):
   match result:
-    case (schema,(world,Gate.Saved{snapshot})):IO.bind(Resume.Outcome<S>,Outcome<S>,Resume.restored(~S,native,source,Execution.restore(~S,schema,valid,Execution.rejoin(~S,held,world))),result => IO.pure(Outcome<S>,resumed(~S,invalid,reason,snapshot,result)))
-    case (schema,(world,result)):IO.pure(Outcome<S>,SaveRefused{source,valid,invalid,reason,schema,Execution.rejoin(~S,held,world),result})
+    case (schema,(world,Gate.Saved{snapshot})):IO.bind(Resume.Outcome<S>,Outcome<S>,Resume.restored(~S,native,source,Execution.restore(~S,schema,valid,Execution.rejoin(~S,held,world))),result => IO.pure(Outcome<S>,resumed(~S,invalid,reason,snapshot,actual,result)))
+    case (schema,(world,result)):IO.pure(Outcome<S>,SaveRefused{source,valid,invalid,reason,actual,schema,Execution.rejoin(~S,held,world),result})
+def refusal_observed(~S:Data,native:Bool,source:Resume.Source<S>,valid:Extended.Snapshot<S>,schema:Admission.Recipes(~S),invalid:Extended.Snapshot<S>,reason:Admission.Reason,result:Execution.Application(~S) & String) -> IO(Outcome<S>):
+  match result:
+    case (Schedule.Scheduled{App.State{world,owners,guard,handler,stateBindings},plan,appBindings,rules,deferred},actual):saved(~S,native,source,valid,invalid,reason,actual,Execution.Held{owners,guard,handler,stateBindings,plan,appBindings,rules,deferred},Save.save(~S,schema,world))
 def refused(~S:Data,native:Bool,source:Resume.Source<S>,valid:Extended.Snapshot<S>,result:Execution.Restoration<S>) -> IO(Outcome<S>):
   match result:
-    case Execution.InputRefused{Schedule.Scheduled{App.State{world,owners,guard,handler,stateBindings},plan,appBindings,rules,deferred},schema,invalid,reason}:saved(~S,native,source,valid,invalid,reason,Execution.Held{owners,guard,handler,stateBindings,plan,appBindings,rules,deferred},Save.save(~S,schema,world))
+    case Execution.InputRefused{app,schema,invalid,reason}:refusal_observed(~S,native,source,valid,schema,invalid,reason,Observe.app_retained(~S,app))
     case result:IO.pure(Outcome<S>,Unexpected{source,valid,result})
 def defined(~S:Data,kind:Corruption,native:Bool,source:Resume.Source<S>,schema:Admission.Recipes(~S),+valid:Extended.Snapshot<S>,result:Execution.Defined<S>) -> IO(Outcome<S>):
   match result:
@@ -72,16 +76,12 @@ def time(~S:Data,input:Extended.Snapshot<S>) -> String:
   match input:
     case Extended.Snapshot{Basic.Snapshot{_,Metadata.Metadata{_,_,clock,_},_,_},_,_,_}:Tick.show(Clock.now(clock))
 def reason(value:Admission.Reason) -> String:
-  match value:
-    case Admission.GraphRefused{Graph.InvalidRelation{name,_,_}}:name
-    case Admission.ScopeRefused{Scopes.DuplicateEntity{key}}:"duplicate-scope/" ++ KeyRender.show(key)
-    case Admission.ScopeRefused{Scopes.MissingEntity{key}}:"missing-scope/" ++ KeyRender.show(key)
-    case _:"other-refusal"
+  Data.reason(value)
 def observed(~S:Data,result:Outcome<S>) -> String:
   match result:
-    case Retried{invalid,error,+refused,result}:"refused=" ++ reason(error) ++ "/clock=" ++ time(~S,refused) ++ "/actualReceiver=" ++ Observe.snapshot(~S,refused) ++ "/retry=" ++ Resume.observed(~S,result)
-    case SourceRefused{_}:"source-refused"
-    case DefinitionRefused{_,_,_,_}:"definition-refused"
-    case Unexpected{_,_,_}:"unexpected-outcome"
-    case SaveRefused{_,_,_,_,_,_,_}:"save-refused"
+    case Retried{invalid,error,refused,actual,result}:"refused=" ++ reason(error) ++ "/invalid=" ++ Data.snapshot(~S,invalid) ++ "/refusedApplication={" ++ actual ++ "}/receiverSave=" ++ Data.snapshot(~S,refused) ++ "/retry=" ++ Resume.observed(~S,result)
+    case SourceRefused{result}:"source-refused/" ++ Observe.flow(~S,result)
+    case DefinitionRefused{source,schema,valid,result}:"definition-refused/source={" ++ Resume.source_observed(~S,source) ++ "}/schema=" ++ Data.schema(~S,schema) ++ "/valid=" ++ Data.snapshot(~S,valid) ++ "/result=" ++ Observe.definition(~S,result)
+    case Unexpected{source,valid,result}:"unexpected/source={" ++ Resume.source_observed(~S,source) ++ "}/valid=" ++ Data.snapshot(~S,valid) ++ "/result=" ++ Observe.execution_restoration(~S,result)
+    case SaveRefused{source,valid,invalid,error,actual,schema,app,result}:"save-refused/source={" ++ Resume.source_observed(~S,source) ++ "}/valid=" ++ Data.snapshot(~S,valid) ++ "/invalid=" ++ Data.snapshot(~S,invalid) ++ "/reason=" ++ reason(error) ++ "/refusedApplication={" ++ actual ++ "}/schema=" ++ Data.schema(~S,schema) ++ "/application={" ++ Observe.app(~S,app) ++ "}/save=" ++ Observe.save_outcome(~S,result)
 def main() -> IO(Unit):IO.bind(Outcome<O.Alpha>,Unit,run(~O.Alpha,False{}),a => IO.bind(Unit,Unit,IO.print("alpha-serial " ++ observed(~O.Alpha,a)),u => IO.bind(Outcome<O.Beta>,Unit,run(~O.Beta,True{}),b => IO.print("beta-native " ++ observed(~O.Beta,b)))))
