@@ -7,5 +7,5 @@ import ../../../src/ecs/execution-command-permission.bend as Permission
 
 type Schema is Data:Schema{}
 # A single-family declaration has no structural entity command capability.
-def bad(~Q:Type,~commands:Local.Commands<Q,Schema,P.Token>,queue:Q,handle:W.Handle<Schema>) -> Q:
-  Permission.despawn_field(~Q,~Schema,~(Registered.layout()),commands)(queue,handle)
+def bad(~Permit:Data,~Q:Type,~commands:Local.Commands<Q,Schema,P.Token>,queue:Q,handle:W.Handle<Schema>) -> Q:
+  Permission.despawn_field(~Q,~Schema,~(Registered.layout()),~Permit,commands)(queue,handle)
