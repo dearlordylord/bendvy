@@ -5,14 +5,13 @@ fixture examples resolve in the [historical source checkout](../../test-fixtures
 not against the replacement core. For current execution APIs use the
 [execution API guide](execution-api.md) and current application examples.
 
-The ordinary execution contract is being replaced under
+The current ordinary execution contract is defined by
 [issue #77](https://github.com/dearlordylord/bendvy/issues/77) and
 [the SPEC amendment](../SPEC.md#ordinary-execution-replacement-user-amendment-2026-10-26-utc).
-The replacement capabilities remain pending acceptance in #78 through #94.
 The walkthrough below describes the pre-migration API and its transactional
 behavior. It is not a qualified replacement-executor example or a compatibility
-requirement. Each feature slice must update its consumer and API instructions
-when its replacement path is verified.
+requirement. Current API instructions and examples are in the linked execution
+guide.
 
 ## Target ordinary execution contract
 

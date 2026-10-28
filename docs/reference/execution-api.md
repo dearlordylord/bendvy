@@ -1,10 +1,10 @@
 # Replacement execution API
 
 The ordinary execution contract is the [SPEC replacement amendment](../SPEC.md#ordinary-execution-replacement-user-amendment-2026-10-26-utc).
-The implementation and remaining acceptance work belong to
-[issues #78 through #94](https://github.com/dearlordylord/bendvy/issues/77).
-This page describes the current application entry and names its source modules.
-It does not mark those issues complete.
+This page names the current application entries and source modules implementing
+that contract. The [capability map](../parity/README.md#replacement-execution-delivery)
+records their implementation ownership. Source-bound observations retain the
+scope of their actual consumers.
 
 ## Application construction and repeated runs
 
@@ -57,8 +57,8 @@ show the body registration and retained leaf adapters. The
 corresponding condition registration, `CompiledBinding`, and retained dispatch.
 These factories supply a closed construction witness for capability selection.
 That trusted construction boundary does not prove that arbitrary manually built
-bindings agree with a declaration. These entries describe the retained path.
-Migration of all current callers to that path remains in progress.
+bindings agree with a declaration. Current ordinary applications use these
+retained registrations.
 
 ## Task bodies and execution policy
 
@@ -176,6 +176,10 @@ The [scheduled-health application](../../examples/scheduled-health/README.md)
 starts with declaration-derived access and retained command and query owners.
 The [captured-query application](../../examples/captured-query/README.md) shows
 partial writes after a returned error, affine capture retention, and `Changed`.
+The [original mixed applications](../design/execution-original-applications.md)
+retain their actual owners through explicit recovery, event publication, graph
+commands, and passive inspection. AppB deliberately selects serial execution
+and observes its pending machine state without applying a transition.
 The modules above preserve the distinction between trusted schema setup and the
 abstract capabilities available inside a system body.
 
@@ -198,6 +202,13 @@ pure `feature-provision` declared-access binding and current registration lifecy
 operations remain available; the application-owned AppA Journal recovery is
 separate from ordinary execution. Historical fixture builders retain their
 [original source checkout](../../test-fixtures/HISTORICAL.md).
+
+The unconsumed old owned-event staging, Array journal, single-column recovery,
+and bundle installation and undo modules are also retired. Their module paths no
+longer appear in the package. The live explicit recovery facility consists of
+`recoverable-component`, `execution-recoverable-component`, and `recovery-journal`.
+AppA calls it directly before ordinary gameplay. It does not determine the Root
+schedule's error or publication policy.
 
 The BendHub exporter includes all remaining source files under `src/ecs`, even
 when the aggregate does not import them. Remaining pure helpers have not been

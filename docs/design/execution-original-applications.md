@@ -1,14 +1,15 @@
 # Original application migration
 
-GH94 migrates two existing, independently authored applications. Their source is
-preserved in Git at `94fc35a9616e7b2f561935dc9667d13a332d07e5`, before
+The current entries preserve two existing, independently authored applications.
+Their earlier source is preserved in Git at
+`94fc35a9616e7b2f561935dc9667d13a332d07e5`, before
 `f615c2948` removed the experiment archive. The source directories are
 `experiments/public-audit61/app-a-current-carrier-v1` and
 `experiments/public-audit61/app-b-current-carrier-v1`.
 
 The archived README binds those applications to core `81316652e`. That source and
 its historical observations do not establish behavior of the replacement core.
-The current migration uses Bend source only. It does not restore archived host
+The replacement entries use Bend source only. They do not restore archived host
 models, tests, runners, or execution packets.
 
 ## AppA retains its owned-payload handoff
@@ -39,11 +40,10 @@ to determine the replacement ordinary schedule. Recoverable component operations
 remain separate from the three scheduled systems.
 
 `recoverable-component.bend` retains the nominal recovery records and result
-types used by the modern adapter. Old column operations live in
-`recoverable-component-legacy.bend`; their callers import that module explicitly.
-The aggregate still includes those legacy operations. This split removes that
-transitive legacy dependency from the modern recovery adapter, not from the
-whole package.
+types used by the modern adapter. `execution-recoverable-component.bend` uses
+canonical chunk columns, and `recovery-journal.bend` drives the explicit recovery
+operation. The old single-column adapters and unconsumed generic Array journal
+adapters are retired from the package. Their historical source remains in Git.
 
 ## AppB retains a distinct graph application
 
@@ -57,14 +57,14 @@ two relationships, reparents one entity, and observes the result.
 | Queue `Parent(child,root)` and `Link(child,other)` | Independent hierarchy and ordinary descriptors with IDs `1` and `2` | GH89 protected Store declarations and the same command queue |
 | Flush and inspect child | Observe Parent, Children, Link, scalar, and current machine state | GH89 publication and GH93 passive projections |
 | Queue `Parent(child,other)` and flush | Replace the old hierarchy edge and update its inverse | GH89 canonical hierarchy interpreter |
-| Inspect twice after reparent | Preserve graph, machine queue, readers, and affine payloads | GH93 passive observation |
+| Inspect twice after reparent | Preserve graph, machine queue, and affine payloads | GH93 passive observation |
 
 The Phase resource starts with current value `1` and queued next value `2`.
-AppB never applies that pending transition. Migration must preserve the queue
-through inspection rather than add a transition to resemble another application.
+AppB never applies that pending transition. Its ordinary entry preserves the
+queue through inspection.
 Its sibling resource starts `[100,101]`.
 
-## Current source and remaining work
+## Current application entries
 
 `examples/parallel-applications/app-a-payloads.bend` carries the original affine
 query capture and payload constructors. `app-b-schema.bend` builds canonical chunk
@@ -81,6 +81,9 @@ and canonical publication; they preserve the remaining IDs and retained state.
 The registered command author and empty boundary peer replace the old direct
 transaction enqueue transport. They do not add a machine transition or a gameplay
 system to AppB's domain behavior.
+The original entry deliberately selects the replacement serial executor. It does
+not run an event reader, a machine transition schedule, or a parallel query body.
+Those capabilities retain their separate feature-consumer evidence.
 
 `app-b-inspection.bend` uses the current passive Inspector adapters for component
 queries and cached graph/machine resource views. `app-b-owners.bend` reports every
@@ -97,8 +100,11 @@ remain pending. The first relation flush produces Parent `3:0 -> 1:0` and Link
 `3:0 -> 2:0`; reparenting replaces Parent with `3:0 -> 2:0` and updates its inverse.
 Every printed Phase view remains current `1`, next `2`, revision `0`.
 The repeated final Inspector projections agree, and all three actual array owners
-produce `[7,9]` on both diagnostic reads. These are finite interpreter observations,
-not a formal proof or native backend concurrency evidence.
+produce `[7,9]` on both diagnostic reads. At source `f08e554e5`, the original AppB
+entry's complete 4,218-byte observation matches the independently derived
+expectation on JavaScript and native execution. These finite observations do not
+prove preservation universally or demonstrate concurrent workers in this serial
+application.
 
 AppA's current ordinary entry retains its original initial bundle and explicit
 flush, then runs the named explicit recovery prefix. Its modern recovery adapter
@@ -151,9 +157,16 @@ cursor remains unchanged during its skipped update. The final retained event
 reader still reports sum `16`, prior scalar `11` and scratch `[17,18]`.
 The passive Inspector intentionally preserves its cursor and the World clock;
 this is the current contract, replacing the old advancing Inspector behavior.
-These are finite interpreter observations, without a universal preservation,
-formal proof or native concurrency claim.
+At source `f08e554e5`, the complete original Off and On AppA entry matches its
+independently derived 6,222-byte observation on JavaScript and native execution.
+This includes all three updates, the retained Off owner after On, and the actual
+dependency and command-boundary diagnostics. It is finite execution evidence,
+without a universal preservation, formal proof, or native worker-placement claim.
 
-Final source cleanup remains incomplete. GH94 also retains its complete
-JavaScript/native delivery, applicable authority controls, and independent review
-requirements. No new law is approved or proved by this application run.
+The ordinary entries use the replacement executor without compatibility wrappers
+around the removed transactional path. Old owned-event staging and bundle undo
+modules are retired alongside the old recovery adapters. Shared metadata and
+modern pure helpers remain available. Each application's qualification covers
+its actual selected operations; the feature slices provide the broader authority
+and native single-World concurrency evidence. No new law is approved or proved
+by these application runs.

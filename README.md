@@ -17,11 +17,15 @@ A Bevy-style ECS built for [Bend 2](https://github.com/bendlang/bend), including
 
 The examples provide finite observations. Five approved Bend laws cover
 [pure executor helpers](docs/design/execution-law-candidates.md).
-Replacement execution work is still in progress. The
-[current API map](docs/reference/execution-api.md) names the implementation entries
-and documents removal of the superseded ordinary executor. Application integration,
-normal CI and the remaining acceptance requirements of
-[issues #78–94](https://github.com/dearlordylord/bendvy/issues/77) are still in progress.
+The ordinary executor derives access planning and capabilities from the same
+declarations and retains the actual application owners between runs. Native
+execution supports compatible systems within one World and independent query
+items through Bend parallel calls. The
+[current API map](docs/reference/execution-api.md) names these entries and the
+retired transactional executor modules. The
+[original mixed applications](docs/design/execution-original-applications.md)
+combine this execution with owned events, deferred commands, graphs, and passive
+inspection.
 
 ## Playable example
 
@@ -85,8 +89,8 @@ The [browser arena](examples/arena/README.md) provides a larger interactive exam
 ## Parity and performance
 
 The goal is the full **Bevy ECS subset covered by bevy-ts**, with idiomatic Bend APIs.
-The replacement executor and consumer migration remain active in
-[#78 through #94](https://github.com/dearlordylord/bendvy/issues/77).
+The ordinary execution contract and capability ownership are recorded in
+[#77 and its implementation slices](https://github.com/dearlordylord/bendvy/issues/77).
 Earlier capability deliveries retain their original source and contract.
 See the [parity tracker](docs/parity/README.md) and [spec](docs/SPEC.md).
 

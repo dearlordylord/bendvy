@@ -42,11 +42,17 @@ Historical TS mechanisms and reusable tooling: [explicit archive index](../archi
 [Issue #77](https://github.com/dearlordylord/bendvy/issues/77) governs the
 replacement ordinary executor under the
 [SPEC amendment](../SPEC.md#ordinary-execution-replacement-user-amendment-2026-10-26-utc).
-All slices below are pending acceptance. Earlier accepted capabilities and receipts
-retain their original source and contract; they do not establish replacement
-execution, native single-World concurrency, or compatibility requirements.
-Each slice owns its affected ordinary consumer and documentation migration.
-#94 owns residual combined applications and obsolete ordinary-core removal.
+The table records capability ownership and dependencies for the current ordinary
+executor. The [execution API guide](../reference/execution-api.md) names its
+retained application entries and retired modules. Each slice owns its affected
+ordinary consumers and documentation. The
+[original mixed applications](../design/execution-original-applications.md)
+compose those capabilities; #94 owns their combined delivery and obsolete
+ordinary-core removal.
+
+Earlier capabilities and receipts retain their original source and contract.
+Their transactional traces are historical evidence rather than compatibility
+requirements for the current executor.
 
 | Issue | Required predecessors | Replacement delivery |
 | --- | --- | --- |
