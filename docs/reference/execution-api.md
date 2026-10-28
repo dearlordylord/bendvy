@@ -91,6 +91,16 @@ operations execute on different native workers.
 
 ### Taskful query rows
 
+`Build.task_general_query` declares a taskful traversal of one sparse component
+route. Its closed `Q.TaskGeneralBody` receives the actual handle, cached view,
+writable payload `P`, and output owner `O`, and returns
+`Task<S,Permit,P & (O & Maybe<&2,E>)>`. It uses the same
+`Q.TaskOutputEach` and `Q.each_task_output` capability described below.
+The declaration specializes the row callback and output split and merge functions.
+`Store.Sparse` is supported. `Store.Whole` returns `LayoutRefused` with the supplied
+scope and output retained. See the [reservation contract](../design/reservation-production-api.md)
+and [Arena player-row consumer](../../examples/arena/spawn.bend).
+
 [`Build.task_output_query`](../../src/ecs/execution-builder.bend) declares a
 traversal of paired read and write columns with a taskful row callback and an abstract
 output owner `O`. The callback's `Permit` is the same type supplied to the system
