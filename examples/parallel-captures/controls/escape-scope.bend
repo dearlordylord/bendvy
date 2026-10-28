@@ -1,7 +1,4 @@
 import Base
-import ../declarations.bend as D
-import ../../../src/ecs/execution-state.bend as State
+import ../guarded-nodes.bend as Nodes
 
-type Schema is Data:
-  Schema{}
-def escape(~H:Type,scope:H) -> State.Scope<Schema,D.RightStore(~Schema),D.RightResource(~Schema)>:scope
+def escape(~S:Data,~Permit:Data,~H:Type,cap:Nodes.RightOps(Permit,H),scope:H) -> Nodes.R(~S):scope

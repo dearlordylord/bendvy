@@ -1,4 +1,5 @@
 import Base
-import ../scheduled.bend as App
+import ../guarded.bend as App
+import ../guarded-nodes.bend as Nodes
 
-def cross(owner:App.RightOwner(~App.SchemaA)) -> App.RightOwner(~App.SchemaB):owner
+def cross(owner:Nodes.RightNode(~App.SchemaA)) -> Nodes.RightNode(~App.SchemaB):owner
