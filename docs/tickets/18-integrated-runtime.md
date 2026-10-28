@@ -89,47 +89,30 @@ relations/scopes, state failure ordering, restoration/tooling and parallel compu
 remain later detailed packages. Tower Defense validation uses a separate copy of
 needed `/workspace/typescript/jev` sources; the original repository remains untouched.
 
-## Historical prerequisite progress
+## Historical implementation and measurements
 
-- [Current execution ledger](../design/s-integrate-capability-ledger.md) records delivered actual payload/storage/transaction/reader modules separately from open full-dispatch trace, confinement, retention and measurement gates. #19 remains open.
+The bounded #19 research joined E0–E11 traces, affine owners, access controls,
+reader retention and compiling semantic mutations. Its accepted final disposition
+is recorded below. Functional observations did not establish production
+performance, general confinement, arbitrary destructive recovery or new proofs.
 
-- [Checked shared vocabulary](../../experiments/s-integrate/README.md) supplies nominal full Type payload/view records and opaque owner-return controls. Actual storage, commands/query, transactions and readers now have separately checked and compiled evidence in the execution ledger. Concrete Host composition, full dispatched observations and integrated access gates remain open. [Astra interface research](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/s-integrate-interface-research.md) and [reader implementation contract](../design/s-integrate-reader-implementation.md) specify the joins.
+The original seven planning and execution documents remain in Git at
+`82faab6ce5f266175847475dc63a2c2be3d91a5a:docs/design/`. For example:
 
-- [Astra-reviewed shared contracts](../design/s-integrate-contracts.md) distinguish exact trace requirements from proposed owner/transaction/publication/reader/provisioning interfaces. They clarify rejected versus staged Type payload ownership and complete preflight; actual Bend signature checks and runtime implementation remain open.
-- [Astra-reviewed execution split](../design/s-integrate-execution.md) records draft module ownership, interface dependencies and staged delivery after #18. It preserves conditional candidate evaluation and incremental controls/mutants; it is planning evidence, not implementation or a new approval gate.
+```sh
+git show 82faab6ce5f266175847475dc63a2c2be3d91a5a:docs/design/s-integrate-capability-ledger.md
+```
 
-- [Fresh public TS allocation checkpoint](../../experiments/s-integrate-trace/allocation-README.md): actual dispatcher observations establish consumed failed reservation ID3, distinct subsequent ID4, discarded failed spawn, earlier commit/publication retention and explicit barriers. Coordinator and independent Spec/Standards replay pass; scalar one-schema reference scope only.
-- [Concrete source seam inventory](../design/s-integrate-seams.md): provider/identity/transaction/reader/capture interfaces and missing ownership joins are recorded. This is planning evidence, not integrated capability acceptance.
-- [Concrete E0–E11 trace](../design/s-integrate-trace.md) is a reviewed source-derived plan with exact schema/payload inputs, rollback/reader/capture/barrier checkpoints, controls and public capacity boundaries. Its [execution ledger](../design/s-integrate-trace.md#fresh-reference-execution-ledger--2026-10-04) now separates four fresh main public TS lanes, ten public E11 cases, five internal C3/C0 supplements and scalar X. Coordinator and independent reviews pass; E10 Bend controls (including the now approved foreign-command result/queue rule) and all integrated Native/JS results remain open.
-- [Measurement draft](../design/s-integrate-measurement.md) records equivalent workloads, per-schema inputs, timing/memory limits and retained threshold gates. Its executable Bend setup/capacity/clock freeze depends on the integrated subject and parity trace. Slice-level Native/JS traces and mutations are delivered; the full dispatched three-backend trace, integrated access controls and equivalent integrated measurements remain open.
+The [completion report](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/reports/s-integrate-completion.md)
+retains the five workload outcomes and failed/unavailable gates. Dense/Sparse and
+other completed measurements retain regressions; deadlines remain failed runs.
+The original inherited peak-RSS method was withdrawn. Corrected process-memory
+observations do not establish component allocation or physical peak occupancy.
+Quiet FailedTxn timing and complete memory coverage remained unavailable.
 
-The active implementation order remains #18 then #19. Its separately permitted
-trace/reference preparation is delivered; #18 is closed. New exact integration proofs still require their own subject approval.
-
-## Historical joined checkpoint — 2026-10-04
-
-The [execution ledger](../design/s-integrate-capability-ledger.md) supersedes
-historical preparation-only pending statements above. Complete E0–E10 main
-comparisons, actual E11 retention, integrated access/structural controls and
-twelve current-source compiling mutations pass the bounded Native/JS gates.
-Seven-repetition Dense/Sparse/Readers measurements retain regressions and
-deadlines; mandatory production performance is not met. Exact historical-stale
-Lifecycle and dynamic repeated FailedTxn workloads remain in progress. Original
-sampling RSS inherited the launching process high-water mark and is invalid
-for child-memory comparison. Corrected clean-launcher measurements are delivered:
-284/294 children validated, twelve complete cases and ten retained deadlines.
-Readers256 memory coverage remains incomplete. #19 is open.
-
-Concrete performance return path: [S-PERF #20](19-integrated-performance-redesign.md), with experimental indexed-adapter implementation/evaluation and separate production adoption.
-
-## Historical final-review checkpoint
-
-[Completion proposal](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/reports/s-integrate-completion.md): all five workload
-outcomes are recorded, including explicit failed/unavailable gates. Exact
-current Lifecycle and byte-identical joined FailedTxn closure are audited;
-performance is failed, quiet FailedTxn timing/RSS unavailable, peak occupancy
-unmeasured and #20 retains concrete return conditions. #19 remains open pending
-final Spec/Standards disposition review. No production acceptance is proposed.
+[S-PERF #20](19-integrated-performance-redesign.md) retains the concrete validation
+and occupancy/lag return conditions. The removed preliminary plans grant no new
+execution window, checking budget or production-adoption permission.
 
 ## Accepted final disposition
 

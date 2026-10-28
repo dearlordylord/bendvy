@@ -109,6 +109,12 @@ paths too. Directory contents and symlink targets are checked; external director
 symlinks require explicit target coverage. No timestamp cache substitutes for
 bytes. An incomplete inventory is unsafe: retain ordinary `verify` instead.
 
+A runtime loader inventory does not cover compiler header lookup or linker search
+inputs automatically. Review those build inputs separately before describing an
+inventory as closed. Bind inherited environment values without exposing secrets
+in diagnostic output.
+
+
 The constructor runner accepts repeated `--resolver-input PATH` arguments to opt
 in to this mode. It records the declared resolver inventory and initial discovery,
 checks before/after commands, and rediscovers at preparation and terminal stage

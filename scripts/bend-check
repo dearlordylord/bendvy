@@ -38,7 +38,12 @@ for cpu in sorted(os.sched_getaffinity(0)):
     os.set_inheritable(fd, True)
     locks.append(fd)
 
-# Queue time is outside the compiler budget. An enclosing caller deadline still
-# applies to the entire invocation; this wrapper never increases that deadline.
-os.execvp('timeout', ['timeout', '--signal=KILL', '15s', compiler, source_path, '--check-only'])
+# A deadline is opt-in; CPU ownership stays independent of wall-clock policy.
+command = [compiler, source_path, '--check-only']
+deadline = os.environ.get('BENDVY_SOURCE_TIMEOUT_SECONDS')
+if deadline is not None:
+    if not deadline.isdecimal() or int(deadline) <= 0:
+        raise SystemExit('BENDVY_SOURCE_TIMEOUT_SECONDS must be a positive integer; unset it for no deadline')
+    command = ['timeout', '--signal=KILL', deadline + 's', *command]
+os.execvp(command[0], command)
 PYTHON

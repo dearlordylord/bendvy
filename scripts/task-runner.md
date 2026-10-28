@@ -10,6 +10,29 @@ Linux command execution lives in `scripts/task_runner.py`. It uses only the Pyth
 
 Deadline values, environment, CPU affinity and cwd come from the caller. A command deadline excludes owner setup and bounded cleanup. This implementation adds one owner fork per command: previously recorded benchmark times cannot qualify the changed harness. Re-run measurement preparation and startup/repetition controls before publishing new comparisons; no workload, baseline or performance target is changed here.
 
+Pass `timeout=None` for no command wall deadline. Owner-death detection and bounded
+cancellation/descendant cleanup still apply. An unset
+`BENDVY_SOURCE_TIMEOUT_SECONDS` similarly leaves `scripts/bend-check` without a
+wall deadline while retaining its CPU locks.
+
+## Resuming a sequence
+
+`StageCache(directory, cwd=..., env=...).run(label, argv, files=[...], outputs=[...],
+timeout=None, expected=0)` stores raw stdout/stderr and a JSON receipt for each
+attempt. The binding includes argv, cwd, a hash of the effective environment, runner and
+executable hashes, declared input hashes, output paths and expected exit.
+Declare the full imported source/tool closure in `files`, not only the entry.
+Successful attempts are reused only while their binding and all artifact hashes
+match. A failure raises after its receipt is written; a later call preserves that
+attempt and can run a successor. No automatic retry or acceptance decision occurs.
+
+Keep stage inputs local to their actual dependency. A comparison declares the
+expected file and saved stdout; emission declares the source closure. Changing
+expected output then reruns comparison while reusing intact emission, build and
+runtime artifacts. Keep the existing cohort heavy lock around the sequence; the
+per-stage cache lock only prevents duplicate execution of that label. Adopt this
+interface after a live source-bound command terminates, with the new runner pin.
+
 ## Maintained entrypoints
 
 Public feature scenarios and benchmark harnesses import the common module directly. Local supervisors, raw wrappers, donor provenance and completed-task launchers are removed. Current capability fixtures, Bend/JS sources and benchmark contracts remain; closed-task tools survive in Git history rather than as alternative launch commands.

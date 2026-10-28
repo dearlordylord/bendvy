@@ -1,6 +1,12 @@
 # Execution limits
 
-Current defaults for new runs. The user authorized raising execution limits when
+User override (2026-10-28): ordinary source checks, emission and builds have no
+wall deadline by default. Preserve CPU/heavy locks and record elapsed time. Use
+an explicit source deadline only when requested, through
+`BENDVY_SOURCE_TIMEOUT_SECONDS`. Historical plans and failures below keep their
+original limits; they are not new-run defaults for these stages.
+
+Current defaults for other new runs. The user authorized raising execution limits when
 useful on 2026-10-18; record each change here before launching its successor.
 Timeouts control resource use; they are not performance targets.
 
@@ -10,9 +16,10 @@ After the run, append its outcome to the same history entry.
 
 | Stage | Current limit | Scope |
 | --- | ---: | --- |
-| Bend source/proof check | 15 s | Current default; may increase with a recorded reason |
-| Bend code generation | 300 s | Shared default for new JS and Native emission; current Readers completion trial below |
-| Native compilation | 120 s | Ordinary Clang `-O3` |
+| Bend source check | No wall deadline | CPU ownership locks retained |
+| Bend proof check | 15 s | Separate proof plans; exact approval scope unchanged |
+| Bend code generation | No wall deadline | Ordinary JS and Native emission |
+| Native compilation | No wall deadline | Ordinary Clang `-O3` |
 | Ordinary consumer | 360 s | Shared cap for new JS/Native/TS plans; frozen180 s results remain unchanged |
 | Instrumented runtime diagnostic | 60 s | New full64 before/after CPU and allocation profiles; historical15 s plans unchanged |
 | Consumer-only collector wrapper | 480 s | Child360 s plus120 s for guards and receipt/output processing |

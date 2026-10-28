@@ -11,6 +11,23 @@ deferred; resume only on explicit user request. Keep correctness and normal CI.
 
 ## Delivery
 
+User override (2026-10-28): use Python or JavaScript for temporary automation,
+generators, diagnostics and finite observation comparisons when that simplifies
+the work. Rewrite ad hoc orchestration in these languages rather than maintaining
+fragile shell sequences. Scrutinize each helper's complete source, inputs and
+claims before trusting its result, and scrutinize its result against the actual
+consumer. Record the source hash and findings, then delete the temporary helper
+after its last use. Keep necessary outputs and failure evidence. Temporary helpers
+must be gone before delivery; retain existing maintained infrastructure.
+These finite checks do not replace approved Bend LAWS/PROOF. Existing exact law
+approvals retain their scope; new laws still require their specific approval.
+
+Source checks and ordinary builds have no wall deadline by default. The source
+wrapper accepts an explicit `BENDVY_SOURCE_TIMEOUT_SECONDS` only when requested.
+Preserve CPU/heavy ownership locks. Decide how to handle a slow check from its
+effect on development and users, with sub-agent consultation when available.
+Time spent alone is neither a failure nor a reason to add more gates.
+
 1. Read the current consumer and evidence; identify the exact missing acceptance
    gate. Check affected-file history before repeating a performance candidate. Before freezing backend plans, trace each operation to its changed state,
    complete observation and independently derived oracle, including IO effects.
@@ -53,6 +70,24 @@ Node adapter and delivery receipt before discovering new tooling. Source-derived
 traces count as observations only after actual execution.
 
 ## Coordination
+
+Keep current program state in one `checkpoint.json`. Use
+`scripts/program-status.py CHECKPOINT` to derive counts and the live integration
+HEAD; use its update options for accepted completion and in-work changes.
+Completion reports and logs are evidence, not additional current-status stores.
+Todos contain remaining actions; gates contain approvals; neither repeats current
+counts, HEAD or running-stage narratives. Mark old snapshots historical.
+The coordinator is the sole checkpoint writer. Report process liveness only from
+an actual process/session handle; a checkpoint cannot establish liveness.
+
+Use the shared runner's `StageCache` for resumable command sequences. Declare
+each stage's source/tool/input closure and outputs. Successful matching stages
+with intact artifacts are reused; failures and old attempts remain recorded.
+After a source-grounded oracle correction, rerun its comparison and continue the
+unrun stages without repeating unchanged successful emission or execution.
+Run an already authorized sequence to its terminal result without manual
+coordinator approval between stages. Stop on an actual failure and diagnose it;
+new scope, new laws and changed acceptance criteria keep their existing gates.
 
 Keep one owner for shared `src/ecs`; preserve other workers' changes and running
 stages. Create new focused worktrees with `git worktree add --no-checkout`, then
