@@ -65,26 +65,13 @@ def initial(~S:Data,native:Bool,result:Plan.Schema<S,O.components(~S),O.resource
     case (schema,(world,Gate.Saved{input})):setup(~S,native,schema,input,Setup.setup(~S,world))
     case (schema,(world,reason)):IO.pure(Outcome<S>,InitialRefused{world,schema,reason})
 def run(~S:Data,native:Bool,world:R.World(~S)) -> IO(Outcome<S>):initial(~S,native,Save.save(~S,~O.components(~S),~O.resources(~S),~Unit,O.schema(~S),world))
-def entry(~S:Data,value:Buffer.Entry<S,O.Actor<S>,Removed.Removed(R.Components(~S))>) -> String:
-  match value:
-    case Buffer.Entry{W.Handle{namespace,key},Some{O.Actor{name,energy}}}:"insert/" ++ U32.show(namespace) ++ "/" ++ name ++ "/" ++ Observe.captured(Array.get(U32,energy,0))
-    case Buffer.Entry{_,None{}}:"remove"
-    case Buffer.Despawn{_}:"despawn"
-    case Buffer.Spawn{_,_}:"spawn"
-    case Buffer.Relation{_,_}:"relation"
-    case Buffer.LifetimeScope{_,_}:"lifetime-scope"
-def pending_status(status:Receipt.Status) -> String:
-  match status:
-    case Receipt.Pending{}:"pending"
-    case _:"other"
-def world_saved(~S:Data,result:Plan.Schema<S,O.components(~S),O.resources(~S)> & (R.World(~S) & Gate.Outcome<Saved.Snapshot<S>,Recipe.Refusal>)) -> String:
+def refused_observed(~S:Data,app:Application(~S),savePending:Bool,result:Plan.Schema<S,O.components(~S),O.resources(~S)> & String) -> String:
   match result:
-    case (_,(_,Gate.Saved{snapshot})):Observe.snapshot(~S,snapshot)
-    case _:"observation-refused"
-def world_state(~S:Data,state:Stage.State<S>,world:R.World(~S)) -> String:
-  match state:
-    case Stage.State{schema,_,_}:world_saved(~S,Save.save(~S,~O.components(~S),~O.resources(~S),~Unit,schema,world))
+    case (actualSchema,receiptText):"savePending=" ++ Bool.show(savePending) ++ "/receipt=" ++ receiptText ++ "/schema=" ++ Observe.schema(~S,actualSchema) ++ "/application=" ++ Observe.scheduled(~S,~Product.Owner<Author.Owner(~S),E.Right(~S)>,~Observe.pending_owners(~S),app)
 def observed(~S:Data,result:Outcome<S>) -> String:
   match result:
-    case Refused{Schedule.Scheduled{App.State{world,Product.Owner{Cmd.Owner{Sys.Owner{_,_,_,_,_,Local.Local{Author.Capture{_,Sys.Owner{_,_,_,_,_,E.Local{original,originalRuns}},capture,runs},Buffer.Buffer{queued,receipts},_}}},Sys.Owner{_,_,_,_,_,E.ReaderLocal{right,rightRuns,Notice.Reader{namespace,id,cursor},notices}}},_,E.Handler{handler,handled},stateBindings},_,appBindings,_,Schedule.Deferred{_,Settings.Settings{automatic,finalApply,_,_},unapplied}},Receipt.Receipt{state,input,removed,rows,mapping,publications,previous,remaining,status},savePending}:"savePending=" ++ Bool.show(savePending) ++ "/restore=" ++ pending_status(status) ++ "/queue=" ++ List.show(&1,Buffer.Entry<S,O.Actor<S>,Removed.Removed(R.Components(~S))>,entry(~S),queued) ++ "/receipts=" ++ Nat.show(List.length(&1,Buffer.Receipt<S,O.Actor<S>,Removed.Removed(R.Components(~S))>,receipts)) ++ "/captures=" ++ Observe.captured(Array.get(U32,original,0)) ++ "," ++ Observe.captured(Array.get(U32,capture,0)) ++ "," ++ Observe.captured(Array.get(U32,right,0)) ++ "," ++ Observe.captured(Array.get(U32,handler,0)) ++ "/runs=" ++ U32.show(originalRuns) ++ "," ++ U32.show(runs) ++ "," ++ U32.show(rightRuns) ++ "/reader=" ++ U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ Nat.show(cursor) ++ "/notices=" ++ U32.show(notices) ++ "/handled=" ++ U32.show(handled) ++ "/automatic=" ++ Bool.show(automatic) ++ "/finalApply=" ++ Bool.show(finalApply) ++ "/bindings=" ++ Nat.show(List.length(&2,App.Binding,stateBindings)) ++ "," ++ Nat.show(List.length(&2,App.Binding,appBindings)) ++ "/unapplied=" ++ List.show(&2,U32,U32.show,unapplied) ++ "/input=" ++ Observe.snapshot(~S,input) ++ "/world=" ++ world_state(~S,state,world)
-    case _:"setup-refused"
+    case Refused{app,receipt,savePending}:refused_observed(~S,app,savePending,Observe.receipt_for_save(~S,receipt))
+    case SetupRefused{result,schema,input}:"setup-refused/schema=" ++ Observe.schema(~S,schema) ++ "/input=" ++ Observe.snapshot(~S,input) ++ "/result=" ++ Observe.setup(~S,result)
+    case AuthorRefused{world,local,right,handler,schema,input}:"author-refused/world=" ++ Observe.world(~S,world) ++ "/local=" ++ Observe.command_local(~S,local) ++ "/right=" ++ Observe.right_owner(~S,right) ++ "/handler=" ++ Observe.handler(handler) ++ "/schema=" ++ Observe.schema(~S,schema) ++ "/input=" ++ Observe.snapshot(~S,input)
+    case NoHandle{app,schema,input}:"no-handle/application=" ++ Observe.scheduled(~S,~Product.Owner<E.Left(~S),E.Right(~S)>,~Observe.basic_owners(~S),app) ++ "/schema=" ++ Observe.schema(~S,schema) ++ "/input=" ++ Observe.snapshot(~S,input)
+    case InitialRefused{world,schema,reason}:"initial-refused/world=" ++ Observe.world(~S,world) ++ "/schema=" ++ Observe.schema(~S,schema) ++ "/save=" ++ Observe.save_result(~S,reason)

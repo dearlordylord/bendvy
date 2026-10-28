@@ -55,18 +55,12 @@ def advanced(~S:Data,native:Bool,result:R.World(~S) & Bool) -> IO(Outcome<S>):
 # A real source allocator advances before save. Restore receives a separately
 # created namespace and retains its own actual registered owners and Reader.
 def run(~S:Data,+native:Bool,source:R.World(~S)) -> IO(Outcome<S>):advanced(~S,native,Progress.advance_floor(~S,~Layout.columns(~S,R.Components(~S)),~R.Resources(~S),~Unit,source,4))
-def receiver_world(~S:Data,world:R.World(~S)) -> String:
-  match world:
-    case W.World{namespace,A.Allocator{next,high,_,capacity,_,free,order},_,Product.Owner{Layout.ResourceSlot{Layout.Viewed{O.Config{enabled,limit},_},_},Layout.ResourceSlot{Layout.Viewed{O.Scratch{temporary},_},_}},_,_,registrations,nextSystem,_,_}:"ns=" ++ U32.show(namespace) ++ "/next=" ++ U32.show(next) ++ "/high=" ++ U32.show(high) ++ "/capacity=" ++ U32.show(capacity) ++ "/config=" ++ Bool.show(enabled) ++ ":" ++ Observe.captured(Array.get(U32,limit,0)) ++ "/temporary=" ++ Observe.captured(Array.get(U32,temporary,0)) ++ "/registrations=" ++ Nat.show(List.length(&2,W.RegistrationMeta,registrations)) ++ "/nextSystem=" ++ U32.show(nextSystem)
-def captures(~S:Data,owners:Product.Owner<E.Left(~S),E.Right(~S)>,handler:E.Handler) -> String:
-  match owners handler:
-    case Product.Owner{Sys.Owner{_,_,_,_,_,E.Local{left,leftRuns}},Sys.Owner{_,_,_,_,_,E.ReaderLocal{right,rightRuns,Notice.Reader{namespace,id,cursor},notices}}}, E.Handler{capture,handled}:"captures=" ++ Observe.captured(Array.get(U32,left,0)) ++ "," ++ Observe.captured(Array.get(U32,right,0)) ++ "," ++ Observe.captured(Array.get(U32,capture,0)) ++ "/runs=" ++ U32.show(leftRuns) ++ "," ++ U32.show(rightRuns) ++ "/reader=" ++ U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ Nat.show(cursor)
-def retained(~S:Data,app:E.Application(~S),receipt:Receipt.Receipt<S>) -> String:
-  match app receipt:
-    case Schedule.Scheduled{App.State{world,owners,guards,handler,stateBindings},plan,appBindings,rules,deferred}, Receipt.Receipt{Stage.State{schema,_,_},input,_,_,_,_,_,_,Receipt.ReceiverRefused{Prepare.Capacity{}}}:"capacity-refused/input=" ++ Observe.snapshot(~S,input) ++ "/receiver=" ++ receiver_world(~S,world) ++ "/" ++ captures(~S,owners,handler)
-    case _, _:"restore-retained"
 def observed(~S:Data,result:Outcome<S>) -> String:
   match result:
-    case Restored{_,E.Resumed{app,receipt,report}}:Observe.resumed(~S,E.Resumed{app,receipt,report})
-    case Restored{_,E.Retained{app,receipt}}:retained(~S,app,receipt)
-    case _:"source-or-receiver-refused"
+    case Restored{source,result}:"source=" ++ Observe.world(~S,source) ++ "/result=" ++ Observe.resumed(~S,result)
+    case SetupRefused{source,schema,input,result}:"setup-refused/source=" ++ Observe.world(~S,source) ++ "/schema=" ++ Observe.schema(~S,schema) ++ "/input=" ++ Observe.snapshot(~S,input) ++ "/result=" ++ Observe.setup(~S,result)
+    case CreationRefused{source,schema,input,WorldIO.Created{world}}:"creation-returned-world/source=" ++ Observe.world(~S,source) ++ "/schema=" ++ Observe.schema(~S,schema) ++ "/input=" ++ Observe.snapshot(~S,input) ++ "/target=" ++ Observe.world(~S,world)
+    case CreationRefused{source,schema,input,WorldIO.Refused{resource}}:"creation-refused/source=" ++ Observe.world(~S,source) ++ "/schema=" ++ Observe.schema(~S,schema) ++ "/input=" ++ Observe.snapshot(~S,input) ++ "/resource=" ++ Observe.resources(~S,resource)
+    case SaveRefused{source,schema,result}:"save-refused/source=" ++ Observe.world(~S,source) ++ "/schema=" ++ Observe.schema(~S,schema) ++ "/result=" ++ Observe.save_result(~S,result)
+    case FloorRefused{source}:"floor-refused/source=" ++ Observe.world(~S,source)
+    case TargetFloorRefused{source,schema,input,world}:"target-floor-refused/source=" ++ Observe.world(~S,source) ++ "/schema=" ++ Observe.schema(~S,schema) ++ "/input=" ++ Observe.snapshot(~S,input) ++ "/target=" ++ Observe.world(~S,world)
