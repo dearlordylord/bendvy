@@ -79,5 +79,11 @@ def targets_offsets(~S:Data,handles:List<&2,W.Handle<S>>,offsets:Maybe<&2,List<&
   match offsets:
     case None{}:Refused{handles}
     case Some{+offsets}:targets_validation(~S,handles,D.Domain{offsets},D.validate(Column.maximum_capacity(),D.Domain{offsets}))
+def captured_target_offsets(~S:Data,+namespace:U32,handles:List<&2,W.Handle<S>>) -> Maybe<&2,List<&2,U32>>:
+  match handles:
+    case []:Some{[]}
+    case W.Handle{+hn,+key} <> tail:
+      +logical = K.index(key)
+      prepend_offset(~S,captured_target_offsets(~S,namespace,tail),checked_range(~S,W.Handle{hn,key},Column.maximum_capacity(),logical,U32.is_eq(namespace,hn),Bool.and(Indexed.normal(logical),U32.is_le(logical,Column.maximum_capacity()))))
 def targets(~S:Data,namespace:U32,+handles:List<&2,W.Handle<S>>) -> TargetCheck<S>:
-  targets_offsets(~S,handles,target_offsets(~S,namespace,handles,handles))
+  targets_offsets(~S,handles,captured_target_offsets(~S,namespace,handles))
