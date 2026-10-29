@@ -7,6 +7,7 @@ import ../../src/ecs/machine.bend as Machine
 import ../../src/ecs/world.bend as W
 import ../../src/ecs/system.bend as Sys
 import ../../src/ecs/event-runtime.bend as Ev
+import ../../src/ecs/event-runtime-legacy.bend as LegacyEv
 import ../../src/ecs/relation-failure-runtime.bend as Failure
 import ../../src/ecs/internal/relation-failures/domains.bend as Domains
 import ../../src/ecs/commands.bend as Cmd
@@ -40,19 +41,19 @@ def position(p:Ev.Position) -> String:
     case Ev.Position{id,cursor,registered}:U32.show(id)++":"++Nat.show(cursor)++":"++Nat.show(registered)
 def describe(label:String,state:State) -> State & String:
   match state:
-    case State{Ev.Runtime{W.World{ns,a,s,r,e,p,g,n,+clock},rn,batches,+positions,next,+eventTick,fs,b,cap,d},ra,Sys.Registry{an,ai,na,aa,+ca},rb,Sys.Registry{bn,bi,nb,ba,+cb}}:
-      (State{Ev.Runtime{W.World{ns,a,s,r,e,p,g,n,clock},rn,batches,positions,next,eventTick,fs,b,cap,d},ra,Sys.Registry{an,ai,na,aa,ca},rb,Sys.Registry{bn,bi,nb,ba,cb}},label++":world="++tick(Clock.now(clock))++":event="++Nat.show(eventTick)++":A="++cursor(ca)++":B="++cursor(cb)++":positions="++List.show(&2,Ev.Position,position,positions))
+    case State{Ev.Runtime{W.World{ns,a,s,r,e,p,g,n,+clock,lifecycle},rn,batches,+positions,next,+eventTick,fs,b,cap,d},ra,Sys.Registry{an,ai,na,aa,+ca},rb,Sys.Registry{bn,bi,nb,ba,+cb}}:
+      (State{Ev.Runtime{W.World{ns,a,s,r,e,p,g,n,clock,lifecycle},rn,batches,positions,next,eventTick,fs,b,cap,d},ra,Sys.Registry{an,ai,na,aa,ca},rb,Sys.Registry{bn,bi,nb,ba,cb}},label++":world="++tick(Clock.now(clock))++":event="++Nat.show(eventTick)++":A="++cursor(ca)++":B="++cursor(cb)++":positions="++List.show(&2,Ev.Position,position,positions))
 def completion(c:Ev.Completion<String,String,Bool>) -> String:
   match c:
     case Ev.Succeeded{text}:"ok:"++text
     case Ev.Failed{text}:"fail:"++text
     case Ev.Rejected{arg}:"rejected:"++Bool.show(arg)
-def a_done(rb:Ev.Reader<S>,gb:Registry(),result:Ev.RunResult<S,Unit,Unit,U32,Bool,String,String,runner>) -> State & String:
+def a_done(rb:Ev.Reader<S>,gb:Registry(),result:LegacyEv.RunResult<S,Unit,Unit,U32,Bool,String,String,runner>) -> State & String:
   match result:
-    case Ev.Ran{runtime,ra,ga,c}:describe("A:"++completion(c),State{runtime,ra,ga,rb,gb})
-def b_done(ra:Ev.Reader<S>,ga:Registry(),result:Ev.RunResult<S,Unit,Unit,U32,Bool,String,String,runner>) -> State & String:
+    case LegacyEv.Ran{runtime,ra,ga,c}:describe("A:"++completion(c),State{runtime,ra,ga,rb,gb})
+def b_done(ra:Ev.Reader<S>,ga:Registry(),result:LegacyEv.RunResult<S,Unit,Unit,U32,Bool,String,String,runner>) -> State & String:
   match result:
-    case Ev.Ran{runtime,rb,gb,c}:describe("B:"++completion(c),State{runtime,ra,ga,rb,gb})
+    case LegacyEv.Ran{runtime,rb,gb,c}:describe("B:"++completion(c),State{runtime,ra,ga,rb,gb})
 def published(world:World()) -> World() & Unit:(Cmd.publish(~S,~Unit,~Unit,~U32,world,[9]),Unit{})
 def publish_done(ra:Ev.Reader<S>,ga:Registry(),rb:Ev.Reader<S>,gb:Registry(),result:Runtime() & Unit) -> State & String:
   match result:
@@ -62,9 +63,9 @@ def skip_done(ga:Registry(),rb:Ev.Reader<S>,gb:Registry(),result:Runtime() & Ev.
     case (runtime,ra):describe("skipA",State{runtime,ra,ga,rb,gb})
 def apply(action:Action,state:State) -> State & String:
   match action state:
-    case FailA{},State{runtime,ra,ga,rb,gb}:a_done(rb,gb,Ev.run(~S,~Unit,~Unit,~U32,~Bool,~String,~String,~runner,runtime,ra,ga,True{}))
-    case RunA{},State{runtime,ra,ga,rb,gb}:a_done(rb,gb,Ev.run(~S,~Unit,~Unit,~U32,~Bool,~String,~String,~runner,runtime,ra,ga,False{}))
-    case RunB{},State{runtime,ra,ga,rb,gb}:b_done(ra,ga,Ev.run(~S,~Unit,~Unit,~U32,~Bool,~String,~String,~runner,runtime,rb,gb,False{}))
+    case FailA{},State{runtime,ra,ga,rb,gb}:a_done(rb,gb,LegacyEv.run(~S,~Unit,~Unit,~U32,~Bool,~String,~String,~runner,runtime,ra,ga,True{}))
+    case RunA{},State{runtime,ra,ga,rb,gb}:a_done(rb,gb,LegacyEv.run(~S,~Unit,~Unit,~U32,~Bool,~String,~String,~runner,runtime,ra,ga,False{}))
+    case RunB{},State{runtime,ra,ga,rb,gb}:b_done(ra,ga,LegacyEv.run(~S,~Unit,~Unit,~U32,~Bool,~String,~String,~runner,runtime,rb,gb,False{}))
     case Publish{},State{runtime,ra,ga,rb,gb}:publish_done(ra,ga,rb,gb,Ev.with_world(~S,~Unit,~Unit,~U32,~Unit,published,runtime))
     case SkipA{},State{runtime,ra,ga,rb,gb}:skip_done(ga,rb,gb,Ev.skip(~S,~Unit,~Unit,~U32,runtime,ra))
 def stepped(result:State & String,next:State -> String) -> String:
@@ -74,18 +75,18 @@ def steps(actions:List<&2,Action>,state:State) -> String:
   match actions:
     case []:"done"
     case action <> rest:stepped(apply(action,state),s => steps(rest,s))
-def b_registered(ra:Ev.Reader<S>,ga:Registry(),result:Ev.Registered<S,Unit,Unit,U32,Bool,String,String,runner>) -> String:
+def b_registered(ra:Ev.Reader<S>,ga:Registry(),result:LegacyEv.Registered<S,Unit,Unit,U32,Bool,String,String,runner>) -> String:
   match result:
-    case Ev.RegisterFailed{_}:"registerB-failed"
-    case Ev.Registered{runtime,rb,gb}:steps([FailA{},RunA{},RunB{},Publish{},SkipA{},RunA{},RunB{}],State{runtime,ra,ga,rb,gb})
-def a_registered(result:Ev.Registered<S,Unit,Unit,U32,Bool,String,String,runner>) -> String:
+    case LegacyEv.RegisterFailed{_}:"registerB-failed"
+    case LegacyEv.Registered{runtime,rb,gb}:steps([FailA{},RunA{},RunB{},Publish{},SkipA{},RunA{},RunB{}],State{runtime,ra,ga,rb,gb})
+def a_registered(result:LegacyEv.Registered<S,Unit,Unit,U32,Bool,String,String,runner>) -> String:
   match result:
-    case Ev.RegisterFailed{_}:"registerA-failed"
-    case Ev.Registered{runtime,ra,ga}:b_registered(ra,ga,Ev.register(~S,~Unit,~Unit,~U32,~Bool,~String,~String,~runner,runtime,"B",["event:read"]))
+    case LegacyEv.RegisterFailed{_}:"registerA-failed"
+    case LegacyEv.Registered{runtime,ra,ga}:b_registered(ra,ga,LegacyEv.register(~S,~Unit,~Unit,~U32,~Bool,~String,~String,~runner,runtime,"B",["event:read"]))
 def initial(world:World()) -> World() & Unit:(Cmd.publish(~S,~Unit,~Unit,~U32,world,[7,8]),Unit{})
 def initialized(result:Runtime() & Unit) -> String:
   match result:
-    case (runtime,_):a_registered(Ev.register(~S,~Unit,~Unit,~U32,~Bool,~String,~String,~runner,runtime,"A",["event:read"]))
+    case (runtime,_):a_registered(LegacyEv.register(~S,~Unit,~Unit,~U32,~Bool,~String,~String,~runner,runtime,"A",["event:read"]))
 def created(result:W.Creation<S,Unit,Unit,U32>) -> String:
   match result:
     case W.CreateRejected{_,_}:"create-failed"
@@ -95,12 +96,12 @@ def created(result:W.Creation<S,Unit,Unit,U32>) -> String:
 # No relation messages/classifier semantics are inferred from this empty domain.
 def seed(world:World()) -> World():
   match world:
-    case W.World{ns,a,s,r,e,p,g,n,_}:W.World{ns,a,s,r,e,p,g,n,Clock.State{Tick.Tick{0n,4294967295},[]}}
+    case W.World{ns,a,s,r,e,p,g,n,_,lifecycle}:W.World{ns,a,s,r,e,p,g,n,Clock.State{Tick.Tick{0n,4294967295},[]},lifecycle}
 def classify(_:U32) -> Maybe<Domains.DescriptorKey<S>>:None{}
 def identity(world:World()) -> World() & Unit:(world,Unit{})
 def bridge_view(runtime:Failure.Runtime<S,Unit,Unit,U32>) -> Failure.Runtime<S,Unit,Unit,U32> & String:
   match runtime:
-    case Failure.Runtime{W.World{ns,a,s,r,e,p,g,n,+clock},domains,positions,+t,fs,b,cap,nr}:(Failure.Runtime{W.World{ns,a,s,r,e,p,g,n,clock},domains,positions,t,fs,b,cap,nr},"bridge:world="++tick(Clock.now(clock))++":event="++Nat.show(t))
+    case Failure.Runtime{W.World{ns,a,s,r,e,p,g,n,+clock,lifecycle},domains,positions,+t,fs,b,cap,nr}:(Failure.Runtime{W.World{ns,a,s,r,e,p,g,n,clock,lifecycle},domains,positions,t,fs,b,cap,nr},"bridge:world="++tick(Clock.now(clock))++":event="++Nat.show(t))
 def bridge_end(prefix:String,result:Failure.Runtime<S,Unit,Unit,U32> & String) -> String:
   match result:
     case (_,line):prefix++"\n"++line
@@ -133,10 +134,10 @@ def transition(value:Maybe<&2,Machine.Transition<U32>>) -> String:
     case Some{Machine.Transition{a,b}}:U32.show(a)++">"++U32.show(b)
 def machine_description(label:String,latest:Maybe<&2,Machine.Transition<U32>>,through:Nat,world:W.World<S,Unit,MachineState(),U32>) -> W.World<S,Unit,MachineState(),U32> & String:
   match world:
-    case W.World{ns,a,s,r,e,p,g,n,+clock}:(W.World{ns,a,s,r,e,p,g,n,clock},label++":"++transition(latest)++":through="++Nat.show(through)++":now="++tick(Clock.now(clock))++":active="++tick(Clock.current(clock)))
+    case W.World{ns,a,s,r,e,p,g,n,+clock,lifecycle}:(W.World{ns,a,s,r,e,p,g,n,clock,lifecycle},label++":"++transition(latest)++":through="++Nat.show(through)++":now="++tick(Clock.now(clock))++":active="++tick(Clock.current(clock)))
 def machine_finished(prefix:String,world:W.World<S,Unit,MachineState(),U32>) -> String:
   match world:
-    case W.World{_,_,_,_,_,_,_,_,Clock.State{now,scopes}}:prefix++"\nleave:now="++tick(now)++":scopes="++List.show(&2,Tick.Tick,tick,scopes)
+    case W.World{_,_,_,_,_,_,_,_,Clock.State{now,scopes},lifecycle}:prefix++"\nleave:now="++tick(now)++":scopes="++List.show(&2,Tick.Tick,tick,scopes)
 def machine_last_described(prefix:String,result:W.World<S,Unit,MachineState(),U32> & String) -> String:
   match result:
     case (world,line):machine_finished(prefix++"\n"++line,W.leave_run(~S,~Unit,~MachineState(),~U32,world))

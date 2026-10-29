@@ -1,6 +1,12 @@
 import Base
 import ./schema-fragments.bend as SF
-import ./schedule-provision.bend as P
+import ./execution-composer-layout.bend as Layout
+import ./execution-composer-schema.bend as Schema
+import ./execution-parallel-scope-registry.bend as Registry
+import ./dependency-composer-program.bend as Scoped
+import ./dependency-composer.bend as Compose
+import ./dependency-plan.bend as Plan
+import ./owner-product.bend as Product
 
 # Recursive author metadata contains no payload owners or gameplay authority.
 # Detached feature selection metadata with named dependencies and schema
@@ -95,79 +101,79 @@ def compose_checked(~S:Data,~Owners:Type,~Output:Type,~build:Owners -> Output,re
 def compose(~S:Data,~Owners:Type,~Output:Type,~build:Owners -> Output,tree:Tree<S>,owners:Owners) -> Composition<S,Owners,Output>:
   compose_checked(~S,~Owners,~Output,~build,validate(~S,tree),owners)
 
-# Typed builder composition threads Context and recursive heterogeneous owners.
-# Schedule plans retain authored nested requirements and selected order.
 # Heterogeneous affine head/tail feature owners or outputs, preserving order.
 # Nest this product for additional features; payloads need not be Data.
 type Pack<Head:Type,Tail:Type> is Type:
   Pack{head:Head,tail:Tail}
-# Owned extra feature result plus bootstrap/update operational schedule plans.
-# These plans describe later execution; constructing Output runs no schedule.
-type Output<S:Data,Extra:Type> is Type:
-  Output{extra:Extra,bootstrap:P.Plan<S>,update:P.Plan<S>}
-def combine(~S:Data,~Ctx:Type,~HE:Type,~TE:Type,observed:Ctx & Output<S,TE>,head:Output<S,HE>) -> Ctx & Output<S,Pack<HE,TE>>:
-  match observed head:
-    case (ctx,Output{te,tb,tu}) Output{he,hb,hu}: (ctx,Output{Pack{he,te},P.Sequence{hb,tb},P.Sequence{hu,tu}})
-def build_head_done(~S:Data,~Ctx:Type,~HO:Type,~TO:Type,~HE:Type,~TE:Type,~tail:Ctx -> TO -> Ctx & Output<S,TE>,owners:TO,observed:Ctx & Output<S,HE>) -> Ctx & Output<S,Pack<HE,TE>>:
-  match observed:
-    case (ctx,output): combine(~S,~Ctx,~HE,~TE,tail(ctx,owners),output)
-def build_head(~S:Data,~Ctx:Type,~HO:Type,~TO:Type,~HE:Type,~TE:Type,~head:Ctx -> HO -> Ctx & Output<S,HE>,~tail:Ctx -> TO -> Ctx & Output<S,TE>,ctx:Ctx,owners:Pack<HO,TO>) -> Ctx & Output<S,Pack<HE,TE>>:
-  match owners:
-    case Pack{ho,to}: build_head_done(~S,~Ctx,~HO,~TO,~HE,~TE,~tail,to,head(ctx,ho))
-def build_empty(~S:Data,~Ctx:Type,ctx:Ctx,owner:Unit) -> Ctx & Output<S,Unit>:
-  (ctx,Output{owner,P.Empty{},P.Empty{}})
 
-# Trusted schema constructors pair each definition with its actual owned builder.
-# Gameplay does not receive these raw constructors or callback fields.
-# Trusted static feature definition: name, own schema entries and dependency
-# references. It contains no live feature owners or gameplay authority.
 type Definition<S:Data> is Data:
   Definition{name:String,entries:List<&2,SF.Entry<S>>,dependencies:Tree<S>}
-# Owned feature definition and trusted builder. build consumes/returns its
-# context and consumes Owners to produce Extra plus plans; raw callbacks remain
-# trusted setup rather than constrained system-body capabilities.
-type Feature<S:Data,Ctx:Type,Owners:Type,Extra:Type> is Type:
-  FeatureOwner{definition:Definition<S>,owners:Owners,build:Ctx -> Owners -> Ctx & Output<S,Extra>}
-# Selected feature metadata with actual heterogeneous owners and builder.
-# Thread affinely into run_recipe; metadata validation never copies owners.
-type Recipe<S:Data,Ctx:Type,Owners:Type,Extra:Type> is Type:
-  Recipe{selected:Tree<S>,owners:Owners,build:Ctx -> Owners -> Ctx & Output<S,Extra>}
-# Completed returns context and built output; Refused returns context and
-# the entire original recipe on metadata validation failure. No builder runs
-# in Refused, so its owners can be retried or disposed by the caller.
-type RecipeResult<S:Data,Ctx:Type,Owners:Type,Extra:Type> is Type:
-  Completed{ctx:Ctx,output:Output<S,Extra>}
-  Refused{error:Error,ctx:Ctx,recipe:Recipe<S,Ctx,Owners,Extra>}
 def definition_tree(~S:Data,definition:Definition<S>) -> Tree<S>:
   match definition:
-    case Definition{name,entries,dependencies}: Feature{name,entries,dependencies}
-def callbacks_done(~S:Data,~Ctx:Type,~HO:Type,~TO:Type,~HE:Type,~TE:Type,tail:Ctx -> TO -> Ctx & Output<S,TE>,owners:TO,observed:Ctx & Output<S,HE>) -> Ctx & Output<S,Pack<HE,TE>>:
-  match observed:
-    case (ctx,output): combine(~S,~Ctx,~HE,~TE,tail(ctx,owners),output)
-def callbacks(~S:Data,~Ctx:Type,~HO:Type,~TO:Type,~HE:Type,~TE:Type,head:Ctx -> HO -> Ctx & Output<S,HE>,tail:Ctx -> TO -> Ctx & Output<S,TE>,ctx:Ctx,owners:Pack<HO,TO>) -> Ctx & Output<S,Pack<HE,TE>>:
-  match owners:
-    case Pack{ho,to}: callbacks_done(~S,~Ctx,~HO,~TO,~HE,~TE,tail,to,head(ctx,ho))
-# Prepend an owned feature to a recipe, retaining head-before-tail build
-# and bootstrap/update plan order. Does not validate, invoke builders or
-# automatically add dependencies; run_recipe validates the completed selection.
-def prepend(~S:Data,~Ctx:Type,~HO:Type,~TO:Type,~HE:Type,~TE:Type,head:Feature<S,Ctx,HO,HE>,tail:Recipe<S,Ctx,TO,TE>) -> Recipe<S,Ctx,Pack<HO,TO>,Pack<HE,TE>>:
-  match head tail:
-    case FeatureOwner{definition,ho,head} Recipe{tree,to,tail}: Recipe{Sequence{definition_tree(~S,definition),tree},Pack{ho,to},ctx => owners => callbacks(~S,~Ctx,~HO,~TO,~HE,~TE,head,tail,ctx,owners)}
-# Create the empty recipe with Unit owners and empty schedule plans.
-# No context is consumed until the resulting builder is executed.
-def recipe_empty(~S:Data,~Ctx:Type) -> Recipe<S,Ctx,Unit,Unit>:
-  Recipe{Empty{},Unit{},ctx => owners => build_empty(~S,~Ctx,ctx,owners)}
-def recipe_completed(~S:Data,~Ctx:Type,~Owners:Type,~Extra:Type,observed:Ctx & Output<S,Extra>) -> RecipeResult<S,Ctx,Owners,Extra>:
-  match observed:
-    case (ctx,output): Completed{ctx,output}
-def recipe_checked(~S:Data,~Ctx:Type,~Owners:Type,~Extra:Type,result:Validation,ctx:Ctx,recipe:Recipe<S,Ctx,Owners,Extra>) -> RecipeResult<S,Ctx,Owners,Extra>:
-  match result recipe:
-    case Invalid{error} recipe: Refused{error,ctx,recipe}
-    case Valid{} Recipe{_,owners,build}: recipe_completed(~S,~Ctx,~Owners,~Extra,build(ctx,owners))
-# Validate the selected tree before executing its trusted owned builder.
-# Refusal returns context and original recipe; success returns context plus
-# built extras/plans. Authored order is preserved; no automatic rollback of
-# arbitrary callback effects or host IO is provided.
-def run_recipe(~S:Data,~Ctx:Type,~Owners:Type,~Extra:Type,ctx:Ctx,recipe:Recipe<S,Ctx,Owners,Extra>) -> RecipeResult<S,Ctx,Owners,Extra>:
-  match recipe:
-    case Recipe{+tree,owners,build}: recipe_checked(~S,~Ctx,~Owners,~Extra,validate(~S,tree),ctx,Recipe{tree,owners,build})
+    case Definition{name,entries,dependencies}:Feature{name,entries,dependencies}
+
+# Entries and node IDs come from the same accepted declarations that execute.
+# Scope paths retain feature boundaries before dependency edges are flattened.
+type Assembly<-S:Data,-Nodes:Type> is Type:
+  Assembly{selected:Tree<S>,facts:Registry.GeneralizedFacts<Nodes>,scope:Scoped.Scope}
+type AssemblyError is Data:
+  InvalidFeatures{error:Error}
+  InvalidComposition{error:Compose.Error}
+type Lowered<-Nodes:Type> is Type:
+  Lowered{facts:Registry.GeneralizedFacts<Nodes>,edges:List<&2,Plan.Edge>,invalid:Maybe<&2,AssemblyError>}
+def needs_key(nodes:List<&2,Plan.Node<String>>,+key:String) -> Bool:
+  match nodes:
+    case []:False{}
+    case Plan.Node{_,needs} <> rest:Bool.or(contains(needs,key),needs_key(rest,key))
+def selected_entry(~S:Data,selected:Bool,entry:SF.Entry<S>,rest:List<&2,SF.Entry<S>>) -> List<&2,SF.Entry<S>>:
+  match selected:
+    case True{}:entry <> rest
+    case False{}:rest
+def own_entries(~S:Data,entries:List<&2,SF.Entry<S>>,+nodes:List<&2,Plan.Node<String>>) -> List<&2,SF.Entry<S>>:
+  match entries:
+    case []:[]
+    case +entry <> rest:selected_entry(~S,needs_key(nodes,Compose.entry_key(~S,entry)),entry,own_entries(~S,rest,nodes))
+def from_facts(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,-Nodes:Type,name:String,dependencies:Tree<S>,facts:Registry.GeneralizedFacts<Nodes>) -> Assembly<S,Nodes>:
+  match facts:
+    case Registry.GeneralizedFacts{nodes,+planNodes,entries,deferred}:Assembly{Feature{name,own_entries(~S,Schema.inventory(~S,~components,~resources),planNodes),dependencies},Registry.GeneralizedFacts{nodes,planNodes,entries,deferred},Scoped.Scope{Scoped.ids(planNodes),[]}}
+def scope_members(scope:Scoped.Scope) -> List<&2,U32>:
+  match scope:
+    case Scoped.Scope{members,_}:members
+def pair(~S:Data,-Left:Type,-Right:Type,left:Assembly<S,Left>,right:Assembly<S,Right>) -> Assembly<S,Product.Owner<Left,Right>>:
+  match left right:
+    case Assembly{left,lf,+ls} Assembly{right,rf,+rs}:Assembly{Sequence{left,right},Registry.generalized_pair_facts(Left,Right,lf,rf),Scoped.Scope{List.append(&2,U32,scope_members(ls),scope_members(rs)),[ls,rs]}}
+def feature_error(validation:Validation) -> Maybe<&2,AssemblyError>:
+  match validation:
+    case Valid{}:None{}
+    case Invalid{error}:Some{InvalidFeatures{error}}
+def composition_error(error:Maybe<&2,Compose.Error>) -> Maybe<&2,AssemblyError>:
+  match error:
+    case None{}:None{}
+    case Some{error}:Some{InvalidComposition{error}}
+def first_error(first:Maybe<&2,AssemblyError>,second:Maybe<&2,AssemblyError>) -> Maybe<&2,AssemblyError>:
+  match first:
+    case Some{error}:Some{error}
+    case None{}:second
+def nesting_error(error:Maybe<&2,Scoped.NestError>) -> Maybe<&2,Compose.Error>:
+  match error:
+    case None{}:None{}
+    case Some{error}:Some{Compose.Nesting{error}}
+def lower_nested(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,-Nodes:Type,selected:Tree<S>,facts:Registry.GeneralizedFacts<Nodes>,nested:Scoped.Nesting) -> Lowered<Nodes>:
+  match facts nested:
+    case Registry.GeneralizedFacts{nodes,+planNodes,entries,deferred} Scoped.Nesting{edges,invalid}:Lowered{Registry.GeneralizedFacts{nodes,planNodes,entries,deferred},edges,first_error(feature_error(validate(~S,selected)),composition_error(Compose.first_error(nesting_error(invalid),Compose.first_error(Compose.schema_error(Schema.validate(~S,~components,~resources)),Compose.schedule_error(Compose.missing(~S,planNodes,Schema.inventory(~S,~components,~resources)))))))}
+def lower(~S:Data,~components:Layout.Layout,~resources:Layout.Layout,-Nodes:Type,groups:List<&2,Scoped.Nested>,assembly:Assembly<S,Nodes>) -> Lowered<Nodes>:
+  match assembly:
+    case Assembly{selected,facts,scope}:lower_nested(~S,~components,~resources,Nodes,selected,facts,Scoped.nested(groups,scope))
+
+type Application<-Root:Type,-Provisions:Type> is Type:
+  Application{root:Root,provisions:Provisions,invalid:Maybe<&2,AssemblyError>}
+type Report<Out:Data> is Data:
+  Executed{report:Out}
+  Refused{error:AssemblyError}
+def returned(-Root:Type,-Provisions:Type,-Out:Data,provisions:Provisions,result:Root & Out) -> Application<Root,Provisions> & Report<Out>:
+  match result:
+    case (root,report):(Application{root,provisions,None{}},Executed{report})
+def run(-Root:Type,-Provisions:Type,-Out:Data,invoke:Root -> IO(Root & Out),application:Application<Root,Provisions>) -> IO(Application<Root,Provisions> & Report<Out>):
+  match application:
+    case Application{root,provisions,Some{+error}}:IO.pure(Application<Root,Provisions> & Report<Out>,(Application{root,provisions,Some{error}},Refused{error}))
+    case Application{root,provisions,None{}}:IO.bind(Root & Out,Application<Root,Provisions> & Report<Out>,invoke(root),value => IO.pure(Application<Root,Provisions> & Report<Out>,returned(Root,Provisions,Out,provisions,value)))

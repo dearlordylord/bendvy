@@ -123,3 +123,15 @@ def run(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~O
   match instance:
     case Fresh{}:first(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,args,W.clock(~S,~Store,~R,~E,world))
     case Active{cursor,registeredAt}:initialized(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,args,cursor,registeredAt,world)
+
+# Passive application inspection preserves its own cursor and the World clock.
+# Unlike run, this operation does not create an observation boundary.
+def passive_returned(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,instance:Instance<S>,observed:Frame<S,Store,R,E> & Result<&2,&2,U,Out>) -> Observed<S,Store,R,E,U,Out>:
+  match observed:
+    case (Frame{world,_},result):Observed{world,instance,result}
+def passive_cursor(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~plan:Plan<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & Result<&2,&2,U,Out>,instance:Instance<S>,cursor:Maybe<&2,Tick.Tick>,args:A,world:W.World<S,Store,R,E>) -> Observed<S,Store,R,E,U,Out>:
+  passive_returned(~S,~Store,~R,~E,~U,~Out,instance,Cap.invoke(~Ops,~A,~Result<&2,&2,U,Out>,~body,~Frame<S,Store,R,E>,~plan_caps(~S,~Store,~R,~E,~Ops,plan),args,Frame{world,cursor}))
+def passive(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~plan:Plan<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & Result<&2,&2,U,Out>,instance:Instance<S>,args:A,world:W.World<S,Store,R,E>) -> Observed<S,Store,R,E,U,Out>:
+  match instance:
+    case Fresh{}:passive_cursor(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,Fresh{},None{},args,world)
+    case Active{+cursor,+registeredAt}:passive_cursor(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,Active{cursor,registeredAt},cursor,args,world)

@@ -324,3 +324,169 @@ The original two-field `Declaration` remains available for opaque declarations.
 For unsupported forms or mixed composition, finish the recognized builder and use
 ordinary `pair`; this preserves the generic evaluator. This slice does not claim
 that every query form uses compact sessions or that performance is qualified.
+
+## Passive replacement-executor inspection
+
+`Inspector.passive` invokes an existing read-only `Inspector.Plan` and returns
+its actual World and original Inspector Instance on both success and body error.
+It does not establish a new observation boundary or advance either clock or
+cursor. The historical `Inspector.run` contract above remains unchanged.
+
+`execution-inspector.resource` and `check_resource` select the canonical modern
+resource slot through the full-layout equality and route-validity proofs. Their
+read grants return the cached Data view while retaining the actual affine payload,
+sibling owners and stamp. Their access descriptions come from that same selector.
+`execution-inspector-application.passive` carries this operation through an actual
+`Scheduled` owner, retaining system captures, guards, handler, both bindings lists,
+plan, rules and deferred-command state outside the Inspector frame.
+
+The ordinary entry `examples/parallel-inspection/passive-resource.bend` reads an
+actual Array resource through success and body-error paths. Its observed clock
+and Inspector cursor remain zero, with payload and cached view both 71. This
+finite observation does not prove passive behavior universally or complete #93.
+The registered application and other existing domain consumers below extend that
+finite scope. Their evidence remains source-bound; this does not approve new
+laws or establish universal inspection purity.
+
+`examples/parallel-inspection/scheduled.bend` carries passive resource reads
+through the registered replacement App before two actual runs on each returned
+application. The original four cases use two nominal schemas, serial and native
+executor modes, and observation disabled or enabled. Its retaining observer prints
+the complete actual App initially and after each update, both raw Reports and the
+second Report's detached Trace Batch. Enabled boundaries print the actual
+Inspector Instance, result and App before and after the passive call. Plan nodes,
+requirements, bindings, Rules and compatible ID pairs come from actual retained
+metadata rather than a separate description catalog.
+
+At source `31688e21d`, the full four-case JavaScript and native observations each
+match the independently derived 26,278-byte expectation. They include handled
+body errors, actual affine Local/captures, owner headers/cursors, allocator,
+store, payloads/caches/stamps, resources, clock, handler and deferred settings. Enabled
+passive calls preserve their complete App and Instance observations; corresponding
+Off/On cases preserve simulation observations while passive/trace diagnostics
+differ. Raw report order is retained, and compatibility does not assert temporal
+overlap. Callback/proof values remain opaque. On that same qualified native binary, a
+bounded symbol/thread observation reaches the first native invocation's actual
+left and right resource bodies on two OS workers within one returned App; its
+complete product output still matches the same expectation. This establishes
+finite path/worker participation, not temporal overlap, speedup, general observer
+purity or universal ownership preservation.
+
+`execution-trace-report.read` projects the actual returned Report and actual plan
+constraints into the existing detached Trace Batch. It returns the complete
+Report alongside that Batch. The replacement executor does not currently supply
+per-system timestamps or command-barrier receipts in its Report; the adapter
+therefore uses explicit outcome events and emits neither invented timestamps nor
+inferred command publication. Dependency events state constraints, not a chosen
+worker order. The ordinary consumer retains identical simulation observations
+with tracing disabled or enabled; only its trace suffix differs.
+
+`execution-inspector-component` adapts the canonical modern component layout to
+existing Inspector Lookup, ReadQuery and Check Row result types. It validates
+the actual full handle before physical indexing, returns cached Data views
+through the exact full-origin column lens, and reads canonical lifecycle stamps.
+Required, optional, added and changed Inspector selection uses the unchanged row
+selection functions. Check exposes only required or optional plain rows.
+
+The ordinary `examples/parallel-inspection/component.bend` creates and activates
+an actual handle, stores an Array component, enumerates it twice passively, and
+runs a Check query. Both Inspector reads report the same added/changed flags;
+Check returns true, the World clock remains zero, and the final actual payload
+owner contains 7. This finite observation does not cover foreign/stale handles,
+registered component-query captures or prove universal owner preservation.
+
+The ordinary `examples/parallel-inspection/events.bend` uses a canonical owned
+event Family with an Array payload and an actually registered opaque Reader.
+Passive Inspector success and body-error paths and a Check read the cached event
+view without receiving that Reader. The returned Family retains its actual
+payload, active reader registration and next-reader counter. The original Reader
+still has cursor zero afterwards; a subsequent normal read yields its first
+item and advances to one with no missed events. This is an ordinary finite
+observation, not a proof or a registered event-schedule acceptance claim.
+
+`execution-deferred-schedule.run_observed` now returns the unchanged execution
+Outcome together with actual reached apply-call boundaries. Each entry retains
+whether the call was a private sync or final application and the requested
+system IDs. Each return retains the actual remaining IDs; it does not assert
+that every command succeeded. Disabled final application, Stop and invalid plans
+emit no invented final boundary. A reached apply call emits boundaries even when
+its request is empty or its returned IDs remain unapplied.
+
+The existing `run` signature and Outcome are unchanged and use disabled boundary
+collection. `execution-trace-report.boundary_batch` maps the reached calls to the
+existing boundary facts. It remains a separate ordered projection from system
+outcomes because these two inputs do not establish their complete interleaving.
+The raw boundary list retains call kind and requested/remaining IDs. Existing
+ordinary AppA/AppB execution adapters call the observed generalized Root path and
+retain its actual boundary results; this is implemented consumer plumbing, not a
+missing adapter. Its command-boundary qualification remains distinct from the
+scheduled resource consumer above, whose detached Report trace does not invent
+publication receipts or a complete cross-input interleaving.
+
+At source `c153b2747`, the existing component, passive-resource, events,
+pending-relations, pending-spawn and original AppA entries each match their
+independently derived complete JavaScript and native expectations (68, 71, 133,
+873, 1,141 and 6,222 bytes respectively). Passive reads preserve actual payloads,
+caches, stamps and opaque Reader ownership; pending-buffer observations retain
+their actual affine entries until the existing publication step. AppA preserves
+its original separate Off/On owners and three updates, while its enabled trace
+now includes a nonempty dependency Batch derived from the actual returned Report
+and retained plan alongside actual command-boundary facts. Trace order is kept;
+no timestamp, worker chronology or cross-input interleaving is invented.
+
+These are finite reached consumers, not universal read-only confinement or a
+complete hidden-state proof. The source-identical GH92 failure-reader JavaScript
+qualification is reused only at its existing graph/machine/Reader scope. The
+changed AppA ordinary execution also supplies its affected workflow emit/Node
+pair; unrelated normal entries retain their unchanged source-bound evidence.
+
+`execution-inspector-commands.snapshot` returns the same actual command Buffer
+with detached pending/receipt metadata. It retains incoming components, displaced
+owners, removed bundles and refused spawn bundles in their original affine
+Entries and Receipts. Only copied handles, operation/refusal facts and payload
+presence enter the snapshot. Snapshot descriptions use authored/publication
+order while the actual storage lists remain unchanged.
+
+`execution-inspector-application.check` transports an ordinary cursor-free Check
+through the same retained Scheduled owner as passive Inspector. It keeps system,
+guard and handler owners, both bindings lists, plan, rules and deferred state
+outside the Check frame. Calling this operation does not turn it into a scheduled
+condition or change which systems the application will run.
+
+The ordinary `examples/parallel-inspection/pending-relations.bend` executes a
+registered command body with final application disabled. Five actual hierarchy
+operations and no receipts remain unchanged across a passive protected-graph
+read. A subsequent ordinary run applies those retained operations together with
+five newly authored operations. The actual receipts contain eight publications
+and two refusals. Passive Inspector then sees the published graph and inverse;
+Check returns true. The actual resource state and captured Session remain 401
+and 601. These finite observations do not cover pending affine spawn bundles,
+all generic command payloads, relation failure readers or formal preservation.
+
+`examples/parallel-inspection/pending-spawn.bend` reuses the original AppB
+registration, three actual reservation tasks, explicit flush and raw-owner
+readers. Before publication, the canonical command snapshot lists three Spawn
+handles and no receipts. The original raw-owner reader sees all three retained
+bundles, each containing its actual affine array `[7, 9]` and scalar `11`.
+Passive Inspector and cursor-free Check observe no live component rows. The
+second snapshot and raw-owner read retain those same queue contents, receipts
+and author cursor `0:1`. Explicit flush then publishes all three bundles;
+Inspector sees their components and the original raw-owner helper reads each
+actual array twice with its unchanged cache. The actual machine projection
+remains current `1`, pending `2`, revision `0` throughout. This ordinary finite
+run covers pending affine Spawn transport; it does not prove generic owner
+preservation or cover refused Spawn bundles and relation failure readers.
+
+`examples/parallel-inspection/failure-reader.bend` reuses the actual registered
+and restored application from `parallel-persistence/extended-resume.bend`. Its
+receiver history contains one real refused self-relation. The original opaque
+failure Reader remains in the actual affine handler, together with its capture,
+while passive Inspector and Check read the protected cached graph. Before and
+after these reads, the Reader is `2/1/0`, the actual channel size/dropped/batches/
+older-through tuple is `1:0:1:0`, its sequence is `1`, next Reader identity is `2`
+and World clock is `0:12`. The existing restoration observer then performs the
+genuine normal read: one message, zero missed, original Reader cursor `1`, same
+clock. Its complete existing application observation retains the three system
+captures, handler capture, bindings, actual restored rows, graph and machine
+stream observations. The ordinary run returns successfully; these finite
+observations establish neither universal preservation nor backend qualification.

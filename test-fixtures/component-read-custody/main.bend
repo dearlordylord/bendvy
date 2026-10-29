@@ -103,7 +103,7 @@ def resource_done(log: String,clock: Clock.State,result: Array<U32> & U32) -> St
     case (_,value): log ++ "resource=" ++ U32.show(value) ++ ";clock=" ++ Tick.show(Clock.now(clock))
 def finish(state: State) -> String:
   match state:
-    case State{_,W.World{_,_,_,Resource{token},_,_,_,_,clock},_,_,_,log}: resource_done(log,clock,Array.get(U32,token,0))
+    case State{_,W.World{_,_,_,Resource{token},_,_,_,_,clock,lifecycle},_,_,_,log}: resource_done(log,clock,Array.get(U32,token,0))
 def run(commands: List<&2,Command>,state: State) -> String:
   match commands:
     case []: finish(state)

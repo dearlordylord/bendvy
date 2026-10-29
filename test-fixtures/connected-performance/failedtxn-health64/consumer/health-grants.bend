@@ -3,6 +3,7 @@ import health-events.bend as E
 import health-callbacks.bend as Callback
 import ../../../../src/ecs/world.bend as W
 import ../../../../src/ecs/component.bend as Cmp
+import ../../../../src/ecs/component-legacy.bend as CmpLegacy
 import ../../../../src/ecs/commands.bend as Cmd
 import ../../sparse-motion64/consumer/s-perf/canonical-api-v1/sparse-runtime-v1/types.bend as T
 import ../../sparse-motion64/consumer/s-perf/canonical-api-v1/sparse-runtime-v1/payload.bend as P
@@ -12,7 +13,7 @@ import health-audit.bend as Audit
 import ../../../../src/ecs/ordinary-service-request.bend as Request
 import ../../../../src/ecs/ordinary-service-declaration.bend as Service
 import ../../../../src/ecs/schedule-provision.bend as Provision
-import ../../../../src/ecs/resource-field.bend as Field
+import ../../../../src/ecs/resource-field-legacy.bend as Field
 import ../../../../src/ecs/transaction.bend as Tx
 import ../../../../src/ecs/capabilities.bend as Cap
 
@@ -29,9 +30,9 @@ def setup() -> Service.Setup<T.HealthSchema,F.Store(),R.Resources(),E.event_type
   Request.setup(~F.Store(),~E.event_type(),~T.HealthSchema,~R.Resources(),~R.Audit,~T.HealthLedger,~String,~Unit,~Audit.identity(),~R.take_audit,~R.put_audit,~R.record,~Audit.declaration())
 
 def main_read(owner:Owner(),target:W.Handle<T.HealthSchema>) -> Owner() & Cmp.Access<T.VitalsView>:
-  Cmp.tx_get(~T.HealthSchema,~F.Store(),~R.Resources(),~E.event_type(),~F.Rest(),~T.Vitals,~T.VitalsView,~T.VitalsToken,~F.take_main,~F.put_main,~P.vitals_get,F.main_family(),owner,target)
+  CmpLegacy.tx_get(~T.HealthSchema,~F.Store(),~R.Resources(),~E.event_type(),~F.Rest(),~T.Vitals,~T.VitalsView,~T.VitalsToken,~F.take_main,~F.put_main,~P.vitals_get,F.main_family(),owner,target)
 def main_write(owner:Owner(),target:W.Handle<T.HealthSchema>,payload:T.Vitals) -> Cmp.SetResult<Owner(),T.Vitals>:
-  Cmp.tx_set(~T.HealthSchema,~F.Store(),~R.Resources(),~E.event_type(),~F.Rest(),~T.Vitals,~T.VitalsView,~T.VitalsToken,~F.take_main,~F.put_main,~P.vitals_get,F.main_family(),owner,target,payload)
+  CmpLegacy.tx_set(~T.HealthSchema,~F.Store(),~R.Resources(),~E.event_type(),~F.Rest(),~T.Vitals,~T.VitalsView,~T.VitalsToken,~F.take_main,~F.put_main,~P.vitals_get,F.main_family(),owner,target,payload)
 def populate(world:F.World(),target:W.Handle<T.HealthSchema>,payload:T.Vitals) -> F.World():F.populate(world,target,F.Payload{payload,None{},None{}})
 def spawn(owner:Owner(),payload:T.Vitals) -> Owner() & W.Reservation<T.HealthSchema>:
   Cmd.tx_spawn(~T.HealthSchema,~F.Store(),~R.Resources(),~E.event_type(),~T.Vitals,~populate,owner,payload)

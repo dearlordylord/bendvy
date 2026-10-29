@@ -1,0 +1,31 @@
+import Base
+import ../../src/ecs/execution-reservation-task.bend as Effect
+import ./declarations.bend as D
+import ./payloads.bend as P
+import ./bodies.bend as Body
+import ../../src/ecs/execution-builder.bend as Build
+import ../../src/ecs/execution-composer-layout.bend as Layout
+import ../../src/ecs/execution-command-system.bend as Cmd
+import ../../src/ecs/execution-command-local.bend as Commands
+import ../../src/ecs/execution-command-permission.bend as Permission
+import ../../src/ecs/execution-system.bend as Sys
+import ../../src/ecs/world.bend as W
+
+def route() -> Layout.Route:Layout.InLeft{Layout.AtLeaf{}}
+def Ops(~S:Data,Permit:Data,H:Type,Q:Type) -> Type:D.request_ops(~S)(Permit,H)
+def declared(~S:Data,~Permit:Data,~H:Type,~Q:Type,~B:Type,~K:Type,permission:K,result:B & Ops(~S,Permit,H,Q)) -> B & (K & Ops(~S,Permit,H,Q)):
+  match result:
+    case (book,ops):(book,(permission,ops))
+def declaration(~S:Data,~Permit:Data,~H:Type,~Q:Type,~commands:Commands.Commands<Q,S,P.Actor<S,D.Mode>>,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.LeftStore(~S),~D.Resources(~S),~Permit,~H,~B),~K:Type,~entity:Permission.Grant(~S,~D.component_layout(~S),~Permit,~Q,~K),~relations:Permission.RelationGrant(~S,~D.root_layout(S),~Q,~K),~scopes:Permission.ScopeGrant(~S,~D.root_layout(S),~Q,~K),book:B,permission:K) -> B & (K & Ops(~S,Permit,H,Q)):
+  declared(~S,~Permit,~H,~Q,~B,~K,permission,D.request(~S,~Permit,~H,~B,~builder,book))
+type User<-S:Data> is Type:
+  User{handle:W.Handle<S>,retained:Body.Local()}
+def authored(~S:Data,~H:Type,~Q:Type,~commands:Commands.Commands<Q,S,P.Actor<S,D.Mode>>,queue:Q,+handle:W.Handle<S>,result:H & (Body.Local() & Sys.Completion<String,String>)) -> H & (Q & (User<S> & Sys.Completion<String,String>)):
+  match result:
+    case (scope,(retained,completion)):(scope,(Commands.insert_field(~Q,~S,~P.Actor<S,D.Mode>,commands)(queue,handle,P.Actor{ALeaf{1001},D.Waiting{},ALeaf{"exit-authored"}}),(User{handle,retained},completion)))
+def body(~S:Data,~Permit:Data,~H:Type,~Q:Type,~caps:Ops(~S,Permit,H,Q),~commands:Commands.Commands<Q,S,P.Actor<S,D.Mode>>,scope:H,queue:Q,user:User<S>) -> Effect.Task<S,Permit,H & (Q & (User<S> & Sys.Completion<String,String>))>:
+  match user:
+    case User{handle,retained}:Effect.TDone{authored(~S,~H,~Q,~commands,queue,handle,Body.exit_sync(~S,~Permit,~H,~caps,scope,retained))}
+def Owner(~S:Data) -> Type:Cmd.Owner<S,D.LeftStore(~S),D.Resources(~S),Unit,D.component_layout(~S),D.root_layout(S),route(),Ops(~S),User<S>,String,String,declaration(~S),body(~S)>
+
+def Captures(~S:Data) -> Type:Cmd.Captures(~S,~D.component_layout(~S),~D.root_layout(S),~route(),~User<S>)

@@ -77,7 +77,7 @@ def kill_descendants(pid, *, deadline=None):
                 os.close(fd)
 
 
-def cleanup_owned(pid=None, prior=()):
+def cleanup_owned(pid=None, prior=(), *, process=None):
     prior = set(prior)
     if pid in child_pids(os.getpid()) - prior:
         kill_descendants(pid)
@@ -92,7 +92,10 @@ def cleanup_owned(pid=None, prior=()):
             kill_descendants(child, deadline=end)
         for child in owned:
             try:
-                os.waitpid(child, os.WNOHANG)
+                if process is not None and child == process.pid:
+                    process.poll()  # Preserve the actual status for Popen.communicate.
+                else:
+                    os.waitpid(child, os.WNOHANG)
             except ChildProcessError:
                 pass
         time.sleep(.001)
@@ -130,13 +133,13 @@ def _worker(connection, command, timeout, env, cwd, capture):
         # Ignore repeated cancellation during the bounded cleanup operation.
         signal.signal(signal.SIGTERM, signal.SIG_IGN)
         try:
-            cleanup_owned(process.pid if process else None)
+            cleanup_owned(process.pid if process else None, process=process)
         except BaseException as error:
             result['failure'] = (result['failure'] or '') + '; cleanup: ' + str(error)
         if process:
             try:
                 stdout, stderr = process.communicate(timeout=1)
-                result.update(stdout=stdout, stderr=stderr or b'')
+                result.update(exit=process.returncode, stdout=stdout, stderr=stderr or b'')
             except subprocess.TimeoutExpired as error:
                 result.update(stdout=error.output or result['stdout'], stderr=error.stderr or result['stderr'])
                 result['failure'] = (result['failure'] or '') + '; child pipes did not close'
@@ -201,6 +204,18 @@ def execute_result(command, timeout, env=None, cwd=None, capture='merged-stdout'
         if owner.is_alive():
             cleanup_end = time.monotonic() + 4
             owner.terminate()
+            # A cancelled owner publishes its real terminal result during cleanup.
+            # Receive before join: raw output can exceed the pipe's buffer.
+            if primary_error is not None and result is None:
+                try:
+                    while time.monotonic() < cleanup_end:
+                        if receiver.poll(min(.05, max(0, cleanup_end - time.monotonic()))):
+                            result = receiver.recv()
+                            break
+                        if not owner.is_alive():
+                            break
+                except BaseException as recovery_error:
+                    primary_error.add_note('terminal result recovery: ' + repr(recovery_error))
             owner.join(max(0, cleanup_end - time.monotonic()))
             if owner.is_alive():
                 owner.kill()
@@ -211,6 +226,21 @@ def execute_result(command, timeout, env=None, cwd=None, capture='merged-stdout'
                     if result is not None:
                         cleanup_error.result = result
                         cleanup_error.stdout, cleanup_error.stderr = result['stdout'], result['stderr']
+        if primary_error is not None:
+            if result is None and not owner.is_alive():
+                try:
+                    if receiver.poll(0):
+                        result = receiver.recv()
+                except BaseException as recovery_error:
+                    primary_error.add_note('terminal result recovery: ' + repr(recovery_error))
+            if result is not None:
+                try:
+                    _implementation_guard()
+                except RuntimeError as error:
+                    result['failure'] = (result['failure'] or '') + '; ' + str(error)
+                result['runnerSHA256'] = IMPLEMENTATION_SHA256
+                primary_error.result = result
+                primary_error.stdout, primary_error.stderr = result['stdout'], result['stderr']
         receiver.close()
         if not owner.is_alive():
             owner.close()
@@ -275,7 +305,22 @@ class Runner:
         self.logs.guard()
         if label not in self.logs.labels or label + '.stdout' in self.logs.hashes:
             raise ValueError('unplanned or already executed command')
-        result = execute_result(command, timeout, self.env, self.cwd, self.capture)
+        try:
+            result = execute_result(command, timeout, self.env, self.cwd, self.capture)
+        except BaseException as error:
+            result = getattr(error, 'result', None)
+            if result is not None:
+                # Cancellation remains primary even if evidence publication or a
+                # postguard also fails; retain the real result on that exception.
+                for name, check in (
+                    ('raw logs', lambda: self.logs.record(label, result['stdout'], result['stderr'])),
+                    ('inputs', self.inputs.guard),
+                ):
+                    try:
+                        check()
+                    except BaseException as secondary:
+                        error.add_note(f'{name}: {type(secondary).__name__}: {secondary}')
+            raise
         try:
             self.logs.record(label, result['stdout'], result['stderr'])
             self.inputs.guard()

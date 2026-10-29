@@ -25,6 +25,11 @@ type TraceEvent<Error:Data> is Data:
   ScheduleStarted{namespace:U32,name:String}
   PhaseEntered{name:String}
   SystemCompleted{identity:Identity,before:Tick.Tick,after:Tick.Tick,status:Status<Error>}
+  SystemOutcome{id:U32,status:Status<Error>}
+  ConditionOutcome{id:U32,status:Status<Error>}
+  InvocationRefused{id:U32}
+  ConditionRefused{id:U32}
+  DependencyObserved{before:U32,after:U32}
   OperationObserved{identity:Identity,fact:Facts.Fact}
   BarrierOperationObserved{fact:Facts.Fact}
   ExecutionOperationObserved{fact:Facts.Fact}

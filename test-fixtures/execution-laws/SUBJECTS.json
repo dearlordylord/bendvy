@@ -1,0 +1,122 @@
+{
+  "status": "APPROVED_FIVE_PROOFS_KERNEL_CHECKED_FIVE_PROOF_MUTATION_CONTROLS_PASS",
+  "source_commit": "552f90a23283ae879d3908e9f473ba82ad368eee",
+  "laws": [
+    "rejected_plan_state",
+    "body_error_continuation",
+    "disabled_condition_state",
+    "condition_error_continuation",
+    "ready_exact"
+  ],
+  "scope": "Actual pure executor transitions and raw ready-set helper; reusable Data state only; no generic affine World refinement or runtime concurrency claim.",
+  "approval_subjects": {
+    "test-fixtures/execution-laws/LAWS.bend": "4f4c48522a303c78238f1a647ab6eb3928c7c6ed44813371766012f60c751119",
+    "test-fixtures/execution-laws/spec.bend": "42667395eeb1b92e46c3269d5579857d0bbb7dac127538c636c4af6caed70508"
+  },
+  "production_sources": {
+    "src/ecs/dependency-executor.bend": "12b06be9871ab2525d87fc648750361cf2f12a28181c503d4120f4d7e4e770a9",
+    "src/ecs/dependency-plan.bend": "8871450d31fc40ff063b00e29672f3cb4728a6aa4e781fd7d1ff0e04a92c1c76"
+  },
+  "fixture_sources": {
+    "test-fixtures/execution-laws/PROOF.bend": "8966305dc57ce8fd01784a2e2e14aba56172331b5d61c9190e96699ff11218d3",
+    "test-fixtures/execution-laws/controls.bend": "90ada2a2d89d103c6d2e6cf762096be422e3145383cc8ddda3ecc0b93fe90c1f",
+    "test-fixtures/execution-laws/falsify-ready.bend": "3ba3a3f7f9e2d02455ce87c1563728e437c5ca8806b462d16a2b834fd93eba6e",
+    "test-fixtures/execution-laws/falsify-transitions.bend": "a9f5cb5ac2a01042afb38bd22abef45be2899719a527422c4c514fb4329197d6",
+    "test-fixtures/execution-laws/mutants/body-error-history/LAWS-positive.bend": "4fd73f4ced72832d4d651d509a38291d33db090579efe82f077fdeaa3cd239ad",
+    "test-fixtures/execution-laws/mutants/body-error-history/LAWS.bend": "db623954cfae02c18415826aa87f696abab70c466b0cbe161c0937a2aed1ccec",
+    "test-fixtures/execution-laws/mutants/body-error-history/PROOF-positive.bend": "dc2724e34c333e8aa375dcf1146521b6123b6a48cd490b0b2bf38f9ca4b236e4",
+    "test-fixtures/execution-laws/mutants/body-error-history/PROOF.bend": "75d75a5ea3b80f89c27757ad319f329632a5ee7b657e2612d1102c9485dca90b",
+    "test-fixtures/execution-laws/mutants/body-error-history/counterexample.bend": "6a2beeffc2102200f87cb62ac0db1cc54dcd92e16c29fef80886d5d745c4828c",
+    "test-fixtures/execution-laws/mutants/body-error-history/dependency-executor.bend": "5aac56e5bb6641994e3b3f9fca9a5f629b80227b0d548928ae21ef7815310cfa",
+    "test-fixtures/execution-laws/mutants/body-error-history/spec.bend": "76f069473bd8940ac270c00ad9e2cf64786b8beff5373bdc656d7744b32fb650",
+    "test-fixtures/execution-laws/mutants/condition-error-handler/LAWS-positive.bend": "26b0ba6facfdca9a2445510eaff5b1466c3df97711363ab9450ebf4ded2aaf8a",
+    "test-fixtures/execution-laws/mutants/condition-error-handler/LAWS.bend": "614a1c6f38f4e5a34419874f310041d73a52974bb119ec2a357ac23bd78f825a",
+    "test-fixtures/execution-laws/mutants/condition-error-handler/PROOF-positive.bend": "90b735bf38ad66844997d10cf2608cf5f66df453edcc50eb0da19dbe95e6ab2a",
+    "test-fixtures/execution-laws/mutants/condition-error-handler/PROOF.bend": "e646daad001e747d4046bdf3668e8cc7758fd5c9ee120e9ad4d2ec1979d18e73",
+    "test-fixtures/execution-laws/mutants/condition-error-handler/counterexample.bend": "ef3c5aaf4bf6ac893d193c006f8497f1cbd08f91fc5f7b400f57a2e6b52d46c2",
+    "test-fixtures/execution-laws/mutants/condition-error-handler/dependency-executor.bend": "f55063363796b58add06f0f4b88f352fcd9730ccaa21574aa1d377c6b05ca664",
+    "test-fixtures/execution-laws/mutants/condition-error-handler/spec.bend": "76f069473bd8940ac270c00ad9e2cf64786b8beff5373bdc656d7744b32fb650",
+    "test-fixtures/execution-laws/mutants/disabled-invokes/LAWS-positive.bend": "333c279a71efa6856693c53eed58e76a8824b540dca26d6b5644d8acdbcf6c06",
+    "test-fixtures/execution-laws/mutants/disabled-invokes/LAWS.bend": "e9fd3f910380a005576e6c13c78fa14e6d4c64fcd9511c9fa2a9066b07fd1db1",
+    "test-fixtures/execution-laws/mutants/disabled-invokes/PROOF-positive.bend": "b00ed0fa938c8c791a15da2b506513c67a4d731e23320dfeeb2e1cfd27263d62",
+    "test-fixtures/execution-laws/mutants/disabled-invokes/PROOF.bend": "2bda933e72421e4d8e1cb69af228ccb293db69d587a72e98d4751d48ad7a89b9",
+    "test-fixtures/execution-laws/mutants/disabled-invokes/counterexample.bend": "3df6cbb670ef6a0ff8a4e2925257fe0e5ceb895a38c1256416b85fe9a96f9b8b",
+    "test-fixtures/execution-laws/mutants/disabled-invokes/dependency-executor.bend": "29f6e3ed87d312e9f071cc99871c3a85b030c1084ad5b34f6680c2514a85e574",
+    "test-fixtures/execution-laws/mutants/disabled-invokes/spec.bend": "76f069473bd8940ac270c00ad9e2cf64786b8beff5373bdc656d7744b32fb650",
+    "test-fixtures/execution-laws/mutants/ready-blocked/LAWS-positive.bend": "76684395d7d4dda8ba3ccc7c957e57bdd4737a4b5246806454ad2917e07783e2",
+    "test-fixtures/execution-laws/mutants/ready-blocked/LAWS.bend": "193472542b6ea9526dc1993d4440f9a90b72a52c3752e4f57fa6c3deb86167ee",
+    "test-fixtures/execution-laws/mutants/ready-blocked/PROOF-positive.bend": "63b54e9b592a42d69fe79659ef18047a1ead52ee98c83e3a05e3c8e4a56b11f5",
+    "test-fixtures/execution-laws/mutants/ready-blocked/PROOF.bend": "91b3b7c09b6f5042222f16a113cbcc70366e8540b84a968def875d18fa50efe0",
+    "test-fixtures/execution-laws/mutants/ready-blocked/counterexample.bend": "90deb9dd386240a1c428f1eedd3f4c8168164cb025eba1707c7d0a6ab362f2db",
+    "test-fixtures/execution-laws/mutants/ready-blocked/dependency-plan.bend": "3cdbd579c1cc92ce5a939d60eb7eb0f119c7bbbc3739f8e59378a0121def9300",
+    "test-fixtures/execution-laws/mutants/ready-blocked/spec.bend": "f56fcf7db6210757789af1b58e8923df79173fbeb4363270b2b3dbf58c0d10cf",
+    "test-fixtures/execution-laws/mutants/rejection-reason/LAWS-positive.bend": "be1a3ad4be53c818d9471b66eb383c3e8c81de299b882e73104d299cb8338d8a",
+    "test-fixtures/execution-laws/mutants/rejection-reason/LAWS.bend": "26daee8c1420320f762d628989884989af9c6c30fd549374d55690a2b7caa7de",
+    "test-fixtures/execution-laws/mutants/rejection-reason/PROOF-positive.bend": "eb33183ac2af5757a77d7f5ed2a8cbed6b2e81a20bf87aa93654516b23073b01",
+    "test-fixtures/execution-laws/mutants/rejection-reason/PROOF.bend": "ca3d3da56a4ee6af51a1a56a231d97f0520b74e6c5ec87646c0c2f8c4656ac84",
+    "test-fixtures/execution-laws/mutants/rejection-reason/counterexample.bend": "fb611ec5f06b44fa82e74826ab04c737050d5fb58bb9d0640bb90179af644e31",
+    "test-fixtures/execution-laws/mutants/rejection-reason/dependency-executor.bend": "e40c970cc0587abe42ed87ab298fde8360b454702dc679a11334b20e691dd41d",
+    "test-fixtures/execution-laws/mutants/rejection-reason/spec.bend": "76f069473bd8940ac270c00ad9e2cf64786b8beff5373bdc656d7744b32fb650"
+  },
+  "tools": {
+    "compiler": "/home/node/.bend/bin/bend-2.0.35",
+    "compiler_sha256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "base": "/home/node/.bend/bend2/base.bend",
+    "base_sha256": "3cd0b0944b11e15c4da5c9af2560e3c04f27d3d37027f1617899aeec17b499ce",
+    "checker": "/workspace/formal-proofs/bendvy/scripts/bend-check",
+    "checker_sha256": "8e40a9f83c64ba8649bd81fca8846660063feb3ff7bd84b0fc1d67ef752ca2d1",
+    "configuration_sha256": "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347"
+  },
+  "finite_instances": {
+    "transitions": 324,
+    "ready": 374,
+    "selected_actual_source_controls": 5
+  },
+  "planted_defects": {
+    "rejection-reason": "rejected_2",
+    "body-error-history": "body_24",
+    "disabled-invokes": "disabled_18",
+    "condition-error-handler": "condition_error_13",
+    "ready-blocked": "ready_blocked"
+  },
+  "pending": [
+    "independent Spec/Standards review of completed proof delivery",
+    "remaining full execution/ownership/refinement laws"
+  ],
+  "approval": {
+    "user_statement": "Approve the five exact candidates for proof",
+    "attribution": "User async answer reported by coordinator /root; the later Russian explanation request did not revoke approval.",
+    "approved_commit": "c055aef5064d32c4aff351a9e583da1ebb320407",
+    "approved_laws_file_sha256": "3e0de6a6cf22bad713f16eccaa13ea7630c2430daf64aad42b74a538712609df",
+    "equations_and_imports_sha256": "89a87f132a621521696f6c21899407c348d8f9e9818e0689aa59ef22908013ea",
+    "comment_update_authorization": "User asked candidate comments to cite Bevy code and behavior; equations and independent specification remain unchanged."
+  },
+  "proof": {
+    "source": "test-fixtures/execution-laws/PROOF.bend",
+    "sha256": "8966305dc57ce8fd01784a2e2e14aba56172331b5d61c9190e96699ff11218d3",
+    "verdict": "ALL PROOFS CHECK; exit 0",
+    "compiler": "/tmp/bendvy21-bend2035-lifecycle-pin/bin/bend-2.0.35",
+    "compiler_sha256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+    "kernel_source_sha256": "e15042434e73aab07ab05cea4b77b5619082c00a6d4924ea2d4a2cdec05facce",
+    "kernel_executable": "/home/node/.bend/bendtt/e15042434e73aab0/bendtt",
+    "kernel_executable_sha256": "02908579737daee32461f0c352caebb3c7606b96f648b6adbe88c4bc97b0d0cf",
+    "bundle_proof_sha256": "dae33361650f9072a37502b2ce14b6e46e17d8e8352bda7f4e9f581fb5856f6a",
+    "verified_resource_files": 70,
+    "kernel_negative_control": "BENDTT=/usr/bin/false produced kernel mismatch exit 1",
+    "first_attempt": "Installed newer resource kernel build exceeded 15-second limit; no verdict claimed. Matching preserved compiler/resource bundle used for final check.",
+    "original_approval_resource_closure": {
+      "compiler": "/home/node/.bend/bin/bend-2.0.35",
+      "compiler_sha256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+      "base_sha256": "3cd0b0944b11e15c4da5c9af2560e3c04f27d3d37027f1617899aeec17b499ce",
+      "kernel_source_sha256": "d7268ff461de974bd4cd875d9766c71c62ee6b2e6411b9bab84839870db68a80",
+      "kernel_executable": "/home/node/.bend/bendtt/d7268ff461de974b/bendtt",
+      "kernel_executable_sha256": "b59e3180983e050ae3bcec590a47f9d4f1c4b1493f6f7bd539e37e9dbf46f956",
+      "verdict": "ALL PROOFS CHECK; exit 0",
+      "kernel_negative_control": "BENDTT=/usr/bin/false produced expected kernel mismatch; exit 1",
+      "setup": "Built existing installed kernel with already-installed Lean4.34.0 before the bounded proof verdict. No dependency installed or proof-stage budget increased."
+    },
+    "mutation_controls": "test-fixtures/execution-laws/PROOF-CONTROLS.json",
+    "mutation_controls_sha256": "1f6a0b5ee2b21c4f4bbbd82342bf8579b77c234cfdeac048e5a23718f50d8a22"
+  }
+}

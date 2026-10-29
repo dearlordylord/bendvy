@@ -1,0 +1,48 @@
+import Base
+import ../../src/ecs/execution-save-gate.bend as Gate
+import ../../src/ecs/execution-save-recipe.bend as Recipe
+import ../../src/ecs/ordinary-declaration.bend as C
+import ../../src/ecs/decode-data.bend as D
+
+# Only pending_returns_actual_application is approved and kernel-proved, in
+# pending-approved/PROOF.bend. The other statements remain unapproved drafts.
+# The actual affine application/owner is an erased logical binder, not a Data
+# summary. These statements do not establish the ordinary pending fold itself.
+# This file specifies Bend save policy, not a
+# Bevy serialization theorem. Deferred-buffer context only:
+# https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/crates/bevy_ecs/src/schedule/executor/single_threaded.rs
+# Bevy behavior: buffer application is a separate executor step. Bend's save
+# refusal while work is pending and exact affine retention are separate policy.
+# Guarantees: a supplied pending flag returns the same actual application and RefusedPending.
+# Why it matters: pending save refusal must retain the caller's affine application.
+law pending_returns_actual_application:
+  for -Actual:Type
+  for -Value:Data
+  for -Error:Data
+  for -project:Actual -> Actual & Gate.Outcome<Value,Error>
+  for -actual:Actual
+  {Gate.checked(~Actual,~Value,~Error,~project,(actual,True{})) == (actual,Gate.RefusedPending{}) : (Actual & Gate.Outcome<Value,Error>)}
+
+law clear_gate_uses_exact_projection:
+  for -Actual:Type
+  for -Value:Data
+  for -Error:Data
+  for -project:Actual -> Actual & Gate.Outcome<Value,Error>
+  for -actual:Actual
+  {Gate.checked(~Actual,~Value,~Error,~project,(actual,False{})) == project(actual) : (Actual & Gate.Outcome<Value,Error>)}
+
+law plain_retains_actual_owner:
+  for -S:Data
+  for -P:Type
+  for -identity:C.Declaration<S,P>
+  for -project:P -> P & D.Raw
+  for -owner:P
+  {Recipe.export(~S,~P,~identity,~project,Recipe.Plain{},owner) == (Recipe.Plain{},(owner,Recipe.Refused{Recipe.PlainUnserializable{C.key(~S,~P,identity)}})) : (Recipe.Leaf<S,P,identity,project> & (P & Recipe.Field))}
+
+law transient_retains_actual_owner:
+  for -S:Data
+  for -P:Type
+  for -identity:C.Declaration<S,P>
+  for -project:P -> P & D.Raw
+  for -owner:P
+  {Recipe.export(~S,~P,~identity,~project,Recipe.Transient{},owner) == (Recipe.Transient{},(owner,Recipe.Omitted{})) : (Recipe.Leaf<S,P,identity,project> & (P & Recipe.Field))}

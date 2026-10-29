@@ -70,3 +70,14 @@ def added(stamp:Stamp,cursor:Maybe<&2,Tick.Tick>,this:Tick.Tick) -> Bool:
 def changed(stamp:Stamp,cursor:Maybe<&2,Tick.Tick>,this:Tick.Tick) -> Bool:
   match stamp:
     case Stamp{_,value}:selected(value,cursor,this)
+
+# Bevy ad678262 query/filter.rs Added<T> and Changed<T> compare the selected
+# component tick with last_run/this_run. Here first execution is explicit None;
+# filters inspect the pre-write stamp in the owned query partition.
+type Filter is Data:
+  Added{}
+  Changed{}
+def matches(filter:Filter,stamp:Stamp,cursor:Maybe<&2,Tick.Tick>,this:Tick.Tick) -> Bool:
+  match filter:
+    case Added{}:added(stamp,cursor,this)
+    case Changed{}:changed(stamp,cursor,this)

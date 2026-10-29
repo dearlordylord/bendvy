@@ -5,6 +5,7 @@ import operations.bend as Op
 import ../../src/ecs/world.bend as W
 import ../../src/ecs/system.bend as Sys
 import ../../src/ecs/event-runtime.bend as Ev
+import ../../src/ecs/event-runtime-legacy.bend as LegacyEv
 import ../../src/ecs/removals.bend as Rm
 import ../../src/ecs/reader-domains.bend as D
 import ../../src/ecs/schedule.bend as Sch
@@ -88,18 +89,18 @@ def event_detached(which: Bool,owners: Owners,new: EventOwner,+text: String,erro
     case _ owners: match result:
       case D.Detached{world,_}: (owners,Sys.Failed{world,invalid("event")})
 
-def event_completed(which: Bool,owners: Owners,+removals: List<&2,S.Notice>,result: Ev.RunResult<S.Schema,S.Store,Unit,S.Notice,C.ReadArgs,C.Failure,String,C.event_body>) -> Owners & Sys.Outcome<S.World(),C.Failure,Unit>:
+def event_completed(which: Bool,owners: Owners,+removals: List<&2,S.Notice>,result: LegacyEv.RunResult<S.Schema,S.Store,Unit,S.Notice,C.ReadArgs,C.Failure,String,C.event_body>) -> Owners & Sys.Outcome<S.World(),C.Failure,Unit>:
   match result:
-    case Ev.Ran{runtime,reader,registry,Ev.Succeeded{+text}}: event_detached(which,owners,EventOwner{reader,registry},text,None{},D.recover(~S.Schema,~S.Store,~Unit,~S.Notice,~S.is_event,runtime,removals))
-    case Ev.Ran{runtime,reader,registry,Ev.Failed{C.Failed{+text}}}: event_detached(which,owners,EventOwner{reader,registry},text,Some{C.Failed{text}},D.recover(~S.Schema,~S.Store,~Unit,~S.Notice,~S.is_event,runtime,removals))
-    case Ev.Ran{runtime,reader,registry,Ev.Rejected{_}}: event_detached(which,owners,EventOwner{reader,registry},"registration",Some{C.Failed{"registration"}},D.recover(~S.Schema,~S.Store,~Unit,~S.Notice,~S.is_event,runtime,removals))
+    case LegacyEv.Ran{runtime,reader,registry,Ev.Succeeded{+text}}: event_detached(which,owners,EventOwner{reader,registry},text,None{},D.recover(~S.Schema,~S.Store,~Unit,~S.Notice,~S.is_event,runtime,removals))
+    case LegacyEv.Ran{runtime,reader,registry,Ev.Failed{C.Failed{+text}}}: event_detached(which,owners,EventOwner{reader,registry},text,Some{C.Failed{text}},D.recover(~S.Schema,~S.Store,~Unit,~S.Notice,~S.is_event,runtime,removals))
+    case LegacyEv.Ran{runtime,reader,registry,Ev.Rejected{_}}: event_detached(which,owners,EventOwner{reader,registry},"registration",Some{C.Failed{"registration"}},D.recover(~S.Schema,~S.Store,~Unit,~S.Notice,~S.is_event,runtime,removals))
 def event_args(config: Config,+name: String) -> C.ReadArgs:
   match config:
     case Config{_,fail,_,_,_}: C.ReadArgs{name,fail,False{},0}
 def event_read(which: Bool,owners: Owners,observed: S.World() & List<&2,S.Notice>) -> Owners & Sys.Outcome<S.World(),C.Failure,Unit>:
   match which owners observed:
-    case True{} Owners{Occupied{events},Occupied{EventOwner{reader,registry}},Occupied{slow},Occupied{cf},Occupied{cs},Occupied{rf},Occupied{rs},Occupied{operation},+config,+reads}, (world,+removals): event_completed(True{},Owners{Empty{},Empty{},Occupied{slow},Occupied{cf},Occupied{cs},Occupied{rf},Occupied{rs},Occupied{operation},config,reads},removals,Ev.run(~S.Schema,~S.Store,~Unit,~S.Notice,~C.ReadArgs,~C.Failure,~String,~C.event_body,D.attach(~S.Schema,~S.Store,~Unit,~S.Notice,events,world),reader,registry,event_args(config,"event-fast")))
-    case False{} Owners{Occupied{events},Occupied{fast},Occupied{EventOwner{reader,registry}},Occupied{cf},Occupied{cs},Occupied{rf},Occupied{rs},Occupied{operation},+config,+reads}, (world,+removals): event_completed(False{},Owners{Empty{},Occupied{fast},Empty{},Occupied{cf},Occupied{cs},Occupied{rf},Occupied{rs},Occupied{operation},config,reads},removals,Ev.run(~S.Schema,~S.Store,~Unit,~S.Notice,~C.ReadArgs,~C.Failure,~String,~C.event_body,D.attach(~S.Schema,~S.Store,~Unit,~S.Notice,events,world),reader,registry,event_args(config,"event-slow")))
+    case True{} Owners{Occupied{events},Occupied{EventOwner{reader,registry}},Occupied{slow},Occupied{cf},Occupied{cs},Occupied{rf},Occupied{rs},Occupied{operation},+config,+reads}, (world,+removals): event_completed(True{},Owners{Empty{},Empty{},Occupied{slow},Occupied{cf},Occupied{cs},Occupied{rf},Occupied{rs},Occupied{operation},config,reads},removals,LegacyEv.run(~S.Schema,~S.Store,~Unit,~S.Notice,~C.ReadArgs,~C.Failure,~String,~C.event_body,D.attach(~S.Schema,~S.Store,~Unit,~S.Notice,events,world),reader,registry,event_args(config,"event-fast")))
+    case False{} Owners{Occupied{events},Occupied{fast},Occupied{EventOwner{reader,registry}},Occupied{cf},Occupied{cs},Occupied{rf},Occupied{rs},Occupied{operation},+config,+reads}, (world,+removals): event_completed(False{},Owners{Empty{},Occupied{fast},Empty{},Occupied{cf},Occupied{cs},Occupied{rf},Occupied{rs},Occupied{operation},config,reads},removals,LegacyEv.run(~S.Schema,~S.Store,~Unit,~S.Notice,~C.ReadArgs,~C.Failure,~String,~C.event_body,D.attach(~S.Schema,~S.Store,~Unit,~S.Notice,events,world),reader,registry,event_args(config,"event-slow")))
 
     case _ owners, (world,_): (owners,Sys.Failed{world,invalid("event-read")})
 
@@ -238,17 +239,17 @@ def init_operation(runtime: D.Events<S.Schema,S.Notice>,fast: EventOwner,slow: E
   match result:
     case Sys.Registered{world,op}: init_change_fast(runtime,fast,slow,op,Sys.register(~S.Schema,~S.Store,~Unit,~S.Notice,~C.ReadArgs,~C.Failure,~String,~C.change_runner,world,"change-fast",["Stock.write","Stock.changed"]))
     case _: None{}
-def init_event_slow(fast: EventOwner,result: Ev.Registered<S.Schema,S.Store,Unit,S.Notice,C.ReadArgs,C.Failure,String,C.event_body>) -> Maybe<&1,Host>:
+def init_event_slow(fast: EventOwner,result: LegacyEv.Registered<S.Schema,S.Store,Unit,S.Notice,C.ReadArgs,C.Failure,String,C.event_body>) -> Maybe<&1,Host>:
   match result:
-    case Ev.Registered{Ev.Runtime{world,+ns,+batches,+positions,+next,+tick,+start,+boundary,+capacity,+dropped},reader,registry}: init_operation(D.Events{ns,batches,positions,next,tick,start,boundary,capacity,dropped,[]},fast,EventOwner{reader,registry},Sys.register(~S.Schema,~S.Store,~Unit,~S.Notice,~Op.Request,~C.Failure,~String,~Op.runner,world,"operations",["Ping.write","Stock.insert","Stock.remove","Aux.remove","despawn","spawn"]))
+    case LegacyEv.Registered{Ev.Runtime{world,+ns,+batches,+positions,+next,+tick,+start,+boundary,+capacity,+dropped},reader,registry}: init_operation(D.Events{ns,batches,positions,next,tick,start,boundary,capacity,dropped,[]},fast,EventOwner{reader,registry},Sys.register(~S.Schema,~S.Store,~Unit,~S.Notice,~Op.Request,~C.Failure,~String,~Op.runner,world,"operations",["Ping.write","Stock.insert","Stock.remove","Aux.remove","despawn","spawn"]))
     case _: None{}
-def init_event_fast(result: Ev.Registered<S.Schema,S.Store,Unit,S.Notice,C.ReadArgs,C.Failure,String,C.event_body>) -> Maybe<&1,Host>:
+def init_event_fast(result: LegacyEv.Registered<S.Schema,S.Store,Unit,S.Notice,C.ReadArgs,C.Failure,String,C.event_body>) -> Maybe<&1,Host>:
   match result:
-    case Ev.Registered{runtime,reader,registry}: init_event_slow(EventOwner{reader,registry},Ev.register(~S.Schema,~S.Store,~Unit,~S.Notice,~C.ReadArgs,~C.Failure,~String,~C.event_body,runtime,"event-slow",["Ping.read"]))
+    case LegacyEv.Registered{runtime,reader,registry}: init_event_slow(EventOwner{reader,registry},LegacyEv.register(~S.Schema,~S.Store,~Unit,~S.Notice,~C.ReadArgs,~C.Failure,~String,~C.event_body,runtime,"event-slow",["Ping.read"]))
     case _: None{}
 def init_created(result: W.Creation<S.Schema,S.Store,Unit,S.Notice>) -> Maybe<&1,Host>:
   match result:
-    case W.Created{_,world}: init_event_fast(Ev.register(~S.Schema,~S.Store,~Unit,~S.Notice,~C.ReadArgs,~C.Failure,~String,~C.event_body,Ev.start(~S.Schema,~S.Store,~Unit,~S.Notice,world,65536n),"event-fast",["Ping.read"]))
+    case W.Created{_,world}: init_event_fast(LegacyEv.register(~S.Schema,~S.Store,~Unit,~S.Notice,~C.ReadArgs,~C.Failure,~String,~C.event_body,Ev.start(~S.Schema,~S.Store,~Unit,~S.Notice,world,65536n),"event-fast",["Ping.read"]))
     case _: None{}
 
 def snapshot_events(+label: String,+ok: Bool,owners: Owners,+rows: List<&2,String>,observed: D.Events<S.Schema,S.Notice> & (String & String),world: S.World()) -> Host & String:

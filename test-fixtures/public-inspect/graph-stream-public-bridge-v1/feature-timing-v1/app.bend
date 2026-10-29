@@ -2,6 +2,7 @@ import Base
 import ../../../../src/ecs/world.bend as W
 import ../../../../src/ecs/inspector.bend as I
 import ../../../../src/ecs/event-runtime.bend as Ev
+import ../../../../src/ecs/event-runtime-legacy.bend as LegacyEv
 import ../../../../src/ecs/system.bend as Sys
 import ../../../../src/ecs/relation-commands.bend as A
 import ../../../../src/ecs/inspector-runtime.bend as IR
@@ -67,8 +68,8 @@ def union_step(~S:Data,~physical:Bool,schema:String,pass:String,owner:Owner(~S))
     case Read.RuntimeOwner{runtime,reader,registry,warm}:union_observed(~S,~physical,schema,pass,reader,registry,warm,Union.run(~S,runtime))
 def read_result(~S:Data,~physical:Bool,schema:String,warm:MT.Streams<S>,result:Read.RunResult(~S)) -> Owner(~S) & Cases.Entry:
   match result:
-    case Ev.Ran{runtime,reader,registry,Ev.Succeeded{output}}:capture(~S,physical,"{\"schema\":" ++ Render.quoted(schema) ++ ",\"operation\":\"registered-stream-read\",\"result\":" ++ stream_value(~S,output) ++ "}","ReturnedRegisteredReader",Read.RuntimeOwner{runtime,reader,registry,warm})
-    case Ev.Ran{runtime,reader,registry,_}:capture(~S,physical,"{\"schema\":" ++ Render.quoted(schema) ++ ",\"operation\":\"registered-stream-read-failed\"}","ReturnedRegisteredReader",Read.RuntimeOwner{runtime,reader,registry,warm})
+    case LegacyEv.Ran{runtime,reader,registry,Ev.Succeeded{output}}:capture(~S,physical,"{\"schema\":" ++ Render.quoted(schema) ++ ",\"operation\":\"registered-stream-read\",\"result\":" ++ stream_value(~S,output) ++ "}","ReturnedRegisteredReader",Read.RuntimeOwner{runtime,reader,registry,warm})
+    case LegacyEv.Ran{runtime,reader,registry,_}:capture(~S,physical,"{\"schema\":" ++ Render.quoted(schema) ++ ",\"operation\":\"registered-stream-read-failed\"}","ReturnedRegisteredReader",Read.RuntimeOwner{runtime,reader,registry,warm})
 def read_step(~S:Data,~physical:Bool,schema:String,owner:Owner(~S)) -> Owner(~S) & Cases.Entry:
   match owner:
     case Read.RuntimeOwner{runtime,Ev.Reader{+ns,+id,+registryId},registry,warm}:read_result(~S,~physical,schema,warm,Read.invoke(~S,id,runtime,Ev.Reader{ns,id,registryId},registry))

@@ -8,6 +8,12 @@ Remaining-core specification: #37.
 
 An application declares finite machines, reads committed states, queues changes and gates schedules by machine conditions at explicit transition markers.
 
+## Current execution contract (#90)
+
+The [ordinary application](../../examples/parallel-machines/main.bend) retains typed state, Local owners and affine captures through registered dependency schedules. A handled body error retains its returned state and authored requests: [the exit handler](../../examples/parallel-machines/bodies.bend) reports `exit-after-request` after queuing the next transition, and [its command body](../../examples/parallel-machines/exit.bend) also returns the authored component command. There is no whole-transition rollback. The [pending-boundary consumer](../../examples/parallel-machines/pending-boundaries.bend) keeps commands when final application is disabled or the handler escalates. Completed schedules rotate machine messages; stopped schedules retain their generations for the caller's next decision. State commits, requests for later transitions, and deferred component publication are separate boundaries.
+
+The checklist and rollback receipts below record earlier executor contracts. In particular, their discarded-change or complete-rollback observations do not describe the current handled-error path above and are not source-current #90 evidence.
+
 ## Acceptance criteria
 
 - [x] Observe pinned initial provisioning, missing/invalid machine values, queued overwrite, same-state/skip behavior, definition order and inState/stateChanged/not/and/or conditions.

@@ -1,0 +1,37 @@
+{
+  "status": "ONE_APPROVED_LAW_KERNEL_PROVED",
+  "law": "pending_returns_actual_application",
+  "approval": {
+    "user_statement": "Одобрить этот закон для доказательства",
+    "approved_commit": "fd6826220899f261994a4a77260d6c2049e1caed",
+    "approved_path": "test-fixtures/execution-save-laws/LAWS.bend",
+    "approved_lines": "15-21",
+    "approved_file_sha256": "f43da283e0a2cf48b94f44ee39a3eb14f86fdce44a7d3d91c925a2162d2b607f",
+    "exact_statement_sha256": "8f3f2d99d783d6b43bf77b237dea332a4274f0c4ffb66b20c1e96a615e38c1b9"
+  },
+  "isolation": "LAWS.bend copies the approved seven-line statement verbatim; only its relative Gate import differs. The original collection keeps its other three unproved laws.",
+  "production_source": {
+    "path": "src/ecs/execution-save-gate.bend",
+    "sha256": "46aacf8cd53a4a472dee26916123588eeb61f195a282d675d468101daf9a9fef"
+  },
+  "proof": {
+    "path": "test-fixtures/execution-save-laws/pending-approved/PROOF.bend",
+    "sha256": "d21ff49ae620f070ba7384f3b065ff8c959bca34874cf5ccfda52e0066d49349",
+    "method": "Definitional reflexivity of the actual Gate.checked True branch.",
+    "command": "timeout --signal=KILL 60s sh -c 'ulimit -t 10; exec /tmp/bendvy21-bend2035-lifecycle-pin/bin/bend-2.0.35 test-fixtures/execution-save-laws/pending-approved/PROOF.bend --verdict'",
+    "exit_code": 0,
+    "verdict": "ALL PROOFS CHECK"
+  },
+  "compiler": {
+    "path": "/tmp/bendvy21-bend2035-lifecycle-pin/bin/bend-2.0.35",
+    "sha256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a"
+  },
+  "scope": "All Actual:Type, including affine applications, and arbitrary Data Value/Error and supplied pure project. The supplied True branch returns that actual with RefusedPending. Equality endpoints are erased; no runtime owner duplication or Data surrogate is introduced.",
+  "not_proved": [
+    "correctness or completeness of the ordinary pending detector",
+    "behavior of project or the False branch",
+    "serialization, whole-World equivalence, complete save/restore or whole execution",
+    "the other 35 draft subjects or any new native/parallel claim"
+  ],
+  "mutation_scope": "No recorded mutant is needed under bend-ldd for this premise-free exact equation over a direct production call and a non-core reference tuple. No host falsifier, test, script or synthetic model was added."
+}

@@ -1,4 +1,5 @@
 import Base
+import ./execution-lifecycle-notices.bend as Notice
 import ./clock-state.bend as Clock
 import entity-key.bend as Key
 import entity-allocator.bend as Alloc
@@ -22,20 +23,20 @@ def pending_ready(~World:Type,pending:List<Deferred.Command<World>>) -> List<Def
   match pending:
     case []:([],True{})
     case command <> rest:(command <> rest,False{})
-def ready_joined(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,allocator:Alloc.Allocator,store:C,resource:R,events:List<&2,E>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:Clock.State,result:List<Deferred.Command<W.World<S,C,R,E>>> & Bool) -> W.World<S,C,R,E> & Bool:
+def ready_joined(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,allocator:Alloc.Allocator,store:C,resource:R,events:List<&2,E>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:Clock.State,result:List<Deferred.Command<W.World<S,C,R,E>>> & Bool,lifecycle:Notice.Journal<S>) -> W.World<S,C,R,E> & Bool:
   match result:
-    case (pending,ready):(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},ready)
+    case (pending,ready):(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,lifecycle},ready)
 # Internal constant-time structural admission, before any trusted projection.
 def ready(~S:Data,~C:Type,~R:Type,~E:Data,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & Bool:
   match world:
-    case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:ready_joined(~S,~C,~R,~E,namespace,allocator,store,resource,events,registrations,nextSystemId,clock,pending_ready(~W.World<S,C,R,E>,pending))
+    case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock,lifecycle}:ready_joined(~S,~C,~R,~E,namespace,allocator,store,resource,events,registrations,nextSystemId,clock,pending_ready(~W.World<S,C,R,E>,pending),lifecycle)
 
 # Internal experimental accessor: exact actual allocator, no inferred live count.
 # Rebuild the SAME owner with every field returned unchanged.
 def allocator(~S:Data,~C:Type,~R:Type,~E:Data,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & U32:
   match world:
-    case W.World{+namespace,Alloc.Allocator{+nextId,+high,slots,+capacity,+depth,+free,+order},store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
-      (W.World{namespace,Alloc.Allocator{nextId,high,slots,capacity,depth,free,order},store,resource,events,pending,registrations,nextSystemId,clock},nextId)
+    case W.World{+namespace,Alloc.Allocator{+nextId,+high,slots,+capacity,+depth,+free,+order},store,resource,+events,pending,+registrations,+nextSystemId,+clock,lifecycle}:
+      (W.World{namespace,Alloc.Allocator{nextId,high,slots,capacity,depth,free,order},store,resource,events,pending,registrations,nextSystemId,clock,lifecycle},nextId)
 
 # Closed schema providers must return the actual store/resource owners. Their
 # projections, transient omission and name bindings are trusted author inputs.

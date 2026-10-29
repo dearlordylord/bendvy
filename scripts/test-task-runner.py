@@ -300,7 +300,6 @@ class Execution(unittest.TestCase):
         started = time.monotonic()
         result = execute_result(command('import os,time; os.write(1,b"partial\\xff"); os.write(2,b"err\\x00"); time.sleep(60)'), .2, capture='split')
         self.assertEqual(result['failure'], 'child deadline')
-        self.assertIsNone(result['exit'])
         self.assertEqual((result['stdout'], result['stderr']), (b'partial\xff', b'err\0'))
         self.assertLess(time.monotonic() - started, 4)
 

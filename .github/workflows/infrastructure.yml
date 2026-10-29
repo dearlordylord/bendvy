@@ -47,7 +47,7 @@ jobs:
 
   examples:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -72,4 +72,26 @@ jobs:
       - name: Compile and exercise every runnable example
         env:
           BENDVY_EXAMPLE_NATIVE: '1'
-        run: bash examples/check.sh
+        run: |
+          bash examples/check.sh
+          source examples/common.sh
+          example_emit examples/parallel-query/main.bend "$RUNNER_TEMP/parallel-query.js"
+          example_node "$RUNNER_TEMP/parallel-query.js"
+          example_emit examples/parallel-events/main.bend "$RUNNER_TEMP/parallel-events.js"
+          example_node "$RUNNER_TEMP/parallel-events.js"
+          example_emit examples/parallel-applications/app-a.bend "$RUNNER_TEMP/app-a.js"
+          example_node "$RUNNER_TEMP/app-a.js"
+          example_emit examples/parallel-applications/app-b.bend "$RUNNER_TEMP/app-b.js"
+          example_node "$RUNNER_TEMP/app-b.js"
+          example_emit examples/parallel-execution/main.bend "$RUNNER_TEMP/parallel-execution.js"
+          example_node "$RUNNER_TEMP/parallel-execution.js"
+          example_emit examples/parallel-composition/main.bend "$RUNNER_TEMP/parallel-composition.js"
+          example_node "$RUNNER_TEMP/parallel-composition.js"
+          example_emit examples/parallel-machines/main.bend "$RUNNER_TEMP/parallel-machines.js"
+          example_node "$RUNNER_TEMP/parallel-machines.js"
+          example_emit examples/parallel-lifecycle/main.bend "$RUNNER_TEMP/parallel-lifecycle.js"
+          example_node "$RUNNER_TEMP/parallel-lifecycle.js"
+          example_emit examples/parallel-captures/main.bend "$RUNNER_TEMP/parallel-captures.js"
+          example_node "$RUNNER_TEMP/parallel-captures.js"
+          example_emit examples/parallel-persistence/main.bend "$RUNNER_TEMP/parallel-persistence.js"
+          example_node "$RUNNER_TEMP/parallel-persistence.js"

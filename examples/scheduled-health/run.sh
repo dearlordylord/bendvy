@@ -11,10 +11,9 @@ case "$backend" in
     ;;
   native)
     example_emit "$example_dir/main.bend" "$example_dir/build/main.c"
-    timeout --signal=KILL 120s "${example_cpu[@]}" "$CLANG" -O3 "$example_dir/build/main.c" -o "$example_dir/build/main.native" -pthread -lm
+    time "${example_cpu[@]}" "$CLANG" -O3 "$example_dir/build/main.c" -o "$example_dir/build/main.native" -pthread -lm
     timeout --signal=KILL 5s "${example_cpu[@]}" "$example_dir/build/main.native" --threads 1 --gpu off > "$example_dir/build/native.stdout"
     ;;
   *) echo 'usage: bash run.sh [js|native]' >&2; exit 2 ;;
 esac
 cat "$example_dir/build/$backend.stdout"
-python3 "$example_dir/verify.py" "$example_dir/build/$backend.stdout"

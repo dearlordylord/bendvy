@@ -1,0 +1,224 @@
+import Base
+import ./execution-reservation-task.bend as Task
+import ./world.bend as W
+import ./chunk-query.bend as Row
+import ./chunk-partition.bend as Part
+import ./execution-query-domain.bend as D
+import ./execution-composer-layout.bend as Layout
+import ./lifecycle.bend as L
+import ./change-tick.bend as Tick
+
+# Origin contains payload, cache type, refresher, key and persistence class.
+# S additionally brands the schema. This is sparse storage, never full WC.
+type Slot<-S:Data,-C:Type,-origin:Layout.Layout> is Type:
+  Slot{slice:Part.Slice<S,C>}
+type Edit<-S:Data,-C:Type,-origin:Layout.Layout,-P:Type,-Out:Type> is Type:
+  Edited{slot:Slot<S,C,origin>,output:Out}
+  Unchanged{slot:Slot<S,C,origin>,unused:P -> P & Out}
+
+def choose_view(-V:Data,view:V,next:Maybe<&2,V>,found:Bool) -> Maybe<&2,V>:
+  match found:
+    case True{}:Some{view}
+    case False{}:next
+def read_absent(-P:Type,-V:Data,offset:U32,stamp:L.Stamp,result:List<&1,Part.Cell<Layout.Viewed<P,V>>> & Maybe<&2,V>) -> List<&1,Part.Cell<Layout.Viewed<P,V>>> & Maybe<&2,V>:
+  match result:
+    case (rest,view):(Part.Cell{offset,None{},stamp} <> rest,view)
+def read_present(-P:Type,-V:Data,offset:U32,owner:P,+view:V,stamp:L.Stamp,found:Bool,result:List<&1,Part.Cell<Layout.Viewed<P,V>>> & Maybe<&2,V>) -> List<&1,Part.Cell<Layout.Viewed<P,V>>> & Maybe<&2,V>:
+  match result:
+    case (rest,next):(Part.Cell{offset,Some{Layout.Viewed{owner,view}},stamp} <> rest,choose_view(V,view,next,found))
+def read_cells(-P:Type,-V:Data,cells:List<&1,Part.Cell<Layout.Viewed<P,V>>>,+index:U32) -> List<&1,Part.Cell<Layout.Viewed<P,V>>> & Maybe<&2,V>:
+  match cells:
+    case []:([],None{})
+    case Part.Cell{offset,None{},stamp} <> rest:read_absent(P,V,offset,stamp,read_cells(P,V,rest,index))
+    case Part.Cell{+offset,Some{Layout.Viewed{owner,view}},stamp} <> rest:read_present(P,V,offset,owner,view,stamp,U32.is_eq(offset,index),read_cells(P,V,rest,index))
+def read_done(-S:Data,-P:Type,-V:Data,-origin:Layout.Layout,domain:D.Domain,result:List<&1,Part.Cell<Layout.Viewed<P,V>>> & Maybe<&2,V>) -> Slot<S,Layout.Viewed<P,V>,origin> & Maybe<&2,V>:
+  match result:
+    case (cells,view):(Slot{Part.Slice{domain,cells}},view)
+def read_checked(-S:Data,-P:Type,-V:Data,-origin:Layout.Layout,slot:Slot<S,Layout.Viewed<P,V>,origin>,index:U32,allowed:Bool) -> Slot<S,Layout.Viewed<P,V>,origin> & Maybe<&2,V>:
+  match slot allowed:
+    case slot False{}:(slot,None{})
+    case Slot{Part.Slice{domain,cells}} True{}:read_done(S,P,V,origin,domain,read_cells(P,V,cells,index))
+def read(-S:Data,-P:Type,-V:Data,-origin:Layout.Layout,slot:Slot<S,Layout.Viewed<P,V>,origin>,+index:U32) -> Slot<S,Layout.Viewed<P,V>,origin> & Maybe<&2,V>:
+  match slot:
+    case Slot{Part.Slice{+domain,cells}}:read_checked(S,P,V,origin,Slot{Part.Slice{domain,cells}},index,D.contains(domain,index))
+
+type CellsEdit<-C:Type,-P:Type,-Out:Type> is Type:
+  CellsEdited{cells:List<&1,Part.Cell<C>>,output:Out}
+  CellsUnchanged{cells:List<&1,Part.Cell<C>>,unused:P -> P & Out}
+def prepend_edit(-C:Type,-P:Type,-Out:Type,cell:Part.Cell<C>,result:CellsEdit<C,P,Out>) -> CellsEdit<C,P,Out>:
+  match result:
+    case CellsEdited{cells,output}:CellsEdited{cell <> cells,output}
+    case CellsUnchanged{cells,unused}:CellsUnchanged{cell <> cells,unused}
+def refreshed(~layout:Layout.Layout,~route:Layout.Route,-Out:Type,offset:U32,stamp:L.Stamp,rest:List<&1,Part.Cell<Layout.stored(layout,route)>>,result:Layout.stored(layout,route) & Out) -> CellsEdit<Layout.stored(layout,route),Layout.payload(layout,route),Out>:
+  match result:
+    case (value,out):CellsEdited{Part.Cell{offset,Some{value},stamp} <> rest,out}
+def edit_here(~layout:Layout.Layout,~route:Layout.Route,-Out:Type,offset:U32,value:Layout.stored(layout,route),stamp:L.Stamp,rest:List<&1,Part.Cell<Layout.stored(layout,route)>>,transform:Layout.payload(layout,route) -> Layout.payload(layout,route) & Out,tick:Tick.Tick,found:Bool) -> CellsEdit<Layout.stored(layout,route),Layout.payload(layout,route),Out>:
+  match found:
+    case True{}:refreshed(~layout,~route,Out,offset,L.written(True{},stamp,tick),rest,Layout.rewrite(~layout,~route,Out,transform,value))
+    case False{}:CellsUnchanged{Part.Cell{offset,Some{value},stamp} <> rest,transform}
+def edit_returned(~layout:Layout.Layout,~route:Layout.Route,-Out:Type,offset:U32,value:Layout.stored(layout,route),stamp:L.Stamp,tick:Tick.Tick,found:Bool,result:CellsEdit<Layout.stored(layout,route),Layout.payload(layout,route),Out>) -> CellsEdit<Layout.stored(layout,route),Layout.payload(layout,route),Out>:
+  match result:
+    case CellsEdited{cells,out}:CellsEdited{Part.Cell{offset,Some{value},stamp} <> cells,out}
+    case CellsUnchanged{cells,transform}:edit_here(~layout,~route,Out,offset,value,stamp,cells,transform,tick,found)
+def edit_cells(~layout:Layout.Layout,~route:Layout.Route,-Out:Type,cells:List<&1,Part.Cell<Layout.stored(layout,route)>>,+index:U32,+tick:Tick.Tick,transform:Layout.payload(layout,route) -> Layout.payload(layout,route) & Out) -> CellsEdit<Layout.stored(layout,route),Layout.payload(layout,route),Out>:
+  match cells:
+    case []:CellsUnchanged{[],transform}
+    case Part.Cell{offset,None{},stamp} <> rest:prepend_edit(Layout.stored(layout,route),Layout.payload(layout,route),Out,Part.Cell{offset,None{},stamp},edit_cells(~layout,~route,Out,rest,index,tick,transform))
+    case Part.Cell{+offset,Some{value},stamp} <> rest:edit_returned(~layout,~route,Out,offset,value,stamp,tick,U32.is_eq(offset,index),edit_cells(~layout,~route,Out,rest,index,tick,transform))
+def edit_done(~S:Data,~layout:Layout.Layout,~route:Layout.Route,-Out:Type,domain:D.Domain,result:CellsEdit<Layout.stored(layout,route),Layout.payload(layout,route),Out>) -> Edit<S,Layout.stored(layout,route),Layout.origin(layout,route),Layout.payload(layout,route),Out>:
+  match result:
+    case CellsEdited{cells,out}:Edited{Slot{Part.Slice{domain,cells}},out}
+    case CellsUnchanged{cells,unused}:Unchanged{Slot{Part.Slice{domain,cells}},unused}
+def edit_checked(~S:Data,~layout:Layout.Layout,~route:Layout.Route,-Out:Type,slot:Slot<S,Layout.stored(layout,route),Layout.origin(layout,route)>,index:U32,tick:Tick.Tick,transform:Layout.payload(layout,route) -> Layout.payload(layout,route) & Out,allowed:Bool) -> Edit<S,Layout.stored(layout,route),Layout.origin(layout,route),Layout.payload(layout,route),Out>:
+  match slot allowed:
+    case slot False{}:Unchanged{slot,transform}
+    case Slot{Part.Slice{domain,cells}} True{}:edit_done(~S,~layout,~route,Out,domain,edit_cells(~layout,~route,Out,cells,index,tick,transform))
+def edit(~S:Data,~layout:Layout.Layout,~route:Layout.Route,-Out:Type,slot:Slot<S,Layout.stored(layout,route),Layout.origin(layout,route)>,+index:U32,tick:Tick.Tick,transform:Layout.payload(layout,route) -> Layout.payload(layout,route) & Out) -> Edit<S,Layout.stored(layout,route),Layout.origin(layout,route),Layout.payload(layout,route),Out>:
+  match slot:
+    case Slot{Part.Slice{+domain,cells}}:edit_checked(~S,~layout,~route,Out,Slot{Part.Slice{domain,cells}},index,tick,transform,D.contains(domain,index))
+
+type JoinOwner<-S:Data,-C:Type,-key:String,-origin:Layout.Layout> is Type:
+  JoinOwner{owner:Part.JoinOwner<S,C>}
+type Cut<-S:Data,-C:Type,-key:String,-origin:Layout.Layout> is Type:
+  Refused{column:Layout.ColumnSlot<S,C,key,origin>,reason:Part.Refusal}
+  Split{remainder:Layout.ColumnSlot<S,C,key,origin>,left:Slot<S,C,origin>,right:Slot<S,C,origin>,join:JoinOwner<S,C,key,origin>}
+def cut_done(-S:Data,-C:Type,-key:String,-origin:Layout.Layout,result:Part.Cut<S,C>) -> Cut<S,C,key,origin>:
+  match result:
+    case Part.Refused{column,reason}:Refused{Layout.ColumnSlot{column},reason}
+    case Part.Split{column,left,right,join}:Split{Layout.ColumnSlot{column},Slot{left},Slot{right},JoinOwner{join}}
+def cut(~S:Data,~layout:Layout.Layout,~route:Layout.Route,column:Layout.ColumnSlot<S,Layout.stored(layout,route),Layout.key(layout,route),Layout.origin(layout,route)>,left:D.Domain,right:D.Domain) -> Cut<S,Layout.stored(layout,route),Layout.key(layout,route),Layout.origin(layout,route)>:
+  match column:
+    case Layout.ColumnSlot{column}:cut_done(S,Layout.stored(layout,route),Layout.key(layout,route),Layout.origin(layout,route),Part.cut(S,Layout.stored(layout,route),column,left,right))
+type Joined<-S:Data,-C:Type,-key:String,-origin:Layout.Layout> is Type:
+  Joined{column:Layout.ColumnSlot<S,C,key,origin>,displaced:List<&1,Part.Cell<C>>}
+  JoinRefused{remainder:Layout.ColumnSlot<S,C,key,origin>,left:Slot<S,C,origin>,right:Slot<S,C,origin>,join:JoinOwner<S,C,key,origin>,reason:Part.Refusal}
+def joined(-S:Data,-C:Type,-key:String,-origin:Layout.Layout,result:Part.Joined<S,C>) -> Joined<S,C,key,origin>:
+  match result:
+    case Part.Joined{column,displaced}:Joined{Layout.ColumnSlot{column},displaced}
+    case Part.JoinRefused{column,left,right,join,reason}:JoinRefused{Layout.ColumnSlot{column},Slot{left},Slot{right},JoinOwner{join},reason}
+def join(-S:Data,-C:Type,-key:String,-origin:Layout.Layout,join:JoinOwner<S,C,key,origin>,remainder:Layout.ColumnSlot<S,C,key,origin>,left:Slot<S,C,origin>,right:Slot<S,C,origin>) -> Joined<S,C,key,origin>:
+  match join remainder left right:
+    case JoinOwner{owner} Layout.ColumnSlot{column} Slot{left} Slot{right}:joined(S,C,key,origin,Part.join(S,C,owner,column,left,right))
+
+def stamped_absent(-C:Type,offset:U32,stamp:L.Stamp,result:List<&1,Part.Cell<C>> & L.Stamp) -> List<&1,Part.Cell<C>> & L.Stamp:
+  match result:
+    case (cells,found):(Part.Cell{offset,None{},stamp} <> cells,found)
+def stamped_present(-C:Type,offset:U32,owner:C,+stamp:L.Stamp,selected:Bool,result:List<&1,Part.Cell<C>> & L.Stamp) -> List<&1,Part.Cell<C>> & L.Stamp:
+  match result:
+    case (cells,found):(Part.Cell{offset,Some{owner},stamp} <> cells,L.choose(selected,stamp,found))
+# Read Data stamps without projecting or duplicating any affine payload.
+def stamped_cells(-C:Type,+index:U32,cells:List<&1,Part.Cell<C>>) -> List<&1,Part.Cell<C>> & L.Stamp:
+  match cells:
+    case []:([],L.Stamp{None{},None{}})
+    case Part.Cell{offset,None{},stamp} <> rest:stamped_absent(C,offset,stamp,stamped_cells(C,index,rest))
+    case Part.Cell{+offset,Some{owner},+stamp} <> rest:stamped_present(C,offset,owner,stamp,U32.is_eq(index,offset),stamped_cells(C,index,rest))
+def stamped_slot(-S:Data,-C:Type,-origin:Layout.Layout,domain:D.Domain,result:List<&1,Part.Cell<C>> & L.Stamp) -> Slot<S,C,origin> & L.Stamp:
+  match result:
+    case (cells,stamp):(Slot{Part.Slice{domain,cells}},stamp)
+def stamp(-S:Data,-C:Type,-origin:Layout.Layout,slot:Slot<S,C,origin>,index:U32) -> Slot<S,C,origin> & L.Stamp:
+  match slot:
+    case Slot{Part.Slice{domain,cells}}:stamped_slot(S,C,origin,domain,stamped_cells(C,index,cells))
+
+def traverse_handle_checked(~S:Data,handle:W.Handle<S>,next:Maybe<&2,W.Handle<S>>,found:Bool) -> Maybe<&2,W.Handle<S>>:
+  match found:
+    case True{}:Some{handle}
+    case False{}:next
+def traverse_handle(~S:Data,+index:U32,handles:List<&2,W.Handle<S>>) -> Maybe<&2,W.Handle<S>>:
+  match handles:
+    case []:None{}
+    case +handle <> rest:traverse_handle_checked(~S,handle,traverse_handle(~S,index,rest),U32.is_eq(U32.sub(W.handle_index(~S,handle),1),index))
+def traverse_handle_allowed(~S:Data,index:U32,handles:List<&2,W.Handle<S>>,allowed:Bool) -> Maybe<&2,W.Handle<S>>:
+  match allowed:
+    case False{}:None{}
+    case True{}:traverse_handle(~S,index,handles)
+
+def traverse_errors(~E:Data,index:U32,error:Maybe<&2,E>) -> List<&2,Row.Error<E>>:
+  match error:
+    case None{}:[]
+    case Some{value}:[Row.Error{index,value}]
+def traverse_cell_rebuilt(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data,offset:U32,stamp:L.Stamp,index:U32,result:Layout.stored(layout,route) & (O & Maybe<&2,E>)) -> Part.Cell<Layout.stored(layout,route)> & (O & List<&2,Row.Error<E>>):
+  match result:
+    case (owner,(output,error)):(Part.Cell{offset,Some{owner},stamp},(output,traverse_errors(~E,index,error)))
+def traverse_cell_selected(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data,~body:W.Handle<S> -> Layout.view(layout,route) -> Layout.payload(layout,route) -> O -> Layout.payload(layout,route) & (O & Maybe<&2,E>),offset:U32,owner:Layout.stored(layout,route),stamp:L.Stamp,tick:Tick.Tick,output:O,found:Maybe<&2,W.Handle<S>>) -> Part.Cell<Layout.stored(layout,route)> & (O & List<&2,Row.Error<E>>):
+  match owner found:
+    case owner None{}:(Part.Cell{offset,Some{owner},stamp},(output,[]))
+    case Layout.Viewed{payload,view} Some{+handle}:traverse_cell_rebuilt(~S,~layout,~route,~O,~E,offset,L.written(True{},stamp,tick),W.handle_index(~S,handle),Layout.rewritten(~layout,~route,O & Maybe<&2,E>,body(handle,view,payload,output)))
+def traverse_cell(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data,~body:W.Handle<S> -> Layout.view(layout,route) -> Layout.payload(layout,route) -> O -> Layout.payload(layout,route) & (O & Maybe<&2,E>),handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,selection:Row.Selection,cell:Part.Cell<Layout.stored(layout,route)>,output:O) -> Part.Cell<Layout.stored(layout,route)> & (O & List<&2,Row.Error<E>>):
+  match cell:
+    case Part.Cell{offset,None{},stamp}:(Part.Cell{offset,None{},stamp},(output,[]))
+    case Part.Cell{+offset,Some{owner},+stamp}:traverse_cell_selected(~S,~layout,~route,~O,~E,~body,offset,owner,stamp,tick,output,traverse_handle_allowed(~S,offset,handles,Row.eligible(offset,stamp,tick,selection)))
+def traverse_cells_join(~C:Type,~O:Type,~E:Data,~merge:O -> O -> O,left:Part.Cell<C> & (O & List<&2,Row.Error<E>>),right:List<&1,Part.Cell<C>> & (O & List<&2,Row.Error<E>>)) -> List<&1,Part.Cell<C>> & (O & List<&2,Row.Error<E>>):
+  match left right:
+    case (cell,(lo,le)), (rest,(ro,re)):(cell <> rest,(merge(lo,ro),List.append(&2,Row.Error<E>,le,re)))
+def traverse_cells_pair(~S:Data,~C:Type,~O:Type,~E:Data,~merge:O -> O -> O,parallel:Bool,outputs:O & O,left:O -> Part.Cell<C> & (O & List<&2,Row.Error<E>>),right:O -> List<&1,Part.Cell<C>> & (O & List<&2,Row.Error<E>>)) -> List<&1,Part.Cell<C>> & (O & List<&2,Row.Error<E>>):
+  match parallel outputs:
+    case False{} Tuple{lo,ro}:traverse_cells_join(~C,~O,~E,~merge,left(lo),right(ro))
+    case True{} Tuple{lo,ro}:
+      l r = left(lo) right(ro)
+      traverse_cells_join(~C,~O,~E,~merge,l,r)
+def traverse_cells(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data,~body:W.Handle<S> -> Layout.view(layout,route) -> Layout.payload(layout,route) -> O -> Layout.payload(layout,route) & (O & Maybe<&2,E>),~split:O -> O & O,~merge:O -> O -> O,+handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,+parallel:Bool,+selection:Row.Selection,cells:List<&1,Part.Cell<Layout.stored(layout,route)>>,output:O) -> List<&1,Part.Cell<Layout.stored(layout,route)>> & (O & List<&2,Row.Error<E>>):
+  match cells:
+    case []:([],(output,[]))
+    case cell <> rest:traverse_cells_pair(~S,~Layout.stored(layout,route),~O,~E,~merge,parallel,split(output),lo=>traverse_cell(~S,~layout,~route,~O,~E,~body,handles,tick,selection,cell,lo),ro=>traverse_cells(~S,~layout,~route,~O,~E,~body,~split,~merge,handles,tick,parallel,selection,rest,ro))
+
+def traverse_present_prepend(~C:Type,+offset:U32,value:Maybe<&1,C>,stamp:L.Stamp,present:Bool,result:List<&1,Part.Cell<C>> & List<&2,U32>) -> List<&1,Part.Cell<C>> & List<&2,U32>:
+  match present result:
+    case False{}, (cells,offsets):(Part.Cell{offset,value,stamp} <> cells,offsets)
+    case True{}, (cells,offsets):(Part.Cell{offset,value,stamp} <> cells,offset <> offsets)
+def traverse_present(~C:Type,cells:List<&1,Part.Cell<C>>) -> List<&1,Part.Cell<C>> & List<&2,U32>:
+  match cells:
+    case []:([],[])
+    case Part.Cell{offset,None{},stamp} <> rest:traverse_present_prepend(~C,offset,None{},stamp,False{},traverse_present(~C,rest))
+    case Part.Cell{offset,Some{value},stamp} <> rest:traverse_present_prepend(~C,offset,Some{value},stamp,True{},traverse_present(~C,rest))
+def traverse_targets_present(~S:Data,handles:List<&2,W.Handle<S>>,+offsets:List<&2,U32>) -> Bool:
+  match handles:
+    case []:True{}
+    case handle <> rest:Bool.and(D.contains_list(U32.sub(W.handle_index(~S,handle),1),offsets),traverse_targets_present(~S,rest,offsets))
+
+def task_handle_checked(~S:Data,handle:W.Handle<S>,next:Maybe<&2,W.Handle<S>>,found:Bool) -> Maybe<&2,W.Handle<S>>:
+  match found:
+    case True{}:Some{handle}
+    case False{}:next
+
+def task_handle(~S:Data,+index:U32,handles:List<&2,W.Handle<S>>) -> Maybe<&2,W.Handle<S>>:
+  match handles:
+    case []:None{}
+    case +handle <> rest:task_handle_checked(~S,handle,task_handle(~S,index,rest),U32.is_eq(U32.sub(W.handle_index(~S,handle),1),index))
+
+def task_handle_allowed(~S:Data,index:U32,handles:List<&2,W.Handle<S>>,allowed:Bool) -> Maybe<&2,W.Handle<S>>:
+  match allowed:
+    case False{}:None{}
+    case True{}:task_handle(~S,index,handles)
+
+def task_errors(~E:Data,index:U32,error:Maybe<&2,E>) -> List<&2,Row.Error<E>>:
+  match error:
+    case None{}:[]
+    case Some{value}:[Row.Error{index,value}]
+
+def task_cell_rebuilt(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data,offset:U32,stamp:L.Stamp,index:U32,result:Layout.stored(layout,route) & (O & Maybe<&2,E>)) -> Part.Cell<Layout.stored(layout,route)> & (O & List<&2,Row.Error<E>>):
+  match result:
+    case (owner,(output,error)):(Part.Cell{offset,Some{owner},stamp},(output,task_errors(~E,index,error)))
+
+def task_cell_selected(~S:Data,~Permit:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data,~body:W.Handle<S> -> Layout.view(layout,route) -> Layout.payload(layout,route) -> O -> Task.Task<S,Permit,Layout.payload(layout,route) & (O & Maybe<&2,E>)>,offset:U32,owner:Layout.stored(layout,route),stamp:L.Stamp,tick:Tick.Tick,output:O,found:Maybe<&2,W.Handle<S>>) -> Task.Task<S,Permit,Part.Cell<Layout.stored(layout,route)> & (O & List<&2,Row.Error<E>>)>:
+  match owner found:
+    case owner None{}:Task.TDone{(Part.Cell{offset,Some{owner},stamp},(output,[]))}
+    case Layout.Viewed{payload,view} Some{+handle}:Task.TBind{Layout.payload(layout,route) & (O & Maybe<&2,E>),body(handle,view,payload,output),result=>Task.TDone{task_cell_rebuilt(~S,~layout,~route,~O,~E,offset,L.written(True{},stamp,tick),W.handle_index(~S,handle),Layout.rewritten(~layout,~route,O & Maybe<&2,E>,result))}}
+
+def task_cell(~S:Data,~Permit:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data,~body:W.Handle<S> -> Layout.view(layout,route) -> Layout.payload(layout,route) -> O -> Task.Task<S,Permit,Layout.payload(layout,route) & (O & Maybe<&2,E>)>,handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,selection:Row.Selection,cell:Part.Cell<Layout.stored(layout,route)>,output:O) -> Task.Task<S,Permit,Part.Cell<Layout.stored(layout,route)> & (O & List<&2,Row.Error<E>>)>:
+  match cell:
+    case Part.Cell{offset,None{},stamp}:Task.TDone{(Part.Cell{offset,None{},stamp},(output,[]))}
+    case Part.Cell{+offset,Some{owner},+stamp}:task_cell_selected(~S,~Permit,~layout,~route,~O,~E,~body,offset,owner,stamp,tick,output,task_handle_allowed(~S,offset,handles,Row.eligible(offset,stamp,tick,selection)))
+
+def task_cells_join(~C:Type,~O:Type,~E:Data,~merge:O -> O -> O,left:Part.Cell<C> & (O & List<&2,Row.Error<E>>),right:List<&1,Part.Cell<C>> & (O & List<&2,Row.Error<E>>)) -> List<&1,Part.Cell<C>> & (O & List<&2,Row.Error<E>>):
+  match left right:
+    case (cell,(lo,le)), (rest,(ro,re)):(cell <> rest,(merge(lo,ro),List.append(&2,Row.Error<E>,le,re)))
+
+def task_cells_pair(~S:Data,~Permit:Data,~C:Type,~O:Type,~E:Data,~merge:O -> O -> O,parallel:Bool,outputs:O & O,left:O -> Task.Task<S,Permit,Part.Cell<C> & (O & List<&2,Row.Error<E>>)>,right:O -> Task.Task<S,Permit,List<&1,Part.Cell<C>> & (O & List<&2,Row.Error<E>>)>) -> Task.Task<S,Permit,List<&1,Part.Cell<C>> & (O & List<&2,Row.Error<E>>)>:
+  match parallel outputs:
+    case False{} Tuple{lo,ro}:Task.TBind{Part.Cell<C> & (O & List<&2,Row.Error<E>>),Task.TRun{_=>left(lo)},l=>Task.TBind{List<&1,Part.Cell<C>> & (O & List<&2,Row.Error<E>>),Task.TRun{_=>right(ro)},r=>Task.TDone{task_cells_join(~C,~O,~E,~merge,l,r)}}}
+    case True{} Tuple{lo,ro}:Task.TFork{Part.Cell<C> & (O & List<&2,Row.Error<E>>),List<&1,Part.Cell<C>> & (O & List<&2,Row.Error<E>>),Task.TRun{_=>left(lo)},Task.TRun{_=>right(ro)},l=>r=>Task.TDone{task_cells_join(~C,~O,~E,~merge,l,r)}}
+
+def task_cells(~S:Data,~Permit:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Data,~body:W.Handle<S> -> Layout.view(layout,route) -> Layout.payload(layout,route) -> O -> Task.Task<S,Permit,Layout.payload(layout,route) & (O & Maybe<&2,E>)>,~split:O -> O & O,~merge:O -> O -> O,+handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,+parallel:Bool,+selection:Row.Selection,cells:List<&1,Part.Cell<Layout.stored(layout,route)>>,output:O) -> Task.Task<S,Permit,List<&1,Part.Cell<Layout.stored(layout,route)>> & (O & List<&2,Row.Error<E>>)>:
+  match cells:
+    case []:Task.TDone{([],(output,[]))}
+    case cell <> rest:task_cells_pair(~S,~Permit,~Layout.stored(layout,route),~O,~E,~merge,parallel,split(output),lo=>task_cell(~S,~Permit,~layout,~route,~O,~E,~body,handles,tick,selection,cell,lo),ro=>task_cells(~S,~Permit,~layout,~route,~O,~E,~body,~split,~merge,handles,tick,parallel,selection,rest,ro))

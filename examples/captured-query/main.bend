@@ -1,11 +1,11 @@
 import Base
 import ./schema.bend as S
 import ./scenario.bend as Scenario
-import ../../src/ecs/world-io.bend as WI
+import ../../src/ecs/execution-composer-schema.bend as Setup
+import ./app.bend as A
 
-def created(value:WI.Creation<S.Workshop,S.Store(~S.Workshop),Unit,Unit>) -> IO(Unit):
-  match value:
-    case WI.Created{world}:IO.print(Scenario.start(~S.Workshop,world))
-    case _:IO.die(Unit,1,"World creation failed")
-def main() -> IO(Unit):
-  IO.bind(WI.Creation<S.Workshop,S.Store(~S.Workshop),Unit,Unit>,Unit,WI.create(~S.Workshop,~S.Store(~S.Workshop),~Unit,~Unit,~S.empty(~S.Workshop),Unit{}),created)
+def created(result:Setup.Initialized<S.Workshop,S.components(),S.resources(),Unit>) -> IO(Unit):
+  match result:
+    case Setup.SchemaCreated{_,world}:Scenario.defined(A.define(S.seed(~S.Workshop,world)))
+    case _:IO.die(Unit,1,"world creation refused")
+def main() -> IO(Unit):created(S.create())

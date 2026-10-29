@@ -11,11 +11,21 @@ A Bevy-style ECS built for [Bend 2](https://github.com/bendlang/bend), including
 - World-scoped entities, typed components and resources.
 - Heterogeneous queries with required/optional selections, filters and change detection.
 - Declared read/write access, systems, schedules and system-local state.
-- Deferred commands, explicit barriers and transactional rollback.
+- Deferred commands, dependency barriers, and retained partial writes after returned errors.
 - Typed bundles, directed relations, state machines and transition handlers.
 - Read-only Inspector/Check primitives.
 
-These pieces have scoped tests and examples. They don't yet add up to complete parity. Try the [browser ECS example](examples/arena/README.md).
+The examples provide finite observations. Five approved Bend laws cover
+[pure executor helpers](docs/design/execution-law-candidates.md).
+The ordinary executor derives access planning and capabilities from the same
+declarations and retains the actual application owners between runs. Native
+execution supports compatible systems within one World and independent query
+items through Bend parallel calls. The
+[current API map](docs/reference/execution-api.md) names these entries and the
+retired transactional executor modules. The
+[original mixed applications](docs/design/execution-original-applications.md)
+combine this execution with owned events, deferred commands, graphs, and passive
+inspection.
 
 ## Playable example
 
@@ -31,9 +41,10 @@ CLI simulation using declaration-derived accesses, a registered system and a
 schedule. Its runner checks the full output on JS or Native.
 
 The runnable [health-decay example](examples/health-decay/README.md) creates
-entities with independent components and runs a system over a query.
-The excerpts below come from its source files; imports and column bindings
-are in the linked example.
+three entities with independent components and retains two compiled systems
+inside the ordinary generalized Root. One system authors deferred spawns; the
+other declares a Health write query filtered by HealthDecay and a HealthDecay
+read query.
 
 ```bend
 # components.bend
@@ -42,53 +53,33 @@ type HealthDecay is Data: HealthDecay{factor: F32}
 type EntitySeed is Data: EntitySeed{health: Health,decay: Maybe<&2,HealthDecay>}
 ```
 
-The system declares **write Health, read HealthDecay**. `apply_decay` is its
-entry point; the two preceding functions read the components and write the
-updated health. `health_cap` and `decay_cap` select the declared operations.
+The [system declaration](examples/health-decay/system.bend) supplies both access
+planning and runtime capabilities. Its body reads the decay factor through the
+selected entity's full handle and modifies that entity's actual Health owner.
+The arithmetic helper is:
 
 ```bend
-# system.bend
-type Ops<-H: Type> is Type:
-  Ops{health: Cap.Write<H,D.Health,D.Health>,decay: Cap.Read<H,D.HealthDecay>}
-
-def write_health(~H: Type,~ops: Ops<H>,factor: F32,result: H & C.Access<D.Health>) -> H & (T.Outcome<Error> & D.Health):
-  match result:
-    case (ctx,C.Found{D.Health{value}}):
-      +next : D.Health = D.Health{(value * factor : F32)}
-      (Cap.set(~H,~D.Health,~D.Health,~health_cap(~H,ops),ctx,next),(T.Success{},next))
-    case (ctx,_): (ctx,(T.Failure{MissingComponent{}},D.Health{0.0}))
-def read_decay(~H: Type,~ops: Ops<H>,result: H & C.Access<D.HealthDecay>) -> H & (T.Outcome<Error> & D.Health):
-  match result:
-    case (ctx,C.Found{D.HealthDecay{factor}}): write_health(~H,~ops,factor,Cap.get(~H,~D.Health,~D.Health,~health_cap(~H,ops),ctx))
-    case (ctx,_): (ctx,(T.Failure{MissingComponent{}},D.Health{0.0}))
-# System: read HealthDecay and update Health for each matching entity.
-def apply_decay(~H: Type,~ops: Ops<H>,_: Unit,ctx: H) -> H & (T.Outcome<Error> & D.Health):
-  read_decay(~H,~ops,Cap.read(~H,~D.HealthDecay,~decay_cap(~H,ops),ctx))
+def multiply(+factor:F32,value:Value.Health) -> Value.Health & Unit:
+  match value:
+    case Value.Health{value}:(Value.Health{F32.mul(value,factor)},Unit{})
 ```
 
-The query requires both components. `tick` passes `apply_decay` to `Q.each`,
-which executes it for each matching entity:
+The [spawn author](examples/health-decay/spawn.bend) queues the three original
+payloads through the canonical command capability. Its declaration and the
+query declaration are compiled once during registration. The actual owners,
+compilations and command buffer remain inside the returned application between
+runs. [Root setup](examples/health-decay/root.bend) orders spawn completion
+before decay and uses canonical deferred publication at that dependency.
 
-```bend
-def tick(world: S.World()) -> Q.Executed<S.World(),Q.Error<Error>,D.Health>:
-  Q.each(~S.Schema,~S.Store,~Unit,~Unit,~OpsType,~Unit,~Error,~D.Health,~plan(),~apply_decay,Unit{},world)
+```text
+before-barrier=
+tick-1=5,5
+tick-2=2.5,1.25
 ```
 
-This example runs the query directly, without registering a system in a schedule.
-The [query plan and bindings](examples/health-decay/system.bend) are in the
-complete source.
-
-```bend
-# main.bend: reserve an entity and queue its components.
-S.spawn(world,D.EntitySeed{D.Health{10.0},Some{D.HealthDecay{0.5}}})
-
-# Make deferred spawns visible, then run the system.
-Sys.tick(S.barrier(world))
-```
-
-`S.spawn` returns a world and entity handle, or an explicit refusal.
-The [complete main](examples/health-decay/main.bend) handles that result and
-threads the world through the operations. An entity with only health is skipped.
+The first run suppresses deferred application and observes no visible rows.
+The next two enable dependency publication before the query. A passive inspector
+reads both matching rows; the entity with only Health remains untouched at 30.
 Run it with `bend examples/health-decay/main.bend`.
 
 The optional [minimal browser demo](examples/health-decay/demo/README.md) shows
@@ -97,7 +88,11 @@ The [browser arena](examples/arena/README.md) provides a larger interactive exam
 
 ## Parity and performance
 
-The goal is the full **Bevy ECS subset covered by bevy-ts**, with idiomatic Bend APIs. The capability deliveries are accepted; current completion work covers public API source documentation. See the [parity tracker](docs/parity/README.md) and [spec](docs/SPEC.md).
+The goal is the full **Bevy ECS subset covered by bevy-ts**, with idiomatic Bend APIs.
+The ordinary execution contract and capability ownership are recorded in
+[#77 and its implementation slices](https://github.com/dearlordylord/bendvy/issues/77).
+Earlier capability deliveries retain their original source and contract.
+See the [parity tracker](docs/parity/README.md) and [spec](docs/SPEC.md).
 
 Performance optimization and numerical acceptance are deferred in [#21](https://github.com/dearlordylord/bendvy/issues/21). Approximately 3× bevy-ts time is acceptable interim guidance, not a release gate or a claim covering every workload. Correctness, ownership and normal CI remain required; performance work resumes only by explicit user request.
 

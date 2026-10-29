@@ -1,0 +1,172 @@
+# Original application migration
+
+The current entries preserve two existing, independently authored applications.
+Their earlier source is preserved in Git at
+`94fc35a9616e7b2f561935dc9667d13a332d07e5`, before
+`f615c2948` removed the experiment archive. The source directories are
+`experiments/public-audit61/app-a-current-carrier-v1` and
+`experiments/public-audit61/app-b-current-carrier-v1`.
+
+The archived README binds those applications to core `81316652e`. That source and
+its historical observations do not establish behavior of the replacement core.
+The replacement entries use Bend source only. They do not restore archived host
+models, tests, runners, or execution packets.
+
+## AppA retains its owned-payload handoff
+
+`main.bend` installs one optional array/scalar bundle with values `[7,9]` and `11`,
+observes the pending installation, explicitly flushes, and registers three systems.
+`handoff.bend` then executes the following sequence.
+
+| Original operation | Retained application behavior | Replacement dependency |
+| --- | --- | --- |
+| Register query, resource, and Counter field systems | Distinct affine capture packs and registrations | GH82 query/resource execution and GH83 retained capture owners |
+| Fail explicit array replacement with `[70,90]` | Return the actual incoming payload in a recovery record | Explicit named recovery facility, separate from ordinary scheduling |
+| Withdraw the failed replacement and retry successfully | Install that same returned payload and retain the displaced `[7,9]` owner | Recovery adapter over modern component owners |
+| Withdraw the displaced original and publish it | Move the actual `[7,9]` array into an owned event | GH84 owned event publication |
+| Read the event through the scalar-writing reader | Project sum `16`, update the actual scalar, retain scratch and reader owners | GH84 owned reader/query integration |
+| Run the captured schedule three times | Counter write `[21,22]`, scalar query adds `4`, resource capture reads Counter | GH82/GH83 and ordinary Root execution |
+| Set the query condition true, false, true | Only the scalar query skips the middle run | GH83 stateful condition owner transport |
+| Inspect twice after each run | Observe array, scalar, Counter, and preserved actual owners | GH93 passive component/resource adapters |
+
+The query capture starts with `calls=[0]` and `values=[30,40]`. Each entered query
+increments calls and adds the observed scalar to both values. The resource capture
+starts `[100,200]` and adds one plus the Counter sum on every entered call.
+Counter starts `[10,11]`, and the unrelated sibling remains `[100,101]`.
+
+The original recovery call has a live application consumer. Retaining that named
+facility does not authorize the old `transaction.bend` failure-prefix machinery
+to determine the replacement ordinary schedule. Recoverable component operations
+remain separate from the three scheduled systems.
+
+`recoverable-component.bend` retains the nominal recovery records and result
+types used by the modern adapter. `execution-recoverable-component.bend` uses
+canonical chunk columns, and `recovery-journal.bend` drives the explicit recovery
+operation. The old single-column adapters and unconsumed generic Array journal
+adapters are retired from the package. Their historical source remains in Git.
+
+## AppB retains a distinct graph application
+
+AppB has no registered gameplay system. `main.bend` installs three bundles, queues
+two relationships, reparents one entity, and observes the result.
+
+| Original operation | Retained application behavior | Replacement dependency |
+| --- | --- | --- |
+| Install three array/scalar bundles | Three genuine reservation results, each carrying `[7,9]` and `11` | GH86/GH87 structural materialization and returned owners |
+| Observe before and after the explicit flush | Pending installation remains visible separately from published components | Ordinary command boundaries and complete receipts |
+| Queue `Parent(child,root)` and `Link(child,other)` | Independent hierarchy and ordinary descriptors with IDs `1` and `2` | GH89 protected Store declarations and the same command queue |
+| Flush and inspect child | Observe Parent, Children, Link, scalar, and current machine state | GH89 publication and GH93 passive projections |
+| Queue `Parent(child,other)` and flush | Replace the old hierarchy edge and update its inverse | GH89 canonical hierarchy interpreter |
+| Inspect twice after reparent | Preserve graph, machine queue, and affine payloads | GH93 passive observation |
+
+The Phase resource starts with current value `1` and queued next value `2`.
+AppB never applies that pending transition. Its ordinary entry preserves the
+queue through inspection.
+Its sibling resource starts `[100,101]`.
+
+## Current application entries
+
+`examples/parallel-applications/app-a-payloads.bend` carries the original affine
+query capture and payload constructors. `app-b-schema.bend` builds canonical chunk
+component layouts and two protected relation resources, the modern Phase Cell,
+Sibling, and an arbitrary affine receipt owner. Schema creation uses the actual
+Factory namespace for both graph stores and the Phase Cell. The receipt owner is
+supplied by the application and returned on schema refusal.
+
+`app-b.bend` executes the original AppB operation sequence through the replacement
+ordinary App. Its command author obtains one structural grant and two relation
+grants from the same declaration book. Three real reservation requests enqueue
+the original bundles. Explicit flushes use the schedule's actual unapplied IDs
+and canonical publication; they preserve the remaining IDs and retained state.
+The registered command author and empty boundary peer replace the old direct
+transaction enqueue transport. They do not add a machine transition or a gameplay
+system to AppB's domain behavior.
+The original entry deliberately selects the replacement serial executor. It does
+not run an event reader, a machine transition schedule, or a parallel query body.
+Those capabilities retain their separate feature-consumer evidence.
+
+`app-b-inspection.bend` uses the current passive Inspector adapters for component
+queries and cached graph/machine resource views. `app-b-owners.bend` reports every
+pending command and receipt while returning each affine owner. Its diagnostic
+raw-column read validates each captured handle against the actual World namespace
+and live handles before converting to a physical offset. It reads each array
+owner twice, returns it to the same column, and preserves the existing cached view
+and lifecycle stamps. This diagnostic is separate from the public passive
+Inspector capability.
+
+The ordinary Bend entry executes successfully with three `[7,9]` array owners and
+three scalar values `11`. Before each explicit flush, its authored operations
+remain pending. The first relation flush produces Parent `3:0 -> 1:0` and Link
+`3:0 -> 2:0`; reparenting replaces Parent with `3:0 -> 2:0` and updates its inverse.
+Every printed Phase view remains current `1`, next `2`, revision `0`.
+The repeated final Inspector projections agree, and all three actual array owners
+produce `[7,9]` on both diagnostic reads. At source `f08e554e5`, the original AppB
+entry's complete 4,218-byte observation matches the independently derived
+expectation on JavaScript and native execution. These finite observations do not
+prove preservation universally or demonstrate concurrent workers in this serial
+application.
+
+AppA's current ordinary entry retains its original initial bundle and explicit
+flush, then runs the named explicit recovery prefix. Its modern recovery adapter
+uses full-origin Layout columns, actual World handle validation and physical
+offsets. It records actual payload owners and lifecycle stamps, refreshes cached
+views on replacement, and restores the saved stamp during undo. The existing
+Journal engine drives this explicit facility; the old ordinary System/Tx executor
+does not drive the new entry. Its chunk-column stamp restoration shares the
+existing bounded Visit traversal.
+
+The ordinary AppA prefix exits successfully and observes rollback returning the
+actual incoming `[70,90]`, followed by retry returning the displaced `[7,9]`.
+The latter owner passes from the handoff state into the canonical Family writer.
+The publisher and reader are separate registered leaves of the new Root schedule.
+The genuine Family reader observes sum `16`; its scalar update sees prior value
+`11`, and its retained scratch becomes `[17,18]`. The actual Family stores the
+published affine payload, while the reader retains its own token and cursor.
+These finite observations do not establish whole-run preservation.
+
+The original three gameplay leaves now have separate current declarations,
+affine locals and retained Compilation registration in `app-a-systems.bend`.
+They replace Counter with `[21,22]`, update the captured scalar query by `4`,
+and update the independent resource capture by `1 + sum(Counter)`. The query
+returns its actual QueryPack through the canonical generalized writer operation;
+refusal retains that capture in the returned operation. Resource replacement
+retains displaced owners in the writer local. `app-a-condition.bend` declares
+the query-only registered condition whose first three results are true, false,
+true. `app-a-captures.bend` preserves the same Compilation, evidence and prepared
+inventory while projecting local owners. `app-a-execution.bend` builds their
+actual Tree facts and registered condition into the canonical generalized Root.
+Its group callback uses the canonical composite factory in `app-a-group.bend`;
+it does not interpret the schedule itself. An explicit dependency from the
+actual Counter writer id to the actual Counter reader id preserves the original
+resource ordering. The independent scalar query can share the reached writer
+group. Bootstrap owners, context, command queues, both bindings lists and event
+reader remain retained outside the gameplay World.
+The corresponding `app-a-inspection.bend` declares the original passive array,
+scalar and Counter lookups and returns two consecutive projections with the
+actual World. Its observation helper does not advance the Inspector instance.
+Captured-node diagnostics preserve all Uninspected, Inspected, Prepared and
+refused inventory fields, including the actual retained Compilation.
+
+The full ordinary AppA entry exits successfully through all three Root updates.
+The query runs, skips, then runs; its calls are `[1]`, `[1]`, `[2]`, and its values
+are `[57,67]`, `[57,67]`, `[88,98]`. Paired passive projections agree after every
+update, observing scalar `31`, `31`, `35` and Counter `[21,22]`. The independent
+resource capture becomes `[144,244]`, `[188,288]`, `[232,332]`. The writer retains
+all three displaced Counter owners: `[10,11]`, `[21,22]`, `[21,22]`. The query's
+cursor remains unchanged during its skipped update. The final retained event
+reader still reports sum `16`, prior scalar `11` and scratch `[17,18]`.
+The passive Inspector intentionally preserves its cursor and the World clock;
+this is the current contract, replacing the old advancing Inspector behavior.
+At source `f08e554e5`, the complete original Off and On AppA entry matches its
+independently derived 6,222-byte observation on JavaScript and native execution.
+This includes all three updates, the retained Off owner after On, and the actual
+dependency and command-boundary diagnostics. It is finite execution evidence,
+without a universal preservation, formal proof, or native worker-placement claim.
+
+The ordinary entries use the replacement executor without compatibility wrappers
+around the removed transactional path. Old owned-event staging and bundle undo
+modules are retired alongside the old recovery adapters. Shared metadata and
+modern pure helpers remain available. Each application's qualification covers
+its actual selected operations; the feature slices provide the broader authority
+and native single-World concurrency evidence. No new law is approved or proved
+by these application runs.

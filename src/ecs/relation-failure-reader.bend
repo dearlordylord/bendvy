@@ -1,8 +1,5 @@
 import Base
 import internal/relation-failures/domains.bend as D
-import relation-failure-runtime.bend as K
-import world.bend as W
-import system.bend as Sy
 import relation-types.bend as G
 
 # Trusted ordinary relation declaration: the same descriptor supplies mutation,
@@ -23,6 +20,3 @@ def accesses(~S:Data,declarations:List<&2,Declaration<S>>) -> List<&2,String>:
   match declarations:
     case []: []
     case declaration <> rest: access(~S,declaration) <> accesses(~S,rest)
-
-def register(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> K.Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,runtime: K.Runtime<S,C,R,E>,+declarations: List<&2,Declaration<S>>,+name: String) -> K.Registered<S,C,R,E,A,Error,O,runner>:
-  K.register(~S,~C,~R,~E,~A,~Error,~O,~runner,runtime,keys(~S,declarations),name,accesses(~S,declarations))

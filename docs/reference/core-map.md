@@ -1,6 +1,12 @@
 # T02 — полный core: catalogue и gates
 
-For current implementation status, use the [current parity checkpoint](#current-parity-checkpoint--2026-10-16) below. The T02 catalogue is historical.
+For current execution entries and behavior, use the [replacement execution API](execution-api.md),
+the [SPEC replacement amendment](../SPEC.md#ordinary-execution-replacement-user-amendment-2026-10-26-utc)
+and [#77 with its #78–94 implementation slices](https://github.com/dearlordylord/bendvy/issues/77).
+The T02 catalogue and October 16 parity checkpoint below are historical. Their
+transactional APIs and acceptance statements retain their original source bindings;
+they do not describe or qualify the replacement executor. The full capability
+inventory remains in scope.
 
 Источники требований: [parent #1](https://github.com/dearlordylord/bendvy/issues/1), [SPEC](../SPEC.md), [T02/#3](https://github.com/dearlordylord/bendvy/issues/3). Это карта всей цели, не сокращённая спецификация первого среза. Числа US ниже — User Stories parent. Статус каждой строки относится к T02: **catalogued / runtime unverified**; исходник не подтверждает Bend capability. «Позже» означает сохранённое обязательство. Platform вынесен отдельно.
 
@@ -67,6 +73,10 @@ Relations/scopes, states, validation/restore/tooling и copied canonical-defense
 Runtime refinement и mandatory final native/JS performance остаются отдельными gates.
 
 ## Current parity checkpoint — 2026-10-16
+
+This heading is retained for existing links. “Current” refers to the historical
+checkpoint date, before the #77 ordinary execution replacement. Removed module
+paths and rollback semantics below belong to that original source contract.
 
 Source-current reconciliation at `81316652e` (2026-10-17), including integrated
 #38 generation/reuse, #57 deferred trace delivery, #59 basic restore and the

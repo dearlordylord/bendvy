@@ -1,7 +1,4 @@
 import Base
-import ./deferred-command.bend as Deferred
-import ./trace-facts.bend as TraceFacts
-import transaction.bend as Tx
 
 # Experimental machine metadata. World and component owners remain arbitrary Type.
 # This module follows the pinned reference marker snapshot semantics; that behavior
@@ -26,18 +23,27 @@ type NextView<S: Data,M: Data,V: Data> is Data:
   NoNext{}
   Next{value: V}
 
-def current_view(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>) -> CurrentView<S,M,V>:
+def current_view_generic(-S: Data,-M: Data,-V: Data,slot: Slot<S,M,V>) -> CurrentView<S,M,V>:
   match slot:
     case Missing{}: Unavailable{}
     case Present{current,_,_,_}: Current{current}
-def pending_view(~S: Data,~M: Data,~V: Data,pending: Pending<V>) -> NextView<S,M,V>:
+def current_view(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>) -> CurrentView<S,M,V>:
+  current_view_generic(S,M,V,slot)
+
+def pending_view_generic(-S: Data,-M: Data,-V: Data,pending: Pending<V>) -> NextView<S,M,V>:
   match pending:
     case NoPending{}: NoNext{}
     case Queued{value,_}: Next{value}
-def next_view(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>) -> NextView<S,M,V>:
+def pending_view(~S: Data,~M: Data,~V: Data,pending: Pending<V>) -> NextView<S,M,V>:
+  pending_view_generic(S,M,V,pending)
+
+def next_view_generic(-S: Data,-M: Data,-V: Data,slot: Slot<S,M,V>) -> NextView<S,M,V>:
   match slot:
     case Missing{}: NoNext{}
-    case Present{_,pending,_,_}: pending_view(~S,~M,~V,pending)
+    case Present{_,pending,_,_}: pending_view_generic(S,M,V,pending)
+
+def next_view(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>) -> NextView<S,M,V>:
+  next_view_generic(S,M,V,slot)
 
 def is_current(~S: Data,~M: Data,~V: Data,~same: V -> V -> Bool,view: CurrentView<S,M,V>,value: V) -> Bool:
   match view:
@@ -59,15 +65,21 @@ type Snapshot<V: Data> is Data:
 type Applied<S: Data, M: Data, V: Data> is Data:
   Applied{slot: Slot<S,M,V>, event: Maybe<&2,Transition<V>>}
 
-def queue(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>,value: V,skipSame: Bool) -> Slot<S,M,V>:
+def queue_generic(-S: Data,-M: Data,-V: Data,slot: Slot<S,M,V>,value: V,skipSame: Bool) -> Slot<S,M,V>:
   match slot:
     case Missing{}: Missing{}
     case Present{current,_,previous,changed}: Present{current,Queued{value,skipSame},previous,changed}
 
-def reset(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>) -> Slot<S,M,V>:
+def queue(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>,value: V,skipSame: Bool) -> Slot<S,M,V>:
+  queue_generic(S,M,V,slot,value,skipSame)
+
+def reset_generic(-S: Data,-M: Data,-V: Data,slot: Slot<S,M,V>) -> Slot<S,M,V>:
   match slot:
     case Missing{}: Missing{}
     case Present{current,_,previous,changed}: Present{current,NoPending{},previous,changed}
+
+def reset(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>) -> Slot<S,M,V>:
+  reset_generic(S,M,V,slot)
 
 def clear_changed(~S: Data,~M: Data,~V: Data,slot: Slot<S,M,V>) -> Slot<S,M,V>:
   match slot:
@@ -100,63 +112,6 @@ def apply_snapshot(~S: Data,~M: Data,~V: Data,~same: V -> V -> Bool,slot: Slot<S
     case Missing{} Scheduled{_,_}: Applied{Missing{},None{}}
     case Present{current,_,previous,changed} Scheduled{value,skipSame}:
       apply_present(~S,~M,~V,~same,current,value,previous,changed,skipSame)
-
-# Journal the complete old slot before replacing it. Aliases see the current
-# world through the same affine transaction; no independent machine owner copy.
-def write_taken(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
-  ~put: W -> Slot<S,M,V> -> W,
-  pair: W & Slot<S,M,V>,undo: List<&1,(W -> W)>,commands:List<&1,Deferred.Command<W>>,events: List<&2,E>,trace:TraceFacts.State,value: V,skipSame: Bool) -> Tx.Tx<W,E>:
-  match pair:
-    case (world,+old):
-      Tx.Tx{put(world,queue(~S,~M,~V,old,value,skipSame)),(world => put(world,old)) <> undo,commands,events,trace}
-
-def write(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
-  ~take: W -> W & Slot<S,M,V>,~put: W -> Slot<S,M,V> -> W,
-  tx: Tx.Tx<W,E>,value: V,skipSame: Bool) -> Tx.Tx<W,E>:
-  match tx:
-    case Tx.Tx{world,undo,commands,events,trace}:
-      write_taken(~S,~M,~V,~W,~E,~put,take(world),undo,commands,events,trace,value,skipSame)
-
-def reset_taken(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
-  ~put: W -> Slot<S,M,V> -> W,
-  pair: W & Slot<S,M,V>,undo: List<&1,(W -> W)>,commands:List<&1,Deferred.Command<W>>,events: List<&2,E>,trace:TraceFacts.State) -> Tx.Tx<W,E>:
-  match pair:
-    case (world,+old):
-      Tx.Tx{put(world,reset(~S,~M,~V,old)),(world => put(world,old)) <> undo,commands,events,trace}
-
-def reset_tx(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
-  ~take: W -> W & Slot<S,M,V>,~put: W -> Slot<S,M,V> -> W,
-  tx: Tx.Tx<W,E>) -> Tx.Tx<W,E>:
-  match tx:
-    case Tx.Tx{world,undo,commands,events,trace}:
-      reset_taken(~S,~M,~V,~W,~E,~put,take(world),undo,commands,events,trace)
-
-def next(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
-  ~take: W -> W & Slot<S,M,V>,~put: W -> Slot<S,M,V> -> W,
-  tx: Tx.Tx<W,E>,request: QueueInput<V>) -> Tx.Tx<W,E>:
-  match request:
-    case Set{value,skipSame}: write(~S,~M,~V,~W,~E,~take,~put,tx,value,skipSame)
-    case Reset{}: reset_tx(~S,~M,~V,~W,~E,~take,~put,tx)
-
-def read_taken(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
-  pair: W & Slot<S,M,V>,undo: List<&1,(W -> W)>,commands:List<&1,Deferred.Command<W>>,events: List<&2,E>,trace:TraceFacts.State) -> Tx.Tx<W,E> & Slot<S,M,V>:
-  match pair:
-    case (world,slot): (Tx.Tx{world,undo,commands,events,trace},slot)
-
-def read(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
-  ~take: W -> W & Slot<S,M,V>,tx: Tx.Tx<W,E>) -> Tx.Tx<W,E> & Slot<S,M,V>:
-  match tx:
-    case Tx.Tx{world,undo,commands,events,trace}: read_taken(~S,~M,~V,~W,~E,take(world),undo,commands,events,trace)
-
-def read_declared(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
-  ~take: W -> W & Slot<S,M,V>,~put: W -> Slot<S,M,V> -> W,
-  _: Family<S,M,V,W,take,put>,tx: Tx.Tx<W,E>) -> Tx.Tx<W,E> & Slot<S,M,V>:
-  read(~S,~M,~V,~W,~E,~take,tx)
-
-def next_declared(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
-  ~take: W -> W & Slot<S,M,V>,~put: W -> Slot<S,M,V> -> W,
-  _: Family<S,M,V,W,take,put>,tx: Tx.Tx<W,E>,request: QueueInput<V>) -> Tx.Tx<W,E>:
-  next(~S,~M,~V,~W,~E,~take,~put,tx,request)
 
 type Condition<V: Data> is Data:
   InState{value: V}
