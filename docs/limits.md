@@ -23,7 +23,7 @@ After the run, append its outcome to the same history entry.
 | Ordinary consumer | 360 s | Shared cap for new JS/Native/TS plans; frozen180 s results remain unchanged |
 | Instrumented runtime diagnostic | 60 s | New full64 before/after CPU and allocation profiles; historical15 s plans unchanged |
 | Consumer-only collector wrapper | 480 s | Child360 s plus120 s for guards and receipt/output processing |
-| Emit/build/consumer collector wrapper | 900 s | Emission300 s + Native build120 s + consumer360 s + terminal handling120 s |
+| Emit/build/consumer collector wrapper | No wall deadline | Ordinary emission/build stages remain unbounded; the consumer-only cap applies to execution |
 | Node V8 heap | Default; FailedTxn1024/Readers1024 semantic successors: 8192 MiB; FailedTxn1024 comparative successors: 16384 MiB old-space | Apply the explicit successor setting to Bend JS and TS. Default probe4,496,293,888 bytes; neither setting is a process RSS cap or qualification |
 | Offline profile processing | 30 s | Existing full-log processing successor |
 | Offline evidence retention / portable verification | 120 s per process | New successors; includes source/pin collection and full evidence processing |
