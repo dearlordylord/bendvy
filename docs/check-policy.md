@@ -73,7 +73,7 @@ only when adopting or changing this optimization.
 
 ## Parity compiler identity
 
-The supported compiler is the latest released Bend, currently 2.0.39.
+The supported compiler is Bend 2.0.40.
 CI pins that release and its archive checksum. Local source checks use the
 installed `bend` selected by [installed configuration](../scripts/installed-config.py).
 Record the actual binary hash and matching Base/resource inventory in execution

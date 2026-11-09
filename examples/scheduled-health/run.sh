@@ -12,7 +12,7 @@ case "$backend" in
   native)
     example_emit "$example_dir/main.bend" "$example_dir/build/main.c"
     "${example_cpu[@]}" "$CLANG" -O3 "$example_dir/build/main.c" -o "$example_dir/build/main.native" -pthread -lm
-    timeout --signal=KILL 5s "${example_cpu[@]}" "$example_dir/build/main.native" --threads 1 --gpu off > "$example_dir/build/native.stdout"
+    timeout --signal=KILL 5s "${example_cpu[@]}" "$example_dir/build/main.native" +RTS --threads 1 --gpu off > "$example_dir/build/native.stdout"
     ;;
   *) echo 'usage: bash run.sh [js|native]' >&2; exit 2 ;;
 esac

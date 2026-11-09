@@ -6,6 +6,9 @@
 
 A Bevy-style ECS built for [Bend 2](https://github.com/bendlang/bend), including its type system, affine ownership and JS/native runtimes. Still a work in progress; the API is evolving.
 
+Bendvy targets **Bend 2.0.40**. CI installs the official release with a pinned
+SHA-256 checksum and runs the example checks, including JavaScript/Native comparisons.
+
 ## What works so far
 
 - World-scoped entities, typed components and resources.
